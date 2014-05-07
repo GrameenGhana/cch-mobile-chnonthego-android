@@ -7,7 +7,6 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="">
     <title>CCH Android Application</title>
-	
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -25,27 +24,15 @@
   </head>
 
   <body>
-      <div class="container">
-	
+      <div class="container dropme">
 	<div class="row">
-	<center>
 		<div class="col-md-6 col-md-offset-3">
-		<div>
-			<H3><strong>Select an item to continue</strong></H3>
-			<br />
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='acutemergencies.html'"><i class="icon-white icon-heart"></i>Diaganostic Tool</button><br /><br />
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='tetanustoxoidimmunisation.html'">Tetanus Toxoid Immunisation </button><br /><br />
+			<center><H3><strong>Personal hygiene</strong></H3></center>
+			<ul>
+				<li>Advise client to keep her body clean, especially hands, genital area and breasts to minimise infection</li>
+			<input type="submit" class="btn btn-success btn-block" value="OK" onclick="window.location='careduringpregnancy.html'"/>
 
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='checktrimester1.html'">Counselling :<br/>Trimester 1</button><br /><br />
-
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='checktrimester2.html'">Counselling :<br/>Trimester 2</button><br /><br />
-
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='checktrimester3.html'">Counselling :<br/>Trimester 3</button><br /><br />
-
-			<button type="button" class="btn btn-warning btn-lg btn-block" rel="external">IPTp with SP <br /> for Malaria Prevention in Pregnant Women </button><br /><br />
-		</div>
 	</div>
-	</center>
 	</div>
     </div><!-- /.container -->
 
@@ -69,5 +56,15 @@
 			questions.push({question:'Where was the pregnant women seen?', desc:'Location',options:'4'});
 		}
 
+		function getQueryVariable(variable)
+		{
+		   var query = window.location.search.substring(1);
+		   var vars = query.split("&");
+		   for (var i=0;i<vars.length;i++) {
+				   var pair = vars[i].split("=");
+				   if(pair[0] == variable){return pair[1];}
+           }
+       return(false);
+	  }
 
 </body></html>

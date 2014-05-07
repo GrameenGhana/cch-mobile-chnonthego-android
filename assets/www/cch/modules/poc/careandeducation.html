@@ -15,7 +15,6 @@
 	cchbasics - the main CSS file for non-bootstrap styling
 	-->
     <link href="css/cchbasics.css" rel="stylesheet">
-	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -25,27 +24,24 @@
   </head>
 
   <body>
-      <div class="container">
+      <div class="container dropme">
 	
 	<div class="row">
-	<center>
 		<div class="col-md-6 col-md-offset-3">
 		<div>
-			<H3><strong>Select an item to continue</strong></H3>
-			<br />
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='acutemergencies.html'"><i class="icon-white icon-heart"></i>Diaganostic Tool</button><br /><br />
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='tetanustoxoidimmunisation.html'">Tetanus Toxoid Immunisation </button><br /><br />
-
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='checktrimester1.html'">Counselling :<br/>Trimester 1</button><br /><br />
-
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='checktrimester2.html'">Counselling :<br/>Trimester 2</button><br /><br />
-
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='checktrimester3.html'">Counselling :<br/>Trimester 3</button><br /><br />
-
-			<button type="button" class="btn btn-warning btn-lg btn-block" rel="external">IPTp with SP <br /> for Malaria Prevention in Pregnant Women </button><br /><br />
+			<center><H3><strong>Care and Education</strong></H3>
+			<p class="greymeout"><em>Keep in mind:</em></p></center>
+			<ul class="pull-left">
+					<li>Courteous and kind: treat her and (her family member) with respect and sympathy</li><br />
+					<li>Listen and ask: ask client first what she knows about pregnancy and childbirth, before telling them what she should do.</li><br />
+					<li>Health education should be individualised: provide the client appropriate counseling specific to her gestational age and specific problems identified</li><br />
+					<li>Answer questions: ask clients if they have any questions or concerns.</li><br />
+			</ul>
 		</div>
+		<center>
+			<input type="submit" class="btn btn-success btn-block" value="OK" onclick="window.location='careduringpregnancy.html'"/>
+		</center>
 	</div>
-	</center>
 	</div>
     </div><!-- /.container -->
 

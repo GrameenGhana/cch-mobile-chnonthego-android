@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="">
+    <title>CCH Android Application</title>
+	
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template 
+	cchbasics - the main CSS file for non-bootstrap styling
+	-->
+    <link href="css/cchbasics.css" rel="stylesheet">
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+      <div class="container dropme">
+	
+	<div class="row">
+	<center>
+		<div class="col-md-6 col-md-offset-3">
+		
+		<table class="table table-condensed table-striped">
+    <thead>
+        <tr>
+            <th>ASK: Do you have?</th>
+            <th>LOOK, LISTEN, FEEL</th>
+            <th>CHECK</th>
+        </tr>
+    </thead>
+    <tbody>
+            <tr>
+                <td><li>Severe abdominal pains</li><br /> <li>Excessive vomiting</li><br /> <li>Bleeding</li><br /> <li>Fever</li> <br /> <li>Severe Headache</li> <br /> <li>Blurred vision</li><br /><li>Offensive/discoloured vaginal discharge</li><br /> <li>Difficulty breathing</li><br /> <li>Foetal movements</li><br /><li>Epigastric pain </li><br /> <li>Ruptured membranes</li><br /></td>
+                <td><li>Examine conjunctiva, tongue, palms, and nail beds for pallor</li> <br /><li> Oedema of feet, hands, face, ankles</li> <br /> <li>Bleeding</li> <br /> <li>Jaundice</li> <br /> <li>Signs of shock</li> <br /> <li>Offensive vaginal discharge</li> <br /> 
+                <td><li>Blood pressure, if possible</li><br /> <li>Temperature</li></td>
+            </tr>
+    </tbody>
+</table>
+		<div>
+			<div class="col-md-12">
+<H3>
+			Does the client have any of the following danger signs?</H3>
+			<button type="button" class="btn btn-success btn-block" rel="external" onclick="window.location='ta-refer.html'">Ruptured membranes<br /><br /></button><br /><br />
+			<button type="button" class="btn btn-success btn-block" rel="external" onclick="window.location='ta-refer.html'">Excessive vomiting<br /><br /></button><br /><br />
+			<button type="button" class="btn btn-success btn-block" rel="external" onclick="window.location='ta-refer.html'">Offensive/discoloured discharge<br /><br /></button><br /><br />
+			<button type="button" class="btn btn-success btn-block" rel="external" onclick="window.location='ta-refer.html'">Severe abdominal pain<br /><br /></button><br /><br />
+			<button type="button" class="btn btn-success btn-block" rel="external" onclick="window.location='ta-refer.html'">Foetal movements<br /><br /></button><br /><br />
+			<button type="button" class="btn btn-success btn-block" rel="external" onclick="window.location='ta-refer.html'">Epigastric pain<br /><br /></button><br /><br />
+			<button type="button" class="btn btn-success btn-block" rel="external" onclick="window.location='ta-refer.html'">Oedema of feet, face, or ankles<br /><br /></button><br /><br />
+			<button type="button" class="btn btn-success btn-block" rel="external" onclick="window.location='ta-refer.html'">BP >= 90mm Hg<br /><br /></button><br /><br />
+			<button type="button" class="btn btn-success btn-block" rel="external" onclick="window.location='ta-refer.html'">Severe headache/blurred vision<br /><br /></button><br /><br />
+			<button type="button" class="btn btn-success btn-block" onclick="window.location='askfevertrim1.html'">No, <br /><em>the client does not have any of these symptoms</em></button><br/><br />
+		
+		</div>
+	</div>
+	</center>
+	</div>
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./starter_files/jquery-1.10.2.min.js"></script>
+    <script src="./starter_files/bootstrap.min.js"></script>
+  	<script type="text/javascript">
+		var questions = [];
+		
+		function clearoff()
+		{
+				myTxtBox = document.getElementById('QText');
+				myTxtBox.value="";
+		}
+		
+		function save()
+		{
+			questions.push({question:'Where was the pregnant women seen?', desc:'Location',options:'4'});
+		}
+
+
+</body></html>

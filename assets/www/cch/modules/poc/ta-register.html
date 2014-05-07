@@ -16,6 +16,7 @@
 	-->
     <link href="css/cchbasics.css" rel="stylesheet">
 	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/datepicker.css">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -25,27 +26,25 @@
   </head>
 
   <body>
-      <div class="container">
+      <div class="container dropme">
 	
 	<div class="row">
-	<center>
 		<div class="col-md-6 col-md-offset-3">
 		<div>
-			<H3><strong>Select an item to continue</strong></H3>
+		<center>
+			<H3>FIRST VISIT - TAKE ACTION</H3>
+		</center>
 			<br />
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='acutemergencies.html'"><i class="icon-white icon-heart"></i>Diaganostic Tool</button><br /><br />
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='tetanustoxoidimmunisation.html'">Tetanus Toxoid Immunisation </button><br /><br />
+			<ul class="list-group">
+				<li class="list-group-item"><span class="glyphicon glyphicon-pencil"></span> Register client into NHIS</li>
+				<li class="list-group-item"><span class="glyphicon glyphicon-pencil"></span> <a href="personalinformation.html">Record Personal Information</li>
+				<li class="list-group-item"><span class="glyphicon glyphicon-pencil"></span> <a href="takemedicalhistory.html">Take medical history</li>
+				<li class="list-group-item"><span class="glyphicon glyphicon-pencil"></span> <a href="calculateedd.html">Calculate EDD</li>
+			</ul>
+			<button type="button" class="btn btn-success btn-block" rel="external" onclick="window.location='ta-register.html'">Next</button><br />
 
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='checktrimester1.html'">Counselling :<br/>Trimester 1</button><br /><br />
-
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='checktrimester2.html'">Counselling :<br/>Trimester 2</button><br /><br />
-
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='checktrimester3.html'">Counselling :<br/>Trimester 3</button><br /><br />
-
-			<button type="button" class="btn btn-warning btn-lg btn-block" rel="external">IPTp with SP <br /> for Malaria Prevention in Pregnant Women </button><br /><br />
 		</div>
 	</div>
-	</center>
 	</div>
     </div><!-- /.container -->
 

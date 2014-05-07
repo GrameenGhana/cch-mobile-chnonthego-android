@@ -25,24 +25,17 @@
   </head>
 
   <body>
-      <div class="container">
+      <div class="container dropme">
 	
 	<div class="row">
 	<center>
 		<div class="col-md-6 col-md-offset-3">
 		<div>
-			<H3><strong>Select an item to continue</strong></H3>
+			<i class="fa fa-exclamation-triangle danger"></i> 
+			<H3>Does the client have a fever?<br>(temperature greater than 38 °C)</H3>
 			<br />
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='acutemergencies.html'"><i class="icon-white icon-heart"></i>Diaganostic Tool</button><br /><br />
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='tetanustoxoidimmunisation.html'">Tetanus Toxoid Immunisation </button><br /><br />
-
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='checktrimester1.html'">Counselling :<br/>Trimester 1</button><br /><br />
-
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='checktrimester2.html'">Counselling :<br/>Trimester 2</button><br /><br />
-
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='checktrimester3.html'">Counselling :<br/>Trimester 3</button><br /><br />
-
-			<button type="button" class="btn btn-warning btn-lg btn-block" rel="external">IPTp with SP <br /> for Malaria Prevention in Pregnant Women </button><br /><br />
+			<button type="button" class="btn btn-success btn-block" rel="external" onclick="window.location='ta-fever.html'">Yes</button><br />
+			<button type="button" class="btn btn-success btn-block"onclick="window.location='askanaemia.html'">No</button><br /><br />
 		</div>
 	</div>
 	</center>

@@ -15,7 +15,6 @@
 	cchbasics - the main CSS file for non-bootstrap styling
 	-->
     <link href="css/cchbasics.css" rel="stylesheet">
-	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -25,27 +24,30 @@
   </head>
 
   <body>
-      <div class="container">
+      <div class="container dropme">
 	
 	<div class="row">
-	<center>
 		<div class="col-md-6 col-md-offset-3">
 		<div>
-			<H3><strong>Select an item to continue</strong></H3>
-			<br />
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='acutemergencies.html'"><i class="icon-white icon-heart"></i>Diaganostic Tool</button><br /><br />
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='tetanustoxoidimmunisation.html'">Tetanus Toxoid Immunisation </button><br /><br />
-
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='checktrimester1.html'">Counselling :<br/>Trimester 1</button><br /><br />
-
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='checktrimester2.html'">Counselling :<br/>Trimester 2</button><br /><br />
-
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='checktrimester3.html'">Counselling :<br/>Trimester 3</button><br /><br />
-
-			<button type="button" class="btn btn-warning btn-lg btn-block" rel="external">IPTp with SP <br /> for Malaria Prevention in Pregnant Women </button><br /><br />
+			<H3><strong>Nutrition</strong></H3>
+			<ul>
+			<li><strong>Use food chart in maternal health record book to educate her on good nutrition practices</strong></li><br/>
+			<li><strong>Counsel client to eat foods rich in iron, folate and vitamin C:</strong></li>
+			<div class="col-md-12">
+			<ul>
+				<li>Meat (especially liver, kidney, and other organ meats)</li>
+				<li>Beans, peas, lentils</li>
+				<li>Dark green leafy vegetables</li>
+				<li>Eggs</li>
+				<li>Fish</li>
+				<li>Fruits like oranges, pineapples, mangoes, or bananas</li>
+			</ul>
+			<img src="images/pregnacare.png"></img>
+			<input type="submit" class="btn btn-success btn-block" value="OK" onclick="window.location='index.html'"/>
+			</div>
+		</ul>
 		</div>
 	</div>
-	</center>
 	</div>
     </div><!-- /.container -->
 

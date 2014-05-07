@@ -25,24 +25,29 @@
   </head>
 
   <body>
-      <div class="container">
+      <div class="container dropme">
 	
 	<div class="row">
 	<center>
 		<div class="col-md-6 col-md-offset-3">
 		<div>
-			<H3><strong>Select an item to continue</strong></H3>
+			<i class="fa fa-exclamation-triangle danger"></i> 
+			<H3>Does the client have any of the following?</H3>
 			<br />
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='acutemergencies.html'"><i class="icon-white icon-heart"></i>Diaganostic Tool</button><br /><br />
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='tetanustoxoidimmunisation.html'">Tetanus Toxoid Immunisation </button><br /><br />
+			<ul class="list-group">
+				<li class="list-group-item">Ruptured membranes</li>
+				<li class="list-group-item">Excessive vomiting</li>
+				<li class="list-group-item">Severe headache/blurred vision</li>
+				<li class="list-group-item">Offensive/discoloured discharge</li>
+				<li class="list-group-item">Severe abdominal pain</li>
+				<li class="list-group-item">Foetal movements</li>
+				<li class="list-group-item">Epigastric pain</li>
+				<li class="list-group-item">BP > 90MM Hg</li>
+				<li class="list-group-item">Oedema of feet, hands, face or ankles</li>
+			</ul>
+			<button type="button" class="btn btn-success btn-block" rel="external" onclick="window.location='ta-refer.html'">Yes</button><br />
+			<button type="button" class="btn btn-success btn-block" rel="external" onclick="window.location='askbreathing.html'">No</button><br />
 
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='checktrimester1.html'">Counselling :<br/>Trimester 1</button><br /><br />
-
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='checktrimester2.html'">Counselling :<br/>Trimester 2</button><br /><br />
-
-			<button type="button" class="btn btn-success btn-lg btn-block" rel="external" onclick="window.location='checktrimester3.html'">Counselling :<br/>Trimester 3</button><br /><br />
-
-			<button type="button" class="btn btn-warning btn-lg btn-block" rel="external">IPTp with SP <br /> for Malaria Prevention in Pregnant Women </button><br /><br />
 		</div>
 	</div>
 	</center>
