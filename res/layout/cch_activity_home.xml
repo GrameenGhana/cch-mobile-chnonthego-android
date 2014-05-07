@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_light"
+    android:onClick="onModuleStayingWellClick" >
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:columnCount="1" >
+
+        <SearchView
+            android:id="@+id/searchView_HomeSearch"
+            android:layout_width="fill_parent"
+            android:layout_column="0"
+            android:layout_gravity="left|top"
+            android:layout_row="1" >
+
+        </SearchView>
+
+        <TextView
+            android:id="@+id/textView_TipofDay"
+            android:layout_gravity="left"
+            android:layout_marginTop="20dp"
+            android:text="@string/home_tip_ofday"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <fragment
+            android:id="@+id/fragment_HomeFragment"
+            android:name="android.webkit.WebViewFragment"
+            android:layout_gravity="fill_horizontal" />
+
+        <TextView
+            android:id="@+id/textView_HomeMenu"
+            android:layout_gravity="left"
+            android:layout_marginTop="20dp"
+            android:text="@string/home_menu"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/background_dark" />
+           
+        <TableLayout
+            android:layout_gravity="fill_horizontal"
+            android:layout_marginTop="10dp" >
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/background_dark"
+                    android:onClick="onModuleLearningClick"
+                    android:text="Learning"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:text="Planner"
+                    android:textSize="13sp" />
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:text="Care"
+                    android:textSize="14sp" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+                
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Tracker"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/button5"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:onClick="onModuleStayingWellClick"
+                    android:text="Wellness"
+                    android:textSize="13sp" />
+
+                <Button
+                    android:id="@+id/button6"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:text="Help"
+                    android:textSize="14sp" />
+                
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+            </TableRow>
+        </TableLayout>
+
+    </GridLayout>
+
+</ScrollView>

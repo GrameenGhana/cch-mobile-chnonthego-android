@@ -1,0 +1,36 @@
+body { padding-top: 20px; padding-bottom: 20px; }
+
+/*
+ * --- HOME --- */
+.home div.container { margin:auto; padding-left: 30px; padding-right: 30px; }
+.home .row { margin-bottom: 25px; }
+.home .sglblock1 { height: 45px; margin-bottom: 5px;}
+.home .sglblock2 { height: 50px;}
+.home .dblblock { height: 100px; }
+.home .tplblock { height: 200px; }
+.home .blkcontent { border: 1px solid green; }
+
+/*
+ * --- Staying Well --- */
+.fa-li,
+.featurette,
+.footer { padding-right: 15px; padding-left: 15px; }
+
+.jumbotron #mainquote p { text-align: center; font-size: 14px; }
+
+.fa-ul li {
+    border-radius: 5px;
+    border: 1px solid #fff;
+    margin-bottom: 10px;
+}
+
+.fa-ul li:hover {
+    border-radius: 5px;
+    background-color: #eee;
+    border: 1px solid #eee;
+}
+
+.featurette-heading { font-size: 20px; }
+.lead { font-size: 14px; }
+.sw-fa1-icon { padding-top: 35px; color: #060; }
+.sw-fa2-icon { padding-top: 35px; color: #000; }

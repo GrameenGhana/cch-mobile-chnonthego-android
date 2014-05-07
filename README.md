@@ -1,4 +1,4 @@
-cch-android
-===========
+CCH Nurses' App
+====================
 
-CCH Nurses' application
+CCH Project in Ghana
