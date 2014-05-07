@@ -23,23 +23,55 @@
         <h1>Learning Center</h1>
 
         <hr/>
-        
-        <div class="listview-outlook" data-role="listview">
-            <div class="list-group">
-                <a href="" class="group-title">Materials</a>
-                <div class="group-content">
-                                            <a class="list" href="Learner">
-                                                <div class="list-content">
-                                                    <span class="list-title"></span>Learning modules</span>
-                                                 <span class="list-remark">Learn some more stuff!</span>
-                                                </div>
-                        </a>
+
+            <div class="grid fluid">
+                <div class="row">
+                    <div class="span3">
+                        <div class="notice marker-on-bottom">
+                            <div class="fg-white">Resources and references for improving your medical knowledge</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-</div>
+        
 
+       <div class="tile-area" style="padding:0; margin-top:-0px;">
 
-         
+        <div class="tile-group two" style="padding:0; margin:0px;">
+
+            <!-- Learning modules -->
+            <a href="learner" id="lm" class="tile double-vertical bg-red" data-click="transform">
+                 <div class="tile-content icon" >
+                    <span class="icon-book"></span>
+                </div>
+                <div class="brand">
+                    <div class="label">Learning Modules <br/></div>
+                </div>
+            </a>
+
+             <!-- Protocols -->
+            <a href="protocols.html" id="protocols" class="tile bg-amber" data-click="transform">
+                <div class="tile-content icon">
+                        <span class="icon-checkbox on-right"></span>
+                </div>
+                <div class="brand">
+                    <div class="label">Protocols</div>
+                </div>
+            </a> <!-- end tile -->
+
+             <!-- Guidelines -->
+            <a href="guidelines.html" id="guidelines" class="tile bg-green" data-click="transform">
+                <div class="tile-content icon">
+                        <span class="icon-clipboard-2 on-right"></span>
+                </div>
+                <div class="brand">
+                    <div class="label"> Guidelines</div>
+                </div>
+            </a> <!-- end tile -->
+
+        </div> <!-- End group -->
+    </div>
+
     </div>
 
     

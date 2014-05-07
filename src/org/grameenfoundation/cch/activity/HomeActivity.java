@@ -61,7 +61,10 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	private SharedPreferences prefs;
 	final Handler myHandler = new Handler();
 	Intent myIntent;
+	
+	private static final String HOME_URL = "file:///android_asset/www/cch/index.html";
 	private WebView myWebView;
+	
 	private String location = " ";
 	private String eventType = " ";
 	// declare updater class member here (or in the Application)
@@ -133,14 +136,13 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 							    myIntent.putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY);
 							    startActivity(myIntent);	
 						}
-						else if (url.equals("file:///android_asset/www/cch/Learner")){							
-							Intent intent = new Intent(getApplicationContext(),ModuleLearningActivity.class);
-			                startActivity(intent);							
-			                
+						else if (url.equals("file:///android_asset/www/cch/modules/learning/learner")){							
+							Intent intent = new Intent(getApplicationContext(), OppiaMobileActivity.class);
+			                startActivity(intent);	
+			                //finish();
 						}
 						else {
 							view.loadUrl(url);
-							return true;
 						}
 						
 						
@@ -149,11 +151,21 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 		});
 		
 		
-		String url = "file:///android_asset/www/cch/index.html";
+		String url = HOME_URL;
+
+	    try 
+	    {
+				if (!(getIntent().getStringExtra("LOAD_URL")).isEmpty()) {
+					url = getIntent().getStringExtra("LOAD_URL");
+				}
+				
+		} catch (NullPointerException e) {
+				// no need to load url
+		}
+	    
 		myWebView.loadUrl(url);
-		
-		
 	}
+	
 	 public class JavaScriptInterface {
 			Context mContext;
 			
@@ -208,14 +220,18 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-	    if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
+		if ((keyCode == KeyEvent.KEYCODE_BACK) && (myWebView.getUrl()).equals(HOME_URL)) {
+			finish();
+      
+		} else if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
 	        myWebView.goBack();
-	        return true;
+    
 	    } else if((keyCode == KeyEvent.KEYCODE_BACK) && !myWebView.canGoBack()) {
-    		finish();
-            return true;
-	    }
-	    return super.onKeyDown(keyCode, event);
+	    	myWebView.clearHistory();
+	    	myWebView.loadUrl(HOME_URL);	        
+	    } 
+		
+	    return true; 
 	}
 	
 	@Override

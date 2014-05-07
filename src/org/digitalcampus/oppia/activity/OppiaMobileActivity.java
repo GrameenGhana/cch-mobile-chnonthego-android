@@ -35,6 +35,7 @@ import org.digitalcampus.oppia.task.Payload;
 import org.digitalcampus.oppia.task.ScanMediaTask;
 import org.digitalcampus.oppia.utils.FileUtils;
 import org.digitalcampus.oppia.utils.UIUtils;
+import org.grameenfoundation.cch.activity.HomeActivity;
 import org.grameenfoundation.cch.activity.ModuleLearningActivity;
 
 import android.app.AlertDialog;
@@ -247,10 +248,12 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 
 	        // Back?
 	        if (keyCode == KeyEvent.KEYCODE_BACK) {
-	            // Back
-	        	startActivity(new Intent(OppiaMobileActivity.this, ModuleLearningActivity.class));
+	        	Intent i = new Intent(OppiaMobileActivity.this, HomeActivity.class);
+	        	i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	            i.putExtra("LOAD_URL", "file:///android_asset/www/cch/modules/learning/index.html");
+	        	startActivity(i);
 	    		finish();
-	            return true;
+	            return false;
 	        }
 	        else {
 	            // Return
