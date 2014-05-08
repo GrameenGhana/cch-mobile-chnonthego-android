@@ -15,6 +15,9 @@
     <link href="css/cch.css" rel="stylesheet">
     
     <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.widget.min.js"></script>
+    <script src="js/metro.min.js"></script>
+    <script src="js/cch.js"></script>
   </head>
 
   <body class="metro home">
@@ -30,26 +33,16 @@
 
             <!-- Planner -->
             <a href="modules/eventplanner/index.html" id="planner" class="tile bg-lightBlue live" data-role="live-tile" data-effect="slideUp" data-click="transform">
-                <div class="tile-content">
-                    <div class="padding10">
-                        <p id="calevent1" class="secondary-text fg-white no-margin">Visit Okanyere</p>
-                    </div>
-                </div>
-                <div class="tile-content">
-                    <div class="padding10">
-                        <p id="calevent2" class="secondary-text fg-white no-margin">Visit Other place</p>
-                    </div>
-                </div>
                 <div id="plannerbadgebrand" class="brand">
                     <div class="label">
                         <span class="icon-calendar on-left"></span>Planner
                      </div>
                     <div id="plannerbadge" class="badge"></div>
-                </div>
-                
+                </div>  
                 <script type="text/javascript">
-                	html = '<div class="tile-content"><div class="padding10"><p id="calevent3" class="secondary-text fg-white no-margin">My third life</p></div></div>';
-                     $(html).insertBefore($('#plannerbadgebrand'));
+                     var c = new CCH();                         	
+    				 events = c.getTodaysEventsSnippet();
+    				 $(events).insertBefore($('#plannerbadgebrand'));
                 </script>
             </a>
             <!-- end tile -->
@@ -98,10 +91,7 @@
         </div> <!-- End group -->
     </div>
     </div>
-    
-    <script src="js/jquery.widget.min.js"></script>
-    <script src="js/metro.min.js"></script>
-    <script src="js/cch.js"></script>
+   
 
   </body>
 </html>

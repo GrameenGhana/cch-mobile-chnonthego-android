@@ -9,6 +9,10 @@ function CCH() {
     
     this.getNumEventsToday = function() {
     	return Android.getNumEventsToday();
+    },
+    
+    this.getTodaysEventsSnippet = function() {
+    	return Android.getTodaysEventsSnippet();
     }
 }
 
@@ -19,7 +23,6 @@ $(document).ready(function()  {
     // Event planner
     if ($('#planner')) {
     	$('#plannerbadge').html(cch.getNumEventsToday());
-    	
     }
 
     // Staying well

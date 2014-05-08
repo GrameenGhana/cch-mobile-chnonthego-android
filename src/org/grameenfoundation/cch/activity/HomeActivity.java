@@ -95,6 +95,10 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	         
 		myWebView.setWebViewClient(new WebViewClient(){
 				
+			    public void onReceivedError(WebView view, int errorCod,String description, String failingUrl) {
+		            Toast.makeText(view.getContext(), description , Toast.LENGTH_LONG).show();
+		        }
+			    
 				public boolean shouldOverrideUrlLoading(WebView view, String url) {
 													
 						if (url.equals("file:///android_asset/www/cch/modules/eventplanner/viewcal")) {

@@ -41,8 +41,25 @@ public class WebAppInterface {
     }
     
     @JavascriptInterface
-    public ArrayList<String> getTodaysEvents() {
-    	return todaysEvents;
+    public String getTodaysEventsSnippet() {
+       String evHtml = ""; 
+       int evNum = 0;
+       
+       if (todaysEvents.size()==0) {
+    	   evHtml = "<div class=\"tile-content\"><div class=\"padding10\">"+
+  		            "		<p id=\"calevent"+evNum+"\" class=\"secondary-text fg-white no-margin\">No planned events today.</p>"+
+                    "</div></div>";
+       } else {
+    	   for(String s: todaysEvents){
+    		   if (s.length() >= 26) {   s = s.substring(0,29).concat("..."); }
+    		   evHtml += "<div class=\"tile-content\"><div class=\"padding10\">"+
+    		         "		<p id=\"calevent"+evNum+"\" class=\"secondary-text fg-white no-margin\">"+s+"</p>"+
+                     "</div></div>";
+    		   evNum++;
+    	   }
+       }
+       
+       return evHtml;
    	}
     
     @JavascriptInterface
@@ -54,10 +71,7 @@ public class WebAppInterface {
     public ArrayList<String> getFutureEvents() {
     	return futureEvents;
    	}
-    
-    
-    
-    
+     
  
     /** Show a toast from the web page */
     @JavascriptInterface
@@ -106,8 +120,7 @@ public class WebAppInterface {
         	   } catch(NumberFormatException e) {
         	   }
         	   
-        	   String payload = cursor.getString(1)+ "||" +
-			            cursor.getString(2);
+        	   String payload = cursor.getString(1);
         	   
         	   if (this.isToday(start)) {
         		   todaysEvents.add(payload);
