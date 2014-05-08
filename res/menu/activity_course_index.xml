@@ -5,13 +5,17 @@
         android:id="@+id/points"
         android:showAsAction="always"
         android:actionLayout="@layout/points"/>
-    <item
-        android:id="@+id/menu_language"
-        android:icon="@drawable/ic_menu_start_conversation"
-        android:title="@string/menu_language"/>
+    
     <item
         android:id="@+id/menu_help"
         android:icon="@android:drawable/ic_menu_help"
         android:title="@string/menu_help"/>
+    <!--  
+    <item
+        android:id="@+id/menu_language"
+        android:icon="@drawable/ic_menu_start_conversation"
+        android:title="@string/menu_language"/>
+        -->
+ 
 
 </menu>

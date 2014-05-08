@@ -201,13 +201,6 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getSupportMenuInflater().inflate(R.menu.activity_home, menu);
-
-		// Get the SearchView and set the searchable configuration
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-     	SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-     	searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-     	// searchView.setIconifiedByDefault(false);
-
 		return true;
 	}
 

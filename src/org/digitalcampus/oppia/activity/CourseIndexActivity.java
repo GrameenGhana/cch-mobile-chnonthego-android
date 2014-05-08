@@ -193,9 +193,9 @@ public class CourseIndexActivity extends AppActivity implements OnSharedPreferen
 		Bundle tb = new Bundle();
 		// Handle item selection
 		switch (item.getItemId()) {
-		case R.id.menu_language:
+		/*case R.id.menu_language:
 			createLanguageDialog();
-			return true;
+			return true;*/
 		case R.id.menu_help:
 			startActivity(new Intent(this, HelpActivity.class));
 			return true;
