@@ -23,6 +23,7 @@ import org.digitalcampus.oppia.model.Activity;
 import org.digitalcampus.oppia.model.ActivitySchedule;
 import org.digitalcampus.oppia.model.Course;
 import org.digitalcampus.oppia.model.TrackerLog;
+import org.digitalcampus.oppia.model.User;
 import org.digitalcampus.oppia.task.Payload;
 import org.grameenfoundation.cch.model.Quotes;
 import org.joda.time.DateTime;
@@ -94,7 +95,12 @@ public class DbHelper extends SQLiteOpenHelper {
 	private static final String CCH_QUOTES_C_CATEGORY = "category";
 	private static final String CCH_QUOTES_C_CONTENT = "content";
 	private static final String CCH_QUOTES_C_UPDATED = "updated_at";
-
+	
+	// CCH: Login Table 
+		private static final String USER_TABLE = "login";
+		private static final String USER_ID = BaseColumns._ID;
+		private static final String STAFF_ID = "staff_id";
+		private static final String PASSWORD = "password";
 	
 	// Constructor
 	public DbHelper(Context ctx) { //
@@ -104,6 +110,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
+		createUserTable(db);
 		createCourseTable(db);
 		createActivityTable(db);
 		createLogTable(db);
@@ -159,6 +166,52 @@ public class DbHelper extends SQLiteOpenHelper {
 							QUIZRESULTS_C_COURSEID + " integer)";
 		db.execSQL(m_sql);
 	}
+	
+	public void createUserTable(SQLiteDatabase db){
+		String m_sql = "create table IF NOT EXISTS " + USER_TABLE + " (" + USER_ID + " integer primary key autoincrement, "
+				+ STAFF_ID + " text, " + PASSWORD + " text)";		
+			
+			db.execSQL(m_sql);
+			
+	}
+	
+	public void addUser(User u) {
+        SQLiteDatabase db = this.getWritableDatabase(); 
+        ContentValues values = new ContentValues();
+        values.put(STAFF_ID, u.getUsername()); // StaffId
+        values.put(PASSWORD, u.getPassword()); // Password               
+        db.insert(USER_TABLE, null, values);
+        db.close(); // Closing database connection       
+    }
+	
+	public void updateUser(User u) {
+        SQLiteDatabase db = this.getWritableDatabase(); 
+        ContentValues values = new ContentValues();
+        values.put(STAFF_ID, u.getUsername()); // StaffId
+        values.put(PASSWORD, u.getPassword()); // Password        
+        
+        // Inserting Row
+        //db.update(USER_TABLE, values, whereClause, whereArgs)
+        
+        db.update(USER_TABLE, values, STAFF_ID + "="+u.getUsername(), null);
+        db.close(); // Closing database connection        
+    }
+	
+	// check if User exists
+		public boolean checkUserExists(User u) {
+			
+			SQLiteDatabase db = this.getReadableDatabase();		 
+		    Cursor cursor = db.query(USER_TABLE, new String[] { USER_ID,
+		    		STAFF_ID, PASSWORD }, STAFF_ID + "=?",
+		            new String[] { String.valueOf(u.getUsername()) }, null, null, null, null); 	        
+		   if (cursor == null || cursor.getCount()==0)
+		        return false;	    	
+		        cursor.moveToFirst();	 
+		 
+		    if (!(u.getPassword().equals(cursor.getString(2))))
+		    	return false;	   
+		    return true;
+		}
 	
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
