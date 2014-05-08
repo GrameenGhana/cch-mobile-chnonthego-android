@@ -34,6 +34,7 @@ import android.preference.PreferenceManager;
 import android.provider.CalendarContract.Events;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
@@ -89,6 +90,8 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 		myWebView = (WebView) findViewById(R.id.webView1);	    	 
 		myWebView.getSettings().setJavaScriptEnabled(true);
 		myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
+		myWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+
 	         
 		myWebView.setWebViewClient(new WebViewClient(){
 				

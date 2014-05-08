@@ -16,13 +16,10 @@ $(document).ready(function()  {
 
     var cch = new CCH();
 
-    if ($('body#home')) {
-       //cch.getPlannedEvents('#planner',3); 
-    }
-
     // Event planner
     if ($('#planner')) {
-    	$('#plannerbadge).html(cch.getNumEventsToday());
+    	$('#plannerbadge').html(cch.getNumEventsToday());
+    	
     }
 
     // Staying well
