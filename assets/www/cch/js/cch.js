@@ -13,6 +13,10 @@ function CCH() {
     
     this.getTodaysEventsSnippet = function() {
     	return Android.getTodaysEventsSnippet();
+    },
+    
+    this.getEventsList = function(period) {
+    	return Android.getEventsList(period);
     }
 }
 
@@ -24,6 +28,12 @@ $(document).ready(function()  {
     if ($('#planner')) {
     	$('#plannerbadge').html(cch.getNumEventsToday());
     }
+    
+    $('.gotoevent').click(function(e) {
+         var url = $(this).data('url');
+         window.location = url; 
+    });
+    
 
     // Staying well
     if ($('#mainquote')) {

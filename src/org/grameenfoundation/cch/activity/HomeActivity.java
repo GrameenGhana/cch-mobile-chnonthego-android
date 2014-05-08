@@ -84,7 +84,7 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 			editor.commit();
 		}
 				
-		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(false);
                 
 		myWebView = (WebView) findViewById(R.id.webView1);	    	 
