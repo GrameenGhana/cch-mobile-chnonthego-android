@@ -22,11 +22,13 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.listener.InstallCourseListener;
 import org.digitalcampus.oppia.listener.PostInstallListener;
 import org.digitalcampus.oppia.listener.UpgradeListener;
 import org.digitalcampus.oppia.model.DownloadProgress;
+import org.digitalcampus.oppia.model.User;
 import org.digitalcampus.oppia.task.InstallDownloadedCoursesTask;
 import org.digitalcampus.oppia.task.Payload;
 import org.digitalcampus.oppia.task.PostInstallTask;
@@ -50,15 +52,29 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
 	public final static String TAG = StartUpActivity.class.getSimpleName();
 	private TextView tvProgress;
 	private SharedPreferences prefs;
-	
+	//DbHelper Db;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         BugSenseHandler.initAndStartSession(this, MobileLearning.BUGSENSE_API_KEY);
         setContentView(R.layout.start_up);
         tvProgress = (TextView) this.findViewById(R.id.start_up_progress);
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
-                
+        /*Db = new DbHelper(getApplicationContext());
+        User U1 = new User();
+        U1.setUsername("Habeeb");
+        U1.setPassword("sabali01");
+        User U2 = new User();
+        U2.setUsername("dhutch97");
+        U2.setPassword("sRuajAhP");
+        
+        if(!Db.checkUserExists(U1)){
+        	Db.addUser(U1);
+        }
+        if(!Db.checkUserExists(U2)){
+        	Db.addUser(U2);
+        }*/
         // set up local dirs
  		if(!MobileLearning.createDirs()){
  			AlertDialog.Builder builder = new AlertDialog.Builder(this);

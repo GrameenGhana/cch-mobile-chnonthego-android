@@ -1,58 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:gravity="center"
+    android:background="#EEB422" >
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="left"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp" >
-
-        <TextView
-            android:id="@+id/main_email_title"
+        
+		 <RelativeLayout 
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="@string/login_username_title" />
+       		android:layout_height="wrap_content"
+        	android:gravity="center"
+        	android:orientation="vertical"
+        	android:padding="10dp" >
+        	
+		      <LinearLayout
+        		     android:layout_width="fill_parent"
+        		     android:layout_height="wrap_content"
+        		     android:layout_centerHorizontal="true"
+        		     android:layout_centerInParent="true"
+        		     android:layout_centerVertical="true"
+        		     android:gravity="center"
+        		     android:orientation="vertical"
+        		     android:padding="10dp" >
+        		     
+                	
+        		     <TextView
+        		         android:id="@+id/staff_id_title"
+        		         android:layout_width="match_parent"
+        		         android:layout_height="80dp"
+        		         android:gravity="center"
+        		         android:text="CCH"
+        		         android:textSize="70sp" 
+        		         android:textColor="#FFFFFF"/>
+        		     
+        		     <TextView
+        		         android:id="@+id/staff_id_title2"
+        		         android:layout_width="194dp"
+        		         android:layout_height="0dp"
+        		         android:layout_weight="3.25"
+        		         android:gravity="center"
+        		         android:text="GHANA"
+        		         android:textSize="40sp" 
+        		         android:textColor="#FFFFFF"/>       	
+        		         
+        		     </LinearLayout>	  
+		     </RelativeLayout>  
+		     
+       
 
-        <EditText
+       <EditText
             android:id="@+id/login_username_field"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:padding="5dp"
-            android:text="dhutch97" />
+            android:layout_width="250dp"
+            android:layout_height="30dp"
+            android:ems="10"
+            android:text="dhutch97" 
+            android:background="#FFFFFF"
+            android:padding="5dp"/>    
 
-        <TextView
-            android:id="@+id/main_password_title"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="@string/login_password_title" />
+        
+        
+         <RelativeLayout
+            android:id="@+id/divider"
+          	android:layout_width="fill_parent"
+       		android:layout_height="wrap_content"
+        	android:gravity="center"
+        	android:orientation="vertical"
+        	android:padding="10dp">          
+      	  </RelativeLayout>
 
         <EditText
             android:id="@+id/login_password_field"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+           android:layout_width="250dp"
+            android:layout_height="30dp"
+            android:ems="10"
             android:inputType="textPassword"
+            android:background="#FFFFFF"
             android:padding="5dp"
             android:text="sRuajAhP" />
+        
+         <LinearLayout 
+		    android:layout_width="fill_parent"
+       		android:layout_height="wrap_content"
+        	android:gravity="center"
+        	android:orientation="vertical"
+        	android:padding="10dp" >
 
         <Button
             android:id="@+id/login_btn"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+        	android:layout_height="40dp"
+        	android:layout_marginLeft="14dp"
+        	android:gravity="center"
             android:onClick="onLoginClick"
-            android:text="@string/title_login" />
+            android:text="@string/title_login" 
+            android:background="#FFFFFF"/>
 
-        <Button
+       <Button
+        	    android:id="@+id/forgotten_password"
+        	    android:layout_width="150dp"
+        	    android:layout_height="wrap_content"        	    
+        	    android:ems="10"
+        	    android:gravity="center"
+        	    android:text="Forgotten Password"
+        	   	android:background="#EEB422"
+        	    android:textSize="12sp" 
+        	    android:onClick="onForgetClick"
+        	    android:textColor="#0000FF"
+        	   />
+    </LinearLayout>
+    
+    <Button
             android:id="@+id/register_btn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="onRegisterClick"
-            android:text="@string/title_register" />
-    </LinearLayout>
-
+            android:text="@string/title_register"
+            android:visibility="gone" />
+</LinearLayout>
 </ScrollView>
