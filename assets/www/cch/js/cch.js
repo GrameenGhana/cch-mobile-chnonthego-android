@@ -1,5 +1,3 @@
-/* Staying well functions */
-
 function CCH() {
     this.getQuote = function()  { 
         return Android.getQuote(); 
@@ -7,8 +5,13 @@ function CCH() {
 
     this.getTodayInHistory = function() { 
         return Android.getTodayInHistory(); 
+    },
+    
+    this.getNumEventsToday = function() {
+    	return Android.getNumEventsToday();
     }
 }
+
 $(document).ready(function()  {
 
     var cch = new CCH();
@@ -17,7 +20,10 @@ $(document).ready(function()  {
        //cch.getPlannedEvents('#planner',3); 
     }
 
-     // Event planner
+    // Event planner
+    if ($('#planner')) {
+    	$('#plannerbadge).html(cch.getNumEventsToday());
+    }
 
     // Staying well
     if ($('#mainquote')) {

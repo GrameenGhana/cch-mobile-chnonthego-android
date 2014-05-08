@@ -7,9 +7,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 
-
-
-
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.activity.AboutActivity;
 import org.digitalcampus.oppia.activity.AppActivity;
@@ -52,34 +49,27 @@ import com.actionbarsherlock.view.MenuItem;
 
 
 
-
-
 @SuppressLint({ "SetJavaScriptEnabled", "JavascriptInterface" })
-public class HomeActivity extends AppActivity implements OnSharedPreferenceChangeListener, Observer{
+public class HomeActivity extends AppActivity implements OnSharedPreferenceChangeListener, Observer {
 
 	public static final String TAG = HomeActivity.class.getSimpleName();
 	private SharedPreferences prefs;
-	final Handler myHandler = new Handler();
-	Intent myIntent;
 	
 	private static final String HOME_URL = "file:///android_asset/www/cch/index.html";
 	private WebView myWebView;
 	
-	private String location = " ";
-	private String eventType = " ";
 	// declare updater class member here (or in the Application)
-		@SuppressWarnings("unused")
-		private AutoUpdateApk aua;
+	@SuppressWarnings("unused")
+	private AutoUpdateApk aua;
 	
-		
-	
+			
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		aua = new AutoUpdateApk(getApplicationContext());	// <-- don't forget to instantiate
-
 		aua.addObserver(this);	// see the remark below, next to update() method
+		
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		prefs.registerOnSharedPreferenceChangeListener(this);
 		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
@@ -93,16 +83,13 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 			editor.commit();
 		}
 				
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        final JavaScriptInterface myJavaScriptInterface
-     	= new JavaScriptInterface(this);     
+		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
+                
 		myWebView = (WebView) findViewById(R.id.webView1);	    	 
-		myWebView.getSettings().setLightTouchEnabled(true);
 		myWebView.getSettings().setJavaScriptEnabled(true);
-		myWebView.addJavascriptInterface(myJavaScriptInterface, "AndroidFunction");
-	       
-	    
+		myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
+	         
 		myWebView.setWebViewClient(new WebViewClient(){
 				
 				public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -119,19 +106,16 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 							
 							Log.v(TAG, "Launching addcal");
 			 				
-						    Log.d("EventType", eventType);
-						    Log.d("Location", location);
-						    
-							  Calendar cal = Calendar.getInstance(); 
-							    myIntent = new Intent(myIntent.ACTION_INSERT);
+							    Calendar cal = Calendar.getInstance(); 
+							    Intent myIntent = new Intent(Intent.ACTION_INSERT);
 							   	myIntent.setType("vnd.android.cursor.item/event");						    
 							    myIntent.putExtra("beginTime", cal.getTimeInMillis());
 							    myIntent.putExtra("allDay", true);	    
 							    myIntent.putExtra("rrule", "FREQ=YEARLY");
 							    myIntent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
-							    myIntent.putExtra("title", eventType);
+							    myIntent.putExtra("title", "Event");
 							    myIntent.putExtra("description", "Description");
-							    myIntent.putExtra("eventLocation", location);
+							    myIntent.putExtra("eventLocation", "location");
 							    myIntent.putExtra(Events.ACCESS_LEVEL, Events.ACCESS_PRIVATE);
 							    myIntent.putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY);
 							    startActivity(myIntent);	
@@ -155,42 +139,14 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 
 	    try 
 	    {
-				if (!(getIntent().getStringExtra("LOAD_URL")).isEmpty()) {
+			if (!(getIntent().getStringExtra("LOAD_URL")).isEmpty()) {
 					url = getIntent().getStringExtra("LOAD_URL");
-				}
-				
+			}				
 		} catch (NullPointerException e) {
-				// no need to load url
 		}
 	    
 		myWebView.loadUrl(url);
 	}
-	
-	 public class JavaScriptInterface {
-			Context mContext;
-			
-		    JavaScriptInterface(Context c) {
-		        mContext = c;
-		        
-		    }
-		    
-		    public void getString(String webMessage, String webMessage1){	    
-		    	Toast.makeText(mContext, "Habeeb", Toast.LENGTH_SHORT).show();
-		    	 location = webMessage;
-		         eventType = webMessage1;
-			         	
-		    	 myHandler.post(new Runnable() {
-		             @Override
-		             public void run() {   			        
-		                
-		             }
-		         });
-		    	 
-		    }
-	    }
-
-	
-	
 	
 	
 	@Override
@@ -202,6 +158,7 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 			android.util.Log.i("AutoUpdateApkActivity", "There's an update available!");
 		}
 	}
+	
 	@Override
 	public void onStart() {
 		super.onStart();		

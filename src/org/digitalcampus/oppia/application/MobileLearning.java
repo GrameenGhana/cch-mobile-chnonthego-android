@@ -62,7 +62,7 @@ public class MobileLearning extends Application {
 
 	
 	// general other settings
-	public static final String BUGSENSE_API_KEY = "84d61fd0";
+	public static final String BUGSENSE_API_KEY = "f3a6ec3a";
 	public static final int PASSWORD_MIN_LENGTH = 6;
 	public static final int PAGE_READ_TIME = 3;
 	public static final int RESOURCE_READ_TIME = 3;

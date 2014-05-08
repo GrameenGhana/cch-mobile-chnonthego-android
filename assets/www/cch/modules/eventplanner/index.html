@@ -13,18 +13,6 @@
     <link href="../../css/metro-bootstrap-responsive.min.css" rel="stylesheet">
     <link href="../../css/iconFont.min.css" rel="stylesheet">
     <link href="../../css/cch.css" rel="stylesheet">
-    
-      <script type="text/javascript"> 
-
-      function init() {
-         var element = document.getElementById('picker');
-         var element2 = document.getElementById('picker2');
-         alert(element.options[element.selectedIndex].text);
-         alert(element2.options[element2.selectedIndex].text);        
-        AndroidFunction.getString(element.options[element.selectedIndex].text, element2.options[element2.selectedIndex].text);
-      }
-
-    </script> 
 
   </head>
 
@@ -36,28 +24,11 @@
 
         <hr/>
         
-        <div class= "picker">
-        	<form>		
-			
-            <select id="picker"  >
-  				<option value="default">add new location</option>
-  				<option value="Legon">Legon</option>
-  				<option value="Gimpa">Gimpa</option>
-  				<option value="Medina">Medina</option>
-			</select> 
-			<select id="picker2"  >
-  				<option value="default" >add new event</option>
-  				<option>Ante Natal</option>
-  				<option >Home visits</option>
-  				<option >Frquent Check ups</option>
-			</select> 
-			</form> 
-        </div>
         <div class="toolbar transparent pull-right">
-            		
-            <a href="addevent"><button onclick = "javascript: return init();" ><i class="icon-plus on-left" onclick = "javascript: return init();" ></i>Add Event</button></a>
+            <a href="addevent.html"><button><i class="icon-plus on-left"></i>Add Event</button><a>
             <a href="viewcal"><button><i class="icon-calendar on-left"></i>View Calendar</button></a>
         </div>
+
         <hr/>
     
         <div class="listview-outlook" data-role="listview">
@@ -89,7 +60,20 @@
                 </div>
             </div>
             <div class="list-group collapsed">
-                <a href="" class="group-title">Yesterday</a>
+                <a href="" class="group-title">Tomorrow</a>
+                <div class="group-content">
+                    <a class="list" href="#">
+                                                <div class="list-content">
+                                                    <span class="list-title"><span class="place-right icon-flag-2 fg-red smaller"></span>ANC</span>
+                                                    <span class="list-subtitle"><span class="place-right">1:51</span>Kpeve 26/10/2013</span>
+                                                    <span class="list-remark">No car!</span>
+                                                </div>
+                                            </a>
+                </div>
+            </div>
+
+               <div class="list-group collapsed">
+                   <a href="" class="group-title">Upcoming</a>
                 <div class="group-content">
                     <a class="list" href="#">
                                                 <div class="list-content">
