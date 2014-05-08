@@ -1,0 +1,118 @@
+* {
+  -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+  -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+  -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+  -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  font-size: 1em;
+}
+
+h1, h2 {
+  font-size: 1em;
+  color: rgb(0, 141, 125);
+}
+
+td {
+  display: inline-block;
+  vertical-align: text-top;
+}
+
+img {
+  max-width: 100%;
+}
+
+body {
+  font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+  font-size: 1em;
+  height:100%;
+  width:100%;
+}
+
+div.app {
+  height: 500px;
+  /* width:  320px; */ /* IPhone */
+  width: 100%;
+}
+
+div.content {
+  padding: 1em;
+}
+
+.full-width {
+  width: 100%;
+}
+
+ul {
+  list-style-position: inside;
+}
+
+img#method_icon {
+  float:   left;
+  width:   25%;
+  padding: 2em;
+}
+
+.footer {
+  background: white;
+  bottom:0;
+  position:fixed;
+  z-index:150;
+  _position:absolute;
+  _top:expression(eval(document.documentElement.scrollTop+
+      (document.documentElement.clientHeight-this.offsetHeight)));
+  padding-left:  .5em;
+  padding-right: .5em;
+  padding-top:   .5em;
+
+  /* The following settings do not appear to matter at all on Android! */
+  /* height: 50px; */ /* IPhone */
+  height: 100px;
+  /* width: 330px; */ /* IPhone */
+  width: 100%;
+}
+
+.footer-padding {
+  height: 200px;
+  width: 100%;
+}
+
+.footer .tab img {
+  /* These images do not respect the container settings at all! */
+  height: 100px;
+  width: 32%;
+}
+
+.ui-btn-text {
+  color: rgb(255, 255, 255);
+}
+
+.ui-btn-inner {
+  font-size: 1em;
+}
+
+/* High-res Android devices. */
+@media (min-width: 500px) {
+  body {
+    font-size: 2em;
+  }
+
+  h1, h2 {
+    font-size: 2em;
+  }
+
+  .footer {
+    width: 98%;
+  }
+
+  .footer-padding {
+    height: 400px;
+  }
+
+  .ui-btn-inner {
+    font-size: 1em;
+  }
+}

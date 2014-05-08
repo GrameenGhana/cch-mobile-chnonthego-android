@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ACE</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.3.1.css" />
+    <link rel="stylesheet" type="text/css" href="css/ios_inspired/styles.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js" ></script>
+    <script type="text/javascript" charset="utf-8" src="js/jquery-1.8.3.min.js" ></script>
+    <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.3.1.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/page_stack.js" ></script>
+    <script type="text/javascript" charset="utf-8">
+      document.addEventListener ('deviceready', onDeviceReady, false);
+
+      function onDeviceReady () {
+        // push the current page onto the page stack.
+        PageStack.pushCurrentPage (window.localStorage, 'about_app.html');
+
+        // override the back button handler.
+        document.addEventListener ('backbutton', PageStack.getOnBackButton (window.localStorage), false);
+      }
+    </script>
+  </head>
+  <body>
+    <div id='about_app' class='app' data-role='page' data-theme='d'>
+      <div data-role='header'  data-add-back-btn='true' data-theme='d'>
+        <img class='full-width' src='img/header.jpeg' />
+        <!-- <a href='index.html' data-icon='arrow-l' data-rel='back'>Back</a> -->
+      </div>
+      <div class='content'>
+        <h1>ACE for Android</h1>
+        <p>Copyright 2011 Johns Hopkins Bloomberg School of Public Health/Center for Communication Programs</p>
+        <p>The ACE mobile app gives family planning providers an easy and effective way to check whether clients are medically eligible to start using certain contraceptive methods. Based on the popular and trusted Family Planning: A Global Handbook for Providers (2011 edition), published by the Johns Hopkins Bloomberg School of Public Health/Center for Communication Programs, ACE reflects the latest family planning guidance from the World Health Organization’s Medical Eligibility Criteria for Contraceptive Use.</p>
+        <p>If the client already has a contraceptive method in mind, you can use ACE to check whether she is medically eligible to use her preferred method.</p>
+        <p>If the client does not have a method in mind, you can use ACE to find methods for which the client is eligible based on her medical history.</p>
+        <p>You can also use ACE to review key characteristics of 20 contraceptive methods, including information about effectiveness, side effects, health benefits, health risks, and how they work.</p>
+        <p>Contraceptive methods covered include oral contraceptive pills, injectable contraceptives, the patch, ring, implants, intrauterine devices, male and female sterilization, condoms, and more.</p>
+        <h2>Feedback/Support</h2>
+        <p>We invite your feedback about the ACE app. Please send an email to mobile@k4health.org.</p>
+        <p>If you are having technical difficulties or have questions, please send an email to: mobile@k4health.org.</p>
+        <h2>Terms of Use</h2>
+        <p>The information in this mobile app is intended for health care professionals. However, it is not meant to serve as a substitute for the health care professional’s own clinical judgment.</p>
+        <p>If you are a consumer, you should not rely on the information in this app or the companion Family Planning: A Global Handbook for Providers (Global Handbook) as an alternative to professional medical advice from your doctor or other qualified health care professional. If you have any specific questions about any medical matter, you should consult your doctor or other professional healthcare provider. In serious cases, you should seek immediate medical attention. You should never delay seeking medical advice, disregard medical advice, or discontinue medical treatment from your doctor or other qualified health care professional because of information in this app or in the Global Handbook.</p>
+        <p>The use of this mobile app is at your own risk and the service and content are provided on an “as is” basis. Neither The Johns Hopkins University, the Center for Communication Programs, the Knowledge for Health Project, the U.S. Government, nor the U.S. Agency for International Development are liable for any damages resulting from your use of the information in this app or in the Global Handbook.</p>
+      </div>
+      <div class='footer-padding' />
+      <div class='footer'>
+        <span class='tab'><a href='about_app.html' data-ajax='false'><img src='img/app.jpeg'/></a></span>
+        <span class='tab'><a href='share.html' data-ajax='false'><img src='img/share.jpeg'/></a></span>
+        <span class='tab'><a href='about_handbook.html' data-ajax='false'><img src='img/handbook.jpeg'/></a></span>
+      </div>
+    </div>
+  </body>
+</html>
+

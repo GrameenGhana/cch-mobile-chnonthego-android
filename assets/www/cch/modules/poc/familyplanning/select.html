@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ACE</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.3.1.css" />
+    <link rel="stylesheet" type="text/css" href="css/ios_inspired/styles.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="css/methods_list.css" />
+
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js" ></script>
+    <script type="text/javascript" charset="utf-8" src="js/database.js" ></script>
+    <script type="text/javascript" charset="utf-8" src="js/filter_state.js" ></script>
+    <script type="text/javascript" charset="utf-8" src="js/jquery-1.8.3.min.js" ></script>
+    <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.3.1.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/page_stack.js" ></script>
+    <script type="text/javascript" charset="utf-8" src="js/underscore-min.js" ></script>
+    <script type="text/javascript" charset="utf-8">
+      document.addEventListener ('deviceready', onDeviceReady, false);
+      document.addEventListener ('backbutton', PageStack.onBackButton, false);
+
+      function onDeviceReady () {
+        // push the current page onto the page stack.
+        PageStack.pushCurrentPage (window.localStorage, 'select.html');
+
+        // override the back button handler.
+        document.addEventListener ('backbutton', PageStack.getOnBackButton (window.localStorage), false);
+
+        // 
+        var methodIds = [];
+        database.load (
+          function () {
+            _.reduce (database.getMethodIds (),
+              function (i, methodId) {
+                var method = database.getMethod (methodId);
+
+                var methodsListElement = document.getElementById ('methods-list');
+
+                var methodElement = document.createElement ('tr');
+                methodElement.setAttribute ('class', 'entry');
+                methodsListElement.appendChild (methodElement);
+
+                if (i % 2 == 0) {
+                  methodElement.setAttribute ('class', 'unshaded-entry');
+                } else {
+                  methodElement.setAttribute ('class', 'shaded-entry') ;
+                }
+
+                methodElement.onclick = function (i, element, methodId) {
+                  return function () {
+                    var index = methodIds.indexOf (methodId);
+                    if (index > -1) {
+                      methodIds.splice (index, 1);
+                      if (i % 2 == 0) {
+                        element.setAttribute ('class', 'unshaded-entry');
+                      } else {
+                        element.setAttribute ('class', 'shaded-entry');
+                      }
+                    } else {
+                      methodIds.push (methodId);
+                      if (i % 2 == 0) {
+                        element.setAttribute ('class', 'light-selected-entry');
+                      } else {
+                        element.setAttribute ('class', 'dark-selected-entry');
+                      }
+                    }
+                  }
+                } (i, methodElement, method.id);
+
+                var element = document.createElement ('td');
+                methodElement.appendChild (element);
+
+                var methodImageElement = new Image ();
+                methodImageElement.src = method.icon;
+                methodImageElement.className = 'entry-icon';
+                element.appendChild (methodImageElement);
+
+                element = document.createElement ('td');
+                element.setAttribute ('class', 'entry-text');
+                methodElement.appendChild (element);
+
+                var headerElement = document.createElement ('h2');
+                headerElement.appendChild (document.createTextNode (method.name));
+                element.appendChild (headerElement);
+
+                var bodyElement = document.createElement ('p');
+                bodyElement.appendChild (document.createTextNode (method.summary));
+                element.appendChild (bodyElement);
+
+                return i + 1;
+              }, 0
+            );
+
+            var submitButton = document.getElementById ('submit');
+            submitButton.onclick = function () {
+              if (methodIds.length == 0) {
+                alert ('Please select a contraceptive method first.');
+                return;
+              }
+
+              var state = FilterState.create ();
+              state.init (database);
+              state.methodIds = methodIds;
+              state.save ('filter_state');
+              location.href = 'filter.html';
+            };
+
+            var methodsListElement = document.getElementById ('methods-list');
+            var paddingElement = document.createElement ('div');
+            paddingElement.setAttribute ('class', 'footer-padding');
+            methodsListElement.appendChild (paddingElement);
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div class='app' data-role='page' id='index' data-theme='d'>
+      <div data-role='header'  data-add-back-btn='true' data-theme='d'>
+        <img class='full-width' src='img/header.jpeg' />
+        <!-- <a href='index.html' data-icon='arrow-l' data-rel='back'>Back</a> --> <!-- IPhone -->
+      </div>
+      <div class='content'>
+        <table id='methods-list' class='entry-table'>
+          <input id='submit' type='submit' value='Filter'/>
+        </table>
+      </div>
+      <div class='footer'>
+        <span class='tab'><a href='about_app.html' data-ajax='false'><img src='img/app.jpeg'/></a></span>
+        <span class='tab'><a href='share.html' data-ajax='false'><img src='img/share.jpeg'/></a></span>
+        <span class='tab'><a href='about_handbook.html' data-ajax='false'><img src='img/handbook.jpeg'/></a></span>
+      </div>
+    </div>
+  </body>
+</html>

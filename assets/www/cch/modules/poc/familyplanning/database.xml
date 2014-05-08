@@ -1,0 +1,1758 @@
+<?xml version="1.0" standalone="yes"?>
+
+<database>
+  <entries>
+    <entry-set>
+      <entry id="39683" name="PERSONAL CHARACTERISTICS AND REPRODUCTIVE HISTORY" type="category" methods="63508,11396,16443,13761,35939,76205,46175,41636,26804">
+        <entry-set>
+          <entry id="12345" name="Pregnant" type="condition" methods="63508,11396" />
+        </entry-set>
+        <entry-set>
+          <entry id="67619" name="Age" type="category" methods="">
+            <entry-set>
+              <entry id="30912" name="Menarche to &lt; 40 years" type="condition" methods="" />
+              <entry id="33983" name="Menarche to &lt; 18 years" type="condition" methods="" />
+              <entry id="29723" name="Age: Menarche to &lt; 20 years" type="condition" methods="" />
+              <entry id="42287" name="Young age" type="condition" methods="" />
+              <entry id="15022" name="&gt;= 40 years" type="condition" methods="" />
+              <entry id="49587" name="18 to 45 years" type="condition" methods="" />
+              <entry id="14444" name="&gt;= 20 years" type="condition" methods="" />
+              <entry id="54679" name="&gt;= 45 years" type="condition" methods="" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="13037" name="PARITY" type="category" methods="">
+            <entry-set>
+              <entry id="11721" name="Nulliparous (has not given birth)" type="condition" methods="" />
+              <entry id="16527" name="Parous (has given birth)" type="condition" methods="" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="12171" name="BREASTFEEDING" type="category" methods="63508,11396,16443,13761,35939,76205,46175,41636,26804">
+            <entry-set>
+              <entry id="3437d" name="Breastfeeding: Puerperal sepsis" type="condition" methods="63508,11396" />
+              <entry id="3576c" name="Breastfeeding: &lt; 48 hours postpartum" type="condition" methods="63508,16443,13761,35939,76205,46175,41636,26804" />
+              <entry id="d1088" name="Breastfeeding: 48 hours to 4 weeks postpartum" type="condition" methods="63508,11396,16443,13761,35939,76205,46175,41636,26804" />
+              <entry id="a2452" name="Breastfeeding: 4 weeks to 6 weeks postpartum" type="condition" methods="16443,13761,35939,76205,46175,41636,26804" />
+              <entry id="17060" name="Breastfeeding: 6 weeks to 6 months postpartum (primarily breastfeeding)" type="condition" methods="63508,11396,13761,35939,76205,26804" />
+              <entry id="37545" name="Breastfeeding: &gt;=6 months postpartum" type="condition" methods="" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="93302" name="POSTPARTUM (not breastfeeding)" type="category" methods="">
+            <entry-set>
+              <entry id="84e16" name="Postpartum: &lt; 21 days" type="condition" methods="26804,76205,35939,41636,46175,16443" />
+              <entry id="fcdec" name="Postpartum: &lt; 21 days with other added VTE risk factors" type="condition" methods="26804,76205,35939,41636,46175,16443" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="21191" name="POSTABORTION" type="category" methods="63508,11396">
+            <entry-set>
+              <entry id="33030" name="Postabortion: First trimester" type="condition" methods="" />
+              <entry id="29944" name="Postabortion: Second trimester" type="condition" methods="" />
+              <entry id="88163" name="Postabortion: Immediate post-septic abortion" type="condition" methods="63508,11396" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="29672" name="Past ectopic pregnancy" type="condition" methods="" />
+        </entry-set>
+        <entry-set>
+          <entry id="18896" name="History of pelvic surgery" type="condition" methods="" />
+        </entry-set>
+        <entry-set>
+          <entry id="12782" name="SMOKING" type="category" methods="13761,35939,26804,76205">
+            <entry-set>
+              <entry id="13249" name="Smoking: Age &lt; 35 years" type="condition" methods="" />
+              <entry id="83517" name="Smoking: Age &gt;= 35 years" type="condition" methods="13761,35939,26804,76205">
+                <entry-set>
+                  <entry id="79685" name="Smokes &lt; 15 cigarettes/day and Age &gt;= 35 years" type="condition" methods="13761,35939,26804" />
+                  <entry id="50228" name="Smokes &gt;=15 cigarettes/day and Age &gt;= 35 years" type="condition" methods="13761,35939,76205,26804" />
+                </entry-set>
+              </entry>
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="13252" name="Obesity" type="condition" methods="" />
+          <entry id="82088" name="Obesity: &gt;= 30 kg/m^2 body mass index" type="condition" methods="" />
+        </entry-set>
+      </entry>
+      <entry id="50761" name="CARDIOVASCULAR DISEASE" type="category" methods="13761,35939,76205,46175,26804,63508,16443,41636,11396">
+        <entry-set>
+          <entry id="41907" name="Multiple risk factors for arterial cardiovascular disease (older age, smoking, diabetes, and hypertension)" type="condition" methods="13761,35939,76205,46175,26804" />
+        </entry-set>
+        <entry-set>
+          <entry id="21347" name="Hypertension" type="category" methods="13761,35939,76205,26804,46175">
+            <entry-set>
+              <entry id="25306" name="Hypertension: History of hypertension, where blood pressure CANNOT be evaluated (including hypertension in pregnancy)" type="condition" methods="13761,35939,76205,26804" />
+              <entry id="38327" name="Hypertension: Adequately controlled hypertension, where blood pressure CAN be evaluated" type="condition" methods="13761,35939,76205,26804" />
+              <entry id="81407" name="Hypertension: Elevated blood pressure (properly measured)" type="condition" methods="13761,35939,76205,26804">
+                <entry-set>
+                  <entry id="61488" name="Hypertension: Elevated blood pressure (properly measured): Systolic 140-159 or diastolic 90-99" type="condition" methods="13761,35939,76205,26804" />
+                  <entry id="11901" name="Hypertension: Elevated blood pressure (properly measured): Systolic &gt;= 160 or diastolic &gt;= 100" type="condition" methods="13761,35939,76205,26804" />
+                </entry-set>
+              </entry>
+              <entry id="58349" name="Vascular disease" type="condition" methods="13761,35939,76205,46175,26804" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="10228" name="History of high blood pressure during pregnancy (where current blood pressure is measurable and normal)" type="condition" methods="" />
+        </entry-set>
+        <entry-set>
+          <entry id="13475" name="DEEP VENOUS THROMBOSIS (DVT)/PULMONARY EMBOLISM (PE)" type="category" methods="13761,35939,76205,26804,63508,16443,46175,41636">
+            <entry-set>
+              <entry id="57064" name="History of deep venous thrombosis (DVT)/pulmonary embolism (PE)" type="condition" methods="13761,35939,76205,26804" />
+            </entry-set>
+            <entry-set>
+              <entry id="44986" name="Acute deep venous thrombosis (DVT)/pulmonary embolism (PE)" type="condition" methods="63508,16443,13761,35939,76205,46175,41636,26804" />
+            </entry-set>
+            <entry-set>
+              <entry id="17743" name="Deep venous thrombosis (DVT)/pulmonary embolism (PE) and on anticoagulant therapy" type="condition" methods="13761,35939,76205,26804" />
+            </entry-set>
+            <entry-set>
+              <entry id="80314" name="Deep venous thrombosis (DVT)/Pulmonary embolism (PE): Family history of DVT/PE (first-degree relatives)" type="condition" methods="" />
+            </entry-set>
+            <entry-set>
+              <entry id="17648" name="Deep venous thrombosis (DVT)/Pulmonary embolism (PE): Major surgery" type="condition" methods="13761,35939,76205,26804">
+                <entry-set>
+                  <entry id="20437" name="Major surgery planned with prolonged immobilization" type="condition" methods="13761,35939,76205,26804" />
+                  <entry id="30788" name="Deep venous thrombosis (DVT)/Pulmonary embolism (PE): Major surgery: Without prolonged immobilization" type="condition" methods="" />
+                </entry-set>
+              </entry>
+              <entry id="81563" name="Deep venous thrombosis (DVT)/Pulmonary embolism (PE): Minor surgery without prolonged immobilization" type="condition" methods="" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="16270" name="Known thrombogenic mutations (e.g., Factor V Leiden, Prothrombin mutation; Protein S, Protein C, and Antithrombin deficiencies)" type="condition" methods="13761,35939,76205,26804" />
+        </entry-set>
+        <entry-set>
+          <entry id="73603" name="SUPERFICIAL VENUOUS THROMBOSIS" type="category" methods="">
+            <entry-set>
+              <entry id="88196" name="Superficial venous thrombosis: Varicose veins" type="condition" methods="" />
+              <entry id="21163" name="Superficial venous thrombosis: Superficial thrombophlebitis" type="condition" methods="" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="18752" name="ISCHEMIC HEART DISEASE" type="category" methods="63508,16443,13761,35939,76205,46175,41636,26804">
+            <entry-set>
+              <entry id="45695" name="Current ischemic heart disease" type="condition" methods="63508,16443,13761,35939,76205,46175,41636,26804" />
+              <entry id="19471" name="History of ischemic heart disease" type="condition" methods="63508,16443,13761,35939,76205,46175,41636,26804" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="19122" name="Stroke (history of cerebrovascular accident)" type="condition" methods="16443,13761,35939,76205,46175,41636,26804" />
+        </entry-set>
+        <entry-set>
+          <entry id="10704" name="Known hyperlipidemias" type="condition" methods="13761,35939,76205,26804" />
+        </entry-set>
+        <entry-set>
+          <entry id="28161" name="VALVULAR HEART DISEASE" type="category" methods="13761,35939,76205,26804">
+            <entry-set>
+              <entry id="83645" name="Valvular heart disease: Uncomplicated" type="condition" methods="" />
+              <entry id="60543" name="Valvular heart disease: Complicated" type="condition" methods="13761,35939,76205,26804" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="17538" name="SYSTEMIC LUPUS ERYTHEMATOSUS" type="category" methods="63508,16443,13761,35939,76205,46175,41636,26804,11396">
+            <entry-set>
+              <entry id="42824" name="Systemic lupus erythematosus with positive (or unknown) antiphospholipid antibodies" type="condition" methods="63508,16443,13761,35939,76205,46175,41636,26804" />
+              <entry id="86529" name="Systemic lupus erythematosus with severe thrombocytopenia" type="condition" methods="11396,46175" />
+              <entry id="14488" name="Immunosppresive Treatment" type="condition" methods="" />
+              <entry id="54681" name="None of the above" type="condition" methods="" />
+            </entry-set>
+          </entry>
+        </entry-set>
+      </entry>
+    </entry-set>
+    <entry-set>
+      <entry id="62777" name="NEUROLOGICAL CONDITIONS" type="category" methods="13761,35939,76205,26804,63508,16443,46175,41636">
+        <entry-set>
+          <entry id="81824" name="HEADACHES" type="category" methods="13761,35939,76205,26804,63508,16443,46175,41636">
+            <entry-set>
+              <entry id="43571" name="Headaches: Nonmigrainous (mild or severe)" type="condition" methods="" />
+              <entry id="16313" name="Headaches: Migraine" type="condition" methods="13761,35939,76205,26804,63508,16443,46175,41636">
+                <entry-set>
+                  <entry id="20187" name="Headaches: Migraine: Without aura" type="condition" methods="13761,35939,76205,26804">
+                    <entry-set>
+                      <entry id="42076" name="Migraine headaches without aura and Age &lt; 35" type="condition" methods="13761,35939,76205,26804" />
+                      <entry id="26522" name="Migraine headaches without aura and Age &gt;=35" type="condition" methods="13761,35939,76205,26804" />
+                    </entry-set>
+                  </entry>
+                  <entry id="28322" name="Migraine headaches with aura, at any age" type="condition" methods="63508,16443,13761,35939,76205,46175,41636,26804" />
+                </entry-set>
+              </entry>
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="13794" name="Epilepsy" type="condition" methods="" />
+        </entry-set>
+      </entry>
+    </entry-set>
+    <entry-set>
+      <entry id="94896" name="Depressive disorders" type="condition" methods="" />
+    </entry-set>
+    <entry-set>
+      <entry id="17285" name="REPRODUCTIVE TRACT INFECTIONS AND DISORDERS" type="category" methods="63508,11396,16443,46175,34415,13761,35939,76205,41636,26804">
+        <entry-set>
+          <entry id="18538" name="VAGINAL BLEEDING PATTERNS" type="category" methods="63508,11396,16443,46175">
+            <entry-set>
+              <entry id="61390" name="Vaginal bleeding patterns: Irregular pattern without heavy bleeding" type="condition" methods="" />
+              <entry id="39805" name="Vaginal bleeding patterns: Heavy or prolonged bleeding (including regular and irregular patterns)" type="condition" methods="" />
+            </entry-set>
+            <entry-set>
+              <entry id="47346" name="Unexplained vaginal bleeding (suspicious for serious condition), before evaluation" type="condition" methods="63508,11396,16443,46175" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="19850" name="Endometriosis" type="condition" methods="" />
+        </entry-set>
+        <entry-set>
+          <entry id="16552" name="Benign ovarian tumors (including cysts)" type="condition" methods="" />
+        </entry-set>
+        <entry-set>
+          <entry id="91172" name="Severe dysmenorrhea" type="condition" methods="" />
+        </entry-set>
+        <entry-set>
+          <entry id="82757" name="TROPHOBLAST DISEASE" type="category" methods="63508,11396">
+            <entry-set>
+              <entry id="36781" name="Trophoblast disease: Beta-hCG regression" type="condition" methods="63508,11396" />
+              <entry id="29793" name="Trophoblast disease: Beta-hCG elevation" type="condition" methods="63508,11396" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="66852" name="Cervical ectropion" type="condition" methods="" />
+        </entry-set>
+        <entry-set>
+          <entry id="87733" name="Cervical intraepithelial neoplasia (CIN)" type="condition" methods="34415" />
+        </entry-set>
+        <entry-set>
+          <entry id="21969" name="Cervical cancer (awaiting treatment)" type="condition" methods="34415,63508,11396" />
+        </entry-set>
+        <entry-set>
+          <entry id="49947" name="BREAST DISEASE" type="category" methods="63508,16443,13761,35939,76205,46175,41636,26804">
+            <entry-set>
+              <entry id="14380" name="Breast disease: Benign breast disease" type="condition" methods="" />
+            </entry-set>
+            <entry-set>
+              <entry id="81198" name="Breast disease: Family history of cancer" type="condition" methods="" />
+            </entry-set>
+            <entry-set>
+              <entry id="30404" name="Breast disease: Breast cancer" type="condition" methods="63508,16443,13761,35939,76205,46175,41636,26804">
+                <entry-set>
+                  <entry id="74089" name="Current breast cancer" type="condition" methods="63508,16443,13761,35939,76205,46175,41636,26804" />
+                  <entry id="30405" name="Past breast cancer, no evidence of disease for at least 5 years" type="condition" methods="" />
+                </entry-set>
+              </entry>
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="51984" name="Endometrial cancer" type="condition" methods="63508,11396" />
+        </entry-set>
+        <entry-set>
+          <entry id="44499" name="Ovarian cancer" type="condition" methods="63508,11396" />
+        </entry-set>
+        <entry-set>
+          <entry id="67965" name="UTERINE FIBROIDS" type="category" methods="63508,11396">
+            <entry-set>
+              <entry id="77794" name="Uterine fibroids: Without distortion of the uterine cavity" type="condition" methods="" />
+              <entry id="51639" name="Uterine fibroids: With distortion of the uterine cavity" type="condition" methods="63508,11396" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="76129" name="ANATOMICAL ABNORMALITIES" type="category" methods="63508,11396">
+            <entry-set>
+              <entry id="62199" name="Uterine fibroids: Without distortion of the uterine cavity" type="condition" methods="63508,11396" />
+              <entry id="50435" name="Uterine fibroids: With distortion of the uterine cavity" type="condition" methods="" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="79292" name="PELVIC INFLAMMATORY DISEASE" type="category" methods="63508,11396">
+            <entry-set>
+              <entry id="92529" name="Pelvic inflammatory disease (PID): Past PID (assuming no current risk factors for STIs): With subsequent pregnancy" type="condition" methods="">
+                <entry-set>
+                  <entry id="94445" name="Pelvic inflammatory disease (PID): Past PID (assuming no current risk factors for STIs): With subsequent pregnancy" type="condition" methods="" />
+                  <entry id="14228" name="Pelvic inflammatory disease (PID): Past PID (assuming no current risk factors for STIs): Without subsequent pregnancy" type="condition" methods="" />
+                </entry-set>
+              </entry>
+              <entry id="24554" name="Current pelvic inflammatory disease (PID)" type="condition" methods="63508,11396" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="25770" name="SEXUALLY TRANSMITTED INFECTIONS" type="category" methods="63508,11396">
+            <entry-set>
+              <entry id="69161" name="Sexually transmitted infections (STIs): Current purulent cervicitis, chlamydia, or gonorrhea" type="condition" methods="63508,11396" />
+            </entry-set>
+            <entry-set>
+              <entry id="28631" name="Sexually transmitted infections (STIs): Other STIs (excluding HIV and hepatitis)" type="condition" methods="" />
+            </entry-set>
+            <entry-set>
+              <entry id="26550" name="Sexually transmitted infections (STIs): Vaginitis (including trichomonas vaginalis and bacterial vaginosis)" type="condition" methods="" />
+            </entry-set>
+            <entry-set>
+              <entry id="15775" name="Sexually transmitted infections (STIs): At very high individual likelihood of exposure to gonorrhea or chlamydia" type="condition" methods="63508,11396" />
+            </entry-set>
+          </entry>
+        </entry-set>
+      </entry>
+    </entry-set>
+    <entry-set>
+      <entry id="56895" name="HIV/AIDS" type="category" methods="34415,14128,18266,63508,11396,13761,35939,76205,41636,26804">
+        <entry-set>
+          <entry id="20002" name="High risk of HIV" type="condition" methods="34415,14128,18266" />
+          <entry id="28072" name="HIV-infected" type="condition" methods="34415,14128,18266" />
+          <entry id="26780" name="AIDS" type="condition" methods="34415,14128,18266,63508,11396,13761,35939,76205,41636,26804">
+            <entry-set>
+              <entry id="1a768" name="AIDS: not on antiretroviral therapy" type="condition" methods="63508,11396" />
+              <entry id="13b47" name="AIDS: Treated with NRTIs and clinically well" type="condition" methods="" />
+              <entry id="85d52" name="AIDS: Treated with NRTIs and not clinically well" type="condition" methods="63508,11396" />
+              <entry id="1d63b" name="AIDS: Treated with NNRTIs and clinically well" type="condition" methods="" />
+              <entry id="faa63" name="AIDS: Treated with NNRTIs and not clinically well" type="condition" methods="63508,11396" />
+              <entry id="f3251" name="AIDS: Treated with ritonavir-boosted protease inhibitors and clinically well" type="condition" methods="13761,35939,76205,41636,26804" />
+              <entry id="12345" name="AIDS: Treated with ritonavir-boosted protease inhibitors and not clinically well" type="condition" methods="63508,11396,13761,35939,76205,41636,26804" />
+            </entry-set>
+          </entry>
+        </entry-set>
+      </entry>
+    </entry-set>
+    <entry-set>
+      <entry id="49991" name="OTHER INFECTIONS" type="category" methods="63508,11396">
+        <entry-set>
+          <entry id="26146" name="SCHISTOSOMIASIS" type="category" methods="">
+            <entry-set>
+              <entry id="77660" name="Schistosomiasis: Uncomplicated" type="condition" methods="" />
+              <entry id="28350" name="Schistosomiasis: Fibrosis of liver (if severe, see cirrhosis, next page)" type="condition" methods="" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="21383" name="TUBERCULOSIS" type="category" methods="63508,11396">
+            <entry-set>
+              <entry id="25488" name="Tuberculosis: Non-pelvic" type="condition" methods="" />
+              <entry id="22813" name="Tuberculosis: Known pelvic" type="condition" methods="63508,11396" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="90849" name="Malaria" type="condition" methods="" />
+        </entry-set>
+      </entry>
+    </entry-set>
+    <entry-set>
+      <entry id="12835" name="ENDOCRINE CONDITIONS" type="category" methods="13761,35939,76205,46175,26804">
+        <entry-set>
+          <entry id="92362" name="DIABETES" type="category" methods="13761,35939,76205,46175,26804">
+            <entry-set>
+              <entry id="27974" name="Diabetes: History of gestational diabetes" type="condition" methods="" />
+            </entry-set>
+            <entry-set>
+              <entry id="58143" name="Diabetes: Non-vascular diabetes" type="condition" methods="">
+                <entry-set>
+                  <entry id="46467" name="Diabetes: Non-vascular diabetes: Non-insulin dependent" type="condition" methods="" />
+                  <entry id="75381" name="Diabetes: Non-vascular diabetes: Insulin dependent" type="condition" methods="" />
+                </entry-set>
+              </entry>
+            </entry-set>
+            <entry-set>
+              <entry id="46623" name="Diabetes: With kidney, eye, or nerve damage" type="condition" methods="13761,35939,76205,46175,26804" />
+            </entry-set>
+            <entry-set>
+              <entry id="17474" name="Diabetes: Other vascular disease or diabetes of &gt;20 years&apos; duration" type="condition" methods="13761,35939,76205,46175,26804" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="90929" name="THYROID DISORDERS" type="category" methods="">
+            <entry-set>
+              <entry id="10049" name="Thyroid disorders: Simple goiter" type="condition" methods="" />
+              <entry id="36773" name="Thyroid disorders: Hyperthyroid" type="condition" methods="" />
+              <entry id="35451" name="Thyroid disorders: Hypothyroid" type="condition" methods="" />
+            </entry-set>
+          </entry>
+        </entry-set>
+      </entry>
+    </entry-set>
+    <entry-set>
+      <entry id="27745" name="GASTROINTESTINAL CONDITONS" type="category" methods="13761,35939,26804,76205,63508,16443,46175,41636">
+        <entry-set>
+          <entry id="13360" name="GALL BLADDER DISEASE" type="category" methods="13761,35939,26804">
+            <entry-set>
+              <entry id="49908" name="Gall bladder disease: Symptomatic" type="condition" methods="13761,35939,26804">
+                <entry-set>
+                  <entry id="41819" name="Gall bladder disease: Symptomatic: Treated by cholecystectomy" type="condition" methods="" />
+                  <entry id="49793" name="Symptomatic gall bladder disease: Medically treated" type="condition" methods="13761,35939,26804" />
+                  <entry id="12161" name="Gall bladder disease: Symptomatic: Current" type="condition" methods="35939,26804" />
+                </entry-set>
+              </entry>
+              <entry id="44947" name="Gall bladder disease: Asymptomatic" type="condition" methods="" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="40101" name="HISTORY OF CHOLESTASIS" type="category" methods="13761,35939,26804">
+            <entry-set>
+              <entry id="63137" name="History of cholestasis: Pregnancy-related" type="condition" methods="" />
+              <entry id="84482" name="History of cholestasis: Past combined oral contraceptives-related" type="condition" methods="" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="67185" name="VIRAL HEPATITIS" type="category" methods="13761,35939,76205,26804">
+            <entry-set>
+              <entry id="12034" name="Viral hepatitis: Airal hepatitcute or Flare" type="condition" methods="13761,35939,76205,26804" />
+              <entry id="12732" name="Viral hepatitis: Carrier" type="condition" methods="" />
+              <entry id="12572" name="Viral hepatitis: Chronic" type="condition" methods="" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="14655" name="CIRRHOSIS" type="category" methods="63508,16443,13761,35939,76205,46175,41636,26804">
+            <entry-set>
+              <entry id="24280" name="Cirrhosis: Mild (compensated)" type="condition" methods="" />
+              <entry id="32307" name="Cirrhosis: Severe (decompensated)" type="condition" methods="63508,16443,13761,35939,76205,46175,41636,26804" />
+            </entry-set>
+          </entry>
+          <entry id="74689" name="LIVER TUMORS" type="category" methods="63508,16443,13761,35939,76205,46175,41636,26804">
+            <entry-set>
+              <entry id="43523" name="Liver tumors: Focal nodular hyperplasia" type="condition" methods="" />
+              <entry id="93005" name="Liver tumors: Hepatocellular adenoma" type="condition" methods="63508,16443,13761,35939,76205,46175,41636,26804" />
+              <entry id="13423" name="Liver tumors: Malignant (hepatoma)" type="condition" methods="63508,16443,13761,35939,76205,46175,41636,26804" />
+            </entry-set>
+          </entry>
+        </entry-set>
+      </entry>
+    </entry-set>
+    <entry-set>
+      <entry id="10608" name="ANEMIAS" type="category" methods="">
+        <entry-set>
+          <entry id="13163" name="Thalassemia" type="condition" methods="" />
+        </entry-set>
+        <entry-set>
+          <entry id="16524" name="Sickle cell disease" type="condition" methods="" />
+        </entry-set>
+        <entry-set>
+          <entry id="26196" name="Iron-deficiency anemia" type="condition" methods="" />
+        </entry-set>
+      </entry>
+    </entry-set>
+    <entry-set>
+      <entry id="42629" name="DRUG INTERACTIONS" type="category" methods="13761,35939,41636,26804,76205">
+        <entry-set>
+          <entry id="13054" name="ANTICONVULSANT THERAPY" type="category" methods="13761,35939,41636,26804,76205">
+            <entry-set>
+              <entry id="70508" name="Anticonvulsant therapy: Certain anticonvulsants (phenytoin, carbamazepine, barbiturates, primidone, topiramate, oxcarbazepine)" type="condition" methods="13761,35939,41636,26804" />
+            </entry-set>
+            <entry-set>
+              <entry id="36054" name="Anticonvulsant therapy: Lamotrigine" type="condition" methods="13761,35939,76205,26804" />
+            </entry-set>
+          </entry>
+        </entry-set>
+        <entry-set>
+          <entry id="78647" name="ANTIMICROBIAL THERAPY" type="category" methods="13761,35939,41636,26804">
+            <entry-set>
+              <entry id="16917" name="Antimicrobial therapy: Broadspectrum antibiotics" type="condition" methods="" />
+            </entry-set>
+            <entry-set>
+              <entry id="20707" name="Antimicrobial therapy: Antifungals" type="condition" methods="" />
+            </entry-set>
+            <entry-set>
+              <entry id="25571" name="Antimicrobial therapy: Antiparasitics" type="condition" methods="" />
+            </entry-set>
+            <entry-set>
+              <entry id="25106" name="Antimicrobial therapy: Rifampicin or rifabutin therapy" type="condition" methods="13761,35939,41636,26804" />
+            </entry-set>
+          </entry>
+        </entry-set>
+      </entry>
+    </entry-set>
+    <entry-set>
+      <entry id="22437" name="OTHERS" type="category" methods="34415,14128,38010">
+        <entry-set>
+          <entry id="88292" name="History of toxic shock syndrome" type="condition" methods="34415,14128" />
+        </entry-set>
+        <entry-set>
+          <entry id="39572" name="Urinary tract infection" type="condition" methods="" />
+        </entry-set>
+        <entry-set>
+          <entry id="21127" name="Allergy to latex" type="condition" methods="34415,14128,38010" />
+        </entry-set>
+      </entry>
+    </entry-set>
+  </entries>
+  <methods>
+    <method id="24348" recommendable="true" name="Lactational Amenorrhea Method" summary="A temporary family planning method based on the natural effect of breastfeeding on fertility." description="&lt;p&gt;A temporary family planning method based on the natural effect of breastfeeding on fertility.(&quot;Lactational&quot; means related to breastfeeding. &quot;Amenorrhea&quot; means not having monthly bleeding.)&lt;/p&gt;&lt;p&gt;Women with HIV or AIDS should receive appropriate antiretroviral therapy and exclusively breastfeed for the first 6 months of a baby&apos;s life, introduce appropriate complementary foods at 6 months, and continue breastfeeding through 12 months.&lt;/p&gt;&lt;p&gt;The lactational amenorrhea method (LAM) requires 3 conditions. All 3 must be met:&lt;ul&gt;&lt;p&gt;&lt;div&gt;1. The mother&apos;s monthly bleeding has not returned&lt;/div&gt;&lt;/p&gt;&lt;p&gt;2. The baby is fully or nearly fully breastfed and is fed often, day and night&lt;/div&gt;&lt;/p&gt;&lt;p&gt;3. The baby is less than 6 months old&lt;/p&gt;&lt;p&gt;&quot;Fully breastfeeding&quot; includes both exclusive breastfeeding (the infant receives no other liquid or food, not even water, in addition to breast milk) and almost-exclusive breastfeeding (the infant receives vitamins, water, juice, or other nutrients once in a while in addition to breast milk).&lt;/p&gt;&lt;p&gt;&quot;Nearly fully breastfeeding&quot; means that the infant receives some liquid or food in addition to breast milk, but the majority of feedings (more than three-fourths of all feeds) are breast milk.&lt;/p&gt;&lt;p&gt;Works primarily by preventing the release of eggs from the ovaries (ovulation). Frequent breastfeeding temporarily prevents the release of the natural hormones that cause ovulation.&lt;/p&gt;" effectiveness="&lt;p&gt;Effectiveness depends on the user: Risk of pregnancy is greatest when a woman cannot fully or nearly fully breastfeed her infant.&lt;/p&gt;&lt;p&gt;As commonly used, about 2 pregnancies per 100 women using LAM in the first 6 months after childbirth. This means that 98 of every 100 women relying on LAM will not become pregnant.&lt;/p&gt;&lt;p&gt;When used correctly, less than 1 pregnancy per 100 women using LAM in the first 6 months after childbirth.&lt;/p&gt;&lt;p&gt;Return of fertility after LAM is stopped: Depends on how much the woman continues to breastfeed&lt;/p&gt;&lt;p&gt;Protection against sexually transmitted infections (STIs): None&lt;/p&gt;" effects="&lt;p&gt;None. Any problems are the same as for other breastfeeding women.&lt;/p&gt;" icon="img/lam_icon.jpg" correctUseEffectiveness="0.9" commonUseEffectiveness="2" benefits="&lt;p&gt;Help protect against:&lt;/p&gt;&lt;p&gt;- Risks of pregnancy&lt;/p&gt;&lt;p&gt;Encourages:&lt;/p&gt;&lt;p&gt;- The best breastfeeding patterns, with health benefits for both mother and baby&lt;/p&gt;" risks="&lt;p&gt;None&lt;/p&gt;" complications="" />
+    <method id="18572" recommendable="false" name="Withdrawal" summary="The man withdraws his penis from his partner&apos;s vagina and ejaculates outside the vagina." description="&lt;p&gt;The man withdraws his penis from his partner&apos;s vagina and ejaculates outside the vagina, keeping his semen away from her external genitalia.&lt;/p&gt;&lt;p&gt;Also known as coitus interruptus and &quot;pulling out.&quot;&lt;/p&gt;&lt;p&gt;Works by keeping sperm out of the woman&apos;s body.&lt;/p&gt;" effectiveness="&lt;p&gt;Effectiveness depends on the user: Risk of pregnancy is greatest when the man does not withdraw his penis from the vagina before he ejaculates with every act of sex.&lt;/p&gt;&lt;p&gt;One of the least effective methods, as commonly used.&lt;/p&gt;&lt;p&gt;As commonly used, about 27 pregnancies per 100 women whose partner uses withdrawal over the first year. This means that 73 of every 100 women whose partners use withdrawal will not become pregnant.&lt;/p&gt;&lt;p&gt;When used correctly with every act of sex, about 4 pregnancies per 100 women whose partners use withdrawal over the first year.&lt;/p&gt;&lt;p&gt;Return of fertility after use of withdrawal is stopped: No delay&lt;/p&gt;&lt;p&gt;Protection against sexually transmitted infections: None&lt;/p&gt;" effects="&lt;p&gt;None&lt;/p&gt;" icon="img/withdrawal_icon.jpg" correctUseEffectiveness="4" commonUseEffectiveness="27" benefits="" risks="" complications="" />
+    <method id="36645" recommendable="false" name="Fertility Awareness Methods" summary="&apos;Fertility awareness&apos; means that a woman knows how to tell when the fertile time of her menstrual cycle starts and ends." description="&lt;p&gt;&quot;Fertility awareness&quot; means that a woman knows how to tell when the fertile time of her menstrual cycle starts and ends. (The fertile time is when she can become pregnant.)&lt;/p&gt;&lt;p&gt;Sometimes called periodic abstinence or natural family planning.&lt;/p&gt;&lt;p&gt;A woman can use several ways, alone or in combination, to tell when her fertile time begins and ends.&lt;/p&gt;&lt;p&gt;Calendar-based methods involve keeping track of days of the menstrual cycle to identify the start and end of the fertile time.&lt;ul&gt;&lt;p&gt;&lt;div&gt;- Examples: Standard Days Method and calendar rhythm method.&lt;/div&gt;&lt;/p&gt;&lt;/ul&gt;&lt;/p&gt;&lt;p&gt;Symptoms-based methods depend on observing signs of fertility.&lt;ul&gt;&lt;p&gt;&lt;div&gt;- Cervical secretions: When a woman sees or feels cervical secretions, she may be fertile. She may feel just a little vaginal wetness.&lt;/div&gt;&lt;/p&gt;&lt;p&gt;- Basal body temperature (BBT): A woman&apos;s resting body temperature goes up slightly after the release of an egg (ovulation), when she could become pregnant. Her temperature stays higher until the beginning of her next monthly bleeding.&lt;/div&gt;&lt;/p&gt;&lt;p&gt; - Examples: TwoDay Method, BBT method, ovulation method (also known as Billings method or cervical mucus method), and the symptothermal method.&lt;/div&gt;&lt;/p&gt;&lt;/ul&gt;&lt;/p&gt;&lt;p&gt;Work primarily by helping a woman know when she could become pregnant. The couple prevents pregnancy by avoiding unprotected vaginal sex during these fertile days - usually by abstaining or by using condoms or a diaphragm. Some couples use spermicides or withdrawal, but these are among the least effective methods.&lt;/p&gt;" effectiveness="&lt;p&gt;Effectiveness depends on the user: Risk of pregnancy is greatest when couples have sex on the fertile days without using another method.&lt;/p&gt;&lt;p&gt;As commonly used, in the first year about 25 pregnancies per 100 women using periodic abstinence. (How these women identified their fertile time is not known. Pregnancy rates for most of the specific fertility awareness methods as commonly used are not available.) This means that 75 of every 100 women relying on periodic abstinence will not become pregnant. Some newer fertility awareness methods may be easier to use and, thus, more effective.&lt;/p&gt;&lt;p&gt;Pregnancy rates with consistent and correct use vary for different types of fertility awareness methods.&lt;/p&gt;&lt;p&gt;In general, abstaining during fertile times is more effective than using another method during fertile times.&lt;/p&gt;&lt;p&gt;Return of fertility after fertility awareness methods are stopped: No delay&lt;/p&gt;&lt;p&gt;Protection against sexually transmitted infections (STIs): None&lt;/p&gt;" effects="&lt;p&gt;None&lt;/p&gt;" icon="img/fam_icon.jpg" correctUseEffectiveness="25" commonUseEffectiveness="25" benefits="&lt;p&gt;Help protect against:&lt;/p&gt;&lt;p&gt;- Risks of pregnancy&lt;/p&gt;" risks="&lt;p&gt;None&lt;/p&gt;" complications="" />
+    <method id="34415" recommendable="true" name="Cervical Caps" summary="A soft, deep, latex or plastic rubber cup that snugly covers the cervix." description="&lt;p&gt;&lt;p&gt;A soft, deep, latex or plastic rubber cup that snugly covers the cervix.&lt;/p&gt;&lt;p&gt;Comes in different sizes; requires fitting by a specifically trained provider.&lt;/p&gt;&lt;p&gt;The cervical cap works by blocking sperm from entering the cervix; spermicides kill or disable sperm. Both keep sperm from meeting an egg.&lt;/p&gt;&lt;p&gt;Different brand names include FemCap and Leah&apos;s Shield.&lt;/p&gt;" effectiveness="&lt;p&gt;Effectiveness depends on the user: Risk of pregnancy is greatest when the cervical cap with spermicide is not used with every act of sex.&lt;/p&gt;&lt;p&gt;Women who have given birth:&lt;/p&gt;&lt;p&gt;One of the least effective methods, as commonly used.&lt;/p&gt;&lt;p&gt;As commonly used, about 32 pregnancies per 100 women using the cervical cap with spermicide over the first year. This means that 68 of every 100 women using the cervical cap will not become pregnant.&lt;/p&gt;&lt;p&gt;When used correctly with every act of sex, about 20 pregnancies per 100 women using the cervical cap over the first year.&lt;/p&gt;&lt;p&gt;More effective among women who have not given birth:&lt;/p&gt;&lt;p&gt;As commonly used, about 16 pregnancies per 100 women using the cervical cap with spermicide over the first year. This means that 84 of every 100 women using the cervical cap will not become pregnant.&lt;/p&gt;&lt;p&gt;When used correctly with every act of sex, about 9 pregnancies per 100 women using the cervical cap over the first year.&lt;/p&gt;&lt;p&gt;Return of fertility after use of cervical cap is stopped: No delay&lt;/p&gt;&lt;p&gt;Protection against sexually transmitted infections: None.&lt;/p&gt;" effects="&lt;p&gt;Some users report the following:&lt;/p&gt;&lt;p&gt;Irritation in or around the vagina or penis&lt;/p&gt;&lt;p&gt;Other possible physical changes:&lt;/p&gt;&lt;p&gt;Vaginal lesions&lt;/p&gt;" icon="img/cervical_cap_icon.jpg" correctUseEffectiveness="26" commonUseEffectiveness="32" benefits="&lt;p&gt;Help protect against:&lt;/p&gt;&lt;p&gt;- Risks of pregnancy&lt;/p&gt;&lt;p&gt;May help protect against:&lt;/p&gt;&lt;p&gt;- Certain STIs (chlamydia, gonorrhea, pelvic inflammatory disease, trichomoniasis)&lt;/p&gt;&lt;p&gt;- Cervical precancer and cancer&lt;/p&gt;" risks="&lt;p&gt;Common to uncommon:&lt;/p&gt;&lt;p&gt;- Urinary tract infection&lt;/p&gt;&lt;p&gt;Uncommon:&lt;/p&gt;&lt;p&gt;- Bacterial vaginosis&lt;/p&gt;&lt;p&gt;- Candidiasis&lt;/p&gt;&lt;p&gt;Rare:&lt;/p&gt;&lt;p&gt;- Frequent use of nonoxynol-9 may increase risk of HIV infection&lt;/p&gt;&lt;p&gt;Extremely rare:&lt;/p&gt;&lt;p&gt;Toxic shock syndrome&lt;/p&gt;" complications="" />
+    <method id="14128" recommendable="true" name="Diaphragms" summary="A soft latex cup that covers the cervix." description="&lt;p&gt;A soft latex cup that covers the cervix. Plastic and silicone diaphragms may also be available.&lt;/p&gt;&lt;p&gt;The rim contains a firm, flexible spring that keeps the diaphragm in place.&lt;/p&gt;&lt;p&gt;Used with spermicidal cream, jelly, or foam to improve effectiveness.&lt;/p&gt;&lt;p&gt;Comes in different sizes and requires fitting by a specifically trained provider. A one-size-fits-all diaphragm may become available. It would not require seeing a provider for fitting.&lt;/p&gt;&lt;p&gt;Works by blocking sperm from entering the cervix; spermicide kills or disables sperm. Both keep sperm from meeting an egg.&lt;/p&gt;" effectiveness="&lt;p&gt;Effectiveness depends on the user: Risk of pregnancy is greatest when the diaphragm with spermicide is not used with every act of sex.&lt;/p&gt;&lt;p&gt;As commonly used, about 16 pregnancies per 100 women using the diaphragm with spermicide over the first year. This means that 84 of every 100 women using the diaphragm will not become pregnant.&lt;/p&gt;&lt;p&gt;When used correctly with every act of sex, about 6 pregnancies per 100 women using the diaphragm with spermicide over the first year.&lt;/p&gt;&lt;p&gt;Return of fertility after use of the diaphragm is stopped: No delay&lt;/p&gt;&lt;p&gt;Protection against STIs: May provide some protection against certain STIs but should not be relied on for STI prevention.&lt;/p&gt;" effects="&lt;p&gt;Some users report the following:&lt;/p&gt;&lt;p&gt;Irritation in or around the vagina or penis&lt;/p&gt;&lt;p&gt;Other possible physical changes:&lt;/p&gt;&lt;p&gt;Vaginal lesions&lt;/p&gt;" icon="img/diaphragm_icon.jpg" correctUseEffectiveness="6" commonUseEffectiveness="16" benefits="&lt;p&gt;Help protect against:&lt;/p&gt;&lt;p&gt;- Risks of pregnancy&lt;/p&gt;&lt;p&gt;May help protect against:&lt;/p&gt;&lt;p&gt;- Certain STIs (chlamydia, gonorrhea, pelvic inflammatory disease, trichomoniasis)&lt;/p&gt;&lt;p&gt;- Cervical precancer and cancer&lt;/p&gt;" risks="&lt;p&gt;Common to uncommon:&lt;/p&gt;&lt;p&gt;- Urinary tract infection&lt;/p&gt;&lt;p&gt;Uncommon:&lt;/p&gt;&lt;p&gt;- Bacterial vaginosis&lt;/p&gt;&lt;p&gt;- Candidiasis&lt;/p&gt;&lt;p&gt;Rare:&lt;/p&gt;&lt;p&gt;- Frequent use of nonoxynol-9 may increase risk of HIV infection&lt;/p&gt;&lt;p&gt;Extremely rare:&lt;/p&gt;&lt;p&gt;Toxic shock syndrome&lt;/p&gt;" complications="" />
+    <method id="18266" recommendable="true" name="Spermicides" summary="Sperm-killing substances inserted deep in the vagina, near the cervix, before sex." description="&lt;p&gt;Sperm-killing substances inserted deep in the vagina, near the cervix, before sex.&lt;ul&gt;&lt;li&gt;&lt;div&gt;Nonoxynol-9 is most widely used.&lt;/div&gt;&lt;/li&gt;&lt;li&gt;Others include benzalkonium chloride, chlorhexidine, menfegol, octoxynol-9, and sodium docusate.&lt;/div&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;p&gt;Available in foaming tablets, melting or foaming suppositories, cans of pressurized foam, melting film, jelly, and cream.&lt;ul&gt;&lt;li&gt;&lt;div&gt;Jellies, creams, and foam from cans can be used alone, with a diaphragm, or with condoms.&lt;/div&gt;&lt;/li&gt;&lt;li&gt;Films, suppositories, foaming tablets, or foaming suppositories can be used alone or with condoms.&lt;/div&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;p&gt;Work by causing the membrane of sperm cells to break, killing them or slowing their movement. This keeps sperm from meeting an egg.&lt;/p&gt;" effectiveness="&lt;p&gt;Effectiveness depends on the user: Risk of pregnancy is greatest when spermicides are not used with every act of sex.&lt;/p&gt;&lt;p&gt;One of the least effective family planning methods.&lt;/p&gt;&lt;p&gt;As commonly used, about 29 pregnancies per 100 women using spermicides over the first year. This means that 71 of every 100 women using spermicides will not become pregnant.&lt;/p&gt;&lt;p&gt;When used correctly with every act of sex, about 18 pregnancies per 100 women using spermicides over the first year.&lt;/p&gt;&lt;p&gt;Return of fertility after spermicides are stopped: No delay&lt;/p&gt;&lt;p&gt;Protection against sexually transmitted infections (STIs): None. Frequent use of nonoxynol-9 may increase risk of HIV infection&lt;/p&gt;" effects="&lt;p&gt;Some users report the following:&lt;/p&gt;&lt;p&gt;Irritation in or around the vagina or penis&lt;/p&gt;&lt;p&gt;Other possible physical changes:&lt;/p&gt;&lt;p&gt;Vaginal lesions&lt;/p&gt;" icon="img/spermicides_icon.jpg" correctUseEffectiveness="18" commonUseEffectiveness="29" benefits="&lt;p&gt;Help protect against:&lt;/p&gt;&lt;p&gt;- Risks of pregnancy&lt;/p&gt;" risks="&lt;p&gt;Uncommon:&lt;/p&gt;&lt;p&gt;- Urinary tract infection, especially when using spermicides 2 or more times a day&lt;/p&gt;&lt;p&gt;Rare:&lt;/p&gt;&lt;p&gt;- Frequent use of nonoxynol-9 &#13;may increase risk of HIV infection&lt;/p&gt;" complications="" />
+    <method id="38820" recommendable="true" name="Female Condoms" summary="Sheaths, or linings, that fit loosely inside a woman&apos;s vagina, made of thin, transparent, soft plastic film." description="&lt;p&gt;Sheaths, or linings, that fit loosely inside a woman&apos;s vagina, made of thin, transparent, soft plastic film.&lt;ul&gt;&lt;li&gt;&lt;div&gt;Have flexible rings at both ends&lt;/div&gt;&lt;/li&gt;&lt;li&gt;One ring at the closed end helps to insert the condom. &lt;/div&gt;&lt;/li&gt;&lt;li&gt;The ring at the open end holds part of the condom outside the vagina&lt;/div&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;p&gt;Different brand names include Care, Dominique, FC Female Condom, Femidom, Femy, Myfemy, Protectiv&apos;, Reality and Woman&apos;s Condom.&lt;/p&gt;&lt;p&gt;Lubricated with a silicone-based lubricant on the inside and outside.&lt;/p&gt;&lt;p&gt;Rubber female condoms are available in some countries. Different brand names include: L&apos;amour, Reddy Female Condom, V Amour, and VA w.o.w. Condom Feminine, which are made of latex, and the FC 2 Female Condom, made of nitrile.&lt;/p&gt;&lt;p&gt;Work by forming a barrier that keeps sperm out of the vagina, preventing pregnancy. Also keep infections in semen, on the penis, or in the vagina from infecting the other partner.&lt;/p&gt;" effectiveness="&lt;p&gt;Effectiveness depends on the user: Risk of pregnancy or sexually transmitted infection (STI) is greatest when female condoms are not used with every act of sex. Few pregnancies or infections occur due to incorrect use, slips, or breaks.&lt;/p&gt;&lt;p&gt;Protection against pregnancy:&lt;/p&gt;&lt;p&gt;As commonly used, about 21 pregnancies per 100 women using female condoms over the first year. This means that 79 of every 100 women using female condoms will not become pregnant.&lt;/p&gt;&lt;p&gt;When used correctly with every act of sex, about 5 pregnancies per 100 women using female condoms over the first year.&lt;/p&gt;&lt;p&gt;Return of fertility after use of female condom is stopped: No delay&lt;/p&gt;&lt;p&gt;Protection against HIV and other STIs:&lt;/p&gt;&lt;p&gt;Female condoms reduce the risk of infection with STIs, including HIV, when used correctly with every act of sex.&lt;/p&gt;" effects="&lt;p&gt;None&lt;/p&gt;" icon="img/female_condoms_icon.jpg" correctUseEffectiveness="5" commonUseEffectiveness="21" benefits="&lt;p&gt;Help protect against:&lt;/p&gt;&lt;p&gt;- Risks of pregnancy&lt;/p&gt;&lt;p&gt;- STIs, including HIV&lt;/p&gt;" risks="&lt;p&gt;None&lt;/p&gt;" complications="" />
+    <method id="38010" recommendable="true" name="Male Condoms" summary="Sheaths, or coverings, that fit over a man&apos;s erect penis." description="&lt;p&gt;Sheaths, or coverings, that fit over a man&apos;s erect penis.&lt;/p&gt;&lt;p&gt;Also called rubbers, &quot;raincoats,&quot; &quot;umbrellas,&quot; skins, and prophylactics; known by many different brand names.&lt;/p&gt;&lt;p&gt;Most are made of thin latex rubber.&lt;/p&gt;&lt;p&gt;Work by forming a barrier that keeps sperm out of the vagina, preventing pregnancy. Also keep infections in semen, on the penis, or in the vagina from infecting the other partner.&lt;/p&gt;" effectiveness="&lt;p&gt;Effectiveness depends on the user: Risk of pregnancy or sexually transmitted infection (STI) is greatest when condoms are not used with every act of sex. Very few pregnancies or infections occur due to incorrect use, slips, or breaks.&lt;/p&gt;&lt;p&gt;Protection against pregnancy:&lt;/p&gt;&lt;p&gt;As commonly used, about 15 pregnancies per 100 women whose partners use male condoms over the first year. This means that 85 of every 100 women whose partners use male condoms will not become pregnant.&lt;/p&gt;&lt;p&gt;When used correctly with every act of sex, about 2 pregnancies per 100 women whose partners use male condoms over the first year.&lt;/p&gt;&lt;p&gt;Return of fertility after&#160;use of condoms is stopped: No delay&lt;/p&gt;&lt;p&gt;Protection against HIV and other STIs:&lt;/p&gt;&lt;p&gt;Male condoms significantly reduce the risk of becoming infected with HIV when used correctly with every act of sex.&lt;/p&gt;&lt;p&gt;When used consistently and correctly, condom use prevents 80% to 95% of HIV transmission that would have occurred without condoms.&lt;/p&gt;&lt;p&gt;Condoms reduce the risk of becoming infected with many STIs when used consistently and correctly.&lt;/p&gt;&lt;p&gt;- Protect best against STIs spread by discharge, such as HIV, gonorrhea, and chlamydia.&lt;/p&gt;&lt;p&gt;- Also protect against STIs spread by skin-to-skin contact, such as herpes and human papillomavirus.&lt;/p&gt;" effects="&lt;p&gt;None&lt;/p&gt;" icon="img/male_coondoms_icon.jpg" correctUseEffectiveness="2" commonUseEffectiveness="15" benefits="&lt;p&gt;Help protect against:&lt;/p&gt;&lt;p&gt;- Risks of pregnancy&lt;/p&gt;&lt;p&gt;- STIs, including HIV&lt;/p&gt;&lt;p&gt;May help protect against:&lt;/p&gt;&lt;p&gt;- Conditions caused by STIs&lt;/p&gt;&lt;p&gt;- Recurring pelvic inflammatory disease and chronic pelvic pain&lt;/p&gt;&lt;p&gt;- Cervical cancer&lt;/p&gt;&lt;p&gt;- Infertility (male and female)&lt;/p&gt;" risks="&lt;p&gt;Extremely rare:&lt;/p&gt;&lt;p&gt;- Severe allergic reaction (among people with latex allergy)&lt;/p&gt;" complications="" />
+    <method id="19707" recommendable="true" name="Vasectomy" summary="Permanent contraception for men who will not want more children." description="&lt;p&gt;Permanent contraception for men who will not want more children.&lt;/p&gt;&lt;p&gt;Through a puncture or small incision in the scrotum, the provider locates each of the 2 tubes that carries sperm to the penis (vas deferens) and cuts or blocks it by cutting and tying it closed or by applying heat or electricity (cautery).&lt;/p&gt;&lt;p&gt;Also called male sterilization and male surgical contraception.&lt;/p&gt;&lt;p&gt;Works by closing off each vas deferens, keeping sperm out of semen. Semen is ejaculated, but it cannot cause pregnancy.&lt;/p&gt;" effectiveness="&lt;p&gt;One of the most effective methods but carries a small risk of failure:&lt;/p&gt;&lt;p&gt;Where men cannot have their semen examined 3 months after the procedure to see if it still contains sperm, pregnancy rates are about 2 to 3 per 100 women over the first year after their partners have had a vasectomy. This means that 97 to 98 of every 100 women whose partners have had vasectomies will not become pregnant.&lt;/p&gt;&lt;p&gt;Where men can have their semen examined after vasectomy, less than 1 pregnancy per 100 women over the first year after their partners have had vasectomies (2 per 1,000). This means that 998 of every 1,000 women whose partners have had vasectomies will not become pregnant.&lt;/p&gt;&lt;p&gt;Vasectomy is not fully effective for 3 months after the procedure.&lt;/p&gt;&lt;p&gt;- Some pregnancies occur within the first year because the couple does not use condoms or another effective method consistently and correctly in the first 3 months, before the vasectomy is fully effective.&lt;/p&gt;&lt;p&gt;A small risk of pregnancy remains beyond the first year after the vasectomy and until the man&apos;s partner reaches menopause.&lt;/p&gt;&lt;p&gt;- Over 3 years of use: About 4 pregnancies per 100 women&lt;/p&gt;&lt;p&gt;If the partner of a man who has had a vasectomy becomes pregnant, it may be because:&lt;/p&gt;&lt;p&gt;- The couple did not always use another method during the first 3 months after the procedure&lt;/p&gt;&lt;p&gt;- The provider made a mistake&lt;/p&gt;&lt;p&gt;- The cut ends of the vas deferens grew back together&lt;/p&gt;&lt;p&gt;Fertility does not return because vasectomy generally cannot be stopped or reversed. The procedure is intended to be permanent. Reversal surgery is difficult, expensive, and not available in most areas. When performed, reversal surgery often does not lead to pregnancy.&lt;/p&gt;&lt;p&gt;Protection against sexually transmitted infections (STIs): None.&lt;/p&gt;" effects="&lt;p&gt;None&lt;/p&gt;" icon="img/vasectomy_icon.jpg" correctUseEffectiveness="0.1" commonUseEffectiveness="0.15" benefits="" risks="&lt;p&gt;None&lt;/p&gt;" complications="&lt;p&gt;Uncommon to rare:&lt;/p&gt;&lt;p&gt;Severe scrotal or testicular pain that lasts for months or years.&lt;/p&gt;&lt;p&gt;Uncommon to very rare:&lt;/p&gt;&lt;p&gt;Infection at the incision site or inside the incision (uncommon with conventional incision technique; very rare with no-scalpel technique).&lt;/p&gt;&lt;p&gt;Rare:&lt;/p&gt;&lt;p&gt;Bleeding under the skin that may cause swelling or bruising (hematoma).&lt;/p&gt;" />
+    <method id="83467" recommendable="true" name="Female Sterilization" summary="Permanent contraception for women who will not want more children." description="&lt;p&gt;Permanent contraception for women who will not want more children.&lt;/p&gt;&lt;p&gt;The 2 surgical approaches most often used:&lt;ul&gt;&lt;li&gt;&lt;div&gt;Minilaparotomy involves making a small incision in the abdomen. The fallopian tubes are brought to the incision to be cut or blocked.&lt;/div&gt;&lt;/li&gt;&lt;li&gt;Laparoscopy involves inserting a long thin tube with a lens in it into the abdomen through a small incision. This laparoscope enables the doctor to see and block or cut the fallopian tubes in the abdomen.&lt;/div&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;p&gt;Also called tubal sterilization, tubal ligation, voluntary surgical contraception, tubectomy, bi-tubal ligation, tying the tubes, minilap, and &quot;the operation.&quot;&lt;/p&gt;&lt;p&gt;Works because the fallopian tubes are blocked or cut. Eggs released from the ovaries cannot move down the tubes, and so they do not meet sperm.&lt;/p&gt;" effectiveness="&lt;p&gt;One of the most effective methods but carries a small risk of failure:&lt;/p&gt;&lt;p&gt;Less than 1 pregnancy per 100 women over the first year after having the sterilization procedure (5 per 1,000). This means that 995 of every 1,000 women relying on female sterilization will not become pregnant.&lt;/p&gt;&lt;p&gt;A small risk of pregnancy remains beyond the first year of use and until the woman reaches menopause.&lt;/p&gt;&lt;p&gt;- Over 10 years of use: About 2 pregnancies per 100 women (18 to 19 per 1,000 women).&lt;/p&gt;&lt;p&gt;Effectiveness varies slightly depending on how the tubes are blocked, but pregnancy rates are low with all techniques. One of the most effective techniques is cutting and tying the cut ends of the fallopian tubes after childbirth (postpartum tubal ligation).&lt;/p&gt;&lt;p&gt;Fertility does not return because sterilization generally cannot be stopped or reversed. The procedure is intended to be permanent. Reversal surgery is difficult, expensive, and not available in most areas. When performed, reversal surgery often does not lead to pregnancy.&lt;/p&gt;&lt;p&gt;Protection against sexually transmitted infections (STIs): None.&lt;/p&gt;" effects="&lt;p&gt;None&lt;/p&gt;" icon="img/female_sterilization_icon.jpg" correctUseEffectiveness="0.5" commonUseEffectiveness="0.5" benefits="&lt;p&gt;Helps protect against:&lt;/p&gt;&lt;p&gt;- Risks of pregnancy&lt;/p&gt;&lt;p&gt;- Pelvic inflammatory disease (PID)&lt;/p&gt;&lt;p&gt;- May help protect against:&lt;/p&gt;&lt;p&gt;- Ovarian cancer&lt;/p&gt;" risks="&lt;p&gt;Uncommon to extremely rare:&lt;/p&gt;&lt;p&gt;- Complications of surgery and anesthesia&lt;/p&gt;" complications="&lt;p&gt;Uncommon to extremely rare:&lt;/p&gt;&lt;p&gt;Female sterilization is a safe method of contraception. It requires surgery and anesthesia, however, which carry some risks such as infection or abscess of the wound. Serious complications are uncommon. Death, due to the procedure or anesthesia, is extremely rare.&lt;/p&gt;&lt;p&gt;The risk of complications with local anesthesia is significantly lower than with general anesthesia. Complications can be kept to a minimum if appropriate techniques are used and if the procedure is performed in an appropriate setting.&lt;/p&gt;" />
+    <method id="63508" recommendable="true" name="Levonorgestrel Intrauterine Device" summary="The levonorgestrel intrauterine device (LNG-IUD) is a T-shaped plastic device that steadily releases small amounts of levonorgestrel each day." description="&lt;p&gt;The levonorgestrel intrauterine device (LNG-IUD) is a T-shaped plastic device that steadily releases small amounts of levonorgestrel each day. (Levonorgestrel is a progestin widely used in implants and oral contraceptive pills.)&lt;/p&gt;&lt;p&gt;Before inserting an IUD, assess whether the client might be pregnant. To be reasonably certain the client is not pregnant, use the Pregnancy Checklist: http://www.globalhandbook.org/book/tools/pregchecklist.shtml.&lt;/p&gt;&lt;p&gt;A specifically trained health care provider inserts it into a woman&apos;s uterus through her vagina and cervix.&lt;/p&gt;&lt;p&gt;Also called the levonorgestrel-releasing intrauterine system, LNG-IUS, or hormonal IUD.&lt;/p&gt;&lt;p&gt;Marketed under the brand name Mirena.&lt;/p&gt;&lt;p&gt;Works primarily by suppressing the growth of the lining of uterus (endometrium).&lt;/p&gt;" effectiveness="&lt;p&gt;One of the most effective and long-lasting methods:&lt;/p&gt;&lt;p&gt;Less than 1 pregnancy per 100 women using an LNG-IUD over the first year (2 per 1,000 women). This means that 998 of every 1,000 women using LNG-IUDs will not become pregnant.&lt;/p&gt;&lt;p&gt;A small risk of pregnancy remains beyond the first year of use and continues as long as the woman is using the LNG-IUD.&lt;/p&gt;&lt;p&gt;- Over 5 years of LNG-IUD use: Less than 1 pregnancy per 100 women (5 to 8 per 1,000 women).&lt;/p&gt;&lt;p&gt;Approved for up to 5 years of use.&lt;/p&gt;&lt;p&gt;Return of fertility after LNG-IUD is removed: No delay&lt;/p&gt;&lt;p&gt;Protection against sexually transmitted infections (STIs): None&lt;/p&gt;" effects="&lt;p&gt;Some users report the following:&lt;/p&gt;&lt;p&gt;Changes in bleeding patterns, including:&lt;/p&gt;&lt;p&gt;- Lighter bleeding and fewer days of bleeding&lt;/p&gt;&lt;p&gt;- Infrequent bleeding&lt;/p&gt;&lt;p&gt;- Irregular bleeding&lt;/p&gt;&lt;p&gt;- No monthly bleeding&lt;/p&gt;&lt;p&gt;- Prolonged bleeding&lt;/p&gt;&lt;p&gt;Acne&lt;/p&gt;&lt;p&gt;Headaches&lt;/p&gt;&lt;p&gt;Breast tenderness or pain&lt;/p&gt;&lt;p&gt;Nausea&lt;/p&gt;&lt;p&gt;Weight gain&lt;/p&gt;&lt;p&gt;Dizziness&lt;/p&gt;&lt;p&gt;Mood changes&lt;/p&gt;&lt;p&gt;Other possible physical changes:&lt;/p&gt;&lt;p&gt;Ovarian cysts&lt;/p&gt;" icon="img/liud_icon.jpg" correctUseEffectiveness="0.2" commonUseEffectiveness="0.2" benefits="&lt;p&gt;Helps protect against:&lt;/p&gt;&lt;p&gt;- Risks of pregnancy&lt;/p&gt;&lt;p&gt;- Iron-deficiency anemia&lt;/p&gt;&lt;p&gt;May help protect against:&lt;/p&gt;&lt;p&gt;- Pelvic inflammatory disease&lt;/p&gt;&lt;p&gt;Reduces:&lt;/p&gt;&lt;p&gt;- Menstrual cramps&lt;/p&gt;&lt;p&gt;- Symptoms of endometriosis (pelvic pain, irregular bleeding)&lt;/p&gt;" risks="&lt;p&gt;None&lt;/p&gt;" complications="&lt;p&gt;Rare:&lt;/p&gt;&lt;p&gt;Puncturing (perforation) of the wall of the uterus by the LNG-IUD or an instrument used for insertion. Usually heals without treatment.&lt;/p&gt;&lt;p&gt;Very rare:&lt;/p&gt;&lt;p&gt;Miscarriage, preterm birth, or infection in the very rare case that the woman becomes pregnant with the LNG-IUD in place.&lt;/p&gt;" />
+    <method id="11396" recommendable="true" name="Copper-Bearing Intrauterine Device" summary="The copper-bearing intrauterine device (IUD) is a small, flexible plastic frame with copper sleeves or wire around it." description="&lt;p&gt;The copper-bearing intrauterine device (IUD) is a small, flexible plastic frame with copper sleeves or wire around it. A specifically trained health care provider inserts it into a woman&apos;s uterus through her vagina and cervix.&lt;/p&gt;&lt;p&gt;Almost all types of IUDs have one or two strings, or threads, tied to them. The strings hang through the cervix into the vagina.&lt;/p&gt;&lt;p&gt;Before inserting an IUD, assess whether the client might be pregnant. To be reasonably certain the client is not pregnant, use the Pregnancy Checklist: http://www.globalhandbook.org/book/tools/pregchecklist.shtml.&lt;/p&gt;&lt;p&gt;Works primarily by causing a chemical change that damages sperm and egg before they can meet.&lt;/p&gt;" effectiveness="&lt;p&gt;One of the most effective and long-lasting methods:&lt;/p&gt;&lt;p&gt;Less than 1 pregnancy per 100 women using an IUD over the first year (6 to 8 per 1,000 women). This means that 992 to 994 of every 1,000 women using IUDs will not become pregnant.&lt;/p&gt;&lt;p&gt;A small risk of pregnancy remains beyond the first year of use and continues as long as the woman is using the IUD.&lt;/p&gt;&lt;p&gt;- Over 10 years of IUD use: About 2 pregnancies per 100 women&lt;/p&gt;&lt;p&gt;Studies have found that the TCu-380A is effective for 12 years. The TCu-380A is labeled for up to 10 years of use, however. (Providers should follow program guidelines as to when the IUD should be removed.)&lt;/p&gt;&lt;p&gt;Return of fertility after IUD is removed: No delay&lt;/p&gt;&lt;p&gt;Protection against sexually transmitted infections (STIs): None&lt;/p&gt;" effects="&lt;p&gt;Some users report the following:&lt;/p&gt;&lt;p&gt;Changes in bleeding patterns (especially in the first 3 to 6 months) including:&lt;/p&gt;&lt;p&gt;- Prolonged and heavy monthly bleeding&lt;/p&gt;&lt;p&gt;- Irregular bleeding&lt;/p&gt;&lt;p&gt;- More cramps and pain during monthly bleeding&lt;/p&gt;" icon="img/cbiud_icon.jpg" correctUseEffectiveness="0.6" commonUseEffectiveness="0.8" benefits="&lt;p&gt;Helps protect against:&lt;/p&gt;&lt;p&gt;- Risks of pregnancy&lt;/p&gt;&lt;p&gt;May help protect against:&lt;/p&gt;&lt;p&gt;- Cancer of the lining of the uterus (endometrial cancer)&lt;/p&gt;" risks="&lt;p&gt;Uncommon:&lt;/p&gt;&lt;p&gt;May contribute to anemia if a woman already has low iron blood stores before insertion and the IUD causes heavier monthly bleeding&lt;/p&gt;&lt;p&gt;Rare:&lt;/p&gt;&lt;p&gt;Pelvic inflammatory disease (PID) may occur if the woman has chlamydia or gonorrhea at the time of IUD insertion&lt;/p&gt;" complications="&lt;p&gt;Rare:&lt;/p&gt;&lt;p&gt;Puncturing (perforation) of the wall of the uterus by the IUD or an instrument used for insertion. Usually heals without treatment.&lt;/p&gt;&lt;p&gt;Miscarriage, preterm birth, or infection in the rare case that the woman becomes pregnant with the IUD in place.&lt;/p&gt;" />
+    <method id="16443" recommendable="true" name="Implants" summary="Small plastic rods or capsules, each about the size of a matchstick, that release a progestin like the natural hormone progesterone in a woman&apos;s body." description="&lt;p&gt;Small plastic rods or capsules, each about the size of a matchstick, that release a progestin like the natural hormone progesterone in a woman&apos;s body.&lt;/p&gt;&lt;&gt;Small plastic rods or capsules, each about the size of a matchstick, that release a progestin like the natural hormone progesterone in a woman&apos;s body.&lt;/p&gt;&lt;p&gt;A specifically trained provider performs a minor surgical procedure to place the implants under the skin on the inside of a woman&apos;s upper arm.&lt;/p&gt;&lt;p&gt;Do not contain estrogen, and so can be used throughout breastfeeding and by women who cannot use methods with estrogen.&lt;/p&gt;&lt;p&gt;Many types of implants:&lt;ul&gt;&lt;p&gt;&lt;div&gt;Jadelle: 2 rods, effective for 5 years&lt;/div&gt;&lt;/p&gt;&lt;p&gt;Implanon: 1 rod, effective for 3 years (studies are underway to see if it lasts 4 years)&lt;/div&gt;&lt;/p&gt;&lt;p&gt;Sino-Implant (II), also known as Femplant, Trust Implant, and Zarin: 2 rods, effective for 4 years (may be extended to 5 years)&lt;/div&gt;&lt;/p&gt;&lt;p&gt;Norplant: 6 capsules, labeled for 5 years of use (large studies have found it is effective for 7 years)&lt;/div&gt;&lt;/p&gt;&lt;/ul&gt;&lt;/p&gt;&lt;p&gt;Work primarily by:&lt;ul&gt;&lt;p&gt;&lt;div&gt;Thickening cervical mucus (this blocks sperm from meeting an egg)&lt;/div&gt;&lt;/p&gt;&lt;p&gt;Disrupting the menstrual cycle, including preventing the release of eggs from the ovaries (ovulation)&lt;/div&gt;&lt;/p&gt;&lt;/ul&gt;&lt;/p&gt;" effectiveness="&lt;p&gt;One of the most effective and long-lasting methods:&lt;/p&gt;&lt;p&gt;Less than 1 pregnancy per 100 women using implants over the first year (5 per 10,000 women). This means that 9,995 of every 10,000 women using implants will not become pregnant.&lt;/p&gt;&lt;p&gt;A small risk of pregnancy remains beyond the first year of use and continues as long as the woman is using implants.&lt;/p&gt;&lt;p&gt;- Over 5 years of Jadelle use: About 1 pregnancy per 100&#160;women&lt;/p&gt;&lt;p&gt;- Over 3 years of Implanon use: Less than 1 pregnancy per 100&#160;women (1 per 1,000&#160;women)&lt;/p&gt;&lt;p&gt;- Over 7 years of Norplant use: About 2 pregnancies per 100&#160;women&lt;/p&gt;&lt;p&gt;Jadelle and Norplant implants start to lose effectiveness sooner for heavier women:&lt;/p&gt;&lt;p&gt;- For women weighing 80 kg or more, Jadelle and Norplant become less effective after 4 years of use.&lt;/p&gt;&lt;p&gt;- For women weighing 70-79 kg, Norplant becomes less effective after 5&#160;years of use.&lt;/p&gt;&lt;p&gt;- These users may want to replace their implants sooner.&lt;/p&gt;&lt;p&gt;Return of fertility after implants are removed: No delay&lt;/p&gt;&lt;p&gt;Protection against sexually transmitted infections (STIs): None&lt;/p&gt;" effects="&lt;p&gt;Some users report the following:&lt;p&gt;&lt;/p&gt;Changes in monthly bleeding, including:&lt;/p&gt;&lt;p&gt;First several months:&lt;/p&gt;&lt;p&gt;- Lighter bleeding and fewer days of bleeding&lt;/p&gt;&lt;p&gt;- Irregular bleeding&lt;/p&gt;&lt;p&gt;- Infrequent bleeding&lt;/p&gt;&lt;p&gt;- No monthly bleeding&lt;/p&gt;&lt;p&gt;After about one year:&lt;/p&gt;&lt;p&gt;- Lighter bleeding and fewer days of bleeding&lt;/p&gt;&lt;p&gt;- Irregular bleeding&lt;/p&gt;&lt;p&gt;- Infrequent bleeding&lt;/p&gt;&lt;p&gt;Implanon users are more likely to have infrequent or no monthly bleeding than irregular bleeding.&lt;/p&gt;&lt;p&gt;Headaches&lt;/p&gt;&lt;p&gt;Abdominal pain&lt;/p&gt;&lt;p&gt;Acne (can improve or worsen)&lt;/p&gt;&lt;p&gt;Weight change&lt;/p&gt;&lt;p&gt;Breast tenderness&lt;/p&gt;&lt;p&gt;Dizziness&lt;/p&gt;&lt;p&gt;Mood changes&lt;/p&gt;&lt;p&gt;Nausea&lt;/p&gt;&lt;p&gt;Other possible physical changes:&lt;/p&gt;&lt;p&gt;Enlarged ovarian follicles&lt;/p&gt;" icon="img/implants_icon.jpg" correctUseEffectiveness="0.05" commonUseEffectiveness="0.05" benefits="&lt;p&gt;Help protect against:&lt;/p&gt;&lt;p&gt;- Risks of pregnancy&lt;/p&gt;&lt;p&gt;- Symptomatic pelvic inflammatory disease&lt;/p&gt;&lt;p&gt;May help protect against:&lt;/p&gt;&lt;p&gt;- Iron-deficiency anemia&lt;/p&gt;" risks="&lt;p&gt;None&lt;/p&gt;" complications="&lt;p&gt;Uncommon:&lt;/p&gt;&lt;p&gt;Infection at insertion site (most infections occur within the first 2 months after insertion)&lt;/p&gt;&lt;p&gt;Difficult removal (rare if properly inserted and the provider is skilled at removal)&lt;/p&gt;&lt;p&gt;Rare:&lt;/p&gt;&lt;p&gt;Expulsion of implant (expulsions most often occurs within the first 4 months after insertion)&lt;/p&gt;" />
+    <method id="13761" recommendable="true" name="Combined Vaginal Ring" summary="A flexible ring placed in the vagina." description="&lt;p&gt;A flexible ring placed in the vagina.&lt;/p&gt;&lt;p&gt;Continuously releases 2 hormones - a progestin and an estrogen, like the natural hormones progesterone and estrogen in a woman&apos;s body - from inside the ring. Hormones are absorbed through the wall of the vagina directly into the bloodstream.&lt;/p&gt;&lt;p&gt;The ring is kept in place for 3 weeks, then removed for the fourth week. During this fourth week the woman will have monthly bleeding.&lt;/p&gt;&lt;p&gt;Also called NuvaRing.&lt;/p&gt;&lt;p&gt;Works primarily by preventing the release of eggs from the ovaries (ovulation).&lt;/p&gt;" effectiveness="&lt;p&gt;Effectiveness depends on the user: Risk of pregnancy is greatest when a woman is late to start a new ring.&lt;/p&gt;&lt;p&gt;- The combined vaginal ring is new, and research on effectiveness is limited. Effectiveness rates in clinical trials of the vaginal ring suggest that it may be more effective than combined oral contraceptives, both as commonly used and with consistent and correct use.&lt;/p&gt;&lt;p&gt;Return of fertility after ring use is stopped: No delay&lt;/p&gt;&lt;p&gt;Protection against sexually transmitted infections: None&lt;/p&gt;" effects="&lt;p&gt;Some users report the following:&lt;/p&gt;&lt;p&gt;Changes in monthly bleeding, including:&lt;/p&gt;&lt;p&gt;- Lighter bleeding and fewer days of bleeding&lt;/p&gt;&lt;p&gt;- Irregular bleeding&lt;/p&gt;&lt;p&gt;- Infrequent bleeding&lt;/p&gt;&lt;p&gt;- Prolonged bleeding&lt;/p&gt;&lt;p&gt;- No monthly bleeding&lt;/p&gt;&lt;p&gt;Headaches&lt;/p&gt;&lt;p&gt;Irritation, redness, or inflammation of the vagina (vaginitis)&lt;/p&gt;&lt;p&gt;White vaginal discharge&lt;/p&gt;" icon="img/vaginal_ring_icon.jpg" correctUseEffectiveness="0.3" commonUseEffectiveness="8" benefits="&lt;p&gt;Long-term studies of the vaginal ring are limited, but researchers expect that its health benefits and risks are like those of combined oral contraceptives.&lt;/p&gt;" risks="&lt;p&gt;None&lt;/p&gt;" complications="" />
+    <method id="35939" recommendable="true" name="Combined Patch" summary="A small, thin, square of flexible plastic worn on the body." description="&lt;p&gt;A small, thin, square of flexible plastic worn on the body.&lt;/p&gt;&lt;p&gt;Continuously releases 2 hormones - a progestin and an estrogen, like the natural hormones progesterone and estrogen in a woman&apos;s body - directly through the skin into the bloodstream.&lt;/p&gt;&lt;p&gt;A new patch is worn every week for 3 weeks, then no patch for the fourth week. During this fourth week the woman will have monthly bleeding.&lt;/p&gt;&lt;p&gt;Also called Ortho Evra and Evra.&lt;/p&gt;&lt;p&gt;Works primarily by preventing the release of eggs from the ovaries (ovulation).&lt;/p&gt;" effectiveness="&lt;p&gt;Effectiveness depends on the user: Risk of pregnancy is greatest when a woman is late to change the patch.&lt;/p&gt;&lt;p&gt;- The combined patch is new, and research on effectiveness is limited. Effectiveness rates in clinical trials of the patch suggest that it may be more effective than combined oral contraceptives, both as commonly used and with consistent and correct use.&lt;/p&gt;&lt;p&gt;- Pregnancy rates may be slightly higher among women weighing 90 kg or more.&lt;/p&gt;&lt;p&gt;Return of fertility after patch use is stopped: No delay&lt;/p&gt;&lt;p&gt;Protection against sexually transmitted infections: None&lt;/p&gt;" effects="&lt;p&gt;Some users report the following:&lt;/p&gt;&lt;p&gt;Skin irritation or rash where the patch is applied&lt;/p&gt;&lt;p&gt;Changes in monthly bleeding:&lt;/p&gt;&lt;p&gt;- Lighter bleeding and fewer days of bleeding&lt;/p&gt;&lt;p&gt;- Irregular bleeding&lt;/p&gt;&lt;p&gt;- Prolonged bleeding&lt;/p&gt;&lt;p&gt;- No monthly bleeding&lt;/p&gt;&lt;p&gt;Headaches&lt;/p&gt;&lt;p&gt;Nausea&lt;/p&gt;&lt;p&gt;Vomiting&lt;/p&gt;&lt;p&gt;Breast tenderness and pain&lt;/p&gt;&lt;p&gt;Abdominal pain&lt;/p&gt;&lt;p&gt;Flu symptoms/upper respiratory infection&lt;/p&gt;&lt;p&gt;Irritation, redness, or inflammation of the vagina (vaginitis)&lt;/p&gt;" icon="img/cp_icon.jpg" correctUseEffectiveness="0.3" commonUseEffectiveness="8" benefits="&lt;p&gt;Long-term studies of the patch are limited, but researchers expect that its health benefits and risks are like those of combined oral contraceptives.&lt;/p&gt;" risks="&lt;p&gt;None&lt;/p&gt;" complications="" />
+    <method id="76205" recommendable="true" name="Monthly Injectables" summary="Monthly injectables contain 2 hormones - a progestin and an estrogen - like the natural hormones progesterone and estrogen in a woman&apos;s body." description="&lt;p&gt;Monthly injectables contain 2 hormones - a progestin and an estrogen - like the natural hormones progesterone and estrogen in a woman&apos;s body. (Combined oral contraceptives also contain these 2 types of hormones.)&lt;/p&gt;&lt;p&gt;Also called combined injectable contraceptives, CICs, the injection.&lt;/p&gt;&lt;p&gt;Information in this chapter applies to medroxyprogesterone acetate (MPA)/estradiol cypionate and to norethisterone enanthate (NET-EN)/estradiol valerate. The information may also apply to older formulations, about which less is known.&lt;/p&gt;&lt;p&gt;MPA/estradiol cypionate is marketed under the trade names Ciclofem, Ciclofemina, Cyclofem, Cyclo-Provera, Feminena, Lunella, Lunelle, Novafem, and others. NET-EN/estradiol valerate is marketed under the trade names Mesigyna and Norigynon.&lt;/p&gt;&lt;p&gt;Work primarily by preventing the release of eggs from the ovaries (ovulation).&lt;/p&gt;" effectiveness="&lt;p&gt;Effectiveness depends on returning on time: Risk of pregnancy is greatest when a woman is late for an injection or misses an injection.&lt;/p&gt;&lt;p&gt;- As commonly used, about 3 pregnancies per 100 women using monthly injectables over the first year. This means that 97 of every 100 women using injectables will not become pregnant.&lt;/p&gt;&lt;p&gt;- When women have injections on time, less than 1 pregnancy per 100 women using monthly injectables over the first year (5 per 10,000 women).&lt;/p&gt;&lt;p&gt;Return of fertility after injections are stopped: An average of about one month longer than with most other methods.&lt;/p&gt;&lt;p&gt;Protection against sexually transmitted infections (STIs): None&lt;/p&gt;" effects="&lt;p&gt;Some users report the following:&lt;/p&gt;&lt;p&gt;Changes in bleeding patterns including:&lt;/p&gt;&lt;p&gt;- Lighter bleeding and fewer days of bleeding&lt;/p&gt;&lt;p&gt;- Irregular bleeding&lt;/p&gt;&lt;p&gt;- Infrequent bleeding&lt;/p&gt;&lt;p&gt;- Prolonged bleeding&lt;/p&gt;&lt;p&gt;- No monthly bleeding&lt;/p&gt;&lt;p&gt;Weight gain&lt;/p&gt;&lt;p&gt;Headaches&lt;/p&gt;&lt;p&gt;Dizziness&lt;/p&gt;&lt;p&gt;Breast tenderness&lt;/p&gt;" icon="img/mi_icon.jpg" correctUseEffectiveness="0.05" commonUseEffectiveness="3" benefits="&lt;p&gt;Long-term studies of monthly injectables are limited, but researchers expect that their health benefits and health risks are similar to those of combined oral contraceptives. There may be some differences in the effects on the liver, however.&lt;/p&gt;" risks="&lt;p&gt;None&lt;/p&gt;" complications="" />
+    <method id="46175" recommendable="true" name="Progestin-Only Injectables" summary="The injectable contraceptives depot medroxyprogesterone acetate (DMPA) and norethisterone enanthate (NET-EN) each contain a progestin like the natural hormone progesterone in a woman&apos;s body." description="&lt;p&gt;The injectable contraceptives depot medroxyprogesterone acetate (DMPA) and norethisterone enanthate (NET-EN) each contain a progestin like the natural hormone progesterone in a woman&apos;s body. (In contrast, monthly injectables contain both estrogen and progestin.)&lt;/p&gt;&lt;p&gt;Do not contain estrogen, and so can be used throughout breastfeeding and by women who cannot use methods with estrogen.&lt;/p&gt;&lt;p&gt;DMPA, the most widely used progestin-only injectable, is also known as &quot;the shot,&quot; &quot;the jab,&quot; the injection, Depo, Depo-Provera, Megestron, and Petogen.&lt;/p&gt;&lt;p&gt;NET-EN is also known as norethindrone enanthate, Noristerat, and Syngestal.&lt;/p&gt;&lt;p&gt;Given by injection into the muscle (intramuscular injection). The hormone is then released slowly into the bloodstream. A different formulation of DMPA can be injected just under the skin (subcutaneous injection).&lt;/p&gt;&lt;p&gt;Work primarily by preventing the release of eggs from the ovaries (ovulation).&lt;/p&gt;" effectiveness="&lt;p&gt;Effectiveness depends on getting injections regularly: Risk of pregnancy is greatest when a woman misses an injection.&lt;/p&gt;&lt;p&gt;- As commonly used, about 3 pregnancies per 100 women using progestin-only injectables over the first year. This means that 97 of every 100 women using injectables will not become pregnant.&lt;/p&gt;&lt;p&gt;- When women have injections on time, less than 1 pregnancy per 100 women using progestin-only injectables over the first year (3 per 1,000 women).&lt;/p&gt;&lt;p&gt;Return of fertility after injections are stopped: An average of about 4 months longer for DMPA and 1 month longer for NET-EN than with most other methods.&lt;/p&gt;&lt;p&gt;Protection against sexually transmitted infections (STIs): None&lt;/p&gt;" effects="&lt;p&gt;Some users report the following:&lt;/p&gt;&lt;p&gt;Changes in bleeding patterns including, with DMPA:&lt;/p&gt;&lt;p&gt;- First 3 months:&lt;/p&gt;&lt;p&gt;-- Irregular bleeding&lt;/p&gt;&lt;p&gt;-- Prolonged bleeding&lt;/p&gt;&lt;p&gt;- At one year:&lt;/p&gt;&lt;p&gt;-- No monthly bleeding&lt;/p&gt;&lt;p&gt;-- Infrequent bleeding&lt;/p&gt;&lt;p&gt;-- Irregular bleeding&lt;/p&gt;&lt;p&gt;NET-EN affects bleeding patterns less than DMPA. NET-EN users have fewer days of bleeding in the first 6 months and are less likely to have no monthly bleeding after one year than DMPA users.&lt;/p&gt;&lt;p&gt;Weight gain&lt;/p&gt;&lt;p&gt;Headaches&lt;/p&gt;&lt;p&gt;Dizziness&lt;/p&gt;&lt;p&gt;Abdominal bloating and discomfort&lt;/p&gt;&lt;p&gt;Mood changes&lt;/p&gt;&lt;p&gt;Less sex drive&lt;/p&gt;&lt;p&gt;Other possible physical changes:&lt;/p&gt;&lt;p&gt;Loss of bone density&lt;/p&gt;" icon="img/poi_icon.jpg" correctUseEffectiveness="0.3" commonUseEffectiveness="3" benefits="&lt;p&gt;DMPA&lt;/p&gt;&lt;p&gt;Helps protect against:&lt;/p&gt;&lt;p&gt;- Risks of pregnancy&lt;/p&gt;&lt;p&gt;- Cancer of the lining of the uterus (endometrial cancer)&lt;/p&gt;&lt;p&gt;- Uterine fibroids&lt;/p&gt;&lt;p&gt;May help protect against:&lt;/p&gt;&lt;p&gt;- Symptomatic pelvic inflammatory disease&lt;/p&gt;&lt;p&gt;- Iron-deficiency anemia&lt;/p&gt;&lt;p&gt;Reduces:&lt;/p&gt;&lt;p&gt;Sickle cell crises among women with sickle cell anemia&lt;/p&gt;&lt;p&gt;Symptoms of endometriosis (pelvic pain, irregular bleeding)&lt;/p&gt;&lt;p&gt;NET-EN&lt;/p&gt;&lt;p&gt;Helps protect against:&lt;/p&gt;&lt;p&gt;Risks of pregnancy&lt;/p&gt;&lt;p&gt;- Iron-deficiency anemia&lt;/p&gt;&lt;p&gt;NET-EN may offer many of the same health benefits as DMPA, but this list of benefits includes only those for which there is available research evidence.&lt;/p&gt;" risks="&lt;p&gt;None&lt;/p&gt;" complications="" />
+    <method id="35912" recommendable="true" name="Emergency Contraceptive Pills" summary="Pills that contain a progestin alone, or a progestin and an estrogen together." description="&lt;p&gt;Pills that contain a progestin alone, or a progestin and an estrogen together - hormones like the natural hormones progesterone and estrogen in a woman&apos;s body.&lt;/p&gt;&lt;p&gt;Emergency contraceptive pills (ECPs) are sometimes called &quot;morning after&quot; pills or postcoital contraceptives.&lt;/p&gt;&lt;p&gt;Work primarily by preventing or delaying the release of eggs from the ovaries (ovulation). They do not work if a woman is already pregnant.&lt;/p&gt;" effectiveness="&lt;p&gt;If 100 women each had sex once during the second or third week of the menstrual cycle without using contraception, 8 would likely become pregnant.&lt;/p&gt;&lt;p&gt;If all 100 women used progestin-only ECPs, one would likely become pregnant.&lt;/p&gt;&lt;p&gt;If all 100 women used estrogen and progestin ECPs, 2 would likely become pregnant.&lt;/p&gt;&lt;p&gt;Return of fertility after taking ECPs: No delay. A woman can become pregnant immediately after taking ECPs. Taking ECPs prevents pregnancy only from acts of sex that took place in the 5 days before. They will not protect a woman from pregnancy from acts of sex after she takes ECPs&#8212;not even on the next day. To stay protected from pregnancy, women must begin to use another contraceptive method at once.&lt;/p&gt;&lt;p&gt;Protection against sexually transmitted infections (STIs): None&lt;/p&gt;" effects="&lt;p&gt;Some users report the following:&lt;/p&gt;&lt;p&gt;Changes in bleeding patterns including:&lt;/p&gt;&lt;p&gt;- Slight irregular bleeding for 1-2 days after taking ECPs&lt;/p&gt;&lt;p&gt;- Monthly bleeding that starts earlier or later than expected&lt;/p&gt;&lt;p&gt;In the week after taking ECPs:&lt;/p&gt;&lt;p&gt;Nausea&lt;/p&gt;&lt;p&gt;Abdominal pain&lt;/p&gt;&lt;p&gt;Fatigue&lt;/p&gt;&lt;p&gt;Headaches&lt;/p&gt;&lt;p&gt;Breast tenderness&lt;/p&gt;&lt;p&gt;Dizziness&lt;/p&gt;&lt;p&gt;Vomiting&lt;/p&gt;" icon="img/ecp_icon.jpg" correctUseEffectiveness="0" commonUseEffectiveness="0" benefits="&lt;p&gt;Help protect against:&lt;/p&gt;&lt;p&gt;- Risks of pregnancy&lt;/p&gt;" risks="&lt;p&gt;None&lt;/p&gt;" complications="" />
+    <method id="41636" recommendable="true" name="Progestin-Only Pills" summary="Pills that contain very low doses of a progestin like the natural hormone progesterone in a woman&apos;s body." description="&lt;p&gt;Pills that contain very low doses of a progestin like the natural hormone progesterone in a woman&apos;s body.&lt;/p&gt;&lt;p&gt;Do not contain estrogen, and so can be used throughout breastfeeding and by women who cannot use methods with estrogen.&lt;/p&gt;&lt;p&gt;Progestin-only pills (POPs) are also called &quot;minipills&quot; and progestin-only oral contraceptives.&lt;/p&gt;&lt;p&gt;Work primarily by:&lt;ul&gt;&lt;li&gt;&lt;div&gt;Thickening cervical mucus (this blocks sperm from meeting an egg)&lt;/div&gt;&lt;/li&gt;&lt;li&gt;&lt;div&gt;Disrupting the menstrual cycle, including preventing the release of eggs from the ovaries (ovulation).&lt;/div&gt;&lt;/li&gt;&lt;/p&gt;" effectiveness="&lt;p&gt;Effectiveness depends on the user: For women who have monthly bleeding, risk of pregnancy is greatest if pills are taken late or missed completely.&lt;/p&gt;&lt;p&gt;Breastfeeding women:&lt;/p&gt;&lt;p&gt;- As commonly used, about 1 pregnancy per 100 women using POPs over the first year. This means that 99 of every 100 women will not become pregnant.&lt;/p&gt;&lt;p&gt;- When pills are taken every day, less than 1 pregnancy per 100 women using POPs over the first year (3 per 1,000 women).&lt;/p&gt;&lt;p&gt;Less effective for women not breastfeeding:&lt;/p&gt;&lt;p&gt;- As commonly used, about 3 to 10 pregnancies per 100 women using POPs over the first year. This means that 90 to 97 of every 100 women will not become pregnant.&lt;/p&gt;&lt;p&gt;- When pills are taken every day at the same time, less than 1 pregnancy per 100 women using POPs over the first year (9 per 1,000 women).&lt;/p&gt;&lt;p&gt;Return of fertility after POPs are stopped: No delay&lt;/p&gt;&lt;p&gt;Protection against sexually transmitted infections (STIs): None&lt;/p&gt;" effects="&lt;p&gt;Some users report the following:&lt;/p&gt;&lt;p&gt;Changes in bleeding patterns including:&lt;/p&gt;&lt;p&gt;- For breastfeeding women, longer delay in return of monthly bleeding after childbirth (lengthened postpartum amenorrhea)&lt;/p&gt;&lt;p&gt;- Frequent bleeding&lt;/p&gt;&lt;p&gt;- Irregular bleeding&lt;/p&gt;&lt;p&gt;- Infrequent bleeding&lt;/p&gt;&lt;p&gt;- Prolonged bleeding&lt;/p&gt;&lt;p&gt;- No monthly bleeding&lt;/p&gt;&lt;p&gt;Breastfeeding also affects a woman&apos;s bleeding patterns.&lt;/p&gt;&lt;p&gt;Headaches&lt;/p&gt;&lt;p&gt;Dizziness&lt;/p&gt;&lt;p&gt;Mood changes&lt;/p&gt;&lt;p&gt;Breast tenderness&lt;/p&gt;&lt;p&gt;Abdominal pain&lt;/p&gt;&lt;p&gt;Nausea&lt;/p&gt;&lt;p&gt;Other possible physical changes:&lt;/p&gt;&lt;p&gt;For women not breastfeeding, enlarged ovarian follicles&lt;/p&gt;" icon="img/pop_icon.jpg" correctUseEffectiveness="0.3" commonUseEffectiveness="8" benefits="&lt;p&gt;Help protect against:&lt;/p&gt;&lt;p&gt;- Risks of pregnancy&lt;/p&gt;" risks="&lt;p&gt;None&lt;/p&gt;" complications="" />
+    <method id="26804" recommendable="true" name="Combined Oral Contraceptives" summary="Pills that contain low doses of 2 hormones - a progestin and an estrogen." description="&lt;p&gt;Pills that contain low doses of 2 hormones - a progestin and an estrogen - like the natural hormones progesterone and estrogen in a woman&apos;s body.&lt;/p&gt;&lt;p&gt;Combined oral contraceptives (COCs) are also called &quot;the Pill,&quot; low-dose combined pills, OCPs, and OCs.&lt;/p&gt;&lt;p&gt;Work primarily by preventing the release of eggs from the ovaries (ovulation).&lt;/p&gt;" effectiveness="&lt;p&gt;Effectiveness depends on the user: Risk of pregnancy is greatest when a woman starts a new pill pack 3 or more days late, or misses 3 or more pills near the beginning or end of a pill pack.&lt;/p&gt;&lt;p&gt;&amp;nbsp;As commonly used, about 8 pregnancies per 100 women using COCs over the first year. This means that 92 of every 100 women using COCs will not become pregnant.&lt;/p&gt;&lt;p&gt;&amp;nbsp;When no pill-taking mistakes are made, less than 1 pregnancy per 100 women using COCs over the first year (3 per 1,000 women).&lt;/p&gt;&lt;p&gt;Return to fertility after COCs are stopped: No delay&lt;/p&gt;&lt;p&gt;Protection against sexually transmitted infections (STIs): None&lt;/p&gt;" effects="&lt;p&gt;Some users report the following:&lt;/p&gt;&lt;p&gt;Changes in bleeding patterns including:&lt;/p&gt;&lt;p&gt;- Lighter bleeding and fewer days of bleeding&lt;/p&gt;&lt;p&gt;- Irregular bleeding&lt;/p&gt;&lt;p&gt;- Infrequent bleeding&lt;/p&gt;&lt;p&gt;- No monthly bleeding&lt;/p&gt;&lt;p&gt;Headaches&lt;/p&gt;&lt;p&gt;Dizziness&lt;/p&gt;&lt;p&gt;Nausea&lt;/p&gt;&lt;p&gt;Breast tenderness&lt;/p&gt;&lt;p&gt;Weight change&lt;/p&gt;&lt;p&gt;Mood changes&lt;/p&gt;&lt;p&gt;&lt;p&gt;Acne (can improve or worsen, but usually improves)&lt;/p&gt;&lt;p&gt;Other possible physical changes:&lt;/p&gt;&lt;p&gt;Blood pressure increases a few points (mm Hg). When increase is due to COCs, blood pressure declines quickly after use of COCs stops.&lt;/p&gt;" icon="img/coc_icon.jpg" correctUseEffectiveness="0.3" commonUseEffectiveness="8" benefits="&lt;p&gt;Help protect against:&lt;/p&gt;&lt;p&gt;- Risks of pregnancy&lt;/p&gt;&lt;p&gt;- Cancer of the lining of the uterus (endometrial cancer)&lt;/p&gt;&lt;p&gt;- Cancer of the ovary&lt;/p&gt;&lt;p&gt;- Symptomatic pelvic inflammatory disease&lt;/p&gt;&lt;p&gt;May help protect against:&lt;/p&gt;&lt;p&gt;- Ovarian cysts&lt;/p&gt;&lt;p&gt;- Iron-deficiency  anemia&lt;/p&gt;&lt;p&gt;Reduce:&lt;/p&gt;&lt;p&gt;- Menstrual cramps&lt;/p&gt;&lt;p&gt;- Menstrual bleeding problems&lt;/p&gt;&lt;p&gt;- Ovulation pain&lt;/p&gt;&lt;p&gt;- Excess hair on face or body&lt;/p&gt;&lt;p&gt;- Symptoms of polycystic ovarian syndrome (irregular bleeding, acne, excess hair on face or body)&lt;/p&gt;&lt;p&gt;- Symptoms of endometriosis (pelvic pain, irregular bleeding)&lt;/p&gt;" risks="&lt;p&gt;Very rare:&lt;/p&gt;&lt;p&gt;- Blood clot in deep veins of legs or lungs (deep vein thrombosis or pulmonary embolism)&lt;/p&gt;&lt;p&gt;Extremely rare:&lt;/p&gt;&lt;p&gt;- Stroke&lt;/p&gt;&lt;p&gt;- Heart attack&lt;/p&gt;" complications="" />
+  </methods>
+  <restrictions>
+    <restriction method="11396" condition="12345" code="4" serious="true" />
+    <restriction method="63508" condition="12345" code="4" serious="true" />
+    <restriction method="83467" condition="12345" code="D" serious="true" />
+    <restriction method="34415" condition="21127" code="3" serious="true" />
+    <restriction method="34415" condition="88292" code="3" serious="true" />
+    <restriction method="34415" condition="26780" code="3" serious="true" />
+    <restriction method="34415" condition="28072" code="3" serious="true" />
+    <restriction method="34415" condition="20002" code="4" serious="true" />
+    <restriction method="34415" condition="21969" code="4" serious="true" />
+    <restriction method="34415" condition="87733" code="4" serious="true" />
+    <restriction method="14128" condition="21127" code="3" serious="true" />
+    <restriction method="14128" condition="88292" code="3" serious="true" />
+    <restriction method="14128" condition="26780" code="3" serious="true" />
+    <restriction method="14128" condition="28072" code="3" serious="true" />
+    <restriction method="14128" condition="20002" code="4" serious="true" />
+    <restriction method="18266" condition="26780" code="3" serious="true" />
+    <restriction method="18266" condition="28072" code="3" serious="true" />
+    <restriction method="18266" condition="20002" code="4" serious="true" />
+    <restriction method="38010" condition="21127" code="3" serious="true" />
+    <restriction method="83467" condition="25106" code="1" serious="false" />
+    <restriction method="83467" condition="25571" code="1" serious="false" />
+    <restriction method="83467" condition="20707" code="1" serious="false" />
+    <restriction method="83467" condition="16917" code="1" serious="false" />
+    <restriction method="83467" condition="36054" code="1" serious="false" />
+    <restriction method="83467" condition="70508" code="1" serious="false" />
+    <restriction method="63508" condition="25106" code="1" serious="false" />
+    <restriction method="63508" condition="25571" code="1" serious="false" />
+    <restriction method="63508" condition="20707" code="1" serious="false" />
+    <restriction method="63508" condition="16917" code="1" serious="false" />
+    <restriction method="63508" condition="36054" code="1" serious="false" />
+    <restriction method="63508" condition="70508" code="1" serious="false" />
+    <restriction method="63508" condition="26196" code="1" serious="false" />
+    <restriction method="63508" condition="16524" code="1" serious="false" />
+    <restriction method="63508" condition="13163" code="1" serious="false" />
+    <restriction method="63508" condition="13423" code="3" serious="true" />
+    <restriction method="63508" condition="93005" code="3" serious="true" />
+    <restriction method="63508" condition="43523" code="2" serious="false" />
+    <restriction method="63508" condition="32307" code="3" serious="true" />
+    <restriction method="63508" condition="24280" code="1" serious="false" />
+    <restriction method="63508" condition="12572" code="1" serious="false" />
+    <restriction method="63508" condition="12732" code="1" serious="false" />
+    <restriction method="63508" condition="12034" code="1" serious="false" />
+    <restriction method="63508" condition="63137" code="1" serious="false" />
+    <restriction method="63508" condition="44947" code="2" serious="false" />
+    <restriction method="63508" condition="49793" code="2" serious="false" />
+    <restriction method="63508" condition="41819" code="2" serious="false" />
+    <restriction method="63508" condition="35451" code="1" serious="false" />
+    <restriction method="63508" condition="36773" code="1" serious="false" />
+    <restriction method="63508" condition="10049" code="1" serious="false" />
+    <restriction method="63508" condition="17474" code="2" serious="false" />
+    <restriction method="63508" condition="46623" code="2" serious="false" />
+    <restriction method="63508" condition="75381" code="2" serious="false" />
+    <restriction method="63508" condition="46467" code="2" serious="false" />
+    <restriction method="63508" condition="27974" code="1" serious="false" />
+    <restriction method="63508" condition="90849" code="1" serious="false" />
+    <restriction method="63508" condition="22813" code="4" serious="true" />
+    <restriction method="63508" condition="25488" code="1" serious="false" />
+    <restriction method="63508" condition="28350" code="1" serious="false" />
+    <restriction method="63508" condition="77660" code="1" serious="false" />
+    <restriction method="63508" condition="26780" code="3" serious="true" />
+    <restriction method="63508" condition="28072" code="2" serious="false" />
+    <restriction method="63508" condition="20002" code="2" serious="false" />
+    <restriction method="63508" condition="15775" code="3" serious="true" />
+    <restriction method="63508" condition="26550" code="2" serious="false" />
+    <restriction method="63508" condition="28631" code="2" serious="false" />
+    <restriction method="63508" condition="69161" code="4" serious="true" />
+    <restriction method="63508" condition="24554" code="4" serious="true" />
+    <restriction method="63508" condition="14228" code="2" serious="false" />
+    <restriction method="63508" condition="94445" code="1" serious="false" />
+    <restriction method="63508" condition="50435" code="2" serious="false" />
+    <restriction method="63508" condition="62199" code="4" serious="true" />
+    <restriction method="63508" condition="51639" code="4" serious="true" />
+    <restriction method="63508" condition="77794" code="1" serious="false" />
+    <restriction method="63508" condition="44499" code="3" serious="true" />
+    <restriction method="63508" condition="51984" code="4" serious="true" />
+    <restriction method="63508" condition="40320" code="3" serious="true" />
+    <restriction method="63508" condition="74089" code="4" serious="true" />
+    <restriction method="63508" condition="81198" code="1" serious="false" />
+    <restriction method="63508" condition="14380" code="1" serious="false" />
+    <restriction method="63508" condition="49947" code="2" serious="false" />
+    <restriction method="63508" condition="21969" code="4" serious="true" />
+    <restriction method="63508" condition="87733" code="2" serious="false" />
+    <restriction method="63508" condition="66852" code="1" serious="false" />
+    <restriction method="63508" condition="29793" code="4" serious="true" />
+    <restriction method="63508" condition="36781" code="3" serious="true" />
+    <restriction method="63508" condition="91172" code="1" serious="false" />
+    <restriction method="63508" condition="16552" code="1" serious="false" />
+    <restriction method="63508" condition="19850" code="1" serious="false" />
+    <restriction method="63508" condition="47346" code="4" serious="true" />
+    <restriction method="63508" condition="39805" code="2" serious="false" />
+    <restriction method="63508" condition="61390" code="1" serious="false" />
+    <restriction method="63508" condition="94896" code="1" serious="false" />
+    <restriction method="63508" condition="13794" code="1" serious="false" />
+    <restriction method="63508" condition="28322" code="3" serious="true" />
+    <restriction method="63508" condition="26522" code="2" serious="false" />
+    <restriction method="63508" condition="42076" code="2" serious="false" />
+    <restriction method="63508" condition="43571" code="1" serious="false" />
+    <restriction method="63508" condition="54681" code="2" serious="false" />
+    <restriction method="63508" condition="14488" code="2" serious="false" />
+    <restriction method="63508" condition="86529" code="2" serious="false" />
+    <restriction method="63508" condition="42824" code="3" serious="true" />
+    <restriction method="63508" condition="60543" code="2" serious="false" />
+    <restriction method="63508" condition="83645" code="2" serious="false" />
+    <restriction method="63508" condition="10704" code="2" serious="false" />
+    <restriction method="63508" condition="19122" code="2" serious="false" />
+    <restriction method="63508" condition="19471" code="3" serious="true" />
+    <restriction method="63508" condition="45695" code="3" serious="true" />
+    <restriction method="63508" condition="21163" code="1" serious="false" />
+    <restriction method="63508" condition="88196" code="1" serious="false" />
+    <restriction method="63508" condition="16270" code="2" serious="false" />
+    <restriction method="63508" condition="81563" code="1" serious="false" />
+    <restriction method="63508" condition="30788" code="1" serious="false" />
+    <restriction method="63508" condition="20437" code="2" serious="false" />
+    <restriction method="63508" condition="80314" code="1" serious="false" />
+    <restriction method="63508" condition="17743" code="2" serious="false" />
+    <restriction method="63508" condition="44986" code="3" serious="true" />
+    <restriction method="63508" condition="57064" code="2" serious="false" />
+    <restriction method="63508" condition="10228" code="1" serious="false" />
+    <restriction method="63508" condition="58349" code="2" serious="false" />
+    <restriction method="63508" condition="11901" code="2" serious="false" />
+    <restriction method="63508" condition="61488" code="1" serious="false" />
+    <restriction method="63508" condition="38327" code="1" serious="false" />
+    <restriction method="63508" condition="25306" code="2" serious="false" />
+    <restriction method="63508" condition="41907" code="2" serious="false" />
+    <restriction method="63508" condition="82088" code="1" serious="false" />
+    <restriction method="63508" condition="50228" code="1" serious="false" />
+    <restriction method="63508" condition="79685" code="1" serious="false" />
+    <restriction method="63508" condition="13249" code="1" serious="false" />
+    <restriction method="63508" condition="18896" code="1" serious="false" />
+    <restriction method="63508" condition="29672" code="1" serious="false" />
+    <restriction method="63508" condition="88163" code="4" serious="true" />
+    <restriction method="63508" condition="29944" code="1" serious="false" />
+    <restriction method="63508" condition="33030" code="1" serious="false" />
+    <restriction method="63508" condition="16527" code="1" serious="false" />
+    <restriction method="63508" condition="11721" code="2" serious="false" />
+    <restriction method="63508" condition="14444" code="1" serious="false" />
+    <restriction method="63508" condition="29723" code="2" serious="false" />
+    <restriction method="63508" condition="3576c" code="3" serious="true" />
+    <restriction method="63508" condition="d1088" code="3" serious="true" />
+    <restriction method="63508" condition="a2452" code="1" serious="false" />
+    <restriction method="63508" condition="17060" code="1" serious="true" />
+    <restriction method="63508" condition="3437d" code="4" serious="true" />
+    <restriction method="63508" condition="1a490" code="1" serious="false" />
+    <restriction method="63508" condition="a4696" code="3" serious="true" />
+    <restriction method="63508" condition="b6a14" code="3" serious="true" />
+    <restriction method="63508" condition="da3d0" code="3" serious="true" />
+    <restriction method="63508" condition="13ac3" code="1" serious="false" />
+    <restriction method="63508" condition="21be9" code="1" serious="false" />
+    <restriction method="63508" condition="cbd54" code="1" serious="false" />
+    <restriction method="63508" condition="3437d" code="4" serious="true" />
+    <restriction method="63508" condition="1a768" code="3" serious="true" />
+    <restriction method="63508" condition="13b47" code="2" serious="false" />
+    <restriction method="63508" condition="85d52" code="3" serious="true" />
+    <restriction method="63508" condition="1d63b" code="2" serious="false" />
+    <restriction method="63508" condition="faa63" code="3" serious="true" />
+    <restriction method="63508" condition="f3251" code="2" serious="false" />
+    <restriction method="63508" condition="12345" code="3" serious="true" />
+    <restriction method="11396" condition="26196" code="2" serious="false" />
+    <restriction method="11396" condition="16524" code="2" serious="false" />
+    <restriction method="11396" condition="13163" code="2" serious="false" />
+    <restriction method="11396" condition="13423" code="1" serious="false" />
+    <restriction method="11396" condition="93005" code="1" serious="false" />
+    <restriction method="11396" condition="43523" code="1" serious="false" />
+    <restriction method="11396" condition="32307" code="1" serious="false" />
+    <restriction method="11396" condition="24280" code="1" serious="false" />
+    <restriction method="11396" condition="12572" code="1" serious="false" />
+    <restriction method="11396" condition="12732" code="1" serious="false" />
+    <restriction method="11396" condition="12034" code="1" serious="false" />
+    <restriction method="11396" condition="63137" code="1" serious="false" />
+    <restriction method="11396" condition="44947" code="1" serious="false" />
+    <restriction method="11396" condition="49793" code="1" serious="false" />
+    <restriction method="11396" condition="41819" code="1" serious="false" />
+    <restriction method="11396" condition="35451" code="1" serious="false" />
+    <restriction method="11396" condition="36773" code="1" serious="false" />
+    <restriction method="11396" condition="10049" code="1" serious="false" />
+    <restriction method="11396" condition="17474" code="1" serious="false" />
+    <restriction method="11396" condition="46623" code="1" serious="false" />
+    <restriction method="11396" condition="75381" code="1" serious="false" />
+    <restriction method="11396" condition="46467" code="1" serious="false" />
+    <restriction method="11396" condition="27974" code="1" serious="false" />
+    <restriction method="11396" condition="90849" code="1" serious="false" />
+    <restriction method="11396" condition="22813" code="4" serious="true" />
+    <restriction method="11396" condition="25488" code="1" serious="false" />
+    <restriction method="11396" condition="28350" code="1" serious="false" />
+    <restriction method="11396" condition="77660" code="1" serious="false" />
+    <restriction method="11396" condition="26780" code="3" serious="true" />
+    <restriction method="11396" condition="28072" code="2" serious="false" />
+    <restriction method="11396" condition="20002" code="2" serious="false" />
+    <restriction method="11396" condition="15775" code="3" serious="true" />
+    <restriction method="11396" condition="26550" code="2" serious="false" />
+    <restriction method="11396" condition="28631" code="2" serious="false" />
+    <restriction method="11396" condition="69161" code="4" serious="true" />
+    <restriction method="11396" condition="24554" code="4" serious="true" />
+    <restriction method="11396" condition="14228" code="2" serious="false" />
+    <restriction method="11396" condition="94445" code="1" serious="false" />
+    <restriction method="11396" condition="50435" code="2" serious="false" />
+    <restriction method="11396" condition="62199" code="4" serious="true" />
+    <restriction method="11396" condition="51639" code="4" serious="true" />
+    <restriction method="11396" condition="77794" code="1" serious="false" />
+    <restriction method="11396" condition="44499" code="3" serious="true" />
+    <restriction method="11396" condition="51984" code="4" serious="true" />
+    <restriction method="11396" condition="40320" code="1" serious="false" />
+    <restriction method="11396" condition="40320" code="1" serious="false" />
+    <restriction method="11396" condition="81198" code="1" serious="false" />
+    <restriction method="11396" condition="14380" code="1" serious="false" />
+    <restriction method="11396" condition="49947" code="1" serious="false" />
+    <restriction method="11396" condition="21969" code="4" serious="true" />
+    <restriction method="11396" condition="87733" code="1" serious="false" />
+    <restriction method="11396" condition="66852" code="1" serious="false" />
+    <restriction method="11396" condition="29793" code="4" serious="true" />
+    <restriction method="11396" condition="36781" code="3" serious="true" />
+    <restriction method="11396" condition="91172" code="2" serious="false" />
+    <restriction method="11396" condition="16552" code="1" serious="false" />
+    <restriction method="11396" condition="19850" code="2" serious="false" />
+    <restriction method="11396" condition="47346" code="4" serious="true" />
+    <restriction method="11396" condition="39805" code="2" serious="false" />
+    <restriction method="11396" condition="61390" code="1" serious="false" />
+    <restriction method="11396" condition="94896" code="1" serious="false" />
+    <restriction method="11396" condition="13794" code="1" serious="false" />
+    <restriction method="11396" condition="28322" code="1" serious="false" />
+    <restriction method="11396" condition="26522" code="1" serious="false" />
+    <restriction method="11396" condition="42076" code="1" serious="false" />
+    <restriction method="11396" condition="43571" code="1" serious="false" />
+    <restriction method="11396" condition="54681" code="1" serious="false" />
+    <restriction method="11396" condition="14488" code="2" serious="false" />
+    <restriction method="11396" condition="86529" code="3" serious="true" />
+    <restriction method="11396" condition="42824" code="1" serious="false" />
+    <restriction method="11396" condition="60543" code="2" serious="false" />
+    <restriction method="11396" condition="83645" code="2" serious="false" />
+    <restriction method="11396" condition="10704" code="1" serious="false" />
+    <restriction method="11396" condition="19122" code="1" serious="false" />
+    <restriction method="11396" condition="19471" code="1" serious="false" />
+    <restriction method="11396" condition="45695" code="1" serious="false" />
+    <restriction method="11396" condition="21163" code="1" serious="false" />
+    <restriction method="11396" condition="88196" code="1" serious="false" />
+    <restriction method="11396" condition="16270" code="1" serious="false" />
+    <restriction method="11396" condition="81563" code="1" serious="false" />
+    <restriction method="11396" condition="30788" code="1" serious="false" />
+    <restriction method="11396" condition="20437" code="1" serious="false" />
+    <restriction method="11396" condition="80314" code="1" serious="false" />
+    <restriction method="11396" condition="17743" code="1" serious="false" />
+    <restriction method="11396" condition="44986" code="1" serious="false" />
+    <restriction method="11396" condition="57064" code="1" serious="false" />
+    <restriction method="11396" condition="10228" code="1" serious="false" />
+    <restriction method="11396" condition="58349" code="1" serious="false" />
+    <restriction method="11396" condition="11901" code="1" serious="false" />
+    <restriction method="11396" condition="61488" code="1" serious="false" />
+    <restriction method="11396" condition="38327" code="1" serious="false" />
+    <restriction method="11396" condition="25306" code="1" serious="false" />
+    <restriction method="11396" condition="41907" code="1" serious="false" />
+    <restriction method="11396" condition="82088" code="1" serious="false" />
+    <restriction method="11396" condition="50228" code="1" serious="false" />
+    <restriction method="11396" condition="79685" code="1" serious="false" />
+    <restriction method="11396" condition="13249" code="1" serious="false" />
+    <restriction method="11396" condition="18896" code="1" serious="false" />
+    <restriction method="11396" condition="29672" code="1" serious="false" />
+    <restriction method="11396" condition="88163" code="4" serious="true" />
+    <restriction method="11396" condition="29944" code="1" serious="false" />
+    <restriction method="11396" condition="33030" code="1" serious="false" />
+    <restriction method="11396" condition="16527" code="1" serious="false" />
+    <restriction method="11396" condition="11721" code="2" serious="false" />
+    <restriction method="11396" condition="14444" code="1" serious="false" />
+    <restriction method="11396" condition="29723" code="2" serious="false" />
+    <restriction method="11396" condition="3576c" code="1" serious="false" />
+    <restriction method="11396" condition="d1088" code="3" serious="true" />
+    <restriction method="11396" condition="a2452" code="1" serious="false" />
+    <restriction method="11396" condition="17060" code="1" serious="true" />
+    <restriction method="11396" condition="3437d" code="4" serious="true" />
+    <restriction method="11396" condition="1a490" code="1" serious="false" />
+    <restriction method="11396" condition="a4696" code="3" serious="true" />
+    <restriction method="11396" condition="b6a14" code="3" serious="true" />
+    <restriction method="11396" condition="da3d0" code="3" serious="true" />
+    <restriction method="11396" condition="13ac3" code="1" serious="false" />
+    <restriction method="11396" condition="21be9" code="1" serious="false" />
+    <restriction method="11396" condition="cbd54" code="1" serious="false" />
+    <restriction method="11396" condition="3437d" code="4" serious="true" />
+    <restriction method="11396" condition="1a768" code="3" serious="true" />
+    <restriction method="11396" condition="13b47" code="2" serious="false" />
+    <restriction method="11396" condition="85d52" code="3" serious="true" />
+    <restriction method="11396" condition="1d63b" code="2" serious="false" />
+    <restriction method="11396" condition="faa63" code="3" serious="true" />
+    <restriction method="11396" condition="f3251" code="2" serious="false" />
+    <restriction method="11396" condition="12345" code="3" serious="true" />
+    <restriction method="16443" condition="25106" code="2" serious="false" />
+    <restriction method="16443" condition="25571" code="1" serious="false" />
+    <restriction method="16443" condition="20707" code="1" serious="false" />
+    <restriction method="16443" condition="16917" code="1" serious="false" />
+    <restriction method="16443" condition="36054" code="1" serious="false" />
+    <restriction method="16443" condition="70508" code="2" serious="false" />
+    <restriction method="16443" condition="26196" code="1" serious="false" />
+    <restriction method="16443" condition="16524" code="1" serious="false" />
+    <restriction method="16443" condition="13163" code="1" serious="false" />
+    <restriction method="16443" condition="13423" code="3" serious="true" />
+    <restriction method="16443" condition="93005" code="3" serious="true" />
+    <restriction method="16443" condition="43523" code="2" serious="false" />
+    <restriction method="16443" condition="32307" code="3" serious="true" />
+    <restriction method="16443" condition="24280" code="1" serious="false" />
+    <restriction method="16443" condition="12572" code="1" serious="false" />
+    <restriction method="16443" condition="12732" code="1" serious="false" />
+    <restriction method="16443" condition="12034" code="1" serious="false" />
+    <restriction method="16443" condition="63137" code="1" serious="false" />
+    <restriction method="16443" condition="44947" code="2" serious="false" />
+    <restriction method="16443" condition="49793" code="2" serious="false" />
+    <restriction method="16443" condition="41819" code="2" serious="false" />
+    <restriction method="16443" condition="35451" code="1" serious="false" />
+    <restriction method="16443" condition="36773" code="1" serious="false" />
+    <restriction method="16443" condition="10049" code="1" serious="false" />
+    <restriction method="16443" condition="17474" code="2" serious="false" />
+    <restriction method="16443" condition="46623" code="2" serious="false" />
+    <restriction method="16443" condition="75381" code="2" serious="false" />
+    <restriction method="16443" condition="46467" code="2" serious="false" />
+    <restriction method="16443" condition="27974" code="1" serious="false" />
+    <restriction method="16443" condition="90849" code="1" serious="false" />
+    <restriction method="16443" condition="22813" code="1" serious="false" />
+    <restriction method="16443" condition="25488" code="1" serious="false" />
+    <restriction method="16443" condition="28350" code="1" serious="false" />
+    <restriction method="16443" condition="77660" code="1" serious="false" />
+    <restriction method="16443" condition="26780" code="1" serious="false" />
+    <restriction method="16443" condition="28072" code="1" serious="false" />
+    <restriction method="16443" condition="20002" code="1" serious="false" />
+    <restriction method="16443" condition="15775" code="1" serious="false" />
+    <restriction method="16443" condition="26550" code="1" serious="false" />
+    <restriction method="16443" condition="28631" code="1" serious="false" />
+    <restriction method="16443" condition="69161" code="1" serious="false" />
+    <restriction method="16443" condition="24554" code="1" serious="false" />
+    <restriction method="16443" condition="14228" code="1" serious="false" />
+    <restriction method="16443" condition="94445" code="1" serious="false" />
+    <restriction method="16443" condition="51639" code="1" serious="false" />
+    <restriction method="16443" condition="77794" code="1" serious="false" />
+    <restriction method="16443" condition="44499" code="1" serious="false" />
+    <restriction method="16443" condition="40320" code="3" serious="true" />
+    <restriction method="16443" condition="74089" code="4" serious="true" />
+    <restriction method="16443" condition="81198" code="1" serious="false" />
+    <restriction method="16443" condition="14380" code="1" serious="false" />
+    <restriction method="16443" condition="49947" code="2" serious="false" />
+    <restriction method="16443" condition="21969" code="2" serious="false" />
+    <restriction method="16443" condition="87733" code="2" serious="false" />
+    <restriction method="16443" condition="66852" code="1" serious="false" />
+    <restriction method="16443" condition="29793" code="1" serious="false" />
+    <restriction method="16443" condition="36781" code="1" serious="false" />
+    <restriction method="16443" condition="91172" code="1" serious="false" />
+    <restriction method="16443" condition="16552" code="1" serious="false" />
+    <restriction method="16443" condition="19850" code="1" serious="false" />
+    <restriction method="16443" condition="47346" code="3" serious="true" />
+    <restriction method="16443" condition="39805" code="2" serious="false" />
+    <restriction method="16443" condition="61390" code="2" serious="false" />
+    <restriction method="16443" condition="94896" code="1" serious="false" />
+    <restriction method="16443" condition="13794" code="1" serious="false" />
+    <restriction method="16443" condition="28322" code="3" serious="true" />
+    <restriction method="16443" condition="26522" code="2" serious="false" />
+    <restriction method="16443" condition="42076" code="2" serious="false" />
+    <restriction method="16443" condition="43571" code="1" serious="false" />
+    <restriction method="16443" condition="54681" code="2" serious="false" />
+    <restriction method="16443" condition="14488" code="2" serious="false" />
+    <restriction method="16443" condition="86529" code="2" serious="false" />
+    <restriction method="16443" condition="42824" code="3" serious="true" />
+    <restriction method="16443" condition="60543" code="1" serious="false" />
+    <restriction method="16443" condition="83645" code="2" serious="false" />
+    <restriction method="16443" condition="10704" code="2" serious="false" />
+    <restriction method="16443" condition="19122" code="4" serious="true" />
+    <restriction method="16443" condition="19471" code="3" serious="true" />
+    <restriction method="16443" condition="45695" code="3" serious="true" />
+    <restriction method="16443" condition="21163" code="1" serious="false" />
+    <restriction method="16443" condition="88196" code="1" serious="false" />
+    <restriction method="16443" condition="16270" code="2" serious="false" />
+    <restriction method="16443" condition="81563" code="1" serious="false" />
+    <restriction method="16443" condition="30788" code="1" serious="false" />
+    <restriction method="16443" condition="20437" code="2" serious="false" />
+    <restriction method="16443" condition="80314" code="1" serious="false" />
+    <restriction method="16443" condition="17743" code="2" serious="false" />
+    <restriction method="16443" condition="44986" code="3" serious="true" />
+    <restriction method="16443" condition="57064" code="2" serious="false" />
+    <restriction method="16443" condition="10228" code="1" serious="false" />
+    <restriction method="16443" condition="58349" code="2" serious="false" />
+    <restriction method="16443" condition="11901" code="2" serious="false" />
+    <restriction method="16443" condition="61488" code="1" serious="false" />
+    <restriction method="16443" condition="38327" code="1" serious="false" />
+    <restriction method="16443" condition="25306" code="2" serious="false" />
+    <restriction method="16443" condition="41907" code="2" serious="false" />
+    <restriction method="16443" condition="82088" code="1" serious="false" />
+    <restriction method="16443" condition="50228" code="1" serious="false" />
+    <restriction method="16443" condition="79685" code="1" serious="false" />
+    <restriction method="16443" condition="13249" code="1" serious="false" />
+    <restriction method="16443" condition="18896" code="1" serious="false" />
+    <restriction method="16443" condition="29672" code="1" serious="false" />
+    <restriction method="16443" condition="88163" code="1" serious="false" />
+    <restriction method="16443" condition="29944" code="1" serious="false" />
+    <restriction method="16443" condition="33030" code="1" serious="false" />
+    <restriction method="16443" condition="37545" code="1" serious="false" />
+    <restriction method="16443" condition="17060" code="1" serious="false" />
+    <restriction method="16443" condition="16527" code="1" serious="false" />
+    <restriction method="16443" condition="11721" code="1" serious="false" />
+    <restriction method="16443" condition="54679" code="1" serious="false" />
+    <restriction method="16443" condition="49587" code="1" serious="false" />
+    <restriction method="16443" condition="33983" code="1" serious="false" />
+    <restriction method="16443" condition="3576c" code="3" serious="true" />
+    <restriction method="16443" condition="d1088" code="3" serious="true" />
+    <restriction method="16443" condition="a2452" code="3" serious="true" />
+    <restriction method="16443" condition="3437d" code="NA" serious="false" />
+    <restriction method="16443" condition="1a490" code="1" serious="false" />
+    <restriction method="16443" condition="a4696" code="1" serious="false" />
+    <restriction method="16443" condition="b6a14" code="1" serious="false" />
+    <restriction method="16443" condition="da3d0" code="NA" serious="false" />
+    <restriction method="16443" condition="13ac3" code="1" serious="false" />
+    <restriction method="16443" condition="21be9" code="NA" serious="false" />
+    <restriction method="16443" condition="cbd54" code="1" serious="false" />
+    <restriction method="16443" condition="3437d" code="NA" serious="false" />
+    <restriction method="16443" condition="1a768" code="1" serious="false" />
+    <restriction method="16443" condition="13b47" code="1" serious="false" />
+    <restriction method="16443" condition="85d52" code="1" serious="false" />
+    <restriction method="16443" condition="1d63b" code="2" serious="false" />
+    <restriction method="16443" condition="faa63" code="2" serious="false" />
+    <restriction method="16443" condition="f3251" code="2" serious="false" />
+    <restriction method="16443" condition="12345" code="2" serious="false" />
+    <restriction method="13761" condition="40101" code="3" serious="true" />
+    <restriction method="13761" condition="25106" code="3" serious="true" />
+    <restriction method="13761" condition="25571" code="1" serious="false" />
+    <restriction method="13761" condition="20707" code="1" serious="false" />
+    <restriction method="13761" condition="16917" code="1" serious="false" />
+    <restriction method="13761" condition="36054" code="3" serious="true" />
+    <restriction method="13761" condition="70508" code="3" serious="true" />
+    <restriction method="13761" condition="26196" code="1" serious="false" />
+    <restriction method="13761" condition="16524" code="2" serious="false" />
+    <restriction method="13761" condition="13163" code="1" serious="false" />
+    <restriction method="13761" condition="13423" code="4" serious="true" />
+    <restriction method="13761" condition="93005" code="4" serious="true" />
+    <restriction method="13761" condition="43523" code="2" serious="false" />
+    <restriction method="13761" condition="32307" code="4" serious="true" />
+    <restriction method="13761" condition="24280" code="1" serious="false" />
+    <restriction method="13761" condition="12572" code="1" serious="false" />
+    <restriction method="13761" condition="12732" code="1" serious="false" />
+    <restriction method="13761" condition="12034" code="4" serious="true" />
+    <restriction method="13761" condition="63137" code="2" serious="false" />
+    <restriction method="13761" condition="44947" code="2" serious="false" />
+    <restriction method="13761" condition="49793" code="3" serious="true" />
+    <restriction method="13761" condition="41819" code="2" serious="false" />
+    <restriction method="13761" condition="35451" code="1" serious="false" />
+    <restriction method="13761" condition="36773" code="1" serious="false" />
+    <restriction method="13761" condition="17474" code="4" serious="true" />
+    <restriction method="13761" condition="46623" code="4" serious="true" />
+    <restriction method="13761" condition="75381" code="2" serious="false" />
+    <restriction method="13761" condition="46467" code="2" serious="false" />
+    <restriction method="13761" condition="27974" code="1" serious="false" />
+    <restriction method="13761" condition="90849" code="1" serious="false" />
+    <restriction method="13761" condition="22813" code="1" serious="false" />
+    <restriction method="13761" condition="25488" code="1" serious="false" />
+    <restriction method="13761" condition="28350" code="1" serious="false" />
+    <restriction method="13761" condition="77660" code="1" serious="false" />
+    <restriction method="13761" condition="26780" code="1" serious="false" />
+    <restriction method="13761" condition="28072" code="1" serious="false" />
+    <restriction method="13761" condition="20002" code="1" serious="false" />
+    <restriction method="13761" condition="15775" code="1" serious="false" />
+    <restriction method="13761" condition="26550" code="1" serious="false" />
+    <restriction method="13761" condition="28631" code="1" serious="false" />
+    <restriction method="13761" condition="69161" code="1" serious="false" />
+    <restriction method="13761" condition="24554" code="1" serious="false" />
+    <restriction method="13761" condition="14228" code="1" serious="false" />
+    <restriction method="13761" condition="94445" code="1" serious="false" />
+    <restriction method="13761" condition="51639" code="1" serious="false" />
+    <restriction method="13761" condition="77794" code="1" serious="false" />
+    <restriction method="13761" condition="44499" code="1" serious="false" />
+    <restriction method="13761" condition="51984" code="1" serious="false" />
+    <restriction method="13761" condition="40320" code="3" serious="true" />
+    <restriction method="13761" condition="74089" code="4" serious="true" />
+    <restriction method="13761" condition="81198" code="1" serious="false" />
+    <restriction method="13761" condition="14380" code="1" serious="false" />
+    <restriction method="13761" condition="49947" code="2" serious="false" />
+    <restriction method="13761" condition="21969" code="2" serious="false" />
+    <restriction method="13761" condition="87733" code="2" serious="false" />
+    <restriction method="13761" condition="66852" code="1" serious="false" />
+    <restriction method="13761" condition="29793" code="1" serious="false" />
+    <restriction method="13761" condition="36781" code="1" serious="false" />
+    <restriction method="13761" condition="91172" code="1" serious="false" />
+    <restriction method="13761" condition="16552" code="1" serious="false" />
+    <restriction method="13761" condition="19850" code="1" serious="false" />
+    <restriction method="13761" condition="47346" code="2" serious="false" />
+    <restriction method="13761" condition="39805" code="1" serious="false" />
+    <restriction method="13761" condition="61390" code="1" serious="false" />
+    <restriction method="13761" condition="94896" code="1" serious="false" />
+    <restriction method="13761" condition="13794" code="1" serious="false" />
+    <restriction method="13761" condition="28322" code="4" serious="true" />
+    <restriction method="13761" condition="26522" code="4" serious="true" />
+    <restriction method="13761" condition="42076" code="3" serious="true" />
+    <restriction method="13761" condition="43571" code="2" serious="false" />
+    <restriction method="13761" condition="54681" code="2" serious="false" />
+    <restriction method="13761" condition="14488" code="2" serious="false" />
+    <restriction method="13761" condition="86529" code="2" serious="false" />
+    <restriction method="13761" condition="42824" code="4" serious="true" />
+    <restriction method="13761" condition="60543" code="4" serious="true" />
+    <restriction method="13761" condition="83645" code="2" serious="false" />
+    <restriction method="13761" condition="10704" code="3" serious="true" />
+    <restriction method="13761" condition="19122" code="4" serious="true" />
+    <restriction method="13761" condition="19471" code="4" serious="true" />
+    <restriction method="13761" condition="45695" code="4" serious="true" />
+    <restriction method="13761" condition="21163" code="2" serious="false" />
+    <restriction method="13761" condition="88196" code="1" serious="false" />
+    <restriction method="13761" condition="16270" code="4" serious="true" />
+    <restriction method="13761" condition="81563" code="1" serious="false" />
+    <restriction method="13761" condition="30788" code="2" serious="false" />
+    <restriction method="13761" condition="20437" code="4" serious="true" />
+    <restriction method="13761" condition="80314" code="2" serious="false" />
+    <restriction method="13761" condition="17743" code="4" serious="true" />
+    <restriction method="13761" condition="44986" code="4" serious="true" />
+    <restriction method="13761" condition="57064" code="4" serious="true" />
+    <restriction method="13761" condition="10228" code="2" serious="false" />
+    <restriction method="13761" condition="58349" code="4" serious="true" />
+    <restriction method="13761" condition="11901" code="4" serious="true" />
+    <restriction method="13761" condition="61488" code="3" serious="true" />
+    <restriction method="13761" condition="38327" code="3" serious="true" />
+    <restriction method="13761" condition="25306" code="3" serious="true" />
+    <restriction method="13761" condition="41907" code="4" serious="true" />
+    <restriction method="13761" condition="82088" code="2" serious="false" />
+    <restriction method="13761" condition="50228" code="4" serious="true" />
+    <restriction method="13761" condition="79685" code="3" serious="true" />
+    <restriction method="13761" condition="13249" code="2" serious="false" />
+    <restriction method="13761" condition="18896" code="1" serious="false" />
+    <restriction method="13761" condition="29672" code="1" serious="false" />
+    <restriction method="13761" condition="88163" code="1" serious="false" />
+    <restriction method="13761" condition="29944" code="1" serious="false" />
+    <restriction method="13761" condition="33030" code="1" serious="false" />
+    <restriction method="13761" condition="37545" code="2" serious="false" />
+    <restriction method="13761" condition="17060" code="3" serious="true" />
+    <restriction method="13761" condition="16527" code="1" serious="false" />
+    <restriction method="13761" condition="11721" code="1" serious="false" />
+    <restriction method="13761" condition="15022" code="2" serious="false" />
+    <restriction method="13761" condition="30912" code="1" serious="false" />
+    <restriction method="13761" condition="3576c" code="4" serious="true" />
+    <restriction method="13761" condition="d1088" code="4" serious="true" />
+    <restriction method="13761" condition="a2452" code="4" serious="true" />
+    <restriction method="13761" condition="3437d" code="NA" serious="false" />
+    <restriction method="13761" condition="1a490" code="3" serious="true" />
+    <restriction method="13761" condition="a4696" code="3" serious="true" />
+    <restriction method="13761" condition="b6a14" code="2" serious="false" />
+    <restriction method="13761" condition="da3d0" code="3" serious="true" />
+    <restriction method="13761" condition="13ac3" code="2" serious="false" />
+    <restriction method="13761" condition="21be9" code="3" serious="true" />
+    <restriction method="13761" condition="cbd54" code="1" serious="false" />
+    <restriction method="13761" condition="3437d" code="NA" serious="false" />
+    <restriction method="13761" condition="1a768" code="1" serious="false" />
+    <restriction method="13761" condition="13b47" code="1" serious="false" />
+    <restriction method="13761" condition="85d52" code="1" serious="false" />
+    <restriction method="13761" condition="1d63b" code="2" serious="false" />
+    <restriction method="13761" condition="faa63" code="2" serious="false" />
+    <restriction method="13761" condition="f3251" code="3" serious="true" />
+    <restriction method="13761" condition="12345" code="3" serious="true" />
+    <restriction method="35939" condition="12161" code="3" serious="true" />
+    <restriction method="35939" condition="40101" code="3" serious="true" />
+    <restriction method="35939" condition="25106" code="3" serious="true" />
+    <restriction method="35939" condition="25571" code="1" serious="false" />
+    <restriction method="35939" condition="20707" code="1" serious="false" />
+    <restriction method="35939" condition="16917" code="1" serious="false" />
+    <restriction method="35939" condition="36054" code="3" serious="true" />
+    <restriction method="35939" condition="70508" code="3" serious="true" />
+    <restriction method="35939" condition="26196" code="1" serious="false" />
+    <restriction method="35939" condition="16524" code="2" serious="false" />
+    <restriction method="35939" condition="13163" code="1" serious="false" />
+    <restriction method="35939" condition="13423" code="4" serious="true" />
+    <restriction method="35939" condition="93005" code="4" serious="true" />
+    <restriction method="35939" condition="43523" code="2" serious="false" />
+    <restriction method="35939" condition="32307" code="4" serious="true" />
+    <restriction method="35939" condition="24280" code="1" serious="false" />
+    <restriction method="35939" condition="12572" code="1" serious="false" />
+    <restriction method="35939" condition="12732" code="1" serious="false" />
+    <restriction method="35939" condition="12034" code="4" serious="true" />
+    <restriction method="35939" condition="63137" code="2" serious="false" />
+    <restriction method="35939" condition="44947" code="2" serious="false" />
+    <restriction method="35939" condition="49793" code="3" serious="true" />
+    <restriction method="35939" condition="41819" code="2" serious="false" />
+    <restriction method="35939" condition="35451" code="1" serious="false" />
+    <restriction method="35939" condition="36773" code="1" serious="false" />
+    <restriction method="35939" condition="10049" code="1" serious="false" />
+    <restriction method="35939" condition="17474" code="4" serious="true" />
+    <restriction method="35939" condition="46623" code="4" serious="true" />
+    <restriction method="35939" condition="75381" code="2" serious="false" />
+    <restriction method="35939" condition="46467" code="2" serious="false" />
+    <restriction method="35939" condition="27974" code="1" serious="false" />
+    <restriction method="35939" condition="90849" code="1" serious="false" />
+    <restriction method="35939" condition="22813" code="1" serious="false" />
+    <restriction method="35939" condition="25488" code="1" serious="false" />
+    <restriction method="35939" condition="28350" code="1" serious="false" />
+    <restriction method="35939" condition="77660" code="1" serious="false" />
+    <restriction method="35939" condition="26780" code="1" serious="false" />
+    <restriction method="35939" condition="28072" code="1" serious="false" />
+    <restriction method="35939" condition="20002" code="1" serious="false" />
+    <restriction method="35939" condition="15775" code="1" serious="false" />
+    <restriction method="35939" condition="26550" code="1" serious="false" />
+    <restriction method="35939" condition="28631" code="1" serious="false" />
+    <restriction method="35939" condition="69161" code="1" serious="false" />
+    <restriction method="35939" condition="24554" code="1" serious="false" />
+    <restriction method="35939" condition="14228" code="1" serious="false" />
+    <restriction method="35939" condition="94445" code="1" serious="false" />
+    <restriction method="35939" condition="51639" code="1" serious="false" />
+    <restriction method="35939" condition="77794" code="1" serious="false" />
+    <restriction method="35939" condition="44499" code="1" serious="false" />
+    <restriction method="35939" condition="51984" code="1" serious="false" />
+    <restriction method="35939" condition="40320" code="3" serious="true" />
+    <restriction method="35939" condition="74089" code="4" serious="true" />
+    <restriction method="35939" condition="81198" code="1" serious="false" />
+    <restriction method="35939" condition="14380" code="1" serious="false" />
+    <restriction method="35939" condition="49947" code="2" serious="false" />
+    <restriction method="35939" condition="21969" code="2" serious="false" />
+    <restriction method="35939" condition="87733" code="2" serious="false" />
+    <restriction method="35939" condition="66852" code="1" serious="false" />
+    <restriction method="35939" condition="29793" code="1" serious="false" />
+    <restriction method="35939" condition="36781" code="1" serious="false" />
+    <restriction method="35939" condition="91172" code="1" serious="false" />
+    <restriction method="35939" condition="16552" code="1" serious="false" />
+    <restriction method="35939" condition="19850" code="1" serious="false" />
+    <restriction method="35939" condition="47346" code="2" serious="false" />
+    <restriction method="35939" condition="39805" code="1" serious="false" />
+    <restriction method="35939" condition="61390" code="1" serious="false" />
+    <restriction method="35939" condition="94896" code="1" serious="false" />
+    <restriction method="35939" condition="13794" code="1" serious="false" />
+    <restriction method="35939" condition="28322" code="4" serious="true" />
+    <restriction method="35939" condition="26522" code="4" serious="true" />
+    <restriction method="35939" condition="42076" code="3" serious="true" />
+    <restriction method="35939" condition="43571" code="2" serious="false" />
+    <restriction method="35939" condition="54681" code="2" serious="false" />
+    <restriction method="35939" condition="14488" code="2" serious="false" />
+    <restriction method="35939" condition="86529" code="2" serious="false" />
+    <restriction method="35939" condition="42824" code="4" serious="true" />
+    <restriction method="35939" condition="60543" code="4" serious="true" />
+    <restriction method="35939" condition="83645" code="2" serious="false" />
+    <restriction method="35939" condition="10704" code="3" serious="true" />
+    <restriction method="35939" condition="19122" code="4" serious="true" />
+    <restriction method="35939" condition="19471" code="4" serious="true" />
+    <restriction method="35939" condition="45695" code="4" serious="true" />
+    <restriction method="35939" condition="21163" code="2" serious="false" />
+    <restriction method="35939" condition="88196" code="1" serious="false" />
+    <restriction method="35939" condition="16270" code="4" serious="true" />
+    <restriction method="35939" condition="81563" code="1" serious="false" />
+    <restriction method="35939" condition="30788" code="2" serious="false" />
+    <restriction method="35939" condition="20437" code="4" serious="true" />
+    <restriction method="35939" condition="80314" code="2" serious="false" />
+    <restriction method="35939" condition="17743" code="4" serious="true" />
+    <restriction method="35939" condition="44986" code="4" serious="true" />
+    <restriction method="35939" condition="57064" code="4" serious="true" />
+    <restriction method="35939" condition="10228" code="2" serious="false" />
+    <restriction method="35939" condition="58349" code="4" serious="true" />
+    <restriction method="35939" condition="11901" code="4" serious="true" />
+    <restriction method="35939" condition="61488" code="3" serious="true" />
+    <restriction method="35939" condition="38327" code="3" serious="true" />
+    <restriction method="35939" condition="25306" code="3" serious="true" />
+    <restriction method="35939" condition="41907" code="4" serious="true" />
+    <restriction method="35939" condition="82088" code="2" serious="false" />
+    <restriction method="35939" condition="50228" code="4" serious="true" />
+    <restriction method="35939" condition="79685" code="3" serious="true" />
+    <restriction method="35939" condition="13249" code="2" serious="false" />
+    <restriction method="35939" condition="18896" code="1" serious="false" />
+    <restriction method="35939" condition="29672" code="1" serious="false" />
+    <restriction method="35939" condition="88163" code="1" serious="false" />
+    <restriction method="35939" condition="29944" code="1" serious="false" />
+    <restriction method="35939" condition="33030" code="1" serious="false" />
+    <restriction method="35939" condition="37545" code="2" serious="false" />
+    <restriction method="35939" condition="17060" code="3" serious="true" />
+    <restriction method="35939" condition="16527" code="1" serious="false" />
+    <restriction method="35939" condition="11721" code="1" serious="false" />
+    <restriction method="35939" condition="15022" code="2" serious="false" />
+    <restriction method="35939" condition="30912" code="1" serious="false" />
+    <restriction method="35939" condition="3576c" code="4" serious="true" />
+    <restriction method="35939" condition="d1088" code="4" serious="true" />
+    <restriction method="35939" condition="a2452" code="4" serious="true" />
+    <restriction method="35939" condition="3437d" code="NA" serious="false" />
+    <restriction method="35939" condition="1a490" code="3" serious="true" />
+    <restriction method="35939" condition="a4696" code="3" serious="true" />
+    <restriction method="35939" condition="b6a14" code="2" serious="false" />
+    <restriction method="35939" condition="da3d0" code="3" serious="true" />
+    <restriction method="35939" condition="13ac3" code="2" serious="false" />
+    <restriction method="35939" condition="21be9" code="3" serious="true" />
+    <restriction method="35939" condition="cbd54" code="1" serious="false" />
+    <restriction method="35939" condition="3437d" code="NA" serious="false" />
+    <restriction method="35939" condition="1a768" code="1" serious="false" />
+    <restriction method="35939" condition="13b47" code="1" serious="false" />
+    <restriction method="35939" condition="85d52" code="1" serious="false" />
+    <restriction method="35939" condition="1d63b" code="2" serious="false" />
+    <restriction method="35939" condition="faa63" code="2" serious="false" />
+    <restriction method="35939" condition="f3251" code="3" serious="true" />
+    <restriction method="35939" condition="12345" code="3" serious="true" />
+    <restriction method="35939" condition="84e16" code="3" serious="true" />
+    <restriction method="35939" condition="fcdec" code="4" serious="true" />
+    <restriction method="76205" condition="25106" code="2" serious="false" />
+    <restriction method="76205" condition="25571" code="1" serious="false" />
+    <restriction method="76205" condition="20707" code="1" serious="false" />
+    <restriction method="76205" condition="16917" code="1" serious="false" />
+    <restriction method="76205" condition="36054" code="3" serious="true" />
+    <restriction method="76205" condition="70508" code="2" serious="false" />
+    <restriction method="76205" condition="26196" code="1" serious="false" />
+    <restriction method="76205" condition="16524" code="2" serious="false" />
+    <restriction method="76205" condition="13163" code="1" serious="false" />
+    <restriction method="76205" condition="13423" code="4" serious="true" />
+    <restriction method="76205" condition="93005" code="3" serious="true" />
+    <restriction method="76205" condition="43523" code="2" serious="false" />
+    <restriction method="76205" condition="32307" code="3" serious="true" />
+    <restriction method="76205" condition="24280" code="1" serious="false" />
+    <restriction method="76205" condition="12572" code="1" serious="false" />
+    <restriction method="76205" condition="12732" code="1" serious="false" />
+    <restriction method="76205" condition="12034" code="3" serious="true" />
+    <restriction method="76205" condition="63137" code="2" serious="false" />
+    <restriction method="76205" condition="44947" code="2" serious="false" />
+    <restriction method="76205" condition="49793" code="2" serious="false" />
+    <restriction method="76205" condition="41819" code="2" serious="false" />
+    <restriction method="76205" condition="35451" code="1" serious="false" />
+    <restriction method="76205" condition="36773" code="1" serious="false" />
+    <restriction method="76205" condition="10049" code="1" serious="false" />
+    <restriction method="76205" condition="17474" code="4" serious="true" />
+    <restriction method="76205" condition="46623" code="4" serious="true" />
+    <restriction method="76205" condition="75381" code="2" serious="false" />
+    <restriction method="76205" condition="46467" code="2" serious="false" />
+    <restriction method="76205" condition="27974" code="1" serious="false" />
+    <restriction method="76205" condition="90849" code="1" serious="false" />
+    <restriction method="76205" condition="22813" code="1" serious="false" />
+    <restriction method="76205" condition="25488" code="1" serious="false" />
+    <restriction method="76205" condition="28350" code="1" serious="false" />
+    <restriction method="76205" condition="77660" code="1" serious="false" />
+    <restriction method="76205" condition="26780" code="1" serious="false" />
+    <restriction method="76205" condition="28072" code="1" serious="false" />
+    <restriction method="76205" condition="20002" code="1" serious="false" />
+    <restriction method="76205" condition="15775" code="1" serious="false" />
+    <restriction method="76205" condition="26550" code="1" serious="false" />
+    <restriction method="76205" condition="28631" code="1" serious="false" />
+    <restriction method="76205" condition="69161" code="1" serious="false" />
+    <restriction method="76205" condition="24554" code="1" serious="false" />
+    <restriction method="76205" condition="14228" code="1" serious="false" />
+    <restriction method="76205" condition="94445" code="1" serious="false" />
+    <restriction method="76205" condition="51639" code="1" serious="false" />
+    <restriction method="76205" condition="77794" code="1" serious="false" />
+    <restriction method="76205" condition="44499" code="1" serious="false" />
+    <restriction method="76205" condition="51984" code="1" serious="false" />
+    <restriction method="76205" condition="40320" code="3" serious="true" />
+    <restriction method="76205" condition="74089" code="4" serious="true" />
+    <restriction method="76205" condition="81198" code="1" serious="false" />
+    <restriction method="76205" condition="14380" code="1" serious="false" />
+    <restriction method="76205" condition="49947" code="2" serious="false" />
+    <restriction method="76205" condition="21969" code="2" serious="false" />
+    <restriction method="76205" condition="87733" code="2" serious="false" />
+    <restriction method="76205" condition="66852" code="1" serious="false" />
+    <restriction method="76205" condition="29793" code="1" serious="false" />
+    <restriction method="76205" condition="36781" code="1" serious="false" />
+    <restriction method="76205" condition="91172" code="1" serious="false" />
+    <restriction method="76205" condition="16552" code="1" serious="false" />
+    <restriction method="76205" condition="19850" code="1" serious="false" />
+    <restriction method="76205" condition="47346" code="2" serious="false" />
+    <restriction method="76205" condition="39805" code="1" serious="false" />
+    <restriction method="76205" condition="61390" code="1" serious="false" />
+    <restriction method="76205" condition="94896" code="1" serious="false" />
+    <restriction method="76205" condition="13794" code="1" serious="false" />
+    <restriction method="76205" condition="28322" code="4" serious="true" />
+    <restriction method="76205" condition="26522" code="4" serious="true" />
+    <restriction method="76205" condition="42076" code="3" serious="true" />
+    <restriction method="76205" condition="43571" code="2" serious="false" />
+    <restriction method="76205" condition="54681" code="2" serious="false" />
+    <restriction method="76205" condition="14488" code="2" serious="false" />
+    <restriction method="76205" condition="86529" code="2" serious="false" />
+    <restriction method="76205" condition="42824" code="4" serious="true" />
+    <restriction method="76205" condition="60543" code="4" serious="true" />
+    <restriction method="76205" condition="83645" code="2" serious="false" />
+    <restriction method="76205" condition="10704" code="3" serious="true" />
+    <restriction method="76205" condition="19122" code="4" serious="true" />
+    <restriction method="76205" condition="19471" code="4" serious="true" />
+    <restriction method="76205" condition="45695" code="4" serious="true" />
+    <restriction method="76205" condition="21163" code="2" serious="false" />
+    <restriction method="76205" condition="88196" code="1" serious="false" />
+    <restriction method="76205" condition="16270" code="4" serious="true" />
+    <restriction method="76205" condition="81563" code="1" serious="false" />
+    <restriction method="76205" condition="30788" code="2" serious="false" />
+    <restriction method="76205" condition="20437" code="4" serious="true" />
+    <restriction method="76205" condition="80314" code="2" serious="false" />
+    <restriction method="76205" condition="17743" code="4" serious="true" />
+    <restriction method="76205" condition="44986" code="4" serious="true" />
+    <restriction method="76205" condition="57064" code="4" serious="true" />
+    <restriction method="76205" condition="10228" code="2" serious="false" />
+    <restriction method="76205" condition="58349" code="4" serious="true" />
+    <restriction method="76205" condition="11901" code="4" serious="true" />
+    <restriction method="76205" condition="61488" code="3" serious="true" />
+    <restriction method="76205" condition="38327" code="3" serious="true" />
+    <restriction method="76205" condition="25306" code="3" serious="true" />
+    <restriction method="76205" condition="41907" code="4" serious="true" />
+    <restriction method="76205" condition="82088" code="2" serious="false" />
+    <restriction method="76205" condition="50228" code="3" serious="true" />
+    <restriction method="76205" condition="79685" code="2" serious="false" />
+    <restriction method="76205" condition="13249" code="2" serious="false" />
+    <restriction method="76205" condition="18896" code="1" serious="false" />
+    <restriction method="76205" condition="29672" code="1" serious="false" />
+    <restriction method="76205" condition="88163" code="1" serious="false" />
+    <restriction method="76205" condition="29944" code="1" serious="false" />
+    <restriction method="76205" condition="33030" code="1" serious="false" />
+    <restriction method="76205" condition="37545" code="2" serious="false" />
+    <restriction method="76205" condition="17060" code="3" serious="true" />
+    <restriction method="76205" condition="16527" code="1" serious="false" />
+    <restriction method="76205" condition="11721" code="1" serious="false" />
+    <restriction method="76205" condition="15022" code="2" serious="false" />
+    <restriction method="76205" condition="30912" code="1" serious="false" />
+    <restriction method="76205" condition="3576c" code="4" serious="true" />
+    <restriction method="76205" condition="d1088" code="4" serious="true" />
+    <restriction method="76205" condition="a2452" code="4" serious="true" />
+    <restriction method="76205" condition="3437d" code="NA" serious="false" />
+    <restriction method="76205" condition="1a490" code="3" serious="true" />
+    <restriction method="76205" condition="a4696" code="3" serious="true" />
+    <restriction method="76205" condition="b6a14" code="2" serious="false" />
+    <restriction method="76205" condition="da3d0" code="3" serious="true" />
+    <restriction method="76205" condition="13ac3" code="2" serious="false" />
+    <restriction method="76205" condition="21be9" code="3" serious="true" />
+    <restriction method="76205" condition="cbd54" code="1" serious="false" />
+    <restriction method="76205" condition="3437d" code="NA" serious="false" />
+    <restriction method="76205" condition="1a768" code="1" serious="false" />
+    <restriction method="76205" condition="13b47" code="1" serious="false" />
+    <restriction method="76205" condition="85d52" code="1" serious="false" />
+    <restriction method="76205" condition="faa63" code="2" serious="false" />
+    <restriction method="76205" condition="f3251" code="3" serious="true" />
+    <restriction method="76205" condition="12345" code="3" serious="true" />
+    <restriction method="76205" condition="84e16" code="3" serious="true" />
+    <restriction method="76205" condition="fcdec" code="4" serious="true" />
+    <restriction method="46175" condition="25106" code="0" serious="false" />
+    <restriction method="46175" condition="25571" code="1" serious="false" />
+    <restriction method="46175" condition="20707" code="1" serious="false" />
+    <restriction method="46175" condition="16917" code="1" serious="false" />
+    <restriction method="46175" condition="36054" code="1" serious="false" />
+    <restriction method="46175" condition="70508" code="0" serious="false" />
+    <restriction method="46175" condition="26196" code="1" serious="false" />
+    <restriction method="46175" condition="16524" code="1" serious="false" />
+    <restriction method="46175" condition="13163" code="1" serious="false" />
+    <restriction method="46175" condition="13423" code="3" serious="true" />
+    <restriction method="46175" condition="93005" code="3" serious="true" />
+    <restriction method="46175" condition="43523" code="2" serious="false" />
+    <restriction method="46175" condition="32307" code="3" serious="true" />
+    <restriction method="46175" condition="24280" code="1" serious="false" />
+    <restriction method="46175" condition="12572" code="1" serious="false" />
+    <restriction method="46175" condition="12732" code="1" serious="false" />
+    <restriction method="46175" condition="12034" code="1" serious="false" />
+    <restriction method="46175" condition="63137" code="1" serious="false" />
+    <restriction method="46175" condition="44947" code="2" serious="false" />
+    <restriction method="46175" condition="49793" code="2" serious="false" />
+    <restriction method="46175" condition="41819" code="2" serious="false" />
+    <restriction method="46175" condition="35451" code="1" serious="false" />
+    <restriction method="46175" condition="36773" code="1" serious="false" />
+    <restriction method="46175" condition="10049" code="1" serious="false" />
+    <restriction method="46175" condition="17474" code="3" serious="true" />
+    <restriction method="46175" condition="46623" code="3" serious="true" />
+    <restriction method="46175" condition="75381" code="2" serious="false" />
+    <restriction method="46175" condition="46467" code="2" serious="false" />
+    <restriction method="46175" condition="27974" code="1" serious="false" />
+    <restriction method="46175" condition="90849" code="1" serious="false" />
+    <restriction method="46175" condition="22813" code="1" serious="false" />
+    <restriction method="46175" condition="25488" code="1" serious="false" />
+    <restriction method="46175" condition="28350" code="1" serious="false" />
+    <restriction method="46175" condition="77660" code="1" serious="false" />
+    <restriction method="46175" condition="26780" code="1" serious="false" />
+    <restriction method="46175" condition="28072" code="1" serious="false" />
+    <restriction method="46175" condition="20002" code="1" serious="false" />
+    <restriction method="46175" condition="15775" code="1" serious="false" />
+    <restriction method="46175" condition="26550" code="1" serious="false" />
+    <restriction method="46175" condition="28631" code="1" serious="false" />
+    <restriction method="46175" condition="69161" code="1" serious="false" />
+    <restriction method="46175" condition="24554" code="1" serious="false" />
+    <restriction method="46175" condition="14228" code="1" serious="false" />
+    <restriction method="46175" condition="94445" code="1" serious="false" />
+    <restriction method="46175" condition="51639" code="1" serious="false" />
+    <restriction method="46175" condition="77794" code="1" serious="false" />
+    <restriction method="46175" condition="44499" code="1" serious="false" />
+    <restriction method="46175" condition="51984" code="1" serious="false" />
+    <restriction method="46175" condition="40320" code="3" serious="true" />
+    <restriction method="46175" condition="74089" code="4" serious="true" />
+    <restriction method="46175" condition="81198" code="1" serious="false" />
+    <restriction method="46175" condition="14380" code="1" serious="false" />
+    <restriction method="46175" condition="49947" code="2" serious="false" />
+    <restriction method="46175" condition="21969" code="2" serious="false" />
+    <restriction method="46175" condition="87733" code="2" serious="false" />
+    <restriction method="46175" condition="66852" code="1" serious="false" />
+    <restriction method="46175" condition="29793" code="1" serious="false" />
+    <restriction method="46175" condition="36781" code="1" serious="false" />
+    <restriction method="46175" condition="91172" code="1" serious="false" />
+    <restriction method="46175" condition="16552" code="1" serious="false" />
+    <restriction method="46175" condition="19850" code="1" serious="false" />
+    <restriction method="46175" condition="47346" code="3" serious="true" />
+    <restriction method="46175" condition="39805" code="2" serious="false" />
+    <restriction method="46175" condition="61390" code="2" serious="false" />
+    <restriction method="46175" condition="94896" code="1" serious="false" />
+    <restriction method="46175" condition="13794" code="1" serious="false" />
+    <restriction method="46175" condition="28322" code="3" serious="true" />
+    <restriction method="46175" condition="26522" code="2" serious="false" />
+    <restriction method="46175" condition="42076" code="2" serious="false" />
+    <restriction method="46175" condition="43571" code="1" serious="false" />
+    <restriction method="46175" condition="54681" code="2" serious="false" />
+    <restriction method="46175" condition="14488" code="2" serious="false" />
+    <restriction method="46175" condition="86529" code="3" serious="true" />
+    <restriction method="46175" condition="42824" code="3" serious="true" />
+    <restriction method="46175" condition="60543" code="1" serious="false" />
+    <restriction method="46175" condition="83645" code="2" serious="false" />
+    <restriction method="46175" condition="10704" code="2" serious="false" />
+    <restriction method="46175" condition="19122" code="4" serious="true" />
+    <restriction method="46175" condition="19471" code="3" serious="true" />
+    <restriction method="46175" condition="45695" code="3" serious="true" />
+    <restriction method="46175" condition="21163" code="2" serious="false" />
+    <restriction method="46175" condition="88196" code="1" serious="false" />
+    <restriction method="46175" condition="16270" code="2" serious="false" />
+    <restriction method="46175" condition="81563" code="1" serious="false" />
+    <restriction method="46175" condition="30788" code="1" serious="false" />
+    <restriction method="46175" condition="20437" code="2" serious="false" />
+    <restriction method="46175" condition="80314" code="1" serious="false" />
+    <restriction method="46175" condition="17743" code="2" serious="false" />
+    <restriction method="46175" condition="44986" code="3" serious="true" />
+    <restriction method="46175" condition="57064" code="2" serious="false" />
+    <restriction method="46175" condition="10228" code="1" serious="false" />
+    <restriction method="46175" condition="58349" code="3" serious="true" />
+    <restriction method="46175" condition="11901" code="2" serious="false" />
+    <restriction method="46175" condition="61488" code="2" serious="false" />
+    <restriction method="46175" condition="38327" code="2" serious="false" />
+    <restriction method="46175" condition="25306" code="2" serious="false" />
+    <restriction method="46175" condition="41907" code="3" serious="true" />
+    <restriction method="46175" condition="82088" code="1" serious="false" />
+    <restriction method="46175" condition="50228" code="1" serious="false" />
+    <restriction method="46175" condition="79685" code="1" serious="false" />
+    <restriction method="46175" condition="13249" code="1" serious="false" />
+    <restriction method="46175" condition="18896" code="1" serious="false" />
+    <restriction method="46175" condition="29672" code="1" serious="false" />
+    <restriction method="46175" condition="88163" code="1" serious="false" />
+    <restriction method="46175" condition="29944" code="1" serious="false" />
+    <restriction method="46175" condition="33030" code="1" serious="false" />
+    <restriction method="46175" condition="37545" code="1" serious="false" />
+    <restriction method="46175" condition="17060" code="1" serious="false" />
+    <restriction method="46175" condition="16527" code="1" serious="false" />
+    <restriction method="46175" condition="11721" code="1" serious="false" />
+    <restriction method="46175" condition="54679" code="2" serious="false" />
+    <restriction method="46175" condition="49587" code="1" serious="false" />
+    <restriction method="46175" condition="33983" code="2" serious="false" />
+    <restriction method="46175" condition="3576c" code="3" serious="true" />
+    <restriction method="46175" condition="d1088" code="3" serious="true" />
+    <restriction method="46175" condition="a2452" code="3" serious="true" />
+    <restriction method="46175" condition="3437d" code="NA" serious="false" />
+    <restriction method="46175" condition="1a490" code="1" serious="false" />
+    <restriction method="46175" condition="a4696" code="1" serious="false" />
+    <restriction method="46175" condition="b6a14" code="1" serious="false" />
+    <restriction method="46175" condition="da3d0" code="NA" serious="false" />
+    <restriction method="46175" condition="13ac3" code="1" serious="false" />
+    <restriction method="46175" condition="21be9" code="NA" serious="false" />
+    <restriction method="46175" condition="cbd54" code="1" serious="false" />
+    <restriction method="46175" condition="3437d" code="NA" serious="false" />
+    <restriction method="46175" condition="1a768" code="1" serious="false" />
+    <restriction method="46175" condition="13b47" code="1" serious="false" />
+    <restriction method="46175" condition="85d52" code="1" serious="false" />
+    <restriction method="46175" condition="1d63b" code="2" serious="false" />
+    <restriction method="46175" condition="faa63" code="1,2" serious="false" />
+    <restriction method="46175" condition="f3251" code="1,2" serious="false" />
+    <restriction method="46175" condition="12345" code="1,2" serious="false" />
+    <restriction method="35912" condition="12034" code="2" serious="false" />
+    <restriction method="35912" condition="16313" code="2" serious="false" />
+    <restriction method="35912" condition="14488" code="2" serious="false" />
+    <restriction method="35912" condition="29672" code="1" serious="false" />
+    <restriction method="35912" condition="37545" code="1" serious="false" />
+    <restriction method="35912" condition="17060" code="1" serious="false" />
+    <restriction method="35912" condition="3576c" code="1" serious="false" />
+    <restriction method="35912" condition="d1088" code="1" serious="false" />
+    <restriction method="35912" condition="a2452" code="1" serious="false" />
+    <restriction method="35912" condition="3437d" code="NA" serious="false" />
+    <restriction method="35912" condition="1a490" code="NA" serious="false" />
+    <restriction method="35912" condition="a4696" code="1" serious="false" />
+    <restriction method="35912" condition="b6a14" code="NA" serious="false" />
+    <restriction method="35912" condition="da3d0" code="NA" serious="false" />
+    <restriction method="35912" condition="13ac3" code="NA" serious="false" />
+    <restriction method="35912" condition="21be9" code="NA" serious="false" />
+    <restriction method="35912" condition="cbd54" code="NA" serious="false" />
+    <restriction method="35912" condition="3437d" code="NA" serious="false" />
+    <restriction method="35912" condition="1a768" code="NA" serious="false" />
+    <restriction method="35912" condition="13b47" code="NA" serious="false" />
+    <restriction method="35912" condition="85d52" code="NA" serious="false" />
+    <restriction method="35912" condition="1d63b" code="NA" serious="false" />
+    <restriction method="35912" condition="faa63" code="NA" serious="false" />
+    <restriction method="35912" condition="f3251" code="NA" serious="false" />
+    <restriction method="35912" condition="12345" code="NA" serious="false" />
+    <restriction method="41636" condition="25106" code="3" serious="true" />
+    <restriction method="41636" condition="25571" code="1" serious="false" />
+    <restriction method="41636" condition="20707" code="1" serious="false" />
+    <restriction method="41636" condition="16917" code="1" serious="false" />
+    <restriction method="41636" condition="36054" code="1" serious="false" />
+    <restriction method="41636" condition="70508" code="3" serious="true" />
+    <restriction method="41636" condition="26196" code="1" serious="false" />
+    <restriction method="41636" condition="16524" code="1" serious="false" />
+    <restriction method="41636" condition="13163" code="1" serious="false" />
+    <restriction method="41636" condition="13423" code="3" serious="true" />
+    <restriction method="41636" condition="93005" code="3" serious="true" />
+    <restriction method="41636" condition="43523" code="2" serious="false" />
+    <restriction method="41636" condition="32307" code="3" serious="true" />
+    <restriction method="41636" condition="24280" code="1" serious="false" />
+    <restriction method="41636" condition="12572" code="1" serious="false" />
+    <restriction method="41636" condition="12732" code="1" serious="false" />
+    <restriction method="41636" condition="12034" code="1" serious="false" />
+    <restriction method="41636" condition="63137" code="1" serious="false" />
+    <restriction method="41636" condition="44947" code="2" serious="false" />
+    <restriction method="41636" condition="49793" code="2" serious="false" />
+    <restriction method="41636" condition="41819" code="2" serious="false" />
+    <restriction method="41636" condition="35451" code="1" serious="false" />
+    <restriction method="41636" condition="36773" code="1" serious="false" />
+    <restriction method="41636" condition="10049" code="1" serious="false" />
+    <restriction method="41636" condition="17474" code="2" serious="false" />
+    <restriction method="41636" condition="46623" code="2" serious="false" />
+    <restriction method="41636" condition="75381" code="2" serious="false" />
+    <restriction method="41636" condition="46467" code="2" serious="false" />
+    <restriction method="41636" condition="27974" code="1" serious="false" />
+    <restriction method="41636" condition="90849" code="1" serious="false" />
+    <restriction method="41636" condition="22813" code="1" serious="false" />
+    <restriction method="41636" condition="25488" code="1" serious="false" />
+    <restriction method="41636" condition="28350" code="1" serious="false" />
+    <restriction method="41636" condition="77660" code="1" serious="false" />
+    <restriction method="41636" condition="26780" code="1" serious="false" />
+    <restriction method="41636" condition="28072" code="1" serious="false" />
+    <restriction method="41636" condition="20002" code="1" serious="false" />
+    <restriction method="41636" condition="15775" code="1" serious="false" />
+    <restriction method="41636" condition="26550" code="1" serious="false" />
+    <restriction method="41636" condition="28631" code="1" serious="false" />
+    <restriction method="41636" condition="69161" code="1" serious="false" />
+    <restriction method="41636" condition="24554" code="1" serious="false" />
+    <restriction method="41636" condition="14228" code="1" serious="false" />
+    <restriction method="41636" condition="94445" code="1" serious="false" />
+    <restriction method="41636" condition="51639" code="1" serious="false" />
+    <restriction method="41636" condition="77794" code="1" serious="false" />
+    <restriction method="41636" condition="44499" code="1" serious="false" />
+    <restriction method="41636" condition="51984" code="1" serious="false" />
+    <restriction method="41636" condition="40320" code="3" serious="true" />
+    <restriction method="41636" condition="74089" code="4" serious="true" />
+    <restriction method="41636" condition="81198" code="1" serious="false" />
+    <restriction method="41636" condition="14380" code="1" serious="false" />
+    <restriction method="41636" condition="49947" code="2" serious="false" />
+    <restriction method="41636" condition="21969" code="1" serious="false" />
+    <restriction method="41636" condition="87733" code="1" serious="false" />
+    <restriction method="41636" condition="66852" code="1" serious="false" />
+    <restriction method="41636" condition="29793" code="1" serious="false" />
+    <restriction method="41636" condition="36781" code="1" serious="false" />
+    <restriction method="41636" condition="91172" code="1" serious="false" />
+    <restriction method="41636" condition="16552" code="1" serious="false" />
+    <restriction method="41636" condition="19850" code="1" serious="false" />
+    <restriction method="41636" condition="47346" code="2" serious="false" />
+    <restriction method="41636" condition="39805" code="2" serious="false" />
+    <restriction method="41636" condition="61390" code="2" serious="false" />
+    <restriction method="41636" condition="94896" code="1" serious="false" />
+    <restriction method="41636" condition="13794" code="1" serious="false" />
+    <restriction method="41636" condition="28322" code="3" serious="true" />
+    <restriction method="41636" condition="26522" code="2" serious="false" />
+    <restriction method="41636" condition="42076" code="2" serious="false" />
+    <restriction method="41636" condition="43571" code="1" serious="false" />
+    <restriction method="41636" condition="54681" code="2" serious="false" />
+    <restriction method="41636" condition="14488" code="2" serious="false" />
+    <restriction method="41636" condition="86529" code="2" serious="false" />
+    <restriction method="41636" condition="42824" code="3" serious="true" />
+    <restriction method="41636" condition="60543" code="1" serious="false" />
+    <restriction method="41636" condition="83645" code="1" serious="false" />
+    <restriction method="41636" condition="10704" code="2" serious="false" />
+    <restriction method="41636" condition="19122" code="4" serious="true" />
+    <restriction method="41636" condition="19471" code="3" serious="true" />
+    <restriction method="41636" condition="45695" code="3" serious="true" />
+    <restriction method="41636" condition="21163" code="1" serious="false" />
+    <restriction method="41636" condition="88196" code="1" serious="false" />
+    <restriction method="41636" condition="16270" code="2" serious="false" />
+    <restriction method="41636" condition="81563" code="1" serious="false" />
+    <restriction method="41636" condition="30788" code="1" serious="false" />
+    <restriction method="41636" condition="20437" code="2" serious="false" />
+    <restriction method="41636" condition="80314" code="1" serious="false" />
+    <restriction method="41636" condition="17743" code="2" serious="false" />
+    <restriction method="41636" condition="44986" code="3" serious="true" />
+    <restriction method="41636" condition="57064" code="2" serious="false" />
+    <restriction method="41636" condition="10228" code="1" serious="false" />
+    <restriction method="41636" condition="58349" code="2" serious="false" />
+    <restriction method="41636" condition="11901" code="2" serious="false" />
+    <restriction method="41636" condition="61488" code="1" serious="false" />
+    <restriction method="41636" condition="38327" code="1" serious="false" />
+    <restriction method="41636" condition="25306" code="2" serious="false" />
+    <restriction method="41636" condition="41907" code="2" serious="false" />
+    <restriction method="41636" condition="82088" code="1" serious="false" />
+    <restriction method="41636" condition="50228" code="1" serious="false" />
+    <restriction method="41636" condition="79685" code="1" serious="false" />
+    <restriction method="41636" condition="13249" code="1" serious="false" />
+    <restriction method="41636" condition="18896" code="1" serious="false" />
+    <restriction method="41636" condition="29672" code="2" serious="false" />
+    <restriction method="41636" condition="88163" code="1" serious="false" />
+    <restriction method="41636" condition="29944" code="1" serious="false" />
+    <restriction method="41636" condition="33030" code="1" serious="false" />
+    <restriction method="41636" condition="37545" code="1" serious="false" />
+    <restriction method="41636" condition="17060" code="1" serious="false" />
+    <restriction method="41636" condition="16527" code="1" serious="false" />
+    <restriction method="41636" condition="11721" code="1" serious="false" />
+    <restriction method="41636" condition="54679" code="1" serious="false" />
+    <restriction method="41636" condition="49587" code="1" serious="false" />
+    <restriction method="41636" condition="33983" code="1" serious="false" />
+    <restriction method="41636" condition="3576c" code="3" serious="true" />
+    <restriction method="41636" condition="d1088" code="3" serious="true" />
+    <restriction method="41636" condition="a2452" code="3" serious="true" />
+    <restriction method="41636" condition="3437d" code="NA" serious="false" />
+    <restriction method="41636" condition="1a490" code="1" serious="false" />
+    <restriction method="41636" condition="a4696" code="1" serious="false" />
+    <restriction method="41636" condition="b6a14" code="1" serious="false" />
+    <restriction method="41636" condition="da3d0" code="NA" serious="false" />
+    <restriction method="41636" condition="13ac3" code="1" serious="false" />
+    <restriction method="41636" condition="21be9" code="NA" serious="false" />
+    <restriction method="41636" condition="cbd54" code="1" serious="false" />
+    <restriction method="41636" condition="3437d" code="NA" serious="false" />
+    <restriction method="41636" condition="1a768" code="1" serious="false" />
+    <restriction method="41636" condition="13b47" code="1" serious="false" />
+    <restriction method="41636" condition="85d52" code="1" serious="false" />
+    <restriction method="41636" condition="1d63b" code="2" serious="false" />
+    <restriction method="41636" condition="faa63" code="2" serious="false" />
+    <restriction method="41636" condition="f3251" code="3" serious="true" />
+    <restriction method="41636" condition="12345" code="3" serious="true" />
+    <restriction method="26804" condition="12161" code="3" serious="true" />
+    <restriction method="26804" condition="40101" code="3" serious="true" />
+    <restriction method="26804" condition="25106" code="3" serious="true" />
+    <restriction method="26804" condition="25571" code="1" serious="false" />
+    <restriction method="26804" condition="20707" code="1" serious="false" />
+    <restriction method="26804" condition="16917" code="1" serious="false" />
+    <restriction method="26804" condition="36054" code="3" serious="true" />
+    <restriction method="26804" condition="70508" code="3" serious="true" />
+    <restriction method="26804" condition="26196" code="1" serious="false" />
+    <restriction method="26804" condition="16524" code="2" serious="false" />
+    <restriction method="26804" condition="13163" code="1" serious="false" />
+    <restriction method="26804" condition="13423" code="4" serious="true" />
+    <restriction method="26804" condition="93005" code="4" serious="true" />
+    <restriction method="26804" condition="43523" code="2" serious="false" />
+    <restriction method="26804" condition="32307" code="4" serious="true" />
+    <restriction method="26804" condition="24280" code="1" serious="false" />
+    <restriction method="26804" condition="12572" code="1" serious="false" />
+    <restriction method="26804" condition="12732" code="1" serious="false" />
+    <restriction method="26804" condition="12034" code="4" serious="true" />
+    <restriction method="26804" condition="63137" code="2" serious="false" />
+    <restriction method="26804" condition="44947" code="2" serious="false" />
+    <restriction method="26804" condition="49793" code="3" serious="true" />
+    <restriction method="26804" condition="41819" code="2" serious="false" />
+    <restriction method="26804" condition="35451" code="1" serious="false" />
+    <restriction method="26804" condition="36773" code="1" serious="false" />
+    <restriction method="26804" condition="10049" code="1" serious="false" />
+    <restriction method="26804" condition="17474" code="4" serious="true" />
+    <restriction method="26804" condition="46623" code="4" serious="true" />
+    <restriction method="26804" condition="75381" code="2" serious="false" />
+    <restriction method="26804" condition="46467" code="2" serious="false" />
+    <restriction method="26804" condition="27974" code="1" serious="false" />
+    <restriction method="26804" condition="90849" code="1" serious="false" />
+    <restriction method="26804" condition="22813" code="1" serious="false" />
+    <restriction method="26804" condition="25488" code="1" serious="false" />
+    <restriction method="26804" condition="28350" code="1" serious="false" />
+    <restriction method="26804" condition="77660" code="1" serious="false" />
+    <restriction method="26804" condition="26780" code="1" serious="false" />
+    <restriction method="26804" condition="28072" code="1" serious="false" />
+    <restriction method="26804" condition="20002" code="1" serious="false" />
+    <restriction method="26804" condition="15775" code="1" serious="false" />
+    <restriction method="26804" condition="26550" code="1" serious="false" />
+    <restriction method="26804" condition="28631" code="1" serious="false" />
+    <restriction method="26804" condition="69161" code="1" serious="false" />
+    <restriction method="26804" condition="24554" code="1" serious="false" />
+    <restriction method="26804" condition="14228" code="1" serious="false" />
+    <restriction method="26804" condition="94445" code="1" serious="false" />
+    <restriction method="26804" condition="51639" code="1" serious="false" />
+    <restriction method="26804" condition="77794" code="1" serious="false" />
+    <restriction method="26804" condition="44499" code="1" serious="false" />
+    <restriction method="26804" condition="51984" code="1" serious="false" />
+    <restriction method="26804" condition="40320" code="3" serious="true" />
+    <restriction method="26804" condition="74089" code="4" serious="true" />
+    <restriction method="26804" condition="81198" code="1" serious="false" />
+    <restriction method="26804" condition="14380" code="1" serious="false" />
+    <restriction method="26804" condition="49947" code="2" serious="false" />
+    <restriction method="26804" condition="21969" code="2" serious="false" />
+    <restriction method="26804" condition="87733" code="2" serious="false" />
+    <restriction method="26804" condition="66852" code="1" serious="false" />
+    <restriction method="26804" condition="29793" code="1" serious="false" />
+    <restriction method="26804" condition="36781" code="1" serious="false" />
+    <restriction method="26804" condition="91172" code="1" serious="false" />
+    <restriction method="26804" condition="16552" code="1" serious="false" />
+    <restriction method="26804" condition="19850" code="1" serious="false" />
+    <restriction method="26804" condition="47346" code="2" serious="false" />
+    <restriction method="26804" condition="39805" code="1" serious="false" />
+    <restriction method="26804" condition="61390" code="1" serious="false" />
+    <restriction method="26804" condition="94896" code="1" serious="false" />
+    <restriction method="26804" condition="13794" code="1" serious="false" />
+    <restriction method="26804" condition="28322" code="4" serious="true" />
+    <restriction method="26804" condition="26522" code="4" serious="true" />
+    <restriction method="26804" condition="42076" code="3" serious="true" />
+    <restriction method="26804" condition="43571" code="2" serious="false" />
+    <restriction method="26804" condition="54681" code="2" serious="false" />
+    <restriction method="26804" condition="14488" code="2" serious="false" />
+    <restriction method="26804" condition="86529" code="2" serious="false" />
+    <restriction method="26804" condition="42824" code="4" serious="true" />
+    <restriction method="26804" condition="60543" code="4" serious="true" />
+    <restriction method="26804" condition="83645" code="2" serious="false" />
+    <restriction method="26804" condition="10704" code="3" serious="true" />
+    <restriction method="26804" condition="19122" code="4" serious="true" />
+    <restriction method="26804" condition="19471" code="4" serious="true" />
+    <restriction method="26804" condition="45695" code="4" serious="true" />
+    <restriction method="26804" condition="21163" code="2" serious="false" />
+    <restriction method="26804" condition="88196" code="1" serious="false" />
+    <restriction method="26804" condition="16270" code="4" serious="true" />
+    <restriction method="26804" condition="81563" code="1" serious="false" />
+    <restriction method="26804" condition="30788" code="2" serious="false" />
+    <restriction method="26804" condition="20437" code="4" serious="true" />
+    <restriction method="26804" condition="80314" code="2" serious="false" />
+    <restriction method="26804" condition="17743" code="4" serious="true" />
+    <restriction method="26804" condition="44986" code="4" serious="true" />
+    <restriction method="26804" condition="57064" code="4" serious="true" />
+    <restriction method="26804" condition="10228" code="2" serious="false" />
+    <restriction method="26804" condition="58349" code="4" serious="true" />
+    <restriction method="26804" condition="11901" code="4" serious="true" />
+    <restriction method="26804" condition="61488" code="3" serious="true" />
+    <restriction method="26804" condition="38327" code="3" serious="true" />
+    <restriction method="26804" condition="25306" code="3" serious="true" />
+    <restriction method="26804" condition="41907" code="4" serious="true" />
+    <restriction method="26804" condition="82088" code="2" serious="false" />
+    <restriction method="26804" condition="50228" code="4" serious="true" />
+    <restriction method="26804" condition="79685" code="3" serious="true" />
+    <restriction method="26804" condition="13249" code="2" serious="false" />
+    <restriction method="26804" condition="18896" code="1" serious="false" />
+    <restriction method="26804" condition="29672" code="1" serious="false" />
+    <restriction method="26804" condition="88163" code="1" serious="false" />
+    <restriction method="26804" condition="29944" code="1" serious="false" />
+    <restriction method="26804" condition="33030" code="1" serious="false" />
+    <restriction method="26804" condition="37545" code="2" serious="false" />
+    <restriction method="26804" condition="17060" code="3" serious="true" />
+    <restriction method="26804" condition="16527" code="1" serious="false" />
+    <restriction method="26804" condition="11721" code="1" serious="false" />
+    <restriction method="26804" condition="15022" code="2" serious="false" />
+    <restriction method="26804" condition="30912" code="1" serious="false" />
+    <restriction method="26804" condition="3576c" code="4" serious="true" />
+    <restriction method="26804" condition="d1088" code="4" serious="true" />
+    <restriction method="26804" condition="a2452" code="4" serious="true" />
+    <restriction method="26804" condition="3437d" code="NA" serious="false" />
+    <restriction method="26804" condition="1a490" code="3" serious="true" />
+    <restriction method="26804" condition="a4696" code="3" serious="true" />
+    <restriction method="26804" condition="b6a14" code="2" serious="false" />
+    <restriction method="26804" condition="da3d0" code="3" serious="true" />
+    <restriction method="26804" condition="13ac3" code="2" serious="false" />
+    <restriction method="26804" condition="21be9" code="3" serious="true" />
+    <restriction method="26804" condition="cbd54" code="1" serious="false" />
+    <restriction method="26804" condition="3437d" code="NA" serious="false" />
+    <restriction method="26804" condition="1a768" code="1" serious="false" />
+    <restriction method="26804" condition="13b47" code="1" serious="false" />
+    <restriction method="26804" condition="85d52" code="1" serious="false" />
+    <restriction method="26804" condition="1d63b" code="2" serious="false" />
+    <restriction method="26804" condition="faa63" code="2" serious="false" />
+    <restriction method="26804" condition="f3251" code="3" serious="true" />
+    <restriction method="26804" condition="12345" code="3" serious="true" />
+    <restriction method="26804" condition="84e16" code="3" serious="true" />
+    <restriction method="26804" condition="fcdec" code="4" serious="true" />
+  </restrictions>
+</database>
