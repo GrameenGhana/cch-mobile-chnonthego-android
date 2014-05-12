@@ -6,6 +6,10 @@ function CCH() {
     this.getTodayInHistory = function() { 
         return Android.getTodayInHistory(); 
     },
+
+    this.refreshEvents = function() {
+        Android.refreshEvents();
+    },
     
     this.getNumEventsToday = function() {
     	return Android.getNumEventsToday();
@@ -17,6 +21,12 @@ function CCH() {
     
     this.getEventsList = function(period) {
     	return Android.getEventsList(period);
+    },
+
+    this.getPreviousLocations = function() {
+        var s = Android.getPreviousLocations();
+        var data = JSON.parse(s);
+        return data.myLocations;
     }
 }
 

@@ -53,10 +53,13 @@ public class LoginActivity extends AppActivity implements SubmitListener  {
 	private EditText passwordField;
 	private ProgressDialog pDialog;
 	//DbHelper Db;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		
+		getSupportActionBar().hide();
 		
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		//Db = new DbHelper(getApplicationContext());

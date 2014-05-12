@@ -57,6 +57,9 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	private SharedPreferences prefs;
 	
 	private static final String HOME_URL = "file:///android_asset/www/cch/index.html";
+	private static final String EVENT_BLANK_URL = "file:///android_asset/www/cch/modules/eventplanner/blank.html";
+	private static final String EVENT_HOME_URL = "file:///android_asset/www/cch/modules/eventplanner/index.html";
+
 	private WebView myWebView;
 	
 	// declare updater class member here (or in the Application)
@@ -84,7 +87,7 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 			editor.commit();
 		}
 				
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
                 
 		myWebView = (WebView) findViewById(R.id.webView1);	    	 
@@ -109,24 +112,7 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 								startActivity(i);	 
 								
 						} 
-						else if(url.equals("file:///android_asset/www/cch/modules/eventplanner/addevent")){
-							
-							Log.v(TAG, "Launching addcal");
-			 				
-							    Calendar cal = Calendar.getInstance(); 
-							    Intent myIntent = new Intent(Intent.ACTION_INSERT);
-							   	myIntent.setType("vnd.android.cursor.item/event");						    
-							    myIntent.putExtra("beginTime", cal.getTimeInMillis());
-							    myIntent.putExtra("allDay", true);	    
-							    myIntent.putExtra("rrule", "FREQ=YEARLY");
-							    myIntent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
-							    myIntent.putExtra("title", "Event");
-							    myIntent.putExtra("description", "Description");
-							    myIntent.putExtra("eventLocation", "location");
-							    myIntent.putExtra(Events.ACCESS_LEVEL, Events.ACCESS_PRIVATE);
-							    myIntent.putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY);
-							    startActivity(myIntent);	
-						}
+	
 						else if (url.equals("file:///android_asset/www/cch/modules/learning/learner")){							
 							Intent intent = new Intent(getApplicationContext(), OppiaMobileActivity.class);
 			                startActivity(intent);	
@@ -174,6 +160,12 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	@Override
 	public void onResume(){
 		super.onResume();
+		
+		if (myWebView.getUrl().equals(EVENT_BLANK_URL)) {
+			myWebView.clearHistory();
+			myWebView.loadUrl(EVENT_HOME_URL);
+			myWebView.clearHistory();
+		}
 	}
 	
 	@Override
@@ -186,6 +178,10 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK) && (myWebView.getUrl()).equals(HOME_URL)) {
 			finish();
+			
+		} else if ((keyCode == KeyEvent.KEYCODE_BACK) && (myWebView.getUrl()).equals(EVENT_HOME_URL)) {
+			myWebView.clearHistory();
+	    	myWebView.loadUrl(HOME_URL);	
       
 		} else if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
 	        myWebView.goBack();

@@ -19,8 +19,6 @@
     <script src="../../js/jquery.widget.min.js"></script>
     <script src="../../js/metro.min.js"></script>
     <script src="../../js/cch.js"></script>
-    
-
   </head>
 
   <body class="metro">
@@ -56,7 +54,9 @@
             
             <script type="text/javascript">
                      var c = new CCH();    
-                     
+
+                     c.refreshEvents();
+
                      events = c.getEventsList('today');
     				 $('#todaysEvents').html(events);
                      
@@ -67,11 +67,7 @@
     				 $('#futureEvents').html(events);
             </script>
      </div>
-
-
-         
     </div>
-
 
   </body>
 </html>

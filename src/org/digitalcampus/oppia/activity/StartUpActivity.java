@@ -58,7 +58,11 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
         super.onCreate(savedInstanceState);
         
         BugSenseHandler.initAndStartSession(this, MobileLearning.BUGSENSE_API_KEY);
+        
         setContentView(R.layout.start_up);
+        getActionBar().hide();
+
+		
         tvProgress = (TextView) this.findViewById(R.id.start_up_progress);
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         /*Db = new DbHelper(getApplicationContext());

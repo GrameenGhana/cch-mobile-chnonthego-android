@@ -6,11 +6,16 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Events;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
@@ -22,6 +27,7 @@ public class WebAppInterface {
     private int todaysEventsNum = 0;
     private int tomorrowsEventsNum = 0;
     private int futureEventsNum = 0;
+    private String previousLocations = "";
    
 
     /** Instantiate the interface and set the context */
@@ -30,7 +36,49 @@ public class WebAppInterface {
         readCalendarEvent(c);
     }
     
-    /** Show a toast from the web page */
+    @JavascriptInterface
+    public void refreshEvents() {
+    	readCalendarEvent(mContext);
+    }
+    
+    @JavascriptInterface
+    public void addEvent(String evt, String location, String desc)
+    {			
+	    Calendar cal = Calendar.getInstance(); 
+	    int sdk = android.os.Build.VERSION.SDK_INT;
+	    
+    	Intent intent =  new Intent(Intent.ACTION_EDIT);
+    	intent.setType("vnd.android.cursor.item/event");	
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+            | Intent.FLAG_ACTIVITY_SINGLE_TOP
+            | Intent.FLAG_ACTIVITY_CLEAR_TOP
+            | Intent.FLAG_ACTIVITY_NO_HISTORY
+            | Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        
+	    if(sdk < android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH) {	
+	        intent.putExtra("title", evt);
+	        intent.putExtra("eventTimezone", TimeZone.getDefault().getID());
+	    	intent.putExtra("beginTime", cal.getTimeInMillis());
+	    	intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
+	    	if (! desc.isEmpty())     {     intent.putExtra("description", desc); }
+	    	if (! location.isEmpty()) { 	intent.putExtra("eventLocation", location); }
+
+	    } else {
+	        intent.putExtra(Events.TITLE, evt);
+	        intent.putExtra(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());
+	        intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTimeInMillis());
+	        intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, cal.getTimeInMillis()+60*60*1000);
+	        intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY , false);
+
+	       	if (! desc.isEmpty())     {     intent.putExtra(Events.DESCRIPTION, desc); }
+	    	if (! location.isEmpty()) { 	intent.putExtra(Events.EVENT_LOCATION, location); }
+	    }
+	    
+	    intent.putExtra(Events.ACCESS_LEVEL, Events.ACCESS_PUBLIC);
+	    intent.putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY);
+	    mContext.startActivity(intent);
+    }
+    
     @JavascriptInterface
     public String getNumEventsToday() {	
     	return String.valueOf(todaysEventsNum) ;
@@ -66,7 +114,7 @@ public class WebAppInterface {
     			   evHtml = emptyEventListItemAsHTML();
     		   } else {
     			   for(MyEvent ev: calEvents) {
-    		     	   if (ev.isFuture()) {   evHtml += eventListItemAsHTML(ev, false); }
+    		     	   if (ev.isFuture()) {   evHtml += eventListItemAsHTML(ev, false, true); }
     			   }
     		   }
     	} else if (period.toLowerCase().equals("tomorrow")) {
@@ -74,7 +122,7 @@ public class WebAppInterface {
 				   evHtml = emptyEventListItemAsHTML();
 			   } else {
 				   for(MyEvent ev: calEvents) {
-			     	   if (ev.isTomorrow()) {   evHtml += eventListItemAsHTML(ev, false); }
+			     	   if (ev.isTomorrow()) {   evHtml += eventListItemAsHTML(ev, false, false); }
 				   }
 			   }				
     	} else {
@@ -82,7 +130,7 @@ public class WebAppInterface {
    			   		evHtml = emptyEventListItemAsHTML();
    		   	  } else {
    			        for(MyEvent ev: calEvents){
-   		     	        if (ev.isToday()) { evHtml += eventListItemAsHTML(ev, true); }
+   		     	        if (ev.isToday()) { evHtml += eventListItemAsHTML(ev, true, false); }
    			        }
    		      }
     	}
@@ -90,12 +138,16 @@ public class WebAppInterface {
     	return evHtml;
     }
     
+    @JavascriptInterface
+    public String getPreviousLocations() { 
+    	return "{\"myLocations\": ["+previousLocations+"]}";
+    }
 
  
     /** Show a toast from the web page */
     @JavascriptInterface
     public void showToast(String toast) {
-        Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, toast, Toast.LENGTH_LONG).show();
     }
     
     /** Staying Well methods **/
@@ -119,10 +171,11 @@ public class WebAppInterface {
                "</div></div>";
     }
     
-    private String eventListItemAsHTML(MyEvent ev, Boolean inclFlag)
+    private String eventListItemAsHTML(MyEvent ev, Boolean inclFlag, Boolean showDay)
     {
-    	String d = ev.getDate();
-    	String subtitle = ev.eventType + " at " + ev.location;
+    	String dformat = (showDay)? "MMM dd" : "hh:mm a";
+    	String d = ev.getDate(dformat);
+    	String subtitle = (ev.location.equals("")) ? "No location specified" : ev.eventType + " at " + ev.location;
     	
     	String flag = "";
     	if (inclFlag) {
@@ -145,7 +198,7 @@ public class WebAppInterface {
              +  "  <div class=\"list-content\"> " 
              +  "   <span class=\"list-title\"><span class=\"place-right\"></span>No events planned.</span>" 
              +  "   <span class=\"list-subtitle\"><span class=\"place-right\"></span>No events found on your calendar</span>" 
-             +  "   <span class=\"list-remark\">Consider the lessons from the Learning center or the relaxing techniques in the Staying well center.</span>" 
+             +  "   <span class=\"list-remark\">How about a lesson from the Learning center?</span>" 
              +  "  </div>"
     	     +  "</a>";    
     }
@@ -164,9 +217,13 @@ public class WebAppInterface {
            // fetching calendars name
            String CNames[] = new String[cursor.getCount()];
 
-           Calendar c = Calendar.getInstance();
            calEvents.clear();
-           
+           todaysEventsNum = 0;
+           tomorrowsEventsNum = 0;
+           futureEventsNum = 0;
+           previousLocations = "";
+
+           Calendar c = Calendar.getInstance();
            for (int i = 0; i < CNames.length; i++) {
                 CNames[i] = cursor.getString(1);
 
@@ -183,16 +240,34 @@ public class WebAppInterface {
         	   payload.startDate = start;
         	   payload.endDate = end;
         	   payload.location = cursor.getString(5);
+    	       addToPreviousLocations(cursor.getString(5));
         	   calEvents.add(payload);
+
         	   
-        	   if (payload.isToday())         {  todaysEventsNum++; } 
+        	   if (payload.isToday())         { todaysEventsNum++;    } 
         	   else if (payload.isTomorrow()) { tomorrowsEventsNum++; } 
-        	   else if (payload.isFuture())   { futureEventsNum++; }
+        	   else if (payload.isFuture())   { futureEventsNum++;    }
         	   
                cursor.moveToNext();
-           }         
+           }  
     }
 
+    private void addToPreviousLocations(String s)
+    {
+    	try {
+    	   if ((! s.isEmpty()) && s.length() < 20) 
+    	   {
+    		   s = s.replace(",","");
+    		   s = s.replace("'", "");
+    		   s = s.toLowerCase().trim();
+    		   if (! previousLocations.contains(s)) {
+        		   if (!  this.previousLocations.equals("")) { this.previousLocations += ","; }
+    			   this.previousLocations += "\""+ s + "\"";
+    		   }
+    	   }
+    	} catch (NullPointerException e) {}
+    }
+    
     private class MyEvent
     {
     	public String eventType;
@@ -227,9 +302,9 @@ public class WebAppInterface {
     	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
     	}
               
-        public String getDate() {
+        public String getDate(String format) {
 			   long milliSeconds = this.startDate;
-               SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a");
+               SimpleDateFormat formatter = new SimpleDateFormat(format);
                Calendar calendar = Calendar.getInstance();
                calendar.setTimeInMillis(milliSeconds);
                return formatter.format(calendar.getTime());
