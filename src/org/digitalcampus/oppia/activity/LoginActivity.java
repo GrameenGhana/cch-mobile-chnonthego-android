@@ -37,7 +37,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -52,7 +51,7 @@ public class LoginActivity extends AppActivity implements SubmitListener  {
 	private EditText usernameField;
 	private EditText passwordField;
 	private ProgressDialog pDialog;
-	//DbHelper Db;
+	DbHelper Db;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,7 +61,8 @@ public class LoginActivity extends AppActivity implements SubmitListener  {
 		getSupportActionBar().hide();
 		
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		//Db = new DbHelper(getApplicationContext());
+		Db = new DbHelper(getApplicationContext());
+		
 		usernameField = (EditText) findViewById(R.id.login_username_field);
         passwordField = (EditText) findViewById(R.id.login_password_field);
     }
@@ -84,31 +84,37 @@ public class LoginActivity extends AppActivity implements SubmitListener  {
         pDialog.setCancelable(true);
         pDialog.show();
         
-    	ArrayList<Object> users = new ArrayList<Object>();
     	User u = new User();
     	u.setUsername(username);
     	u.setPassword(password);
-    	users.add(u);
     	
-    	Payload p = new Payload(users);
-    	/*if (!isOnline()){
-    		if (Db.checkUserExists(u)){
-    			startActivity(new Intent(this, HomeActivity.class));
-    			finish();
-    		}
-    		else {
-    			Log.v("password", "Wrong");
-    			UIUtils.showAlert(this,R.string.error,"wrong username password combination");
+    	u = Db.checkUserExists(u);
+    	
+		if (u != null){
+			if (u.isPasswordRight()) {
+				setUserPreferences(u);
+				startActivity(new Intent(this, HomeActivity.class));
+				finish();
+			} else {
+				UIUtils.showAlert(this,R.string.error,"Invalid login details. Please try again.");
+    			return;
+			}
+		} else {
+			if (isOnline()){
+			 	ArrayList<Object> users = new ArrayList<Object>();
+		    	User un = new User();
+		    	un.setUsername(username);
+		    	un.setPassword(password);
+			 	users.add(un);
+	        	Payload p = new Payload(users);
+	    		LoginTask lt = new LoginTask(this);
+	    		lt.setLoginListener(this);
+	    		lt.execute(p);
+			} else {
+    			UIUtils.showAlert(this,R.string.error,"No user found on system and no connection to check with server. Please get a data connection to continue.");
     			return;
     		}
-    	}*/
-    	//else{
-    	LoginTask lt = new LoginTask(this);
-    	lt.setLoginListener(this);
-    	lt.execute(p);
-    	//}
-    	
-    	
+    	}	
 	}
 	
 	public void onRegisterClick(View view){
@@ -116,6 +122,20 @@ public class LoginActivity extends AppActivity implements SubmitListener  {
 		finish();
 	}
 
+	public void setUserPreferences(User u)
+	{
+		// set params
+		Editor editor = prefs.edit();
+    	editor.putString(getString(R.string.prefs_username), usernameField.getText().toString());
+    	editor.putString(getString(R.string.prefs_api_key), u.getApi_key());
+    	editor.putString(getString(R.string.prefs_display_name), u.getDisplayName());
+    	editor.putInt(getString(R.string.prefs_points), u.getPoints());
+    	editor.putInt(getString(R.string.prefs_badges), u.getBadges());
+    	editor.putBoolean(getString(R.string.prefs_scoring_enabled), u.isScoringEnabled());
+    	editor.commit();
+	}
+	
+	
 	public void submitComplete(Payload response) {
 		try {
 			pDialog.dismiss();
@@ -123,16 +143,10 @@ public class LoginActivity extends AppActivity implements SubmitListener  {
 			//
 		}
 		if(response.isResult()){
+			// set preferences and add user to db
 			User u = (User) response.getData().get(0);
-			// set params
-			Editor editor = prefs.edit();
-	    	editor.putString(getString(R.string.prefs_username), usernameField.getText().toString());
-	    	editor.putString(getString(R.string.prefs_api_key), u.getApi_key());
-	    	editor.putString(getString(R.string.prefs_display_name), u.getDisplayName());
-	    	editor.putInt(getString(R.string.prefs_points), u.getPoints());
-	    	editor.putInt(getString(R.string.prefs_badges), u.getBadges());
-	    	editor.putBoolean(getString(R.string.prefs_scoring_enabled), u.isScoringEnabled());
-	    	editor.commit();
+			setUserPreferences(u);		
+	    	Db.addUser(u);
 	    	
 			// return to main activity
 	    	startActivity(new Intent(this, HomeActivity.class));

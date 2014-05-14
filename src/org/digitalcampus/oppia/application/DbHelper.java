@@ -19,12 +19,14 @@ package org.digitalcampus.oppia.application;
 
 import java.util.ArrayList;
 
+import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.model.Activity;
 import org.digitalcampus.oppia.model.ActivitySchedule;
 import org.digitalcampus.oppia.model.Course;
 import org.digitalcampus.oppia.model.TrackerLog;
 import org.digitalcampus.oppia.model.User;
 import org.digitalcampus.oppia.task.Payload;
+import org.grameenfoundation.cch.model.CCHTrackerLog;
 import org.grameenfoundation.cch.model.Quotes;
 import org.joda.time.DateTime;
 import org.json.JSONException;
@@ -32,9 +34,12 @@ import org.json.JSONObject;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
 import android.util.Log;
 
@@ -47,6 +52,9 @@ public class DbHelper extends SQLiteOpenHelper {
 	static final int DB_VERSION = 15;
 
 	private SQLiteDatabase db;
+	private SharedPreferences prefs;
+	private Context ctx;
+
 	
 	private static final String COURSE_TABLE = "Module";
 	private static final String COURSE_C_ID = BaseColumns._ID;
@@ -96,16 +104,35 @@ public class DbHelper extends SQLiteOpenHelper {
 	private static final String CCH_QUOTES_C_CONTENT = "content";
 	private static final String CCH_QUOTES_C_UPDATED = "updated_at";
 	
+	// CCH: Tracker table
+	private static final String CCH_TRACKER_TABLE = "CCHTrackerLog";
+	private static final String CCH_TRACKER_ID = BaseColumns._ID;
+	private static final String CCH_TRACKER_USERID = "userid"; // reference to current user id
+	private static final String CCH_TRACKER_MODULE = "module"; 
+	private static final String CCH_TRACKER_START_DATETIME = "starttime";
+	private static final String CCH_TRACKER_END_DATETIME = "endtime";
+	private static final String CCH_TRACKER_DATA = "data";
+	private static final String CCH_TRACKER_SUBMITTED = "submitted";
+	private static final String CCH_TRACKER_INPROGRESS = "inprogress";
+	
 	// CCH: Login Table 
-		private static final String USER_TABLE = "login";
-		private static final String USER_ID = BaseColumns._ID;
-		private static final String STAFF_ID = "staff_id";
-		private static final String PASSWORD = "password";
+    private static final String CCH_USER_TABLE = "login";
+	private static final String CCH_USER_ID = BaseColumns._ID;
+	private static final String CCH_STAFF_ID = "staff_id";
+	private static final String CCH_USER_PASSWORD = "password";
+	private static final String CCH_USER_APIKEY = "apikey";
+	private static final String CCH_USER_FIRSTNAME = "first_name";
+	private static final String CCH_USER_LASTNAME = "last_name";
+	private static final String CCH_USER_POINTS = "points";
+	private static final String CCH_USER_BADGES = "badges";
+	private static final String CCH_USER_SCORING = "scoring_enabled";
 	
 	// Constructor
 	public DbHelper(Context ctx) { //
 		super(ctx, DB_NAME, null, DB_VERSION);
 		db = this.getWritableDatabase();
+		prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+		this.ctx = ctx;
 	}
 
 	@Override
@@ -117,9 +144,9 @@ public class DbHelper extends SQLiteOpenHelper {
 		createQuizResultsTable(db);
 		
 		/* CCH additions */
+		createCCHTrackerTable(db);
 		createQuotesTable(db);
 	}
-
 
 	public void createCourseTable(SQLiteDatabase db){
 		String m_sql = "create table " + COURSE_TABLE + " (" + COURSE_C_ID + " integer primary key autoincrement, "
@@ -167,52 +194,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		db.execSQL(m_sql);
 	}
 	
-	public void createUserTable(SQLiteDatabase db){
-		String m_sql = "create table IF NOT EXISTS " + USER_TABLE + " (" + USER_ID + " integer primary key autoincrement, "
-				+ STAFF_ID + " text, " + PASSWORD + " text)";		
-			
-			db.execSQL(m_sql);
-			
-	}
-	
-	public void addUser(User u) {
-        SQLiteDatabase db = this.getWritableDatabase(); 
-        ContentValues values = new ContentValues();
-        values.put(STAFF_ID, u.getUsername()); // StaffId
-        values.put(PASSWORD, u.getPassword()); // Password               
-        db.insert(USER_TABLE, null, values);
-        db.close(); // Closing database connection       
-    }
-	
-	public void updateUser(User u) {
-        SQLiteDatabase db = this.getWritableDatabase(); 
-        ContentValues values = new ContentValues();
-        values.put(STAFF_ID, u.getUsername()); // StaffId
-        values.put(PASSWORD, u.getPassword()); // Password        
-        
-        // Inserting Row
-        //db.update(USER_TABLE, values, whereClause, whereArgs)
-        
-        db.update(USER_TABLE, values, STAFF_ID + "="+u.getUsername(), null);
-        db.close(); // Closing database connection        
-    }
-	
-	// check if User exists
-		public boolean checkUserExists(User u) {
-			
-			SQLiteDatabase db = this.getReadableDatabase();		 
-		    Cursor cursor = db.query(USER_TABLE, new String[] { USER_ID,
-		    		STAFF_ID, PASSWORD }, STAFF_ID + "=?",
-		            new String[] { String.valueOf(u.getUsername()) }, null, null, null, null); 	        
-		   if (cursor == null || cursor.getCount()==0)
-		        return false;	    	
-		        cursor.moveToFirst();	 
-		 
-		    if (!(u.getPassword().equals(cursor.getString(2))))
-		    	return false;	   
-		    return true;
-		}
-	
+
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
 		if(oldVersion < 7){
@@ -220,10 +202,15 @@ public class DbHelper extends SQLiteOpenHelper {
 			db.execSQL("drop table if exists " + ACTIVITY_TABLE);
 			db.execSQL("drop table if exists " + TRACKER_LOG_TABLE);
 			db.execSQL("drop table if exists " + QUIZRESULTS_TABLE);
+			db.execSQL("drop table if exists " + CCH_TRACKER_TABLE);
+			db.execSQL("drop table if exists " + CCH_QUOTES_TABLE);
 			createCourseTable(db);
 			createActivityTable(db);
 			createLogTable(db);
 			createQuizResultsTable(db);
+			createCCHTrackerTable(db);
+			createQuotesTable(db);
+			createUserTable(db);
 			return;
 		}
 		
@@ -292,8 +279,41 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 
 	public void onLogout(){
-		db.execSQL("DELETE FROM "+ TRACKER_LOG_TABLE);
-		db.execSQL("DELETE FROM "+ QUIZRESULTS_TABLE);
+		/***
+		  db.execSQL("DELETE FROM "+ TRACKER_LOG_TABLE);
+		  db.execSQL("DELETE FROM "+ QUIZRESULTS_TABLE);
+		 ***/	
+		// Store current users prefs.
+		String userid = prefs.getString(ctx.getString(R.string.prefs_username), "");
+		
+		if (! userid.equals(""))
+		{
+			String firstname = "";
+			String lastname = "";
+			
+			if (! ctx.getString(R.string.prefs_display_name).isEmpty()) {
+				String displayname = ctx.getString(R.string.prefs_display_name);
+				String[] name = displayname.split(" ");
+				firstname = name[0];
+				lastname = name[1];
+			}
+			int points = (ctx.getString(R.string.prefs_points).isEmpty()) ? 0 : Integer.parseInt(ctx.getString(R.string.prefs_points));
+			int badges = (ctx.getString(R.string.prefs_points).isEmpty()) ? 0 : Integer.parseInt(ctx.getString(R.string.prefs_badges));			
+			int scoring = (ctx.getString(R.string.prefs_scoring_enabled).isEmpty()) ? 0 : Integer.parseInt(ctx.getString(R.string.prefs_scoring_enabled));
+
+			updateUser(userid, ctx.getString(R.string.prefs_api_key), firstname, lastname, points, badges, scoring);
+		}
+		
+		
+		// Reset preferences
+		Editor editor = prefs.edit();
+    	editor.putString(ctx.getString(R.string.prefs_username), "");
+    	editor.putString(ctx.getString(R.string.prefs_api_key), "");
+    	editor.putString(ctx.getString(R.string.prefs_display_name), "");
+    	editor.putInt(ctx.getString(R.string.prefs_points), 0);
+    	editor.putInt(ctx.getString(R.string.prefs_badges), 0);
+    	editor.putBoolean(ctx.getString(R.string.prefs_scoring_enabled), false);
+    	editor.commit();
 	}
 	
 	// returns id of the row
@@ -746,7 +766,173 @@ public class DbHelper extends SQLiteOpenHelper {
 		return activities;
 	}
 
-	/* CCH: Additions */
+	/*** CCH: Additions ********************************************************************************/
+	
+	
+	/** Tracking table **/
+	public void createCCHTrackerTable(SQLiteDatabase db){
+		String l_sql = "create table if not exists " + CCH_TRACKER_TABLE + " (" + 
+				CCH_TRACKER_ID + " integer primary key autoincrement, " + 
+				CCH_TRACKER_USERID + " text, " + 
+				CCH_TRACKER_MODULE + " text, " + 
+				CCH_TRACKER_START_DATETIME + " integer , " + 
+				CCH_TRACKER_END_DATETIME + " integer , " + 
+				CCH_TRACKER_DATA + " text, " + 
+				CCH_TRACKER_SUBMITTED + " integer default 0, " + 
+				CCH_TRACKER_INPROGRESS + " integer default 0)";
+		db.execSQL(l_sql);
+	}
+	
+	public void insertCCHLog(String module, String data, long starttime, long endtime){
+		String userid = prefs.getString(ctx.getString(R.string.prefs_username), "noid"); 
+		ContentValues values = new ContentValues();
+		values.put(CCH_TRACKER_USERID, userid);
+		values.put(CCH_TRACKER_MODULE, module);
+		values.put(CCH_TRACKER_DATA, data);
+		values.put(CCH_TRACKER_START_DATETIME, starttime);
+		values.put(CCH_TRACKER_END_DATETIME, endtime);
+		Log.v("insertCCHLOG", values.toString());
+		db.insertOrThrow(CCH_TRACKER_TABLE, null, values);
+	}
+	
+	public Payload getCCHUnsentLog(){
+		String s = CCH_TRACKER_SUBMITTED + "=? ";
+		String[] args = new String[] { "0" };
+		Cursor c = db.query(CCH_TRACKER_TABLE, null, s, args, null, null, null);
+		c.moveToFirst();
+
+		ArrayList<Object> sl = new ArrayList<Object>();
+		while (c.isAfterLast() == false) {
+			CCHTrackerLog so = new CCHTrackerLog();
+			so.setId(c.getLong(c.getColumnIndex(CCH_TRACKER_ID)));
+			
+			String content = "";
+			
+			try {
+				JSONObject json = new JSONObject();
+				json.put("user_id", c.getString(c.getColumnIndex(CCH_TRACKER_USERID)));
+				json.put("data", c.getString(c.getColumnIndex(CCH_TRACKER_DATA)));
+				json.put("module", c.getString(c.getColumnIndex(CCH_TRACKER_MODULE)));
+				json.put("start_time", c.getInt(c.getColumnIndex(CCH_TRACKER_START_DATETIME)));
+				json.put("end_time", c.getInt(c.getColumnIndex(CCH_TRACKER_END_DATETIME)));
+				content = json.toString();
+			} catch (JSONException e) {
+			    e.printStackTrace();
+			}
+			
+			so.setContent(content);
+			sl.add(so);
+			c.moveToNext();
+		}
+		
+		Payload p = new Payload(sl);
+		c.close();
+		
+		return p;
+	}
+	
+	public int markCCHLogSubmitted(long rowId){
+		ContentValues values = new ContentValues();
+		values.put(CCH_TRACKER_SUBMITTED, 1);
+		return db.update(CCH_TRACKER_TABLE, values, CCH_TRACKER_ID + "=" + rowId, null);
+	}
+	
+
+	/** User tables **/
+	public void createUserTable(SQLiteDatabase db){
+		String l_sql = "create table if not exists " + CCH_USER_TABLE + " (" + 
+				CCH_USER_ID + " integer primary key autoincrement, " + 
+				CCH_STAFF_ID + " text, " + 
+				CCH_USER_PASSWORD + " text, " + 
+				CCH_USER_APIKEY + " text default '', " + 
+				CCH_USER_FIRSTNAME + " text default '', " + 
+				CCH_USER_LASTNAME + " text default '', " + 
+				CCH_USER_POINTS + " integer default 0, " + 
+				CCH_USER_BADGES + " integer default 0, " + 
+				CCH_USER_SCORING + " integer default 0)";
+		db.execSQL(l_sql);
+	}
+	
+	public void addUser(User u) 
+	{	
+		if (checkUserExists(u)==null)
+		{
+			SQLiteDatabase db = this.getWritableDatabase(); 
+        	ContentValues values = new ContentValues();
+        	values.put(CCH_STAFF_ID, u.getUsername()); // StaffId
+        	values.put(CCH_USER_PASSWORD, u.getPassword()); // Password  
+            values.put(CCH_USER_APIKEY, u.getApi_key());
+            values.put(CCH_USER_FIRSTNAME, u.getFirstname());
+            values.put(CCH_USER_LASTNAME, u.getLastname());
+            values.put(CCH_USER_POINTS, u.getPoints());
+            values.put(CCH_USER_BADGES, u.getBadges());
+            values.put(CCH_USER_SCORING, (u.isScoringEnabled() ? 1:0));
+        	db.insert(CCH_USER_TABLE, null, values);
+        	db.close(); // Closing database connection
+		}
+    }
+	
+	public void updateUser(User u) 
+	{
+        SQLiteDatabase db = this.getWritableDatabase(); 
+        ContentValues values = new ContentValues();
+        values.put(CCH_STAFF_ID, u.getUsername()); // StaffId
+        values.put(CCH_USER_PASSWORD, u.getPassword()); // Password 
+        values.put(CCH_USER_APIKEY, u.getApi_key());
+        values.put(CCH_USER_FIRSTNAME, u.getFirstname());
+        values.put(CCH_USER_LASTNAME, u.getLastname());
+        values.put(CCH_USER_POINTS, u.getPoints());
+        values.put(CCH_USER_BADGES, u.getBadges());
+        values.put(CCH_USER_SCORING, (u.isScoringEnabled() ? 1:0));
+           
+        // Inserting Row        
+        db.update(CCH_USER_TABLE, values, CCH_STAFF_ID + "="+u.getUsername(), null);
+        db.close(); // Closing database connection        
+    }
+	
+	public void updateUser(String staff_id, String apikey, String firstname, String lastname, int points, int badges, int scoring) 
+	{
+        SQLiteDatabase db = this.getWritableDatabase(); 
+        ContentValues values = new ContentValues();
+        values.put(CCH_USER_APIKEY, apikey);
+        values.put(CCH_USER_FIRSTNAME, firstname);
+        values.put(CCH_USER_LASTNAME, lastname);
+        values.put(CCH_USER_POINTS, points);
+        values.put(CCH_USER_BADGES, badges);
+        values.put(CCH_USER_SCORING, scoring);
+           
+        // Inserting Row        
+        db.update(CCH_USER_TABLE, values, CCH_STAFF_ID + "=" + staff_id, null);
+        db.close(); // Closing database connection        
+    }
+	
+    // check if User exists
+	public User checkUserExists(User u) 
+	{			
+			SQLiteDatabase db = this.getReadableDatabase();		 
+		    Cursor cursor = db.query(CCH_USER_TABLE, new String[] { CCH_USER_ID, CCH_STAFF_ID, CCH_USER_PASSWORD, CCH_USER_APIKEY, CCH_USER_FIRSTNAME, CCH_USER_LASTNAME, CCH_USER_POINTS, CCH_USER_BADGES, CCH_USER_SCORING }, CCH_STAFF_ID + "=?",
+		            new String[] { String.valueOf(u.getUsername()) }, null, null, null, null); 	        
+		   if (cursor == null || cursor.getCount()==0)
+			    return null;	    	
+		        cursor.moveToFirst();
+		    
+		   // load preferences
+		   u.setApi_key(cursor.getString(3));
+		   u.setFirstname(cursor.getString(4));
+		   u.setLastname(cursor.getString(5));
+		   u.setPoints(cursor.getInt(6));
+		   u.setBadges(cursor.getInt(7));   
+		   u.setScoringEnabled((cursor.getInt(8)==1 ? true: false));
+		        
+		   if (!(u.getPassword().equals(cursor.getString(2)))) {
+			   u.setPasswordRight(false);	   
+		   } 
+		   
+		   return u;
+   }
+	
+	
+	/** QUOTES **/
 	public void createQuotesTable(SQLiteDatabase db) {
 		String m_sql = "create table " + CCH_QUOTES_TABLE + " (" + CCH_QUOTES_C_ID + " integer primary key autoincrement, "
 				+ CCH_QUOTES_C_CID + " int, " + CCH_QUOTES_C_AUTHOR + " text, " + CCH_QUOTES_C_CATEGORY + " text, "

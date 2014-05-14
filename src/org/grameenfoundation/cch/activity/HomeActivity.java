@@ -1,7 +1,6 @@
 package org.grameenfoundation.cch.activity;
 
 
-import java.util.Calendar;
 import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
@@ -15,34 +14,26 @@ import org.digitalcampus.oppia.activity.OppiaMobileActivity;
 import org.digitalcampus.oppia.activity.PrefsActivity;
 import org.digitalcampus.oppia.activity.StartUpActivity;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.service.TrackerService;
 import org.digitalcampus.oppia.utils.UIUtils;
 import org.grameenfoundation.cch.model.WebAppInterface;
+import org.grameenfoundation.cch.utils.AutoUpdateApk;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.SearchManager;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.provider.CalendarContract.Events;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.JavascriptInterface;
-import android.webkit.JsResult;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
@@ -59,17 +50,29 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	private static final String HOME_URL = "file:///android_asset/www/cch/index.html";
 	private static final String EVENT_BLANK_URL = "file:///android_asset/www/cch/modules/eventplanner/blank.html";
 	private static final String EVENT_HOME_URL = "file:///android_asset/www/cch/modules/eventplanner/index.html";
-
+	
+	// MODULE IDs
+	private static final String EVENT_PLANNER_ID      = "Event Planner";
+	private static final String STAYING_WELL_ID       = "Staying Well";
+	private static final String POINT_OF_CARE_ID      = "Point of Care";
+	private static final String LEARNING_CENTER_ID    = "Learning Center";
+	private static final String ACHIEVEMENT_CENTER_ID = "Achievement Center";
+	
+	private DbHelper dbh; 
 	private WebView myWebView;
 	
+	private long pageOpenTime;
+    private String oldPageUrl;
+	
 	// declare updater class member here (or in the Application)
-	@SuppressWarnings("unused")
 	private AutoUpdateApk aua;
 	
 			
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		dbh = new DbHelper(getApplicationContext());
 		
 		aua = new AutoUpdateApk(getApplicationContext());	// <-- don't forget to instantiate
 		aua.addObserver(this);	// see the remark below, next to update() method
@@ -78,7 +81,13 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 		prefs.registerOnSharedPreferenceChangeListener(this);
 		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
 		
-		setContentView(R.layout.cch_activity_home1);
+		Intent service = new Intent(this, TrackerService.class);
+		Bundle tb = new Bundle();
+		tb.putBoolean("backgroundData", true);
+		service.putExtras(tb);
+		this.startService(service);
+		
+		setContentView(R.layout.cch_activity_home);
 
 		// set preferred lang to the default lang
 		if (prefs.getString(getString(R.string.prefs_language), "").equals("")) {
@@ -98,31 +107,37 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	         
 		myWebView.setWebViewClient(new WebViewClient(){
 				
-			    public void onReceivedError(WebView view, int errorCod,String description, String failingUrl) {
+			     @Override
+			     public void onReceivedError(WebView view, int errorCod,String description, String failingUrl) {
 		            Toast.makeText(view.getContext(), description , Toast.LENGTH_LONG).show();
-		        }
+		         }
 			    
-				public boolean shouldOverrideUrlLoading(WebView view, String url) {
+			     @Override
+		         public void onPageFinished(WebView view, String url) {
+			    	 saveToLog(pageOpenTime, oldPageUrl);
+			    	 oldPageUrl = url;
+			    	 pageOpenTime = System.currentTimeMillis();
+		         }
+			    
+				 @Override
+			     public boolean shouldOverrideUrlLoading(WebView view, String url) {
 													
 						if (url.equals("file:///android_asset/www/cch/modules/eventplanner/viewcal")) {
 							Log.v(TAG, "Launching viewcal");
 							   	Intent i = new Intent();
 							   	ComponentName cn = new ComponentName("com.android.calendar", "com.android.calendar.LaunchActivity");
 								i.setComponent(cn);
-								startActivity(i);	 
-								
+								startActivity(i);	 							
 						} 
 	
 						else if (url.equals("file:///android_asset/www/cch/modules/learning/learner")){							
 							Intent intent = new Intent(getApplicationContext(), OppiaMobileActivity.class);
 			                startActivity(intent);	
-			                //finish();
 						}
 						else {
 							view.loadUrl(url);
 						}
-						
-						
+											
 						return true;
 				}
 		});
@@ -132,12 +147,11 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 
 	    try 
 	    {
-			if (!(getIntent().getStringExtra("LOAD_URL")).isEmpty()) {
-					url = getIntent().getStringExtra("LOAD_URL");
-			}				
-		} catch (NullPointerException e) {
-		}
-	    
+			if (!(getIntent().getStringExtra("LOAD_URL")).isEmpty()) {	url = getIntent().getStringExtra("LOAD_URL"); }				
+		} catch (NullPointerException e) {}
+	 
+	    oldPageUrl = "";
+	    pageOpenTime = System.currentTimeMillis();
 		myWebView.loadUrl(url);
 	}
 	
@@ -151,6 +165,39 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 			android.util.Log.i("AutoUpdateApkActivity", "There's an update available!");
 		}
 	}
+	
+	
+	public void saveToLog(Long starttime, String url) 
+	{
+		if (! url.isEmpty())
+		{
+			String module = "unknown";
+			long endtime = System.currentTimeMillis();
+				
+			// get module
+			if (url.contains("/cch/index.html")) {
+				module = "Main Page";
+				
+			} else if (url.contains("/modules/eventplanner")) {
+				module = EVENT_PLANNER_ID;
+		
+			} else if (url.contains("/modules/stayingwell")) {
+				module = STAYING_WELL_ID;
+	
+			} else if (url.contains("/modules/poc")) {
+				module = POINT_OF_CARE_ID;
+
+			} else if (url.contains("/modules/learning")) {
+				module = LEARNING_CENTER_ID;
+
+			} else if (url.contains("/modules/achievements")) {
+				module = ACHIEVEMENT_CENTER_ID;
+			}
+			
+			dbh.insertCCHLog(module, url, starttime, endtime);	
+		}	
+	}
+	
 	
 	@Override
 	public void onStart() {
@@ -171,6 +218,12 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	@Override
 	public void onPause(){
 		super.onPause();
+	}
+	
+	@Override
+	public void onDestroy() {
+		dbh.close();
+		super.onDestroy();
 	}
 	
 
@@ -235,23 +288,14 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 		builder.setMessage(R.string.logout_confirm);
 		builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
-				// wipe activity data
+				
 				DbHelper db = new DbHelper(HomeActivity.this);
 				db.onLogout();
 				db.close();
-
-				// wipe user prefs
-				/*Editor editor = prefs.edit();
-				editor.putString(getString(R.string.prefs_username), "");
-				editor.putString(getString(R.string.prefs_api_key), "");
-				editor.putInt(getString(R.string.prefs_badges), 0);
-				editor.putInt(getString(R.string.prefs_points), 0);
-				editor.commit();*/
-
+				
 				// restart the app
 				HomeActivity.this.startActivity(new Intent(HomeActivity.this, StartUpActivity.class));
 				HomeActivity.this.finish();
-
 			}
 		});
 		builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {

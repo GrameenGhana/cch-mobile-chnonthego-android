@@ -22,6 +22,7 @@ import java.io.File;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.task.SubmitQuizTask;
 import org.digitalcampus.oppia.task.SubmitTrackerMultipleTask;
+import org.grameenfoundation.cch.tasks.UpdateCCHLogTask;
 import org.grameenfoundation.cch.tasks.UpdateQuotesTask;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -58,9 +59,9 @@ public class MobileLearning extends Application {
 	public static final String TRACKER_PATH = OPPIAMOBILE_API + "tracker/";
 	public static final String SERVER_POINTS_PATH = OPPIAMOBILE_API + "points/";
 	public static final String SERVER_COURSES_NAME = "courses";
-	public static final String CCH_QUOTES_SUBMIT_PATH = "http://41.57.212.27/api/v1/quotes/";
+	public static final String CCH_QUOTES_SUBMIT_PATH = "api/v1/tracker/";
+	public static final String CCH_TRACKER_SUBMIT_PATH = "api/v1/qoutes/";
 
-	
 	// general other settings
 	public static final String BUGSENSE_API_KEY = "f3a6ec3a";
 	public static final int PASSWORD_MIN_LENGTH = 6;
@@ -85,6 +86,9 @@ public class MobileLearning extends Application {
 	
 	// for tracking if UpdateQuotesTask is already running
 	public UpdateQuotesTask omUpdateQuotesTask = null;
+	
+	// for tracking if UpdateCCHLogTask is already running
+	public UpdateCCHLogTask omUpdateCCHLogTask = null;
 	
 	public static boolean createDirs() {
 		String cardstatus = Environment.getExternalStorageState();

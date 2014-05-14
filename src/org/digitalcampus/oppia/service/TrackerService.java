@@ -1,5 +1,5 @@
 /* 
- * This file is part of OppiaMobile - http://oppia-mobile.org/
+S * This file is part of OppiaMobile - http://oppia-mobile.org/
  * 
  * OppiaMobile is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@ import org.digitalcampus.oppia.task.APIRequestTask;
 import org.digitalcampus.oppia.task.Payload;
 import org.digitalcampus.oppia.task.SubmitQuizTask;
 import org.digitalcampus.oppia.task.SubmitTrackerMultipleTask;
+import org.grameenfoundation.cch.tasks.UpdateCCHLogTask;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -49,7 +50,7 @@ import android.util.Log;
 
 import com.bugsense.trace.BugSenseHandler;
 
-public class TrackerService extends Service implements APIRequestListener{
+public class TrackerService extends Service implements APIRequestListener {
 
 	public static final String TAG = TrackerService.class.getSimpleName();
 
@@ -77,8 +78,7 @@ public class TrackerService extends Service implements APIRequestListener{
 			Payload p = null;
 			
 			MobileLearning app = (MobileLearning) this.getApplication();
-
-			
+		
 			// check for updated courses and new content
 			// should only do this once a day or so....
 			prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -91,10 +91,17 @@ public class TrackerService extends Service implements APIRequestListener{
 				task.setAPIRequestListener(this);
 				task.execute(p);
 				
-
 				Editor editor = prefs.edit();
 				editor.putLong("lastCourseUpdateCheck", now);
 				editor.commit();
+			}
+			
+			/* CCH: Check to see if the CCH log needs any updating */
+			if(app.omUpdateCCHLogTask == null){
+				Log.v(TAG, "Updating CCH logs");
+				Payload mqp = db.getCCHUnsentLog();
+				app.omUpdateCCHLogTask = new UpdateCCHLogTask(this);
+				app.omUpdateCCHLogTask.execute(mqp);
 			}
 			
 			/* CCH: Check to see if the quotes table needs any updating */
@@ -195,5 +202,4 @@ public class TrackerService extends Service implements APIRequestListener{
 			notificationManager.notify(mId, mBuilder.getNotification());		
 		}
 	}
-
 }

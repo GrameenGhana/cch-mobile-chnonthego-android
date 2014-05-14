@@ -13,7 +13,7 @@
 //	See the License for the specific language governing permissions and
 //	limitations under the License.
 
-package org.grameenfoundation.cch.activity;
+package org.grameenfoundation.cch.utils;
 
 import java.io.BufferedInputStream;
 import java.io.File;

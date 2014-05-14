@@ -29,6 +29,7 @@ public class User {
 	private boolean scoringEnabled = true;
 	private int points = 0;
 	private int badges = 0;
+	private boolean passwordRight = true;
 	
 	public String getUsername() {
 		return username;
@@ -94,5 +95,11 @@ public class User {
 	public void setScoringEnabled(boolean scoringEnabled) {
 		this.scoringEnabled = scoringEnabled;
 	}
-
+	
+	public void setPasswordRight(boolean v) {
+		this.passwordRight = v;
+	}
+	public boolean isPasswordRight() {
+		return this.passwordRight;
+	}
 }

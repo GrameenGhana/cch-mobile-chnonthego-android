@@ -61,24 +61,11 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
         
         setContentView(R.layout.start_up);
         getActionBar().hide();
-
 		
         tvProgress = (TextView) this.findViewById(R.id.start_up_progress);
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        /*Db = new DbHelper(getApplicationContext());
-        User U1 = new User();
-        U1.setUsername("Habeeb");
-        U1.setPassword("sabali01");
-        User U2 = new User();
-        U2.setUsername("dhutch97");
-        U2.setPassword("sRuajAhP");
+
         
-        if(!Db.checkUserExists(U1)){
-        	Db.addUser(U1);
-        }
-        if(!Db.checkUserExists(U2)){
-        	Db.addUser(U2);
-        }*/
         // set up local dirs
  		if(!MobileLearning.createDirs()){
  			AlertDialog.Builder builder = new AlertDialog.Builder(this);

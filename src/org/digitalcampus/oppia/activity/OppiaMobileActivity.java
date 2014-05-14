@@ -36,7 +36,6 @@ import org.digitalcampus.oppia.task.ScanMediaTask;
 import org.digitalcampus.oppia.utils.FileUtils;
 import org.digitalcampus.oppia.utils.UIUtils;
 import org.grameenfoundation.cch.activity.HomeActivity;
-import org.grameenfoundation.cch.activity.ModuleLearningActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -287,14 +286,6 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 				DbHelper db = new DbHelper(OppiaMobileActivity.this);
 				db.onLogout();
 				db.close();
-
-				// wipe user prefs
-				Editor editor = prefs.edit();
-				editor.putString(getString(R.string.prefs_username), "");
-				editor.putString(getString(R.string.prefs_api_key), "");
-				editor.putInt(getString(R.string.prefs_badges), 0);
-				editor.putInt(getString(R.string.prefs_points), 0);
-				editor.commit();
 
 				// restart the app
 				OppiaMobileActivity.this.startActivity(new Intent(OppiaMobileActivity.this, StartUpActivity.class));

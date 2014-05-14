@@ -6,8 +6,10 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.TimeZone;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -15,7 +17,6 @@ import android.net.Uri;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
@@ -104,7 +105,8 @@ public class WebAppInterface {
        return evHtml;
    	}
     
-    @JavascriptInterface
+    @SuppressLint("DefaultLocale")
+	@JavascriptInterface
     public String getEventsList(String period)
     {
     	String evHtml = "";
