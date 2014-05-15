@@ -208,11 +208,11 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	public void onResume(){
 		super.onResume();
 		
-		if (myWebView.getUrl().equals(EVENT_BLANK_URL)) {
+		/*if (myWebView.getUrl().equals(EVENT_BLANK_URL)) {
 			myWebView.clearHistory();
 			myWebView.loadUrl(EVENT_HOME_URL);
 			myWebView.clearHistory();
-		}
+		}*/
 	}
 	
 	@Override
