@@ -775,15 +775,15 @@ public class DbHelper extends SQLiteOpenHelper {
 				CCH_TRACKER_ID + " integer primary key autoincrement, " + 
 				CCH_TRACKER_USERID + " text, " + 
 				CCH_TRACKER_MODULE + " text, " + 
-				CCH_TRACKER_START_DATETIME + " integer , " + 
-				CCH_TRACKER_END_DATETIME + " integer , " + 
+				CCH_TRACKER_START_DATETIME + " string , " + 
+				CCH_TRACKER_END_DATETIME + " string , " + 
 				CCH_TRACKER_DATA + " text, " + 
 				CCH_TRACKER_SUBMITTED + " integer default 0, " + 
 				CCH_TRACKER_INPROGRESS + " integer default 0)";
 		db.execSQL(l_sql);
 	}
 	
-	public void insertCCHLog(String module, String data, long starttime, long endtime){
+	public void insertCCHLog(String module, String data, String starttime, String endtime){
 		String userid = prefs.getString(ctx.getString(R.string.prefs_username), "noid"); 
 		ContentValues values = new ContentValues();
 		values.put(CCH_TRACKER_USERID, userid);
@@ -791,7 +791,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		values.put(CCH_TRACKER_DATA, data);
 		values.put(CCH_TRACKER_START_DATETIME, starttime);
 		values.put(CCH_TRACKER_END_DATETIME, endtime);
-		Log.v("insertCCHLOG", values.toString());
+		//Log.v("insertCCHLOG", values.toString());
 		db.insertOrThrow(CCH_TRACKER_TABLE, null, values);
 	}
 	
@@ -813,8 +813,8 @@ public class DbHelper extends SQLiteOpenHelper {
 				json.put("user_id", c.getString(c.getColumnIndex(CCH_TRACKER_USERID)));
 				json.put("data", c.getString(c.getColumnIndex(CCH_TRACKER_DATA)));
 				json.put("module", c.getString(c.getColumnIndex(CCH_TRACKER_MODULE)));
-				json.put("start_time", c.getInt(c.getColumnIndex(CCH_TRACKER_START_DATETIME)));
-				json.put("end_time", c.getInt(c.getColumnIndex(CCH_TRACKER_END_DATETIME)));
+				json.put("start_time", c.getString(c.getColumnIndex(CCH_TRACKER_START_DATETIME)));
+				json.put("end_time", c.getString(c.getColumnIndex(CCH_TRACKER_END_DATETIME)));
 				content = json.toString();
 			} catch (JSONException e) {
 			    e.printStackTrace();

@@ -106,7 +106,7 @@ public class TrackerService extends Service implements APIRequestListener {
 			
 			/* CCH: Check to see if the quotes table needs any updating */
 			if(app.omUpdateQuotesTask == null){
-				Log.v(TAG, "Updating quotes");
+				//Log.v(TAG, "Updating quotes");
 				//Payload mqp = db.getLastQuotesUpdate();
 				//app.omUpdateQuotesTask = new UpdateQuotesTask(this);
 				//app.omUpdateQuotesTask.execute(mqp);

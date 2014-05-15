@@ -186,7 +186,7 @@ public class WebAppInterface {
     	}
     	
     	return  "<a class=\"list\" href=\"#\">" 
-             +  "  <div class=\"list-content\"> " 
+             +  "  <div class=\"list-content gotoevent\" data-url=\"viewcal/"+ev.eventId+"\"> " 
              +  "   <span class=\"list-title\"><span class=\"place-right "+flag+"\"></span>"+ev.eventType+"</span>" 
              +  "   <span class=\"list-subtitle\"><span class=\"place-right\">"+d+"</span>"+subtitle+"</span>" 
              +  "   <span class=\"list-remark\">"+ev.description+"</span>" 
@@ -212,8 +212,7 @@ public class WebAppInterface {
                    .query(
                            Uri.parse("content://com.android.calendar/events"),
                            new String[] { "calendar_id", "title", "description",
-                                   "dtstart", "dtend", "eventLocation" }, null,
-                           null, null);
+                                   "dtstart", "dtend", "eventLocation", "_id as max_id" }, null, null, "dtstart");
            cursor.moveToFirst();
            
            // fetching calendars name
@@ -237,6 +236,7 @@ public class WebAppInterface {
         	    } catch(NumberFormatException e) {}
         	   
         	   MyEvent payload = new MyEvent();
+        	   payload.eventId = cursor.getLong(cursor.getColumnIndex("max_id"));
         	   payload.eventType = cursor.getString(1);
         	   payload.description = cursor.getString(2);
         	   payload.startDate = start;
@@ -244,8 +244,7 @@ public class WebAppInterface {
         	   payload.location = cursor.getString(5);
     	       addToPreviousLocations(cursor.getString(5));
         	   calEvents.add(payload);
-
-        	   
+       	   
         	   if (payload.isToday())         { todaysEventsNum++;    } 
         	   else if (payload.isTomorrow()) { tomorrowsEventsNum++; } 
         	   else if (payload.isFuture())   { futureEventsNum++;    }
@@ -272,6 +271,7 @@ public class WebAppInterface {
     
     private class MyEvent
     {
+    	public long eventId;
     	public String eventType;
     	public String location;
     	public String description;

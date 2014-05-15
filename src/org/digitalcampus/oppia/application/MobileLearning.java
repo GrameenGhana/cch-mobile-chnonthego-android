@@ -59,8 +59,8 @@ public class MobileLearning extends Application {
 	public static final String TRACKER_PATH = OPPIAMOBILE_API + "tracker/";
 	public static final String SERVER_POINTS_PATH = OPPIAMOBILE_API + "points/";
 	public static final String SERVER_COURSES_NAME = "courses";
-	public static final String CCH_QUOTES_SUBMIT_PATH = "api/v1/tracker/";
-	public static final String CCH_TRACKER_SUBMIT_PATH = "api/v1/qoutes/";
+	public static final String CCH_QUOTES_SUBMIT_PATH = "api/v1/quotes/";
+	public static final String CCH_TRACKER_SUBMIT_PATH = "api/v1/tracker/";
 
 	// general other settings
 	public static final String BUGSENSE_API_KEY = "f3a6ec3a";

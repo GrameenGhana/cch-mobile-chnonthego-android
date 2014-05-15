@@ -4,6 +4,8 @@ package org.grameenfoundation.cch.activity;
 import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 import org.digitalcampus.mobile.learningGF.R;
@@ -21,12 +23,12 @@ import org.grameenfoundation.cch.utils.AutoUpdateApk;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -121,20 +123,37 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 			    
 				 @Override
 			     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-													
-						if (url.equals("file:///android_asset/www/cch/modules/eventplanner/viewcal")) {
-							Log.v(TAG, "Launching viewcal");
-							   	Intent i = new Intent();
-							   	ComponentName cn = new ComponentName("com.android.calendar", "com.android.calendar.LaunchActivity");
-								i.setComponent(cn);
-								startActivity(i);	 							
-						} 
-	
-						else if (url.equals("file:///android_asset/www/cch/modules/learning/learner")){							
+																    
+					    Pattern viewEventPattern = Pattern.compile("viewcal\\/(\\d+)");
+					    Matcher viewEventMatcher = viewEventPattern.matcher(url);
+					    
+						if (viewEventMatcher.find()) {
+							    
+								long calendarEventID = Long.parseLong(viewEventMatcher.group().replace("viewcal/", ""));
+							   
+								Intent intent = new Intent(Intent.ACTION_VIEW);
+
+						    	intent.setData(Uri.parse("content://com.android.calendar/events/" + String.valueOf(calendarEventID)));
+						    	intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+						    			| Intent.FLAG_ACTIVITY_SINGLE_TOP
+						    			| Intent.FLAG_ACTIVITY_CLEAR_TOP
+						    			| Intent.FLAG_ACTIVITY_NO_HISTORY
+						    			| Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+						    	getApplicationContext().startActivity(intent);
+						
+						}  else if (url.equals("file:///android_asset/www/cch/modules/eventplanner/viewcal")) {	
+							
+								
+							Intent intent =  new Intent(Intent.ACTION_VIEW);
+						    intent.setData(Uri.parse("content://com.android.calendar/time"));
+						    startActivity(intent);
+						    	
+							
+						} else if (url.equals("file:///android_asset/www/cch/modules/learning/learner")) {							
 							Intent intent = new Intent(getApplicationContext(), OppiaMobileActivity.class);
 			                startActivity(intent);	
-						}
-						else {
+						
+						} else {
 							view.loadUrl(url);
 						}
 											
@@ -172,7 +191,7 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 		if (! url.isEmpty())
 		{
 			String module = "unknown";
-			long endtime = System.currentTimeMillis();
+			Long endtime = System.currentTimeMillis();
 				
 			// get module
 			if (url.contains("/cch/index.html")) {
@@ -194,7 +213,7 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 				module = ACHIEVEMENT_CENTER_ID;
 			}
 			
-			dbh.insertCCHLog(module, url, starttime, endtime);	
+			dbh.insertCCHLog(module, url, starttime.toString(), endtime.toString());	
 		}	
 	}
 	
@@ -208,11 +227,11 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	public void onResume(){
 		super.onResume();
 		
-		/*if (myWebView.getUrl().equals(EVENT_BLANK_URL)) {
+		if (myWebView.getUrl().equals(EVENT_BLANK_URL)) {
 			myWebView.clearHistory();
 			myWebView.loadUrl(EVENT_HOME_URL);
 			myWebView.clearHistory();
-		}*/
+		}
 	}
 	
 	@Override

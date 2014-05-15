@@ -62,8 +62,8 @@ public class UpdateCCHLogTask extends AsyncTask<Payload, Object, Payload> {
                 
                 httpPatch.addHeader(client.getAuthHeader());
 
-                Log.v(TAG,url);
-				Log.v(TAG,dataToSend);
+                //Log.v(TAG,url);
+				//Log.v(TAG,dataToSend);
 				
                 // make request
 				HttpResponse response = client.execute(httpPatch);	
