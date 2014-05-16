@@ -20,6 +20,7 @@ import org.digitalcampus.oppia.service.TrackerService;
 import org.digitalcampus.oppia.utils.UIUtils;
 import org.grameenfoundation.cch.model.WebAppInterface;
 import org.grameenfoundation.cch.utils.AutoUpdateApk;
+import org.grameenfoundation.cch.utils.SilentAutoUpdate;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -43,6 +44,10 @@ import com.actionbarsherlock.view.MenuItem;
 
 
 
+/**
+ * @author habeeb
+ *
+ */
 @SuppressLint({ "SetJavaScriptEnabled", "JavascriptInterface" })
 public class HomeActivity extends AppActivity implements OnSharedPreferenceChangeListener, Observer {
 
@@ -67,7 +72,7 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
     private String oldPageUrl;
 	
 	// declare updater class member here (or in the Application)
-	private AutoUpdateApk aua;
+    private AutoUpdateApk aua;
 	
 			
 	@Override
@@ -76,8 +81,9 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 		
 		dbh = new DbHelper(getApplicationContext());
 		
-		aua = new AutoUpdateApk(getApplicationContext());	// <-- don't forget to instantiate
-		aua.addObserver(this);	// see the remark below, next to update() method
+		
+		aua = new AutoUpdateApk(getApplicationContext());	
+		aua.addObserver(this);	
 		
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		prefs.registerOnSharedPreferenceChangeListener(this);
@@ -109,7 +115,7 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	         
 		myWebView.setWebViewClient(new WebViewClient(){
 				
-			     @Override
+			@Override
 			     public void onReceivedError(WebView view, int errorCod,String description, String failingUrl) {
 		            Toast.makeText(view.getContext(), description , Toast.LENGTH_LONG).show();
 		         }
@@ -173,9 +179,10 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	    pageOpenTime = System.currentTimeMillis();
 		myWebView.loadUrl(url);
 	}
+
 	
 	
-	@Override
+	/*@Override
 	public void update(Observable observable, Object data) {
 		if( ((String)data).equalsIgnoreCase(AutoUpdateApk.AUTOUPDATE_GOT_UPDATE) ) {
 			android.util.Log.i("AutoUpdateApkActivity", "Have just received update!");
@@ -186,7 +193,7 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	}
 	
 	
-	public void saveToLog(Long starttime, String url) 
+	*/public void saveToLog(Long starttime, String url) 
 	{
 		if (! url.isEmpty())
 		{
@@ -216,6 +223,14 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 			dbh.insertCCHLog(module, url, starttime.toString(), endtime.toString());	
 		}	
 	}
+
+
+
+	@Override
+	public void update(Observable observable, Object data) {
+		// TODO Auto-generated method stub
+		
+	}	
 	
 	
 	@Override
@@ -223,7 +238,7 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 		super.onStart();		
 	}
 
-	@Override
+	/*@Override
 	public void onResume(){
 		super.onResume();
 		
@@ -232,7 +247,7 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 			myWebView.loadUrl(EVENT_HOME_URL);
 			myWebView.clearHistory();
 		}
-	}
+	}*/
 	
 	@Override
 	public void onPause(){
@@ -325,6 +340,9 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 		builder.show();
 	}
 
+
+
+	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 		Log.d(TAG, key + " changed");
 		if(key.equalsIgnoreCase(getString(R.string.prefs_server))){
