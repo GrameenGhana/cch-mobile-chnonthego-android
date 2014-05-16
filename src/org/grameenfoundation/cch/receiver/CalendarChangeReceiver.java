@@ -70,5 +70,7 @@ public class CalendarChangeReceiver extends BroadcastReceiver {
 			 dbh.insertCCHLog(module, json.toString(), start, end);	
              cursor.moveToNext();
         }  	
+        
+        cursor.close();
 	}
 }

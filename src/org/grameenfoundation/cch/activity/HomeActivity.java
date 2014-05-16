@@ -104,9 +104,7 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 		myWebView = (WebView) findViewById(R.id.webView1);	    	 
 		myWebView.getSettings().setJavaScriptEnabled(true);
 		myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
-		myWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-
-	         
+		myWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);	         
 		myWebView.setWebViewClient(new WebViewClient(){
 				
 			     @Override
@@ -116,9 +114,9 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 			    
 			     @Override
 		         public void onPageFinished(WebView view, String url) {
-			    	 saveToLog(pageOpenTime, oldPageUrl);
-			    	 oldPageUrl = url;
-			    	 pageOpenTime = System.currentTimeMillis();
+			 			 saveToLog(pageOpenTime, oldPageUrl);
+			 			 oldPageUrl = url;
+			 			 pageOpenTime = System.currentTimeMillis();		 		 
 		         }
 			    
 				 @Override
@@ -159,19 +157,23 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 											
 						return true;
 				}
+				 
 		});
 		
+	    oldPageUrl = "";
+	    pageOpenTime = System.currentTimeMillis();
+	    
 		
-		String url = HOME_URL;
+	    String url = HOME_URL;
 
 	    try 
 	    {
 			if (!(getIntent().getStringExtra("LOAD_URL")).isEmpty()) {	url = getIntent().getStringExtra("LOAD_URL"); }				
 		} catch (NullPointerException e) {}
-	 
-	    oldPageUrl = "";
-	    pageOpenTime = System.currentTimeMillis();
+
+
 		myWebView.loadUrl(url);
+	    	
 	}
 	
 	
@@ -227,10 +229,14 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	public void onResume(){
 		super.onResume();
 		
-		if (myWebView.getUrl().equals(EVENT_BLANK_URL)) {
-			myWebView.clearHistory();
-			myWebView.loadUrl(EVENT_HOME_URL);
-			myWebView.clearHistory();
+		String url = myWebView.getUrl();
+		
+		if (url != null)
+		{
+			if (url.equals(EVENT_BLANK_URL)) {
+	 			myWebView.clearHistory();
+				myWebView.loadUrl(EVENT_HOME_URL);
+	 		 }
 		}
 	}
 	

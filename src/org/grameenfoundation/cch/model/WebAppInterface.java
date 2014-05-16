@@ -251,6 +251,8 @@ public class WebAppInterface {
         	   
                cursor.moveToNext();
            }  
+           
+           cursor.close();
     }
 
     private void addToPreviousLocations(String s)
