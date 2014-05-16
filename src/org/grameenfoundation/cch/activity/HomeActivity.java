@@ -240,7 +240,7 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 		super.onStart();		
 	}
 
-	/*@Override
+	@Override
 	public void onResume(){
 		super.onResume();
 		
@@ -253,7 +253,7 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 				myWebView.loadUrl(EVENT_HOME_URL);
 	 		 }
 		}
-	}*/
+	}
 	
 	@Override
 	public void onPause(){
