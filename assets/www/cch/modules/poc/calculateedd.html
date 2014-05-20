@@ -25,8 +25,21 @@
 	</script>
     
     <!-- Bootstrap core CSS -->
+					<!--REQUIRED CSS files-->
+				<link href="../../css/bootstrap.min.css" rel="stylesheet">
+				<link href="../../css/metro-bootstrap.min.css" rel="stylesheet">
+				<link href="../../css/metro-bootstrap-responsive.min.css" rel="stylesheet">
+				<link href="../../css/iconFont.min.css" rel="stylesheet">
+				<link href="../../css/cchbasics.css" rel="stylesheet">
+				<link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+				<link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+				<link href="../../css/cch.css" rel="stylesheet">
+				<link href="../../css/wfmi-style.css" rel="stylesheet">
+
+				<title>CCH Android Application</title>
+
     <link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/jquery.mobile.css" rel="stylesheet" type="text/css" />
+	<link href="../../css/jquery.mobile.css" rel="stylesheet" type="text/css" />
 	<link type="text/css" href="css/jqm-datebox.min.css" rel="stylesheet" /> 
 
     <!-- Custom styles for this template 
@@ -71,7 +84,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery.js"></script>
+    <script src="js/jquerymin.js"></script>
     <script src="js/bootstrap.min.js"></script>
   	<script type="text/javascript">
             // When the document is ready
@@ -86,9 +99,30 @@
 				var newDiv=document.createElement('div');
 				//lastFlowDate = document.getElementById(startDate).value;
 				lastFlowDate = $('#datepicker').data('datebox');
+				alert(lastFlowDate);
 				Flow = Date.parse(lastFlowDate);
+				Flow=Flow+277; 
+				//First trimester: Up to 90 days 
+				//Second trimester: Up to 180 days
+				//Third trimester: Beyond 180 days 
+				switch(Flow)
+				{
+					case>90:
+					break; 
+					
+					case>180:
+					break;
+					
+					default:
+						alert("First Trimester");
+					break;
+					
+				}
+				alert("Done");				Today = Date.today();
+				Flow-=Today;
 				newDiv.innerHTML=Flow;
 				document.getElementById(divName).appendChild(newDiv);
+
 				
 			}
 

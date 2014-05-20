@@ -6,22 +6,18 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="">
-    <title>CCH Android Application</title>
-	
-    <!-- Bootstrap core CSS -->
+ 	<!--REQUIRED CSS files-->
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/metro-bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/metro-bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../../css/iconFont.min.css" rel="stylesheet">
+    <link href="../../css/cchbasics.css" rel="stylesheet">
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../css/cch.css" rel="stylesheet">
+	<link href="../../css/wfmi-style.css" rel="stylesheet">
 
-    <!-- Custom styles for this template 
-	cchbasics - the main CSS file for non-bootstrap styling
-	-->
-    <link href="../css/cchbasics.css" rel="stylesheet">
-	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <title>CCH Android Application</title>
   </head>
 
   <body>
@@ -33,18 +29,25 @@
 		<div>
 			<H3>Does the client have any of the following acute emergencies? </H3>
 			<br />
-			<button type="button" class="btn btn-success btn-block" rel="external" onclick="window.location='ta-breathing.html'">Difficulty breathing<br /><br /></button><br /><br />
-			<button type="button" class="btn btn-success btn-block" onclick="window.location='ta-refer.html'">Oedema of the feet and hands, face or ankles<br /><br/></button><br /><br />
-			<button type="button" class="btn btn-success btn-block" onclick="window.location='askbleeding2.html'">Excessive bleeding<br /><br/></button><br /><br />
-			<button type="button" class="btn btn-success btn-block" onclick="window.location='ta-shock.html'">Signs of shock<br /><p><em>(cold, moist skin, weak but fast pulse,<br /> systolic BP <=90 mm Hg)</em></p></button><br/><br />
-			<button type="button" class="btn btn-success btn-block" onclick="window.location='previousvisit.html'">No, <br /><em>client does not have any acute emergencies</em></button><br/><br />
+			<div class="list-group collapsed">
+ 				<ul>
+            </div>
+			<div class="col-md-6">
+				<div class="list-group">
+					<button type="button" class="btn btn-danger btn-block" rel="external" onclick="window.location='ta-breathing.html'">Difficulty breathing</button><br />
+					<button type="button" class="btn btn-danger btn-block" onclick="window.location='ta-refer.html'">Oedema<br>(feet and hands, face or ankles)</button><br />
+					<button type="button" class="btn btn-danger btn-block" onclick="window.location='askbleeding2.html'">Excessive bleeding</button><br />
+					<button type="button" class="btn btn-danger btn-block" onclick="window.location='ta-shock.html'">Signs of shock</button><br/>
+					<button type="button" class="btn btn-success btn-block" rel = "extrenal" onclick="window.location='previousvisit.html'">No</em></button><br/>
+				</div>
+			</div>
 		</div>
 	</div>
 	</center>
 	</div>
     </div><!-- /.container -->
 
-
+``
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
