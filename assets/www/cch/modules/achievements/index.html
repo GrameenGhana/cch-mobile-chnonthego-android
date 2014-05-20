@@ -89,6 +89,8 @@
     
     <script type="text/javascript">
          var cch = new CCH();    
+         
+         
          ab = cch.displayAchievementBar();
     	 $('#achievementbars').html(ab);
     	 
@@ -103,7 +105,15 @@
     	 
     	 cl = cch.coursesProgressList();
     	 $('#coursesProgressList').html(cl);
-    	 
+
+
+    	     if ($('#achievementbars')) {
+    	$('.progress .progress-bar').progressbar();
+    	$('.evtprogress .progress-bar').progressbar({
+            display_text: 'fill',
+            use_percentage: true
+    	});
+    }
     </script>
 
   </body>

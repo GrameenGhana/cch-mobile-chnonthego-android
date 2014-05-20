@@ -56,12 +56,6 @@ $(document).ready(function()  {
 
     var cch = new CCH();
 
-    $('.progress .progress-bar').progressbar();
-    $('.evtprogress .progress-bar').progressbar({
-            display_text: 'fill',
-            use_percentage: true
-    });
-
 
     if ($('#username')) {
     	$('#username').html(cch.getUsername());
