@@ -9,14 +9,21 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.model.Course;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
@@ -28,14 +35,131 @@ public class WebAppInterface {
     private int todaysEventsNum = 0;
     private int tomorrowsEventsNum = 0;
     private int futureEventsNum = 0;
+    private int thismonthEventsNum = 0;
+    private int thismonthEventsDone = 0;
     private String previousLocations = "";
-   
+    
+    private DbHelper dbh;
+    
 
     /** Instantiate the interface and set the context */
     public WebAppInterface(Context c) {
         mContext = c;
+        dbh = new DbHelper(c);
         readCalendarEvent(c);
     }
+        
+    @JavascriptInterface
+    public String getUsername() {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+    	return prefs.getString(mContext.getString(R.string.prefs_display_name),
+    						   mContext.getString(R.string.prefs_username));
+    }
+    
+    /******************************* Achievements methods *****/
+    
+    @JavascriptInterface
+    public String numEventsCompleted() {
+    	return String.valueOf(thismonthEventsNum);
+    }
+    
+    @JavascriptInterface
+    public int numCoursesCompleted() {
+    	int[] c = courseNumInfo();
+    	return c[1];
+    }
+    
+    @JavascriptInterface
+    public String achievementCenterBar() {
+    	
+    	String bar = "";
+    	int numbars = 7;
+    	int[] cInfo = courseNumInfo();
+    	
+    	float event_pc = (thismonthEventsNum>0) ?  ((float) thismonthEventsDone / thismonthEventsNum ) : 0;
+    	float course_pc = (cInfo[0]>0) ? ((float) cInfo[1] / cInfo[0])  : 0;
+    	int numSuccessbars = Math.round((float) ((float) event_pc * (float)(numbars/2)) + (float) ((float)course_pc * (float)(numbars/2)));
+
+    	int j= 1;
+    	for (int i=1; i<=7; i++) {
+    		 int v = (j>numSuccessbars) ? 0 : 100; 
+    		 bar += this.achievementBar(v, i);
+    		 j++;
+    	}
+    	
+    	return bar;
+    }
+    
+    @JavascriptInterface
+    public String eventsProgessList()
+    {
+    	float event_pc = (thismonthEventsNum>0) ?  ((float) thismonthEventsDone / thismonthEventsNum ) : 0;
+    	return progressList("Events completed this month", (event_pc * 100));
+    }
+    
+    @JavascriptInterface
+    public String coursesProgessList()
+    {
+    	String list = "";
+    	ArrayList<Course> courses = dbh.getCourses();
+    	
+    	if (courses.size()==0) {
+    		return "<b>No Courses installed</b>";
+    	}
+
+    	for(Course c:  courses) {
+    		float comp = dbh.getCourseProgress(c.getModId());
+    		list += progressList(c.getTitle("en"),comp);
+    	}
+    	    	
+    	return list;
+    }
+    
+    private int[] courseNumInfo()
+    {
+    	int courseInfo[] = new int[2];
+    	int numCompleted = 0;
+    	
+    	ArrayList<Course> courses = dbh.getCourses();
+    	
+    	for(Course c:  courses) {
+    		float comp = dbh.getCourseProgress(c.getModId());
+    		numCompleted = (comp >= 100) ? numCompleted+1 : numCompleted;
+    	}
+    	
+    	courseInfo[0] = courses.size();
+    	courseInfo[1] = numCompleted;
+    	
+    	return courseInfo;
+    }
+      
+    private String achievementBar(int value, int barnum)
+    {
+        int height = barnum * 10;
+        int margintop = (barnum - 1) * -10;
+        
+    	return "<div class=\"progress vertical bottom\" style =\"height: "+height+"px; margin-top: "+margintop+"px; margin-left: -15px;\"> " +
+               "<div class=\"progress-bar progress-bar-success\" role=\"progressbar\" aria-valuetransitiongoal=\""+value+"\"> "+
+               "</div></div> ";
+    }
+    
+    private String progressList(String title, double value)
+    {
+    	String color = (value < 1) ? "progress-bar-warning" : ""; 
+    	color = (value >=50) ? "progress-bar-success" : color;
+    			
+    	String tc = (value < 1) ? "black" : "white";
+    	
+    	return "<label>"+title+"</label>" +
+               "<div class=\"evtprogress\">" +
+               "  <div class=\"progress-bar "+color+"\" role=\"progressbar\" style=\"color:"+tc+" ;\" aria-valuetransitiongoal=\""+value+"\">&nbsp;</div> "+
+               "</div><br/>";
+    }
+    
+    
+    
+    /******************************* Event planner methods *****/
+
     
     @JavascriptInterface
     public void refreshEvents() {
@@ -144,26 +268,7 @@ public class WebAppInterface {
     public String getPreviousLocations() { 
     	return "{\"myLocations\": ["+previousLocations+"]}";
     }
-
- 
-    /** Show a toast from the web page */
-    @JavascriptInterface
-    public void showToast(String toast) {
-        Toast.makeText(mContext, toast, Toast.LENGTH_LONG).show();
-    }
     
-    /** Staying Well methods **/
-    
-    @JavascriptInterface
-    public String getQuote() {
-    	return "<p>Horray!! I am rocking this world!!!</p><footer><cite title=\"dkh\">gf</cite></footer>";
-    }
-    
-    @JavascriptInterface
-    public String getTodayInHistory() {
-    	return "<h2>Today In History</h2><br><p><b>2011-02-03:</b> Horray!! I am rocking this world!!!</p>";
-    }
-
     /** Private Interfaces **/
     private String eventSnippetItemAsHTML(String event, int evNum)
     {
@@ -245,9 +350,12 @@ public class WebAppInterface {
     	       addToPreviousLocations(cursor.getString(5));
         	   calEvents.add(payload);
        	   
-        	   if (payload.isToday())         { todaysEventsNum++;    } 
-        	   else if (payload.isTomorrow()) { tomorrowsEventsNum++; } 
-        	   else if (payload.isFuture())   { futureEventsNum++;    }
+        	   if (payload.isToday())              { todaysEventsNum++;    } 
+        	   else if (payload.isTomorrow())      { tomorrowsEventsNum++; } 
+        	   else if (payload.isFuture())        { futureEventsNum++;    }
+        	   
+        	   if (payload.isThisMonth())     { thismonthEventsNum++; }
+        	   if (payload.isThisMonth(true)) { thismonthEventsDone++; }
         	   
                cursor.moveToNext();
            }  
@@ -262,7 +370,7 @@ public class WebAppInterface {
     	   {
     		   s = s.replace(",","");
     		   s = s.replace("'", "");
-    		   s = s.toLowerCase().trim();
+    		   s = s.toLowerCase(Locale.UK).trim();
     		   if (! previousLocations.contains(s)) {
         		   if (!  this.previousLocations.equals("")) { this.previousLocations += ","; }
     			   this.previousLocations += "\""+ s + "\"";
@@ -305,6 +413,27 @@ public class WebAppInterface {
     	    	c.add(Calendar.DATE, 2);
     	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
     	}
+    	
+    	public boolean isThisMonth() { return isThisMonth(false); }
+    	public boolean isThisMonth(boolean completed)
+    	{
+    		boolean resp = false;
+    		
+    		long milliSeconds = this.startDate;
+	    	Calendar c = Calendar.getInstance();
+	    	String today = new SimpleDateFormat("MM/yyyy").format(new Date(c.getTimeInMillis()));
+	        
+	    	// is it this month?
+	    	resp =  (DateFormat.format("MM/yyyy", new Date(milliSeconds))
+	       				.toString().equals(today)) ? true : false;
+ 
+	    	if (resp && completed)
+	    	{
+	    		resp =  (milliSeconds < c.getTimeInMillis()) ? true : false;
+	    	}
+	    	
+    		return resp;
+    	}
               
         public String getDate(String format) {
 			   long milliSeconds = this.startDate;
@@ -315,5 +444,28 @@ public class WebAppInterface {
         }
         
     }
+
+    /******************************* Staying well methods *****/
+
+    
+    /** Show a toast from the web page */
+    @JavascriptInterface
+    public void showToast(String toast) {
+        Toast.makeText(mContext, toast, Toast.LENGTH_LONG).show();
+    }
+    
+    /** Staying Well methods **/
+    
+    @JavascriptInterface
+    public String getQuote() {
+    	return "<p>Horray!! I am rocking this world!!!</p><footer><cite title=\"dkh\">gf</cite></footer>";
+    }
+    
+    @JavascriptInterface
+    public String getTodayInHistory() {
+    	return "<h2>Today In History</h2><br><p><b>2011-02-03:</b> Horray!! I am rocking this world!!!</p>";
+    }
+
+  
 }
 

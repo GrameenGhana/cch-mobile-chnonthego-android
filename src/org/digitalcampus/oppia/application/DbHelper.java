@@ -68,8 +68,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	
 	private static final String ACTIVITY_TABLE = "Activity";
 	private static final String ACTIVITY_C_ID = BaseColumns._ID;
-	private static final String ACTIVITY_C_COURSEID = "modid"; // reference to
-															// COURSE_C_ID
+	private static final String ACTIVITY_C_COURSEID = "modid"; // reference to COURSE_C_ID
 	private static final String ACTIVITY_C_SECTIONID = "sectionid";
 	private static final String ACTIVITY_C_ACTID = "activityid";
 	private static final String ACTIVITY_C_ACTTYPE = "activitytype";
@@ -291,17 +290,17 @@ public class DbHelper extends SQLiteOpenHelper {
 			String firstname = "";
 			String lastname = "";
 			
-			if (! ctx.getString(R.string.prefs_display_name).isEmpty()) {
-				String displayname = ctx.getString(R.string.prefs_display_name);
+			if (! prefs.getString(ctx.getString(R.string.prefs_display_name),"").isEmpty()) {
+				String displayname = prefs.getString(ctx.getString(R.string.prefs_display_name),"");
 				String[] name = displayname.split(" ");
 				firstname = name[0];
 				lastname = name[1];
 			}
-			int points = (ctx.getString(R.string.prefs_points).isEmpty()) ? 0 : Integer.parseInt(ctx.getString(R.string.prefs_points));
-			int badges = (ctx.getString(R.string.prefs_points).isEmpty()) ? 0 : Integer.parseInt(ctx.getString(R.string.prefs_badges));			
-			int scoring = (ctx.getString(R.string.prefs_scoring_enabled).isEmpty()) ? 0 : Integer.parseInt(ctx.getString(R.string.prefs_scoring_enabled));
+			int points = ( prefs.getString(ctx.getString(R.string.prefs_points),"").isEmpty()) ? 0 : Integer.parseInt( prefs.getString(ctx.getString(R.string.prefs_points),""));
+			int badges = ( prefs.getString(ctx.getString(R.string.prefs_points),"").isEmpty()) ? 0 : Integer.parseInt( prefs.getString(ctx.getString(R.string.prefs_badges),""));			
+			int scoring = ( prefs.getString(ctx.getString(R.string.prefs_scoring_enabled),"").isEmpty()) ? 0 : Integer.parseInt( prefs.getString(ctx.getString(R.string.prefs_scoring_enabled),""));
 
-			updateUser(userid, ctx.getString(R.string.prefs_api_key), firstname, lastname, points, badges, scoring);
+			updateUser(userid, prefs.getString(ctx.getString(R.string.prefs_api_key),""), firstname, lastname, points, badges, scoring);
 		}
 		
 		
@@ -871,6 +870,8 @@ public class DbHelper extends SQLiteOpenHelper {
         	db.close(); // Closing database connection
 		}
     }
+	
+	
 	
 	public void updateUser(User u) 
 	{

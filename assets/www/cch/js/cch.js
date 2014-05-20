@@ -2,6 +2,28 @@ function CCH() {
     this.getQuote = function()  { 
         return Android.getQuote(); 
     },
+    
+    this.getUsername = function() {
+    	return Android.getUsername();
+    },
+    
+    this.displayAchievementBar = function() {
+    	return Android.achievementCenterBar();
+    },
+    
+    this.eventsProgressList = function() {
+    	return Android.eventsProgessList();
+    },
+    this.numEventsCompleted = function() {
+    	return Android.numEventsCompleted();
+    },
+    
+    this.coursesProgressList = function() {
+    	return Android.coursesProgessList();
+    },
+    this.numCoursesCompleted = function() {
+    	return Android.numCoursesCompleted();
+    },
 
     this.getTodayInHistory = function() { 
         return Android.getTodayInHistory(); 
@@ -33,6 +55,17 @@ function CCH() {
 $(document).ready(function()  {
 
     var cch = new CCH();
+
+    $('.progress .progress-bar').progressbar();
+    $('.evtprogress .progress-bar').progressbar({
+            display_text: 'fill',
+            use_percentage: true
+    });
+
+
+    if ($('#username')) {
+    	$('#username').html(cch.getUsername());
+    }
 
     // Event planner
     if ($('#planner')) {
