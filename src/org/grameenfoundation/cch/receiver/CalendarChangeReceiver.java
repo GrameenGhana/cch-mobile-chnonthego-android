@@ -30,7 +30,7 @@ public class CalendarChangeReceiver extends BroadcastReceiver {
 	            + CalendarContract.Events.DIRTY + "=" + 1 + " OR "
 	            + CalendarContract.Events.DELETED + "=" + 1 + ")" + " AND "
 	            + CalendarContract.Events.DTEND + " > "
-	            + (Calendar.getInstance().getTimeInMillis() - (3 * 1000));
+	            + (Calendar.getInstance().getTimeInMillis() - (5 * 1000));
 		
 		Cursor cursor = context.getContentResolver()
                 .query(

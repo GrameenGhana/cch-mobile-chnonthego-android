@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.PreferenceManager;
+import android.util.Base64;
 
 public class CCHHTTPConnectionUtils extends DefaultHttpClient {
 	
@@ -55,12 +56,20 @@ public class CCHHTTPConnectionUtils extends DefaultHttpClient {
 		super.getParams().setParameter(CoreProtocolPNames.USER_AGENT, MobileLearning.USER_AGENT + v);
 	}
 	
-	public BasicHeader getAuthHeader(){
-		return new BasicHeader("Authorization","ApiKey "+CCH_API_USER+":"+CCH_API_KEY);
+	public String getAuthHeader(){
+		byte[] b = (CCH_API_USER+":"+CCH_API_KEY).getBytes();
+		return "Basic " + Base64.encode(b, Base64.NO_WRAP);
 	}
 	
 	public String getFullURL(String apiPath){
 		return CCH_SERVER + apiPath;
+	}
+	
+	public List<NameValuePair> postData(String data)
+	{
+		List<NameValuePair> pairs = new LinkedList<NameValuePair>();
+		pairs.add(new BasicNameValuePair("data", data));
+		return pairs;
 	}
 
 	public String createUrlWithCredentials(String baseUrl){

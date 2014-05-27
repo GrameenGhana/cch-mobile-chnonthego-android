@@ -7,10 +7,14 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPatch;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
@@ -50,17 +54,16 @@ public class UpdateCCHLogTask extends AsyncTask<Payload, Object, Payload> {
 		
 		String url = client.getFullURL(MobileLearning.CCH_TRACKER_SUBMIT_PATH);
 		
-		HttpPatch httpPatch = new HttpPatch(url);
+		//HttpPatch httpPatch = new HttpPatch(url);
+		HttpPost httpPatch = new HttpPost(url);
 		
 		for (Collection<CCHTrackerLog> trackerBatch : result) {
 			String dataToSend = createDataString(trackerBatch);
 			
 			try {
-				StringEntity se = new StringEntity(dataToSend,"utf8");
-                se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-                httpPatch.setEntity(se);
-                
-                httpPatch.addHeader(client.getAuthHeader());
+				List<NameValuePair> nameValuePairs = client.postData(dataToSend);	
+		        httpPatch.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                httpPatch.addHeader("Authorization", client.getAuthHeader());
 
                 //Log.v(TAG,url);
 				//Log.v(TAG,dataToSend);
@@ -68,7 +71,7 @@ public class UpdateCCHLogTask extends AsyncTask<Payload, Object, Payload> {
                 // make request
 				HttpResponse response = client.execute(httpPatch);	
 				
-				Log.d(TAG, String.valueOf(response.getStatusLine().getStatusCode()));
+				//Log.d(TAG, String.valueOf(response.getStatusLine().getStatusCode()));
 				
 				InputStream content = response.getEntity().getContent();
 				BufferedReader buffer = new BufferedReader(new InputStreamReader(content), 4096);
@@ -79,7 +82,7 @@ public class UpdateCCHLogTask extends AsyncTask<Payload, Object, Payload> {
 					responseStr += s;
 				}
 				
-				Log.d(TAG,responseStr);
+				//Log.d(TAG,responseStr);
 				
 				switch (response.getStatusLine().getStatusCode()){
 					case 200: // submitted
@@ -150,7 +153,7 @@ public class UpdateCCHLogTask extends AsyncTask<Payload, Object, Payload> {
 	}
 	
 	private String createDataString(Collection<CCHTrackerLog> collection){
-		String s = "data={\"logs\":[";
+		String s = "{\"logs\":[";
 		int counter = 0;
 		for(CCHTrackerLog tl: collection){
 			counter++;
