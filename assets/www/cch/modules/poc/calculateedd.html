@@ -56,6 +56,10 @@
   </head>
 
   <body data-role="none">
+  
+
+
+
       <div class="container dropme">
 	
 	<div class="row">
@@ -95,9 +99,23 @@
 				$('#datepicker').datebox('open');
 				});             
             });
+			function parseDate(str) {
+			var mdy = str.split('/')
+			return new Date(mdy[2], mdy[0]-1, mdy[1]);
+		}
+
+		function daydiff(first, second) {
+			return (second-first)/(1000*60*60*24);
+		}
+		
+		function ShowTrim(trimdate)
+		{
+			var today = new Date();
+			return daydiff(trimdate,today);
+		}
+
 			function ShowEDD(divName,startDate){
 				var newDiv=document.createElement('div');
-				//lastFlowDate = document.getElementById(startDate).value;
 				lastFlowDate = $('#datepicker').data('datebox');
 				alert(lastFlowDate);
 				Flow = Date.parse(lastFlowDate);
