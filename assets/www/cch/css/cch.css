@@ -1,5 +1,4 @@
 body { padding-top: 20px; padding-bottom: 20px; }
-
 /*
  * --- HOME --- */
 .home div.container { margin:auto; padding-left: 30px; padding-right: 30px; }
@@ -34,3 +33,13 @@ body { padding-top: 20px; padding-bottom: 20px; }
 .lead { font-size: 14px; }
 .sw-fa1-icon { padding-top: 35px; color: #060; }
 .sw-fa2-icon { padding-top: 35px; color: #000; }
+
+optgroup[label]
+{
+	color: blue;
+}
+
+.bigtext
+{
+	font-size:1.5em; 
+}

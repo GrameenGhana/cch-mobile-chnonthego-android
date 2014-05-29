@@ -69,7 +69,7 @@ public class LoginActivity extends AppActivity implements SubmitListener  {
 	
 	public void onLoginClick(View view){
 		String username = usernameField.getText().toString();
-    	//check valid email address format
+    	//This is should be a valid STAFF ID
     	if(username.length() == 0){
     		UIUtils.showAlert(this,R.string.error,R.string.error_no_username);
     		return;
