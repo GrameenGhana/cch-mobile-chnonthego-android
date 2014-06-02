@@ -329,6 +329,8 @@ public class WebAppInterface {
            todaysEventsNum = 0;
            tomorrowsEventsNum = 0;
            futureEventsNum = 0;
+           thismonthEventsNum = 0;
+           thismonthEventsDone = 0;
            previousLocations = "";
 
            Calendar c = Calendar.getInstance();
