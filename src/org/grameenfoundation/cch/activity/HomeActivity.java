@@ -20,8 +20,6 @@ import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.service.TrackerService;
 import org.digitalcampus.oppia.utils.UIUtils;
 import org.grameenfoundation.cch.model.WebAppInterface;
-import org.grameenfoundation.cch.utils.AutoUpdateApk;
-import org.grameenfoundation.cch.utils.SilentAutoUpdate;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -45,13 +43,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 
-
-/**
- * @author habeeb
- *
- */
 @SuppressLint({ "SetJavaScriptEnabled", "JavascriptInterface" })
-public class HomeActivity extends AppActivity implements OnSharedPreferenceChangeListener, Observer {
+public class HomeActivity extends AppActivity implements OnSharedPreferenceChangeListener {
 
 	public static final String TAG = HomeActivity.class.getSimpleName();
 	private SharedPreferences prefs;
@@ -74,8 +67,6 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	private long pageOpenTime;
     private String oldPageUrl;
 	
-	// declare updater class member here (or in the Application)
-    private AutoUpdateApk aua;
 	
 			
 	@Override
@@ -83,10 +74,6 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 		super.onCreate(savedInstanceState);
 		
 		dbh = new DbHelper(getApplicationContext());
-		
-		
-		aua = new AutoUpdateApk(getApplicationContext());	
-		aua.addObserver(this);	
 		
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		prefs.registerOnSharedPreferenceChangeListener(this);
@@ -206,19 +193,7 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	}
 
 	
-	
-	/*@Override
-	public void update(Observable observable, Object data) {
-		if( ((String)data).equalsIgnoreCase(AutoUpdateApk.AUTOUPDATE_GOT_UPDATE) ) {
-			android.util.Log.i("AutoUpdateApkActivity", "Have just received update!");
-		}
-		if( ((String)data).equalsIgnoreCase(AutoUpdateApk.AUTOUPDATE_HAVE_UPDATE) ) {
-			android.util.Log.i("AutoUpdateApkActivity", "There's an update available!");
-		}
-	}
-	
-	
-	*/public void saveToLog(Long starttime, String url) 
+    public void saveToLog(Long starttime, String url) 
 	{
 		if (! url.isEmpty())
 		{
@@ -249,14 +224,6 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 		}	
 	}
 
-
-
-	@Override
-	public void update(Observable observable, Object data) {
-		// TODO Auto-generated method stub
-		
-	}	
-	
 	
 	@Override
 	public void onStart() {
