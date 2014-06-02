@@ -29,10 +29,9 @@
 
   <body class="metro">
 	 <div class="container">
-
+		<input type="text" id="menddate">
 			<div class="col-md-3">	
-				<div class="input-control text" data-role="datepicker"
-					data-date="2014-05-20"
+				<div class="input-control text" id = "calid" data-role="datepicker"
 					data-format='dd/mm/yyyy'
 					data-effect='slide'
 					data-locale='en'
@@ -49,13 +48,55 @@
     <script src="../../js/metro.min.js"></script>
     <script src="../../js/cch.js"></script>
 	<script text="text/javascript">
+	$(function(){
+    var cal = $(".calid").calendar({
+        },
+        click: function(d){
+            var out = $("#menddate").html("");
+            out.html(d);
+        }
+    });
 	
-	function getlastp(lastp)
-	{
-		alert(lastp);
-	}
-		
+		function daysBetween(first, second) {
+
+							var difference = second-first;
+							// Do the math.
+							var millisecondsPerDay = 1000 * 60 * 60 * 24;
+							var days = difference / millisecondsPerDay;
+							// Round down.
+							return Math.floor(days);
+				}
+				
+				function gettrimester(days)
+				{
+					if(days<90){
+						document.getElementById("p1").innerHTML = "<a href='askherdstrim"+1+".html'>Proceed to care</a>";
+						return 1;
+					}
+					if (days>89 && days<180){
+						document.getElementById("p1").innerHTML = "<a href='askherdstrim"+1+".html'>Proceed to care </a>";
+						return 2; 
+					}
+					if(days >180){
+						document.getElementById("p1").innerHTML = "<a href='askherdstrim"+1+".html'>Proceed to care</a>";
+					return 3; 
+					}
+				}
+				
+				function showme()
+				{
+					var refdate = document.getElementById("#caldate").value;
+					alert(refdate);
+					var today = new Date();
+					var yesterday = new Date(refdate); 
+					var datediff = daysBetween(yesterday,today)
+					document.getElementById("trimest").innerHTML = gettrimester(datediff);
+					document.getElementById("menddate").innerHTML = datediff;
+					
+				}		
+				
 	</script>
+	
 
   </body>
 </html>
