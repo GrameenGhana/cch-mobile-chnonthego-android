@@ -220,11 +220,13 @@ public class WebAppInterface {
     	   for(MyEvent ev: calEvents){
         	   if (ev.isToday())
         	   {
-        		   evHtml = this.eventSnippetItemAsHTML(ev.eventType, evNum);
+        		   evHtml += this.eventSnippetItemAsHTML(ev.eventType, evNum);
         		   evNum++;
         	   }
     	   }
        }
+       
+       Log.v("CCH",evHtml);
        
        return evHtml;
    	}
