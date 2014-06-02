@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  
+  <title>jQuery Mobile test page</title>
+  <meta charset=utf-8 />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet"  href="http://code.jquery.com/mobile/git/jquery.mobile-git.css" /> 
+  <link rel="stylesheet" href="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/master/jquery.mobile.datepicker.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script> 
+  <script src="https://rawgithub.com/jquery/jquery-ui/1-10-stable/ui/jquery.ui.datepicker.js"></script>
+  <script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script> 
+  <script src="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/master/jquery.mobile.datepicker.js"></script>
+  
+</head>
+  
+  
+<body>
+    
+ <div class="redback" data-role="page">
+
+  <div data-role="header">
+    <h1>Trimester Calculator</h1>
+  </div><!-- /header -->
+
+  <div class="redback" data-role="content">
+    
+    <input type="text" id="date-input" data-inline="true" data-role="date" disabled>
+	<div class="calendar" id="trimcalendar" data-role="calendar" data-locale='en'></div><br />
+	<button type="button">Calculate</button><br /><br />
+	Days since menstruation: <span id="menddate"></span><br />					
+	Estimated Trimester:<span class ="bigtext" id="trimest"></span><div id="p1"></div><br />
+
+	<script text = "text/javascript">
+
+
+		/*function daysBetween(first, second) {
+
+							var difference = second-first;
+							// Do the math.
+							var millisecondsPerDay = 1000 * 60 * 60 * 24;
+							var days = difference / millisecondsPerDay;
+							// Round down.
+							return Math.floor(days);
+				}
+				
+				function gettrimester(days)
+				{
+					if(days<90){
+						document.getElementById("p1").innerHTML = "<a href='askherdstrim"+1+".html'>Proceed to care</a>";
+						return 1;
+					}
+					if (days>89 && days<180){
+						document.getElementById("p1").innerHTML = "<a href='askherdstrim"+1+".html'>Proceed to care </a>";
+						return 2; 
+					}
+					if(days >180){
+						document.getElementById("p1").innerHTML = "<a href='askherdstrim"+1+".html'>Proceed to care</a>";
+					return 3; 
+					}
+				}
+				
+				function showme()
+				{
+					var refdate = document.getElementById("#caldate").value;
+					alert(refdate);
+					var today = new Date();
+					var yesterday = new Date(refdate); 
+					var datediff = daysBetween(yesterday,today)
+					document.getElementById("trimest").innerHTML = gettrimester(datediff);
+					document.getElementById("menddate").innerHTML = datediff;
+					
+				}		*/
+				
+				$(document).ready(function() {
+						console.log( "ready!" );
+				});
+				$('#trimcalendar').change(function(){
+							var dateFormat = $( "#trimcalendar" ).val();
+						$('#menddate').text(dateFormat);
+						console.log(dateFormat);
+								
+				});
+
+				</script>
+  </div><!-- /content -->
+</div><!-- /page -->
+
+</body>
+</html>

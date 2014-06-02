@@ -43,3 +43,38 @@ optgroup[label]
 {
 	font-size:1.5em; 
 }
+
+.sticky
+{
+	position:fixed;
+	top:0px;
+	z-index:0;
+	background-color:white;
+}
+
+.back
+{
+	z-index:3;
+}
+
+.redback
+{
+	background-color:#FFF2F2;
+}
+
+.yellowback
+{
+	background-color:#FFFFF2;
+
+}
+
+.greenback
+{
+	background-color:#F7FFF2;
+	
+}
+.ui-body-c { background:#ffffff !important; }
+
+.heavy{font-weight:bold;}
+
+.redme{color:red;};

@@ -1,6 +1,7 @@
 package org.grameenfoundation.cch.activity;
 
 
+import java.io.File;
 import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
@@ -24,6 +25,7 @@ import org.grameenfoundation.cch.utils.SilentAutoUpdate;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -57,6 +59,7 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	private static final String HOME_URL = "file:///android_asset/www/cch/index.html";
 	private static final String EVENT_BLANK_URL = "file:///android_asset/www/cch/modules/eventplanner/blank.html";
 	private static final String EVENT_HOME_URL = "file:///android_asset/www/cch/modules/eventplanner/index.html";
+	private static final String LEARNING_PDF_URL = "file:///android_asset/www/cch/modules/learning/learner2.html";
 	
 	// MODULE IDs
 	private static final String EVENT_PLANNER_ID      = "Event Planner";
@@ -156,6 +159,26 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 						} else if (url.equals("file:///android_asset/www/cch/modules/learning/learner")) {							
 							Intent intent = new Intent(getApplicationContext(), OppiaMobileActivity.class);
 			                startActivity(intent);	
+			            
+						} else if (url.equals(LEARNING_PDF_URL)){
+							
+					         File pdfFile = new File("file:///android_asset/www/cch/modules/learning/references/FPFlipchart.pdf"); 
+					            if(pdfFile.exists()) 
+					            {
+					                Uri path = Uri.fromFile(pdfFile); 
+					                Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
+					                pdfIntent.setDataAndType(path, "application/pdf");
+					                pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+					                try
+					                {
+					                    startActivity(pdfIntent);
+					                }
+					                catch(ActivityNotFoundException e)
+					                {
+					                    Toast.makeText(view.getContext(), "No Application available to view pdf", Toast.LENGTH_LONG).show(); 
+					                }
+					            }		
 						
 						} else {
 							view.loadUrl(url);

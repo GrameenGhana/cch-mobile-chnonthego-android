@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="Staying Module for CCH">
+    <meta name="author" content="Grameen Foundation">
+
+    <title>CCH: Welcome</title>
+
+    <link href="../../css/metro-bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/metro-bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../../css/iconFont.min.css" rel="stylesheet">
+    <link href="../../css/cch.css" rel="stylesheet">
+    
+        
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/jquery.widget.min.js"></script>
+    <script src="../../js/metro.min.js"></script>
+    <script src="../../js/cch.js"></script>
+	
+			<script text = "text/javascript">
+        METRO_LOCALE = 'en';
+        METRO_WEEK_START = 1;
+    </script>
+
+    <title>Metro UI CSS : Metro Bootstrap CSS Library</title>
+</head>
+
+<body class="metro">
+    <header class="bg-dark" data-load="header.html"></header>
+
+    <div class="container">
+                <h1>
+                    <a href="/"><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+                    Calendar<small class="on-right">component</small>
+                </h1>
+
+                <p>
+                    This component required: <code>metro-global.js</code>, <code>metro-locale.js</code> and <code>metro-calendar.js</code>.
+                </p>
+
+                <div class="example1">
+                    <div class="grid">
+                        <div class="row">
+                            <div class="span4"><div class="calendar small" data-role="calendar" ></div></div>
+                            <div class="span4"><div class="calendar small" data-role="calendar" data-start-mode="month"></div></div>
+                            <div class="span4"><div class="calendar small" data-role="calendar" data-start-mode="year"></div></div>
+                        </div>
+                    </div>
+                </div>
+               <h3>Events &amp; Methods</h3>
+                <div class="example1">
+                    <div class="grid">
+                        <div class="row">
+                            <div class="span4">
+                                <div class="calendar" id="cal-events"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        $(function(){
+                            var cal = $("#cal-events").calendar({
+                                multiSelect: true,
+                                getDates: function(data){
+                                    var r = "", out = $("#calendar-output").html("");
+                                    $.each(data, function(i, d){
+                                        r += d + "<br />";
+                                    });
+
+                                    out.html(r);
+                                },
+
+                                click: function(d){
+                                    var out = $("#calendar-output2").html("");
+                                    out.html(d);
+                                }
+
+
+                            });
+
+                            cal.calendar('setDate', '2013-10-21');
+                            cal.calendar('setDate', '2013-10-2');
+                        })
+                    </script>
+                </div>
+ 
+
+    </div>
+
+    <script src="js/hitua.js"></script>
+
+</body>
+</html>
