@@ -18,6 +18,7 @@
 package org.digitalcampus.oppia.application;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.model.Activity;
@@ -27,7 +28,6 @@ import org.digitalcampus.oppia.model.TrackerLog;
 import org.digitalcampus.oppia.model.User;
 import org.digitalcampus.oppia.task.Payload;
 import org.grameenfoundation.cch.model.CCHTrackerLog;
-import org.grameenfoundation.cch.model.Quotes;
 import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -94,15 +94,6 @@ public class DbHelper extends SQLiteOpenHelper {
 	private static final String QUIZRESULTS_C_SENT = "submitted";
 	private static final String QUIZRESULTS_C_COURSEID = "moduleid";
 	
-	// CCH: quotes table
-	private static final String CCH_QUOTES_TABLE = "Quotes";
-	private static final String CCH_QUOTES_C_ID = BaseColumns._ID;
-	private static final String CCH_QUOTES_C_CID = "contentid";
-	private static final String CCH_QUOTES_C_AUTHOR = "author"; 
-	private static final String CCH_QUOTES_C_CATEGORY = "category";
-	private static final String CCH_QUOTES_C_CONTENT = "content";
-	private static final String CCH_QUOTES_C_UPDATED = "updated_at";
-	
 	// CCH: Tracker table
 	private static final String CCH_TRACKER_TABLE = "CCHTrackerLog";
 	private static final String CCH_TRACKER_ID = BaseColumns._ID;
@@ -144,7 +135,6 @@ public class DbHelper extends SQLiteOpenHelper {
 		
 		/* CCH additions */
 		createCCHTrackerTable(db);
-		createQuotesTable(db);
 	}
 
 	public void createCourseTable(SQLiteDatabase db){
@@ -202,13 +192,11 @@ public class DbHelper extends SQLiteOpenHelper {
 			db.execSQL("drop table if exists " + TRACKER_LOG_TABLE);
 			db.execSQL("drop table if exists " + QUIZRESULTS_TABLE);
 			db.execSQL("drop table if exists " + CCH_TRACKER_TABLE);
-			db.execSQL("drop table if exists " + CCH_QUOTES_TABLE);
 			createCourseTable(db);
 			createActivityTable(db);
 			createLogTable(db);
 			createQuizResultsTable(db);
 			createCCHTrackerTable(db);
-			createQuotesTable(db);
 			createUserTable(db);
 			return;
 		}
@@ -293,12 +281,16 @@ public class DbHelper extends SQLiteOpenHelper {
 			if (! prefs.getString(ctx.getString(R.string.prefs_display_name),"").isEmpty()) {
 				String displayname = prefs.getString(ctx.getString(R.string.prefs_display_name),"");
 				String[] name = displayname.split(" ");
-				firstname = name[0];
-				lastname = name[1];
+				if (name.length > 0) {
+					firstname = name[0];
+					lastname = name[1];
+				} else {
+					firstname = displayname;
+				}
 			}
-			int points = ( prefs.getString(ctx.getString(R.string.prefs_points),"").isEmpty()) ? 0 : Integer.parseInt( prefs.getString(ctx.getString(R.string.prefs_points),""));
-			int badges = ( prefs.getString(ctx.getString(R.string.prefs_points),"").isEmpty()) ? 0 : Integer.parseInt( prefs.getString(ctx.getString(R.string.prefs_badges),""));			
-			int scoring = ( prefs.getString(ctx.getString(R.string.prefs_scoring_enabled),"").isEmpty()) ? 0 : Integer.parseInt( prefs.getString(ctx.getString(R.string.prefs_scoring_enabled),""));
+			int points =  prefs.getInt(ctx.getString(R.string.prefs_points),0);
+			int badges =  prefs.getInt(ctx.getString(R.string.prefs_badges),0);			
+			boolean scoring = prefs.getBoolean(ctx.getString(R.string.prefs_scoring_enabled),true);
 
 			updateUser(userid, prefs.getString(ctx.getString(R.string.prefs_api_key),""), firstname, lastname, points, badges, scoring);
 		}
@@ -766,7 +758,59 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 
 	/*** CCH: Additions ********************************************************************************/
+	public ArrayList<String> getQuizResults(int courseid)
+	{
+		ArrayList<String> quizzes = new ArrayList<String>();
+		String s = QUIZRESULTS_C_COURSEID + "=? ";
+		String[] args = new String[] { String.valueOf(courseid) };
+		Cursor c = db.query(QUIZRESULTS_TABLE, null, s, args, null, null, null);
+		c.moveToFirst();
+		int quiznum = 1;
+		HashMap qt = new HashMap();
+
+		while (c.isAfterLast() == false) {
+			String data = c.getString(c.getColumnIndex(QUIZRESULTS_C_DATA));
+			try {
+				JSONObject j = new JSONObject(data);
+				String t = "Quiz ";
+				if (qt.containsKey(j.getString("quiz_id"))) {
+					t += qt.get(j.getString("quiz_id")) + " retake";
+				} else {
+					t += quiznum;
+					qt.put(j.getString("quiz_id"), quiznum);
+				}
+				quizzes.add(t + ": "+ j.getString("score") + "/" + j.getString("maxscore"));
+				quiznum++;
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			c.moveToNext();
+		}
+		c.close();
+		
+		return quizzes;
+	}
 	
+	public String getQuizTitle(int courseid, int quizid)
+	{
+		String quiztitle = "";
+		
+		//String s = ACTIVITY_C_COURSEID + "=? AND " + ACTIVITY_C_ACTID + "=?" ;
+		String s = ACTIVITY_C_COURSEID + "=?" ;
+
+		//String[] args = new String[] { String.valueOf(courseid), String.valueOf(quizid) };
+		String[] args = new String[] { String.valueOf(courseid) };
+
+		Cursor c = db.query(ACTIVITY_TABLE, null, s, args, null, null, null);
+		
+		c.moveToFirst();
+		while (c.isAfterLast() == false) {
+			   quiztitle += ", " +  c.getString(c.getColumnIndex(ACTIVITY_C_SECTIONID));
+					   							   c.moveToNext();
+		}
+		
+		return (quiztitle.equals("")) ? "Quiz " + quizid : quiztitle; 
+	}
 	
 	/** Tracking table **/
 	public void createCCHTrackerTable(SQLiteDatabase db){
@@ -891,7 +935,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close(); // Closing database connection        
     }
 	
-	public void updateUser(String staff_id, String apikey, String firstname, String lastname, int points, int badges, int scoring) 
+	public void updateUser(String staff_id, String apikey, String firstname, String lastname, int points, int badges, boolean scoring) 
 	{
         SQLiteDatabase db = this.getWritableDatabase(); 
         ContentValues values = new ContentValues();
@@ -931,34 +975,5 @@ public class DbHelper extends SQLiteOpenHelper {
 		   
 		   return u;
    }
-	
-	
-	/** QUOTES **/
-	public void createQuotesTable(SQLiteDatabase db) {
-		String m_sql = "create table " + CCH_QUOTES_TABLE + " (" + CCH_QUOTES_C_ID + " integer primary key autoincrement, "
-				+ CCH_QUOTES_C_CID + " int, " + CCH_QUOTES_C_AUTHOR + " text, " + CCH_QUOTES_C_CATEGORY + " text, "
-				+ CCH_QUOTES_C_CONTENT + " text," + CCH_QUOTES_C_UPDATED + " datetime default current_timestamp)";
-		db.execSQL(m_sql);
-	}
-	
-	public Payload getLastQuotesUpdate() {		
-		String sql = "SELECT MAX("+ CCH_QUOTES_C_UPDATED +") as t FROM "+ CCH_QUOTES_TABLE;
-		Cursor c = db.rawQuery(sql,null); 
-		c.moveToFirst();
-		ArrayList<Object> sl = new ArrayList<Object>();
-		while (c.isAfterLast() == false) {
-			Quotes q = new Quotes();
-			q.setLastUpdate(c.getString(c.getColumnIndex("t")));
-			sl.add(q);
-			c.moveToNext();
-		}
-		Payload p = new Payload(sl);
-		c.close();
-		
-		return p;
-	}
 
-	public void UpdateQuotesTable() {
-		Log.v("DBH","I am updating the table");
-	}
 }

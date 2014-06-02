@@ -103,14 +103,7 @@ public class TrackerService extends Service implements APIRequestListener {
 				app.omUpdateCCHLogTask = new UpdateCCHLogTask(this);
 				app.omUpdateCCHLogTask.execute(mqp);
 			}
-			
-			/* CCH: Check to see if the quotes table needs any updating */
-			if(app.omUpdateQuotesTask == null){
-				//Log.v(TAG, "Updating quotes");
-				//Payload mqp = db.getLastQuotesUpdate();
-				//app.omUpdateQuotesTask = new UpdateQuotesTask(this);
-				//app.omUpdateQuotesTask.execute(mqp);
-			}
+				
 
 			// send activity trackers
 			if(app.omSubmitTrackerMultipleTask == null){

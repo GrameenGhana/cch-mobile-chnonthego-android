@@ -23,7 +23,6 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.task.SubmitQuizTask;
 import org.digitalcampus.oppia.task.SubmitTrackerMultipleTask;
 import org.grameenfoundation.cch.tasks.UpdateCCHLogTask;
-import org.grameenfoundation.cch.tasks.UpdateQuotesTask;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -83,9 +82,6 @@ public class MobileLearning extends Application {
 	
 	// for tracking if SubmitQuizTask is already running
 	public SubmitQuizTask omSubmitQuizTask = null;
-	
-	// for tracking if UpdateQuotesTask is already running
-	public UpdateQuotesTask omUpdateQuotesTask = null;
 	
 	// for tracking if UpdateCCHLogTask is already running
 	public UpdateCCHLogTask omUpdateCCHLogTask = null;
