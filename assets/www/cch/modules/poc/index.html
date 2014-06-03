@@ -8,18 +8,33 @@
     <meta name="author" content="Grameen Foundation">
  
  	<!--REQUIRED CSS files-->
-	<link rel="stylesheet" href="../../webfont/css/bootstrapx.css">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/metro-bootstrap.min.css" rel="stylesheet">
     <link href="../../css/metro-bootstrap-responsive.min.css" rel="stylesheet">
-  
+    <link href="../../css/iconFont.min.css" rel="stylesheet">
+    <link href="../../css/cchbasics.css" rel="stylesheet">
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../css/cch.css" rel="stylesheet">
+	<link href="../../css/wfmi-style.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../webfont/css/bootstrap.css">
+
+
     <title>CCH Android Application</title>
   </head>
 
-<body class="metro">
-<h1 class="no-padding1 clearfix"><img src="images/pregwomanshort.png"></img> Antenatal Care</h1>
-<div class="container">
-<hr/>		
-				<div class="tile-group no-margin no-padding1 clearfix " style="width: 100%;">
+  <body class="metro">
+  <div class="container">
+   <h1><img src="images/pregwomanshort.png"></img>Antenatal Care </h1>
+    <nav class="breadcrumbs mini">
+		<ul>
+			<li><a href="../../index.html"><i class="icon-home"></i></a></li>
+			<li class><a href="pocindex.html">Point of Care</a></li>
+			<li class="active"><a href="#">Antenatal Care</a></li>
+		</ul>
+    </nav>
+    <hr/>					
+		<div class="tile-group no-margin no-padding1 clearfix " style="width: 100%;">
 					<span class="tile-group-title fg-blue">Diagnostic Tool</span>
 					<a href="encounter.html" rel="external">
 					<div class="tile ol-transparent bg-red half">
@@ -53,7 +68,25 @@
 						<center><h2>3</h2></center>
 					</div>
 					</a>
-					
+
+				<div class="tile-group no-margin no-padding1 clearfix " style="width: 100%;">
+					<span class="tile-group-title fg-blue"><img src="images/counsel.png"> Calculators</span>
+					<a href="trimcalculator.html" rel="external">
+					<div class="tile ol-transparent bg-orange ">
+						<div class="tile-content icon">
+						<br>
+						<center><h2>Trimester</h2></center>
+						</div>
+					</div>
+					</a>
+
+					<a href="dosagecalculator.html" rel="external">
+					<div class="tile ol-transparent bg-yellow ">
+						<div class="tile-content icon greenme">
+						<center><br>Uncomplicated<br>Malaria<br>Dosage<br>Calculator</center>
+						</div>
+					</div>
+					</a>
 
 				<div class="tile-group no-margin  clearfix " style="width: 100%;">
 					<span class="tile-group-title fg-blue">References</span>
@@ -63,11 +96,12 @@
 							<li><a href="iptptreatment.html">IPTP Treatment</a></li>
 					</ul>
 				</div>
+		
     <script src="../../js/jquery.min.js"></script>
     <script src="../../js/jquery.widget.min.js"></script>
     <script src="../../js/metro.min.js"></script>
     <script src="../../js/cch.js"></script>
-</div>
+
   </body>
 </html>
 

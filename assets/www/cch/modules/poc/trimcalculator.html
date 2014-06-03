@@ -1,62 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <meta name="description" content="Staying Module for CCH">
-    <meta name="author" content="Grameen Foundation">
- 
- 	<!--REQUIRED CSS files-->
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../../css/metro-bootstrap.min.css" rel="stylesheet">
-    <link href="../../css/metro-bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="../../css/iconFont.min.css" rel="stylesheet">
-    <link href="../../css/cchbasics.css" rel="stylesheet">
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../../css/cch.css" rel="stylesheet">
-	<link href="../../css/wfmi-style.css" rel="stylesheet">
-	
-	<script src="../../js/load-metro.js"></script>
-    <script src="../../js/metro-calendar.js"></script>
-    <script src="../../js/metro-datepicker.js"></script>
- 
+<html>
+<head>
+  
+  
+  <title>jQuery Mobile test page</title>
+  <meta charset=utf-8 />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet"  href="http://code.jquery.com/mobile/git/jquery.mobile-git.css" /> 
+  <link rel="stylesheet" href="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/master/jquery.mobile.datepicker.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script> 
+  <script src="https://rawgithub.com/jquery/jquery-ui/1-10-stable/ui/jquery.ui.datepicker.js"></script>
+  <script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script> 
+  <script src="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/master/jquery.mobile.datepicker.js"></script>
+  
+</head>
+  
+  
+<body>
+    
+ <div class="redback" data-role="page">
 
-    <title>CCH Android Application</title>
-	
-  </head>
+  <div data-role="header">
+    <h1>Estimator</h1>
+  </div><!-- /header -->
 
-  <body class="metro">
-	 <div class="container">
-		<input type="text" id="menddate">
-			<div class="col-md-3">	
-				<div class="input-control text" id = "calid" data-role="datepicker"
-					data-format='dd/mm/yyyy'
-					data-effect='slide'
-					data-locale='en'
-					data-week-start='0'
-					data-other-days='0'>
-					<input type="text" name="lastp">
-					<button class="btn-date"></button>
-				</div>	
-			</div>
-	</div>
-	
-    <script src="../../js/jquery.min.js"></script>
-    <script src="../../js/jquery.widget.min.js"></script>
-    <script src="../../js/metro.min.js"></script>
-    <script src="../../js/cch.js"></script>
-	<script text="text/javascript">
-	$(function(){
-    var cal = $(".calid").calendar({
-        },
-        click: function(d){
-            var out = $("#menddate").html("");
-            out.html(d);
-        }
-    });
-	
+  <div class="redback" data-role="content">
+    
+	<label for="date-input">First day of last period:</label>
+   <input type="text" id="date-input" data-inline="true" data-role="date" disabled>
+	<div class="calendar" id="trimcalendar" data-role="calendar" data-locale='en'></div>
+	<button type="button">Calculate</button>
+	Days since menstruation: <span id="menddate"></span><br />					
+	Estimated Trimester:<span class ="bigtext" id="trimest"></span><div id="p1"></div><br />
+
+	<script text = "text/javascript">
+
+
 		function daysBetween(first, second) {
 
 							var difference = second-first;
@@ -70,34 +50,55 @@
 				function gettrimester(days)
 				{
 					if(days<90){
-						document.getElementById("p1").innerHTML = "<a href='askherdstrim"+1+".html'>Proceed to care</a>";
+						document.getElementById("p1").innerHTML = "<a href='askherdstrim"+1+".html' rel='external'>Proceed to care</a><br><a href='askherdstrim"+1+".html' rel='external'>Check recommended IPTp/SP dosage</a>";
 						return 1;
 					}
 					if (days>89 && days<180){
-						document.getElementById("p1").innerHTML = "<a href='askherdstrim"+1+".html'>Proceed to care </a>";
+						document.getElementById("p1").innerHTML = "<a href='askherdstrim"+2+".html' rel='external'>Proceed to care</a><br><a href='askherdstrim"+2+".html' rel='external'>Check recommended IPTp/SP dosage</a>";
 						return 2; 
 					}
 					if(days >180){
-						document.getElementById("p1").innerHTML = "<a href='askherdstrim"+1+".html'>Proceed to care</a>";
+						document.getElementById("p1").innerHTML = "<a href='askherdstrim"+3+".html' rel='external'>Proceed to care</a><br><a href='askherdstrim"+3+".html' rel='external'>Check recommended IPTp/SP dosage</a>";
 					return 3; 
 					}
 				}
-				
-				function showme()
+				function showme(variable)
 				{
-					var refdate = document.getElementById("#caldate").value;
+					var refdate = variable;
 					alert(refdate);
 					var today = new Date();
 					var yesterday = new Date(refdate); 
 					var datediff = daysBetween(yesterday,today)
+					if(datediff<1)
+					{
+						document.getElementById("").visible = false;
+						document.getElementById("p1").innerHTML = "Please select a date in the past to proceed";
+						return;
+					}
+					if(datediff>300)
+					{
+						document.getElementById("p1").innerHTML = "Your client should have delivered by now";
+						return;
+					}
 					document.getElementById("trimest").innerHTML = gettrimester(datediff);
 					document.getElementById("menddate").innerHTML = datediff;
 					
 				}		
 				
-	</script>
-	
+				$(document).ready(function() {
+						console.log( "ready!" );
+				});
+				$('button').click(function(){
+							var dateFormat = $( "#date-input" ).val();
+							var dateIt =  Date.parse(dateFormat);
+						console.log(dateFormat);
+						showme(dateIt);
+								
+				});
 
-  </body>
+				</script>
+  </div><!-- /content -->
+</div><!-- /page -->
+
+</body>
 </html>
-

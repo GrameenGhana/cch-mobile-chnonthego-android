@@ -22,21 +22,21 @@
  <div class="redback" data-role="page">
 
   <div data-role="header">
-    <h1>Trimester Calculator</h1>
+    <h1>Estimator</h1>
   </div><!-- /header -->
 
   <div class="redback" data-role="content">
     
     <input type="text" id="date-input" data-inline="true" data-role="date" disabled>
-	<div class="calendar" id="trimcalendar" data-role="calendar" data-locale='en'></div><br />
-	<button type="button">Calculate</button><br /><br />
+	<div class="calendar" id="trimcalendar" data-role="calendar" data-locale='en'></div>
+	<button type="button">Calculate</button>
 	Days since menstruation: <span id="menddate"></span><br />					
 	Estimated Trimester:<span class ="bigtext" id="trimest"></span><div id="p1"></div><br />
 
 	<script text = "text/javascript">
 
 
-		/*function daysBetween(first, second) {
+		function daysBetween(first, second) {
 
 							var difference = second-first;
 							// Do the math.
@@ -49,38 +49,49 @@
 				function gettrimester(days)
 				{
 					if(days<90){
-						document.getElementById("p1").innerHTML = "<a href='askherdstrim"+1+".html'>Proceed to care</a>";
+						document.getElementById("p1").innerHTML = "<a href='askherdstrim"+1+".html' rel='external'>Proceed to care</a><br><a href='askherdstrim"+1+".html' rel='external'>Check recommended IPTp/SP dosage</a>";
 						return 1;
 					}
 					if (days>89 && days<180){
-						document.getElementById("p1").innerHTML = "<a href='askherdstrim"+1+".html'>Proceed to care </a>";
+						document.getElementById("p1").innerHTML = "<a href='askherdstrim"+2+".html' rel='external'>Proceed to care</a><br><a href='askherdstrim"+2+".html' rel='external'>Check recommended IPTp/SP dosage</a>";
 						return 2; 
 					}
 					if(days >180){
-						document.getElementById("p1").innerHTML = "<a href='askherdstrim"+1+".html'>Proceed to care</a>";
+						document.getElementById("p1").innerHTML = "<a href='askherdstrim"+3+".html' rel='external'>Proceed to care</a><br><a href='askherdstrim"+3+".html' rel='external'>Check recommended IPTp/SP dosage</a>";
 					return 3; 
 					}
 				}
-				
-				function showme()
+				function showme(variable)
 				{
-					var refdate = document.getElementById("#caldate").value;
+					var refdate = variable;
 					alert(refdate);
 					var today = new Date();
 					var yesterday = new Date(refdate); 
 					var datediff = daysBetween(yesterday,today)
+					if(datediff<1)
+					{
+						document.getElementById("").visible = false;
+						document.getElementById("p1").innerHTML = "Please select a date in the past to proceed";
+						return;
+					}
+					if(datediff>300)
+					{
+						document.getElementById("p1").innerHTML = "Your client should have delivered by now";
+						return;
+					}
 					document.getElementById("trimest").innerHTML = gettrimester(datediff);
 					document.getElementById("menddate").innerHTML = datediff;
 					
-				}		*/
+				}		
 				
 				$(document).ready(function() {
 						console.log( "ready!" );
 				});
-				$('#trimcalendar').change(function(){
-							var dateFormat = $( "#trimcalendar" ).val();
-						$('#menddate').text(dateFormat);
+				$('button').click(function(){
+							var dateFormat = $( "#date-input" ).val();
+							var dateIt =  Date.parse(dateFormat);
 						console.log(dateFormat);
+						showme(dateIt);
 								
 				});
 
