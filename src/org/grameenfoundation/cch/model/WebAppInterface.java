@@ -12,6 +12,8 @@ import java.util.TimeZone;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.model.Course;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -109,7 +111,17 @@ public class WebAppInterface {
 
     	for(Course c:  courses) {
     		float comp = dbh.getCourseProgress(c.getModId());
+    		ArrayList<String> quizzes = dbh.getQuizResults(c.getModId());
     		list += progressList(c.getTitle("en"),comp);
+    		if (quizzes.size()>0) {
+    			list += "<br/>";
+    			list += "<div class=\"evtdetails\">" +
+                        "<ul class=\"list-unstyled\" style=\"margin-top: 2px;padding-left:20px; font-weight:bold\">";             
+    			for(String q: quizzes) {
+    				list += "<li>" + q + "</li>";
+    			}
+    			list += "</ul></div><br/>";
+    		}
     	}
     	    	
     	return list;
@@ -226,7 +238,7 @@ public class WebAppInterface {
     	   }
        }
        
-       Log.v("CCH",evHtml);
+       //Log.v("CCH",evHtml);
        
        return evHtml;
    	}
