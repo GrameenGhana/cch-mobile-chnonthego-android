@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="">
+
   	<!--REQUIRED CSS files-->
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/cchbasics.css" rel="stylesheet">
@@ -16,49 +17,61 @@
     <title>CCH Android Application</title>
   </head>
 
-  <body class="redback">
-      <div class="container dropme">
-	
-	<div class="row">
-			<a href="index.html"><H2><i class="fa fa-home pull-right"></i></H2></a>
-			<H4><strong>TAKE ACTION - COMPLICATED MALARIA</strong></H4>
-			<br />
-	</div>
+   <body class="redback">
 
+	<div class="container">
 
-			<ul class="list-group">			
-				<li class="list-group-item">Encourage fluid intake</li>
-				<li class="list-group-item"><i class="fa fa-medkit"></i> Give 1st dose of paracetamol suppository if client can tolerate it</li>
-				<li class="list-group-item"><i class="fa fa-hospital-o"></i> Refer to the nearest health centre or hospital immediately</li>
-				<li class="list-group-item"><i class="fa fa-phone"></i> Call provider and arrange transport</li>
-				<li class="list-group-item"> <i class="fa fa-users"></i>Accompany client and have a family member accompany client</li>
-				<li class="list-group-item"> <i class="fa fa-pencil"></i>Record personal info in maternal health book. Fill out referral form</li>
-				<li class="list-group-item"><i class="fa fa-stethoscope"></i> Follow up with client after discharge from health centre or hospital</li>
-			</ul>
-	</div>
+		<div class="row sticky redback" style="width: 100%">
+			<div class="col-md-3">
+                <a href="index.html"><h4><i class="fa fa-home pull-right"></i><h4></a>			
+				<strong style="color: #f00; font-size: 16px">TAKE ACTION</strong>
+				<hr>
+                <h4 style="color: #fc1501"><b>COMPLICATED MALARIA!</b></h4>
+                <hr>
+            </div>
+        </div>
 
-	</div>
-    </div><!-- /.container -->
+		<div class="row">
+			<div class="col-md-3" style="margin-top: 130px; margin-left: -35px;">
 
+					<ul style="margin-left: -10px;">
+                        <li class="list-group-item">Encourage fluid intake</li>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./starter_files/jquery-1.10.2.min.js"></script>
-    <script src="./starter_files/bootstrap.min.js"></script>
-  	<script type="text/javascript">
-		var questions = [];
-		
-		function clearoff()
-		{
-				myTxtBox = document.getElementById('QText');
-				myTxtBox.value="";
-		}
-		
-		function save()
-		{
-			questions.push({question:'Where was the pregnant women seen?', desc:'Location',options:'4'});
-		}
+                        <li class="list-group-item">
+                            <i class="fa fa-lg fa-medkit pull-right" style="margin-top: 25px;"></i> 
+                            Give 1st dose of paracetamol suppository if client can tolerate it
+                        </li>
 
+                        <li class="list-group-item">
+                            <i class="fa fa-lg fa-hospital-o pull-right" style="margin-top: 25px;"></i> 
+                            Refer to the nearest health centre or hospital immediately
+                        </li>
 
-</body></html>
+                        <li class="list-group-item">
+                            <i class="fa fa-lg fa-phone pull-right" style="margin-top: 5px;"></i> 
+                             Call provider and arrange transport
+                        </li>
+
+                        <li class="list-group-item"> 
+                            <i class="fa fa-lg fa-book pull-right" style="margin-top: 15px;"></i> 
+                            Record personal info in maternal health book. Fill out referral form
+                        </li>
+
+                        <li class="list-group-item"> 
+                            <i class="fa fa-lg fa-users pull-right" style="margin-top: 15px;"></i> 
+                            Accompany client and have a family member accompany client
+                        </li>
+
+                        <li class="list-group-item">
+                            <i class="fa fa-lg fa-stethoscope pull-right" style="margin-top: 15px;"></i> 
+                            Follow up with client after discharge from health centre or hospital
+                        </li>
+					</ul>
+
+			</div>
+			</div>
+	    </div>
+    </div>
+
+</body>
+</html>

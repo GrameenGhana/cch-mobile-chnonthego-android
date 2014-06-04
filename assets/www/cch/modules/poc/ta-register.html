@@ -7,44 +7,55 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="">
 
- 	<!--REQUIRED CSS files-->
+  	<!--REQUIRED CSS files-->
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/cchbasics.css" rel="stylesheet">
     <link href="../../css/font-awesome.min.css" rel="stylesheet">
     <link href="../../css/cch.css" rel="stylesheet">
 	<link rel="stylesheet" href="../../webfont/css/bootstrapx.css">
 
-
     <title>CCH Android Application</title>
   </head>
 
   <body class="yellowback">
-      <div class="container dropme">
-	
-	<div class="row">
-		<div class="col-md-6 col-md-offset-3">
-		<div>
-		<center>
-			<a href="index.html"><H2><i class="fa fa-home pull-right"></i></H2></a>
-			<H3><strong>FIRST VISIT - TAKE ACTION</strong></H3>
-		</center>
-			<br />
-			<ul class="list-group">
-				<li class="list-group-item"><span class="glyphicon glyphicon-pencil"></span> <a href="personalinformation.html">Record Personal Information</a></li>
-				<li class="list-group-item"><span class="glyphicon glyphicon-pencil"></span> <a href="takemedicalhistory.html">Take medical history</a></li>
-			</ul>
-			<button type="button" class="btn btn-success btn-block" rel="external" onclick="window.location='jqmobiletest.html'">Estimate Trimester</button><br />
-		</div>
-	</div>
-	</div>
-    </div><!-- /.container -->
 
+	<div class="container">
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./starter_files/jquery-1.10.2.min.js"></script>
-    <script src="./starter_files/bootstrap.min.js"></script>
-	
+		<div class="row sticky yellowback" style="width: 100%">
+			<div class="col-md-3">
+                <a href="index.html"><h4><i class="fa fa-home pull-right"></i><h4></a>			
+				<strong style="color: #000; font-size: 16px">TAKE ACTION</strong>
+				<hr>
+                <h4 style="color: #000"><b>First Visit</b></h4>
+                <hr>
+            </div>
+        </div>
 
-</body></html>
+		<div class="row">
+			<div class="col-md-3" style="margin-top: 130px; margin-left: -35px;">
+
+					<ul style="margin-left: -10px;">
+                        <li class="list-group-item">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp; 
+                            <a href="personalinformation.html">Record Personal Information</a>
+                        </li>
+
+                        <li class="list-group-item">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp; 
+                            <a href="takemedicalhistory.html">Take medical history</a>
+                        </li>
+                        
+                        <li class="list-group-item" style="vertical-align:center;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-success" rel="external" onclick="window.location='jqmobiletest.html'">Estimate Trimester</button><br />
+                        </li>
+					</ul>
+                    
+
+			</div>
+			</div>
+	    </div>
+    </div>
+
+</body>
+</html>
+
