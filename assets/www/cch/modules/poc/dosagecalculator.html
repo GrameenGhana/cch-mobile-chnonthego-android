@@ -1,15 +1,23 @@
 <!DOCTYPE html>
-<html>
-<head>
-  
-  
-  <title>jQuery Mobile test page</title>
-  <meta charset=utf-8 />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link href="../../css/cchbasics.css" rel="stylesheet">
-   <link href="../../css/font-awesome.min.css" rel="stylesheet">
-   <link href="../../css/cch.css" rel="stylesheet">
-   <link rel="stylesheet" href="../../webfont/css/bootstrapx.css">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="Staying Module for CCH">
+    <meta name="author" content="Grameen Foundation">
+ 
+ 	<!--REQUIRED CSS files-->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/metro-bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/metro-bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../../css/iconFont.min.css" rel="stylesheet">
+    <link href="../../css/cchbasics.css" rel="stylesheet">
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../css/cch.css" rel="stylesheet">
+	<link href="../../css/wfmi-style.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../webfont/css/bootstrap.css">   <link rel="stylesheet" href="../../webfont/css/bootstrapx.css">
   	<script text = "text/javascript">
 
 
@@ -32,10 +40,10 @@
 								case 3: 
 									base=4; 
 								break;
-								
 								default:
-									base=4;								
+								base = 4;
 								break;
+								
 							}
 							
 					return base*weight; 
@@ -47,7 +55,7 @@
 								case 1:
 									base = 0;
 								break; 
-																
+															
 								default: 
 									base =4; 
 								break 
@@ -70,9 +78,10 @@
 		}
 		
 		function calc(){
-			var trimester=$("#trimester-input").val();
-			var weight=$("#weight-input").val();
-			document.getElementById("showdosage").innerHTML="";	
+			var trimester = $("#trimesterinput").val();
+			var weight = $("#weightinput").val();
+			document.getElementById("#showdosage").innerHTML="Trimester:".trimester."<br>";	
+			
 			switch(trimester){
 			
 				case 1:
@@ -87,13 +96,12 @@
 					document.getElementById("showtrimester").innerHTML="<b>Third Trimester<b><br/><br/>";
 				break;
 				
-				default:
-					document.getElementById("showtrimester").innerHTML="<b>Invalid Selection. Please select a number between 1 and 3</b>";
-				break;
 			}
 			
 			if(trimester>3)
-				return;
+			{
+				alert(trimester);
+			}
 				
 			if(trimester>1){
 				document.getElementById("showdosage").innerHTML+="<b>Oral Quinine:</b> 600 mg every 8 hours for 7 days";	
@@ -104,6 +112,7 @@
 				document.getElementById("showdosage").innerHTML+="<br/><span class='redme heavy'>OR</span>";
 				document.getElementById("showdosage").innerHTML+="<br/><b>Artemether Lumefantrine: </b> Artimether 20 mg, Lumefantrine: 120mg lumefantrine with fatty meal";
 				document.getElementById("showdosage").innerHTML+="<br/>Day 1: 4 tablets stat + 4 tablets in 8 hours.<br/>Day 2: 4 tablets twice daily <br/>Day 3: 4 tablets twice daily";
+
 			}
 			else{
 				document.getElementById("showdosage").innerHTML+="<b>Oral Quinine:</b> 600 mg every 8 hours for 7 days";	
@@ -116,6 +125,7 @@
 						console.log( "ready!" );
 			});
 				$('button').click(function(){
+						
 						calc();
 								
 				});
@@ -128,14 +138,15 @@
  <div class="content">
 
   <div data-role="header">
-    <h1>Dosage Calculator</h1>
+  <a href="index.html"><H2><i class="fa fa-home pull-right greenme"></i><H2></a>			
+  <h3><strong>Dosage Calculator<strong></h3>
   </div><!-- /header -->
-	<p class="lead">Use this calculator to determine what medication to give a woman for uncomplicated malaria at each stage of her pregnancy.</div>
+  <p class="lead">Calculate the medication to give a woman for uncomplicated malaria at each stage of her pregnancy.</div>    
 
-    
-	<label for="weight-input">Client's weight in kg:</label> <input type="number" id="weight-input"><br /><br />
-	<label for="trimester-input">Client's est. trimester:</label>
-	<input type="number" id="trimester-input">
+
+	<label for="weightinput col-md-2">Client's weight in kg:</label> <input type="number" id="weightinput"><br /><br />
+	<label for="trimesterinput col-md-2">Client's est. trimester:</label>
+	<input type="number" id="trimesterinput">
 	<button type="submit" id="calculate">Calculate</button>
 	<a href="dosagecalculator.html" class="heavy greenme" rel="external">Reset</a>
 	<br>
@@ -148,14 +159,14 @@
 				<script src="../../js/cch.js"></script>
 	<script text="text/javascript">
 			$(document).ready(function() {
-						console.log( "ready!" );
+						console.log("ready!" );
 			});
 				$('button').click(function(){
-						$("#showtrimester").show();
+						alert("Hello");
+					$("#showtrimester").show();
 						$("#showdosage").hide();
 						calc();
-						$("#showdosage").show(2000);
-								
+						$("#showdosage").show(2000);			
 				});
 		</script>
 

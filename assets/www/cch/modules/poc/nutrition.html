@@ -6,34 +6,26 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="">
-    <title>CCH Android Application</title>
-	
-    <!-- Bootstrap core CSS -->
+  	<!--REQUIRED CSS files-->
+    <link href="../../css/cchbasics.css" rel="stylesheet">
+    <link href="../../css/font-awesome.min.css" rel="stylesheet">
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
+   <link href="../../css/cch.css" rel="stylesheet">
 
-    <!-- Custom styles for this template 
-	cchbasics - the main CSS file for non-bootstrap styling
-	-->
-    <link href="css/cchbasics.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <title>CCH Android Application</title>
   </head>
 
-  <body>
+  <body class="greenback">
       <div class="container dropme">
 	
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
 		<div>
-			<H3><strong>Nutrition</strong></H3>
-			<ul>
-			<li><strong>Use food chart in maternal health record book to educate her on good nutrition practices</strong></li><br/>
-			<li><strong>Dring 6 to 8 glasses of liquids a day</strong></li><br/>
-			<li><strong>Counsel client to eat foods rich in iron, folate and vitamin C:</strong></li>
+			<a href="index.html"><H2><i class="fa fa-home pull-right greenme"></i><H2></a>
+			<H3 class="heavy">Nutrition</H3>
+			<strong><em>Use food chart in maternal health record book to educate her on good nutrition practices</em></strong><br/><br/>
+			<strong>Drink 6 to 8 glasses of liquids a day</strong><br/><br/>
+			<strong>Counsel client to eat foods rich in iron, folate and vitamin C:</strong><br/>
 			<div class="col-md-12">
 			<ul>
 				<li>Meat (especially liver, kidney, and other organ meats)</li>
@@ -44,11 +36,12 @@
 				<li>Fruits like oranges, pineapples, mangoes, or bananas</li>
 			</ul>
 			<img src="images/pregnutrition.png" width="80%"></img>
-			<li><strong>Counsel client to take iron and folic acid supplements</strong></li>
+			<br/><br/><strong>Counsel client to take iron and folic acid supplements</strong>
 			<img src="images/folicacid.png" width="80%"></img>
-			<input type="submit" class="btn btn-success btn-block" value="OK" onclick="window.location='index.html'"/>
 			</div>
 		</ul>
+			<br />
+
 		</div>
 	</div>
 	</div>
@@ -71,7 +64,7 @@
 		
 		function save()
 		{
-			questions.push({question:'Where was the pregnant women seen?', desc:'Location',options:'4'});
+			questions.push({question:'Where was the pregnant woman seen?', desc:'Location',options:'4'});
 		}
 
 
