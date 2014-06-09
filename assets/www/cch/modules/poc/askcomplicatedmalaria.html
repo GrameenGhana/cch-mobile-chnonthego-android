@@ -6,31 +6,29 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="">
-	<!--REQUIRED CSS files-->
-    <link href="../../css/metro-bootstrap.min.css" rel="stylesheet">
-    <link href="../../css/metro-bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../../css/iconFont.min.css" rel="stylesheet">
+  	<!--REQUIRED CSS files-->
     <link href="../../css/cchbasics.css" rel="stylesheet">
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../../css/cch.css" rel="stylesheet">
-	<link href="../../css/wfmi-style.css" rel="stylesheet">
+    <link href="../../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+   <link href="../../css/cch.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../webfont/css/bootstrapx.css">
 
     <title>CCH Android Application</title>
   </head>
 
+  <body class="greenback">
+     <div class="container dropme">
+		<div class="sticky greenback"  >
+		<a href="index.html"><H2><i class="fa fa-home pull-right greenme"></i></H2></a>
+		<br/><br/>
+		<center>
+		<H4 class="heavy">Does the client show signs of complicated malaria?</H4>
+		</center>
+		</div>
+			<div class="padme row">
+				<br/><br/><br/>
+				<div class="col-md-6 col-md-offset-3">
 
-  <body>
-      <div class="container dropme">
-	
-	<div class="row">
-	<center>
-		<div class="col-md-6 col-md-offset-3">
-		<div>
-			<i class="fa fa-exclamation-triangle danger"></i> 
-			<H3>Does the client show signs of complicated malaria?</H3>
-			<div class="col-md-6 col-md-offset-3">
 					<ul class="list-group">
 						<li class="list-group-item">Persistent vomiting</li>
 						<li class="list-group-item">Prostration</li>
@@ -43,15 +41,16 @@
 						<li class="list-group-item">Persistent temperature ≥ 39 °C</li>
 						<li class="list-group-item">Bleeding</li>
 					</ul>
+					<center>
+					<div class="row col-md-12">
+							<button class="btn btn-danger" style="width:30%" onclick="window.location='ta-complicatedmalaria.html'">Yes</button>
+							<button class="btn btn-success" style="width:30%" onclick="window.location='notcomplicatedmalaria.html'">No</button>
+					</div>
+					</center>
+				</div>
+
 			</div>
-		<br />
-			<button type="button" class="btn btn-success btn-block" rel="external" onclick="window.location='ta-complicatedmalaria.html'">Yes</button><br />
-			<button type="button" class="btn btn-success btn-block"onclick="window.location='notcomplicatedmalaria.html'">No</button><br /><br />
-		</div>
-	</div>
-	</center>
-	</div>
-    </div><!-- /.container -->
+		</div><!-- /.container -->
 
 
     <!-- Bootstrap core JavaScript

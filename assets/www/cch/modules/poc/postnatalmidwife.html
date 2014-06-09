@@ -1,31 +1,31 @@
-
 <!DOCTYPE html>
-	<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="">
- 	<!--REQUIRED CSS files-->
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../../css/metro-bootstrap.min.css" rel="stylesheet">
-    <link href="../../css/metro-bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="../../css/iconFont.min.css" rel="stylesheet">
+  	<!--REQUIRED CSS files-->
     <link href="../../css/cchbasics.css" rel="stylesheet">
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../../css/cch.css" rel="stylesheet">
-	<link href="../../css/wfmi-style.css" rel="stylesheet">
+    <link href="../../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+   <link href="../../css/cch.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../webfont/css/bootstrapx.css">
 
     <title>CCH Android Application</title>
   </head>
-  <body>
-    <div class="container dropme">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
 
-	<h1 style="text-align:center"><em><strong>When to consult a midwife for visits in the postnatal period&nbsp;</strong></em></h1>
+  <body class="greenback">
+     <div class="container dropme">
+		<div class="sticky greenback"  >
+		<a href="index.html"><H2><i class="fa fa-home pull-right greenme"></i></H2></a><br><br>
+	<center><h4 class="heavy"><em>When to consult a midwife for visits in the postnatal</em></h3></center>
+		</div>
+		<br>
+			<div class="padme row">
+		<br />
+				<div class="col-md-6 col-md-offset-3">
 
 <p>Postnatal period is the period from the end of delivery to 6 weeks postpartum</p>
 
@@ -34,16 +34,40 @@
 
 	<ul>
 		<li>The first visit should be at a clinic if possible, or through a home visit by a TBA or CHN or midwife if necessary.&nbsp;</li>
+		<br>
 		<li>Follow-up visits maybe necessary depending on findings during the first contact.</li>
+		<br>
 		<li>Client should be encouraged at any time she has problems or concerns relating to herself or her baby.</li>
+		<br>
 	</ul>
 	</li>
-	<li><strong><em>PNC visit #2: within 7 days of delivery</em></strong><strong><em>​</em></strong></li>
+	<li><strong><em>PNC visit #2: within 7 days of delivery</em></strong><strong><em>​</em></strong></li><br>
 	<li><strong><em>PNC visit #3: when baby is 6 weeks of age</em></strong></li>
-</ul>
-<button class='btn btn-lg btn-success btn-block' rel='external' onclick='window.location="index.html"'>Contents</button><br /><br />
+</ul>	
+				</div>
+
 			</div>
-		</div>
-	</div>
-</body>
-</html>
+		</div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./starter_files/jquery-1.10.2.min.js"></script>
+    <script src="./starter_files/bootstrap.min.js"></script>
+  	<script type="text/javascript">
+		var questions = [];
+		
+		function clearoff()
+		{
+				myTxtBox = document.getElementById('QText');
+				myTxtBox.value="";
+		}
+		
+		function save()
+		{
+			questions.push({question:'Where was the pregnant women seen?', desc:'Location',options:'4'});
+		}
+
+
+</body></html>

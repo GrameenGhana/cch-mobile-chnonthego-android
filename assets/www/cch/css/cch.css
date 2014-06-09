@@ -72,6 +72,9 @@ optgroup[label]
 .greenback
 {
 	background-color:#F7FFF2;
+	font-size:15px; 
+	font-family:"Helvetica Neue",Helvetica;
+	font-weight:650;
 	
 }
 .greenme
@@ -80,13 +83,14 @@ optgroup[label]
 	
 }
 
+
 .ui-body-c { background:#ffffff !important; }
 
 .heavy{font-weight:bold;}
 
 .redme{color:red;}
 
-.padme{ padding-top:10%;}
+.padme{ padding-top:23%;}
 
 .fillme{width:100%; height:100%;}
 
@@ -97,3 +101,25 @@ optgroup[label]
 	z-index:3;
 	background-color:white;
 }
+.thirdresponse
+{
+	background-color:gold;
+	color:white;
+}
+.smalltext
+{
+	font-family:Tahoma;
+	font-size:12px;
+}
+.padmesmall{}
+
+.pocintrotext
+{
+	font-family:Tahoma;
+	font-size:13px;
+}
+p{line-height:1.2em;}
+.greenpocsubtitle{font-family:Tahoma; color:green;font-size:15px; font-weight:bold; line-height:0.3;}
+.pocsubtitle{font-family:Tahoma; font-size:15px; font-weight:bold;line-height:0.1;}
+
+br{line-height:0.4;}

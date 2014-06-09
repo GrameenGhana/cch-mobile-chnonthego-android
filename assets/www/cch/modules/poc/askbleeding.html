@@ -6,40 +6,37 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="">
-   	<!--REQUIRED CSS files-->
-    <link href="../../css/metro-bootstrap.min.css" rel="stylesheet">
-    <link href="../../css/metro-bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="../../css/iconFont.min.css" rel="stylesheet">
+  	<!--REQUIRED CSS files-->
     <link href="../../css/cchbasics.css" rel="stylesheet">
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../../css/cch.css" rel="stylesheet">
-	<link href="../../css/wfmi-style.css" rel="stylesheet">
+    <link href="../../css/font-awesome.min.css" rel="stylesheet">
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
-
+   <link href="../../css/cch.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../webfont/css/bootstrapx.css">
 
     <title>CCH Android Application</title>
   </head>
+
   <body class="redback">
-      <div class="container dropme">
-	
-	<div class="row">
-	<center>
-		<div class="col-md-6 col-md-offset-3">
-		<div>
-			<i class="fa fa-exclamation-triangle danger"></i> 
-			<H3>Is the client bleeding?</H3>
-			<img alt="" src="images/bleeding.png"><br />
-			<br />
-			<button type="button" class="btn btn-success btn-block" rel="external" onclick="window.location='askbleeding2.html'">Yes</button><br />
-			<button type="button" class="btn btn-success btn-block"onclick="window.location='previousvisit.html'">No</button><br /><br />
-
+     <div class="container dropme">
+		<div class="sticky redback"  >
+		<a href="index.html"><H2><i class="fa fa-home pull-right greenme"></i></H2></a><br><br>
+		<center>	<H4 class="heavy">Is the client bleeding?</H4></center>
 		</div>
-	</div>
-	</center>
-	</div>
-    </div><!-- /.container -->
+			<div class="padme row">
+			<div class="col-md-6 col-md-offset-3">
+			<br/>
+			<center><img alt="" src="images/bleeding.png"><br /></center>
+			<br />
+			<center>
+					<div class="row col-md-12">
+							<button class="btn btn-danger" style="width:30%" onclick="window.location='askbleeding2.html'">Yes</button>
+							<button class="btn btn-success" style="width:30%" onclick="window.location='previousvisit.html'">No</button>
+					</div>
+			</center>
+			</div>
 
+			</div>
+		</div><!-- /.container -->
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

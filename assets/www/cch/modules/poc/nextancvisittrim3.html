@@ -1,50 +1,68 @@
-
 <!DOCTYPE html>
-	<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="">
-	<!--REQUIRED CSS files-->
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../../css/metro-bootstrap.min.css" rel="stylesheet">
-    <link href="../../css/metro-bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="../../css/iconFont.min.css" rel="stylesheet">
+  	<!--REQUIRED CSS files-->
     <link href="../../css/cchbasics.css" rel="stylesheet">
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../../css/cch.css" rel="stylesheet">
-	<link href="../../css/wfmi-style.css" rel="stylesheet">
+    <link href="../../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+   <link href="../../css/cch.css" rel="stylesheet">
 
     <title>CCH Android Application</title>
   </head>
 
-  <body>
-    <div class="container dropme">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-
-	<p><span style="color:#008000"><em><span style="font-size:16px"><strong>Inform client when to return to a health center, hospital, or CHPS facility:</strong></span></em></span></p>
-
-<p>Advise her that a midwife will check for a number of issues as part of focused ANC visits.&nbsp; The client should ideally consult a midwife during the following times during pregnancy:</p>
-
-<ul>
-	<li>If the client is around 32 weeks of gestation, then the 4th focused ANC visit is at 36 weeks of gestation. <span style="color:#008000"><em>This is the next scheduled visit</em></span></li><br />
-	<li>If client is around 36 weeks gestation, then there are no more scheduled ANC visits before delivery.  Reemphasize the importance of delivery at a health facility and having a good birth preparedness plan. </li>
-</ul>
-
-<p><span style="color:#008000"><strong><em><span style="font-size:13px">In addition client should be counseled to return to a health facility:</span></em></strong></span></p>
-
-<ul>
-	<li>As soon as she has any danger signs</li>
-	<li>If she has signs of labour</li>
-	<li>If she has concerns about her pregnancy or the baby</li>
-</ul>
-<button class='btn btn-lg btn-success' rel='external' onclick='window.location="index.html"'>Contents</button><br /><br />
-			</div>
+  <body class="greenback">
+     <div class="container dropme">
+		<div class="sticky greenback"  >
+		<a href="index.html"><H2><i class="fa fa-home pull-right greenme"></i></H2></a>
+			<H3><strong>Inform client when to return to health centre, hospital or CHPS facility</strong></H3>
 		</div>
-	</div>
-</body>
-</html>
+		<br>
+			<div class="padme row">
+				<div class="col-md-6 col-md-offset-3">
+							<img alt="" src="images/nextancvisit.png" style="height:165px; width:203px" /><br />
+						</center>
+							<br />
+						<p class="lead greenme"><em>Advise her that a midwife will check for a number of issues as part of focused ANC visits. The client should ideally consult a midwife during the following times during pregnancy:</em></p>
+							<ul class="list-group">
+								<li class="list-group-item"> 3rd focused ANC visit at 32 weeks of gestation</li>
+								<li class="list-group-item"> 4th Focused ANC visit at 36 weeks of gestation</li>
+							</ul>
+							If client is around 36 weeks gestation, then there are no more scheduled ANC visits before delivery. Re-emphasize the importance of delivery at a health facility and having a good birth preparedness plan. 
+						<H5>In addition, client should be counselled to return to a health facility:</H5>
+							<ul class="list-group">
+								<li class="list-group-item"> AS SOON as she has ANY danger signs</li>
+								<li class="list-group-item"> If she has questions or concerns about her pregnancy or the baby</li>
+							</ul>
+
+				</div>
+
+			</div>
+		</div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./starter_files/jquery-1.10.2.min.js"></script>
+    <script src="./starter_files/bootstrap.min.js"></script>
+  	<script type="text/javascript">
+		var questions = [];
+		
+		function clearoff()
+		{
+				myTxtBox = document.getElementById('QText');
+				myTxtBox.value="";
+		}
+		
+		function save()
+		{
+			questions.push({question:'Where was the pregnant women seen?', desc:'Location',options:'4'});
+		}
+
+
+</body></html>

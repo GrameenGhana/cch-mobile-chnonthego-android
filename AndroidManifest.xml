@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.digitalcampus.mobile.learningGF"
-    android:versionCode="57"
-    android:versionName="3.0.14" 
+    android:versionCode="60"
+    android:versionName="3.0.17" 
     android:screenOrientation="portrait">
 
     <uses-sdk

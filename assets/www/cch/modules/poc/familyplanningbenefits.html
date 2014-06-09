@@ -1,45 +1,57 @@
-
 <!DOCTYPE html>
-	<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="">
- 				<!--REQUIRED CSS files-->
-				<link href="../../css/bootstrap.min.css" rel="stylesheet">
-				<link href="../../css/metro-bootstrap.min.css" rel="stylesheet">
-				<link href="../../css/metro-bootstrap-responsive.min.css" rel="stylesheet">
-				<link href="../../css/iconFont.min.css" rel="stylesheet">
-				<link href="../../css/cchbasics.css" rel="stylesheet">
-				<link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-				<link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-				<link href="../../css/cch.css" rel="stylesheet">
-				<link href="../../css/wfmi-style.css" rel="stylesheet">
+  	<!--REQUIRED CSS files-->
+    <link href="../../css/cchbasics.css" rel="stylesheet">
+    <link href="../../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+   <link href="../../css/cch.css" rel="stylesheet">
 
-				<title>CCH Android Application</title>
-			  </head>
+    <title>CCH Android Application</title>
+  </head>
 
+  <body class="greenback">
+      <div class="container dropme">
+			<a href="index.html"><H2><i class="fa fa-home pull-right greenme"></i></H2></a>
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<h4><em><strong>Inform client on benefits of postpartum family planning, and importance of birth spacing before having other children</strong></em></h4>
 
-  <body>
-    <div class="container dropme">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
+					<img alt="" src="images/famplanning.png" style="float:right;">
+					<ul>
+						<li>Discuss future fertility plans with the client and counsel her on family planning</li><br>
+						<li>Inform her of return to fertility especially when not breastfeeding</li><br>
+						<li>If breastfeeding inform her of the benefits and limitations of LAM</li><br>
+						<li>Encourage clients to take advantage of FP services</li><br>
+					</ul>
+	
+				</div>
 
-	<h2><span style="font-size:16px"><strong><em>Inform client on benefits of postpartum family planning, and importance of birth spacing before having other children</em></strong></span></h2>
-
-<h2><img alt="" src="images/famplanning.png" style="float:right; font-family:trebuchet ms,helvetica,sans-serif; font-size:13px; height:137px; line-height:1.6; width:114px" /></h2>
-
-<ul>
-	<li><span style="font-family:trebuchet ms,helvetica,sans-serif">Discuss future fertility plans with the client and counsel her on family planning</span></li>
-	<li><span style="font-family:trebuchet ms,helvetica,sans-serif">Inform her of return to fertility especially when not breastfeeding</span></li>
-	<li><span style="font-family:trebuchet ms,helvetica,sans-serif">If breastfeeding inform her of the benefits and limitations of LAM</span></li>
-	<li><span style="font-family:trebuchet ms,helvetica,sans-serif">Encourage clients to take advantage of FP services</span></li>
-</ul>
-<button class='btn btn-lg btn-success btn-block' rel='external' onclick='window.location="index.html"'>Contents</button><br /><br />
 			</div>
-		</div>
-	</div>
-</body>
-</html>
+		</div><!-- /.container -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./starter_files/jquery-1.10.2.min.js"></script>
+    <script src="./starter_files/bootstrap.min.js"></script>
+  	<script type="text/javascript">
+		var questions = [];
+		
+		function clearoff()
+		{
+				myTxtBox = document.getElementById('QText');
+				myTxtBox.value="";
+		}
+		
+		function save()
+		{
+			questions.push({question:'Where was the pregnant women seen?', desc:'Location',options:'4'});
+		}
+
+
+</body></html>

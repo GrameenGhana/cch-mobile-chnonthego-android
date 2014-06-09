@@ -7,28 +7,30 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="">
   	<!--REQUIRED CSS files-->
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/cchbasics.css" rel="stylesheet">
-	<link href="../../css/font-awesome.min.css" rel="stylesheet">
-    <link href="../../css/cch.css" rel="stylesheet">
+    <link href="../../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+   <link href="../../css/cch.css" rel="stylesheet">
 	<link rel="stylesheet" href="../../webfont/css/bootstrapx.css">
- 
- 
+
     <title>CCH Android Application</title>
   </head>
+
   <body class="greenback">
-      <div class="container dropme greenback">
-	
-	<div class="row greenback">
-		<div class="greenback">
-			<a href="index.html"><H2><i class="fa fa-home pull-right greenme"></i><H2></a>
-			<H3><strong>TAKE ACTION - THIRD TRIMESTER </strong></H3>
+     <div class="container dropme">
+		<div class="sticky greenback"  >
+		<a href="index.html"><H2><i class="fa fa-home pull-right greenme"></i></H2></a>
+			<H3><strong>TAKE ACTION<br/>Third Trimester</strong></H3>
+		</div>
+		<br>
+			<div class="padme row">
+				<div class="col-md-6 col-md-offset-3">
 			<br />
 			<ul class="list-group greenback">
 				<li class="greenback list-group-item"> Give <a href="tetanustoxoidimmunisation.html">TT</a> injection, if indicated</li>
 				<li class="list-group-item greenback"> If available, provide iron/folate supplements: 1 iron tablet (60 mg) + 1 folic acid tablet (0.5 mg) to be taken daily </li>
 				<li class="list-group-item greenback"> If available, provide multivitamin supplements </li>
-				<li class="list-group-item greenback"> Provide <a href="iptptreatment.html">dose of SP</a> depending on dosage and gestational age</li>
+				<li class="list-group-item greenback"> Provide <a href="iptptreatment.html">dose of SP</a> according to schedule</li>
 				<li class="list-group-item greenback"> Counsel clients on:</span><br/><br/>
 
 					<span class="glyphicon glyphicon-eye-open "></span><a href="careduringpregnancy.html"> Care during pregancy</a></span><br/><br/>
@@ -48,12 +50,31 @@
 					<li class="list-group-item greenback"><i class="fa fa-stethoscope"></i> Refer client to receive focused ANC from a midwife</li>
 				</li>
 			</ul>
-	</div>
-	</div>
-    </div><!-- /.container -->
+	
+				</div>
+
+			</div>
+		</div><!-- /.container -->
 
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./starter_files/jquery-1.10.2.min.js"></script>
+    <script src="./starter_files/bootstrap.min.js"></script>
+  	<script type="text/javascript">
+		var questions = [];
+		
+		function clearoff()
+		{
+				myTxtBox = document.getElementById('QText');
+				myTxtBox.value="";
+		}
+		
+		function save()
+		{
+			questions.push({question:'Where was the pregnant women seen?', desc:'Location',options:'4'});
+		}
+
+
 </body></html>

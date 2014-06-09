@@ -6,32 +6,30 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="">
-	<!--REQUIRED CSS files-->
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../../css/metro-bootstrap.min.css" rel="stylesheet">
-    <link href="../../css/metro-bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="../../css/iconFont.min.css" rel="stylesheet">
+  	<!--REQUIRED CSS files-->
     <link href="../../css/cchbasics.css" rel="stylesheet">
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../../css/cch.css" rel="stylesheet">
-	<link href="../../css/wfmi-style.css" rel="stylesheet">
+    <link href="../../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+   <link href="../../css/cch.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../webfont/css/bootstrapx.css">
 
     <title>CCH Android Application</title>
   </head>
 
-  <body>
-      <div class="container dropme">
-	<div class="row">
-		<div class="col-md-6 col-md-offset-3">
-			<center><H3><strong>Personal hygiene</strong></H3></center>
-			<ul>
-				<li>Advise client to keep her body clean, especially hands, genital area and breasts to minimise infection</li>
-			<input type="submit" class="btn btn-success btn-block" value="OK" onclick="window.location='careduringpregnancy.html'"/>
+  <body class="greenback">
+     <div class="container dropme">
+		<a href="index.html"><H2><i class="fa fa-home pull-right greenme"></i></H2></a>
+		<H3><strong>Personal hygiene</strong></H3>
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+			<br />
+			
+				Advise client to keep her body clean, especially hands, genital area and breasts to minimise infection.
 
-	</div>
-	</div>
-    </div><!-- /.container -->
+				</div>
+
+			</div>
+		</div><!-- /.container -->
 
 
     <!-- Bootstrap core JavaScript
@@ -53,15 +51,5 @@
 			questions.push({question:'Where was the pregnant women seen?', desc:'Location',options:'4'});
 		}
 
-		function getQueryVariable(variable)
-		{
-		   var query = window.location.search.substring(1);
-		   var vars = query.split("&");
-		   for (var i=0;i<vars.length;i++) {
-				   var pair = vars[i].split("=");
-				   if(pair[0] == variable){return pair[1];}
-           }
-       return(false);
-	  }
 
 </body></html>
