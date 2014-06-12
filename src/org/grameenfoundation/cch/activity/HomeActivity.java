@@ -20,6 +20,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.service.TrackerService;
 import org.digitalcampus.oppia.utils.UIUtils;
 import org.grameenfoundation.cch.model.WebAppInterface;
+import org.grameenfoundation.cch.activity.PDFActivity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -52,7 +53,6 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	private static final String HOME_URL = "file:///android_asset/www/cch/index.html";
 	private static final String EVENT_BLANK_URL = "file:///android_asset/www/cch/modules/eventplanner/blank.html";
 	private static final String EVENT_HOME_URL = "file:///android_asset/www/cch/modules/eventplanner/index.html";
-	private static final String LEARNING_PDF_URL = "file:///android_asset/www/cch/modules/learning/learner2.html";
 	
 	// MODULE IDs
 	private static final String EVENT_PLANNER_ID      = "Event Planner";
@@ -121,6 +121,11 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 					    Pattern viewEventPattern = Pattern.compile("viewcal\\/(\\d+)");
 					    Matcher viewEventMatcher = viewEventPattern.matcher(url);
 					    
+					    Pattern pdfPattern = Pattern.compile("\\.pdf");
+					    Matcher pdfMatcher = pdfPattern.matcher(url);
+					    
+					    Log.v("CCH: url",url);
+					    
 						if (viewEventMatcher.find()) {
 							    
 								long calendarEventID = Long.parseLong(viewEventMatcher.group().replace("viewcal/", ""));
@@ -147,26 +152,12 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 							Intent intent = new Intent(getApplicationContext(), OppiaMobileActivity.class);
 			                startActivity(intent);	
 			            
-						} else if (url.equals(LEARNING_PDF_URL)){
-							
-					         File pdfFile = new File("file:///android_asset/www/cch/modules/learning/references/FPFlipchart.pdf"); 
-					            if(pdfFile.exists()) 
-					            {
-					                Uri path = Uri.fromFile(pdfFile); 
-					                Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
-					                pdfIntent.setDataAndType(path, "application/pdf");
-					                pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-					                try
-					                {
-					                    startActivity(pdfIntent);
-					                }
-					                catch(ActivityNotFoundException e)
-					                {
-					                    Toast.makeText(view.getContext(), "No Application available to view pdf", Toast.LENGTH_LONG).show(); 
-					                }
-					            }		
-						
+						} else if (pdfMatcher.find()) {
+												           
+					         Intent intent = new Intent(getApplicationContext(), PDFActivity.class);
+					         intent.putExtra(PDFActivity.EXTRA_PDFFILENAME, url);
+					         startActivity(intent);
+					         
 						} else {
 							view.loadUrl(url);
 						}
