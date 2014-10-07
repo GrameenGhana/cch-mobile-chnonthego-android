@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="20dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="0dp"
+        android:paddingTop="10dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:text="Event Name: "
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/Brown"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinner_eventName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="0dp"
+        android:paddingTop="10dp" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="97dp"
+            android:layout_height="wrap_content"
+            android:text="Event Period: "
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/Brown"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinner_dialogEventPeriod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="0dp"
+        android:paddingTop="10dp" >
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:text="Number: "
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/Brown"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editText_dialogEventPeriodNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/apptheme_edit_text_holo_light"
+            android:ems="10"
+            android:inputType="number" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="20dp" >
+
+        <Button
+            android:id="@+id/button_dialogSetEVent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_set_button"
+            android:minHeight="28dip"
+            android:padding="5dp"
+            android:text="Set event"
+            android:textColor="@color/White"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

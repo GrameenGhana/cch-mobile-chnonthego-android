@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical|center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView_c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="100dp"
+            android:text="C"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/TextColorGreen"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/textView_h"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="100dp"
+            android:text="H"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/TextColorGreen"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/textView_n"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="100dp"
+            android:text="N"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/TextColorGreen"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:typeface="serif" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="100dp"
+            android:paddingRight="0dp"
+            android:text="on the go"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/TextColorGreen"
+            android:textSize="30sp"
+            android:typeface="serif" />
+
+    </LinearLayout>
+
+</LinearLayout>

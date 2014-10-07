@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="50dp"
+        android:paddingTop="20dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="15dp"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="74dp"
+                android:layout_height="wrap_content"
+                android:text="Target:  "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/Brown"
+                android:textStyle="bold" />
+
+ 		<requestFocus />
+
+ 		<Spinner
+ 		    android:id="@+id/spinner_dialogCoverageName"
+ 		    android:layout_width="wrap_content"
+ 		    android:layout_height="wrap_content"
+ 		    android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:text="Number: "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/Brown"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editText_dialogCoverageNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/apptheme_edit_text_holo_light"
+                android:ems="10"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:nextFocusDown="@+id/spinner_dialogCoverageCategory"
+                android:textStyle="italic" >
+               
+            </EditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout_dialogCoverageCatgeory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="76dp"
+                android:layout_height="wrap_content"
+                android:text="Category: "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/Brown"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinner_dialogCoverageCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:nextFocusDown="@+id/spinner_coveragePeriod"
+                android:imeOptions="actionNext" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp" >
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="78dp"
+                android:layout_height="wrap_content"
+                android:text="Period:"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/Brown" />
+
+            <Spinner
+                android:id="@+id/spinner_coveragePeriod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:nextFocusDown="@+id/button_dialogAddCoverage"
+                 android:imeOptions="actionNext" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="10dp" >
+
+            <Button
+                android:id="@+id/button_dialogAddCoverage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_set_button"
+                android:minHeight="28dip"
+                android:text="Add"
+                android:textColor="@color/White"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
