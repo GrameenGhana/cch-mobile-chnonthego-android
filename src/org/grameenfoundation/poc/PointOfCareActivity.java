@@ -1,10 +1,11 @@
 package org.grameenfoundation.poc;
 
+import org.digitalcampus.mobile.learningGF.R;
 import org.grameenfoundation.adapters.PointOfCareBaseAdapter;
-import org.grameenfoundation.chnonthego.R;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,6 +36,13 @@ public class PointOfCareActivity extends Activity implements OnItemClickListener
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
+		Intent intent;
+		switch(position){
+		case 0:
+			intent=new Intent(mContext, AntenatalCareActivity.class);
+			startActivity(intent);
+			break;
+		}
 		
 	}
 

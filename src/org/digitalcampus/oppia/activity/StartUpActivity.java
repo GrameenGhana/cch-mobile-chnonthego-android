@@ -101,7 +101,7 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
 			startActivity(new Intent(StartUpActivity.this, LoginActivity.class));
 			finish();
 		} else {
-			startActivity(new Intent(StartUpActivity.this, HomeActivity.class));
+			startActivity(new Intent(StartUpActivity.this, MainScreenActivity.class));
 			finish();
 		}
     }

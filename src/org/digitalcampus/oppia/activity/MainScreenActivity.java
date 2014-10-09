@@ -1,4 +1,4 @@
-package org.grameenfoundation.chnonthego;
+package org.digitalcampus.oppia.activity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.grameenfoundation.adapters.CoverageListAdapter;
 import org.grameenfoundation.adapters.EventsDetailPagerAdapter;
 import org.grameenfoundation.adapters.MainScreenBaseAdapter;
+import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.chnonthego.NewEventPlannerActivity.CoverageActivity;
 import org.grameenfoundation.chnonthego.NewEventPlannerActivity.EventsActivity;
 import org.grameenfoundation.chnonthego.NewEventPlannerActivity.LearningActivity;
@@ -23,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -115,21 +117,25 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	
 	 public class EventsSummary extends Fragment {
 		 View rootView;
-		 private SharedPreferences loginPref;
+		// private SharedPreferences loginPref;
 		 private String name;
-		 private ArrayList<String> eventsNumber;
+		 //private ArrayList<String> eventsNumber;
 		 private CHNDatabaseHandler db;
 		private TextView event_number;
 		int month;
 		String month_text;
+		 CalendarEvents c;
+		 public ArrayList<String> EventTypeToday;
+		private SharedPreferences prefs;
 		 public EventsSummary(){
 			 
 		 }
 		 
 		 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			 	rootView=inflater.inflate(R.layout.events_pager_layout,null,false);
-			 	loginPref=getApplicationContext().getSharedPreferences("loginPrefs", MODE_WORLD_READABLE);
-			    name=loginPref.getString("firstname", "name");
+			 	prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			 	//loginPref=getApplicationContext().getSharedPreferences("loginPrefs", MODE_WORLD_READABLE);
+			    name=prefs.getString(getString(R.string.prefs_username), "name");
 			    db=new CHNDatabaseHandler(getActivity());
 			    status=(TextView) rootView.findViewById(R.id.textView_status);
 			    event_number=(TextView) rootView.findViewById(R.id.textView_eventsNumber);
@@ -140,6 +146,8 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			   // month= rightNow.get(Calendar.MONTH)+1;
 			   // month_text.equals("September");
 			   // System.out.println(month_text);
+			    c= new CalendarEvents(mContext);
+			    EventTypeToday=c.getTodaysEventsType();
 			    if(time.hour<12)
 			    {
 			    	System.out.println("name");
@@ -153,11 +161,11 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			    }else{
 			    	 status.setText("Good day, "+name+"!");
 			    }
-			 eventsNumber=db.getAllEventsForMonth("September");
-			 if(eventsNumber.size()==0){
+			 //eventsNumber=db.getAllEventsForMonth("September");
+			 if(EventTypeToday.size()==0){
 				 event_number.setText("0"); 
-			 }else if(eventsNumber.size()>0){
-				 event_number.setText(String.valueOf(eventsNumber.size())); 
+			 }else if(EventTypeToday.size()>0){
+				 event_number.setText(String.valueOf(EventTypeToday.size())); 
 			 }
 			 return rootView;
 		 }
@@ -165,8 +173,9 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	 
 	 public class EventsDetails extends Fragment {
 		 View rootView;
-		 private ArrayList<String> eventsName;
-		 private ArrayList<String> eventsNumber;
+		 CalendarEvents c;
+		 public ArrayList<String> EventTypeToday;
+		 public ArrayList<String> EventTypeTime;
 		 private CHNDatabaseHandler db;
 		private TextView eventStatus;
 		int month;
@@ -188,13 +197,13 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			    java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("MMMM");
 			   // month= rightNow.get(Calendar.MONTH)+1;
 			    //month_text.equals(df.format(month));
-		   eventsName=db.getAllEventsForMonth("September");
-			   eventsNumber=db.getAllEventsNumberForMonth("September");
-			   
-			 if(eventsName.size()==0){
+			    c= new CalendarEvents(mContext);
+			    EventTypeToday=c.getTodaysEventsType();
+			    EventTypeTime=c.getTodaysEventsTime(false);
+			 if(EventTypeToday.size()==0){
 				 eventStatus.setText("No events planned for today!"); 
-			 }else if(eventsName.size()>0){
-				 EventsDetailPagerAdapter adapter=new EventsDetailPagerAdapter(getActivity(),eventsName,eventsNumber);
+			 }else if(EventTypeToday.size()>0){
+				 EventsDetailPagerAdapter adapter=new EventsDetailPagerAdapter(getActivity(),EventTypeToday,EventTypeTime);
 			    	adapter.notifyDataSetChanged();
 			    	listView_details.setAdapter(adapter);	 
 			 }
@@ -226,7 +235,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		Intent intent;
 		switch(position){
 		case 0:
-			intent=new Intent(mContext, NewEventPlannerActivity.class);
+			intent=new Intent(mContext, EventPlannerOptionsActivity.class);
 			startActivity(intent);
 			break;
 		case 1:

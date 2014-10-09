@@ -2,7 +2,7 @@ package org.grameenfoundation.adapters;
 
 import java.util.ArrayList;
 
-import org.grameenfoundation.chnonthego.R;
+import org.digitalcampus.mobile.learningGF.R;
 
 import android.content.Context;
 import android.graphics.Typeface;

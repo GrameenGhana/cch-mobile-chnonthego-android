@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/BackgroundGrey"
+        android:gravity="center_vertical" >
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="12dp"
+            android:layout_height="54dp"
+            android:background="@color/Green" />
+
+        <LinearLayout
+            android:layout_width="244dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.57"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="0dp" >
+
+            <TextView
+                android:id="@+id/textView_diagnosticSingle2Category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/Brown" />
+
+            <TextView
+                android:id="@+id/textView_diagnosticSingle2CategoryDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Small Text"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/TextColorGreen" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView_nextIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_next_item" />
+
+    </LinearLayout>
+
+</LinearLayout>

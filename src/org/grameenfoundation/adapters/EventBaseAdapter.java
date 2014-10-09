@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-import org.grameenfoundation.chnonthego.R;
-import org.grameenfoundation.chnonthego.R.color;
+
+
+
+import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.mobile.learningGF.R.color;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -60,11 +63,9 @@ public class EventBaseAdapter extends BaseAdapter{
 	          }
 	          TextView textView2 = (TextView) list.findViewById(R.id.textView_eventCategory);
 	          textView2.setText(eventName.get(position));
-	          textView2.setTextColor(color.textselector_list);
 	          
 	          TextView textView3 = (TextView) list.findViewById(R.id.textView_eventNumber);
 	          textView3.setText(eventNumber.get(position));
-	          textView3.setTextColor(color.textselector_list);
 	            Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
 		          	      "fonts/Roboto-Thin.ttf");
 		         textView2.setTypeface(custom_font);

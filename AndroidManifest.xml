@@ -26,7 +26,7 @@
         android:allowBackup="true"
         android:icon="@drawable/dc_logo"
         android:label="@string/app_name"
-        android:theme="@style/Oppia.Theme" >
+       android:theme="@style/CustomActionBarTheme" >
         <activity
             android:name="org.digitalcampus.oppia.activity.StartUpActivity"
             android:label="@string/app_name"
@@ -118,7 +118,10 @@
         <activity
             android:name="org.digitalcampus.oppia.activity.AppActivity"
             android:label="@string/app_name" />
-
+		<activity android:name="org.digitalcampus.oppia.activity.MainScreenActivity"></activity>
+        <activity android:name="org.grameenfoundation.chngonthego.LoginActivity"></activity>
+        <activity android:name="org.grameenfoundation.chngonthego.EventsActivity"></activity>
+        <activity android:name="org.digitalcampus.oppia.activity.NewEventPlannerActivity"></activity>
         <service
             android:name="org.digitalcampus.oppia.service.TrackerService"
             android:icon="@drawable/dc_logo"
@@ -142,7 +145,18 @@
             	<data android:host="com.android.calendar" />
         	</intent-filter>
     	</receiver>
-
+ 		
+        <receiver android:name="AlarmReceiver"></receiver>
+        <activity android:name="org.grameenfoundation.poc.PointOfCareActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.AntenatalCareActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.DiagnosticToolActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.CousellingPerTrimesterActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.FirstTrimesterCounsellingActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.FirstTrimesterCounsellingQuestionActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.FirstTrimesterCounsellingExaminePatientActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.FirstTrimesterCousellingNext"></activity>
+        <activity android:name="org.digitalcampus.oppia.activity.EventPlannerOptionsActivity"></activity>
+        <activity android:name="org.digitalcampus.oppia.activity.PlanEventActivity"></activity>
     </application>
 
 </manifest>
