@@ -3,7 +3,6 @@ package org.grameenfoundation.chnonthego;
 import java.io.File;
 
 import org.grameenfoundation.database.CHNDatabaseHandler;
-import org.grameenfoundation.utils.TypefaceUtil;
 
 import android.app.Activity;
 import android.content.Context;

@@ -180,7 +180,23 @@ public class WebAppInterface {
     
     @JavascriptInterface
     public void addEvent(String evt, String location, String desc)
-    {			
+    {		
+    	Calendar cal = Calendar.getInstance();
+		//beginTime.set(2012, 0, 19, 7, 30);
+		//Calendar endTime = Calendar.getInstance();
+		//endTime.set(2012, 0, 19, 8, 30);
+		Intent intent = new Intent(Intent.ACTION_INSERT)
+		        .setData(Events.CONTENT_URI)
+		        .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTimeInMillis())
+		        .putExtra(CalendarContract.EXTRA_EVENT_END_TIME,  cal.getTimeInMillis()+60*60*1000)
+		        .putExtra(Events.TITLE, evt)
+		        .putExtra(Events.DESCRIPTION, desc)
+		        .putExtra(Events.EVENT_LOCATION, location)
+		        .putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY)
+		 		.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY , false);
+		       
+		mContext.startActivity(intent);
+    	/*
 	    Calendar cal = Calendar.getInstance(); 
 	    int sdk = android.os.Build.VERSION.SDK_INT;
 	    
@@ -214,6 +230,7 @@ public class WebAppInterface {
 	    intent.putExtra(Events.ACCESS_LEVEL, Events.ACCESS_PUBLIC);
 	    intent.putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY);
 	    mContext.startActivity(intent);
+	    */
     }
     
     @JavascriptInterface
@@ -395,71 +412,71 @@ public class WebAppInterface {
     	} catch (NullPointerException e) {}
     }
     
-    private class MyEvent
-    {
-    	public long eventId;
-    	public String eventType;
-    	public String location;
-    	public String description;
-    	public Long startDate;
-    	public Long endDate;
-    	
-    	public boolean isToday()
-    	{
-    			long milliSeconds = this.startDate;
-    	    	String today = new SimpleDateFormat("MM/dd/yyyy").format(new Date(System.currentTimeMillis()));
-    	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
-    	       				.toString().equals(today)) ? true : false;
-    	}
-    	
-    	public boolean isTomorrow()
-    	{
-    			long milliSeconds = this.startDate;
-    	    	Calendar c = Calendar.getInstance();
-    	    	c.add(Calendar.DATE, 1);
-    	    	String tomorrow = new SimpleDateFormat("MM/dd/yyyy").format(new Date(c.getTimeInMillis()));
-    	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
-    	       				.toString().equals(tomorrow)) ? true : false;
-    	}
-    	    
-    	public boolean isFuture()
-    	{
-    			long milliSeconds = this.startDate;
-    	    	Calendar c = Calendar.getInstance();
-    	    	c.add(Calendar.DATE, 2);
-    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-    	}
-    	
-    	public boolean isThisMonth() { return isThisMonth(false); }
-    	public boolean isThisMonth(boolean completed)
-    	{
-    		boolean resp = false;
-    		
-    		long milliSeconds = this.startDate;
-	    	Calendar c = Calendar.getInstance();
-	    	String today = new SimpleDateFormat("MM/yyyy").format(new Date(c.getTimeInMillis()));
-	        
-	    	// is it this month?
-	    	resp =  (DateFormat.format("MM/yyyy", new Date(milliSeconds))
-	       				.toString().equals(today)) ? true : false;
- 
-	    	if (resp && completed)
+	    private class MyEvent
+	    {
+	    	public long eventId;
+	    	public String eventType;
+	    	public String location;
+	    	public String description;
+	    	public Long startDate;
+	    	public Long endDate;
+	    	
+	    	public boolean isToday()
 	    	{
-	    		resp =  (milliSeconds < c.getTimeInMillis()) ? true : false;
+	    			long milliSeconds = this.startDate;
+	    	    	String today = new SimpleDateFormat("MM/dd/yyyy").format(new Date(System.currentTimeMillis()));
+	    	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
+	    	       				.toString().equals(today)) ? true : false;
 	    	}
 	    	
-    		return resp;
-    	}
-              
-        public String getDate(String format) {
-			   long milliSeconds = this.startDate;
-               SimpleDateFormat formatter = new SimpleDateFormat(format);
-               Calendar calendar = Calendar.getInstance();
-               calendar.setTimeInMillis(milliSeconds);
-               return formatter.format(calendar.getTime());
-        }
-        
-    }
+	    	public boolean isTomorrow()
+	    	{
+	    			long milliSeconds = this.startDate;
+	    	    	Calendar c = Calendar.getInstance();
+	    	    	c.add(Calendar.DATE, 1);
+	    	    	String tomorrow = new SimpleDateFormat("MM/dd/yyyy").format(new Date(c.getTimeInMillis()));
+	    	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
+	    	       				.toString().equals(tomorrow)) ? true : false;
+	    	}
+	    	    
+	    	public boolean isFuture()
+	    	{
+	    			long milliSeconds = this.startDate;
+	    	    	Calendar c = Calendar.getInstance();
+	    	    	c.add(Calendar.DATE, 2);
+	    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
+	    	}
+	    	
+	    	public boolean isThisMonth() { return isThisMonth(false); }
+	    	public boolean isThisMonth(boolean completed)
+	    	{
+	    		boolean resp = false;
+	    		
+	    		long milliSeconds = this.startDate;
+		    	Calendar c = Calendar.getInstance();
+		    	String today = new SimpleDateFormat("MM/yyyy").format(new Date(c.getTimeInMillis()));
+		        
+		    	// is it this month?
+		    	resp =  (DateFormat.format("MM/yyyy", new Date(milliSeconds))
+		       				.toString().equals(today)) ? true : false;
+	 
+		    	if (resp && completed)
+		    	{
+		    		resp =  (milliSeconds < c.getTimeInMillis()) ? true : false;
+		    	}
+		    	
+	    		return resp;
+	    	}
+	              
+	        public String getDate(String format) {
+				   long milliSeconds = this.startDate;
+	               SimpleDateFormat formatter = new SimpleDateFormat(format);
+	               Calendar calendar = Calendar.getInstance();
+	               calendar.setTimeInMillis(milliSeconds);
+	               return formatter.format(calendar.getTime());
+	        }
+	        
+	    }
 
     /******************************* Staying well methods *****/
 

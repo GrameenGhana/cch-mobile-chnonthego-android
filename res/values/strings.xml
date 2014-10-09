@@ -156,6 +156,47 @@
     <string name="home_menu">Menu</string>
     <string name="title_activity_cchlogin">CCHLogin</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+        <string name="action_settings">Settings</string>
+    <string name="login">Login</string>
+    <color name="White">#ffffff</color>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <color name="Green">#53AB20</color>
+	 <color name="TextColorGreen">#68B036</color>
+	 <string name="action_home">Home</string>
+	 <string name="action_logout">Logout</string>
+	 <color name="BackgroundGrey">#E1DFD4</color> 
+	<color name="Brown">#6E5747</color>
+	<color name="BackgroundBrown">#7D695B</color>
+	 <string name="sans_serif">sans-serif-light</string>
+	 <color name="BorderBrown">#CBC8B5</color>
+	<color name="ButtonBackgroundGrey">#E2E1D6</color> 
+	<color name="TextColorWine">#520000</color>
+	<string-array name="EventNames">
+	   
+	         <item>ANC Static</item>
+	          <item>ANC Outreach</item>
+	           <item>CWC Static</item>
+	            <item>CWC Outreach</item>
+	             <item>PNC Clinic</item>
+	              <item>Routine Home visit</item>
+	               <item>Special Home visit</item>
+	                <item>Family Planning</item>
+	                 <item>Health Talk</item>
+	                  <item>CMAM Clinic</item>
+	                   <item>School Health</item>
+	                    <item>Adolescent Health</item>
+	                     <item>Mop-up Activity/Event</item>
+	                      <item>Community Durbar</item>
+	                       <item>National Activity/Event</item>
+	                 
+	      
+	           <item>Staff meetings/durbars</item>
+         	<item>Workshops</item>
+	           <item>Leave/Excuse Duty</item>
+	            <item>Personal</item> 
+	              <item>Other</item> 
+	     
+	</string-array>
 
 </resources>

@@ -3,7 +3,7 @@ package org.grameenfoundation.chnonthego;
 import java.util.ArrayList;
 
 import org.grameenfoundation.database.CHNDatabaseHandler;
-import org.grameenfoundation.utils.TypefaceUtil;
+
 
 import android.app.Activity;
 import android.app.AlertDialog;

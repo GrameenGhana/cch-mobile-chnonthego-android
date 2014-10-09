@@ -13,8 +13,7 @@
         <View
             android:id="@+id/view1"
             android:layout_width="8dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/listview_marker" />
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="296dp"

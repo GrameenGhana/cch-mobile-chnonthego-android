@@ -16,7 +16,6 @@ import org.grameenfoundation.chnonthego.NewEventPlannerActivity.OtherActivity;
 import org.grameenfoundation.chnonthego.NewEventPlannerActivity.SectionsPagerAdapter;
 import org.grameenfoundation.database.CHNDatabaseHandler;
 import org.grameenfoundation.poc.PointOfCareActivity;
-import org.grameenfoundation.utils.TypefaceUtil;
 
 import android.app.Activity;
 import android.content.Context;

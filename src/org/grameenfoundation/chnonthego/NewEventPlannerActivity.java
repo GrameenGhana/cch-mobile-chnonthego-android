@@ -8,7 +8,6 @@ import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.adapters.LearningBaseAdapter;
 import org.grameenfoundation.adapters.OtherBaseAdapter;
 import org.grameenfoundation.database.CHNDatabaseHandler;
-import org.grameenfoundation.utils.TypefaceUtil;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -449,7 +448,6 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 				 rootView=inflater.inflate(R.layout.activity_coverage,null,false);
 			    mContext=getActivity().getApplicationContext();
-			    TypefaceUtil.overrideFont(mContext, "SERIF", "fonts/Roboto-Thin.ttf");
 			    db=new CHNDatabaseHandler(getActivity());
 			    coveragePeopleTarget=db.getAllCoveragePeopleTarget();
 			    coveragePeopleNumber=db.getAllCoveragePeopleNumber();
@@ -599,7 +597,6 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 				rootView=inflater.inflate(R.layout.activity_learning,null,false);
 			    mContext=getActivity().getApplicationContext();
-			    TypefaceUtil.overrideFont(mContext, "SERIF", "fonts/Roboto-Thin.ttf");
 			    db=new CHNDatabaseHandler(getActivity());
 			    learningList=(ExpandableListView) rootView.findViewById(R.id.expandableListView_learningCategory);
 			    AntenatalCare=db.getAllLearningAntenatalCare();
@@ -725,7 +722,6 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 				 rootView=inflater.inflate(R.layout.activity_other,null,false);
 			    mContext=getActivity().getApplicationContext();
-			    TypefaceUtil.overrideFont(mContext, "SERIF", "fonts/Roboto-Thin.ttf");
 			    db=new CHNDatabaseHandler(getActivity());
 			    otherCategory=db.getAllOtherCategory();
 			    otherNumber=db.getAllOtherNumber();
