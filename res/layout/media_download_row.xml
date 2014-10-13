@@ -19,13 +19,17 @@
             style="@style/NormalTextDark"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/TextColorWine" />
+
         <TextView
             android:id="@+id/media_file_size"
             style="@style/SmallTextDark"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/TextColorGreen" />
+
     </LinearLayout>
 
     <Button

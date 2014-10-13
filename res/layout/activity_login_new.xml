@@ -48,7 +48,7 @@
                 android:id="@+id/editText_username"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:background="@color/White"
+                android:background="@drawable/bg_set_button"
                 android:ems="10"
                 android:hint="@string/username"
                 android:inputType="textPersonName"
@@ -66,7 +66,7 @@
                 android:id="@+id/editText_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/White"
+                android:background="@drawable/bg_set_button"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:textStyle="italic" >
@@ -79,7 +79,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
+            android:gravity="center"
             android:orientation="vertical" >
 
             <Button
@@ -87,12 +87,17 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="84dp"
                 android:layout_height="wrap_content"
-                android:background="@color/White"
+                android:background="@drawable/bg_set_button"
                 android:minHeight="28dp"
+                android:minWidth="250dp"
                 android:onClick="onLoginClick"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:text="@string/login"
                 android:textStyle="bold"
-                android:typeface="serif" />
+                android:typeface="serif"
+                android:width="250dp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -105,12 +110,13 @@
                 android:id="@+id/forgotten_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/White"
+                android:background="@android:color/transparent"
                 android:ems="10"
                 android:gravity="center"
                 android:minHeight="28dp"
                 android:onClick="onForgetClick"
-                android:text="Forgotten Password"
+                android:text="Forgot password?"
+                android:textColor="@color/White"
                 android:textSize="12sp" />
 
         </LinearLayout>

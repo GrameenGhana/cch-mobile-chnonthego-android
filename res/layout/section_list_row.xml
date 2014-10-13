@@ -11,12 +11,12 @@
         android:id="@+id/section_title"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:textSize="16sp"
-        android:textStyle="normal" 
+        android:ellipsize="end"
+        android:maxLines="1"
         android:paddingBottom="5dp"
-        android:maxLines="1" 
-		android:ellipsize="end"
-        android:textColor="@color/text_light"/>
+        android:textColor="@color/TextColorWine"
+        android:textSize="16sp"
+        android:textStyle="normal" />
 
     <HorizontalScrollView
         android:id="@+id/section_activities_scroll"

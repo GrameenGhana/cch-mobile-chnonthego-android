@@ -31,23 +31,15 @@
             android:layout_height="wrap_content"
             android:gravity="center" >
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add other category        "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/TextColorGreen"
-                android:textStyle="italic" />
-
             <Button
                 android:id="@+id/button_addOther"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_set_button"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_add"
                 android:minHeight="28dip"
                 android:text="Add"
-                android:textColor="@color/White"
+                android:textColor="@color/TextColorWine"
                 android:textStyle="bold" />
 
         </LinearLayout>

@@ -56,16 +56,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingBottom="20dp" >
 
         <Button
             android:id="@+id/button_dialogAddLearning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_set_button"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/ic_add"
             android:minHeight="28dip"
             android:text="Add"
-            android:textColor="@color/White" />
+            android:textColor="@color/TextColorWine" />
 
     </LinearLayout>
 

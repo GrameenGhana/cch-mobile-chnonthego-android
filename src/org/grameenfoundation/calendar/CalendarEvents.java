@@ -1,16 +1,21 @@
 package org.grameenfoundation.calendar;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
+import android.provider.CalendarContract.Instances;
 import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 
 
 public class CalendarEvents {
@@ -124,7 +129,7 @@ public class CalendarEvents {
 	       int evNum = 0;
 	       
 	       if (todaysEventsNum==0) {
-	    	   events.add("No planned events today."); 			  
+	    	  System.out.println("No events");		  
 	       } else {
 	    	   for(MyEvent ev: calEvents){
 	    		
@@ -149,7 +154,7 @@ public class CalendarEvents {
        int evNum = 0;
        
        if (todaysEventsNum==0) {
-    	   events.add("No planned events today."); 			  
+    	   events.add(" "); 			  
        } else {
     	   for(MyEvent ev: calEvents){
     		
@@ -175,7 +180,7 @@ public class CalendarEvents {
        
       
        if (todaysEventsNum==0) {
-    	   events.add("No planned events today."); 			  
+    	   events.add(" "); 			  
        } else {
     	   for(MyEvent ev: calEvents){
     		
@@ -440,16 +445,73 @@ public class CalendarEvents {
        return events;
    	}
     public void readCalendarEvent(Context context){
-    	
+    	/*
+    	String _id = null;
+    	/*
     	   Cursor cursor = context.getContentResolver()
                    .query(
                            Uri.parse("content://com.android.calendar/events"),
                            new String[] { "calendar_id", "title", "description",
                                    "dtstart", "dtend", "eventLocation", "_id as max_id" }, null, null, "dtstart");
-           cursor.moveToFirst();
+                                   
+    	ContentResolver contentResolver = context.getContentResolver();
+    	final Cursor cursor = contentResolver.query(Uri.parse("content://com.android.calendar/events"),
+    	(new String[] { "_id"}), null, null, null);
+
+    	while (cursor.moveToNext()) {
+
+    	_id = cursor.getString(0);
+    	
+
+    	}
+    	Uri.Builder builder = Instances.CONTENT_URI.buildUpon();
+    		long now = new Date().getTime();
+    		ContentUris.appendId(builder, now - DateUtils.WEEK_IN_MILLIS);
+    		ContentUris.appendId(builder, now + DateUtils.WEEK_IN_MILLIS);
+		Cursor cursor2 = context.getContentResolver()
+                .query(builder.build(),
+                        new String[] { Instances.CALENDAR_ID,Instances.TITLE, Instances.DESCRIPTION, Instances.BEGIN,Instances.END,  
+                        				Instances.EVENT_LOCATION, 
+                        				"event_id as max_id"  }, null, null, Instances.BEGIN);
+        cursor2.moveToFirst();
+        
+       
            
            // fetching calendars name
-           String CNames[] = new String[cursor.getCount()];
+    	String _id = null;
+    	ContentResolver contentResolver = context.getContentResolver();
+    	Cursor cursor = contentResolver.query(Uri.parse("content://com.android.calendar/events"),
+    	(new String[] { "_id"}), null, null, null);
+
+    	while (cursor.moveToNext()) {
+
+    	_id = cursor.getString(0);
+    	
+
+    	}
+    	String[] projection = new String[] {Instances.CALENDAR_ID,Instances.TITLE, Instances.DESCRIPTION, Instances.BEGIN,Instances.END,  
+				Instances.EVENT_LOCATION, 
+				"event_id as max_id" };
+    	Uri.Builder builder = Instances.CONTENT_URI.buildUpon();
+		long now = new Date().getTime();
+		ContentUris.appendId(builder, now - DateUtils.WEEK_IN_MILLIS);
+		ContentUris.appendId(builder, now + DateUtils.WEEK_IN_MILLIS);
+    	String selection = "calendar_id = " + _id;
+    	String path = "instances/when/" + (now - DateUtils.WEEK_IN_MILLIS) + "/" + (now + DateUtils.WEEK_IN_MILLIS);
+    	String sortOrder = "begin DESC";
+    	Cursor cursor2 = context.getContentResolver()
+                .query(builder.build(),
+                        new String[] { Instances.CALENDAR_ID,Instances.TITLE, Instances.DESCRIPTION, Instances.BEGIN,Instances.END,  
+                        				Instances.EVENT_LOCATION, 
+                        				"event_id as max_id"  }, selection, null,sortOrder);
+                        				*/
+    	Cursor cursor2 = context.getContentResolver()
+                .query(
+                        Uri.parse("content://com.android.calendar/events"),
+                        new String[] { "calendar_id", "title", "description",
+                                "dtstart", "dtend", "eventLocation", "_id as max_id" }, null, null, "dtstart");
+        cursor2.moveToFirst();
+           String CNames[] = new String[cursor2.getCount()];
 
            calEvents.clear();
            todaysEventsNum = 0;
@@ -460,22 +522,22 @@ public class CalendarEvents {
 
            Calendar c = Calendar.getInstance();
            for (int i = 0; i < CNames.length; i++) {
-                CNames[i] = cursor.getString(1);
+                CNames[i] = cursor2.getString(1);
 
-        	    long start = Long.parseLong(cursor.getString(3));
+        	    long start = Long.parseLong(cursor2.getString(3));
         	    long end = c.getTimeInMillis();
                 
         	    try {
-        		   end = Long.parseLong(cursor.getString(4));
+        		   end = Long.parseLong(cursor2.getString(4));
         	    } catch(NumberFormatException e) {}
         	   
         	   MyEvent payload = new MyEvent();
-        	   payload.eventId = cursor.getLong(cursor.getColumnIndex("max_id"));
-        	   payload.eventType = cursor.getString(1);
-        	   payload.description = cursor.getString(2);
+        	   payload.eventId = cursor2.getLong(cursor2.getColumnIndex("max_id"));
+        	   payload.eventType = cursor2.getString(1);
+        	   payload.description = cursor2.getString(2);
         	   payload.startDate = start;
         	   payload.endDate = end;
-        	   payload.location = cursor.getString(5);
+        	   payload.location = cursor2.getString(5);
         	   calEvents.add(payload);
        	   
         	   if (payload.isToday())              { todaysEventsNum++;    } 
@@ -485,10 +547,10 @@ public class CalendarEvents {
         	   if (payload.isThisMonth())     { thismonthEventsNum++; }
         	   if (payload.isThisMonth(true)) { thismonthEventsDone++; }
         	   
-               cursor.moveToNext();
+               cursor2.moveToNext();
            }  
            
-           cursor.close();
+           cursor2.close();
     }
     
 

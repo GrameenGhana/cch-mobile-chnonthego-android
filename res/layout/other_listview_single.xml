@@ -12,7 +12,8 @@
         <View
             android:id="@+id/view1"
             android:layout_width="10dp"
-            android:layout_height="60dp" />
+            android:layout_height="60dp"
+            android:background="@color/Green" />
 
         <TextView
             android:id="@+id/textView_otherCategory"

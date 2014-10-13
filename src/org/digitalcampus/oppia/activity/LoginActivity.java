@@ -26,7 +26,6 @@ import org.digitalcampus.oppia.model.User;
 import org.digitalcampus.oppia.task.LoginTask;
 import org.digitalcampus.oppia.task.Payload;
 import org.digitalcampus.oppia.utils.UIUtils;
-import org.grameenfoundation.cch.activity.HomeActivity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -149,7 +148,7 @@ public class LoginActivity extends AppActivity implements SubmitListener  {
 	    	Db.addUser(u);
 	    	
 			// return to main activity
-	    	startActivity(new Intent(this, HomeActivity.class));
+	    	startActivity(new Intent(this, MainScreenActivity.class));
 			finish();
 		} else {
 			UIUtils.showAlert(this, R.string.title_login, response.getResultResponse());

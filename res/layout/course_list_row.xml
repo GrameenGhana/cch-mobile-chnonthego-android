@@ -27,9 +27,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:textColor="@color/text_light"
+            android:textColor="@color/TextColorWine"
             android:textSize="18sp"
-            android:textStyle="normal"/>
+            android:textStyle="normal" />
+
     </LinearLayout>
 
     <ProgressBar

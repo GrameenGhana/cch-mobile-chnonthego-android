@@ -18,12 +18,17 @@
 package org.digitalcampus.oppia.activity;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.Callable;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.adapter.DownloadCourseListAdapter;
 import org.digitalcampus.oppia.adapter.TagListAdapter;
+import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.listener.APIRequestListener;
+import org.digitalcampus.oppia.model.Course;
+import org.digitalcampus.oppia.model.Lang;
 import org.digitalcampus.oppia.model.Tag;
 import org.digitalcampus.oppia.task.APIRequestTask;
 import org.digitalcampus.oppia.task.Payload;
@@ -34,9 +39,12 @@ import org.json.JSONObject;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ListView;
 
 import com.bugsense.trace.BugSenseHandler;
@@ -48,6 +56,11 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 	private ProgressDialog pDialog;
 	private JSONObject json;
 	private TagListAdapter tla;
+	private ArrayList<Course> courses;
+	int[] imageIds;
+	ArrayList<Tag> tags;
+	
+
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +68,9 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 		setContentView(R.layout.activity_download);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-	
+        getActionBar().setDisplayShowHomeEnabled(false);
+	    getActionBar().setTitle("Learning");
+        imageIds=new int[]{R.drawable.ic_family};
 	}
 	
 	@Override
@@ -65,8 +80,9 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 		if(this.json == null){
 			this.getTagList();
 		}
+		
 	}
-
+	
 	@Override
 	public void onPause(){
 		// kill any open dialogs
@@ -76,6 +92,11 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 		if (tla != null){
 			tla.closeDialogs();
 		}
+		// kill any open dialogs
+				if (pDialog != null){
+					pDialog.dismiss();
+				}
+				
 		super.onPause();
 	}
 	
@@ -86,12 +107,17 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 			this.json = new JSONObject(savedInstanceState.getString("json"));
 		} catch (JSONException e) {
 		}
+	    
+	    
+	    Log.d(TAG,"restored instance state");
 	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle savedInstanceState) {
 	    super.onSaveInstanceState(savedInstanceState);
 	    savedInstanceState.putString("json", json.toString());
+	   
+	    Log.d(TAG,"saved instance state");
 	}
 	
 	private void getTagList() {
@@ -109,7 +135,7 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 	}
 
 	public void refreshTagList() {
-		ArrayList<Tag> tags = new ArrayList<Tag>();
+		tags = new ArrayList<Tag>();
 		try {
 			for (int i = 0; i < (json.getJSONArray("tags").length()); i++) {
 				JSONObject json_obj = (JSONObject) json.getJSONArray("tags").get(i);
@@ -119,19 +145,21 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 				t.setCount(json_obj.getInt("count"));
 				tags.add(t);
 			}
-			tla = new TagListAdapter(this, tags);
+			tla = new TagListAdapter(this, tags,imageIds);
 			ListView listView = (ListView) findViewById(R.id.tag_list);
 			listView.setAdapter(tla);
 			
 			listView.setOnItemClickListener(new OnItemClickListener() {
-
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
 					Tag t = (Tag) view.getTag();
 					Intent i = new Intent(TagSelectActivity.this, DownloadActivity.class);
 					Bundle tb = new Bundle();
 					tb.putSerializable(Tag.TAG, t);
 					i.putExtras(tb);
 					startActivity(i);
+							
 				}
 			});
 		} catch (JSONException e) {

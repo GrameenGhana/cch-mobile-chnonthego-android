@@ -5,12 +5,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.adapters.CoverageListAdapter;
+import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.adapters.EventsDetailPagerAdapter;
 import org.grameenfoundation.adapters.MainScreenBaseAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
+import org.grameenfoundation.cch.activity.PDFActivity;
+import org.grameenfoundation.cch.model.WebAppInterface;
 import org.grameenfoundation.chnonthego.NewEventPlannerActivity.CoverageActivity;
 import org.grameenfoundation.chnonthego.NewEventPlannerActivity.EventsActivity;
 import org.grameenfoundation.chnonthego.NewEventPlannerActivity.LearningActivity;
@@ -23,6 +29,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -31,25 +38,38 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainScreenActivity extends FragmentActivity implements OnItemClickListener {
 
 	private ListView main_menu_listview;
-	private Context mContext;
-	private TextView status;
-	
+	private static Context mContext;
+	private static TextView status;
+
+
 	SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
+	private DbHelper dbh;
+	// MODULE IDs
+		private static final String EVENT_PLANNER_ID      = "Event Planner";
+		private static final String STAYING_WELL_ID       = "Staying Well";
+		private static final String POINT_OF_CARE_ID      = "Point of Care";
+		private static final String LEARNING_CENTER_ID    = "Learning Center";
+		private static final String ACHIEVEMENT_CENTER_ID = "Achievement Center";
+  
 
 	/** Called when the activity is first created. */
 	@Override
@@ -75,7 +95,8 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	    MainScreenBaseAdapter adapter=new MainScreenBaseAdapter(mContext,categories,images);
 	    main_menu_listview.setAdapter(adapter);				
 	    main_menu_listview.setOnItemClickListener(this);
-	   
+		dbh = new DbHelper(getApplicationContext());
+
 	    
 	    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -164,14 +185,14 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			 //eventsNumber=db.getAllEventsForMonth("September");
 			 if(EventTypeToday.size()==0){
 				 event_number.setText("0"); 
-			 }else if(EventTypeToday.size()>0){
+			 }else {
 				 event_number.setText(String.valueOf(EventTypeToday.size())); 
 			 }
 			 return rootView;
 		 }
 	 }
 	 
-	 public class EventsDetails extends Fragment {
+	 public static class EventsDetails extends Fragment {
 		 View rootView;
 		 CalendarEvents c;
 		 public ArrayList<String> EventTypeToday;
@@ -242,8 +263,15 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			intent=new Intent(mContext, PointOfCareActivity.class);
 			startActivity(intent);
 			break;
+			
+		case 2:
+			intent = new Intent(getApplicationContext(), OppiaMobileActivity.class);
+            startActivity(intent);	
+			break;
 		}
 		
 	}
+	
+	 
 
 }

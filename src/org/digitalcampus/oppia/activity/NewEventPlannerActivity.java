@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.adapters.CoverageListAdapter;
 import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.adapters.LearningBaseAdapter;
@@ -27,6 +28,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -55,9 +57,9 @@ import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 
 public class NewEventPlannerActivity extends FragmentActivity implements ActionBar.TabListener{
-
+	 private DbHelper dbh;
 	SectionsPagerAdapter mSectionsPagerAdapter;
-
+	private static final String EVENT_PLANNER_ID = "Event Planner";
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -70,9 +72,10 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 	    final PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_header);
         pagerTabStrip.setDrawFullUnderline(true);
         pagerTabStrip.setTabIndicatorColor(Color.rgb(83,171,32));
-        
+        dbh = new DbHelper(NewEventPlannerActivity.this);
        //actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.setTitle("Planner");
+        getActionBar().setDisplayShowHomeEnabled(false);
+        actionBar.setTitle("Target Setting");
      
         // Create the adapter that will return a fragment for each of the four
         // primary sections of the app.
@@ -334,8 +337,14 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 						
 						ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
 						spinner_event_period.setAdapter(adapter);
-						ArrayList<String> list=db.getAllEventCategory();
-						ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list);
+						String[] items_names={"ANC Static","ANC Outreach","CWC Static","CWC Outreach",
+												"PNC Clinic","Routine Home visit","Special Home visit",
+												"Family Planning","Health Talk","CMAM Clinic","School Health",
+												"Adolescent Health","Mop-up Activity/Event","Community Durbar",
+												"National Activity/Event","Staff meetings/durbars","Workshops","Leave/Excuse Duty",
+												"Personal","Other"};
+						//ArrayList<String> list=db.getAllEventCategory();
+						ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items_names);
 						spinner_event_name.setAdapter(adapter2);
 						
 						Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogSetEVent);
@@ -353,8 +362,12 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 							            @Override
 							            public void run() {
 							            	
-							            	events_adapter.notifyDataSetChanged();
-							            	 listView_events.setAdapter(events_adapter);	
+							            	 eventName=db.getAllEventName();
+							 			    eventNumber=db.getAllEventNumber();
+							 			    eventsId=db.getAllEventID();
+							 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventsId);
+							 			    events_adapter.notifyDataSetChanged();
+							 			    listView_events.setAdapter(events_adapter);	
 							            }
 							        });
 							    
@@ -384,14 +397,19 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 				dialog.setContentView(R.layout.event_set_dialog);
 				dialog.setTitle("Edit Event");
 				final EditText editText_eventNumber=(EditText) dialog.findViewById(R.id.editText_dialogEventPeriodNumber);
-				String[] items={"January","February","March","April","May","June","July","August","September","October","November","December"};
+				String[] items={"Daily","Monthly","Weekly","Yearly"};
 				ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
 				final Spinner spinner_event_name=(Spinner) dialog.findViewById(R.id.spinner_eventName);
 				final Spinner spinner_eventPeriod=(Spinner) dialog.findViewById(R.id.spinner_dialogEventPeriod);
 				spinner_eventPeriod.setAdapter(adapter);
-				
+				String[] items_names={"ANC Static","ANC Outreach","CWC Static","CWC Outreach",
+						"PNC Clinic","Routine Home visit","Special Home visit",
+						"Family Planning","Health Talk","CMAM Clinic","School Health",
+						"Adolescent Health","Mop-up Activity/Event","Community Durbar",
+						"National Activity/Event","Staff meetings/durbars","Workshops","Leave/Excuse Duty",
+						"Personal","Other"};
 				ArrayList<String> list=db.getAllEventCategory();
-				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list);
+				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items_names);
 				spinner_event_name.setAdapter(adapter2);
 				int spinner_position=adapter2.getPosition(selected_items[0]);
 				spinner_event_name.setSelection(spinner_position);
@@ -407,9 +425,18 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 						String event_number=editText_eventNumber.getText().toString();
 						String event_period=spinner_eventPeriod.getSelectedItem().toString();
 					    if(db.editEventCategory(event_name, event_number, event_period, id)==true){
-					    	EventBaseAdapter adapter=new EventBaseAdapter(getActivity(),eventName,eventNumber,eventsId);
-					    	adapter.notifyDataSetChanged();
-						    listView_events.setAdapter(adapter);	
+					    	getActivity().runOnUiThread(new Runnable() {
+					            @Override
+					            public void run() {
+					            	
+					            	 eventName=db.getAllEventName();
+					 			    eventNumber=db.getAllEventNumber();
+					 			    eventsId=db.getAllEventID();
+					 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventsId);
+					 			    events_adapter.notifyDataSetChanged();
+					 			    listView_events.setAdapter(events_adapter);	
+					            }
+					        });	
 					    	 Toast.makeText(getActivity().getApplicationContext(), "Event edited successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
@@ -441,7 +468,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			private TextView textStatus;
 			private String[] group={"People","Immunizations"};
 			private int[] imageId={R.drawable.ic_people,R.drawable.ic_syringe};
-			private CoverageListAdapter adapter;
+			private CoverageListAdapter coverage_adapter;
 			private String[] selected_items;
 			 public CoverageActivity(){
 
@@ -463,18 +490,18 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			    listView_coverage.setOnChildClickListener(this);
 			    //registerForContextMenu(listView_coverage);
 			    textStatus=(TextView) rootView.findViewById(R.id.textView_coverageStatus);
-			    adapter=new CoverageListAdapter(getActivity(),group,coveragePeopleTarget,coveragePeopleNumber,
+			    coverage_adapter=new CoverageListAdapter(getActivity(),group,coveragePeopleTarget,coveragePeopleNumber,
 			    																		coveragePeoplePeriod,coverageImmunzationTarget,
 			    																		coverageImmunzationNumber,coverageImmunzationPeriod,
 			    																		coveragePeopleId,coverageImmunizationId,
 			    																		imageId,listView_coverage);
-		    	adapter.notifyDataSetChanged();
-		    	listView_coverage.setAdapter(adapter);	
+			    coverage_adapter.notifyDataSetChanged();
+		    	listView_coverage.setAdapter(coverage_adapter);	
 			    if(listView_coverage.getChildCount()>0){
 			    	textStatus.setText(" ");
 			    	
 			    }else if (listView_coverage.getChildCount()==0){
-			    	textStatus.setText("You have not entered any events!");
+			    	textStatus.setText(" ");
 			    }
 			    
 			    Button b = (Button) rootView.findViewById(R.id.button_addCoverage);
@@ -487,7 +514,12 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 						dialog.setTitle("Add Coverage");
 						String[] items={"People","Immunization"};
 						String[] items2={"Daily","Monthly","Weekly"};
-						ArrayList<String> list=db.getAllCoverageCategory();
+						String[] items3={"0 - 11 months","12 - 23 months",
+										"24 -59 months","Women in fertile age",
+										"Expected pregnancy","BCG",
+										"Penta 3","OPV 3","Rota 2",
+										"PCV 3","Measles Rubella","Yellow fever"};
+						//ArrayList<String> list=db.getAllCoverageCategory();
 						final Spinner spinner_coverageName=(Spinner) dialog.findViewById(R.id.spinner_dialogCoverageName);
 						final Spinner spinner_coverageCategory=(Spinner) dialog.findViewById(R.id.spinner_dialogCoverageCategory);
 						final Spinner spinner_coveragePeriod=(Spinner) dialog.findViewById(R.id.spinner_coveragePeriod);
@@ -495,7 +527,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 						spinner_coverageCategory.setAdapter(adapter);
 						ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items2);
 						spinner_coveragePeriod.setAdapter(adapter2);
-						ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list);
+						ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
 						spinner_coverageName.setAdapter(adapter3);
 						Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddCoverage);
 						dialogButton.setOnClickListener(new OnClickListener() {
@@ -509,6 +541,29 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 								String coverage_period=spinner_coveragePeriod.getSelectedItem().toString();
 								String coverage_number=editText_coverageNumber.getText().toString();
 							    if(db.insertCoverageSet(coverage_name, coverage_detail, coverage_period, coverage_number, "new_record") ==true){
+							    	getActivity().runOnUiThread(new Runnable() {
+							            @Override
+							            public void run() {
+							            	
+							            	coveragePeopleTarget=db.getAllCoveragePeopleTarget();
+										    coveragePeopleNumber=db.getAllCoveragePeopleNumber();
+										    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod();
+										    
+										    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget();
+										    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber();
+										    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod();
+										    coveragePeopleId=db.getAllCoveragePeopleId();
+										    coverageImmunizationId=db.getAllCoverageImmunizationsId();
+										    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
+										    coverage_adapter=new CoverageListAdapter(getActivity(),group,coveragePeopleTarget,coveragePeopleNumber,
+													coveragePeoplePeriod,coverageImmunzationTarget,
+													coverageImmunzationNumber,coverageImmunzationPeriod,
+													coveragePeopleId,coverageImmunizationId,
+													imageId,listView_coverage);
+										    coverage_adapter.notifyDataSetChanged();
+										    listView_coverage.setAdapter(coverage_adapter);	
+							            }
+							        });	
 							    	 Toast.makeText(getActivity().getApplicationContext(), "Coverage added successfully!",
 									         Toast.LENGTH_LONG).show();
 							    }else{
@@ -530,18 +585,23 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			public boolean onChildClick(ExpandableListView parent, View v,
 					int groupPosition, int childPosition, final long id) {
 				final Dialog dialog = new Dialog(getActivity());
-				selected_items=adapter.getChild(groupPosition,childPosition);
+				selected_items=coverage_adapter.getChild(groupPosition,childPosition);
 				dialog.setContentView(R.layout.coverage_add_dialog);
 				final LinearLayout coverageCategory=(LinearLayout) dialog.findViewById(R.id.LinearLayout_dialogCoverageCatgeory);
 				coverageCategory.setVisibility(View.GONE);
 				dialog.setTitle("Edit Coverage");
 				String[] items2={"Daily","Monthly","Weekly"};
-				ArrayList<String> list=db.getAllCoverageCategory();
+				String[] items3={"0 - 11 months","12 - 23 months",
+						"24 -59 months","Women in fertile age",
+						"Expected pregnancy","BCG",
+						"Penta 3","OPV 3","Rota 2",
+						"PCV 3","Measles Rubella","Yellow fever"};
+				//ArrayList<String> list=db.getAllCoverageCategory();
 				final Spinner spinner_coverageName=(Spinner) dialog.findViewById(R.id.spinner_dialogCoverageName);
 				final Spinner spinner_coveragePeriod=(Spinner) dialog.findViewById(R.id.spinner_coveragePeriod);
 				ArrayAdapter<String> spinner_adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items2);
 				spinner_coveragePeriod.setAdapter(spinner_adapter);
-				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list);
+				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
 				spinner_coverageName.setAdapter(adapter2);
 				final EditText editText_coverageNumber=(EditText) dialog.findViewById(R.id.editText_dialogCoverageNumber);
 				int spinner_position=adapter2.getPosition(selected_items[0]);
@@ -558,6 +618,29 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 						String coverage_period=spinner_coveragePeriod.getSelectedItem().toString();
 						String coverage_number=editText_coverageNumber.getText().toString();
 					    if(db.editCoverage(coverage_name, coverage_number, coverage_period, id) ==true){
+					    	getActivity().runOnUiThread(new Runnable() {
+					            @Override
+					            public void run() {
+					            	
+					            	coveragePeopleTarget=db.getAllCoveragePeopleTarget();
+								    coveragePeopleNumber=db.getAllCoveragePeopleNumber();
+								    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod();
+								    
+								    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget();
+								    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber();
+								    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod();
+								    coveragePeopleId=db.getAllCoveragePeopleId();
+								    coverageImmunizationId=db.getAllCoverageImmunizationsId();
+								    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
+								    coverage_adapter=new CoverageListAdapter(getActivity(),group,coveragePeopleTarget,coveragePeopleNumber,
+											coveragePeoplePeriod,coverageImmunzationTarget,
+											coverageImmunzationNumber,coverageImmunzationPeriod,
+											coveragePeopleId,coverageImmunizationId,
+											imageId,listView_coverage);
+								    coverage_adapter.notifyDataSetChanged();
+								    listView_coverage.setAdapter(coverage_adapter);	
+					            }
+					        });	
 					    	 Toast.makeText(getActivity().getApplicationContext(), "Coverage edited successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
@@ -584,13 +667,16 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			 public ArrayList<String> Other;
 			 public ExpandableListView learningList;
 			 private CHNDatabaseHandler db;
+			 private LearningBaseAdapter learning_adapter;
 			 public static final String ARG_SECTION_NUMBER = "section_number";       
 			 View rootView;
 			private TextView textStatus;
 
-			private LearningBaseAdapter adapter;
-
 			private String selected_item;
+
+			private String[] groupItem;
+
+			private int[] imageId;
 			
 			 public LearningActivity(){
 
@@ -607,24 +693,24 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			    General=db.getAllLearningGeneral();
 			    Other=db.getAllLearningOther();
 			    textStatus=(TextView) rootView.findViewById(R.id.textView_learningStatus);
-			   String[] groupItem={"Antenatal Care","Postnatal Care","Family Planning","Child Health","General","Other"};
-			   int[] imageId={R.drawable.ic_antenatal,R.drawable.ic_postnatal,
+			   groupItem=new String[]{"Antenatal Care","Postnatal Care","Family Planning","Child Health","General","Other"};
+			   imageId=new int[]{R.drawable.ic_antenatal,R.drawable.ic_postnatal,
 				   		R.drawable.ic_family,R.drawable.ic_child_health,
 				   		R.drawable.ic_general,R.drawable.ic_others};
 		   
-		   adapter=new LearningBaseAdapter(getActivity(),groupItem,AntenatalCare,
+			   learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,AntenatalCare,
 				   													PostnatalCare,
 				   													FamilyPlanning,
 				   													ChildHealth,
 				   													General,
 				   													Other,imageId,learningList);
-		   adapter.notifyDataSetChanged();
-	    	learningList.setAdapter(adapter);	
+			   learning_adapter.notifyDataSetChanged();
+	    	learningList.setAdapter(learning_adapter);	
 	    	learningList.setOnChildClickListener(this);
 		   	if(learningList.getChildCount()>0){
 		    	textStatus.setText(" ");
 		    }else if (learningList.getChildCount()==0){
-		    	textStatus.setText("No learning categories found");
+		    	textStatus.setText(" ");
 		    }
 			    //registerForContextMenu(learningList);
 			    
@@ -652,6 +738,26 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 								String learning_category=spinner_learningCatagory.getSelectedItem().toString();
 								String learning_description=editText_learningDescription.getText().toString();
 							    if(db.insertLearning(learning_category, learning_description, "new_record") ==true){
+							    	getActivity().runOnUiThread(new Runnable() {
+										@Override
+							            public void run() {
+							            	
+							            	AntenatalCare=db.getAllLearningAntenatalCare();
+										    PostnatalCare=db.getAllLearningPostnatalCare();
+										    FamilyPlanning=db.getAllLearningFamilyPlanning();
+										    ChildHealth=db.getAllLearningChildHealth();
+										    General=db.getAllLearningGeneral();
+										    Other=db.getAllLearningOther();
+										    learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,AntenatalCare,
+   													PostnatalCare,
+   													FamilyPlanning,
+   													ChildHealth,
+   													General,
+   													Other,imageId,learningList);
+										    learning_adapter.notifyDataSetChanged();
+										    learningList.setAdapter(learning_adapter);	
+							            }
+							        });	
 							    	 Toast.makeText(getActivity().getApplicationContext(), "Added successfully!",
 									         Toast.LENGTH_LONG).show();
 							    }else{
@@ -669,7 +775,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			@Override
 			public boolean onChildClick(ExpandableListView parent, View v,
 					int groupPosition, int childPosition, final long id) {
-					selected_item=adapter.getChild(groupPosition, childPosition);
+					selected_item=learning_adapter.getChild(groupPosition, childPosition);
 				 	final Dialog dialog = new Dialog(getActivity());
 					dialog.setContentView(R.layout.learning_add_dialog);
 					dialog.setTitle("Edit Learning Category");
@@ -689,6 +795,26 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 							String learning_category=spinner_learningCatagory.getSelectedItem().toString();
 							String learning_description=editText_learningDescription.getText().toString();
 						    if(db.editLearning(learning_category, learning_description, id) ==true){
+						    	getActivity().runOnUiThread(new Runnable() {
+									@Override
+						            public void run() {
+						            	
+						            	AntenatalCare=db.getAllLearningAntenatalCare();
+									    PostnatalCare=db.getAllLearningPostnatalCare();
+									    FamilyPlanning=db.getAllLearningFamilyPlanning();
+									    ChildHealth=db.getAllLearningChildHealth();
+									    General=db.getAllLearningGeneral();
+									    Other=db.getAllLearningOther();
+									    learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,AntenatalCare,
+													PostnatalCare,
+													FamilyPlanning,
+													ChildHealth,
+													General,
+													Other,imageId,learningList);
+									    learning_adapter.notifyDataSetChanged();
+									    learningList.setAdapter(learning_adapter);	
+						            }
+						        });	
 						    	 Toast.makeText(getActivity().getApplicationContext(), "Edited successfully!",
 								         Toast.LENGTH_LONG).show();
 						    }else{
@@ -715,8 +841,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			View rootView;
 			private ListView listView_other;
 			private TextView textStatus;
-			private OtherBaseAdapter adapter;
-			
+			private OtherBaseAdapter other_adapter;
 			 public OtherActivity(){
 
    }
@@ -758,6 +883,19 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 								String other_number=editText_otherNumber.getText().toString();
 								String other_period=spinner_otherPeriod.getSelectedItem().toString();
 							    if(db.insertOther(other_category,other_number,other_period, "new_record") ==true){
+							    	getActivity().runOnUiThread(new Runnable() {
+										@Override
+							            public void run() {
+							            	
+											otherCategory=db.getAllOtherCategory();
+										    otherNumber=db.getAllOtherNumber();
+										    otherPeriod=db.getAllOtherPeriod();
+										    otherId=db.getAllOthersId();
+										    other_adapter=new OtherBaseAdapter(getActivity(),otherCategory,otherNumber,otherPeriod,otherId);
+									    	other_adapter.notifyDataSetChanged();
+									    	listView_other.setAdapter(other_adapter);	
+							            }
+							        });	
 							    	 Toast.makeText(getActivity().getApplicationContext(), "Added successfully!",
 									         Toast.LENGTH_LONG).show();
 							    }else{
@@ -776,9 +914,9 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			public boolean listViewPopulate(){
 				 if(otherCategory.size()>0){
 				    	textStatus.setText(" ");
-				    	adapter=new OtherBaseAdapter(getActivity(),otherCategory,otherNumber,otherPeriod,otherId);
-				    	adapter.notifyDataSetChanged();
-				    	listView_other.setAdapter(adapter);	
+				    	other_adapter=new OtherBaseAdapter(getActivity(),otherCategory,otherNumber,otherPeriod,otherId);
+				    	other_adapter.notifyDataSetChanged();
+				    	listView_other.setAdapter(other_adapter);	
 				    }else if (otherCategory.size()==0){
 				    	textStatus.setText("No other categories found!");
 				    }
@@ -791,7 +929,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, final long id) {
-				String[] selected_items=adapter.getItem(position);
+				String[] selected_items=other_adapter.getItem(position);
 				final Dialog dialog = new Dialog(getActivity());
 				dialog.setContentView(R.layout.event_add_dialog);
 				dialog.setTitle("Edit other Category");
@@ -816,6 +954,18 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 						String other_number=editText_otherNumber.getText().toString();
 						String other_period=spinner_otherPeriod.getSelectedItem().toString();
 					    if(db.editOther(other_category, other_number, other_period, id) ==true){
+					    	getActivity().runOnUiThread(new Runnable() {
+								@Override
+					            public void run() {
+									otherCategory=db.getAllOtherCategory();
+								    otherNumber=db.getAllOtherNumber();
+								    otherPeriod=db.getAllOtherPeriod();
+								    otherId=db.getAllOthersId();
+								    other_adapter=new OtherBaseAdapter(getActivity(),otherCategory,otherNumber,otherPeriod,otherId);
+							    	other_adapter.notifyDataSetChanged();
+							    	listView_other.setAdapter(other_adapter);	
+					            }
+					        });	
 					    	 Toast.makeText(getActivity().getApplicationContext(), "Edited successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
@@ -829,7 +979,25 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			}
 			
 	 }
-
+	 @Override
+		public boolean onKeyDown(int keyCode, KeyEvent event) {
+			if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+				NewEventPlannerActivity.this.finish();
+				
+			} 
+			
+		    return true; 
+		}
+	  public void saveToLog(Long starttime) 
+		{
+		  Long endtime = System.currentTimeMillis();  
+		  dbh.insertCCHLog(EVENT_PLANNER_ID, "Target Setting", starttime.toString(), endtime.toString());	
+		}
+	 public void onDestroy(){
+		 super.onDestroy();
+		 Long starttime=System.currentTimeMillis();  
+		 saveToLog(starttime); 
+	 }
 	@Override
 	public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
 		   mViewPager.setCurrentItem(tab.getPosition());

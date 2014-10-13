@@ -26,17 +26,71 @@
         android:orientation="vertical"
         android:paddingBottom="5dip" >
 
-        <TextView
-            android:id="@+id/userbadges"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:paddingTop="100dp"
+                android:src="@drawable/dc_logo" />
+			
+             <TextView
+            android:id="@+id/textView_c"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:drawableLeft="@drawable/dc_logo"
-            android:drawablePadding="5dp"
-            android:text="@string/app_name"
-            android:textColor="@color/highlight_dark"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:paddingTop="100dp"
+            android:text="C"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/TextColorGreen"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/textView_h"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="100dp"
+            android:text="H"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/TextColorGreen"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/textView_n"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="100dp"
+            android:text="N"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/TextColorGreen"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:typeface="serif" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+         <TextView
+            android:id="@+id/textView_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="100dp"
+            android:paddingRight="0dp"
+            android:text="on the go"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/TextColorGreen"
+            android:textSize="30sp"
+            android:typeface="serif" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/start_up_progress"
@@ -46,7 +100,8 @@
             android:gravity="center_horizontal"
             android:paddingTop="10dip"
             android:text="@string/loading"
-            android:textColor="@color/highlight_dark" />
+            android:textColor="@color/highlight_light" />
+
     </LinearLayout>
 
 </LinearLayout>

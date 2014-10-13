@@ -16,17 +16,20 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingRight="5dp"/>
+            android:paddingLeft="0dp"
+            android:paddingRight="5dp" />
 
         <TextView
             android:id="@+id/points_date"
             style="@style/SmallTextLight"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/points_time"
             android:layout_alignParentLeft="true"
+            android:layout_below="@id/points_time"
             android:gravity="center"
+            android:paddingLeft="0dp"
             android:paddingRight="5dp" />
+
     </RelativeLayout>
 
     <TextView

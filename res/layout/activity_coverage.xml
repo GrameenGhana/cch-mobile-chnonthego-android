@@ -37,25 +37,16 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical|center" >
 
-        <TextView
-            android:id="@+id/textView_addNewCoverage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add New Coverage            "
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/TextColorGreen"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-light" />
-
         <Button
             android:id="@+id/button_addCoverage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_set_button"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/ic_add"
+            android:fontFamily="sans-serif-light"
             android:minHeight="28dip"
-            android:text="Add"
-            android:textColor="@color/White"
-            android:fontFamily="sans-serif-light" />
+            android:text="Add coverage"
+            android:textColor="@color/TextColorWine" />
 
     </LinearLayout>
 
