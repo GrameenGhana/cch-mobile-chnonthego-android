@@ -42,7 +42,7 @@ public class EventPlannerOptionsActivity extends Activity implements OnItemClick
 			break;
 			
 		case 1:
-			intent=new Intent(mContext,NewEventPlannerActivity.class);
+			intent=new Intent(mContext,TargetMonthOptionsActivity.class);
 			startActivity(intent);
 			break;
 			

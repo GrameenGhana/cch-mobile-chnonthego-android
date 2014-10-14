@@ -931,7 +931,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(CCH_USER_SCORING, (u.isScoringEnabled() ? 1:0));
            
         // Inserting Row        
-        db.update(CCH_USER_TABLE, values, CCH_STAFF_ID + "="+u.getUsername(), null);
+        db.update(CCH_USER_TABLE, values, CCH_STAFF_ID + "="+u.getUsername()+"'", null);
         db.close(); // Closing database connection        
     }
 	

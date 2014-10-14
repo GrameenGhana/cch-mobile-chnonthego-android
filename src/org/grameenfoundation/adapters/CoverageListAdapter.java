@@ -92,9 +92,9 @@ public class CoverageListAdapter extends BaseExpandableListAdapter {
 	   text.setText(ChildItemPeopleTarget.get(childPosition));
 	   text2.setText(ChildItemPeopleNumber.get(childPosition));
 	   text3.setText(ChildItemPeoplePeriod.get(childPosition));
-	   text.setTypeface(custom_font);
-	   text2.setTypeface(custom_font);
-	   text3.setTypeface(custom_font);
+	   //text.setTypeface(custom_font);
+	   //text2.setTypeface(custom_font);
+	   //text3.setTypeface(custom_font);
 	   }else if(groupPosition==1){
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_coverageCategory);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_coverageNumber);
@@ -102,9 +102,9 @@ public class CoverageListAdapter extends BaseExpandableListAdapter {
 		   text.setText(ChildItemImmunizationTarget.get(childPosition));
 		   text2.setText(ChildItemImmunizationNumber.get(childPosition));
 		   text3.setText(ChildItemImmunizationPeriod.get(childPosition));
-		   text.setTypeface(custom_font);
-		   text2.setTypeface(custom_font);
-		   text3.setTypeface(custom_font);
+		   //text.setTypeface(custom_font);
+		   //text2.setTypeface(custom_font);
+		   //text3.setTypeface(custom_font);
 	   }
 	  
 	  return convertView;

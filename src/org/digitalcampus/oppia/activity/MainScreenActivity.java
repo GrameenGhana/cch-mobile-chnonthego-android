@@ -1,35 +1,25 @@
 package org.digitalcampus.oppia.activity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
-import org.grameenfoundation.adapters.CoverageListAdapter;
-import org.grameenfoundation.adapters.EventBaseAdapter;
+import org.digitalcampus.oppia.service.TrackerService;
 import org.grameenfoundation.adapters.EventsDetailPagerAdapter;
 import org.grameenfoundation.adapters.MainScreenBaseAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
-import org.grameenfoundation.cch.activity.PDFActivity;
-import org.grameenfoundation.cch.model.WebAppInterface;
-import org.grameenfoundation.chnonthego.NewEventPlannerActivity.CoverageActivity;
-import org.grameenfoundation.chnonthego.NewEventPlannerActivity.EventsActivity;
-import org.grameenfoundation.chnonthego.NewEventPlannerActivity.LearningActivity;
-import org.grameenfoundation.chnonthego.NewEventPlannerActivity.OtherActivity;
-import org.grameenfoundation.chnonthego.NewEventPlannerActivity.SectionsPagerAdapter;
+import org.grameenfoundation.cch.activity.HomeActivity;
 import org.grameenfoundation.database.CHNDatabaseHandler;
 import org.grameenfoundation.poc.PointOfCareActivity;
 
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
+import android.content.SharedPreferences.Editor;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -41,28 +31,25 @@ import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class MainScreenActivity extends FragmentActivity implements OnItemClickListener {
+public class MainScreenActivity extends FragmentActivity implements OnItemClickListener, OnSharedPreferenceChangeListener {
 
 	private ListView main_menu_listview;
 	private static Context mContext;
 	private static TextView status;
-
+	public static final String TAG = HomeActivity.class.getSimpleName();
 
 	SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
 	private DbHelper dbh;
+	private SharedPreferences prefs;
 	// MODULE IDs
 		private static final String EVENT_PLANNER_ID      = "Event Planner";
 		private static final String STAYING_WELL_ID       = "Staying Well";
@@ -96,7 +83,15 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	    main_menu_listview.setAdapter(adapter);				
 	    main_menu_listview.setOnItemClickListener(this);
 		dbh = new DbHelper(getApplicationContext());
-
+		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		prefs.registerOnSharedPreferenceChangeListener(this);
+		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
+		
+		Intent service = new Intent(this, TrackerService.class);
+		Bundle tb = new Bundle();
+		tb.putBoolean("backgroundData", true);
+		service.putExtras(tb);
+		this.startService(service);
 	    
 	    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -231,25 +226,73 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			 return rootView;
 		 }
 	 }
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.custom_action_bar, menu);
-        return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		@Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			getMenuInflater().inflate(R.menu.activity_home, menu);
 			return true;
 		}
-		return super.onOptionsItemSelected(item);
-	}
 
+		
+		@Override
+		public boolean onOptionsItemSelected(MenuItem item) {
+			// Handle item selection
+			switch (item.getItemId()) {
+				case R.id.menu_settings:
+					Intent i = new Intent(this, PrefsActivity.class);				
+					startActivity(i);
+					return true;
+				
+				case R.id.menu_about:
+					startActivity(new Intent(this, AboutActivity.class));
+					return true;
+				case R.id.menu_help:
+					startActivity(new Intent(this, HelpActivity.class));
+					return true;
+				case R.id.menu_logout:
+					logout();
+					return true;
+			}
+			return true;
+		}
+
+		private void logout() {
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setCancelable(false);
+			builder.setTitle(R.string.logout);
+			builder.setMessage(R.string.logout_confirm);
+			builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					
+					DbHelper db = new DbHelper(MainScreenActivity.this);
+					db.onLogout();
+					db.close();
+					
+					// restart the app
+					MainScreenActivity.this.startActivity(new Intent(MainScreenActivity.this, StartUpActivity.class));
+					MainScreenActivity.this.finish();
+				}
+			});
+			builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					return; // do nothing
+				}
+			});
+			builder.show();
+		}
+		public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+			Log.d(TAG, key + " changed");
+			if(key.equalsIgnoreCase(getString(R.string.prefs_server))){
+				Editor editor = sharedPreferences.edit();
+				if(!sharedPreferences.getString(getString(R.string.prefs_server), "").endsWith("/")){
+					String newServer = sharedPreferences.getString(getString(R.string.prefs_server), "").trim()+"/";
+					editor.putString(getString(R.string.prefs_server), newServer);
+			    	editor.commit();
+				}
+			}
+			if(key.equalsIgnoreCase(getString(R.string.prefs_points)) || key.equalsIgnoreCase(getString(R.string.prefs_badges))){
+				supportInvalidateOptionsMenu();
+			}
+		}
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {

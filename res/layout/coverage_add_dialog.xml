@@ -15,6 +15,37 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <RadioGroup
+                android:id="@+id/radioGroup_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/radio_people"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/apptheme_btn_radio_holo_light"
+                    android:checked="true"
+                    android:text="People" />
+
+ 				<RadioButton
+ 				    android:id="@+id/radio_immunization"
+ 				    android:layout_width="wrap_content"
+ 				    android:layout_height="wrap_content"
+ 				    android:button="@drawable/apptheme_btn_radio_holo_light"
+ 				    android:text="Immunizations" />
+                
+            </RadioGroup>
+
+           
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:paddingBottom="15dp"
             android:paddingTop="10dp" >
@@ -28,14 +59,13 @@
                 android:textColor="@color/Brown"
                 android:textStyle="bold" />
 
- 		<requestFocus />
+            <requestFocus />
 
- 		<Spinner
- 		    android:id="@+id/spinner_dialogCoverageName"
- 		    android:layout_width="wrap_content"
- 		    android:layout_height="wrap_content"
- 		    android:layout_weight="1" />
-
+            <Spinner
+                android:id="@+id/spinner_dialogCoverageName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </LinearLayout>
 
         <LinearLayout
@@ -62,34 +92,7 @@
                 android:inputType="number"
                 android:nextFocusDown="@+id/spinner_dialogCoverageCategory"
                 android:textStyle="italic" >
-               
             </EditText>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/LinearLayout_dialogCoverageCatgeory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical" >
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="76dp"
-                android:layout_height="wrap_content"
-                android:text="Category: "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/Brown"
-                android:textStyle="bold" />
-
-            <Spinner
-                android:id="@+id/spinner_dialogCoverageCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:nextFocusDown="@+id/spinner_coveragePeriod"
-                android:imeOptions="actionNext" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -111,9 +114,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:nextFocusDown="@+id/button_dialogAddCoverage"
-                 android:imeOptions="actionNext" />
-
+                android:imeOptions="actionNext"
+                android:nextFocusDown="@+id/button_dialogAddCoverage" />
         </LinearLayout>
 
         <LinearLayout
@@ -133,9 +135,7 @@
                 android:text="Add"
                 android:textColor="@color/TextColorWine"
                 android:textStyle="bold" />
-
         </LinearLayout>
-
     </LinearLayout>
 
 </LinearLayout>

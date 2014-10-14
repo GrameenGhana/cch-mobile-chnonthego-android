@@ -4,150 +4,197 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="386dp"
-    android:orientation="vertical" >
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_height="386dp"
         android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add an Event"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
-
-    </LinearLayout>
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingBottom="5dp"
-            android:paddingTop="10dp" >
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Event:    "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/TextColorWine" />
-
-            <Spinner
-                android:id="@+id/spinner_eventPlanType"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:entries="@array/EventNames" />
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingTop="10dp" >
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Location: "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/TextColorWine" />
-
-           <EditText
-                android:id="@+id/editText_eventPlanLocation"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/apptheme_edit_text_holo_light"
-                android:ems="10"
-                android:hint="enter location"
-                android:textStyle="italic" >
-
-            </EditText>
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingTop="10dp" >
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Description"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/TextColorWine" />
-
-            <EditText
-                android:id="@+id/editText_eventPlanDescription"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/apptheme_edit_text_holo_light"
-                android:ems="10"
-                android:hint="enter description"
-                android:textStyle="italic" />
-
-        </TableRow>
-    </TableLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="10dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:dividerPadding="10dp"
-            android:gravity="center" >
+            android:gravity="center"
+            android:orientation="vertical" >
 
-            <Button
-                android:id="@+id/button_eventPlanAdd"
+            <TextView
+                android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_add"
-                android:text="Add Event"
-                 android:background="@android:color/transparent"
-                android:textColor="@color/TextColorWine" />
-
-            <View
-                android:id="@+id/view1"
-                android:layout_width="50dp"
-                android:layout_height="10dp" />
-
-            <Button
-                android:id="@+id/button_eventViewCalendar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_view_button"
-                android:text="View Calendar"
-                 android:background="@android:color/transparent"
-                android:textColor="@color/TextColorWine" />
-
+                android:text="Add an Event"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/TextColorGreen" />
         </LinearLayout>
 
-        
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingBottom="5dp"
+                android:paddingTop="10dp" >
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Event:    "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextColorWine" />
+
+                <Spinner
+                    android:id="@+id/spinner_eventPlanType"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/EventNames" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingTop="10dp" >
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location: "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextColorWine" />
+
+                <EditText
+                    android:id="@+id/editText_eventPlanLocation"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/apptheme_edit_text_holo_light"
+                    android:ems="10"
+                    android:hint="enter location"
+                    android:textStyle="italic" >
+                </EditText>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingTop="10dp" >
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextColorWine" />
+
+                <EditText
+                    android:id="@+id/editText_eventPlanDescription"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/apptheme_edit_text_holo_light"
+                    android:ems="10"
+                    android:hint="enter description"
+                    android:textStyle="italic" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Repeating?"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextColorWine" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroup_recurringChoice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/radio_repeatNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/apptheme_btn_radio_holo_light"
+                        android:checked="true"
+                        android:text="No" />
+
+                    <RadioButton
+                        android:id="@+id/radio_repeatYes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/apptheme_btn_radio_holo_light"
+                        android:text="Yes" />
+
+                </RadioGroup>
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow_Repeating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Repeat: "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextColorWine" />
+
+                <Spinner
+                    android:id="@+id/spinner_eventRecurring"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:dividerPadding="10dp"
+                android:gravity="center" >
+
+                <Button
+                    android:id="@+id/button_eventPlanAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_add"
+                    android:text="Add Event"
+                    android:textColor="@color/TextColorWine" />
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="20dp"
+                    android:layout_height="10dp" />
+
+                <Button
+                    android:id="@+id/button_eventViewCalendar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_view_button"
+                    android:text="View Calendar"
+                    android:textColor="@color/TextColorWine" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
 </ScrollView>

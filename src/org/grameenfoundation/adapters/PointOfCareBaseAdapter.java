@@ -56,7 +56,7 @@ public class PointOfCareBaseAdapter extends BaseAdapter{
          	      "fonts/Roboto-Thin.ttf");
 		TextView category_text=(TextView) list.findViewById(R.id.textView_pocCategory);
 		category_text.setText(category[position]);
-		category_text.setTypeface(custom_font);
+		//category_text.setTypeface(custom_font);
 		ImageView icon=(ImageView) list.findViewById(R.id.imageView_pocIcon);
 		icon.setImageResource(imageIds[position]);
 		

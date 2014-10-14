@@ -59,8 +59,8 @@ public class EventsDetailPagerAdapter extends BaseAdapter{
 	          
 	            Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
 		          	      "fonts/Roboto-Thin.ttf");
-		            textView2.setTypeface(custom_font);
-		            textView3.setTypeface(custom_font);
+		           // textView2.setTypeface(custom_font);
+		            //textView3.setTypeface(custom_font);
 	           
 	      return list;
 	    }

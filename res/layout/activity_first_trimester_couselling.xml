@@ -19,7 +19,8 @@
             android:text="Where are you encountering the client?"
             android:textAlignment="center"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextColorGreen"
+            android:textSize="20sp" />
 
     </LinearLayout>
 

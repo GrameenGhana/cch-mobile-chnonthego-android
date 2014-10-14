@@ -19,12 +19,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 public final class PlanEventActivity extends Activity implements OnClickListener{
@@ -40,6 +46,10 @@ public final class PlanEventActivity extends Activity implements OnClickListener
 	private DbHelper dbh;
 	Long startTime;
 	 CalendarEvents c;
+	private Spinner spinner_eventRecurring;
+	String rrule;
+	private RadioGroup radioGroup_repeating;
+	private TableRow repeatingLayout;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -55,9 +65,60 @@ public final class PlanEventActivity extends Activity implements OnClickListener
 	    editText_event_location=(EditText) findViewById(R.id.editText_eventPlanLocation);
 	    button_addEvent=(Button) findViewById(R.id.button_eventPlanAdd);
 	    button_addEvent.setOnClickListener(this);
-	    
+	    repeatingLayout=(TableRow) findViewById(R.id.tableRow_Repeating);
+	    repeatingLayout.setVisibility(View.GONE);
 	    button_viewCalendar=(Button) findViewById(R.id.button_eventViewCalendar);
 	    button_viewCalendar.setOnClickListener(this);
+	    radioGroup_repeating=(RadioGroup) findViewById(R.id.radioGroup_recurringChoice);
+	    radioGroup_repeating.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				switch(checkedId){
+				case R.id.radio_repeatNo:
+					repeatingLayout.setVisibility(View.GONE);
+					break;
+				case R.id.radio_repeatYes:
+					repeatingLayout.setVisibility(View.VISIBLE);
+					break;
+				}
+			}
+	    	
+	    });
+	    spinner_eventRecurring=(Spinner) findViewById(R.id.spinner_eventRecurring);
+	    String[] items={"Daily","Weekly","Monthly","Yearly"};
+	    ArrayAdapter<String> adapter=new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, items);
+	    spinner_eventRecurring.setAdapter(adapter);
+	    spinner_eventRecurring.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				switch(position){
+			
+				case 0:
+					rrule="FREQ=DAILY";
+					break;
+				case 1:
+					rrule="FREQ=WEEKLY";
+					break;
+				case 2:
+					rrule="FREQ=MONTHLY";
+					break;
+				case 3:
+					rrule="FREQ=YEARLY";
+					break;
+				}
+				
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+	    	
+	    });
 	}
 
 	@Override
@@ -66,11 +127,17 @@ public final class PlanEventActivity extends Activity implements OnClickListener
 		switch(v.getId()){
 		
 		case R.id.button_eventPlanAdd:
+			if(radioGroup_repeating.getCheckedRadioButtonId()==R.id.radio_repeatNo){
 			String eventName=spinner_eventName.getSelectedItem().toString();
 			String eventLocation=editText_event_location.getText().toString();
 			String eventDescription=editText_eventDescription.getText().toString();
 			c.addEvent(eventName, eventLocation, eventDescription);
-			
+			}else if(radioGroup_repeating.getCheckedRadioButtonId()==R.id.radio_repeatYes){
+				String eventName=spinner_eventName.getSelectedItem().toString();
+				String eventLocation=editText_event_location.getText().toString();
+				String eventDescription=editText_eventDescription.getText().toString();
+				c.addRecurringEvent(eventName, eventLocation, eventDescription,rrule);
+			}
 			break;
 			
 		case R.id.button_eventViewCalendar:

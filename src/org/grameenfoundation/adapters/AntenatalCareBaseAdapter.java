@@ -68,8 +68,8 @@ public class AntenatalCareBaseAdapter extends BaseAdapter{
 		 ImageView icon=(ImageView) list.findViewById(R.id.imageView_ancIcon);
 		 icon.setImageResource(imageIds[position]);
 		 
-		 category_text.setTypeface(custom_font);
-		 category_detail_text.setTypeface(custom_font);
+		// category_text.setTypeface(custom_font);
+		// category_detail_text.setTypeface(custom_font);
 		return list;
 	}
 

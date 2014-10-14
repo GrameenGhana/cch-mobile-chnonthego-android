@@ -65,7 +65,7 @@ public class DiagnosticToolBaseAdapter extends BaseAdapter{
 		 Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
          	      "fonts/Roboto-Thin.ttf");
 		 //category_details_text.setTypeface(custom_font);
-		 category_text.setTypeface(custom_font);
+		// category_text.setTypeface(custom_font);
 		return list;
 	}
 

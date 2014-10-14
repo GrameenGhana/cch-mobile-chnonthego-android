@@ -18,7 +18,8 @@
             android:gravity="center"
             android:text="Is this her first time seeing a nurse or a midwife?"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextColorGreen"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
@@ -37,10 +38,11 @@
                 android:id="@+id/button_firstTrimesterQuestionYes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
-                android:paddingLeft="70dp"
-                android:paddingRight="70dp"
-                android:paddingTop="20dp"
+                android:minHeight="38dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="120dp"
+                android:paddingRight="120dp"
+                android:paddingTop="10dp"
                 android:text="Yes"
                 android:textColor="@color/TextColorWine" />
 
@@ -56,10 +58,10 @@
                 android:id="@+id/button_firstTrimesterQuestionNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
-                android:paddingLeft="70dp"
-                android:paddingRight="70dp"
-                android:paddingTop="20dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="120dp"
+                android:paddingRight="120dp"
+                android:paddingTop="10dp"
                 android:text="No"
                 android:textColor="@color/TextColorWine" />
 

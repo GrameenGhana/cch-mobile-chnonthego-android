@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Instances;
@@ -33,13 +34,36 @@ public class CalendarEvents {
 		readCalendarEvent(c);
 	}
 	
+	public void addRecurringEvent(String evt, String location, String desc,String rrule)
+    {			
+		Calendar cal = Calendar.getInstance();
+		//beginTime.set(2012, 0, 19, 7, 30);
+		//Calendar endTime = Calendar.getInstance();
+		//endTime.set(2012, 0, 19, 8, 30);
+		Intent	intent = new Intent(Intent.ACTION_EDIT)
+		        .setData(Events.CONTENT_URI)
+		        .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTimeInMillis())
+		        .putExtra(CalendarContract.EXTRA_EVENT_END_TIME,  cal.getTimeInMillis()+60*60*1000)
+		        .putExtra(Events.TITLE, evt)
+		        .putExtra(Events.DESCRIPTION, desc)
+		        .putExtra(Events.EVENT_LOCATION, location)
+		        .putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY)
+		 		.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY , false)
+		 		.putExtra(Events.RRULE,rrule);
+		Bundle b=new Bundle();
+		b.putString(Events.RRULE,rrule);
+		intent.putExtras(b);
+		
+		//System.out.println(rrule);
+		mContext.startActivity(intent);
+    }
 	public void addEvent(String evt, String location, String desc)
     {			
 		Calendar cal = Calendar.getInstance();
 		//beginTime.set(2012, 0, 19, 7, 30);
 		//Calendar endTime = Calendar.getInstance();
 		//endTime.set(2012, 0, 19, 8, 30);
-		Intent intent = new Intent(Intent.ACTION_INSERT)
+		Intent	intent = new Intent(Intent.ACTION_EDIT)
 		        .setData(Events.CONTENT_URI)
 		        .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTimeInMillis())
 		        .putExtra(CalendarContract.EXTRA_EVENT_END_TIME,  cal.getTimeInMillis()+60*60*1000)
@@ -48,7 +72,7 @@ public class CalendarEvents {
 		        .putExtra(Events.EVENT_LOCATION, location)
 		        .putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY)
 		 		.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY , false);
-		       
+		
 		mContext.startActivity(intent);
     }
     
@@ -505,13 +529,42 @@ public class CalendarEvents {
                         				Instances.EVENT_LOCATION, 
                         				"event_id as max_id"  }, selection, null,sortOrder);
                         				*/
-    	Cursor cursor2 = context.getContentResolver()
+    	Cursor event_id=context.getContentResolver().query(Uri.parse("content://com.android.calendar/events"),
+                        new String[] {Events._ID,Events.RRULE}, null, null, null);
+    	String eid = null;
+    	String recRule = null;
+    	while (event_id.moveToNext()) {
+
+    		eid = event_id.getString(0);
+        	recRule=event_id.getString(1);
+        	System.out.println(eid +" "+recRule);
+        	}
+    	Cursor cursor = null;
+    	if(recRule==null){
+    	 cursor = context.getContentResolver()
                 .query(
                         Uri.parse("content://com.android.calendar/events"),
                         new String[] { "calendar_id", "title", "description",
                                 "dtstart", "dtend", "eventLocation", "_id as max_id" }, null, null, "dtstart");
-        cursor2.moveToFirst();
-           String CNames[] = new String[cursor2.getCount()];
+    	}else{
+    		String[] projection = new String[] {Instances.CALENDAR_ID,Instances.TITLE, Instances.DESCRIPTION, Instances.BEGIN,Instances.END,  
+    				Instances.EVENT_LOCATION, 
+    				"event_id as max_id" };
+        	Uri.Builder builder = Instances.CONTENT_URI.buildUpon();
+    		long now = new Date().getTime();
+    		ContentUris.appendId(builder, now - DateUtils.WEEK_IN_MILLIS);
+    		ContentUris.appendId(builder, now + DateUtils.WEEK_IN_MILLIS);
+        	String selection = Events._ID + eid;
+        	String path = "instances/when/" + (now - DateUtils.WEEK_IN_MILLIS) + "/" + (now + DateUtils.WEEK_IN_MILLIS);
+        	String sortOrder = "begin DESC";
+        	cursor = context.getContentResolver()
+                    .query(builder.build(),
+                            new String[] { Instances.CALENDAR_ID,Instances.TITLE, Instances.DESCRIPTION, Instances.BEGIN,Instances.END,  
+                            				Instances.EVENT_LOCATION, 
+                            				"event_id as max_id"  }, null, null,sortOrder);
+    	}
+        cursor.moveToFirst();
+           String CNames[] = new String[cursor.getCount()];
 
            calEvents.clear();
            todaysEventsNum = 0;
@@ -522,22 +575,22 @@ public class CalendarEvents {
 
            Calendar c = Calendar.getInstance();
            for (int i = 0; i < CNames.length; i++) {
-                CNames[i] = cursor2.getString(1);
+                CNames[i] = cursor.getString(1);
 
-        	    long start = Long.parseLong(cursor2.getString(3));
+        	    long start = Long.parseLong(cursor.getString(3));
         	    long end = c.getTimeInMillis();
                 
         	    try {
-        		   end = Long.parseLong(cursor2.getString(4));
+        		   end = Long.parseLong(cursor.getString(4));
         	    } catch(NumberFormatException e) {}
         	   
         	   MyEvent payload = new MyEvent();
-        	   payload.eventId = cursor2.getLong(cursor2.getColumnIndex("max_id"));
-        	   payload.eventType = cursor2.getString(1);
-        	   payload.description = cursor2.getString(2);
+        	   payload.eventId = cursor.getLong(cursor.getColumnIndex("max_id"));
+        	   payload.eventType = cursor.getString(1);
+        	   payload.description = cursor.getString(2);
         	   payload.startDate = start;
         	   payload.endDate = end;
-        	   payload.location = cursor2.getString(5);
+        	   payload.location = cursor.getString(5);
         	   calEvents.add(payload);
        	   
         	   if (payload.isToday())              { todaysEventsNum++;    } 
@@ -547,10 +600,10 @@ public class CalendarEvents {
         	   if (payload.isThisMonth())     { thismonthEventsNum++; }
         	   if (payload.isThisMonth(true)) { thismonthEventsDone++; }
         	   
-               cursor2.moveToNext();
+               cursor.moveToNext();
            }  
            
-           cursor2.close();
+           cursor.close();
     }
     
 

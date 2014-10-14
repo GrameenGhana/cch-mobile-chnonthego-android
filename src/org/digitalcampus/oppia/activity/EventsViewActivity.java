@@ -173,10 +173,10 @@ public class EventsViewActivity extends Activity {
 		   text3.setText(ChildItemEventDetailToday.get(childPosition));
 		   convertView.setBackgroundColor(Color.WHITE);
 		  text4.setText(ChildItemEventTimeToday.get(childPosition));
-		   text.setTypeface(custom_font);
-		   text2.setTypeface(custom_font);
-		   text3.setTypeface(custom_font);
-		   text4.setTypeface(custom_font);
+		   //text.setTypeface(custom_font);
+		   //text2.setTypeface(custom_font);
+		   //text3.setTypeface(custom_font);
+		   //text4.setTypeface(custom_font);
 		   }else if(groupPosition==1){
 			   TextView text=(TextView) convertView.findViewById(R.id.textView_eventType);
 			   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventDescription);
@@ -187,10 +187,10 @@ public class EventsViewActivity extends Activity {
 			   text3.setText(ChildItemEventDetailTomorrow.get(childPosition));
 			  text4.setText(ChildItemEventTimeTomorrow.get(childPosition));
 			   convertView.setBackgroundColor(Color.WHITE);
-			   text.setTypeface(custom_font);
-			   text2.setTypeface(custom_font);
-			   text3.setTypeface(custom_font);
-			   text4.setTypeface(custom_font);
+			   //text.setTypeface(custom_font);
+			   //text2.setTypeface(custom_font);
+			   //text3.setTypeface(custom_font);
+			   //text4.setTypeface(custom_font);
 		   }else if(groupPosition==2){
 			   TextView text=(TextView) convertView.findViewById(R.id.textView_eventType);
 			   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventDescription);
@@ -201,10 +201,10 @@ public class EventsViewActivity extends Activity {
 			   text3.setText(ChildItemEventDetailFuture.get(childPosition));
 			   text4.setText(ChildItemEventTimeFuture.get(childPosition));
 			   convertView.setBackgroundColor(Color.WHITE);
-			   text.setTypeface(custom_font);
-			   text2.setTypeface(custom_font);
-			   text3.setTypeface(custom_font);
-			   text4.setTypeface(custom_font);
+			   //text.setTypeface(custom_font);
+			   //text2.setTypeface(custom_font);
+			   //text3.setTypeface(custom_font);
+			   //text4.setTypeface(custom_font);
 		   }
 		  
 		  return convertView;

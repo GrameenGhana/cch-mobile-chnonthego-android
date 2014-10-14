@@ -29,14 +29,15 @@
             android:id="@+id/activity_title"
             android:layout_width="135dp"
             android:layout_height="fill_parent"
+            android:background="@color/White"
+            android:ellipsize="end"
             android:gravity="center_horizontal"
-            android:textColor="@color/text_light"
+            android:maxLines="2"
+            android:singleLine="false"
+            android:textColor="@color/TextColorWine"
             android:textSize="14sp"
-            android:textStyle="normal"
-            android:background="@color/background_dark"
-            android:maxLines="2" 
-			android:ellipsize="end" 
-			android:singleLine="false" />
+            android:textStyle="normal" />
+
     </LinearLayout>
 
 </LinearLayout>

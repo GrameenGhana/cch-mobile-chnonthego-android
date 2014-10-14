@@ -58,7 +58,7 @@ public class MainScreenBaseAdapter extends BaseAdapter{
 	            textView2.setText(category[position]);
 	            Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
 		          	      "fonts/Roboto-Thin.ttf");
-		            textView2.setTypeface(custom_font);
+		            //textView2.setTypeface(custom_font);
 	           
 	            imageView.setImageResource(Imageid[position]);
 	           

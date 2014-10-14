@@ -17,7 +17,8 @@
             android:gravity="center"
             android:text="Does the client have any of the following?"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextColorGreen"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
@@ -50,11 +51,12 @@
             android:id="@+id/button_nextNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
+            android:paddingBottom="10dp"
             android:paddingLeft="90dp"
             android:paddingRight="90dp"
-            android:paddingTop="20dp"
-            android:text="No" />
+            android:paddingTop="10dp"
+            android:text="No"
+            android:textColor="@color/TextColorWine" />
 
     </LinearLayout>
 

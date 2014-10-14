@@ -19,9 +19,7 @@
     <ListView
         android:id="@+id/listView_events"
         android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:background="?android:activatedBackgroundIndicator"
-        android:listSelector="@color/BackgroundBrown" >
+        android:layout_height="300dp" >
 
     </ListView>
 

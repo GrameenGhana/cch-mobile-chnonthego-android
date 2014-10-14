@@ -1,14 +1,17 @@
 package org.digitalcampus.oppia.activity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.service.TrackerService;
 import org.grameenfoundation.adapters.CoverageListAdapter;
 import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.adapters.LearningBaseAdapter;
 import org.grameenfoundation.adapters.OtherBaseAdapter;
+import org.grameenfoundation.cch.activity.HomeActivity;
 import org.grameenfoundation.database.CHNDatabaseHandler;
 
 import android.app.ActionBar;
@@ -18,8 +21,13 @@ import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -27,6 +35,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -38,10 +47,13 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.RadioGroup;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageButton;
@@ -56,14 +68,19 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 
-public class NewEventPlannerActivity extends FragmentActivity implements ActionBar.TabListener{
+public class NewEventPlannerActivity extends FragmentActivity implements ActionBar.TabListener, OnSharedPreferenceChangeListener{
 	 private DbHelper dbh;
 	SectionsPagerAdapter mSectionsPagerAdapter;
+	public String current_month;
+	
 	private static final String EVENT_PLANNER_ID = "Event Planner";
+	public static final String TAG = NewEventPlannerActivity.class.getSimpleName();
+	public static String month_passed = null;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+	private SharedPreferences prefs;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -74,9 +91,62 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
         pagerTabStrip.setTabIndicatorColor(Color.rgb(83,171,32));
         dbh = new DbHelper(NewEventPlannerActivity.this);
        //actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        Calendar c = Calendar.getInstance();
+        int month=c.get(Calendar.MONTH)+1;
+        switch(month){
+        case 1:
+        	current_month="January";
+        	break;
+        case 2:
+        	current_month="February";
+        	break;
+        case 3:
+        	current_month="March";
+        	break;
+        case 4:
+        	current_month="April";
+        	break;
+        case 5:
+        	current_month="May";
+        	break;
+        case 6:
+        	current_month="June";
+        	break;
+        case 7:
+        	current_month="July";
+        	break;
+        case 8:
+        	current_month="August";
+        	break;
+        case 9:
+        	current_month="September";
+        	break;
+        case 10:
+        	current_month="October";
+        	break;
+        case 11:
+        	current_month="November";
+        	break;
+        case 12:
+        	current_month="December";
+        	break;
+        }
+        Bundle extras = getIntent().getExtras(); 
+        if (extras != null) {
+            month_passed = extras.getString("month");
+            // and get whatever type user account id is
+        }
         getActionBar().setDisplayShowHomeEnabled(false);
         actionBar.setTitle("Target Setting");
-     
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		prefs.registerOnSharedPreferenceChangeListener(this);
+		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
+		
+		Intent service = new Intent(this, TrackerService.class);
+		Bundle tb = new Bundle();
+		tb.putBoolean("backgroundData", true);
+		service.putExtras(tb);
+		this.startService(service);
         // Create the adapter that will return a fragment for each of the four
         // primary sections of the app.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -204,9 +274,9 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			    listView_events=(ListView) rootView.findViewById(R.id.listView_events);
 			    listView_events.setOnItemClickListener(this);
 			    //registerForContextMenu(listView_events);
-			    eventName=db.getAllEventName();
-			    eventNumber=db.getAllEventNumber();
-			    eventsId=db.getAllEventID();
+			    eventName=db.getAllEventName(month_passed);
+			    eventNumber=db.getAllEventNumber(month_passed);
+			    eventsId=db.getAllEventID(month_passed);
 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventsId);
 			    events_adapter.notifyDataSetChanged();
 			    listView_events.setAdapter(events_adapter);	
@@ -348,6 +418,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 						spinner_event_name.setAdapter(adapter2);
 						
 						Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogSetEVent);
+						dialogButton.setText("Save");
 						dialogButton.setOnClickListener(new OnClickListener() {
 							@Override
 							public void onClick(View v) {
@@ -357,14 +428,14 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 								String event_period=spinner_event_period.getSelectedItem().toString();
 								String event_name=spinner_event_name.getSelectedItem().toString();
 								String event_period_number=editText_event_period.getText().toString();
-							    if(db.insertEventSet(event_name, event_period, event_period_number, "new_record") ==true){
+							    if(db.insertEventSet(event_name, event_period, event_period_number, month_passed,"new_record") ==true){
 							    	getActivity().runOnUiThread(new Runnable() {
 							            @Override
 							            public void run() {
 							            	
-							            	 eventName=db.getAllEventName();
-							 			    eventNumber=db.getAllEventNumber();
-							 			    eventsId=db.getAllEventID();
+							            	 eventName=db.getAllEventName(month_passed);
+							 			    eventNumber=db.getAllEventNumber(month_passed);
+							 			    eventsId=db.getAllEventID(month_passed);
 							 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventsId);
 							 			    events_adapter.notifyDataSetChanged();
 							 			    listView_events.setAdapter(events_adapter);	
@@ -415,7 +486,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 				spinner_event_name.setSelection(spinner_position);
 				editText_eventNumber.setText(selected_items[1]);
 				Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogSetEVent);
-				dialogButton.setText("Edit");
+				dialogButton.setText("Save");
 				dialogButton.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -429,9 +500,9 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 					            @Override
 					            public void run() {
 					            	
-					            	 eventName=db.getAllEventName();
-					 			    eventNumber=db.getAllEventNumber();
-					 			    eventsId=db.getAllEventID();
+					            	 eventName=db.getAllEventName(month_passed);
+					 			    eventNumber=db.getAllEventNumber(month_passed);
+					 			    eventsId=db.getAllEventID(month_passed);
 					 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventsId);
 					 			    events_adapter.notifyDataSetChanged();
 					 			    listView_events.setAdapter(events_adapter);	
@@ -470,6 +541,8 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			private int[] imageId={R.drawable.ic_people,R.drawable.ic_syringe};
 			private CoverageListAdapter coverage_adapter;
 			private String[] selected_items;
+			private RadioGroup category_options;
+			private String[] items3;
 			 public CoverageActivity(){
 
          }
@@ -477,15 +550,15 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 				 rootView=inflater.inflate(R.layout.activity_coverage,null,false);
 			    mContext=getActivity().getApplicationContext();
 			    db=new CHNDatabaseHandler(getActivity());
-			    coveragePeopleTarget=db.getAllCoveragePeopleTarget();
-			    coveragePeopleNumber=db.getAllCoveragePeopleNumber();
-			    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod();
+			    coveragePeopleTarget=db.getAllCoveragePeopleTarget(month_passed);
+			    coveragePeopleNumber=db.getAllCoveragePeopleNumber(month_passed);
+			    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod(month_passed);
 			    
-			    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget();
-			    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber();
-			    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod();
-			    coveragePeopleId=db.getAllCoveragePeopleId();
-			    coverageImmunizationId=db.getAllCoverageImmunizationsId();
+			    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget(month_passed);
+			    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber(month_passed);
+			    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod(month_passed);
+			    coveragePeopleId=db.getAllCoveragePeopleId(month_passed);
+			    coverageImmunizationId=db.getAllCoverageImmunizationsId(month_passed);
 			    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
 			    listView_coverage.setOnChildClickListener(this);
 			    //registerForContextMenu(listView_coverage);
@@ -503,57 +576,79 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			    }else if (listView_coverage.getChildCount()==0){
 			    	textStatus.setText(" ");
 			    }
-			    
+			  
 			    Button b = (Button) rootView.findViewById(R.id.button_addCoverage);
 			    b.setOnClickListener(new OnClickListener() {
-
+			    	 String coverage_detail;
 			       @Override
 			       public void onClick(View v) {
 			    	   final Dialog dialog = new Dialog(getActivity());
 						dialog.setContentView(R.layout.coverage_add_dialog);
-						dialog.setTitle("Add Coverage");
-						String[] items={"People","Immunization"};
-						String[] items2={"Daily","Monthly","Weekly"};
-						String[] items3={"0 - 11 months","12 - 23 months",
-										"24 -59 months","Women in fertile age",
-										"Expected pregnancy","BCG",
-										"Penta 3","OPV 3","Rota 2",
-										"PCV 3","Measles Rubella","Yellow fever"};
-						//ArrayList<String> list=db.getAllCoverageCategory();
 						final Spinner spinner_coverageName=(Spinner) dialog.findViewById(R.id.spinner_dialogCoverageName);
-						final Spinner spinner_coverageCategory=(Spinner) dialog.findViewById(R.id.spinner_dialogCoverageCategory);
+						dialog.setTitle("Add Coverage");
+						
+						  category_options=(RadioGroup) dialog.findViewById(R.id.radioGroup_category);
+						  category_options.check(R.id.radio_people);
+						    category_options.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+						    	
+								public void onCheckedChanged(
+										RadioGroup buttonView,
+										int isChecked) {
+									switch(isChecked){
+									case R.id.radio_people:
+										items3=new String[]{"0 - 11 months","12 - 23 months",
+												"24 -59 months","Women in fertile age",
+												"Expected pregnancy"};
+										ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
+										spinner_coverageName.setAdapter(adapter3);
+										coverage_detail="People";
+										break;
+									case R.id.radio_immunization:
+										items3=new String[]{"BCG",
+												"Penta 3","OPV 3","Rota 2",
+												"PCV 3","Measles Rubella","Yellow fever"};
+										ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
+										spinner_coverageName.setAdapter(adapter4);
+										coverage_detail="Immunization";
+										break;
+									}
+									
+								}
+
+						    });
+						String[] items2={"Daily","Monthly","Weekly"};
+					
+						//ArrayList<String> list=db.getAllCoverageCategory();
+						
 						final Spinner spinner_coveragePeriod=(Spinner) dialog.findViewById(R.id.spinner_coveragePeriod);
-						ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
-						spinner_coverageCategory.setAdapter(adapter);
 						ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items2);
 						spinner_coveragePeriod.setAdapter(adapter2);
-						ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
-						spinner_coverageName.setAdapter(adapter3);
 						Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddCoverage);
+						dialogButton.setText("Save");
 						dialogButton.setOnClickListener(new OnClickListener() {
 							@Override
 							public void onClick(View v) {
 								dialog.dismiss();
 								
 								EditText editText_coverageNumber=(EditText) dialog.findViewById(R.id.editText_dialogCoverageNumber);
-								String coverage_detail=spinner_coverageCategory.getSelectedItem().toString();//people or immunizations
+								
 								String coverage_name=spinner_coverageName.getSelectedItem().toString();
 								String coverage_period=spinner_coveragePeriod.getSelectedItem().toString();
 								String coverage_number=editText_coverageNumber.getText().toString();
-							    if(db.insertCoverageSet(coverage_name, coverage_detail, coverage_period, coverage_number, "new_record") ==true){
+							    if(db.insertCoverageSet(coverage_name, coverage_detail, coverage_period, coverage_number, month_passed,"new_record") ==true){
 							    	getActivity().runOnUiThread(new Runnable() {
 							            @Override
 							            public void run() {
 							            	
-							            	coveragePeopleTarget=db.getAllCoveragePeopleTarget();
-										    coveragePeopleNumber=db.getAllCoveragePeopleNumber();
-										    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod();
+							            	coveragePeopleTarget=db.getAllCoveragePeopleTarget(month_passed);
+										    coveragePeopleNumber=db.getAllCoveragePeopleNumber(month_passed);
+										    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod(month_passed);
 										    
-										    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget();
-										    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber();
-										    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod();
-										    coveragePeopleId=db.getAllCoveragePeopleId();
-										    coverageImmunizationId=db.getAllCoverageImmunizationsId();
+										    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget(month_passed);
+										    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber(month_passed);
+										    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod(month_passed);
+										    coveragePeopleId=db.getAllCoveragePeopleId(month_passed);
+										    coverageImmunizationId=db.getAllCoverageImmunizationsId(month_passed);
 										    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
 										    coverage_adapter=new CoverageListAdapter(getActivity(),group,coveragePeopleTarget,coveragePeopleNumber,
 													coveragePeoplePeriod,coverageImmunzationTarget,
@@ -587,28 +682,47 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 				final Dialog dialog = new Dialog(getActivity());
 				selected_items=coverage_adapter.getChild(groupPosition,childPosition);
 				dialog.setContentView(R.layout.coverage_add_dialog);
-				final LinearLayout coverageCategory=(LinearLayout) dialog.findViewById(R.id.LinearLayout_dialogCoverageCatgeory);
-				coverageCategory.setVisibility(View.GONE);
-				dialog.setTitle("Edit Coverage");
-				String[] items2={"Daily","Monthly","Weekly"};
-				String[] items3={"0 - 11 months","12 - 23 months",
-						"24 -59 months","Women in fertile age",
-						"Expected pregnancy","BCG",
-						"Penta 3","OPV 3","Rota 2",
-						"PCV 3","Measles Rubella","Yellow fever"};
-				//ArrayList<String> list=db.getAllCoverageCategory();
 				final Spinner spinner_coverageName=(Spinner) dialog.findViewById(R.id.spinner_dialogCoverageName);
+				dialog.setTitle("Edit Coverage");
+			
+				 category_options=(RadioGroup) dialog.findViewById(R.id.radioGroup_category);
+				  category_options.check(R.id.radio_people);
+				    category_options.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+				    	
+						public void onCheckedChanged(
+								RadioGroup buttonView,
+								int isChecked) {
+							switch(isChecked){
+							case R.id.radio_people:
+								items3=new String[]{"0 - 11 months","12 - 23 months",
+										"24 -59 months","Women in fertile age",
+										"Expected pregnancy"};
+								ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
+								spinner_coverageName.setAdapter(adapter3);
+								int spinner_position=adapter3.getPosition(selected_items[0]);
+								spinner_coverageName.setSelection(spinner_position);
+								break;
+							case R.id.radio_immunization:
+								items3=new String[]{"BCG",
+										"Penta 3","OPV 3","Rota 2",
+										"PCV 3","Measles Rubella","Yellow fever"};
+								ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
+								spinner_coverageName.setAdapter(adapter4);
+								int spinner_position2=adapter4.getPosition(selected_items[0]);
+								spinner_coverageName.setSelection(spinner_position2);
+								break;
+							}	
+						}
+				    });
+				String[] items2={"Daily","Monthly","Weekly"};
 				final Spinner spinner_coveragePeriod=(Spinner) dialog.findViewById(R.id.spinner_coveragePeriod);
 				ArrayAdapter<String> spinner_adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items2);
 				spinner_coveragePeriod.setAdapter(spinner_adapter);
-				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
-				spinner_coverageName.setAdapter(adapter2);
+				
 				final EditText editText_coverageNumber=(EditText) dialog.findViewById(R.id.editText_dialogCoverageNumber);
-				int spinner_position=adapter2.getPosition(selected_items[0]);
-				spinner_coverageName.setSelection(spinner_position);
 				editText_coverageNumber.setText(selected_items[1]);
 				Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddCoverage);
-				dialogButton.setText("Edit");
+				dialogButton.setText("Save");
 				dialogButton.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -622,15 +736,15 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 					            @Override
 					            public void run() {
 					            	
-					            	coveragePeopleTarget=db.getAllCoveragePeopleTarget();
-								    coveragePeopleNumber=db.getAllCoveragePeopleNumber();
-								    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod();
+					            	coveragePeopleTarget=db.getAllCoveragePeopleTarget(month_passed);
+								    coveragePeopleNumber=db.getAllCoveragePeopleNumber(month_passed);
+								    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod(month_passed);
 								    
-								    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget();
-								    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber();
-								    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod();
-								    coveragePeopleId=db.getAllCoveragePeopleId();
-								    coverageImmunizationId=db.getAllCoverageImmunizationsId();
+								    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget(month_passed);
+								    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber(month_passed);
+								    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod(month_passed);
+								    coveragePeopleId=db.getAllCoveragePeopleId(month_passed);
+								    coverageImmunizationId=db.getAllCoverageImmunizationsId(month_passed);
 								    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
 								    coverage_adapter=new CoverageListAdapter(getActivity(),group,coveragePeopleTarget,coveragePeopleNumber,
 											coveragePeoplePeriod,coverageImmunzationTarget,
@@ -688,22 +802,21 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			    learningList=(ExpandableListView) rootView.findViewById(R.id.expandableListView_learningCategory);
 			    AntenatalCare=db.getAllLearningAntenatalCare();
 			    PostnatalCare=db.getAllLearningPostnatalCare();
-			    FamilyPlanning=db.getAllLearningFamilyPlanning();
+			    FamilyPlanning=db.getAllLearningFamilyPlanning(month_passed);
 			    ChildHealth=db.getAllLearningChildHealth();
 			    General=db.getAllLearningGeneral();
 			    Other=db.getAllLearningOther();
 			    textStatus=(TextView) rootView.findViewById(R.id.textView_learningStatus);
-			   groupItem=new String[]{"Antenatal Care","Postnatal Care","Family Planning","Child Health","General","Other"};
-			   imageId=new int[]{R.drawable.ic_antenatal,R.drawable.ic_postnatal,
-				   		R.drawable.ic_family,R.drawable.ic_child_health,
-				   		R.drawable.ic_general,R.drawable.ic_others};
+			   groupItem=new String[]{"Family Planning"};
+			   imageId=new int[]{R.drawable.ic_family};
 		   
-			   learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,AntenatalCare,
-				   													PostnatalCare,
+			   learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,//AntenatalCare,
+				   													//PostnatalCare,
 				   													FamilyPlanning,
-				   													ChildHealth,
-				   													General,
-				   													Other,imageId,learningList);
+				   													//ChildHealth,
+				   													//General,
+				   													//Other,
+				   													imageId,learningList);
 			   learning_adapter.notifyDataSetChanged();
 	    	learningList.setAdapter(learning_adapter);	
 	    	learningList.setOnChildClickListener(this);
@@ -725,35 +838,105 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 						dialog.setContentView(R.layout.learning_add_dialog);
 						dialog.setTitle("Add Learning Category");
 						final Spinner spinner_learningCatagory=(Spinner) dialog.findViewById(R.id.spinner_learningHeader);
-						String[] items={"Antenatal Care","Postnatal Care","Family Planning","Child Health","General","Other"};
+						String[] items={"Family Planning"};
 						ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
 						spinner_learningCatagory.setAdapter(adapter);
+						final Spinner spinner_learningCourse=(Spinner) dialog.findViewById(R.id.spinner_learningCourse);
+						String[] items2={"Family Planning 101","Family Planning Counselling",
+										"Family Planning for people living with HIV","Hormonal Contraceptives",
+										"Postpartum Family Planning"};
+						final Spinner spinner_learningDescription=(Spinner) dialog.findViewById(R.id.spinner_learningDescription);
+						ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items2);
+						spinner_learningCourse.setAdapter(adapter2);
+						
+						spinner_learningCourse.setOnItemSelectedListener(new OnItemSelectedListener(){
+							
+							@Override
+							public void onItemSelected(AdapterView<?> parent,
+									View view, int position, long id) {
+								switch (position){
+								case 0:
+									String[] items3={"Rationale for voluntary family planning",
+											"Family Planning method considerations",
+											"Short-acting contraceptive methods",
+											"Long-acting contraceptive methods",
+											"Special needs"};
+							ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
+							spinner_learningDescription.setAdapter(adapter3);
+									break;
+								case 1:
+									String[] items4={"Family planning counselling",
+											"Family planning counselling skills"};
+							ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items4);
+							spinner_learningDescription.setAdapter(adapter4);
+									break;
+								case 2:
+									String[] items5={"Family Planning/Reproductive Health",
+											"Family planning for people living with HIV",
+											"Reproductive Health",
+											"Helping Clients Make a Family Planning",
+											"Family Planning in PMTCT Services"};
+							ArrayAdapter<String> adapter5=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items5);
+							spinner_learningDescription.setAdapter(adapter5);
+									break;
+								case 3:
+									String[] items6={"Hormonal Contraceptives",
+											"Oral contraceptives",
+											"Emergency contraceptive pills",
+											"Injectable contraceptives",
+											"Implants",
+											"Benefits and risks of hormonal contraceptives"};
+							ArrayAdapter<String> adapter6=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items6);
+							spinner_learningDescription.setAdapter(adapter6);
+									break;
+								case 4:
+									String[] items7={"Rationale for postpartum family planning",
+											"Contraceptive method considerations",
+											"Service delivery:Clinical Considerations",
+											"Service delivery:Integration and linkage"};
+							ArrayAdapter<String> adapter7=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items7);
+							spinner_learningDescription.setAdapter(adapter7);
+									break;
+								}
+								
+							}
+
+							@Override
+							public void onNothingSelected(AdapterView<?> parent) {
+								// TODO Auto-generated method stub
+								
+							}
+							
+						});
+						
 						Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddLearning);
+						dialogButton.setText("Save");
 						dialogButton.setOnClickListener(new OnClickListener() {
 							@Override
 							public void onClick(View v) {
 								dialog.dismiss();
 								
-								EditText editText_learningDescription=(EditText) dialog.findViewById(R.id.editText_learningDescription);
+								Spinner editText_learningDescription=(Spinner) dialog.findViewById(R.id.spinner_learningDescription);
 								String learning_category=spinner_learningCatagory.getSelectedItem().toString();
-								String learning_description=editText_learningDescription.getText().toString();
-							    if(db.insertLearning(learning_category, learning_description, "new_record") ==true){
+								String learning_description=editText_learningDescription.getSelectedItem().toString();
+							    if(db.insertLearning(learning_category, learning_description,month_passed, "new_record") ==true){
 							    	getActivity().runOnUiThread(new Runnable() {
 										@Override
 							            public void run() {
 							            	
 							            	AntenatalCare=db.getAllLearningAntenatalCare();
 										    PostnatalCare=db.getAllLearningPostnatalCare();
-										    FamilyPlanning=db.getAllLearningFamilyPlanning();
+										    FamilyPlanning=db.getAllLearningFamilyPlanning(month_passed);
 										    ChildHealth=db.getAllLearningChildHealth();
 										    General=db.getAllLearningGeneral();
 										    Other=db.getAllLearningOther();
-										    learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,AntenatalCare,
-   													PostnatalCare,
+										    learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,//AntenatalCare,
+   													//PostnatalCare,
    													FamilyPlanning,
-   													ChildHealth,
-   													General,
-   													Other,imageId,learningList);
+   													//ChildHealth,
+   													//General,
+   													//Other,
+   													imageId,learningList);
 										    learning_adapter.notifyDataSetChanged();
 										    learningList.setAdapter(learning_adapter);	
 							            }
@@ -780,20 +963,88 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 					dialog.setContentView(R.layout.learning_add_dialog);
 					dialog.setTitle("Edit Learning Category");
 					final Spinner spinner_learningCatagory=(Spinner) dialog.findViewById(R.id.spinner_learningHeader);
-					String[] items={"Antenatal Care","Postnatal Care","Family Planning","Child Health","General","Other"};
+					String[] items={"Family Planning"};
 					ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
 					spinner_learningCatagory.setAdapter(adapter);
-					final EditText editText_learningDescription=(EditText) dialog.findViewById(R.id.editText_learningDescription);
-					editText_learningDescription.setText(selected_item);
+					final Spinner spinner_learningCourse=(Spinner) dialog.findViewById(R.id.spinner_learningCourse);
+					String[] items2={"Family Planning 101","Family Planning Counselling",
+									"Family Planning for people living with HIV","Hormonal Contraceptives",
+									"Postpartum Family Planning"};
+					final Spinner spinner_learningDescription=(Spinner) dialog.findViewById(R.id.spinner_learningDescription);
+					ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items2);
+					spinner_learningCourse.setAdapter(adapter2);
+					
+					spinner_learningCourse.setOnItemSelectedListener(new OnItemSelectedListener(){
+						
+						@Override
+						public void onItemSelected(AdapterView<?> parent,
+								View view, int position, long id) {
+							switch (position){
+							case 0:
+								String[] items3={"Rationale for voluntary family planning",
+										"Family Planning method considerations",
+										"Short-acting contraceptive methods",
+										"Long-acting contraceptive methods",
+										"Special needs"};
+						ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
+						spinner_learningDescription.setAdapter(adapter3);
+								break;
+							case 1:
+								String[] items4={"Family planning counselling",
+										"Family planning counselling skills"};
+						ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items4);
+						spinner_learningDescription.setAdapter(adapter4);
+								break;
+							case 2:
+								String[] items5={"Family Planning/Reproductive Health",
+										"Family planning for people living with HIV",
+										"Reproductive Health",
+										"Helping Clients Make a Family Planning",
+										"Family Planning in PMTCT Services"};
+						ArrayAdapter<String> adapter5=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items5);
+						spinner_learningDescription.setAdapter(adapter5);
+								break;
+							case 3:
+								String[] items6={"Hormonal Contraceptives",
+										"Oral contraceptives",
+										"Emergency contraceptive pills",
+										"Injectable contraceptives",
+										"Implants",
+										"Benefits and risks of hormonal contraceptives"};
+						ArrayAdapter<String> adapter6=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items6);
+						spinner_learningDescription.setAdapter(adapter6);
+								break;
+							case 4:
+								String[] items7={"Rationale for postpartum family planning",
+										"Contraceptive method considerations",
+										"Service delivery:Clinical Considerations",
+										"Service delivery:Integration and linkage"};
+						ArrayAdapter<String> adapter7=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items7);
+						spinner_learningDescription.setAdapter(adapter7);
+								break;
+							}
+							
+						}
+
+						@Override
+						public void onNothingSelected(AdapterView<?> parent) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+					});
+					
+					int spinner_position=adapter2.getPosition(selected_item);
+					spinner_learningDescription.setSelection(spinner_position);
 					Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddLearning);
-					dialogButton.setText("Edit");
+					dialogButton.setText("Save");
 					dialogButton.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
 							dialog.dismiss();
 							
 							String learning_category=spinner_learningCatagory.getSelectedItem().toString();
-							String learning_description=editText_learningDescription.getText().toString();
+							String learning_description=spinner_learningDescription.getSelectedItem().toString();
 						    if(db.editLearning(learning_category, learning_description, id) ==true){
 						    	getActivity().runOnUiThread(new Runnable() {
 									@Override
@@ -801,16 +1052,17 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 						            	
 						            	AntenatalCare=db.getAllLearningAntenatalCare();
 									    PostnatalCare=db.getAllLearningPostnatalCare();
-									    FamilyPlanning=db.getAllLearningFamilyPlanning();
+									    FamilyPlanning=db.getAllLearningFamilyPlanning(month_passed);
 									    ChildHealth=db.getAllLearningChildHealth();
 									    General=db.getAllLearningGeneral();
 									    Other=db.getAllLearningOther();
-									    learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,AntenatalCare,
-													PostnatalCare,
+									    learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,//AntenatalCare,
+													//PostnatalCare,
 													FamilyPlanning,
-													ChildHealth,
-													General,
-													Other,imageId,learningList);
+													//ChildHealth,
+													//General,
+													//Other,
+													imageId,learningList);
 									    learning_adapter.notifyDataSetChanged();
 									    learningList.setAdapter(learning_adapter);	
 						            }
@@ -849,10 +1101,10 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 				 rootView=inflater.inflate(R.layout.activity_other,null,false);
 			    mContext=getActivity().getApplicationContext();
 			    db=new CHNDatabaseHandler(getActivity());
-			    otherCategory=db.getAllOtherCategory();
-			    otherNumber=db.getAllOtherNumber();
-			    otherPeriod=db.getAllOtherPeriod();
-			    otherId=db.getAllOthersId();
+			    otherCategory=db.getAllOtherCategory(month_passed);
+			    otherNumber=db.getAllOtherNumber(month_passed);
+			    otherPeriod=db.getAllOtherPeriod(month_passed);
+			    otherId=db.getAllOthersId(month_passed);
 			    listView_other=(ListView) rootView.findViewById(R.id.listView_other);
 			    listView_other.setOnItemClickListener(this);
 			
@@ -869,11 +1121,12 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 						dialog.setTitle("Add other Category");
 						final EditText editText_otherCategory=(EditText) dialog.findViewById(R.id.editText_dialogOtherName);
 						final Spinner spinner_otherPeriod=(Spinner) dialog.findViewById(R.id.spinner_dialogOtherPeriod);
-						String[] items={"Daily","Monthly","Weekly","Yearly"};
+						String[] items={"Daily","Monthly","Weekly"};
 						ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
 						spinner_otherPeriod.setAdapter(adapter);
 						final EditText editText_otherNumber=(EditText) dialog.findViewById(R.id.editText_dialogOtherNumber);
 						Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddEvent);
+						dialogButton.setText("Save");
 						dialogButton.setOnClickListener(new OnClickListener() {
 							@Override
 							public void onClick(View v) {
@@ -882,15 +1135,15 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 								String other_category=editText_otherCategory.getText().toString();
 								String other_number=editText_otherNumber.getText().toString();
 								String other_period=spinner_otherPeriod.getSelectedItem().toString();
-							    if(db.insertOther(other_category,other_number,other_period, "new_record") ==true){
+							    if(db.insertOther(other_category,other_number,other_period,month_passed, "new_record") ==true){
 							    	getActivity().runOnUiThread(new Runnable() {
 										@Override
 							            public void run() {
 							            	
-											otherCategory=db.getAllOtherCategory();
-										    otherNumber=db.getAllOtherNumber();
-										    otherPeriod=db.getAllOtherPeriod();
-										    otherId=db.getAllOthersId();
+											otherCategory=db.getAllOtherCategory(month_passed);
+										    otherNumber=db.getAllOtherNumber(month_passed);
+										    otherPeriod=db.getAllOtherPeriod(month_passed);
+										    otherId=db.getAllOthersId(month_passed);
 										    other_adapter=new OtherBaseAdapter(getActivity(),otherCategory,otherNumber,otherPeriod,otherId);
 									    	other_adapter.notifyDataSetChanged();
 									    	listView_other.setAdapter(other_adapter);	
@@ -944,7 +1197,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 				final EditText editText_otherNumber=(EditText) dialog.findViewById(R.id.editText_dialogOtherNumber);
 				editText_otherNumber.setText(selected_items[1]);
 				Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddEvent);
-				dialogButton.setText("Edit");
+				dialogButton.setText("Save");
 				dialogButton.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -957,10 +1210,10 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 					    	getActivity().runOnUiThread(new Runnable() {
 								@Override
 					            public void run() {
-									otherCategory=db.getAllOtherCategory();
-								    otherNumber=db.getAllOtherNumber();
-								    otherPeriod=db.getAllOtherPeriod();
-								    otherId=db.getAllOthersId();
+									otherCategory=db.getAllOtherCategory(month_passed);
+								    otherNumber=db.getAllOtherNumber(month_passed);
+								    otherPeriod=db.getAllOtherPeriod(month_passed);
+								    otherId=db.getAllOthersId(month_passed);
 								    other_adapter=new OtherBaseAdapter(getActivity(),otherCategory,otherNumber,otherPeriod,otherId);
 							    	other_adapter.notifyDataSetChanged();
 							    	listView_other.setAdapter(other_adapter);	
@@ -1014,5 +1267,19 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 		
 	}
 
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+		Log.d(TAG, key + " changed");
+		if(key.equalsIgnoreCase(getString(R.string.prefs_server))){
+			Editor editor = sharedPreferences.edit();
+			if(!sharedPreferences.getString(getString(R.string.prefs_server), "").endsWith("/")){
+				String newServer = sharedPreferences.getString(getString(R.string.prefs_server), "").trim()+"/";
+				editor.putString(getString(R.string.prefs_server), newServer);
+		    	editor.commit();
+			}
+		}
+		if(key.equalsIgnoreCase(getString(R.string.prefs_points)) || key.equalsIgnoreCase(getString(R.string.prefs_badges))){
+			supportInvalidateOptionsMenu();
+		}
+	}
 
 }

@@ -1,6 +1,7 @@
 package org.grameenfoundation.database;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.grameenfoundation.database.CHNDataClass.CHNDatabase;
 
@@ -47,13 +48,14 @@ public class CHNDatabaseHandler {
 			return true;
 		}
 		
-		public boolean insertEventSet(String event_name, String event_period, String event_number, String sync_status){
+		public boolean insertEventSet(String event_name, String event_period, String event_number, String month,String sync_status){
 			SQLiteDatabase db = mDbHelper.getWritableDatabase();
 			ContentValues values = new ContentValues();
 			values.put(CHNDatabase.COL_EVENT_NAME,event_name);
 			values.put(CHNDatabase.COL_EVENT_PERIOD,event_period);
 			values.put(CHNDatabase.COL_SYNC_STATUS,sync_status);
 			values.put(CHNDatabase.COL_EVENT_NUMBER,event_number);
+			values.put(CHNDatabase.COL_EVENT_MONTH,month);
 			
 			long newRowId;
 			newRowId = db.insert(
@@ -74,13 +76,14 @@ public class CHNDatabaseHandler {
 			return true;
 		}
 		
-		public boolean insertCoverageSet(String category_name, String category_detail,String coverage_period, String coverage_number, String sync_status){
+		public boolean insertCoverageSet(String category_name, String category_detail,String coverage_period, String coverage_number,String month, String sync_status){
 			SQLiteDatabase db = mDbHelper.getWritableDatabase();
 			ContentValues values = new ContentValues();
 			values.put(CHNDatabase.COL_COVERAGE_SET_CATEGORY_NAME,category_name);
 			values.put(CHNDatabase.COL_COVERAGE_SET_CATEGORY_DETAIL,category_detail);
 			values.put(CHNDatabase.COL_COVERAGE_SET_PERIOD,coverage_period);
 			values.put(CHNDatabase.COL_COVERAGE_NUMBER,coverage_number);
+			values.put(CHNDatabase.COL_COVERAGE_MONTH,month);
 			values.put(CHNDatabase.COL_SYNC_STATUS,sync_status);
 			
 			long newRowId;
@@ -89,11 +92,12 @@ public class CHNDatabaseHandler {
 			return true;
 		}
 		
-		public boolean insertLearning(String learning_category, String learning_description, String sync_status){
+		public boolean insertLearning(String learning_category, String learning_description, String month,String sync_status){
 			SQLiteDatabase db = mDbHelper.getWritableDatabase();
 			ContentValues values = new ContentValues();
 			values.put(CHNDatabase.COL_LEARNING_CATEGORY,learning_category);
 			values.put(CHNDatabase.COL_LEARNING_DESCRIPTION,learning_description);
+			values.put(CHNDatabase.COL_LEARNING_MONTH,month);
 			values.put(CHNDatabase.COL_SYNC_STATUS,sync_status);
 			
 			long newRowId;
@@ -102,12 +106,13 @@ public class CHNDatabaseHandler {
 			return true;
 		}
 		
-		public boolean insertOther(String other_category,String other_number,String other_period, String sync_status){
+		public boolean insertOther(String other_category,String other_number,String other_period,String month, String sync_status){
 			SQLiteDatabase db = mDbHelper.getWritableDatabase();
 			ContentValues values = new ContentValues();
 			values.put(CHNDatabase.COL_OTHER_CATEGORY,other_category);
 			values.put(CHNDatabase.COL_OTHER_NUMBER,other_number);
 			values.put(CHNDatabase.COL_OTHER_PERIOD,other_period);
+			values.put(CHNDatabase.COL_OTHER_MONTH,month);
 			values.put(CHNDatabase.COL_SYNC_STATUS,sync_status);
 			
 			long newRowId;
@@ -200,12 +205,14 @@ public class CHNDatabaseHandler {
 			c.close();
 			return list;
 		}
-		public ArrayList<String> getAllEventName(){
+		public ArrayList<String> getAllEventName(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			ArrayList<String> list=new ArrayList<String>();
 			 String strQuery="select "+CHNDatabase._ID
 	                 +","+CHNDatabase.COL_EVENT_SET_NAME
-	                 +" from "+CHNDatabase.EVENTS_SET_TABLE;
+	                 +" from "+CHNDatabase.EVENTS_SET_TABLE
+	                 +" where "+CHNDatabase.COL_EVENT_MONTH
+	                 +" = '"+month+"'";
 			 
 			System.out.println(strQuery);
 			Cursor c=db.rawQuery(strQuery, null);
@@ -218,12 +225,14 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public ArrayList<String> getAllEventNumber(){
+		public ArrayList<String> getAllEventNumber(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			ArrayList<String> list=new ArrayList<String>();
 			 String strQuery="select "+CHNDatabase._ID
 	                 +","+CHNDatabase.COL_EVENT_NUMBER
-	                 +" from "+CHNDatabase.EVENTS_SET_TABLE;
+	                 +" from "+CHNDatabase.EVENTS_SET_TABLE
+	                 +" where "+CHNDatabase.COL_EVENT_MONTH
+	                 +" = '"+month+"'";
 			 
 			System.out.println(strQuery);
 			Cursor c=db.rawQuery(strQuery, null);
@@ -237,12 +246,14 @@ public class CHNDatabaseHandler {
 		}
 		
 		
-		public ArrayList<String> getAllEventID(){
+		public ArrayList<String> getAllEventID(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			ArrayList<String> list=new ArrayList<String>();
 			 String strQuery="select "+CHNDatabase._ID
 	                 +","+CHNDatabase.COL_EVENT_NAME
-	                 +" from "+CHNDatabase.EVENTS_SET_TABLE;
+	                 +" from "+CHNDatabase.EVENTS_SET_TABLE
+	                 +" where "+CHNDatabase.COL_EVENT_MONTH
+	                 +" = '"+month+"'";
 			 
 			System.out.println(strQuery);
 			Cursor c=db.rawQuery(strQuery, null);
@@ -255,14 +266,16 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public ArrayList<String> getAllCoverageImmunizationsTarget(){
+		public ArrayList<String> getAllCoverageImmunizationsTarget(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			ArrayList<String> list=new ArrayList<String>();
 			 String strQuery="select "+CHNDatabase._ID
 	                 +","+CHNDatabase.COL_CATEGORY_NAME
 	                 +" from "+CHNDatabase.COVERAGE_SET_TABLE	
 	                 +" where "+ CHNDatabase.COL_COVERAGE_SET_CATEGORY_DETAIL
-	                 +" = '"+"Immunization"+"'";	
+	                 +" = '"+"Immunization"+"'"
+	                 +" and "+CHNDatabase.COL_COVERAGE_MONTH
+	                 +" = '"+month+"'";	
 			 
 			System.out.println(strQuery);			
 			Cursor c=db.rawQuery(strQuery, null);
@@ -275,14 +288,16 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public ArrayList<String> getAllCoverageImmunizationsNumber(){
+		public ArrayList<String> getAllCoverageImmunizationsNumber(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			ArrayList<String> list=new ArrayList<String>();
 			 String strQuery="select "+CHNDatabase._ID
 	                 +","+CHNDatabase.COL_COVERAGE_NUMBER
 	                 +" from "+CHNDatabase.COVERAGE_SET_TABLE	
 	                 +" where "+ CHNDatabase.COL_COVERAGE_SET_CATEGORY_DETAIL
-	                 +" = '"+"Immunization"+"'";	
+	                 +" = '"+"Immunization"+"'"
+	                 +" and "+CHNDatabase.COL_COVERAGE_MONTH
+	                 +" = '"+month+"'";
 			 
 			System.out.println(strQuery);			
 			Cursor c=db.rawQuery(strQuery, null);
@@ -295,14 +310,16 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public ArrayList<String> getAllCoverageImmunizationsPeriod(){
+		public ArrayList<String> getAllCoverageImmunizationsPeriod(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			ArrayList<String> list=new ArrayList<String>();
 			 String strQuery="select "+CHNDatabase._ID
 	                 +","+CHNDatabase.COL_COVERAGE_SET_PERIOD
 	                 +" from "+CHNDatabase.COVERAGE_SET_TABLE	
 	                 +" where "+ CHNDatabase.COL_COVERAGE_SET_CATEGORY_DETAIL
-	                 +" = '"+"Immunization"+"'";	
+	                 +" = '"+"Immunization"+"'"
+	                 +" and "+CHNDatabase.COL_COVERAGE_MONTH
+	                 +" = '"+month+"'";
 			 
 			System.out.println(strQuery);			
 			Cursor c=db.rawQuery(strQuery, null);
@@ -315,13 +332,15 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public ArrayList<String> getAllCoverageImmunizationsId(){
+		public ArrayList<String> getAllCoverageImmunizationsId(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			ArrayList<String> list=new ArrayList<String>();
 			 String strQuery="select "+CHNDatabase._ID
 	                 +" from "+CHNDatabase.COVERAGE_SET_TABLE
 	                 +" where "+ CHNDatabase.COL_COVERAGE_SET_CATEGORY_DETAIL
-	                 +" = '"+"Immunization"+"'";	
+	                 +" = '"+"Immunization"+"'"
+	                 +" and "+CHNDatabase.COL_COVERAGE_MONTH
+	                 +" = '"+month+"'";
 			 
 			System.out.println(strQuery);			
 			Cursor c=db.rawQuery(strQuery, null);
@@ -333,14 +352,16 @@ public class CHNDatabaseHandler {
 			c.close();
 			return list;
 		}
-		public ArrayList<String> getAllCoveragePeopleTarget(){
+		public ArrayList<String> getAllCoveragePeopleTarget(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			ArrayList<String> list=new ArrayList<String>();
 			 String strQuery="select "+CHNDatabase._ID
 	                 +","+CHNDatabase.COL_COVERAGE_SET_CATEGORY_NAME
 	                 +" from "+CHNDatabase.COVERAGE_SET_TABLE
 	                 +" where "+ CHNDatabase.COL_COVERAGE_SET_CATEGORY_DETAIL
-	                 +" = '"+"People"+"'";	
+	                 +" = '"+"People"+"'"
+	                 +" and "+CHNDatabase.COL_COVERAGE_MONTH
+	                 +" = '"+month+"'";
 			 
 			System.out.println(strQuery);
 			Cursor c=db.rawQuery(strQuery, null);
@@ -354,14 +375,16 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public ArrayList<String> getAllCoveragePeopleNumber(){
+		public ArrayList<String> getAllCoveragePeopleNumber(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			ArrayList<String> list=new ArrayList<String>();
 			 String strQuery="select "+CHNDatabase._ID
 	                 +","+CHNDatabase.COL_COVERAGE_NUMBER
 	                 +" from "+CHNDatabase.COVERAGE_SET_TABLE
 	                 +" where "+ CHNDatabase.COL_COVERAGE_SET_CATEGORY_DETAIL
-	                 +" = '"+"People"+"'";	
+	                 +" = '"+"People"+"'"
+	                 +" and "+CHNDatabase.COL_COVERAGE_MONTH
+	                 +" = '"+month+"'";
 			 
 			System.out.println(strQuery);
 			Cursor c=db.rawQuery(strQuery, null);
@@ -375,14 +398,16 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public ArrayList<String> getAllCoveragePeoplePeriod(){
+		public ArrayList<String> getAllCoveragePeoplePeriod(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			ArrayList<String> list=new ArrayList<String>();
 			 String strQuery="select "+CHNDatabase._ID
 	                 +","+CHNDatabase.COL_COVERAGE_SET_PERIOD
 	                 +" from "+CHNDatabase.COVERAGE_SET_TABLE
 	                 +" where "+ CHNDatabase.COL_COVERAGE_SET_CATEGORY_DETAIL
-	                 +" = '"+"People"+"'";	
+	                 +" = '"+"People"+"'"
+	                 +" and "+CHNDatabase.COL_COVERAGE_MONTH
+	                 +" = '"+month+"'";
 			 
 			System.out.println(strQuery);
 			Cursor c=db.rawQuery(strQuery, null);
@@ -397,13 +422,15 @@ public class CHNDatabaseHandler {
 		}
 		
 		
-		public ArrayList<String> getAllCoveragePeopleId(){
+		public ArrayList<String> getAllCoveragePeopleId(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			ArrayList<String> list=new ArrayList<String>();
 			 String strQuery="select "+CHNDatabase._ID
 	                 +" from "+CHNDatabase.COVERAGE_SET_TABLE
 	                 +" where "+ CHNDatabase.COL_COVERAGE_SET_CATEGORY_DETAIL
-	                 +" = '"+"People"+"'";	
+	                 +" = '"+"People"+"'"
+	                 +" and "+CHNDatabase.COL_COVERAGE_MONTH
+	                 +" = '"+month+"'";
 			 
 			System.out.println(strQuery);
 			Cursor c=db.rawQuery(strQuery, null);
@@ -416,12 +443,14 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public ArrayList<String> getAllLearningCategory(){
+		public ArrayList<String> getAllLearningCategory(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			ArrayList<String> list=new ArrayList<String>();
 			 String strQuery="select "+CHNDatabase._ID
 	                 +","+CHNDatabase.COL_LEARNING_CATEGORY
-	                 +" from "+CHNDatabase.LEARNING_TABLE;
+	                 +" from "+CHNDatabase.LEARNING_TABLE
+	                 +" where "+CHNDatabase.COL_LEARNING_MONTH
+	                 +" = '"+month+"'";
 			 
 			System.out.println(strQuery);
 			Cursor c=db.rawQuery(strQuery, null);
@@ -476,14 +505,16 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public ArrayList<String> getAllLearningFamilyPlanning(){
+		public ArrayList<String> getAllLearningFamilyPlanning(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			ArrayList<String> list=new ArrayList<String>();
 			 String strQuery="select "+CHNDatabase._ID
 					 +","+CHNDatabase.COL_LEARNING_DESCRIPTION
 	                 +" from "+CHNDatabase.LEARNING_TABLE
 	                 +" where "+ CHNDatabase.COL_LEARNING_CATEGORY
-	                 +" = '"+"Family Planning"+"'";	
+	                 +" = '"+"Family Planning"+"'"
+	                 +" and "+CHNDatabase.COL_LEARNING_MONTH
+	                 +" ='"+month+"'";	
 			 
 			System.out.println(strQuery);
 			Cursor c=db.rawQuery(strQuery, null);
@@ -576,12 +607,14 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public ArrayList<String> getAllOtherCategory(){
+		public ArrayList<String> getAllOtherCategory(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			ArrayList<String> list=new ArrayList<String>();
 			 String strQuery="select "+CHNDatabase._ID
 	                 +","+CHNDatabase.COL_OTHER_CATEGORY
-	                 +" from "+CHNDatabase.OTHER_TABLE;
+	                 +" from "+CHNDatabase.OTHER_TABLE
+	                 +" where "+CHNDatabase.COL_OTHER_MONTH
+	                 +" ='"+month+"'";
 			 
 			System.out.println(strQuery);
 			Cursor c=db.rawQuery(strQuery, null);
@@ -594,12 +627,14 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public ArrayList<String> getAllOtherNumber(){
+		public ArrayList<String> getAllOtherNumber(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			ArrayList<String> list=new ArrayList<String>();
 			 String strQuery="select "+CHNDatabase._ID
 	                 +","+CHNDatabase.COL_OTHER_NUMBER
-	                 +" from "+CHNDatabase.OTHER_TABLE;
+	                 +" from "+CHNDatabase.OTHER_TABLE
+	                 +" where "+CHNDatabase.COL_OTHER_MONTH
+	                 +" ='"+month+"'";
 			 
 			System.out.println(strQuery);
 			Cursor c=db.rawQuery(strQuery, null);
@@ -611,13 +646,14 @@ public class CHNDatabaseHandler {
 			c.close();
 			return list;
 		}
-		public ArrayList<String> getAllOtherPeriod(){
+		public ArrayList<String> getAllOtherPeriod(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			ArrayList<String> list=new ArrayList<String>();
 			 String strQuery="select "+CHNDatabase._ID
 	                 +","+CHNDatabase.COL_OTHER_PERIOD
-	                 +" from "+CHNDatabase.OTHER_TABLE;
-			 
+	                 +" from "+CHNDatabase.OTHER_TABLE
+	                 +" where "+CHNDatabase.COL_OTHER_MONTH
+	                 +" ='"+month+"'";
 			System.out.println(strQuery);
 			Cursor c=db.rawQuery(strQuery, null);
 			c.moveToFirst();
@@ -629,12 +665,14 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public ArrayList<String> getAllOthersId(){
+		public ArrayList<String> getAllOthersId(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			ArrayList<String> list=new ArrayList<String>();
 			 String strQuery="select "+CHNDatabase._ID
 	                 +","+CHNDatabase.COL_OTHER_CATEGORY
-	                 +" from "+CHNDatabase.OTHER_TABLE;
+	                 +" from "+CHNDatabase.OTHER_TABLE
+	                 +" where "+CHNDatabase.COL_OTHER_MONTH
+	                 +" ='"+month+"'";
 			 
 			System.out.println(strQuery);
 			Cursor c=db.rawQuery(strQuery, null);
@@ -686,6 +724,302 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
+		public HashMap<String,String> getAllDailyOther(){
+			SQLiteDatabase db = mDbHelper.getReadableDatabase();
+			HashMap<String,String> list=new HashMap<String,String>();
+			 String strQuery="select "+CHNDatabase._ID
+	                 +","+CHNDatabase.COL_OTHER_CATEGORY
+	                 +","+CHNDatabase.COL_OTHER_NUMBER
+	                 +" from "+CHNDatabase.OTHER_TABLE
+	                 +" where "+CHNDatabase.COL_OTHER_PERIOD
+	                 + " = '"+"Daily"+"'"
+	                 +" and "+CHNDatabase.COL_SYNC_STATUS
+	                 + " = '"+"new_record"+"'";	
+			 
+			System.out.println(strQuery);
+			Cursor c=db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			while (c.isAfterLast()==false){
+				list.put("other_id",c.getString(c.getColumnIndex(CHNDatabase._ID)));
+				list.put("other_name", c.getString(c.getColumnIndex(CHNDatabase.COL_OTHER_CATEGORY)));
+				list.put("other_number",  c.getString(c.getColumnIndex(CHNDatabase.COL_OTHER_NUMBER)));
+				c.moveToNext();						
+			}
+			c.close();
+			return list;
+		}
+		
+		public HashMap<String,String> getAllMonthlyOthers(){
+			SQLiteDatabase db = mDbHelper.getReadableDatabase();
+			HashMap<String,String> list=new HashMap<String,String>();
+			 String strQuery="select "+CHNDatabase._ID
+	                 +","+CHNDatabase.COL_OTHER_CATEGORY
+	                 +","+CHNDatabase.COL_OTHER_NUMBER
+	                 +" from "+CHNDatabase.OTHER_TABLE
+	                 +" where "+CHNDatabase.COL_OTHER_PERIOD
+	                 + " = '"+"Monthly"+"'"
+	                 +" and "+CHNDatabase.COL_SYNC_STATUS
+	                 + " = '"+"new_record"+"'";	
+			 
+			System.out.println(strQuery);
+			Cursor c=db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			while (c.isAfterLast()==false){
+				list.put("other_id",c.getString(c.getColumnIndex(CHNDatabase._ID)));
+				list.put("other_name", c.getString(c.getColumnIndex(CHNDatabase.COL_OTHER_CATEGORY)));
+				list.put("other_number",  c.getString(c.getColumnIndex(CHNDatabase.COL_OTHER_NUMBER)));
+				c.moveToNext();						
+			}
+			c.close();
+			return list;
+		}
+		
+		public HashMap<String,String> getAllWeeklyOther(){
+			SQLiteDatabase db = mDbHelper.getReadableDatabase();
+			HashMap<String,String> list=new HashMap<String,String>();
+			String strQuery="select "+CHNDatabase._ID
+	                 +","+CHNDatabase.COL_OTHER_CATEGORY
+	                 +","+CHNDatabase.COL_OTHER_NUMBER
+	                 +" from "+CHNDatabase.OTHER_TABLE
+	                 +" where "+CHNDatabase.COL_OTHER_PERIOD
+	                 + " = '"+"Weekly"+"'"
+	                 +" and "+CHNDatabase.COL_SYNC_STATUS
+	                 + " = '"+"new_record"+"'";	
+			 
+			System.out.println(strQuery);
+			Cursor c=db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			while (c.isAfterLast()==false){
+				list.put("other_id",c.getString(c.getColumnIndex(CHNDatabase._ID)));
+				list.put("other_name", c.getString(c.getColumnIndex(CHNDatabase.COL_OTHER_CATEGORY)));
+				list.put("other_number",  c.getString(c.getColumnIndex(CHNDatabase.COL_OTHER_NUMBER)));
+				c.moveToNext();						
+			}
+			c.close();
+			return list;
+		}
+		public HashMap<String,String> getAllYearlyOther(){
+			SQLiteDatabase db = mDbHelper.getReadableDatabase();
+			HashMap<String,String> list=new HashMap<String,String>();
+			String strQuery="select "+CHNDatabase._ID
+	                 +","+CHNDatabase.COL_OTHER_CATEGORY
+	                 +","+CHNDatabase.COL_OTHER_NUMBER
+	                 +" from "+CHNDatabase.OTHER_TABLE
+	                 +" where "+CHNDatabase.COL_OTHER_PERIOD
+	                 + " = '"+"Yearly"+"'"
+	                 +" and "+CHNDatabase.COL_SYNC_STATUS
+	                 + " = '"+"new_record"+"'";	
+			 
+			System.out.println(strQuery);
+			Cursor c=db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			while (c.isAfterLast()==false){
+				list.put("other_id",c.getString(c.getColumnIndex(CHNDatabase._ID)));
+				list.put("other_name", c.getString(c.getColumnIndex(CHNDatabase.COL_OTHER_CATEGORY)));
+				list.put("other_number",  c.getString(c.getColumnIndex(CHNDatabase.COL_OTHER_NUMBER)));
+				c.moveToNext();						
+			}
+			c.close();
+			return list;
+		}
+		
+	
+		public HashMap<String,String> getAllDailyCoverage(){
+			SQLiteDatabase db = mDbHelper.getReadableDatabase();
+			HashMap<String,String> list=new HashMap<String,String>();
+			 String strQuery="select "+CHNDatabase._ID
+	                 +","+CHNDatabase.COL_COVERAGE_SET_CATEGORY_NAME
+	                 +","+CHNDatabase.COL_COVERAGE_NUMBER
+	                 +" from "+CHNDatabase.COVERAGE_SET_TABLE
+	                 +" where "+CHNDatabase.COL_COVERAGE_SET_PERIOD
+	                 + " = '"+"Daily"+"'"
+	                 +" and "+CHNDatabase.COL_SYNC_STATUS
+	                 + " = '"+"new_record"+"'";	
+			 
+			System.out.println(strQuery);
+			Cursor c=db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			while (c.isAfterLast()==false){
+				list.put("coverage_id",c.getString(c.getColumnIndex(CHNDatabase._ID)));
+				list.put("coverage_name", c.getString(c.getColumnIndex(CHNDatabase.COL_COVERAGE_SET_CATEGORY_NAME)));
+				list.put("coverage_number",  c.getString(c.getColumnIndex(CHNDatabase.COL_COVERAGE_NUMBER)));
+				c.moveToNext();						
+			}
+			c.close();
+			return list;
+		}
+		
+		public HashMap<String,String> getAllMonthlyCoverage(){
+			SQLiteDatabase db = mDbHelper.getReadableDatabase();
+			HashMap<String,String> list=new HashMap<String,String>();
+			 String strQuery="select "+CHNDatabase._ID
+	                 +","+CHNDatabase.COL_COVERAGE_SET_CATEGORY_NAME
+	                 +","+CHNDatabase.COL_COVERAGE_NUMBER
+	                 +" from "+CHNDatabase.COVERAGE_SET_TABLE
+	                 +" where "+CHNDatabase.COL_COVERAGE_SET_PERIOD
+	                 + " = '"+"Monthly"+"'"
+	                 +" and "+CHNDatabase.COL_SYNC_STATUS
+	                 + " = '"+"new_record"+"'";	
+			 
+			System.out.println(strQuery);
+			Cursor c=db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			while (c.isAfterLast()==false){
+				list.put("coverage_id",c.getString(c.getColumnIndex(CHNDatabase._ID)));
+				list.put("coverage_name", c.getString(c.getColumnIndex(CHNDatabase.COL_COVERAGE_SET_CATEGORY_NAME)));
+				list.put("coverage_number",  c.getString(c.getColumnIndex(CHNDatabase.COL_COVERAGE_NUMBER)));
+				c.moveToNext();						
+			}
+			c.close();
+			return list;
+		}
+		
+		public HashMap<String,String> getAllWeeklyCoverage(){
+			SQLiteDatabase db = mDbHelper.getReadableDatabase();
+			HashMap<String,String> list=new HashMap<String,String>();
+			 String strQuery="select "+CHNDatabase._ID
+	                 +","+CHNDatabase.COL_COVERAGE_SET_CATEGORY_NAME
+	                 +","+CHNDatabase.COL_COVERAGE_NUMBER
+	                 +" from "+CHNDatabase.COVERAGE_SET_TABLE
+	                 +" where "+CHNDatabase.COL_COVERAGE_SET_PERIOD
+	                 + " = '"+"Weekly"+"'"
+	                 +" and "+CHNDatabase.COL_SYNC_STATUS
+	                 + " = '"+"new_record"+"'";	
+			 
+			System.out.println(strQuery);
+			Cursor c=db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			while (c.isAfterLast()==false){
+				list.put("coverage_id",c.getString(c.getColumnIndex(CHNDatabase._ID)));
+				list.put("coverage_name", c.getString(c.getColumnIndex(CHNDatabase.COL_COVERAGE_SET_CATEGORY_NAME)));
+				list.put("coverage_number",  c.getString(c.getColumnIndex(CHNDatabase.COL_COVERAGE_NUMBER)));
+				c.moveToNext();						
+			}
+			c.close();
+			return list;
+		}
+		public HashMap<String,String> getAllYearlyCoverage(){
+			SQLiteDatabase db = mDbHelper.getReadableDatabase();
+			HashMap<String,String> list=new HashMap<String,String>();
+			 String strQuery="select "+CHNDatabase._ID
+	                 +","+CHNDatabase.COL_COVERAGE_SET_CATEGORY_NAME
+	                 +","+CHNDatabase.COL_COVERAGE_NUMBER
+	                 +" from "+CHNDatabase.COVERAGE_SET_TABLE
+	                 +" where "+CHNDatabase.COL_COVERAGE_SET_PERIOD
+	                 + " = '"+"Yearly"+"'"
+	                 +" and "+CHNDatabase.COL_SYNC_STATUS
+	                 + " = '"+"new_record"+"'";	
+			 
+			System.out.println(strQuery);
+			Cursor c=db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			while (c.isAfterLast()==false){
+				list.put("coverage_id",c.getString(c.getColumnIndex(CHNDatabase._ID)));
+				list.put("coverage_name", c.getString(c.getColumnIndex(CHNDatabase.COL_COVERAGE_SET_CATEGORY_NAME)));
+				list.put("coverage_number",  c.getString(c.getColumnIndex(CHNDatabase.COL_COVERAGE_NUMBER)));
+				c.moveToNext();						
+			}
+			c.close();
+			return list;
+		}
+		
+		public HashMap<String,String> getAllDailyEvents(){
+			SQLiteDatabase db = mDbHelper.getReadableDatabase();
+			HashMap<String,String> list=new HashMap<String,String>();
+			 String strQuery="select "+CHNDatabase._ID
+	                 +","+CHNDatabase.COL_EVENT_SET_NAME
+	                 +","+CHNDatabase.COL_EVENT_NUMBER
+	                 +" from "+CHNDatabase.EVENTS_SET_TABLE
+	                 +" where "+CHNDatabase.COL_EVENT_PERIOD
+	                 + " = '"+"Daily"+"'"
+	                 +" and "+CHNDatabase.COL_SYNC_STATUS
+	                 + " = '"+"new_record"+"'";	
+			 
+			System.out.println(strQuery);
+			Cursor c=db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			while (c.isAfterLast()==false){
+				list.put("event_id",c.getString(c.getColumnIndex(CHNDatabase._ID)));
+				list.put("event_name", c.getString(c.getColumnIndex(CHNDatabase.COL_EVENT_SET_NAME)));
+				list.put("event_number",  c.getString(c.getColumnIndex(CHNDatabase.COL_EVENT_NUMBER)));
+				c.moveToNext();						
+			}
+			c.close();
+			return list;
+		}
+		public HashMap<String,String> getAllMonthlyEvents(){
+			SQLiteDatabase db = mDbHelper.getReadableDatabase();
+			HashMap<String,String> list=new HashMap<String,String>();
+			 String strQuery="select "+CHNDatabase._ID
+	                 +","+CHNDatabase.COL_EVENT_SET_NAME
+	                 +","+CHNDatabase.COL_EVENT_NUMBER
+	                 +" from "+CHNDatabase.EVENTS_SET_TABLE
+	                 +" where "+CHNDatabase.COL_EVENT_PERIOD
+	                 + " = '"+"Monthly"+"'"
+	                 +" and "+CHNDatabase.COL_SYNC_STATUS
+	                 + " = '"+"new_record"+"'";	
+			 
+			System.out.println(strQuery);
+			Cursor c=db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			while (c.isAfterLast()==false){
+				list.put("event_id",c.getString(c.getColumnIndex(CHNDatabase._ID)));
+				list.put("event_name", c.getString(c.getColumnIndex(CHNDatabase.COL_EVENT_SET_NAME)));
+				list.put("event_number",  c.getString(c.getColumnIndex(CHNDatabase.COL_EVENT_NUMBER)));
+				c.moveToNext();						
+			}
+			c.close();
+			return list;
+		}
+		
+		public HashMap<String,String> getAllWeeklyEvents(){
+			SQLiteDatabase db = mDbHelper.getReadableDatabase();
+			HashMap<String,String> list=new HashMap<String,String>();
+			 String strQuery="select "+CHNDatabase._ID
+	                 +","+CHNDatabase.COL_EVENT_SET_NAME
+	                 +","+CHNDatabase.COL_EVENT_NUMBER
+	                 +" from "+CHNDatabase.EVENTS_SET_TABLE
+	                 +" where "+CHNDatabase.COL_EVENT_PERIOD
+	                 + " = '"+"Weekly"+"'"
+	                 +" and "+CHNDatabase.COL_SYNC_STATUS
+	                 + " = '"+"new_record"+"'";	
+			 
+			System.out.println(strQuery);
+			Cursor c=db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			while (c.isAfterLast()==false){
+				list.put("event_id",c.getString(c.getColumnIndex(CHNDatabase._ID)));
+				list.put("event_name", c.getString(c.getColumnIndex(CHNDatabase.COL_EVENT_SET_NAME)));
+				list.put("event_number",  c.getString(c.getColumnIndex(CHNDatabase.COL_EVENT_NUMBER)));
+				c.moveToNext();						
+			}
+			c.close();
+			return list;
+		}
+		public HashMap<String,String> getAllYearlyEvents(){
+			SQLiteDatabase db = mDbHelper.getReadableDatabase();
+			HashMap<String,String> list=new HashMap<String,String>();
+			 String strQuery="select "+CHNDatabase._ID
+	                 +","+CHNDatabase.COL_EVENT_SET_NAME
+	                 +","+CHNDatabase.COL_EVENT_NUMBER
+	                 +" from "+CHNDatabase.EVENTS_SET_TABLE
+	                 +" where "+CHNDatabase.COL_EVENT_PERIOD
+	                 + " = '"+"Yearly"+"'"
+	                 +" and "+CHNDatabase.COL_SYNC_STATUS
+	                 + " = '"+"new_record"+"'";	
+			 
+			System.out.println(strQuery);
+			Cursor c=db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			while (c.isAfterLast()==false){
+				list.put("event_id",c.getString(c.getColumnIndex(CHNDatabase._ID)));
+				list.put("event_name", c.getString(c.getColumnIndex(CHNDatabase.COL_EVENT_SET_NAME)));
+				list.put("event_number",  c.getString(c.getColumnIndex(CHNDatabase.COL_EVENT_NUMBER)));
+				c.moveToNext();						
+			}
+			c.close();
+			return list;
+		}
 		public boolean editEventCategory(String event_category,String event_number,String event_period, long id){
 			 SQLiteDatabase database = mDbHelper.getWritableDatabase();    
 		        String updateQuery = "Update "+CHNDatabase.EVENTS_SET_TABLE+" set "+

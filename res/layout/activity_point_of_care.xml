@@ -19,8 +19,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.00"
+            android:layout_height="150dp"
             android:background="@drawable/bg_marquee"
             android:orientation="vertical" >
 
@@ -38,7 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="194dp"
         android:layout_gravity="bottom"
-        android:layout_weight="0.02"
+        android:layout_weight="1.45"
+        android:background="@color/BackgroundGrey"
         android:dividerHeight="2dp"
         android:fadingEdgeLength="6dp" >
 

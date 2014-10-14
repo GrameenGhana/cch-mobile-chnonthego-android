@@ -26,6 +26,7 @@ public static abstract class CHNDatabase implements BaseColumns{
 	public static final String COL_EVENT_SET_NAME="event_name";
 	public static final String COL_EVENT_PERIOD="event_period";
 	public static final String COL_EVENT_NUMBER="event_number";
+	public static final String COL_EVENT_MONTH="month";
 	public static final String COL_SYNC_STATUS ="sync_status";
 	
 	//column names for coverage_category
@@ -37,6 +38,8 @@ public static abstract class CHNDatabase implements BaseColumns{
 	public static final String COL_COVERAGE_SET_CATEGORY_DETAIL="category_detail";
 	public static final String COL_COVERAGE_SET_PERIOD="coverage_period";
 	public static final String COL_COVERAGE_NUMBER="category_number";
+	public static final String COL_COVERAGE_MONTH="month";
+	
 	
 	//column names for users
 	public static final String COL_FIRSTNAME="firstname";
@@ -48,11 +51,13 @@ public static abstract class CHNDatabase implements BaseColumns{
 	//column names for learning table
 	public static final String COL_LEARNING_CATEGORY="learning_category";
 	public static final String COL_LEARNING_DESCRIPTION="learning_description";
+	public static final String COL_LEARNING_MONTH="month";
 
 	//column names for other table
 	public static final String COL_OTHER_CATEGORY="other_category";
 	public static final String COL_OTHER_NUMBER="other_number";
 	public static final String COL_OTHER_PERIOD="other_period";
+	public static final String COL_OTHER_MONTH="month";
 	//column names for login activity table
 		public static final String 	COL_DATE_LOGGED_IN="date_logged_in";
 		public static final String 	COL_TIME_LOGGED_IN="time_logged_in";
@@ -89,6 +94,7 @@ public static abstract class CHNDatabase implements BaseColumns{
 			    		CHNDatabase.COL_EVENT_SET_NAME + TEXT_TYPE + COMMA_SEP +
 			    		CHNDatabase.COL_EVENT_PERIOD + TEXT_TYPE + COMMA_SEP +
 			    		CHNDatabase.COL_SYNC_STATUS + TEXT_TYPE + COMMA_SEP +
+			    		CHNDatabase.COL_EVENT_MONTH + TEXT_TYPE + COMMA_SEP +
 			    		CHNDatabase.COL_EVENT_NUMBER+TEXT_TYPE+
 			    " )";
 		
@@ -109,6 +115,7 @@ public static abstract class CHNDatabase implements BaseColumns{
 					    		CHNDatabase.COL_COVERAGE_SET_CATEGORY_DETAIL + TEXT_TYPE + COMMA_SEP +
 					    		CHNDatabase.COL_COVERAGE_SET_PERIOD + TEXT_TYPE + COMMA_SEP +
 					    		CHNDatabase.COL_COVERAGE_NUMBER + TEXT_TYPE + COMMA_SEP +
+					    		CHNDatabase.COL_COVERAGE_MONTH+ TEXT_TYPE + COMMA_SEP +
 					    		CHNDatabase.COL_SYNC_STATUS+TEXT_TYPE+
 					    " )";
 				
@@ -118,6 +125,7 @@ public static abstract class CHNDatabase implements BaseColumns{
 			    		CHNDatabase._ID + " INTEGER PRIMARY KEY," +
 			    		CHNDatabase.COL_LEARNING_CATEGORY + TEXT_TYPE + COMMA_SEP +
 			    		CHNDatabase.COL_LEARNING_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+			    		CHNDatabase.COL_LEARNING_MONTH+ TEXT_TYPE + COMMA_SEP +
 			    		CHNDatabase.COL_SYNC_STATUS+ TEXT_TYPE+
 			    " )";
 		
@@ -128,6 +136,7 @@ public static abstract class CHNDatabase implements BaseColumns{
 			    		CHNDatabase.COL_OTHER_CATEGORY + TEXT_TYPE + COMMA_SEP +
 			    		CHNDatabase.COL_OTHER_NUMBER + TEXT_TYPE + COMMA_SEP +
 			    		CHNDatabase.COL_OTHER_PERIOD + TEXT_TYPE + COMMA_SEP+
+			    		CHNDatabase.COL_OTHER_MONTH + TEXT_TYPE + COMMA_SEP+
 			    		CHNDatabase.COL_SYNC_STATUS+ TEXT_TYPE+
 			    " )";
 		
