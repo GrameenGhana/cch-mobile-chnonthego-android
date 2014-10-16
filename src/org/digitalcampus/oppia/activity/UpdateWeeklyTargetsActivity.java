@@ -121,18 +121,23 @@ public class UpdateWeeklyTargetsActivity extends Activity {
         }
 	    db=new DbHelper(mContext);
 	    //retrieve Weekly event targets that need to be updated
-	    eventUpdateItemsWeekly=db.getAllWeeklyCoverage(current_month);
+	    eventId=new ArrayList<String>();
+    	eventNumber=new ArrayList<String>();
+    	eventType=new ArrayList<String>();
+	    eventUpdateItemsWeekly=db.getAllWeeklyEvents(current_month);
 	    eventType.add(eventUpdateItemsWeekly.get("event_name"));
 	    eventId.add(eventUpdateItemsWeekly.get("event_id"));
 	    eventNumber.add(eventUpdateItemsWeekly.get("event_number"));
 	    if(eventUpdateItemsWeekly.isEmpty()){
-	    	linearLayout_eventsUpdate.setVisibility(View.GONE);
-	   
+	    	linearLayout_eventsUpdate.setVisibility(View.GONE);	   
 	    }else {
 	    	 eventUpdateAdapter=new eventsUpdateListAdapter(mContext, eventType, eventId, eventNumber);
 	 	    listView_eventsUpdate.setAdapter(eventUpdateAdapter);
 	    }
 	    //retrieve monthly coverage targets that need to be updated
+	    coverageId=new ArrayList<String>();
+		coverageNumber=new ArrayList<String>();
+    	coverageType=new ArrayList<String>();
 	    coverageUpdateItemsWeekly=db.getAllWeeklyCoverage(current_month);
 	    coverageType.add(coverageUpdateItemsWeekly.get("coverage_name"));
 		coverageId.add(coverageUpdateItemsWeekly.get("coverage_id"));
@@ -145,6 +150,9 @@ public class UpdateWeeklyTargetsActivity extends Activity {
 		}
 		
 		 //retrieve monthly other targets that need to be updated
+		otherId=new ArrayList<String>();
+    	otherNumber=new ArrayList<String>();
+		otherType=new ArrayList<String>();
 	    otherUpdateItemsWeekly=db.getAllWeeklyOther(current_month);
 	    otherType.add(otherUpdateItemsWeekly.get("other_name"));
 	    otherId.add(otherUpdateItemsWeekly.get("other_id"));
@@ -369,7 +377,7 @@ public class UpdateWeeklyTargetsActivity extends Activity {
 								            	if(otherUpdateItemsWeekly.isEmpty()){
 								            		linearLayout_otherUpdate.setVisibility(View.GONE);
 								            	}else{
-								            		 otherType.add(otherUpdateItemsWeekly.get("other_name"));
+								            		otherType.add(otherUpdateItemsWeekly.get("other_name"));
 								         	 	    otherId.add(otherUpdateItemsWeekly.get("other_id"));
 								         	 	    otherNumber.add(otherUpdateItemsWeekly.get("other_number"));
 								         	    	otherUpdateAdapter=new otherUpdateListAdapter(mContext, otherType, otherId, otherNumber);
@@ -424,13 +432,16 @@ public class UpdateWeeklyTargetsActivity extends Activity {
        	 LayoutInflater inflater = (LayoutInflater) mContext
     		        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     	  list = new View(mContext);
-    	  list = inflater.inflate(R.layout.listview_text_single, null);
+    	  list = inflater.inflate(R.layout.event_listview_single, null);
       	
         } else {
       	  list = (View) convertView;  
         }
-		 TextView text=(TextView) list.findViewById(R.id.textView_listViewText);
-		 text.setText(eventType.get(position));
+		TextView textView2 = (TextView) list.findViewById(R.id.textView_eventCategory);
+        textView2.setText(eventType.get(position));
+        
+        TextView textView3 = (TextView) list.findViewById(R.id.textView_eventNumber);
+        textView3.setText(eventNumber.get(position));
 		    return list;
 	}
 	
@@ -476,13 +487,16 @@ public class UpdateWeeklyTargetsActivity extends Activity {
        	 LayoutInflater inflater = (LayoutInflater) mContext
     		        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     	  list = new View(mContext);
-    	  list = inflater.inflate(R.layout.listview_text_single, null);
+    	  list = inflater.inflate(R.layout.event_listview_single, null);
       	
         } else {
       	  list = (View) convertView;  
         }
-		 TextView text=(TextView) list.findViewById(R.id.textView_listViewText);
-		 text.setText(coverageType.get(position));
+		 TextView textView2 = (TextView) list.findViewById(R.id.textView_eventCategory);
+         textView2.setText(coverageType.get(position));
+         
+         TextView textView3 = (TextView) list.findViewById(R.id.textView_eventNumber);
+         textView3.setText(coverageNumber.get(position));
 		    return list;
 	}
 	
@@ -529,13 +543,16 @@ public class UpdateWeeklyTargetsActivity extends Activity {
        	 LayoutInflater inflater = (LayoutInflater) mContext
     		        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     	  list = new View(mContext);
-    	  list = inflater.inflate(R.layout.listview_text_single, null);
+    	  list = inflater.inflate(R.layout.event_listview_single, null);
       	
         } else {
       	  list = (View) convertView;  
         }
-		 TextView text=(TextView) list.findViewById(R.id.textView_listViewText);
-		 text.setText(otherType.get(position));
+		 TextView textView2 = (TextView) list.findViewById(R.id.textView_eventCategory);
+         textView2.setText(otherType.get(position));
+         
+         TextView textView3 = (TextView) list.findViewById(R.id.textView_eventNumber);
+         textView3.setText(otherNumber.get(position));
 		    return list;
 	}
 	

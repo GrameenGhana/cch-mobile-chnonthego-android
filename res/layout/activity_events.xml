@@ -32,12 +32,10 @@
             android:id="@+id/button_addEvent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:drawableLeft="@drawable/ic_add"
             android:minHeight="28dp"
             android:text="Add event"
-            android:textColor="@color/TextColorWine"
-            android:textStyle="bold" />
+            android:textColor="@color/TextColorWine" />
 
     </LinearLayout>
 

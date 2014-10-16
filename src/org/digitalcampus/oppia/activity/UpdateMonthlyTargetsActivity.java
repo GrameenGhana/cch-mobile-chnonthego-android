@@ -118,7 +118,10 @@ public class UpdateMonthlyTargetsActivity extends Activity {
         }
 	    db=new DbHelper(mContext);
 	    //retrieve daily event targets that need to be updated
-	    eventUpdateItemsMonthly=db.getAllMonthlyCoverage(current_month);
+	    eventId=new ArrayList<String>();
+    	eventNumber=new ArrayList<String>();
+    	eventType=new ArrayList<String>();
+	    eventUpdateItemsMonthly=db.getAllMonthlyEvents(current_month);
 	    eventType.add(eventUpdateItemsMonthly.get("event_name"));
 	    eventId.add(eventUpdateItemsMonthly.get("event_id"));
 	    eventNumber.add(eventUpdateItemsMonthly.get("event_number"));
@@ -130,6 +133,9 @@ public class UpdateMonthlyTargetsActivity extends Activity {
 	 	    listView_eventsUpdate.setAdapter(eventUpdateAdapter);
 	    }
 	    //retrieve monthly coverage targets that need to be updated
+	    coverageId=new ArrayList<String>();
+		coverageNumber=new ArrayList<String>();
+    	coverageType=new ArrayList<String>();
 	    coverageUpdateItemsMonthly=db.getAllMonthlyCoverage(current_month);
 	    coverageType.add(coverageUpdateItemsMonthly.get("coverage_name"));
 		coverageId.add(coverageUpdateItemsMonthly.get("coverage_id"));
@@ -142,6 +148,9 @@ public class UpdateMonthlyTargetsActivity extends Activity {
 		}
 		
 		 //retrieve monthly other targets that need to be updated
+		otherId=new ArrayList<String>();
+    	otherNumber=new ArrayList<String>();
+		otherType=new ArrayList<String>();
 	    otherUpdateItemsMonthly=db.getAllMonthlyOthers(current_month);
 	    otherType.add(otherUpdateItemsMonthly.get("other_name"));
 	    otherId.add(otherUpdateItemsMonthly.get("other_id"));
@@ -421,13 +430,16 @@ public class UpdateMonthlyTargetsActivity extends Activity {
        	 LayoutInflater inflater = (LayoutInflater) mContext
     		        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     	  list = new View(mContext);
-    	  list = inflater.inflate(R.layout.listview_text_single, null);
+    	  list = inflater.inflate(R.layout.event_listview_single, null);
       	
         } else {
       	  list = (View) convertView;  
         }
-		 TextView text=(TextView) list.findViewById(R.id.textView_listViewText);
-		 text.setText(eventType.get(position));
+		TextView textView2 = (TextView) list.findViewById(R.id.textView_eventCategory);
+        textView2.setText(eventType.get(position));
+        
+        TextView textView3 = (TextView) list.findViewById(R.id.textView_eventNumber);
+        textView3.setText(eventNumber.get(position));
 		    return list;
 	}
 	
@@ -473,13 +485,16 @@ public class UpdateMonthlyTargetsActivity extends Activity {
        	 LayoutInflater inflater = (LayoutInflater) mContext
     		        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     	  list = new View(mContext);
-    	  list = inflater.inflate(R.layout.listview_text_single, null);
+    	  list = inflater.inflate(R.layout.event_listview_single, null);
       	
         } else {
       	  list = (View) convertView;  
         }
-		 TextView text=(TextView) list.findViewById(R.id.textView_listViewText);
-		 text.setText(coverageType.get(position));
+		 TextView textView2 = (TextView) list.findViewById(R.id.textView_eventCategory);
+         textView2.setText(coverageType.get(position));
+         
+         TextView textView3 = (TextView) list.findViewById(R.id.textView_eventNumber);
+         textView3.setText(coverageNumber.get(position));
 		    return list;
 	}
 	
@@ -526,13 +541,16 @@ public class UpdateMonthlyTargetsActivity extends Activity {
        	 LayoutInflater inflater = (LayoutInflater) mContext
     		        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     	  list = new View(mContext);
-    	  list = inflater.inflate(R.layout.listview_text_single, null);
+    	  list = inflater.inflate(R.layout.event_listview_single, null);
       	
         } else {
       	  list = (View) convertView;  
         }
-		 TextView text=(TextView) list.findViewById(R.id.textView_listViewText);
-		 text.setText(otherType.get(position));
+		 TextView textView2 = (TextView) list.findViewById(R.id.textView_eventCategory);
+         textView2.setText(otherType.get(position));
+         
+         TextView textView3 = (TextView) list.findViewById(R.id.textView_eventNumber);
+         textView3.setText(otherNumber.get(position));
 		    return list;
 	}
 	

@@ -116,7 +116,6 @@ public class UpdateTargetActivity extends Activity{
         	current_month="December";
         	break;
         }
-	    db=new DbHelper(mContext);
 	    //retrieve daily event targets that need to be updated
 	    eventUpdateItemsDaily=db.getAllDailyEvents(current_month);
 	   
@@ -173,6 +172,9 @@ public class UpdateTargetActivity extends Activity{
 				Button dialogButton = (Button) dialog.findViewById(R.id.button_update);
 				final EditText justification=(EditText) dialog.findViewById(R.id.editText_dialogJustification);
 				final EditText comment=(EditText) dialog.findViewById(R.id.editText_comment);
+				final TextView message=(TextView) dialog.findViewById(R.id.textView_message);
+				String[] values=eventUpdateAdapter.getItem(position);
+				message.setText("Were you able to achieve your target of "+values[1]+" "+values[0] +"?");
 				RadioGroup update=(RadioGroup) dialog.findViewById(R.id.radioGroup_updateDialog);
 				update.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 					@Override
@@ -214,6 +216,7 @@ public class UpdateTargetActivity extends Activity{
 										e.printStackTrace();
 									}
 									 db.insertCCHLog("Event Planner", json.toString(), " ", " ");
+									 System.out.println(json.toString());
 									 db.updateEventTarget("updated", id);
 									 Toast.makeText(getApplicationContext(), "Target updated!",
 							         Toast.LENGTH_SHORT).show();
@@ -252,6 +255,9 @@ public class UpdateTargetActivity extends Activity{
 				final EditText comment=(EditText) dialog.findViewById(R.id.editText_comment);
 				final LinearLayout linearLayout_justification=(LinearLayout) dialog.findViewById(R.id.LinearLayout_justification);
 				final LinearLayout linearLayout_comment=(LinearLayout) dialog.findViewById(R.id.LinearLayout_comment);
+				final TextView message=(TextView) dialog.findViewById(R.id.textView_message);
+				String[] values=coverageUpdateAdapter.getItem(position);
+				message.setText("Were you able to achieve your target of "+values[1]+" "+values[0] +"?");
 				final RadioGroup update=(RadioGroup) dialog.findViewById(R.id.radioGroup_updateDialog);
 				update.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 					@Override
@@ -291,6 +297,7 @@ public class UpdateTargetActivity extends Activity{
 										e.printStackTrace();
 									}
 									 db.insertCCHLog("Event Planner", json.toString(), " ", " ");
+									 System.out.println(json.toString());
 									 db.updateCoverageTarget("updated", id);
 									 Toast.makeText(getApplicationContext(), "Target updated!",
 							         Toast.LENGTH_SHORT).show();
@@ -328,6 +335,9 @@ public class UpdateTargetActivity extends Activity{
 				final EditText comment=(EditText) dialog.findViewById(R.id.editText_comment);
 				final LinearLayout linearLayout_justification=(LinearLayout) dialog.findViewById(R.id.LinearLayout_justification);
 				final LinearLayout linearLayout_comment=(LinearLayout) dialog.findViewById(R.id.LinearLayout_comment);
+				final TextView message=(TextView) dialog.findViewById(R.id.textView_message);
+				String[] values=otherUpdateAdapter.getItem(position);
+				message.setText("Were you able to achieve your target of "+values[1]+" "+values[0] +"?");
 				final RadioGroup update=(RadioGroup) dialog.findViewById(R.id.radioGroup_updateDialog);
 				update.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 					@Override
@@ -367,6 +377,7 @@ public class UpdateTargetActivity extends Activity{
 										e.printStackTrace();
 									}
 									 db.insertCCHLog("Event Planner", json.toString(), " ", " ");
+									 System.out.println(json.toString());
 									 db.updateOtherTarget("updated", id);
 									 Toast.makeText(getApplicationContext(), "Target updated!",
 							         Toast.LENGTH_SHORT).show();
@@ -431,13 +442,16 @@ public class UpdateTargetActivity extends Activity{
        	 LayoutInflater inflater = (LayoutInflater) mContext
     		        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     	  list = new View(mContext);
-    	  list = inflater.inflate(R.layout.listview_text_single, null);
+    	  list = inflater.inflate(R.layout.event_listview_single, null);
       	
         } else {
       	  list = (View) convertView;  
         }
-		 TextView text=(TextView) list.findViewById(R.id.textView_listViewText);
-		 text.setText(eventType.get(position));
+		TextView textView2 = (TextView) list.findViewById(R.id.textView_eventCategory);
+        textView2.setText(eventType.get(position));
+        
+        TextView textView3 = (TextView) list.findViewById(R.id.textView_eventNumber);
+        textView3.setText(eventNumber.get(position));
 		    return list;
 	}
 	
@@ -483,13 +497,16 @@ public class UpdateTargetActivity extends Activity{
        	 LayoutInflater inflater = (LayoutInflater) mContext
     		        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     	  list = new View(mContext);
-    	  list = inflater.inflate(R.layout.listview_text_single, null);
+    	  list = inflater.inflate(R.layout.event_listview_single, null);
       	
         } else {
       	  list = (View) convertView;  
         }
-		 TextView text=(TextView) list.findViewById(R.id.textView_listViewText);
-		 text.setText(coverageType.get(position));
+		 TextView textView2 = (TextView) list.findViewById(R.id.textView_eventCategory);
+         textView2.setText(coverageType.get(position));
+         
+         TextView textView3 = (TextView) list.findViewById(R.id.textView_eventNumber);
+         textView3.setText(coverageNumber.get(position));
 		    return list;
 	}
 	
@@ -536,13 +553,16 @@ public class UpdateTargetActivity extends Activity{
        	 LayoutInflater inflater = (LayoutInflater) mContext
     		        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     	  list = new View(mContext);
-    	  list = inflater.inflate(R.layout.listview_text_single, null);
+    	  list = inflater.inflate(R.layout.event_listview_single, null);
       	
         } else {
       	  list = (View) convertView;  
         }
-		 TextView text=(TextView) list.findViewById(R.id.textView_listViewText);
-		 text.setText(otherType.get(position));
+		 TextView textView2 = (TextView) list.findViewById(R.id.textView_eventCategory);
+         textView2.setText(otherType.get(position));
+         
+         TextView textView3 = (TextView) list.findViewById(R.id.textView_eventNumber);
+         textView3.setText(otherNumber.get(position));
 		    return list;
 	}
 	

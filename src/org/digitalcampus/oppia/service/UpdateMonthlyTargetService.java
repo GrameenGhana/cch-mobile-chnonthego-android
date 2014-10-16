@@ -1,8 +1,13 @@
 package org.digitalcampus.oppia.service;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.activity.UpdateMonthlyTargetsActivity;
 import org.digitalcampus.oppia.activity.UpdateWeeklyTargetsActivity;
+import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.service.UpdateTargetsWeeklyService.MyBinder;
 
@@ -25,21 +30,80 @@ public class UpdateMonthlyTargetService extends Service {
 	private final IBinder mBinder = new MyBinder();
 	private SharedPreferences prefs;
 	private int mId;
+	private String current_month;
+	private HashMap<String, String> eventUpdateItemsMonthly;
+	private HashMap<String, String> coverageUpdateItemsMonthly;
+	private HashMap<String, String> otherUpdateItemsMonthly;
+	private ArrayList<String> eventId;
+	private ArrayList<String> coverageId;
+	private ArrayList<String> otherId;
+	private DbHelper db;
 	
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		BugSenseHandler.initAndStartSession(this,MobileLearning.BUGSENSE_API_KEY);
+		 db=new DbHelper(this);
+		Calendar c = Calendar.getInstance();
+        int month=c.get(Calendar.MONTH)+1;
+        switch(month){
+        case 1:
+	        current_month="January";
+	        break;
+        case 2:
+        	current_month="February";
+        	break;
+        case 3:
+        	current_month="March";
+        	break;
+        case 4:
+        	current_month="April";
+        	break;
+        case 5:
+        	current_month="May";
+        	break;
+        case 6:
+        	current_month="June";
+        	break;
+        case 7:
+        	current_month="July";
+        	break;
+        case 8:
+        	current_month="August";
+        	break;
+        case 9:
+        	current_month="September";
+        	break;
+        case 10:
+        	current_month="October";
+        	break;
+        case 11:
+        	current_month="November";
+        	break;
+        case 12:
+        	current_month="December";
+        	break;
+        }
 	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Log.v(TAG, "Starting target update Service");
+		Log.v(TAG, "Starting monthly target update Service");
+		eventUpdateItemsMonthly=db.getAllDailyEvents(current_month);
+		 coverageUpdateItemsMonthly=db.getAllDailyCoverage(current_month);
+		 otherUpdateItemsMonthly=db.getAllDailyOther(current_month);
+		 eventId=new ArrayList<String>();
+		 eventId.add(eventUpdateItemsMonthly.get("event_id"));
+		 coverageId=new ArrayList<String>();
+		 coverageId.add(coverageUpdateItemsMonthly.get("coverage_id"));
+		 otherId=new ArrayList<String>();
+		 otherId.add(otherUpdateItemsMonthly.get("other_id"));
+		 int number=eventUpdateItemsMonthly.get("event_id").length();
 		NotificationCompat.Builder mBuilder =
 		        new NotificationCompat.Builder(this)
 		        .setSmallIcon(R.drawable.app_icon)
 		        .setContentTitle("CHN on the go")
-		        .setContentText("You have monthly targets to update.");
+		        .setContentText("You have "+String.valueOf(number)+" monthly targets to update.");
 		// Creates an explicit intent for an Activity in your app
 		Intent resultIntent = new Intent(this, UpdateMonthlyTargetsActivity.class);
 
@@ -60,6 +124,7 @@ public class UpdateMonthlyTargetService extends Service {
 		mBuilder.setContentIntent(resultPendingIntent);
 		NotificationManager mNotificationManager =
 		    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		mBuilder.setAutoCancel(true);
 		// mId allows you to update the notification later on.
 		mNotificationManager.notify(mId, mBuilder.build());
 		

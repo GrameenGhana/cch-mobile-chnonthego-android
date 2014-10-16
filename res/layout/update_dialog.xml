@@ -10,10 +10,12 @@
         android:gravity="center"
         android:orientation="vertical"
         android:paddingBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:paddingTop="20dp" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textView_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Were you able to acheive this target?"

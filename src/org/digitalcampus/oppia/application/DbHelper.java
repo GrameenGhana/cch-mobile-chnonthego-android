@@ -209,6 +209,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		db.execSQL(a_sql);
 	}
 	
+	
 	public void createLogTable(SQLiteDatabase db){
 		String l_sql = "create table " + TRACKER_LOG_TABLE + " (" + 
 				TRACKER_LOG_C_ID + " integer primary key autoincrement, " + 
@@ -221,7 +222,6 @@ public class DbHelper extends SQLiteOpenHelper {
 				TRACKER_LOG_C_COMPLETED + " integer default 0)";
 		db.execSQL(l_sql);
 	}
-
 	public void createQuizResultsTable(SQLiteDatabase db){
 		String m_sql = "create table " + QUIZRESULTS_TABLE + " (" + 
 							QUIZRESULTS_C_ID + " integer primary key autoincrement, " + 
@@ -231,6 +231,8 @@ public class DbHelper extends SQLiteOpenHelper {
 							QUIZRESULTS_C_COURSEID + " integer)";
 		db.execSQL(m_sql);
 	}
+	
+
 	
 	public void createEventsSetTable(SQLiteDatabase db){
 	//	table create statement for events set table 
@@ -1908,7 +1910,8 @@ public HashMap<String,String> getAllMonthlyEvents(String month){
 		list.put("event_id",c.getString(c.getColumnIndex(BaseColumns._ID)));
 		list.put("event_name", c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
 		list.put("event_number",  c.getString(c.getColumnIndex(COL_EVENT_NUMBER)));
-		c.moveToNext();						
+		c.moveToNext();	
+		System.out.println(list);
 	}
 	c.close();
 	return list;
@@ -1927,14 +1930,15 @@ public HashMap<String,String> getAllWeeklyEvents(String month){
              +" and "+COL_SYNC_STATUS
              + " = '"+"new_record"+"'";	
 	 
-	System.out.println(strQuery);
+	System.out.println("Weekly events "+strQuery);
 	Cursor c=read.rawQuery(strQuery, null);
 	c.moveToFirst();
 	while (c.isAfterLast()==false){
 		list.put("event_id",c.getString(c.getColumnIndex(BaseColumns._ID)));
 		list.put("event_name", c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
 		list.put("event_number",  c.getString(c.getColumnIndex(COL_EVENT_NUMBER)));
-		c.moveToNext();						
+		c.moveToNext();	
+		System.out.println("Weekly events"+list);
 	}
 	c.close();
 	return list;
@@ -1972,7 +1976,6 @@ public boolean editEventCategory(String event_category,String event_number,Strin
         					","+COL_EVENT_PERIOD+" = '"+event_period+"'"+
         					" where "+BaseColumns._ID+" = "+id;
         db.execSQL(updateQuery);
-        db.close();
 	return true;
 	
 }
@@ -1983,7 +1986,6 @@ public boolean deleteEventCategory(long id){
 			 			BaseColumns._ID+" = "+ id;
 	 System.out.println(deleteQuery);
         db.execSQL(deleteQuery);
-        db.close();
 	return true;
 	
 }
@@ -1996,7 +1998,6 @@ public boolean editCoverage(String coverage_category,String coverage_number,Stri
         					","+COL_COVERAGE_SET_PERIOD+" = '"+coverage_period+"'"+
         					" where "+BaseColumns._ID+" = "+id;
         db.execSQL(updateQuery);
-        db.close();
 	return true;
 	
 }
@@ -2008,7 +2009,6 @@ public boolean editLearning(String learning_category,String learning_description
         					","+COL_LEARNING_DESCRIPTION+" = '"+learning_description+"'"+
         					" where "+BaseColumns._ID+" = "+id;
         db.execSQL(updateQuery);
-        db.close();
 	return true;
 }
 
@@ -2020,7 +2020,6 @@ public boolean editOther(String other_category,String other_number,String other_
         					","+COL_OTHER_PERIOD+" = '"+other_period+"'"+
         					" where "+BaseColumns._ID+" = "+id;
         db.execSQL(updateQuery);
-        db.close();
 	return true;	
 }
 }

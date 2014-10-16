@@ -1,5 +1,6 @@
 package org.digitalcampus.oppia.activity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -7,7 +8,9 @@ import java.util.HashMap;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.service.TrackerService;
+import org.digitalcampus.oppia.service.UpdateMonthlyTargetService;
 import org.digitalcampus.oppia.service.UpdateTargetsService;
+import org.digitalcampus.oppia.service.UpdateTargetsWeeklyService;
 import org.grameenfoundation.adapters.EventsDetailPagerAdapter;
 import org.grameenfoundation.adapters.MainScreenBaseAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
@@ -47,7 +50,10 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	private static Context mContext;
 	private static TextView status;
 	public static final String TAG = HomeActivity.class.getSimpleName();
-
+	Time time_now;
+	Time compared_time;
+	Time week;
+	Time end_of_month;
 	SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
 	private static DbHelper dbh;
@@ -74,6 +80,31 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	    getActionBar().setTitle("Welcome");
 	   // TypefaceUtil.overrideFont(mContext, "SERIF", "fonts/Roboto-Thin.ttf");
 	    main_menu_listview=(ListView) findViewById(R.id.listView_mainScreenMenu);
+	    time_now=new Time();
+		compared_time=new Time();
+		week=new Time();
+		end_of_month=new Time();
+		time_now.setToNow();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy kk:mm");
+		compared_time.set(time_now.second, 0, 17, time_now.monthDay, time_now.month, time_now.year);
+		week.set(time_now.second, 0, 17, 5, time_now.month, time_now.year);
+		end_of_month.set(time_now.second, 0, 17, 31, time_now.month, time_now.year);
+		String today= String.valueOf(time_now.hour) +":"+String.valueOf(time_now.minute)+String.valueOf(time_now.second)
+					+","+String.valueOf(time_now.monthDay)+"/"+String.valueOf(time_now.month)+"/"+String.valueOf(time_now.year);
+		String compared_today= String.valueOf(compared_time.hour) +":"+String.valueOf(compared_time.minute)+String.valueOf(compared_time.second)
+				+","+String.valueOf(compared_time.monthDay)+"/"+String.valueOf(compared_time.month)+"/"+String.valueOf(compared_time.year);
+		
+		
+		String compared_week= String.valueOf(week.hour) +":"+String.valueOf(week.minute)+String.valueOf(week.second)
+			+","+String.valueOf(week.monthDay)+"/"+String.valueOf(week.month)+"/"+String.valueOf(week.year);
+		
+		String compared_endofmonth= String.valueOf(end_of_month.hour) +":"+String.valueOf(end_of_month.minute)+String.valueOf(end_of_month.second)
+				+","+String.valueOf(end_of_month.monthDay)+"/"+String.valueOf(end_of_month.month)+"/"+String.valueOf(end_of_month.year);
+		System.out.println(today);
+		System.out.println(compared_today);
+		System.out.println(compared_week);
+		System.out.println(compared_endofmonth);
 	    Calendar c = Calendar.getInstance();
         int month=c.get(Calendar.MONTH)+1;
         switch(month){
@@ -114,7 +145,6 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
         	current_month="December";
         	break;
         }
-     
 	    String[] categories={"Planner",
 	    		"Point of Care",
 	    		"Learning Center",
@@ -142,10 +172,9 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		eventUpdateItemsDaily=dbh.getAllDailyEvents(current_month);
 		coverageUpdateItemsDaily=dbh.getAllDailyCoverage(current_month);
 		otherUpdateItemsDaily=dbh.getAllDailyOther(current_month);
-		if(!otherUpdateItemsDaily.isEmpty()||!coverageUpdateItemsDaily.isEmpty()||!eventUpdateItemsDaily.isEmpty()){
 		Intent service2 = new Intent(this,UpdateTargetsService.class);
 		this.startService(service2);
-		}
+	
 	    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
