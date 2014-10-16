@@ -2,10 +2,12 @@ package org.digitalcampus.oppia.activity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.service.TrackerService;
+import org.digitalcampus.oppia.service.UpdateTargetsService;
 import org.grameenfoundation.adapters.EventsDetailPagerAdapter;
 import org.grameenfoundation.adapters.MainScreenBaseAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
@@ -48,8 +50,12 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 
 	SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
-	private DbHelper dbh;
+	private static DbHelper dbh;
 	private SharedPreferences prefs;
+	private String current_month;
+	private HashMap<String, String> eventUpdateItemsDaily;
+	private HashMap<String, String> coverageUpdateItemsDaily;
+	private HashMap<String, String> otherUpdateItemsDaily;
 	// MODULE IDs
 		private static final String EVENT_PLANNER_ID      = "Event Planner";
 		private static final String STAYING_WELL_ID       = "Staying Well";
@@ -68,6 +74,47 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	    getActionBar().setTitle("Welcome");
 	   // TypefaceUtil.overrideFont(mContext, "SERIF", "fonts/Roboto-Thin.ttf");
 	    main_menu_listview=(ListView) findViewById(R.id.listView_mainScreenMenu);
+	    Calendar c = Calendar.getInstance();
+        int month=c.get(Calendar.MONTH)+1;
+        switch(month){
+        case 1:
+	        	current_month="January";
+	        	break;
+        case 2:
+        	current_month="February";
+        	break;
+        case 3:
+        	current_month="March";
+        	break;
+        case 4:
+        	current_month="April";
+        	break;
+        case 5:
+        	current_month="May";
+        	break;
+        case 6:
+        	current_month="June";
+        	break;
+        case 7:
+        	current_month="July";
+        	break;
+        case 8:
+        	current_month="August";
+        	break;
+        case 9:
+        	current_month="September";
+        	break;
+        case 10:
+        	current_month="October";
+        	break;
+        case 11:
+        	current_month="November";
+        	break;
+        case 12:
+        	current_month="December";
+        	break;
+        }
+     
 	    String[] categories={"Planner",
 	    		"Point of Care",
 	    		"Learning Center",
@@ -92,7 +139,13 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		tb.putBoolean("backgroundData", true);
 		service.putExtras(tb);
 		this.startService(service);
-	    
+		eventUpdateItemsDaily=dbh.getAllDailyEvents(current_month);
+		coverageUpdateItemsDaily=dbh.getAllDailyCoverage(current_month);
+		otherUpdateItemsDaily=dbh.getAllDailyOther(current_month);
+		if(!otherUpdateItemsDaily.isEmpty()||!coverageUpdateItemsDaily.isEmpty()||!eventUpdateItemsDaily.isEmpty()){
+		Intent service2 = new Intent(this,UpdateTargetsService.class);
+		this.startService(service2);
+		}
 	    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -131,12 +184,11 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
         }
 }
 	
-	 public class EventsSummary extends Fragment {
+	 public static class EventsSummary extends Fragment {
 		 View rootView;
 		// private SharedPreferences loginPref;
 		 private String name;
 		 //private ArrayList<String> eventsNumber;
-		 private CHNDatabaseHandler db;
 		private TextView event_number;
 		int month;
 		String month_text;
@@ -149,10 +201,10 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		 
 		 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			 	rootView=inflater.inflate(R.layout.events_pager_layout,null,false);
-			 	prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			 	prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 			 	//loginPref=getApplicationContext().getSharedPreferences("loginPrefs", MODE_WORLD_READABLE);
 			    name=prefs.getString(getString(R.string.prefs_username), "name");
-			    db=new CHNDatabaseHandler(getActivity());
+			    dbh=new DbHelper(getActivity());
 			    status=(TextView) rootView.findViewById(R.id.textView_status);
 			    event_number=(TextView) rootView.findViewById(R.id.textView_eventsNumber);
 			    Time time = new Time();
@@ -192,7 +244,6 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		 CalendarEvents c;
 		 public ArrayList<String> EventTypeToday;
 		 public ArrayList<String> EventTypeTime;
-		 private CHNDatabaseHandler db;
 		private TextView eventStatus;
 		int month;
 		String month_text;
@@ -203,7 +254,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		 
 		 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			 	rootView=inflater.inflate(R.layout.events_detail_pager_layout,null,false);
-			    db=new CHNDatabaseHandler(getActivity());
+			    dbh=new DbHelper(getActivity());
 			    status=(TextView) rootView.findViewById(R.id.textView_status);
 			    eventStatus=(TextView) rootView.findViewById(R.id.textView1);
 			    listView_details=(ListView) rootView.findViewById(R.id.listView_eventsDetail);

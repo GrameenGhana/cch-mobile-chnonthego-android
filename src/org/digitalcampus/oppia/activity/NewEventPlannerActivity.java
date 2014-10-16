@@ -12,7 +12,6 @@ import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.adapters.LearningBaseAdapter;
 import org.grameenfoundation.adapters.OtherBaseAdapter;
 import org.grameenfoundation.cch.activity.HomeActivity;
-import org.grameenfoundation.database.CHNDatabaseHandler;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -255,7 +254,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			private ArrayList<String> eventName;
 			private ArrayList<String> eventNumber;
 			private ArrayList<String> eventsId;
-			private CHNDatabaseHandler db;
+			private DbHelper db;
 			 public static final String ARG_SECTION_NUMBER = "section_number";       
 			View rootView;
 			private EventBaseAdapter events_adapter;
@@ -269,7 +268,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 				 rootView=inflater.inflate(R.layout.activity_events,null,false);
 			    mContext=getActivity().getApplicationContext();
 			    //TypefaceUtil.overrideFont(mContext, "SERIF", "fonts/Roboto-Thin.ttf");
-			    db=new CHNDatabaseHandler(getActivity());
+			    db=new DbHelper(getActivity());
 			    textview_status=(TextView) rootView.findViewById(R.id.textView_eventsStatus);
 			    listView_events=(ListView) rootView.findViewById(R.id.listView_events);
 			    listView_events.setOnItemClickListener(this);
@@ -479,7 +478,6 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 						"Adolescent Health","Mop-up Activity/Event","Community Durbar",
 						"National Activity/Event","Staff meetings/durbars","Workshops","Leave/Excuse Duty",
 						"Personal","Other"};
-				ArrayList<String> list=db.getAllEventCategory();
 				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items_names);
 				spinner_event_name.setAdapter(adapter2);
 				int spinner_position=adapter2.getPosition(selected_items[0]);
@@ -499,8 +497,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 					    	getActivity().runOnUiThread(new Runnable() {
 					            @Override
 					            public void run() {
-					            	
-					            	 eventName=db.getAllEventName(month_passed);
+					            	eventName=db.getAllEventName(month_passed);
 					 			    eventNumber=db.getAllEventNumber(month_passed);
 					 			    eventsId=db.getAllEventID(month_passed);
 					 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventsId);
@@ -532,7 +529,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			private ArrayList<String> coverageImmunzationPeriod;
 			private ArrayList<String> coveragePeopleId;
 			private ArrayList<String> coverageImmunizationId;
-			private CHNDatabaseHandler db;
+			private DbHelper db;
 			 public static final String ARG_SECTION_NUMBER = "section_number";       
 			View rootView;
 			private ExpandableListView listView_coverage;
@@ -549,7 +546,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 				 rootView=inflater.inflate(R.layout.activity_coverage,null,false);
 			    mContext=getActivity().getApplicationContext();
-			    db=new CHNDatabaseHandler(getActivity());
+			    db=new DbHelper(getActivity());
 			    coveragePeopleTarget=db.getAllCoveragePeopleTarget(month_passed);
 			    coveragePeopleNumber=db.getAllCoveragePeopleNumber(month_passed);
 			    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod(month_passed);
@@ -780,7 +777,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			 public ArrayList<String> General;
 			 public ArrayList<String> Other;
 			 public ExpandableListView learningList;
-			 private CHNDatabaseHandler db;
+			 private DbHelper db;
 			 private LearningBaseAdapter learning_adapter;
 			 public static final String ARG_SECTION_NUMBER = "section_number";       
 			 View rootView;
@@ -798,7 +795,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 				rootView=inflater.inflate(R.layout.activity_learning,null,false);
 			    mContext=getActivity().getApplicationContext();
-			    db=new CHNDatabaseHandler(getActivity());
+			    db=new DbHelper(getActivity());
 			    learningList=(ExpandableListView) rootView.findViewById(R.id.expandableListView_learningCategory);
 			    AntenatalCare=db.getAllLearningAntenatalCare();
 			    PostnatalCare=db.getAllLearningPostnatalCare();
@@ -1088,7 +1085,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			 private ArrayList<String> otherNumber;
 			 private ArrayList<String> otherPeriod;
 			private ArrayList<String> otherId;
-			private CHNDatabaseHandler db;
+			private DbHelper db;
 			 public static final String ARG_SECTION_NUMBER = "section_number";       
 			View rootView;
 			private ListView listView_other;
@@ -1100,7 +1097,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 				 rootView=inflater.inflate(R.layout.activity_other,null,false);
 			    mContext=getActivity().getApplicationContext();
-			    db=new CHNDatabaseHandler(getActivity());
+			    db=new DbHelper(getActivity());
 			    otherCategory=db.getAllOtherCategory(month_passed);
 			    otherNumber=db.getAllOtherNumber(month_passed);
 			    otherPeriod=db.getAllOtherPeriod(month_passed);

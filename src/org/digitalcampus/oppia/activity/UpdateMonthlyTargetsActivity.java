@@ -18,18 +18,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 
-public class UpdateTargetActivity extends Activity{
+public class UpdateMonthlyTargetsActivity extends Activity {
 
 	private ListView listView_eventsUpdate;
 	private ListView listView_coverageUpdate;
@@ -54,10 +54,10 @@ public class UpdateTargetActivity extends Activity{
 	private LinearLayout linearLayout_coverageUpdate;
 	private LinearLayout linearLayout_otherUpdate;
 	private LinearLayout linearLayout_learningUpdate;
-	private HashMap<String, String> eventUpdateItemsDaily;
-	private HashMap<String, String> coverageUpdateItemsDaily;
-	private HashMap<String, String> otherUpdateItemsDaily;
-	private HashMap<String, String> learningUpdateItemsDaily;
+	private HashMap<String, String> eventUpdateItemsMonthly;
+	private HashMap<String, String> coverageUpdateItemsMonthly;
+	private HashMap<String, String> otherUpdateItemsMonthly;
+	private HashMap<String, String> learningUpdateItemsMonthly;
 	private coverageUpdateListAdapter coverageUpdateAdapter;
 	private otherUpdateListAdapter otherUpdateAdapter;
 	
@@ -66,7 +66,7 @@ public class UpdateTargetActivity extends Activity{
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_update_targets);
-	    mContext=UpdateTargetActivity.this;
+	    mContext=UpdateMonthlyTargetsActivity.this;
 	    listView_eventsUpdate=(ListView) findViewById(R.id.listView1);
 	    listView_coverageUpdate=(ListView) findViewById(R.id.listView2);
 	    listView_otherUpdate=(ListView) findViewById(R.id.listView3);
@@ -75,13 +75,13 @@ public class UpdateTargetActivity extends Activity{
 	    linearLayout_coverageUpdate=(LinearLayout) findViewById(R.id.LinearLayout_coverageUpdate);
 	    linearLayout_otherUpdate=(LinearLayout) findViewById(R.id.LinearLayout_otherUpdate);
 	    linearLayout_learningUpdate=(LinearLayout) findViewById(R.id.LinearLayout_learningUpdate);
-	    db=new DbHelper(mContext);
+	    
 	    Calendar c = Calendar.getInstance();
         int month=c.get(Calendar.MONTH)+1;
         switch(month){
         case 1:
-	        	current_month="January";
-	        	break;
+        	current_month="January";
+        	break;
         case 2:
         	current_month="February";
         	break;
@@ -118,48 +118,37 @@ public class UpdateTargetActivity extends Activity{
         }
 	    db=new DbHelper(mContext);
 	    //retrieve daily event targets that need to be updated
-	    eventUpdateItemsDaily=db.getAllDailyEvents(current_month);
-	   
-	    if(eventUpdateItemsDaily.isEmpty()){
+	    eventUpdateItemsMonthly=db.getAllMonthlyCoverage(current_month);
+	    eventType.add(eventUpdateItemsMonthly.get("event_name"));
+	    eventId.add(eventUpdateItemsMonthly.get("event_id"));
+	    eventNumber.add(eventUpdateItemsMonthly.get("event_number"));
+	    if(eventUpdateItemsMonthly.isEmpty()){
 	    	linearLayout_eventsUpdate.setVisibility(View.GONE);
 	   
 	    }else {
-	    	eventId=new ArrayList<String>();
-	    	eventNumber=new ArrayList<String>();
-	    	eventType=new ArrayList<String>();
-	 	    eventId.add(eventUpdateItemsDaily.get("event_id"));
-	 	    eventNumber.add(eventUpdateItemsDaily.get("event_number"));
-	 	   eventType.add(eventUpdateItemsDaily.get("event_name"));
-	    	eventUpdateAdapter=new eventsUpdateListAdapter(mContext, eventType, eventId, eventNumber);
+	    	 eventUpdateAdapter=new eventsUpdateListAdapter(mContext, eventType, eventId, eventNumber);
 	 	    listView_eventsUpdate.setAdapter(eventUpdateAdapter);
 	    }
 	    //retrieve monthly coverage targets that need to be updated
-	    coverageUpdateItemsDaily=db.getAllDailyCoverage(current_month);
-	   
-		if(coverageUpdateItemsDaily.isEmpty()){
+	    coverageUpdateItemsMonthly=db.getAllMonthlyCoverage(current_month);
+	    coverageType.add(coverageUpdateItemsMonthly.get("coverage_name"));
+		coverageId.add(coverageUpdateItemsMonthly.get("coverage_id"));
+		coverageNumber.add(coverageUpdateItemsMonthly.get("coverage_number"));
+		if(coverageUpdateItemsMonthly.isEmpty()){
 			linearLayout_coverageUpdate.setVisibility(View.GONE);	
 		}else {
-			coverageId=new ArrayList<String>();
-			coverageNumber=new ArrayList<String>();
-	    	coverageType=new ArrayList<String>();
-			 coverageType.add(coverageUpdateItemsDaily.get("coverage_name"));
-				coverageId.add(coverageUpdateItemsDaily.get("coverage_id"));
-				coverageNumber.add(coverageUpdateItemsDaily.get("coverage_number"));
 			coverageUpdateAdapter=new coverageUpdateListAdapter(mContext, coverageType, coverageId, coverageNumber);
 			listView_coverageUpdate.setAdapter(coverageUpdateAdapter);
 		}
+		
 		 //retrieve monthly other targets that need to be updated
-	    otherUpdateItemsDaily=db.getAllDailyOther(current_month);
-	   
-	    if(otherUpdateItemsDaily.isEmpty()){
+	    otherUpdateItemsMonthly=db.getAllMonthlyOthers(current_month);
+	    otherType.add(otherUpdateItemsMonthly.get("other_name"));
+	    otherId.add(otherUpdateItemsMonthly.get("other_id"));
+	    otherNumber.add(otherUpdateItemsMonthly.get("other_number"));
+	    if(otherUpdateItemsMonthly.isEmpty()){
 	    	linearLayout_otherUpdate.setVisibility(View.GONE);
 	    }else{
-	    	otherId=new ArrayList<String>();
-	    	otherNumber=new ArrayList<String>();
-			otherType=new ArrayList<String>();
-	    	 otherType.add(otherUpdateItemsDaily.get("other_name"));
-	 	    otherId.add(otherUpdateItemsDaily.get("other_id"));
-	 	    otherNumber.add(otherUpdateItemsDaily.get("other_number"));
 	    	otherUpdateAdapter=new otherUpdateListAdapter(mContext, otherType, otherId, otherNumber);
 			listView_otherUpdate.setAdapter(otherUpdateAdapter);	
 	    }
@@ -220,13 +209,13 @@ public class UpdateTargetActivity extends Activity{
 										runOnUiThread(new Runnable() {
 								            @Override
 								            public void run() {
-							            	eventUpdateItemsDaily=db.getAllDailyEvents(current_month);
-							            	if(eventUpdateItemsDaily.isEmpty()){
+							            	eventUpdateItemsMonthly=db.getAllMonthlyEvents(current_month);
+							            	if(eventUpdateItemsMonthly.isEmpty()){
 							            		linearLayout_eventsUpdate.setVisibility(View.GONE);
 							            	}else{
-								        	    eventType.add(eventUpdateItemsDaily.get("event_name"));
-								        	    eventId.add(eventUpdateItemsDaily.get("event_id"));
-								        	    eventNumber.add(eventUpdateItemsDaily.get("event_number"));
+								        	    eventType.add(eventUpdateItemsMonthly.get("event_name"));
+								        	    eventId.add(eventUpdateItemsMonthly.get("event_id"));
+								        	    eventNumber.add(eventUpdateItemsMonthly.get("event_number"));
 								        	    eventUpdateAdapter=new eventsUpdateListAdapter(mContext, eventType, eventId, eventNumber);
 							        	 	    listView_eventsUpdate.setAdapter(eventUpdateAdapter);
 								            }
@@ -297,13 +286,13 @@ public class UpdateTargetActivity extends Activity{
 										runOnUiThread(new Runnable() {
 								            @Override
 								            public void run() {
-								            	coverageUpdateItemsDaily=db.getAllDailyCoverage(current_month);
-								            	if(coverageUpdateItemsDaily.isEmpty()){
+								            	coverageUpdateItemsMonthly=db.getAllMonthlyCoverage(current_month);
+								            	if(coverageUpdateItemsMonthly.isEmpty()){
 								            		linearLayout_coverageUpdate.setVisibility(View.GONE);
 								            	}else{
-								        	    coverageType.add(eventUpdateItemsDaily.get("coverage_name"));
-								        	    coverageId.add(eventUpdateItemsDaily.get("coverage_id"));
-								        	    coverageNumber.add(eventUpdateItemsDaily.get("coverage_number"));
+								        	    coverageType.add(eventUpdateItemsMonthly.get("coverage_name"));
+								        	    coverageId.add(eventUpdateItemsMonthly.get("coverage_id"));
+								        	    coverageNumber.add(eventUpdateItemsMonthly.get("coverage_number"));
 								        	    coverageUpdateAdapter=new coverageUpdateListAdapter(mContext, coverageType, coverageId, coverageNumber);
 							        	 	    listView_coverageUpdate.setAdapter(coverageUpdateAdapter);
 								            }
@@ -373,13 +362,13 @@ public class UpdateTargetActivity extends Activity{
 										runOnUiThread(new Runnable() {
 								            @Override
 								            public void run() {
-								            	otherUpdateItemsDaily=db.getAllDailyOther(current_month);
-								            	if(otherUpdateItemsDaily.isEmpty()){
+								            	otherUpdateItemsMonthly=db.getAllMonthlyOthers(current_month);
+								            	if(otherUpdateItemsMonthly.isEmpty()){
 								            		linearLayout_otherUpdate.setVisibility(View.GONE);
 								            	}else{
-								            		 otherType.add(otherUpdateItemsDaily.get("other_name"));
-								         	 	    otherId.add(otherUpdateItemsDaily.get("other_id"));
-								         	 	    otherNumber.add(otherUpdateItemsDaily.get("other_number"));
+								            		 otherType.add(otherUpdateItemsMonthly.get("other_name"));
+								         	 	    otherId.add(otherUpdateItemsMonthly.get("other_id"));
+								         	 	    otherNumber.add(otherUpdateItemsMonthly.get("other_number"));
 								         	    	otherUpdateAdapter=new otherUpdateListAdapter(mContext, otherType, otherId, otherNumber);
 								         			listView_otherUpdate.setAdapter(otherUpdateAdapter);	
 								            }
@@ -391,7 +380,8 @@ public class UpdateTargetActivity extends Activity{
 	 				dialog.show();
 			}
 	    });
-	}  
+		
+	}	
 	class eventsUpdateListAdapter extends BaseAdapter{
 		Context mContext;
 		ArrayList<String> eventType;

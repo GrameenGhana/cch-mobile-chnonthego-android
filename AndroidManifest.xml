@@ -160,6 +160,17 @@
         <activity android:name="org.digitalcampus.oppia.activity.EventsViewActivity"></activity>
         <activity android:name="org.digitalcampus.oppia.activity.UpdateTargetActivity"></activity>
         <activity android:name="org.digitalcampus.oppia.activity.TargetMonthOptionsActivity"></activity>
+        <service android:name="org.digitalcampus.oppia.service.UpdateTargetsService"></service>
+        <receiver android:name="org.digitalcampus.oppia.service.UpdateTargetsScheduleReciever">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <service android:name="org.digitalcampus.oppia.service.UpdateTargetsWeeklyService"></service>
+        <activity android:name="org.digitalcampus.oppia.activity.UpdateWeeklyTargetsActivity"></activity>
+        <activity android:name="org.digitalcampus.oppia.activity.UpdateMonthlyTargetsActivity"></activity>
+        <receiver android:name="org.digitalcampus.oppia.service.UpdateStartServiceReceiver"></receiver>
+        <service android:name="org.digitalcampus.oppia.service.UpdateMonthlyTargetService"></service>
     </application>
 
 </manifest>

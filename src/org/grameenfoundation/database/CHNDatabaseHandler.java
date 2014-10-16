@@ -724,7 +724,7 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public HashMap<String,String> getAllDailyOther(){
+		public HashMap<String,String> getAllDailyOther(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			HashMap<String,String> list=new HashMap<String,String>();
 			 String strQuery="select "+CHNDatabase._ID
@@ -733,6 +733,8 @@ public class CHNDatabaseHandler {
 	                 +" from "+CHNDatabase.OTHER_TABLE
 	                 +" where "+CHNDatabase.COL_OTHER_PERIOD
 	                 + " = '"+"Daily"+"'"
+	                 +" and "+CHNDatabase.COL_OTHER_MONTH
+	                 +" = '"+month+"'"
 	                 +" and "+CHNDatabase.COL_SYNC_STATUS
 	                 + " = '"+"new_record"+"'";	
 			 
@@ -749,7 +751,7 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public HashMap<String,String> getAllMonthlyOthers(){
+		public HashMap<String,String> getAllMonthlyOthers(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			HashMap<String,String> list=new HashMap<String,String>();
 			 String strQuery="select "+CHNDatabase._ID
@@ -758,6 +760,8 @@ public class CHNDatabaseHandler {
 	                 +" from "+CHNDatabase.OTHER_TABLE
 	                 +" where "+CHNDatabase.COL_OTHER_PERIOD
 	                 + " = '"+"Monthly"+"'"
+	                 +" and "+CHNDatabase.COL_OTHER_MONTH
+	                 +" = '"+month+"'"
 	                 +" and "+CHNDatabase.COL_SYNC_STATUS
 	                 + " = '"+"new_record"+"'";	
 			 
@@ -774,7 +778,7 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public HashMap<String,String> getAllWeeklyOther(){
+		public HashMap<String,String> getAllWeeklyOther(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			HashMap<String,String> list=new HashMap<String,String>();
 			String strQuery="select "+CHNDatabase._ID
@@ -783,6 +787,8 @@ public class CHNDatabaseHandler {
 	                 +" from "+CHNDatabase.OTHER_TABLE
 	                 +" where "+CHNDatabase.COL_OTHER_PERIOD
 	                 + " = '"+"Weekly"+"'"
+	                 +" and "+CHNDatabase.COL_OTHER_MONTH
+	                 +" = '"+month+"'"
 	                 +" and "+CHNDatabase.COL_SYNC_STATUS
 	                 + " = '"+"new_record"+"'";	
 			 
@@ -798,7 +804,7 @@ public class CHNDatabaseHandler {
 			c.close();
 			return list;
 		}
-		public HashMap<String,String> getAllYearlyOther(){
+		public HashMap<String,String> getAllYearlyOther(String year){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			HashMap<String,String> list=new HashMap<String,String>();
 			String strQuery="select "+CHNDatabase._ID
@@ -807,6 +813,7 @@ public class CHNDatabaseHandler {
 	                 +" from "+CHNDatabase.OTHER_TABLE
 	                 +" where "+CHNDatabase.COL_OTHER_PERIOD
 	                 + " = '"+"Yearly"+"'"
+	                 +" = '"+year+"'"
 	                 +" and "+CHNDatabase.COL_SYNC_STATUS
 	                 + " = '"+"new_record"+"'";	
 			 
@@ -824,7 +831,7 @@ public class CHNDatabaseHandler {
 		}
 		
 	
-		public HashMap<String,String> getAllDailyCoverage(){
+		public HashMap<String,String> getAllDailyCoverage(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			HashMap<String,String> list=new HashMap<String,String>();
 			 String strQuery="select "+CHNDatabase._ID
@@ -833,6 +840,8 @@ public class CHNDatabaseHandler {
 	                 +" from "+CHNDatabase.COVERAGE_SET_TABLE
 	                 +" where "+CHNDatabase.COL_COVERAGE_SET_PERIOD
 	                 + " = '"+"Daily"+"'"
+	                 +" and "+CHNDatabase.COL_COVERAGE_MONTH
+	                 +" = '"+month+"'"
 	                 +" and "+CHNDatabase.COL_SYNC_STATUS
 	                 + " = '"+"new_record"+"'";	
 			 
@@ -849,7 +858,7 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public HashMap<String,String> getAllMonthlyCoverage(){
+		public HashMap<String,String> getAllMonthlyCoverage(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			HashMap<String,String> list=new HashMap<String,String>();
 			 String strQuery="select "+CHNDatabase._ID
@@ -858,6 +867,8 @@ public class CHNDatabaseHandler {
 	                 +" from "+CHNDatabase.COVERAGE_SET_TABLE
 	                 +" where "+CHNDatabase.COL_COVERAGE_SET_PERIOD
 	                 + " = '"+"Monthly"+"'"
+	                 +" and "+CHNDatabase.COL_COVERAGE_MONTH
+	                 +" = '"+month+"'"
 	                 +" and "+CHNDatabase.COL_SYNC_STATUS
 	                 + " = '"+"new_record"+"'";	
 			 
@@ -874,7 +885,7 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public HashMap<String,String> getAllWeeklyCoverage(){
+		public HashMap<String,String> getAllWeeklyCoverage(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			HashMap<String,String> list=new HashMap<String,String>();
 			 String strQuery="select "+CHNDatabase._ID
@@ -883,6 +894,8 @@ public class CHNDatabaseHandler {
 	                 +" from "+CHNDatabase.COVERAGE_SET_TABLE
 	                 +" where "+CHNDatabase.COL_COVERAGE_SET_PERIOD
 	                 + " = '"+"Weekly"+"'"
+	                 +" and "+CHNDatabase.COL_COVERAGE_MONTH
+	                 +" = '"+month+"'"
 	                 +" and "+CHNDatabase.COL_SYNC_STATUS
 	                 + " = '"+"new_record"+"'";	
 			 
@@ -923,7 +936,7 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public HashMap<String,String> getAllDailyEvents(){
+		public HashMap<String,String> getAllDailyEvents(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			HashMap<String,String> list=new HashMap<String,String>();
 			 String strQuery="select "+CHNDatabase._ID
@@ -932,6 +945,8 @@ public class CHNDatabaseHandler {
 	                 +" from "+CHNDatabase.EVENTS_SET_TABLE
 	                 +" where "+CHNDatabase.COL_EVENT_PERIOD
 	                 + " = '"+"Daily"+"'"
+	                 +" and "+CHNDatabase.COL_EVENT_MONTH
+	                 +" = '"+month+"'"
 	                 +" and "+CHNDatabase.COL_SYNC_STATUS
 	                 + " = '"+"new_record"+"'";	
 			 
@@ -942,12 +957,13 @@ public class CHNDatabaseHandler {
 				list.put("event_id",c.getString(c.getColumnIndex(CHNDatabase._ID)));
 				list.put("event_name", c.getString(c.getColumnIndex(CHNDatabase.COL_EVENT_SET_NAME)));
 				list.put("event_number",  c.getString(c.getColumnIndex(CHNDatabase.COL_EVENT_NUMBER)));
-				c.moveToNext();						
+				c.moveToNext();	
+				System.out.println(list);
 			}
 			c.close();
 			return list;
 		}
-		public HashMap<String,String> getAllMonthlyEvents(){
+		public HashMap<String,String> getAllMonthlyEvents(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			HashMap<String,String> list=new HashMap<String,String>();
 			 String strQuery="select "+CHNDatabase._ID
@@ -956,6 +972,8 @@ public class CHNDatabaseHandler {
 	                 +" from "+CHNDatabase.EVENTS_SET_TABLE
 	                 +" where "+CHNDatabase.COL_EVENT_PERIOD
 	                 + " = '"+"Monthly"+"'"
+	                 +" and "+CHNDatabase.COL_EVENT_MONTH
+	                 +" = '"+month+"'"
 	                 +" and "+CHNDatabase.COL_SYNC_STATUS
 	                 + " = '"+"new_record"+"'";	
 			 
@@ -972,7 +990,7 @@ public class CHNDatabaseHandler {
 			return list;
 		}
 		
-		public HashMap<String,String> getAllWeeklyEvents(){
+		public HashMap<String,String> getAllWeeklyEvents(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			HashMap<String,String> list=new HashMap<String,String>();
 			 String strQuery="select "+CHNDatabase._ID
@@ -981,6 +999,8 @@ public class CHNDatabaseHandler {
 	                 +" from "+CHNDatabase.EVENTS_SET_TABLE
 	                 +" where "+CHNDatabase.COL_EVENT_PERIOD
 	                 + " = '"+"Weekly"+"'"
+	                 +" and "+CHNDatabase.COL_EVENT_MONTH
+	                 +" = '"+month+"'"
 	                 +" and "+CHNDatabase.COL_SYNC_STATUS
 	                 + " = '"+"new_record"+"'";	
 			 
@@ -996,7 +1016,7 @@ public class CHNDatabaseHandler {
 			c.close();
 			return list;
 		}
-		public HashMap<String,String> getAllYearlyEvents(){
+		public HashMap<String,String> getAllYearlyEvents(String month){
 			SQLiteDatabase db = mDbHelper.getReadableDatabase();
 			HashMap<String,String> list=new HashMap<String,String>();
 			 String strQuery="select "+CHNDatabase._ID
@@ -1005,6 +1025,8 @@ public class CHNDatabaseHandler {
 	                 +" from "+CHNDatabase.EVENTS_SET_TABLE
 	                 +" where "+CHNDatabase.COL_EVENT_PERIOD
 	                 + " = '"+"Yearly"+"'"
+	                 +" and "+CHNDatabase.COL_EVENT_MONTH
+	                 +" = '"+month+"'"
 	                 +" and "+CHNDatabase.COL_SYNC_STATUS
 	                 + " = '"+"new_record"+"'";	
 			 
@@ -1077,7 +1099,6 @@ public class CHNDatabaseHandler {
 		        					" where "+CHNDatabase._ID+" = "+id;
 		        database.execSQL(updateQuery);
 		        database.close();
-			return true;
-			
+			return true;	
 		}
 }
