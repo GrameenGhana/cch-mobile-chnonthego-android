@@ -391,6 +391,10 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			intent = new Intent(getApplicationContext(), OppiaMobileActivity.class);
             startActivity(intent);	
 			break;
+		case 3:
+			intent = new Intent(getApplicationContext(), AchievementCenterActivity.class);
+            startActivity(intent);	
+			break;
 		}
 		
 	}

@@ -171,6 +171,14 @@
         <activity android:name="org.digitalcampus.oppia.activity.UpdateMonthlyTargetsActivity"></activity>
         <receiver android:name="org.digitalcampus.oppia.service.UpdateStartServiceReceiver"></receiver>
         <service android:name="org.digitalcampus.oppia.service.UpdateMonthlyTargetService"></service>
+        <activity android:name="org.digitalcampus.oppia.activity.AchievementCenterActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.AcuteEmergenciesActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.AskBleedingActivity"></activity>
+        <activity android:name="org.digitalcampus.oppia.activity.PreviousVisitActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.FirstVisitActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.EstimateTrimester"></activity>
+        <activity android:name="org.grameenfoundation.poc.ExamineThePatientActivity"></activity>
     </application>
 
 </manifest>

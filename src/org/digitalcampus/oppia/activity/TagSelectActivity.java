@@ -59,6 +59,8 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 	private ArrayList<Course> courses;
 	int[] imageIds;
 	ArrayList<Tag> tags;
+
+	private int[] imageid;
 	
 
 	
@@ -70,9 +72,15 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
         getSupportActionBar().setHomeButtonEnabled(true);
         getActionBar().setDisplayShowHomeEnabled(false);
 	    getActionBar().setTitle("Learning");
-        imageIds=new int[]{R.drawable.ic_family};
+	   
 	}
-	
+	 public void populateImages(){
+		 imageIds=new int[tags.size()];  
+		 
+		 for(int i=0;i<tags.size();i++){
+			 imageIds[i]=R.drawable.ic_family;
+		 }
+	   }
 	@Override
 	public void onResume(){
 		super.onResume();
@@ -145,6 +153,7 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 				t.setCount(json_obj.getInt("count"));
 				tags.add(t);
 			}
+			 populateImages();
 			tla = new TagListAdapter(this, tags,imageIds);
 			ListView listView = (ListView) findViewById(R.id.tag_list);
 			listView.setAdapter(tla);

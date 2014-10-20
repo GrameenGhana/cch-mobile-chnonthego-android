@@ -30,13 +30,19 @@
             android:layout_height="10dp"
             android:background="@color/BorderBrown" />
 
-        <ListView
-            android:id="@+id/listView_diagnosticMenu"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:dividerHeight="2dp" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-        </ListView>
+            <ListView
+                android:id="@+id/listView_diagnosticMenu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:dividerHeight="2dp" >
+            </ListView>
+
+        </LinearLayout>
 
     </LinearLayout>
 

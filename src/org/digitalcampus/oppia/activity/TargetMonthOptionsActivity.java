@@ -1,11 +1,12 @@
 package org.digitalcampus.oppia.activity;
 
+import java.util.Calendar;
 import org.digitalcampus.mobile.learningGF.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AdapterView.OnItemClickListener;
@@ -15,19 +16,60 @@ public class TargetMonthOptionsActivity extends Activity implements OnItemClickL
 
 	private ListView listView_monthOption;
 	private String current_month;
-
-	/** Called when the activity is first created. */
+	private String month_value;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_month_options);
 	    listView_monthOption=(ListView) findViewById(R.id.listView_targetMonthOptions);
 	    listView_monthOption.setOnItemClickListener(this);
+	    Calendar c = Calendar.getInstance();
+        int month=c.get(Calendar.MONTH)+1;
+        switch(month){
+        case 1:
+	        month_value="January";
+	        	break;
+        case 2:
+        	month_value="February";
+        	break;
+        case 3:
+        	month_value="March";
+        	break;
+        case 4:
+        	month_value="April";
+        	break;
+        case 5:
+        	month_value="May";
+        	break;
+        case 6:
+        	month_value="June";
+        	break;
+        case 7:
+        	month_value="July";
+        	break;
+        case 8:
+        	month_value="August";
+        	break;
+        case 9:
+        	month_value="September";
+        	break;
+        case 10:
+        	month_value="October";
+        	break;
+        case 11:
+        	month_value="November";
+        	break;
+        case 12:
+        	month_value="December";
+        	break;
+        }
 	    String[] items={"January","February","March","April","May","June","July","August","September","October","November","December"};
 	    ArrayAdapter<String> adapter=new ArrayAdapter<String>(TargetMonthOptionsActivity.this, android.R.layout.simple_list_item_1, items);
+	 
 	    listView_monthOption.setAdapter(adapter);
+	    
 	}
-
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {

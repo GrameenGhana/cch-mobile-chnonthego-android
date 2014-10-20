@@ -71,8 +71,8 @@ public class TagListAdapter extends ArrayAdapter<Tag>{
 	    rowView.setTag(t);
 	    TextView tagName = (TextView) rowView.findViewById(R.id.tag_name);
 	    tagName.setText(ctx.getString(R.string.tag_label,t.getName(),t.getCount()));
-	    ImageView tageIcon=(ImageView) rowView.findViewById(R.id.tag_icon);
-	    tageIcon.setImageResource(imageIds[position]);
+	    ImageView tagIcon=(ImageView) rowView.findViewById(R.id.tag_icon);
+	    tagIcon.setImageResource(imageIds[position]);
 	    return rowView;
 	}
 	

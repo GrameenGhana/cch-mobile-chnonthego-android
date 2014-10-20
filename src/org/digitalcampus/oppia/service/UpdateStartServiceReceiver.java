@@ -23,9 +23,6 @@ public class UpdateStartServiceReceiver extends BroadcastReceiver {
 		week_day=new Time();
 		end_of_month=new Time();
 		time_now.setToNow();
-		Calendar cal = null;
-		int day=cal.get(Calendar.DAY_OF_WEEK);
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy kk:mm");
 		compared_time.set(time_now.second, 0, 17, time_now.monthDay, time_now.month, time_now.year);
 		week.set(time_now.second, 0, 17, 5, time_now.month, time_now.year);
 		end_of_month.set(time_now.second, 0, 17, 31, time_now.month, time_now.year);
@@ -43,7 +40,7 @@ public class UpdateStartServiceReceiver extends BroadcastReceiver {
 		if(today.equals(compared_today)){
 		Intent service = new Intent(context, UpdateTargetsService.class);
 		context.startService(service);
-		}else if(today.equals(compared_week)&&day==week.weekDay){
+		}else if(today.equals(compared_week)){
 			Intent service = new Intent(context, UpdateTargetsWeeklyService.class);
 			context.startService(service);	
 		}else if(today.equals(compared_endofmonth)){

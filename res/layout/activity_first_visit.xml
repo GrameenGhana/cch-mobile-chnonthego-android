@@ -8,36 +8,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="20dp" >
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Does the client have any of the following?"
+            android:text="First Visit"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen"
-            android:textSize="20sp" />
+            android:textColor="@color/TextColorGreen" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp" >
+        android:orientation="vertical" >
 
-        <ListView
-            android:id="@+id/listView_firstTrimesterNext"
+        <ExpandableListView
+            android:id="@+id/expandableListView_firstVisit"
             android:layout_width="match_parent"
-            android:layout_height="309dp"
-            android:background="@color/ButtonBackgroundGrey"
-            android:divider="@color/White"
-            android:dividerHeight="10dp" 
-             android:gravity="center">
-
-        </ListView>
+            android:layout_height="304dp" >
+        </ExpandableListView>
 
     </LinearLayout>
 
@@ -48,14 +41,11 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/button_nextNo"
+            android:id="@+id/button_estimateTrimester"
+            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingLeft="90dp"
-            android:paddingRight="90dp"
-            android:paddingTop="10dp"
-            android:text="No"
+            android:text="Estimate Trimester"
             android:textColor="@color/TextColorWine" />
 
     </LinearLayout>
