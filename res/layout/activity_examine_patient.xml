@@ -34,11 +34,9 @@
         <ListView
             android:id="@+id/listView_ask"
             android:layout_width="match_parent"
-            android:layout_height="184dp"
+            android:layout_height="340dp"
             android:background="@drawable/customborder" >
-
         </ListView>
-
     </LinearLayout>
 
     <LinearLayout
@@ -57,11 +55,9 @@
         <ListView
             android:id="@+id/listView_look"
             android:layout_width="match_parent"
-            android:layout_height="141dp"
+            android:layout_height="323dp"
             android:background="@drawable/customborder" >
-
         </ListView>
-
     </LinearLayout>
 
     <LinearLayout
@@ -80,11 +76,9 @@
         <ListView
             android:id="@+id/listView_check"
             android:layout_width="match_parent"
-            android:layout_height="165dp"
+            android:layout_height="246dp"
             android:background="@drawable/customborder" >
-
         </ListView>
-
     </LinearLayout>
 
     <LinearLayout

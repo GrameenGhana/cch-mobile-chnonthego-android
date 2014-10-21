@@ -175,10 +175,20 @@
         <activity android:name="org.grameenfoundation.poc.AcuteEmergenciesActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.TakeActionActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.AskBleedingActivity"></activity>
-        <activity android:name="org.digitalcampus.oppia.activity.PreviousVisitActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.PreviousVisitActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.FirstVisitActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.EstimateTrimester"></activity>
         <activity android:name="org.grameenfoundation.poc.ExamineThePatientActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.GestationActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.PostnatalCareActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.NewbornEmergenciesActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionNewbornEmergency"></activity>
+        <activity android:name="org.grameenfoundation.poc.PostnatalCareSectionActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.RecordsAskActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.RecordsCheckActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.SevereDiseasesActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.SevereDiseasesNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionSeverDiseasesActivity"></activity>
     </application>
 
 </manifest>

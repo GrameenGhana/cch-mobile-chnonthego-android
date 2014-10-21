@@ -75,7 +75,7 @@ public class AcuteEmergenciesActivity extends Activity implements OnClickListene
 		Intent intent;
 		switch(v.getId()){
 		case R.id.button_acuteEmergenciesNo:
-		intent=new Intent(mContext,FirstVisitActivity.class);
+		intent=new Intent(mContext,PreviousVisitActivity.class);
 		startActivity(intent);
 			break;
 		}

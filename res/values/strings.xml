@@ -162,6 +162,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <color name="Green">#53AB20</color>
+    <color name="Curry">#e1aa07</color>
 	 <color name="TextColorGreen">#68B036</color>
 	 <string name="action_home">Home</string>
 	 <string name="action_logout">Logout</string>

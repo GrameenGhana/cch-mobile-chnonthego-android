@@ -42,6 +42,10 @@ public class PointOfCareActivity extends Activity implements OnItemClickListener
 			intent=new Intent(mContext, AntenatalCareActivity.class);
 			startActivity(intent);
 			break;
+		case 2:
+			intent=new Intent(mContext, NewbornEmergenciesActivity.class);
+			startActivity(intent);
+			break;
 		}
 		
 	}
