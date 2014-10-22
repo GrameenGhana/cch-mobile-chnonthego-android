@@ -4,12 +4,15 @@ import org.digitalcampus.mobile.learningGF.R;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,6 +22,7 @@ public class ExamineThePatientActivity extends Activity {
 	private ListView listView_look;
 	private ListView listView_check;
 	private Context mContext;
+	private Button button_next;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -43,6 +47,17 @@ public class ExamineThePatientActivity extends Activity {
 	    listView_ask.setAdapter(adapter1);
 	    listView_look.setAdapter(adapter2);
 	    listView_check.setAdapter(adapter3);
+	    button_next=(Button) findViewById(R.id.button_next);
+	    button_next.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+			Intent intent=new Intent(mContext,AskHerActivity.class);
+			startActivity(intent);
+				
+			}
+	    	
+	    });
 	}
 
 	class ListAdapter extends BaseAdapter{

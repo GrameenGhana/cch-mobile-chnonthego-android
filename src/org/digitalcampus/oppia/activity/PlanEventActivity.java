@@ -65,10 +65,12 @@ public final class PlanEventActivity extends Activity implements OnClickListener
 	    editText_event_location=(EditText) findViewById(R.id.editText_eventPlanLocation);
 	    button_addEvent=(Button) findViewById(R.id.button_eventPlanAdd);
 	    button_addEvent.setOnClickListener(this);
-	    repeatingLayout=(TableRow) findViewById(R.id.tableRow_Repeating);
-	    repeatingLayout.setVisibility(View.GONE);
+	   // repeatingLayout=(TableRow) findViewById(R.id.tableRow_Repeating);
+	   // repeatingLayout.setVisibility(View.GONE);
 	    button_viewCalendar=(Button) findViewById(R.id.button_eventViewCalendar);
 	    button_viewCalendar.setOnClickListener(this);
+	}
+	    /*
 	    radioGroup_repeating=(RadioGroup) findViewById(R.id.radioGroup_recurringChoice);
 	    radioGroup_repeating.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 
@@ -85,6 +87,7 @@ public final class PlanEventActivity extends Activity implements OnClickListener
 			}
 	    	
 	    });
+	    
 	    spinner_eventRecurring=(Spinner) findViewById(R.id.spinner_eventRecurring);
 	    String[] items={"Daily","Weekly","Monthly","Yearly"};
 	    ArrayAdapter<String> adapter=new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, items);
@@ -120,24 +123,19 @@ public final class PlanEventActivity extends Activity implements OnClickListener
 	    	
 	    });
 	}
-
+*/
 	@Override
 	public void onClick(View v) {
 		
 		switch(v.getId()){
 		
 		case R.id.button_eventPlanAdd:
-			if(radioGroup_repeating.getCheckedRadioButtonId()==R.id.radio_repeatNo){
+			
 			String eventName=spinner_eventName.getSelectedItem().toString();
 			String eventLocation=editText_event_location.getText().toString();
 			String eventDescription=editText_eventDescription.getText().toString();
 			c.addEvent(eventName, eventLocation, eventDescription);
-			}else if(radioGroup_repeating.getCheckedRadioButtonId()==R.id.radio_repeatYes){
-				String eventName=spinner_eventName.getSelectedItem().toString();
-				String eventLocation=editText_event_location.getText().toString();
-				String eventDescription=editText_eventDescription.getText().toString();
-				c.addRecurringEvent(eventName, eventLocation, eventDescription,rrule);
-			}
+			
 			break;
 			
 		case R.id.button_eventViewCalendar:

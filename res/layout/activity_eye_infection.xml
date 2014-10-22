@@ -25,7 +25,8 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Take Action: Umbilicus Red or Draining Pus, Skin Pustules"
+            android:padding="10dp"
+            android:text="Take Action: Eye Infection"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextColorWine" />
 
@@ -33,8 +34,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/customborder"
+            android:divider="@drawable/divider"
             android:orientation="vertical"
-            android:padding="20dp" >
+            android:padding="20dp"
+            android:showDividers="middle" >
 
             <TextView
                 android:id="@+id/textView2"
@@ -64,6 +67,7 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="While waiting for transport:"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextColorGreen" />
@@ -72,6 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/customborder"
+            android:divider="@drawable/divider"
             android:dividerPadding="2dp"
             android:orientation="vertical"
             android:padding="20dp"
@@ -89,6 +94,7 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
                 android:text="2. Clear baby’s eyes with a clean cotton swab dipped lightly in normal saline solution. Start from the nose bridge and wipe out. Use one cotton swab per wipe to prevent infection "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -112,6 +118,7 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="Take Action: Continue"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextColorWine" />
@@ -120,8 +127,10 @@
             android:layout_width="match_parent"
             android:layout_height="296dp"
             android:background="@drawable/customborder"
+            android:divider="@drawable/divider"
             android:orientation="vertical"
-            android:padding="20dp" >
+            android:padding="20dp"
+            android:showDividers="middle" >
 
             <TextView
                 android:id="@+id/textView12"

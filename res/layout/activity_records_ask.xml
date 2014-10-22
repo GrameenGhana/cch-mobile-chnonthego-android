@@ -29,8 +29,10 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="Ask mother:"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -38,12 +40,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/customborder"
-        android:orientation="vertical" >
+        android:divider="@drawable/divider"
+        android:orientation="vertical"
+        android:showDividers="middle" >
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
             android:text="1. How old is the baby? "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -51,6 +56,7 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
             android:text="2. Do you have any concerns?  "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -58,6 +64,7 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
             android:text="3. Does the baby have any problems? "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -65,6 +72,7 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
             android:text="4. How is the baby feeding?"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -72,6 +80,7 @@
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
             android:text="5. Did you have any complications during pregnancy and delivery? "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 

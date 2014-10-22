@@ -1,6 +1,8 @@
 package org.grameenfoundation.adapters;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 import org.digitalcampus.mobile.learningGF.R;
 
@@ -18,6 +20,7 @@ public class OtherBaseAdapter extends BaseAdapter{
 	 private final ArrayList<String> otherNumber;
 	 private final ArrayList<String> otherPeriod;
 	 private final ArrayList<String> id;
+	 private HashMap<Integer, Boolean> mSelection = new HashMap<Integer, Boolean>();
 	
 	 public OtherBaseAdapter(Context c,ArrayList<String> otherCategory ,ArrayList<String> otherNumber,ArrayList<String> otherPeriod,ArrayList<String> id) {
      mContext = c;
@@ -71,7 +74,29 @@ public class OtherBaseAdapter extends BaseAdapter{
 		            //textView4.setTypeface(custom_font);
 	      return list;
 	    }
-		
+	public void setNewSelection(int position, boolean value) {
+		mSelection.put(position, value);
+        notifyDataSetChanged();
+    }
+
+    public boolean isPositionChecked(int position) {
+        Boolean result = mSelection.get(position);
+        return result == null ? false : result;
+    }
+
+    public Set<Integer> getCurrentCheckedPosition() {
+        return mSelection.keySet();
+    }
+
+    public void removeSelection(int position) {
+        mSelection.remove(position);
+        notifyDataSetChanged();
+    }
+
+    public void clearSelection() {
+        mSelection = new HashMap<Integer, Boolean>();
+        notifyDataSetChanged();
+    }
 	}
 
 

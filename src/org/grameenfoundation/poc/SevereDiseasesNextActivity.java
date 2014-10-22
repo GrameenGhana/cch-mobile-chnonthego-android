@@ -27,10 +27,12 @@ public class SevereDiseasesNextActivity extends Activity {
 	    setContentView(R.layout.activity_severe_disease_next);
 	    mContext=SevereDiseasesNextActivity.this;
 	    listView_severDiseaseSymptoms=(ListView) findViewById(R.id.listView_severDiseaseSymptoms);
-	    String[] items={"Not breathing (apnea) or Slow breathing < 20 bpm","Fast breathing (≥ 60 bpm)","Chest in-drawing",
+	    String[] items={"Not breathing (apnea) or Slow breathing < 20 bpm","Fast breathing (≥ 60 bpm)",
+	    				"Chest in-drawing",
 	    				"Grunting","Convulsing now or convulsed in the last hour",
 	    				"Cyanosis or pallor","Low body temperature (< 35.5 C)",
-	    				"Fever (> 37.5 C)","Feeding difficulty, not feeding well, or not able to feed","Mild Hypothermia (35.5 – 36.5 C) ",
+	    				"Fever (> 37.5 C)","Feeding difficulty, not feeding well, or not able to feed",
+	    				"Mild Hypothermia (35.5 – 36.5 C) ",
 	    				"Umbilicus Infection or Skin Pustules","Eye Infection ",
 	    				"No symptoms"};
 	    SymptomsListAdapter adapter=new SymptomsListAdapter(mContext,items);
@@ -57,6 +59,11 @@ public class SevereDiseasesNextActivity extends Activity {
 					intent.putExtra("category", "cyanosis");
 					startActivity(intent);
 					break;
+				case 6:
+					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
+					intent.putExtra("category", "low");
+					startActivity(intent);
+					break;
 				case 7:
 					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
 					intent.putExtra("category", "fever");
@@ -69,15 +76,20 @@ public class SevereDiseasesNextActivity extends Activity {
 					break;
 				case 9:
 					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
-					intent.putExtra("category", "umbilicus");
+					intent.putExtra("category", "hypothermia");
 					startActivity(intent);
 					break;
 				case 10:
 					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
-					intent.putExtra("category", "eye");
+					intent.putExtra("category", "umbilicus");
 					startActivity(intent);
 					break;
 				case 11:
+					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
+					intent.putExtra("category", "eye");
+					startActivity(intent);
+					break;
+				case 12:
 					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
 					intent.putExtra("category", "no symptoms");
 					startActivity(intent);

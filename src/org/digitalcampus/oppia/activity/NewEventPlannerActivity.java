@@ -342,7 +342,18 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 		            						// if this button is clicked, just close
 		            						// the dialog box and do nothing
 		            						if(db.deleteEventCategory(selected_position)==true){
-		    		    		        		
+		            							getActivity().runOnUiThread(new Runnable() {
+		    							            @Override
+		    							            public void run() {
+		    							            	
+		    							            	 eventName=db.getAllEventName(month_passed);
+		    							 			    eventNumber=db.getAllEventNumber(month_passed);
+		    							 			    eventsId=db.getAllEventID(month_passed);
+		    							 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventsId);
+		    							 			    events_adapter.notifyDataSetChanged();
+		    							 			    listView_events.setAdapter(events_adapter);	
+		    							            }
+		    							        });
 		       	    		        		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
 		       									         Toast.LENGTH_LONG).show();
 		       		    		        	}
@@ -540,6 +551,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			private String[] selected_items;
 			private RadioGroup category_options;
 			private String[] items3;
+			int selected_position;
 			 public CoverageActivity(){
 
          }
@@ -615,7 +627,122 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 						    });
 						String[] items2={"Daily","Monthly","Weekly"};
 					
-						//ArrayList<String> list=db.getAllCoverageCategory();
+						listView_coverage.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+				          
+						listView_coverage.setMultiChoiceModeListener(new MultiChoiceModeListener() {
+				              
+				            private int nr = 0;
+				              
+				            @Override
+				            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+				                
+				                return false;
+				            }
+				              
+				            @Override
+				            public void onDestroyActionMode(ActionMode mode) {
+				                
+				            	coverage_adapter.clearSelection();
+				            }
+				              
+				            @Override
+				            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+				            
+				                  
+				                nr = 0;
+				                MenuInflater inflater = getActivity().getMenuInflater();
+				                inflater.inflate(R.menu.context_menu, menu);
+				                return true;
+				            }
+				              
+				            @Override
+				            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+				                switch (item.getItemId()) {
+				                    case R.id.option1:
+				                        nr = 0;
+				                    System.out.println(selected_position);
+				                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				            				getActivity());
+				             
+				            			// set title
+				            			alertDialogBuilder.setTitle("Delete event?");
+				             
+				            			// set dialog message
+				            			alertDialogBuilder
+				            				.setMessage("You are about to delete an event. Proceed?")
+				            				.setCancelable(false)
+				            				.setIcon(R.drawable.ic_error)
+				            				.setPositiveButton("No",new DialogInterface.OnClickListener() {
+				            					public void onClick(DialogInterface dialog,int id) {
+				            						// if this button is clicked, close
+				            						// current activity
+				            						dialog.cancel();
+				            					}
+				            				  })
+				            				.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+				            					public void onClick(DialogInterface dialog,int id) {
+				            						// if this button is clicked, just close
+				            						// the dialog box and do nothing
+				            						if(db.deleteCoverageCategory(selected_position)==true){
+				            							getActivity().runOnUiThread(new Runnable() {
+				            					            @Override
+				            					            public void run() {
+				            					            	
+				            					            	coveragePeopleTarget=db.getAllCoveragePeopleTarget(month_passed);
+				            								    coveragePeopleNumber=db.getAllCoveragePeopleNumber(month_passed);
+				            								    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod(month_passed);
+				            								    
+				            								    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget(month_passed);
+				            								    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber(month_passed);
+				            								    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod(month_passed);
+				            								    coveragePeopleId=db.getAllCoveragePeopleId(month_passed);
+				            								    coverageImmunizationId=db.getAllCoverageImmunizationsId(month_passed);
+				            								    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
+				            								    coverage_adapter=new CoverageListAdapter(getActivity(),group,coveragePeopleTarget,coveragePeopleNumber,
+				            											coveragePeoplePeriod,coverageImmunzationTarget,
+				            											coverageImmunzationNumber,coverageImmunzationPeriod,
+				            											coveragePeopleId,coverageImmunizationId,
+				            											imageId,listView_coverage);
+				            								    coverage_adapter.notifyDataSetChanged();
+				            								    listView_coverage.setAdapter(coverage_adapter);	
+				            					            }
+				            					        });	
+				       	    		        		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
+				       									         Toast.LENGTH_LONG).show();
+				       		    		        	}
+				       		    		        	
+				            						coverage_adapter.clearSelection();
+				       		                      
+				            					}
+				            				});
+				             
+				            				// create alert dialog
+				            				AlertDialog alertDialog = alertDialogBuilder.create();
+				             
+				            				// show it
+				            				alertDialog.show();
+				            				  mode.finish();
+				                }
+				                return false;
+				            }
+				              
+				            @Override	
+				            public void onItemCheckedStateChanged(ActionMode mode, int position,
+				                    long id, boolean checked) {
+				                // TODO Auto-generated method stub
+				                 if (checked) {
+				                        nr++;
+				                        selected_position=(int) id;
+				                        
+				                        coverage_adapter.setNewSelection(position, checked);                    
+				                    } else {
+				                        nr--;
+				                        coverage_adapter.removeSelection(position);                 
+				                    }
+				                    mode.setTitle(nr + " selected");
+				                    
+				            }
+				        });
 						
 						final Spinner spinner_coveragePeriod=(Spinner) dialog.findViewById(R.id.spinner_coveragePeriod);
 						ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items2);
@@ -788,7 +915,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			private String[] groupItem;
 
 			private int[] imageId;
-			
+			int selected_position;
 			 public LearningActivity(){
 
       }
@@ -825,7 +952,120 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			    //registerForContextMenu(learningList);
 			    
 			    textStatus=(TextView) rootView.findViewById(R.id.textView_learningStatus);
-			    
+			    learningList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+		          
+			    learningList.setMultiChoiceModeListener(new MultiChoiceModeListener() {
+		              
+		            private int nr = 0;
+		              
+		            @Override
+		            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+		                
+		                return false;
+		            }
+		              
+		            @Override
+		            public void onDestroyActionMode(ActionMode mode) {
+		                
+		            	learning_adapter.clearSelection();
+		            }
+		              
+		            @Override
+		            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+		            
+		                  
+		                nr = 0;
+		                MenuInflater inflater = getActivity().getMenuInflater();
+		                inflater.inflate(R.menu.context_menu, menu);
+		                return true;
+		            }
+		              
+		            @Override
+		            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+		                switch (item.getItemId()) {
+		                    case R.id.option1:
+		                        nr = 0;
+		                    System.out.println(selected_position);
+		                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+		            				getActivity());
+		             
+		            			// set title
+		            			alertDialogBuilder.setTitle("Delete event?");
+		             
+		            			// set dialog message
+		            			alertDialogBuilder
+		            				.setMessage("You are about to delete an event. Proceed?")
+		            				.setCancelable(false)
+		            				.setIcon(R.drawable.ic_error)
+		            				.setPositiveButton("No",new DialogInterface.OnClickListener() {
+		            					public void onClick(DialogInterface dialog,int id) {
+		            						// if this button is clicked, close
+		            						// current activity
+		            						dialog.cancel();
+		            					}
+		            				  })
+		            				.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+		            					public void onClick(DialogInterface dialog,int id) {
+		            						// if this button is clicked, just close
+		            						// the dialog box and do nothing
+		            						if(db.deleteLearningCategory(selected_position)==true){
+		            							getActivity().runOnUiThread(new Runnable() {
+		    										@Override
+		    							            public void run() {
+		    							            	
+		    							            	AntenatalCare=db.getAllLearningAntenatalCare();
+		    										    PostnatalCare=db.getAllLearningPostnatalCare();
+		    										    FamilyPlanning=db.getAllLearningFamilyPlanning(month_passed);
+		    										    ChildHealth=db.getAllLearningChildHealth();
+		    										    General=db.getAllLearningGeneral();
+		    										    Other=db.getAllLearningOther();
+		    										    learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,//AntenatalCare,
+		       													//PostnatalCare,
+		       													FamilyPlanning,
+		       													//ChildHealth,
+		       													//General,
+		       													//Other,
+		       													imageId,learningList);
+		    										    learning_adapter.notifyDataSetChanged();
+		    										    learningList.setAdapter(learning_adapter);	
+		    							            }
+		    							        });	
+		       	    		        		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
+		       									         Toast.LENGTH_LONG).show();
+		       		    		        	}
+		       		    		        	
+		            						learning_adapter.clearSelection();
+		       		                      
+		            					}
+		            				});
+		             
+		            				// create alert dialog
+		            				AlertDialog alertDialog = alertDialogBuilder.create();
+		             
+		            				// show it
+		            				alertDialog.show();
+		            				  mode.finish();
+		                }
+		                return false;
+		            }
+		              
+		            @Override	
+		            public void onItemCheckedStateChanged(ActionMode mode, int position,
+		                    long id, boolean checked) {
+		                // TODO Auto-generated method stub
+		                 if (checked) {
+		                        nr++;
+		                        selected_position=(int) id;
+		                        
+		                        learning_adapter.setNewSelection(position, checked);                    
+		                    } else {
+		                        nr--;
+		                        learning_adapter.removeSelection(position);                 
+		                    }
+		                    mode.setTitle(nr + " selected");
+		                    
+		            }
+		        });
 			    Button b = (Button) rootView.findViewById(R.id.button_addLearning);
 			    b.setOnClickListener(new OnClickListener() {
 
@@ -1091,6 +1331,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			private ListView listView_other;
 			private TextView textStatus;
 			private OtherBaseAdapter other_adapter;
+			int selected_position;
 			 public OtherActivity(){
 
    }
@@ -1107,7 +1348,111 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 			
 			   textStatus=(TextView) rootView.findViewById(R.id.textView_otherStatus);
 			   listViewPopulate();
-			    
+			   listView_other.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+		          
+			   listView_other.setMultiChoiceModeListener(new MultiChoiceModeListener() {
+		              
+		            private int nr = 0;
+		              
+		            @Override
+		            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+		                
+		                return false;
+		            }
+		              
+		            @Override
+		            public void onDestroyActionMode(ActionMode mode) {
+		                
+		            	other_adapter.clearSelection();
+		            }
+		              
+		            @Override
+		            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+		            
+		                  
+		                nr = 0;
+		                MenuInflater inflater = getActivity().getMenuInflater();
+		                inflater.inflate(R.menu.context_menu, menu);
+		                return true;
+		            }
+		              
+		            @Override
+		            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+		                switch (item.getItemId()) {
+		                    case R.id.option1:
+		                        nr = 0;
+		                    System.out.println(selected_position);
+		                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+		            				getActivity());
+		             
+		            			// set title
+		            			alertDialogBuilder.setTitle("Delete event?");
+		             
+		            			// set dialog message
+		            			alertDialogBuilder
+		            				.setMessage("You are about to delete an event. Proceed?")
+		            				.setCancelable(false)
+		            				.setIcon(R.drawable.ic_error)
+		            				.setPositiveButton("No",new DialogInterface.OnClickListener() {
+		            					public void onClick(DialogInterface dialog,int id) {
+		            						// if this button is clicked, close
+		            						// current activity
+		            						dialog.cancel();
+		            					}
+		            				  })
+		            				.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+		            					public void onClick(DialogInterface dialog,int id) {
+		            						// if this button is clicked, just close
+		            						// the dialog box and do nothing
+		            						if(db.deleteOthereCategory(selected_position)==true){
+		            							getActivity().runOnUiThread(new Runnable() {
+		            								@Override
+		            					            public void run() {
+		            									otherCategory=db.getAllOtherCategory(month_passed);
+		            								    otherNumber=db.getAllOtherNumber(month_passed);
+		            								    otherPeriod=db.getAllOtherPeriod(month_passed);
+		            								    otherId=db.getAllOthersId(month_passed);
+		            								    other_adapter=new OtherBaseAdapter(getActivity(),otherCategory,otherNumber,otherPeriod,otherId);
+		            							    	other_adapter.notifyDataSetChanged();
+		            							    	listView_other.setAdapter(other_adapter);	
+		            					            }
+		            					        });	
+		       	    		        		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
+		       									         Toast.LENGTH_LONG).show();
+		       		    		        	}
+		       		    		        	
+		            						other_adapter.clearSelection();
+		       		                      
+		            					}
+		            				});
+		             
+		            				// create alert dialog
+		            				AlertDialog alertDialog = alertDialogBuilder.create();
+		             
+		            				// show it
+		            				alertDialog.show();
+		            				  mode.finish();
+		                }
+		                return false;
+		            }
+		              
+		            @Override	
+		            public void onItemCheckedStateChanged(ActionMode mode, int position,
+		                    long id, boolean checked) {
+		                // TODO Auto-generated method stub
+		                 if (checked) {
+		                        nr++;
+		                        selected_position=(int) id;
+		                        
+		                        other_adapter.setNewSelection(position, checked);                    
+		                    } else {
+		                        nr--;
+		                        other_adapter.removeSelection(position);                 
+		                    }
+		                    mode.setTitle(nr + " selected");
+		                    
+		            }
+		        });
 			    Button b = (Button) rootView.findViewById(R.id.button_addOther);
 			    b.setOnClickListener(new OnClickListener() {
 

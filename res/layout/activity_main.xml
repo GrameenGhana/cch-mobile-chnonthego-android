@@ -58,8 +58,9 @@
             android:layout_margin="2dip"
             android:gravity="center"
             android:text="@string/loading_courses"
-            android:textSize="18sp" 
-            android:textColor="@color/text_light"/>
+            android:textColor="@color/TextColorWine"
+            android:textSize="18sp" />
+
     </LinearLayout>
     
     <LinearLayout
@@ -76,8 +77,8 @@
             android:layout_margin="2dip"
             android:gravity="center"
             android:text="@string/no_courses"
-            android:textSize="18sp" 
-            android:textColor="@color/text_light"/>
+            android:textColor="@color/TextColorWine"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/manage_courses_btn"

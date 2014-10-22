@@ -1990,6 +1990,34 @@ public boolean deleteEventCategory(long id){
 	
 }
 
+public boolean deleteCoverageCategory(long id){
+    
+	 String deleteQuery="Delete from "+COVERAGE_SET_TABLE+" where "+
+			 			BaseColumns._ID+" = "+ id;
+	 System.out.println(deleteQuery);
+       db.execSQL(deleteQuery);
+	return true;
+	
+}
+
+public boolean deleteLearningCategory(long id){
+    
+	 String deleteQuery="Delete from "+LEARNING_TABLE+" where "+
+			 			BaseColumns._ID+" = "+ id;
+	 System.out.println(deleteQuery);
+      db.execSQL(deleteQuery);
+	return true;
+	
+}
+public boolean deleteOthereCategory(long id){
+    
+	 String deleteQuery="Delete from "+OTHER_TABLE+" where "+
+			 			BaseColumns._ID+" = "+ id;
+	 System.out.println(deleteQuery);
+      db.execSQL(deleteQuery);
+	return true;
+	
+}
 public boolean editCoverage(String coverage_category,String coverage_number,String coverage_period, long id){
 	    
         String updateQuery = "Update "+COVERAGE_SET_TABLE+" set "+

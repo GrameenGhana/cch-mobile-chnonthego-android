@@ -29,7 +29,10 @@
         <ExpandableListView
             android:id="@+id/expandableListView_firstVisit"
             android:layout_width="match_parent"
-            android:layout_height="304dp" >
+            android:layout_height="304dp"
+            android:background="@color/BackgroundGrey"
+            android:dividerHeight="2dp" >
+
         </ExpandableListView>
 
     </LinearLayout>

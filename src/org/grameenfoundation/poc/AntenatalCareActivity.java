@@ -46,8 +46,16 @@ public class AntenatalCareActivity extends Activity implements OnItemClickListen
 			startActivity(intent);
 			break;
 		case 1:
-			//intent=new Intent(mContext, CousellingPerTrimesterActivity.class);
-			//startActivity(intent);
+			intent=new Intent(mContext, CounsellingPerTrimesterActivtiy.class);
+			startActivity(intent);
+			break;
+		case 2:
+			intent=new Intent(mContext, CalculatorsMenuActivity.class);
+			startActivity(intent);
+			break;
+		case 3:
+			intent=new Intent(mContext, ReferencesMenuActivity.class);
+			startActivity(intent);
 			break;
 		}
 		

@@ -1,6 +1,8 @@
 package org.grameenfoundation.adapters;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 import org.digitalcampus.mobile.learningGF.R;
 
@@ -30,6 +32,7 @@ public class LearningBaseAdapter extends BaseExpandableListAdapter {
 	 private int count;
 	 public int lastExpandedGroupPosition;    
 	 private Context mContext;
+	private HashMap<Integer, Boolean> mSelection = new HashMap<Integer, Boolean>();
 
 	 public LearningBaseAdapter(Context mContext,String[] grList,//ArrayList<String>ChildItemAntenatalCare,
 			// ArrayList<String>ChildItemPostnatalCare,
@@ -228,4 +231,28 @@ public class LearningBaseAdapter extends BaseExpandableListAdapter {
        lastExpandedGroupPosition = groupPosition;
        
    }
+	
+	public void setNewSelection(int position, boolean value) {
+		mSelection.put(position, value);
+        notifyDataSetChanged();
+    }
+
+    public boolean isPositionChecked(int position) {
+        Boolean result = mSelection.get(position);
+        return result == null ? false : result;
+    }
+
+    public Set<Integer> getCurrentCheckedPosition() {
+        return mSelection.keySet();
+    }
+
+    public void removeSelection(int position) {
+        mSelection.remove(position);
+        notifyDataSetChanged();
+    }
+
+    public void clearSelection() {
+        mSelection = new HashMap<Integer, Boolean>();
+        notifyDataSetChanged();
+    }
 	}

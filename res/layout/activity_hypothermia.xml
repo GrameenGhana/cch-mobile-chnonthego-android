@@ -25,6 +25,7 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="Take Action: Mild Hypothermia "
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextColorWine" />
@@ -33,13 +34,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/customborder"
+            android:divider="@drawable/divider"
             android:orientation="vertical"
-            android:padding="20dp" >
+            android:padding="20dp"
+            android:showDividers="middle" >
 
             <TextView
                 android:id="@+id/textView15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
                 android:text="1. Warm the baby skin to skin, cover baby with a blanket, and more clothes"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -47,6 +51,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
                 android:text="2. If the baby can feed, help mother to breastfeed"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -54,6 +59,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
                 android:text="3. If the baby cannot breastfeed, give small sips of expressed breast milk that’s been collected in a clean container with a lid "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -61,6 +67,7 @@
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
                 android:text="4. If temperature is not increasing (≥ 36.5 C) after 2 hours, give extra warmth and refer mother and baby to a health center "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -68,6 +75,7 @@
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
                 android:text="5. If any danger signs present, refer to a health center or hospital IMMEDIATELY"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -91,6 +99,7 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="While waiting for transport:"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextColorGreen" />
@@ -99,6 +108,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/customborder"
+            android:divider="@drawable/divider"
             android:dividerPadding="2dp"
             android:orientation="vertical"
             android:padding="20dp"
@@ -108,6 +118,7 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
                 android:text="1. If baby is not able to breastfeed, give small sips of expressed breast milk that has been collected in a clean container with a lid "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -115,6 +126,7 @@
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
                 android:text="2. Advise mother to not put the baby on her back "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -122,6 +134,7 @@
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
                 android:text="3. Teach mother how to keep the baby warm on the way to the health facility"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -138,6 +151,7 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="Take Action: Continue"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextColorWine" />
@@ -146,8 +160,10 @@
             android:layout_width="match_parent"
             android:layout_height="296dp"
             android:background="@drawable/customborder"
+            android:divider="@drawable/divider"
             android:orientation="vertical"
-            android:padding="20dp" >
+            android:padding="20dp"
+            android:showDividers="middle" >
 
             <TextView
                 android:id="@+id/textView12"

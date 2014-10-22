@@ -15,7 +15,7 @@ public class TakeActionSeverDiseasesActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
-          take_action_category= extras.getString("take_action");
+          take_action_category= extras.getString("category");
         }
         if(take_action_category.equals("difficulty")){
 	    setContentView(R.layout.activity_difficulty_breathing);
@@ -33,6 +33,10 @@ public class TakeActionSeverDiseasesActivity extends Activity {
         	setContentView(R.layout.activity_eye_infection);	
         }else if(take_action_category.equals("no symptoms")){
         	setContentView(R.layout.activity_no_symptoms);	
+        }else if(take_action_category.equals("hypothermia")){
+        	setContentView(R.layout.activity_hypothermia);	
+        }else if(take_action_category.equals("low")){
+        	setContentView(R.layout.activity_low_temperature);
         }
 	}
 

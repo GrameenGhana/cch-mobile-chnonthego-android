@@ -6,14 +6,18 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.grameenfoundation.cch.model.WebAppInterface;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.Toast;
 import android.widget.CalendarView.OnDateChangeListener;
 import android.widget.TextView;
 
@@ -26,11 +30,29 @@ public class EstimateTrimester extends Activity {
 	private TextView textView_estimatedTrimester;
 	private String newDate;
 	private Calendar cal;
-	@SuppressLint("NewApi")
+	private WebView myWebView;
+	private static final String URL = "file:///android_asset/www/cch/modules/poc/trimcalculator.html";
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_estimate_trimester);
+	    
+	    setContentView(R.layout.activity_estimate_trimester_web);
+	    myWebView = (WebView) findViewById(R.id.webView_estimate);	
+	    myWebView.getSettings().setJavaScriptEnabled(true);
+		myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
+		myWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);	 
+		myWebView.loadUrl(URL);
+		myWebView.setWebViewClient(new WebViewClient(){
+				
+			@Override
+			     public void onReceivedError(WebView view, int errorCod,String description, String failingUrl) {
+		            Toast.makeText(view.getContext(), description , Toast.LENGTH_LONG).show();
+		         }
+			    
+			     
+	});
+	    /*
 	    calendarView_calendar=(CalendarView) findViewById(R.id.calendarView1);
 	    calendarView_calendar.setSelectedWeekBackgroundColor(getResources().getColor(R.color.TextColorGreen));
 	    calendarView_calendar.setSelectedDateVerticalBar(R.color.TextColorWine);
@@ -101,6 +123,7 @@ public class EstimateTrimester extends Activity {
 			}
 		}
 	}
-	
+	*/
+	}
 	
 }

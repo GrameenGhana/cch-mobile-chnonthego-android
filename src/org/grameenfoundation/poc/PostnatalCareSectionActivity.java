@@ -52,6 +52,14 @@ public class PostnatalCareSectionActivity extends Activity {
 					intent=new Intent(mContext,SevereDiseasesActivity.class);
 					startActivity(intent);
 					break;
+				case 3:
+					intent=new Intent(mContext,JaundiceActivity.class);
+					startActivity(intent);
+					break;
+				case 4:
+					intent=new Intent(mContext,OtherSeriousConditionsActivity.class);
+					startActivity(intent);
+					break;
 				}
 				
 			}
@@ -86,10 +94,9 @@ public class PostnatalCareSectionActivity extends Activity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if( convertView == null ){
-				  convertView = minflater.inflate(R.layout.listview_text_single,parent, false);
+				  convertView = minflater.inflate(R.layout.other_listview_single,parent, false);
 			    }
-			 TextView text=(TextView) convertView.findViewById(R.id.textView_listViewText);
-			 text.setGravity(Gravity.LEFT);
+			 TextView text=(TextView) convertView.findViewById(R.id.textView_otherCategory);
 			 text.setText(listItems[position]);
 			    return convertView;
 		}

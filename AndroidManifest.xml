@@ -189,6 +189,31 @@
         <activity android:name="org.grameenfoundation.poc.SevereDiseasesActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.SevereDiseasesNextActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.TakeActionSeverDiseasesActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.JaundiceActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.JaundiceSectionsActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionJaundiceActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.OtherSeriousConditionsActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionOtherSeriousConditionActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.OtherSeriousConditionsNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.NoSeriousConditionsActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionNoConditionsActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.NoInjuriesActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionNoInjuriesActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.DiarrhoeaActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.DiarrhoeaSectionActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.AskHerActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionAskHerActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionSomeDehydration"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionSevereDehydrationActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionSomeDehydrationNoActivity"></activity>
+        <activity android:name="org.digitalcampus.oppia.activity.UpdateActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.CounsellingPerTrimesterActivtiy"></activity>
+        <activity android:name="org.grameenfoundation.poc.SecondTrimesterCounsellingActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ThirdTrimesterActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.CalculatorsMenuActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.CalculatorsActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ReferencesMenuActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ReferencesActivity"></activity>
     </application>
 
 </manifest>

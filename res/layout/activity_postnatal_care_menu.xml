@@ -17,7 +17,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="138dp"
+            android:layout_height="276dp"
             android:background="@drawable/bg_marquee"
             android:orientation="vertical" >
         </LinearLayout>
@@ -28,14 +28,21 @@
             android:layout_height="10dp"
             android:background="@color/BorderBrown" />
 
-        <ListView
-            android:id="@+id/listView_postnatalCare"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/BackgroundGrey"
-            android:dividerHeight="5dp" >
+            android:orientation="vertical" >
 
-        </ListView>
+            <ListView
+                android:id="@+id/listView_postnatalCare"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/BackgroundGrey"
+                android:dividerHeight="5dp" >
+            </ListView>
+
+        </LinearLayout>
 
     </LinearLayout>
 

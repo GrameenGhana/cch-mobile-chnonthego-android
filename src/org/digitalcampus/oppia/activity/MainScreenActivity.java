@@ -38,6 +38,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -58,10 +59,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
     ViewPager mViewPager;
 	private static DbHelper dbh;
 	private SharedPreferences prefs;
-	private String current_month;
-	private HashMap<String, String> eventUpdateItemsDaily;
-	private HashMap<String, String> coverageUpdateItemsDaily;
-	private HashMap<String, String> otherUpdateItemsDaily;
+	
 	// MODULE IDs
 		private static final String EVENT_PLANNER_ID      = "Event Planner";
 		private static final String STAYING_WELL_ID       = "Staying Well";
@@ -105,46 +103,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		System.out.println(compared_today);
 		System.out.println(compared_week);
 		System.out.println(compared_endofmonth);
-	    Calendar c = Calendar.getInstance();
-        int month=c.get(Calendar.MONTH)+1;
-        switch(month){
-        case 1:
-	        	current_month="January";
-	        	break;
-        case 2:
-        	current_month="February";
-        	break;
-        case 3:
-        	current_month="March";
-        	break;
-        case 4:
-        	current_month="April";
-        	break;
-        case 5:
-        	current_month="May";
-        	break;
-        case 6:
-        	current_month="June";
-        	break;
-        case 7:
-        	current_month="July";
-        	break;
-        case 8:
-        	current_month="August";
-        	break;
-        case 9:
-        	current_month="September";
-        	break;
-        case 10:
-        	current_month="October";
-        	break;
-        case 11:
-        	current_month="November";
-        	break;
-        case 12:
-        	current_month="December";
-        	break;
-        }
+	    
 	    String[] categories={"Planner",
 	    		"Point of Care",
 	    		"Learning Center",
@@ -169,12 +128,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		tb.putBoolean("backgroundData", true);
 		service.putExtras(tb);
 		this.startService(service);
-		eventUpdateItemsDaily=dbh.getAllDailyEvents(current_month);
-		coverageUpdateItemsDaily=dbh.getAllDailyCoverage(current_month);
-		otherUpdateItemsDaily=dbh.getAllDailyOther(current_month);
-		Intent service2 = new Intent(this,UpdateTargetsService.class);
-		this.startService(service2);
-	
+		
 	    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -224,6 +178,15 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		 CalendarEvents c;
 		 public ArrayList<String> EventTypeToday;
 		private SharedPreferences prefs;
+		private String current_month;
+		private HashMap<String, String> eventUpdateItemsDaily;
+		private HashMap<String, String> coverageUpdateItemsDaily;
+		private HashMap<String, String> otherUpdateItemsDaily;
+		private ArrayList<String> eventId;
+		private ArrayList<String> coverageId;
+		private ArrayList<String> otherId;
+		private TextView textView_eventTargetsNumber;
+		private TextView textView_clickHere;
 		 public EventsSummary(){
 			 
 		 }
@@ -264,6 +227,91 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			 }else {
 				 event_number.setText(String.valueOf(EventTypeToday.size())); 
 			 }
+			 Calendar c = Calendar.getInstance();
+		        int month=c.get(Calendar.MONTH)+1;
+		        switch(month){
+		        case 1:
+			        	current_month="January";
+			        	break;
+		        case 2:
+		        	current_month="February";
+		        	break;
+		        case 3:
+		        	current_month="March";
+		        	break;
+		        case 4:
+		        	current_month="April";
+		        	break;
+		        case 5:
+		        	current_month="May";
+		        	break;
+		        case 6:
+		        	current_month="June";
+		        	break;
+		        case 7:
+		        	current_month="July";
+		        	break;
+		        case 8:
+		        	current_month="August";
+		        	break;
+		        case 9:
+		        	current_month="September";
+		        	break;
+		        case 10:
+		        	current_month="October";
+		        	break;
+		        case 11:
+		        	current_month="November";
+		        	break;
+		        case 12:
+		        	current_month="December";
+		        	break;
+		        }
+			 eventUpdateItemsDaily=dbh.getAllDailyEvents(current_month);
+				coverageUpdateItemsDaily=dbh.getAllDailyCoverage(current_month);
+				otherUpdateItemsDaily=dbh.getAllDailyOther(current_month);
+				//Intent service2 = new Intent(this,UpdateTargetsService.class);
+				//this.startService(service2);
+				
+				textView_eventTargetsNumber=(TextView) rootView.findViewById(R.id.textView_eventTargetsNumber);
+				textView_clickHere=(TextView) rootView.findViewById(R.id.textView_clickHere);
+				textView_clickHere.setOnClickListener(new OnClickListener(){
+
+					@Override
+					public void onClick(View v) {
+						Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
+						startActivity(intent);
+					}
+					
+				});
+				 eventId=new ArrayList<String>();
+				 eventId.add(eventUpdateItemsDaily.get("event_id"));
+				 coverageId=new ArrayList<String>();
+				 coverageId.add(coverageUpdateItemsDaily.get("coverage_id"));
+				 otherId=new ArrayList<String>();
+				 otherId.add(otherUpdateItemsDaily.get("other_id"));
+				 int number=eventId.size();
+				 int number2=coverageId.size();
+				 int number3=otherId.size();
+				 int counter;
+				if(eventUpdateItemsDaily.isEmpty()){
+					number=0;
+				}else{
+					number=eventId.size();
+				}
+				if(coverageUpdateItemsDaily.isEmpty()){
+					number2=0;
+				}else {
+					number2=coverageId.size();
+				}
+				if(otherUpdateItemsDaily.isEmpty()){
+					number3=0;
+				}else{
+					number3=otherId.size();
+				}
+				counter=number+number2+number3;
+				System.out.println(counter);
+				textView_eventTargetsNumber.setText(String.valueOf(counter));
 			 return rootView;
 		 }
 	 }

@@ -180,11 +180,11 @@ public class UpdateWeeklyTargetsActivity extends Activity {
 						LinearLayout linearLayout_comment=(LinearLayout) dialog.findViewById(R.id.LinearLayout_comment);
 						LinearLayout linearLayout_justification=(LinearLayout) dialog.findViewById(R.id.LinearLayout_justification);
 						switch(checkedId){
-						case R.id.radio_repeatYes:
+						case R.id.radio_updateDialogYes:
 							linearLayout_comment.setVisibility(View.VISIBLE);
 							//linearLayout_justification.setVisibility(View.GONE);
 							break;
-						case R.id.radio_repeatNo:
+						case R.id.radio_updateDialogNo:
 							linearLayout_justification.setVisibility(View.VISIBLE);
 							//linearLayout_comment.setVisibility(View.VISIBLE);
 							break;
@@ -257,11 +257,11 @@ public class UpdateWeeklyTargetsActivity extends Activity {
 					@Override
 					public void onCheckedChanged(RadioGroup group, int checkedId) {
 						switch(checkedId){
-						case R.id.radio_repeatYes:
+						case R.id.radio_updateDialogYes:
 							linearLayout_comment.setVisibility(View.VISIBLE);
 							linearLayout_justification.setVisibility(View.GONE);
 							break;
-						case R.id.radio_repeatNo:
+						case R.id.radio_updateDialogNo:
 							linearLayout_justification.setVisibility(View.VISIBLE);
 							linearLayout_comment.setVisibility(View.VISIBLE);
 							break;
@@ -333,11 +333,11 @@ public class UpdateWeeklyTargetsActivity extends Activity {
 					@Override
 					public void onCheckedChanged(RadioGroup group, int checkedId) {
 						switch(checkedId){
-						case R.id.radio_repeatYes:
+						case R.id.radio_updateDialogYes:
 							linearLayout_comment.setVisibility(View.VISIBLE);
 							linearLayout_justification.setVisibility(View.GONE);
 							break;
-						case R.id.radio_repeatNo:
+						case R.id.radio_updateDialogNo:
 							linearLayout_justification.setVisibility(View.VISIBLE);
 							linearLayout_comment.setVisibility(View.VISIBLE);
 							break;

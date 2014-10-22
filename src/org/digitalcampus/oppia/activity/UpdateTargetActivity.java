@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -141,9 +142,9 @@ public class UpdateTargetActivity extends Activity{
 			coverageId=new ArrayList<String>();
 			coverageNumber=new ArrayList<String>();
 	    	coverageType=new ArrayList<String>();
-			 coverageType.add(coverageUpdateItemsDaily.get("coverage_name"));
-				coverageId.add(coverageUpdateItemsDaily.get("coverage_id"));
-				coverageNumber.add(coverageUpdateItemsDaily.get("coverage_number"));
+			coverageType.add(coverageUpdateItemsDaily.get("coverage_name"));
+			coverageId.add(coverageUpdateItemsDaily.get("coverage_id"));
+			coverageNumber.add(coverageUpdateItemsDaily.get("coverage_number"));
 			coverageUpdateAdapter=new coverageUpdateListAdapter(mContext, coverageType, coverageId, coverageNumber);
 			listView_coverageUpdate.setAdapter(coverageUpdateAdapter);
 		}
@@ -166,80 +167,32 @@ public class UpdateTargetActivity extends Activity{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					final int position, final long id) {
-				final Dialog dialog = new Dialog(mContext);
-				dialog.setContentView(R.layout.update_dialog);
-				dialog.setTitle("Update target");
-				Button dialogButton = (Button) dialog.findViewById(R.id.button_update);
-				final EditText justification=(EditText) dialog.findViewById(R.id.editText_dialogJustification);
-				final EditText comment=(EditText) dialog.findViewById(R.id.editText_comment);
-				final TextView message=(TextView) dialog.findViewById(R.id.textView_message);
-				String[] values=eventUpdateAdapter.getItem(position);
-				message.setText("Were you able to achieve your target of "+values[1]+" "+values[0] +"?");
-				RadioGroup update=(RadioGroup) dialog.findViewById(R.id.radioGroup_updateDialog);
-				update.setOnCheckedChangeListener(new OnCheckedChangeListener(){
-					@Override
-					public void onCheckedChanged(RadioGroup group, int checkedId) {
-						LinearLayout linearLayout_comment=(LinearLayout) dialog.findViewById(R.id.LinearLayout_comment);
-						LinearLayout linearLayout_justification=(LinearLayout) dialog.findViewById(R.id.LinearLayout_justification);
-						switch(checkedId){
-						case R.id.radio_repeatYes:
-							linearLayout_comment.setVisibility(View.VISIBLE);
-							//linearLayout_justification.setVisibility(View.GONE);
-							break;
-						case R.id.radio_repeatNo:
-							linearLayout_justification.setVisibility(View.VISIBLE);
-							//linearLayout_comment.setVisibility(View.VISIBLE);
-							break;
-						}
-					}
-				});
-				dialogButton.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						dialog.dismiss();
-					            	String[] items=eventUpdateAdapter.getItem(position);
-					            	String justification_text=justification.getText().toString();
-					            	String comment_text=comment.getText().toString();
-				                	if(db.insertJustification(items[0], items[1], justification_text, comment_text, "new_record") !=0){
-				                	long last_id=db.insertJustification(items[0], items[1], justification_text, comment_text, "new_record");;
-				                	JSONObject json = new JSONObject();
-									 try {
-										json.put("id", last_id);
-										 json.put("event_type", items[0]);
-										 json.put("event_number", items[1]);
-										 if(justification_text.equals(" ")){
-										 json.put("justification", "did not justify");
-										 }else {
-										 json.put("justification", "justified"); 
-										 }
-									} catch (JSONException e) {
-										e.printStackTrace();
-									}
-									 db.insertCCHLog("Event Planner", json.toString(), " ", " ");
-									 System.out.println(json.toString());
-									 db.updateEventTarget("updated", id);
-									 Toast.makeText(getApplicationContext(), "Target updated!",
-							         Toast.LENGTH_SHORT).show();
-										runOnUiThread(new Runnable() {
-								            @Override
-								            public void run() {
-							            	eventUpdateItemsDaily=db.getAllDailyEvents(current_month);
-							            	if(eventUpdateItemsDaily.isEmpty()){
-							            		linearLayout_eventsUpdate.setVisibility(View.GONE);
-							            	}else{
-								        	    eventType.add(eventUpdateItemsDaily.get("event_name"));
-								        	    eventId.add(eventUpdateItemsDaily.get("event_id"));
-								        	    eventNumber.add(eventUpdateItemsDaily.get("event_number"));
-								        	    eventUpdateAdapter=new eventsUpdateListAdapter(mContext, eventType, eventId, eventNumber);
-							        	 	    listView_eventsUpdate.setAdapter(eventUpdateAdapter);
-								            }
-								            }
-								        });
-				                	}
-					    }
-					
-				});
-	 				dialog.show();
+				//String[] values=eventUpdateAdapter.getItem(position);
+				String[] items=eventUpdateAdapter.getItem(position);
+				Intent intent;
+				intent=new Intent(mContext, UpdateActivity.class);
+				intent.putExtra("id", id);
+				intent.putExtra("number",items[1]);
+				intent.putExtra("name", items[0]);
+				intent.putExtra("type", "event");
+				startActivity(intent);
+				/*
+				runOnUiThread(new Runnable() {
+		            @Override
+		            public void run() {
+	            	eventUpdateItemsDaily=db.getAllDailyEvents(current_month);
+	            	if(eventUpdateItemsDaily.isEmpty()){
+	            		linearLayout_eventsUpdate.setVisibility(View.GONE);
+	            	}else{
+		        	    eventType.add(eventUpdateItemsDaily.get("event_name"));
+		        	    eventId.add(eventUpdateItemsDaily.get("event_id"));
+		        	    eventNumber.add(eventUpdateItemsDaily.get("event_number"));
+		        	    eventUpdateAdapter=new eventsUpdateListAdapter(mContext, eventType, eventId, eventNumber);
+	        	 	    listView_eventsUpdate.setAdapter(eventUpdateAdapter);
+		            }
+		            }
+		        });
+		        */
 			}
 	    });
 	    
@@ -247,79 +200,33 @@ public class UpdateTargetActivity extends Activity{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					final int position, final long id) {
-				final Dialog dialog = new Dialog(mContext);
-				dialog.setContentView(R.layout.update_dialog);
-				dialog.setTitle("Update target");
-				Button dialogButton = (Button) dialog.findViewById(R.id.button_update);
-				final EditText justification=(EditText) dialog.findViewById(R.id.editText_dialogJustification);
-				final EditText comment=(EditText) dialog.findViewById(R.id.editText_comment);
-				final LinearLayout linearLayout_justification=(LinearLayout) dialog.findViewById(R.id.LinearLayout_justification);
-				final LinearLayout linearLayout_comment=(LinearLayout) dialog.findViewById(R.id.LinearLayout_comment);
-				final TextView message=(TextView) dialog.findViewById(R.id.textView_message);
-				String[] values=coverageUpdateAdapter.getItem(position);
-				message.setText("Were you able to achieve your target of "+values[1]+" "+values[0] +"?");
-				final RadioGroup update=(RadioGroup) dialog.findViewById(R.id.radioGroup_updateDialog);
-				update.setOnCheckedChangeListener(new OnCheckedChangeListener(){
-					@Override
-					public void onCheckedChanged(RadioGroup group, int checkedId) {
-						switch(checkedId){
-						case R.id.radio_repeatYes:
-							linearLayout_comment.setVisibility(View.VISIBLE);
-							linearLayout_justification.setVisibility(View.GONE);
-							break;
-						case R.id.radio_repeatNo:
-							linearLayout_justification.setVisibility(View.VISIBLE);
-							linearLayout_comment.setVisibility(View.VISIBLE);
-							break;
-						}
-					}
-				});
-				dialogButton.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						dialog.dismiss();
-					            	String[] items=coverageUpdateAdapter.getItem(position);
-					            	String justification_text=justification.getText().toString();
-					            	String comment_text=comment.getText().toString();
-				                	db.insertJustification(items[0], items[1], justification_text, comment_text, "new_record");
-				                	long last_id=db.insertJustification(items[0], items[1], justification_text, comment_text, "new_record");;
-				                	JSONObject json = new JSONObject();
-									 try {
-										json.put("id", last_id);
-										 json.put("coverage_type", items[0]);
-										 json.put("number_number", items[1]);
-										 if(justification_text.equals(" ")){
-										 json.put("justification", "did not justify");
-										 }else {
-										 json.put("justification", "justified"); 
-										 }
-									} catch (JSONException e) {
-										e.printStackTrace();
-									}
-									 db.insertCCHLog("Event Planner", json.toString(), " ", " ");
-									 System.out.println(json.toString());
-									 db.updateCoverageTarget("updated", id);
-									 Toast.makeText(getApplicationContext(), "Target updated!",
-							         Toast.LENGTH_SHORT).show();
-										runOnUiThread(new Runnable() {
-								            @Override
-								            public void run() {
-								            	coverageUpdateItemsDaily=db.getAllDailyCoverage(current_month);
-								            	if(coverageUpdateItemsDaily.isEmpty()){
-								            		linearLayout_coverageUpdate.setVisibility(View.GONE);
-								            	}else{
-								        	    coverageType.add(eventUpdateItemsDaily.get("coverage_name"));
-								        	    coverageId.add(eventUpdateItemsDaily.get("coverage_id"));
-								        	    coverageNumber.add(eventUpdateItemsDaily.get("coverage_number"));
-								        	    coverageUpdateAdapter=new coverageUpdateListAdapter(mContext, coverageType, coverageId, coverageNumber);
-							        	 	    listView_coverageUpdate.setAdapter(coverageUpdateAdapter);
-								            }
-								            }
-								        });
-					    }
-					
-				});
-	 				dialog.show();
+				
+				String[] items=coverageUpdateAdapter.getItem(position);
+				Intent intent;
+				intent=new Intent(mContext, UpdateActivity.class);
+				intent.putExtra("id", id);
+				intent.putExtra("number",items[1]);
+				intent.putExtra("name", items[0]);
+				intent.putExtra("type", "coverage");
+				startActivity(intent);
+				/*
+				runOnUiThread(new Runnable() {
+		            @Override
+		            public void run() {
+		            	coverageUpdateItemsDaily=db.getAllDailyCoverage(current_month);
+		            	if(coverageUpdateItemsDaily.isEmpty()){
+		            		linearLayout_coverageUpdate.setVisibility(View.GONE);
+		            	}else{
+		        	    coverageType.add(eventUpdateItemsDaily.get("coverage_name"));
+		        	    coverageId.add(eventUpdateItemsDaily.get("coverage_id"));
+		        	    coverageNumber.add(eventUpdateItemsDaily.get("coverage_number"));
+		        	    coverageUpdateAdapter=new coverageUpdateListAdapter(mContext, coverageType, coverageId, coverageNumber);
+	        	 	    listView_coverageUpdate.setAdapter(coverageUpdateAdapter);
+		            }
+		            }
+		        });
+					            	
+				*/	            	
 			}
 	    });
 	    
@@ -327,79 +234,32 @@ public class UpdateTargetActivity extends Activity{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					final int position, final long id) {
-				final Dialog dialog = new Dialog(mContext);
-				dialog.setContentView(R.layout.update_dialog);
-				dialog.setTitle("Update target");
-				Button dialogButton = (Button) dialog.findViewById(R.id.button_update);
-				final EditText justification=(EditText) dialog.findViewById(R.id.editText_dialogJustification);
-				final EditText comment=(EditText) dialog.findViewById(R.id.editText_comment);
-				final LinearLayout linearLayout_justification=(LinearLayout) dialog.findViewById(R.id.LinearLayout_justification);
-				final LinearLayout linearLayout_comment=(LinearLayout) dialog.findViewById(R.id.LinearLayout_comment);
-				final TextView message=(TextView) dialog.findViewById(R.id.textView_message);
-				String[] values=otherUpdateAdapter.getItem(position);
-				message.setText("Were you able to achieve your target of "+values[1]+" "+values[0] +"?");
-				final RadioGroup update=(RadioGroup) dialog.findViewById(R.id.radioGroup_updateDialog);
-				update.setOnCheckedChangeListener(new OnCheckedChangeListener(){
-					@Override
-					public void onCheckedChanged(RadioGroup group, int checkedId) {
-						switch(checkedId){
-						case R.id.radio_repeatYes:
-							linearLayout_comment.setVisibility(View.VISIBLE);
-							linearLayout_justification.setVisibility(View.GONE);
-							break;
-						case R.id.radio_repeatNo:
-							linearLayout_justification.setVisibility(View.VISIBLE);
-							linearLayout_comment.setVisibility(View.VISIBLE);
-							break;
-						}
-					}
-				});
-				dialogButton.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						dialog.dismiss();
-					            	String[] items=otherUpdateAdapter.getItem(position);
-					            	String justification_text=justification.getText().toString();
-					            	String comment_text=comment.getText().toString();
-				                	db.insertJustification(items[0], items[1], justification_text, comment_text, "new_record");
-				                	long last_id=db.insertJustification(items[0], items[1], justification_text, comment_text, "new_record");;
-				                	JSONObject json = new JSONObject();
-									 try {
-										json.put("id", last_id);
-										 json.put("coverage_type", items[0]);
-										 json.put("number_number", items[1]);
-										 if(justification_text.equals(" ")){
-										 json.put("justification", "did not justify");
-										 }else {
-										 json.put("justification", "justified"); 
-										 }
-									} catch (JSONException e) {
-										e.printStackTrace();
-									}
-									 db.insertCCHLog("Event Planner", json.toString(), " ", " ");
-									 System.out.println(json.toString());
-									 db.updateOtherTarget("updated", id);
-									 Toast.makeText(getApplicationContext(), "Target updated!",
-							         Toast.LENGTH_SHORT).show();
-										runOnUiThread(new Runnable() {
-								            @Override
-								            public void run() {
-								            	otherUpdateItemsDaily=db.getAllDailyOther(current_month);
-								            	if(otherUpdateItemsDaily.isEmpty()){
-								            		linearLayout_otherUpdate.setVisibility(View.GONE);
-								            	}else{
-								            		 otherType.add(otherUpdateItemsDaily.get("other_name"));
-								         	 	    otherId.add(otherUpdateItemsDaily.get("other_id"));
-								         	 	    otherNumber.add(otherUpdateItemsDaily.get("other_number"));
-								         	    	otherUpdateAdapter=new otherUpdateListAdapter(mContext, otherType, otherId, otherNumber);
-								         			listView_otherUpdate.setAdapter(otherUpdateAdapter);	
-								            }
-								            }
-								        });
-					    }
-					
-				});
-	 				dialog.show();
+				String[] items=otherUpdateAdapter.getItem(position);
+				Intent intent;
+				intent=new Intent(mContext, UpdateActivity.class);
+				intent.putExtra("id", id);
+				intent.putExtra("number",items[1]);
+				intent.putExtra("name", items[0]);
+				intent.putExtra("type", "other");
+				startActivity(intent);
+				/*
+				runOnUiThread(new Runnable() {
+		            @Override
+		            public void run() {
+		            	otherUpdateItemsDaily=db.getAllDailyOther(current_month);
+		            	if(otherUpdateItemsDaily.isEmpty()){
+		            		linearLayout_otherUpdate.setVisibility(View.GONE);
+		            	}else{
+		            		 otherType.add(otherUpdateItemsDaily.get("other_name"));
+		         	 	    otherId.add(otherUpdateItemsDaily.get("other_id"));
+		         	 	    otherNumber.add(otherUpdateItemsDaily.get("other_number"));
+		         	    	otherUpdateAdapter=new otherUpdateListAdapter(mContext, otherType, otherId, otherNumber);
+		         			listView_otherUpdate.setAdapter(otherUpdateAdapter);	
+		            }
+		            }
+		        });
+					            	
+					*/            	
 			}
 	    });
 	}  
