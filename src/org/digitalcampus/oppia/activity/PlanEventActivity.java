@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.calendar.CalendarEvents.MyEvent;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -22,12 +25,14 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.TableRow;
@@ -38,18 +43,14 @@ public final class PlanEventActivity extends Activity implements OnClickListener
 	private Context mContext;
 	private Spinner spinner_eventName;
 	private EditText editText_eventDescription;
-	private EditText editText_event_location;
+	private AutoCompleteTextView editText_event_location;
 	private Button button_addEvent;
 	private static final String EVENT_PLANNER_ID = "Event Planner";
-	private MyEvent events;
 	private Button button_viewCalendar;
 	private DbHelper dbh;
 	Long startTime;
 	 CalendarEvents c;
-	private Spinner spinner_eventRecurring;
 	String rrule;
-	private RadioGroup radioGroup_repeating;
-	private TableRow repeatingLayout;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -57,12 +58,26 @@ public final class PlanEventActivity extends Activity implements OnClickListener
 	    mContext=PlanEventActivity.this;
 	    dbh = new DbHelper(getApplicationContext());
 	    getActionBar().setDisplayShowHomeEnabled(false);
-	    getActionBar().setTitle("Event Planning");
+	    getActionBar().setTitle("Event Planning> Plan Event");
 	    c= new CalendarEvents(mContext);
 	    startTime = System.currentTimeMillis();
 	    spinner_eventName=(Spinner) findViewById(R.id.spinner_eventPlanType);
 	    editText_eventDescription=(EditText) findViewById(R.id.editText_eventPlanDescription);
-	    editText_event_location=(EditText) findViewById(R.id.editText_eventPlanLocation);
+	    editText_event_location=(AutoCompleteTextView) findViewById(R.id.AutoCompleteTextView_location);
+	   String[] locations = new String[] {
+	         "Ada", "Adedetsekope", "Adutor", "Agbakope", "Agordome","Agorkpo","Agorta",
+	         "Anyaman","Asidowui","Asigbekope","Azizanyah","Bonikope","Comboni","Dabala",
+	         "District","Dogo","Dordoekope-Angorto","Dorkploame","Gamenu","Hlevi","Kasseh",
+	         "Koni","Kpotame","Larve","Lolonya","Luhuor","Madavuno","Matsekope","Pediatorkope",
+	         "Pute","Sasekope","Sege","Sogakope","Sokutime","Tamatoku","Tefle","Teyekpitikope",
+	         "Abui-Tsita","Adzokoe","Afienya","Agbadzakope","Agbate","Agbeve","Ahwiam","Ayertepa",
+	         "Dawa","Dawhenya","Dikato","Duga","Dzake","Dzebetato","Dzetorkoe","Dzorgborve",
+	         "Kpeve-Adzokoe","Kua","Lekpongunor","NewNingo","Nyigbenya","OldNingo","Peki",
+	         "Tsanakpe","Tsatee","Tsiyinu","Wegbe","Prampram"
+	     };
+	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, locations);
+	    editText_event_location.setAdapter(adapter);
 	    button_addEvent=(Button) findViewById(R.id.button_eventPlanAdd);
 	    button_addEvent.setOnClickListener(this);
 	   // repeatingLayout=(TableRow) findViewById(R.id.tableRow_Repeating);
@@ -130,11 +145,68 @@ public final class PlanEventActivity extends Activity implements OnClickListener
 		switch(v.getId()){
 		
 		case R.id.button_eventPlanAdd:
-			
-			String eventName=spinner_eventName.getSelectedItem().toString();
-			String eventLocation=editText_event_location.getText().toString();
-			String eventDescription=editText_eventDescription.getText().toString();
-			c.addEvent(eventName, eventLocation, eventDescription);
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+    				mContext);
+     
+    			// set title
+    			alertDialogBuilder.setTitle("Add event?");
+     
+    			// set dialog message
+    			alertDialogBuilder
+    				.setMessage("You are about to add an event to the calendar. Proceed?")
+    				.setCancelable(false)
+    				.setPositiveButton("No",new DialogInterface.OnClickListener() {
+    					public void onClick(DialogInterface dialog,int id) {
+    						// if this button is clicked, close
+    						// current activity
+    						dialog.cancel();
+    					}
+    				  })
+    				.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+    					public void onClick(DialogInterface dialog,int id) {
+    						String eventName=spinner_eventName.getSelectedItem().toString();
+    						String eventLocation=editText_event_location.getText().toString();
+    						String eventDescription=editText_eventDescription.getText().toString();
+    						c.addEvent(eventName, eventLocation, eventDescription);
+    						dialog.cancel();
+    						AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+    			    				mContext);
+    			     
+    			    			// set title
+    			    			alertDialogBuilder.setTitle("Add another event?");
+    			     
+    			    			// set dialog message
+    			    			alertDialogBuilder
+    			    				.setMessage("Event added. Would you like to add another event?")
+    			    				.setCancelable(false)
+    			    				.setPositiveButton("No",new DialogInterface.OnClickListener() {
+    			    					public void onClick(DialogInterface dialog,int id) {
+    			    						// if this button is clicked, close
+    			    						// current activity
+    			    						dialog.cancel();
+    			    						Intent intent=new Intent(mContext,EventPlannerOptionsActivity.class);
+    			    						startActivity(intent);
+    			    					}
+    			    				  })
+    			    				.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+    			    					public void onClick(DialogInterface dialog,int id) {
+    			    						dialog.cancel();
+    			    						editText_event_location.setText("");
+    			    						editText_eventDescription.setText("");
+    					    		        	}
+    			    				});
+    			    				// create alert dialog
+    			    				AlertDialog alertDialog = alertDialogBuilder.create();
+    			     
+    			    				// show it
+    			    				alertDialog.show();
+		    		        	}
+    				});
+    				// create alert dialog
+    				AlertDialog alertDialog = alertDialogBuilder.create();
+     
+    				// show it
+    				alertDialog.show();
 			
 			break;
 			

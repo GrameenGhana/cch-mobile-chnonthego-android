@@ -37,7 +37,7 @@
             <ListView
                 android:id="@+id/listView_postnatalCare"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="164dp"
                 android:background="@color/BackgroundGrey"
                 android:dividerHeight="5dp" >
             </ListView>

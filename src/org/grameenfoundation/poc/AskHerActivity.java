@@ -24,6 +24,8 @@ public class AskHerActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_ask_her);
 	    mContext=AskHerActivity.this;
+	    getActionBar().setDisplayShowHomeEnabled(false);
+	    getActionBar().setTitle("Point of Care> Antenatal Care");
 	    listView_askHer=(ListView) findViewById(R.id.listView_askHer);
 	    String[] items={"Excessive Vomiting","Offensive/discolored discharge",
 	    				"Sever abdominal pain","Feotal Movements",

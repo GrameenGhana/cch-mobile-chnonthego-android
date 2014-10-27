@@ -9,6 +9,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="org.grameenfoundation.chnonthego.LoginActivity" >
 
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:gravity="right" >
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
@@ -21,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:paddingBottom="10dp" >
 
             <TextView
@@ -34,7 +42,6 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:typeface="serif" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -53,7 +60,6 @@
                 android:hint="@string/username"
                 android:inputType="textPersonName"
                 android:textStyle="italic" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -73,7 +79,6 @@
 
                 <requestFocus />
             </EditText>
-
         </LinearLayout>
 
         <LinearLayout
@@ -97,7 +102,6 @@
                 android:textStyle="bold"
                 android:typeface="serif"
                 android:width="250dp" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -118,9 +122,15 @@
                 android:text="Forgot password?"
                 android:textColor="@color/White"
                 android:textSize="12sp" />
-
         </LinearLayout>
-
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/relativeLayout1"
+        android:src="@drawable/app_icon" />
 
 </RelativeLayout>

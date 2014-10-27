@@ -7,13 +7,9 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="661dp"
-    android:orientation="vertical" >
-
-    <View
-        android:id="@+id/view1"
-        android:layout_width="wrap_content"
-        android:layout_height="10dp"
-        android:background="@color/Curry" />
+    android:background="@drawable/stroke_bg_curry"
+    android:orientation="vertical"
+    android:padding="10dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,7 +66,7 @@
             android:padding="10dp"
             android:text="While waiting for transport:"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/Green" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -111,7 +107,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="208dp"
+        android:layout_height="240dp"
         android:orientation="vertical" >
 
         <TextView
@@ -158,12 +154,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="wrap_content"
-        android:layout_height="10dp"
-        android:background="@color/Curry" />
 
 </LinearLayout>
 </ScrollView>

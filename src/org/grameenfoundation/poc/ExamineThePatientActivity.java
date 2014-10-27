@@ -37,7 +37,7 @@ public class ExamineThePatientActivity extends Activity {
 	    					"Blurred vision","Bleeding","Offensive/discoloured vaginal discharge",
 	    					"Fever","Difficulty breathing","Epigastric pain","Foetal movements"};
 	    String[] look_items={"Examine conjunctiva, tongue, palms, and nail beds for palor",
-	    					"Odaema of the feet, hands face, ankles","Bleeding",
+	    					"Oedaema of the feet, hands face, ankles","Bleeding",
 	    					"Jaundice","Signs of shock","Offensive vaginal discharge"};
 	    String[] check_items={"Blood pressure, if possible","Temperature","Pulse"};
 	    

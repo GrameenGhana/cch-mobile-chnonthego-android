@@ -29,6 +29,8 @@ public class TakeActionActivity extends Activity{
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_take_action);
 	    mContext=TakeActionActivity.this;
+	    getActionBar().setDisplayShowHomeEnabled(false);
+	    getActionBar().setTitle("Point of Care> Antenatal Care> Take Action");
 	    listView_takeAction=(ListView) findViewById(R.id.listView_takeAction);
 	    textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
 	    Bundle extras = getIntent().getExtras(); 
@@ -37,7 +39,7 @@ public class TakeActionActivity extends Activity{
           textView_takeAction.setText(take_action_category);
         }
         if(take_action_category.equals("Difficulty breathing")){
-        	 String[] emergencies={"Renmove tight clothing around client's chest",
+        	 String[] emergencies={"Remove tight clothing around client's chest",
         			 			"Prop client up if she is conscious",
         			 			"If unconscious, tilt her head back and lift chin to open airway",
         			 			"Clear mouth of any secretions",

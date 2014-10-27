@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -59,11 +61,30 @@ public class CalendarEvents {
 		mContext.startActivity(intent);
     }
 	public void addEvent(String evt, String location, String desc)
-    {			
+    {	
+		long calID = 3;
+		
 		Calendar cal = Calendar.getInstance();
+		ContentResolver cr = mContext.getContentResolver();
+		ContentValues values = new ContentValues();
+		values.put(Events.DTSTART, cal.getTimeInMillis());
+		values.put(Events.DTEND,  cal.getTimeInMillis()+60*60*1000);
+		values.put(Events.TITLE, evt);
+		values.put(Events.DESCRIPTION, desc);
+		values.put(Events.CALENDAR_ID, calID);
+		values.put(Events.AVAILABILITY,  Events.AVAILABILITY_BUSY);
+		values.put(Events.EVENT_LOCATION, location);
+		values.put(Events.EVENT_TIMEZONE, "Casablanca");
+		values.put(CalendarContract.EXTRA_EVENT_ALL_DAY,  false);
+		Uri uri = cr.insert(Events.CONTENT_URI, values);
+		System.out.println(TimeZone.getAvailableIDs());
+		// get the event ID that is the last element in the Uri
+		long eventID = Long.parseLong(uri.getLastPathSegment());
+		
 		//beginTime.set(2012, 0, 19, 7, 30);
 		//Calendar endTime = Calendar.getInstance();
 		//endTime.set(2012, 0, 19, 8, 30);
+		/*
 		Intent	intent = new Intent(Intent.ACTION_EDIT)
 		        .setData(Events.CONTENT_URI)
 		        .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTimeInMillis())
@@ -75,6 +96,7 @@ public class CalendarEvents {
 		 		.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY , false);
 		
 		mContext.startActivity(intent);
+		*/
     }
     
 	public class MyEvent
@@ -149,12 +171,14 @@ public class CalendarEvents {
 	public String getNumEventsToday() {	
     	return String.valueOf(todaysEventsNum) ;
     }
+	
 	public ArrayList<String> getTodaysEventsType() {
 			ArrayList<String> events =new ArrayList<String>(); 
 	       int evNum = 0;
 	       
 	       if (todaysEventsNum==0) {
-	    	  System.out.println("No events");		  
+	    	  System.out.println("No events");	
+	    	  events.add("No planned events for today"); 
 	       } else {
 	    	   for(MyEvent ev: calEvents){
 	    		

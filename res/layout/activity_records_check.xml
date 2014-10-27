@@ -2,10 +2,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-<LinearLayout 
+    android:layout_height="match_parent"
+    android:background="@color/White" >
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/White"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -38,6 +41,7 @@
             android:padding="10dp"
             android:text=">>> Check mother’s antenatal details:"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/TextColorWine"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -89,6 +93,7 @@
             android:padding="10dp"
             android:text=">>> Check delivery details"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/TextColorWine"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -163,6 +168,7 @@
             android:padding="10dp"
             android:text=">>> Preterm/small baby status "
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/TextColorWine"
             android:textStyle="bold" />
 
         <TextView
@@ -172,6 +178,7 @@
             android:padding="10dp"
             android:text=">>> Check for: "
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/TextColorWine"
             android:textStyle="bold" />
 
     </LinearLayout>

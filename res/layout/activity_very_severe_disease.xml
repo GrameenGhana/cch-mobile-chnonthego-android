@@ -37,6 +37,7 @@
             android:text="Ask:"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/TextColorWine"
+            android:textSize="22sp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -53,22 +54,32 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="1. Is baby having any difficulty in feeding? "
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="2. Has the baby been given any herbal medicines since birth?"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="3. Has baby had convulsions (fits)? "
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="17sp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -85,6 +96,7 @@
             android:text="Look, Listen, Feel"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/TextColorWine"
+            android:textSize="22sp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -112,9 +124,11 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="1. Not breathing (apnoea)"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="17sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -125,23 +139,27 @@
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:text="2. Count the breaths in 1 minute:"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="             --- Slow breathing (&lt;20 bpm)"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="             ---Fast breathing (≥ 60 bpm).  Repeat count to ensure fast breathing "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:paddingBottom="10dp"
+                android:text="             --- Fast breathing (≥ 60 bpm).  Repeat count to ensure fast breathing "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="15sp" />
 
         </LinearLayout>
 
@@ -149,17 +167,21 @@
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="3. Look and listen for grunting"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="4. Look for chest in-drawing  "
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/textView14"
@@ -179,8 +201,10 @@
                 android:id="@+id/textView15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:text="1. Look at baby’s movements. If baby is sleeping, ask the mother to wake him/her"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/textView16"
@@ -188,7 +212,8 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="              ---Does the baby move on his/her own? Are they normal and symmetrical? "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="15sp" />
 
         </LinearLayout>
 

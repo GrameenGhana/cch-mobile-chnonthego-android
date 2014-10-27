@@ -27,6 +27,8 @@ public class AskBleedingActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_acuteemergencies_bleeding);
 	    mContext=AskBleedingActivity.this;
+	    getActionBar().setDisplayShowHomeEnabled(false);
+	    getActionBar().setTitle("Point of Care> Antenatal Care");
 	    expandableListView_bleeding=(ExpandableListView) findViewById(R.id.expandableListView_acuteEmergencyBleeding);
 	    groupItems= new String[]{"Light(fewer than 2 pad changes in 24hours)","Heavy(more than 2 pad changes in 24hours)"};
 	    ChildItemsOne=new String[]{"Encourage fluid intake"," Refer to the nearest health centre or hospital immediately",

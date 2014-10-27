@@ -25,6 +25,8 @@ public class AntenatalCareActivity extends Activity implements OnItemClickListen
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_antenatal_care);
 	    mContext=AntenatalCareActivity.this;
+	    getActionBar().setDisplayShowHomeEnabled(false);
+	    getActionBar().setTitle("Point of Care> Antenatal Care");
 	    listView_ancMenu=(ListView) findViewById(R.id.listView_antenatalCare);
 	    listView_ancMenu.setOnItemClickListener(this);
 	    int[] images={R.drawable.ic_diagnostic,R.drawable.ic_counselling,R.drawable.ic_calculator,R.drawable.ic_references};

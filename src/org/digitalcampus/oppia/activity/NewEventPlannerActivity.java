@@ -13,10 +13,10 @@ import org.grameenfoundation.adapters.LearningBaseAdapter;
 import org.grameenfoundation.adapters.OtherBaseAdapter;
 import org.grameenfoundation.cch.activity.HomeActivity;
 
-import android.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -66,8 +66,12 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 
-public class NewEventPlannerActivity extends FragmentActivity implements ActionBar.TabListener, OnSharedPreferenceChangeListener{
+
+public class NewEventPlannerActivity extends SherlockFragmentActivity implements ActionBar.TabListener, OnSharedPreferenceChangeListener{
 	 private DbHelper dbh;
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	public String current_month;
@@ -84,12 +88,48 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_new_event_planner);
-	    final ActionBar actionBar =getActionBar();
-	    final PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_header);
-        pagerTabStrip.setDrawFullUnderline(true);
-        pagerTabStrip.setTabIndicatorColor(Color.rgb(83,171,32));
+	    
+	   // final PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_header);
+       // pagerTabStrip.setDrawFullUnderline(true);
+       // pagerTabStrip.setTabIndicatorColor(Color.rgb(83,171,32));
         dbh = new DbHelper(NewEventPlannerActivity.this);
-       //actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+      
+        final ActionBar actionBar =getSupportActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.setTitle("Target Setting");
+        actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setHomeButtonEnabled(true);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOffscreenPageLimit(4);
+        // When swiping between different sections, select the corresponding
+        // tab. We can also use ActionBar.Tab#select() to do this if we have
+        // a reference to the Tab.
+        
+        mViewPager
+        .setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+                @Override
+                public void onPageSelected(int position) {
+                        actionBar.setSelectedNavigationItem(position);
+                }
+        });
+
+        // For each of the sections in the app, add a tab to the action bar.
+        
+        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+                // Create a tab with text corresponding to the page title defined by
+                // the adapter. Also specify this Activity object, which implements
+                // the TabListener interface, as the callback (listener) for when
+                // this tab is selected.
+        	
+                actionBar.addTab(actionBar.newTab()
+                                .setText(mSectionsPagerAdapter.getPageTitle(i))
+                                .setTabListener(this));
+        }
         Calendar c = Calendar.getInstance();
         int month=c.get(Calendar.MONTH)+1;
         switch(month){
@@ -135,8 +175,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
             month_passed = extras.getString("month");
             // and get whatever type user account id is
         }
-        getActionBar().setDisplayShowHomeEnabled(false);
-        actionBar.setTitle("Target Setting");
+       
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		prefs.registerOnSharedPreferenceChangeListener(this);
 		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
@@ -148,60 +187,9 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 		this.startService(service);
         // Create the adapter that will return a fragment for each of the four
         // primary sections of the app.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.pager);
         
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setOffscreenPageLimit(4);
-        // When swiping between different sections, select the corresponding
-        // tab. We can also use ActionBar.Tab#select() to do this if we have
-        // a reference to the Tab.
-        /*
-        mViewPager
-        .setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-                @Override
-                public void onPageSelected(int position) {
-                        actionBar.setSelectedNavigationItem(position);
-                }
-        });
-
-        // For each of the sections in the app, add a tab to the action bar.
         
-        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-                // Create a tab with text corresponding to the page title defined by
-                // the adapter. Also specify this Activity object, which implements
-                // the TabListener interface, as the callback (listener) for when
-                // this tab is selected.
-        	
-                actionBar.addTab(actionBar.newTab()
-                                .setText(mSectionsPagerAdapter.getPageTitle(i))
-                                .setTabListener(this));
-        }
-        */
 }
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.custom_action_bar, menu);
-        return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-   
 	 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
          public SectionsPagerAdapter(FragmentManager fm) {
@@ -233,13 +221,13 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
                  Locale l = Locale.getDefault();
                  switch (position) {
                          case 0:
-                                 return "Events";
+                                 return "EVENTS";
                          case 1:
-                                 return "Coverage";
+                                 return "COVERAGE";
                          case 2: 
-                        	 	return "Learning";
+                    	 		return "LEARNING";
                          case 3:
-                        	 return "Other";
+                        		return "OTHER";
                  
                  }
                  return null;
@@ -1593,21 +1581,7 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 		 Long starttime=System.currentTimeMillis();  
 		 saveToLog(starttime); 
 	 }
-	@Override
-	public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
-		   mViewPager.setCurrentItem(tab.getPosition());
-		
-	}
 
-	@Override
-	public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
-		
-	}
-
-	@Override
-	public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
-		
-	}
 
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 		Log.d(TAG, key + " changed");
@@ -1622,6 +1596,24 @@ public class NewEventPlannerActivity extends FragmentActivity implements ActionB
 		if(key.equalsIgnoreCase(getString(R.string.prefs_points)) || key.equalsIgnoreCase(getString(R.string.prefs_badges))){
 			supportInvalidateOptionsMenu();
 		}
+	}
+
+	@Override
+	public void onTabSelected(Tab tab, FragmentTransaction ft) {
+		  mViewPager.setCurrentItem(tab.getPosition());
+		
+	}
+
+	@Override
+	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTabReselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

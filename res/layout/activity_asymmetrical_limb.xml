@@ -2,23 +2,21 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@drawable/stroke_bg_curry" >
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="661dp"
-    android:orientation="vertical" >
-
-    <View
-        android:id="@+id/view1"
-        android:layout_width="wrap_content"
-        android:layout_height="10dp"
-        android:background="@color/Curry" />
+    android:background="@drawable/stroke_bg_curry"
+    android:orientation="vertical"
+    android:padding="10dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.00"
+        android:background="@color/White"
         android:orientation="vertical"
         android:paddingBottom="20dp" >
 
@@ -62,6 +60,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:orientation="vertical" >
 
         <TextView
@@ -125,7 +124,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="208dp"
+        android:layout_height="244dp"
         android:orientation="vertical" >
 
         <TextView
@@ -173,13 +172,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="wrap_content"
-        android:layout_height="10dp"
-        android:background="@color/Curry"
-        android:paddingTop="10dp" />
 
 </LinearLayout>
 </ScrollView>

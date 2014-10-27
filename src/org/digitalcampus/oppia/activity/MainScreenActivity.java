@@ -111,7 +111,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	    		"Staying Well"};
 	    
 	    int[] images={R.drawable.ic_calendar,
-	    			  R.drawable.ic_point_of_care,
+	    			  R.drawable.ic_point_of_care_cross,
 	    			  R.drawable.ic_learning_center,
 	    			  R.drawable.ic_achievement,
 	    			  R.drawable.ic_staying_well};
@@ -222,7 +222,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			    	 status.setText("Good day, "+name+"!");
 			    }
 			 //eventsNumber=db.getAllEventsForMonth("September");
-			 if(EventTypeToday.size()==0){
+			 if(EventTypeToday.get(0).equalsIgnoreCase("No planned events for today")){
 				 event_number.setText("0"); 
 			 }else {
 				 event_number.setText(String.valueOf(EventTypeToday.size())); 

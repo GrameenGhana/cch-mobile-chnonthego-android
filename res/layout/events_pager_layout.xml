@@ -17,7 +17,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical" >
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp" >
 
             <TextView
                 android:id="@+id/textView2"
@@ -51,7 +52,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp" >
 
                 <TextView
                     android:id="@+id/textView1"
@@ -65,12 +67,12 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_action_previous_item" />
-
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp" >
 
                 <TextView
                     android:id="@+id/textView3"
@@ -91,7 +93,7 @@
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="  event target(s) to update."
+                    android:text="  target(s) to update."
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
@@ -101,7 +103,6 @@
                     android:text=" click here"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/TextColorWine" />
-
             </LinearLayout>
 
         </LinearLayout>

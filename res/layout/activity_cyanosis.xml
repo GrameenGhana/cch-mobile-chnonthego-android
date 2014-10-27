@@ -7,7 +7,9 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="522dp"
-    android:orientation="vertical" >
+    android:background="@drawable/stroke_bg"
+    android:orientation="vertical"
+    android:padding="10dp" >
 
     <View
         android:id="@+id/view1"
@@ -94,7 +96,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="208dp"
+        android:layout_height="262dp"
         android:orientation="vertical" >
 
         <TextView

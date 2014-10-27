@@ -28,16 +28,15 @@
             android:layout_width="wrap_content"
             android:layout_height="10dp"
             android:background="@color/BorderBrown" />
+
+        <ListView
+            android:id="@+id/listView_cousellingMenu"
+            android:layout_width="match_parent"
+            android:layout_height="312dp"
+            android:background="@color/BackgroundGrey"
+            android:dividerHeight="2dp" >
+        </ListView>
+
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/listView_cousellingMenu"
-        android:layout_width="match_parent"
-        android:layout_height="169dp"
-        android:layout_weight="0.41"
-        android:background="@color/BackgroundGrey"
-        android:dividerHeight="2dp" >
-
-    </ListView>
 
 </LinearLayout>

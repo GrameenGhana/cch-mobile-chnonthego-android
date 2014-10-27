@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.grameenfoundation.cch.model.WebAppInterface;
@@ -11,8 +12,15 @@ import org.grameenfoundation.cch.model.WebAppInterface;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -21,23 +29,28 @@ import android.widget.Toast;
 import android.widget.CalendarView.OnDateChangeListener;
 import android.widget.TextView;
 
-public class EstimateTrimester extends Activity {
+public class EstimateTrimester extends FragmentActivity {
 
-	private CalendarView calendarView_calendar;
+	private static CalendarView calendarView_calendar;
 	private Button button_calculate;
 	private Button button_proceed;
 	private TextView textView_estimatedWeeks;
 	private TextView textView_estimatedTrimester;
-	private String newDate;
-	private Calendar cal;
+	private static String newDate;
+	private static Calendar cal;
 	private WebView myWebView;
+	private ViewPager mPager;
+	private CalendarAdapter mAdapter;
 	private static final String URL = "file:///android_asset/www/cch/modules/poc/trimcalculator.html";
 	
+	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    
-	    setContentView(R.layout.activity_estimate_trimester_web);
+	    setContentView(R.layout.activity_estimate_trimester);
+	    mAdapter = new CalendarAdapter(getSupportFragmentManager());
+	    /*
 	    myWebView = (WebView) findViewById(R.id.webView_estimate);	
 	    myWebView.getSettings().setJavaScriptEnabled(true);
 		myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
@@ -52,23 +65,9 @@ public class EstimateTrimester extends Activity {
 			    
 			     
 	});
-	    /*
-	    calendarView_calendar=(CalendarView) findViewById(R.id.calendarView1);
-	    calendarView_calendar.setSelectedWeekBackgroundColor(getResources().getColor(R.color.TextColorGreen));
-	    calendarView_calendar.setSelectedDateVerticalBar(R.color.TextColorWine);
-	    calendarView_calendar.setOnDateChangeListener(new OnDateChangeListener(){
-			@Override
-			public void onSelectedDayChange(CalendarView view, int year,
-					int month, int dayOfMonth) {
-				month=month+1;
-				SimpleDateFormat dfDate  = new SimpleDateFormat("dd/MM/yyyy");
-				cal=Calendar.getInstance();
-				cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-				cal.set(Calendar.MONTH, month);
-				cal.set(Calendar.YEAR, year);
-				newDate=dfDate.format(cal.getTime());
-			}
-	    });
+	*/
+	    mPager = (ViewPager)findViewById(R.id.pager3);
+	    mPager.setAdapter(mAdapter);
 	    button_calculate=(Button) findViewById(R.id.button_calculate);
 	    button_calculate.setOnClickListener(new OnClickListener(){
 
@@ -83,7 +82,83 @@ public class EstimateTrimester extends Activity {
 	    textView_estimatedTrimester=(TextView) findViewById(R.id.textView_estimatedTrimester);
 	    
 	}
+	public static class CalendarAdapter extends FragmentStatePagerAdapter {
+	    public CalendarAdapter(FragmentManager fm) {
+			super(fm);
+			// TODO Auto-generated constructor stub
+		}
 
+		private static final int NUM_MONTHS = 10000;
+	    private static final int INDEX_EPOCH = NUM_MONTHS/2;
+	    private static final int MONTHS_PER_YEAR = 12;
+	    private static final Calendar calendarMonthEpoch = new GregorianCalendar(2012, Calendar.AUGUST, 1);
+
+	
+
+	    @Override
+	    public int getCount() {
+	        return NUM_MONTHS;
+	    }
+
+	    @Override
+	    public Fragment getItem(int position) {
+	        return CalendarMonthFragment.newInstance(calendarMonthAtPosition(position));
+	    }
+
+	    private static Calendar calendarMonthAtPosition(int position) {
+	        int offset = position - INDEX_EPOCH;
+	        Calendar calMonthAtPosition = (Calendar) calendarMonthEpoch.clone(); 
+	        calMonthAtPosition.add(Calendar.MONTH, offset % MONTHS_PER_YEAR);
+	        calMonthAtPosition.add(Calendar.YEAR, offset / MONTHS_PER_YEAR);
+
+	        return calMonthAtPosition;
+	    }
+
+	
+
+	}
+	
+	 @SuppressLint("NewApi")
+	public static class CalendarMonthFragment extends Fragment {
+	        
+	        @SuppressLint("NewApi")
+			@Override
+	        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+	                Bundle savedInstanceState) {
+	            View v = inflater.inflate(R.layout.calendar_view, container, false);
+	            calendarView_calendar=(CalendarView) v.findViewById(R.id.calendarView1);
+	    	    calendarView_calendar.setSelectedWeekBackgroundColor(getResources().getColor(R.color.TextColorGreen));
+	    	    calendarView_calendar.setSelectedDateVerticalBar(R.color.TextColorWine);
+	    	    calendarView_calendar.setOnDateChangeListener(new OnDateChangeListener(){
+	    			@Override
+	    			public void onSelectedDayChange(CalendarView view, int year,
+	    					int month, int dayOfMonth) {
+	    				month=month+1;
+	    				SimpleDateFormat dfDate  = new SimpleDateFormat("dd/MM/yyyy");
+	    				cal=Calendar.getInstance();
+	    				cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+	    				cal.set(Calendar.MONTH, month);
+	    				cal.set(Calendar.YEAR, year);
+	    				newDate=dfDate.format(cal.getTime());
+	    			}
+	    	    });
+	            return v;
+	        }
+
+			public static Fragment newInstance(Calendar calendarMonthAtPosition) {
+				Fragment f=new Fragment();
+				Bundle args = new Bundle();
+				calendarMonthAtPosition = Calendar.getInstance();
+				args.putInt("month", calendarMonthAtPosition.get(Calendar.MONTH) + 1);
+				args.putInt("year", calendarMonthAtPosition.get(Calendar.YEAR));
+				f.setArguments(args);
+				return f;
+			}
+
+		
+	       
+
+	}
 	public void daysBetween(){
 		SimpleDateFormat dfDate  = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar today=Calendar.getInstance();
@@ -123,7 +198,6 @@ public class EstimateTrimester extends Activity {
 			}
 		}
 	}
-	*/
-	}
 	
-}
+	}
+

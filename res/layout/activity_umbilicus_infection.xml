@@ -7,13 +7,9 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="661dp"
-    android:orientation="vertical" >
-
-    <View
-        android:id="@+id/view1"
-        android:layout_width="wrap_content"
-        android:layout_height="10dp"
-        android:background="@color/Curry" />
+    android:background="@drawable/stroke_bg_curry"
+    android:orientation="vertical"
+    android:padding="10dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,6 +47,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:text="2. Call provider and arrange transport "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -94,7 +91,8 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:text="2. If there is pus and crusts, gently wash off with methylated spirit.  Then dry the area "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -205,12 +203,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="wrap_content"
-        android:layout_height="10dp"
-        android:background="@color/Curry" />
 
 </LinearLayout>
 </ScrollView>

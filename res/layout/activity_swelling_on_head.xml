@@ -7,13 +7,9 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="661dp"
-    android:orientation="vertical" >
-
-    <View
-        android:id="@+id/view1"
-        android:layout_width="wrap_content"
-        android:layout_height="10dp"
-        android:background="@color/Curry" />
+    android:background="@drawable/stroke_bg_curry"
+    android:orientation="vertical"
+    android:padding="10dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,14 +41,17 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="1. Counsel mother not to massage swelling area or put warm compress on swelling on the side of the head "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:text="2. Advise mother to go to the health center or hospital if swelling gets bigger "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="17sp" />
 
         </LinearLayout>
 
@@ -64,12 +63,6 @@
         android:orientation="vertical" >
 
     </LinearLayout>
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="wrap_content"
-        android:layout_height="10dp"
-        android:background="@color/Curry" />
 
 </LinearLayout>
 </ScrollView>

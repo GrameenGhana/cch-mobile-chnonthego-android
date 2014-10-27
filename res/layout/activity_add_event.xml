@@ -2,11 +2,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/White" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="386dp"
+        android:background="@color/White"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -46,9 +48,11 @@
 
                 <Spinner
                     android:id="@+id/spinner_eventPlanType"
+                    style="@drawable/spinner_ab_focused_om"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:entries="@array/EventNames" />
+
             </TableRow>
 
             <TableRow
@@ -66,15 +70,16 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/TextColorWine" />
 
-                <EditText
-                    android:id="@+id/editText_eventPlanLocation"
+                <AutoCompleteTextView
+                    android:id="@+id/AutoCompleteTextView_location"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/apptheme_edit_text_holo_light"
                     android:ems="10"
                     android:hint="enter location"
                     android:textStyle="italic" >
-                </EditText>
+
+                </AutoCompleteTextView>
             </TableRow>
 
             <TableRow
