@@ -1,6 +1,7 @@
 package org.grameenfoundation.adapters;
 
-import org.grameenfoundation.chnonthego.R;
+
+import org.digitalcampus.mobile.learningGF.R;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -57,7 +58,7 @@ public class MainScreenBaseAdapter extends BaseAdapter{
 	            textView2.setText(category[position]);
 	            Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
 		          	      "fonts/Roboto-Thin.ttf");
-		            textView2.setTypeface(custom_font);
+		            //textView2.setTypeface(custom_font);
 	           
 	            imageView.setImageResource(Imageid[position]);
 	           

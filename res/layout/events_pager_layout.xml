@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="30dp" >
+    android:padding="10dp" >
     
  <TextView
             android:id="@+id/textView_status"
@@ -17,7 +17,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical" >
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp" >
 
             <TextView
                 android:id="@+id/textView2"
@@ -41,11 +42,69 @@
                 android:layout_height="wrap_content"
                 android:text=" events planned for today."
                 android:typeface="serif" />
-
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_next_item" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="5dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Swipe to view events"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_action_previous_item" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp" >
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="You have  "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/textView_eventTargetsNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextColorGreen" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  target(s) to update."
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/textView_clickHere"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" click here"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextColorWine" />
+            </LinearLayout>
+
+        </LinearLayout>
+
 </LinearLayout>

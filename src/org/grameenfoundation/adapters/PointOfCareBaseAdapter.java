@@ -1,6 +1,6 @@
 package org.grameenfoundation.adapters;
 
-import org.grameenfoundation.chnonthego.R;
+import org.digitalcampus.mobile.learningGF.R;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -56,7 +56,7 @@ public class PointOfCareBaseAdapter extends BaseAdapter{
          	      "fonts/Roboto-Thin.ttf");
 		TextView category_text=(TextView) list.findViewById(R.id.textView_pocCategory);
 		category_text.setText(category[position]);
-		category_text.setTypeface(custom_font);
+		//category_text.setTypeface(custom_font);
 		ImageView icon=(ImageView) list.findViewById(R.id.imageView_pocIcon);
 		icon.setImageResource(imageIds[position]);
 		

@@ -72,9 +72,7 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		dbh = new DbHelper(getApplicationContext());
-		
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		prefs.registerOnSharedPreferenceChangeListener(this);
 		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);

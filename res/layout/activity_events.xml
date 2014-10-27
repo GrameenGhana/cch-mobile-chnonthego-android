@@ -19,9 +19,7 @@
     <ListView
         android:id="@+id/listView_events"
         android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:background="?android:activatedBackgroundIndicator"
-        android:listSelector="@color/BackgroundBrown" >
+        android:layout_height="300dp" >
 
     </ListView>
 
@@ -30,26 +28,14 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal|center" >
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add new event          "
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/TextColorGreen"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:typeface="serif" />
-
         <Button
             android:id="@+id/button_addEvent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_set_button"
-            android:minHeight="28dip"
-            android:text="Add"
-            android:textColor="@color/White"
-            android:textStyle="bold" />
+            android:drawableLeft="@drawable/ic_add"
+            android:minHeight="28dp"
+            android:text="Add event"
+            android:textColor="@color/TextColorWine" />
 
     </LinearLayout>
 

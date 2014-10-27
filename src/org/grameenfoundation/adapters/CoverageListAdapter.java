@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 
 
+import java.util.HashMap;
+import java.util.Set;
+
 import org.digitalcampus.mobile.learningGF.R;
 
 import android.content.Context;
@@ -34,6 +37,7 @@ public class CoverageListAdapter extends BaseExpandableListAdapter {
 	 private int count;
 	 public int lastExpandedGroupPosition;    
 	 private Context mContext;
+	 private HashMap<Integer, Boolean> mSelection = new HashMap<Integer, Boolean>();
 	
 
 	 public CoverageListAdapter(Context mContext,String[] grList,
@@ -92,9 +96,9 @@ public class CoverageListAdapter extends BaseExpandableListAdapter {
 	   text.setText(ChildItemPeopleTarget.get(childPosition));
 	   text2.setText(ChildItemPeopleNumber.get(childPosition));
 	   text3.setText(ChildItemPeoplePeriod.get(childPosition));
-	   text.setTypeface(custom_font);
-	   text2.setTypeface(custom_font);
-	   text3.setTypeface(custom_font);
+	   //text.setTypeface(custom_font);
+	   //text2.setTypeface(custom_font);
+	   //text3.setTypeface(custom_font);
 	   }else if(groupPosition==1){
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_coverageCategory);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_coverageNumber);
@@ -102,9 +106,9 @@ public class CoverageListAdapter extends BaseExpandableListAdapter {
 		   text.setText(ChildItemImmunizationTarget.get(childPosition));
 		   text2.setText(ChildItemImmunizationNumber.get(childPosition));
 		   text3.setText(ChildItemImmunizationPeriod.get(childPosition));
-		   text.setTypeface(custom_font);
-		   text2.setTypeface(custom_font);
-		   text3.setTypeface(custom_font);
+		   //text.setTypeface(custom_font);
+		   //text2.setTypeface(custom_font);
+		   //text3.setTypeface(custom_font);
 	   }
 	  
 	  return convertView;
@@ -206,5 +210,28 @@ public class CoverageListAdapter extends BaseExpandableListAdapter {
      
         lastExpandedGroupPosition = groupPosition;
         
+    }
+	public void setNewSelection(int position, boolean value) {
+		mSelection.put(position, value);
+        notifyDataSetChanged();
+    }
+
+    public boolean isPositionChecked(int position) {
+        Boolean result = mSelection.get(position);
+        return result == null ? false : result;
+    }
+
+    public Set<Integer> getCurrentCheckedPosition() {
+        return mSelection.keySet();
+    }
+
+    public void removeSelection(int position) {
+        mSelection.remove(position);
+        notifyDataSetChanged();
+    }
+
+    public void clearSelection() {
+        mSelection = new HashMap<Integer, Boolean>();
+        notifyDataSetChanged();
     }
 	}

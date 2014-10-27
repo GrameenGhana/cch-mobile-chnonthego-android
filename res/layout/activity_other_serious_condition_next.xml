@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Does the baby have any of the following serious conditions? "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/TextColorGreen" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/White"
+        android:orientation="vertical"
+        android:padding="30dp" >
+
+        <ListView
+            android:id="@+id/listView_otherConditions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/BackgroundGrey"
+            android:divider="@color/White"
+            android:dividerHeight="5dp" >
+
+        </ListView>
+
+    </LinearLayout>
+
+</LinearLayout>

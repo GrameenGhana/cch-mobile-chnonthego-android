@@ -43,15 +43,26 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Animation.AnimationListener;
 import android.widget.TextView;
 
 import com.bugsense.trace.BugSenseHandler;
 
-public class StartUpActivity extends Activity implements UpgradeListener, PostInstallListener, InstallCourseListener{
+public class StartUpActivity extends Activity implements UpgradeListener, PostInstallListener, InstallCourseListener,AnimationListener{
 
 	public final static String TAG = StartUpActivity.class.getSimpleName();
 	private TextView tvProgress;
 	private SharedPreferences prefs;
+	private TextView text_one;
+	private TextView text_two;
+	private TextView text_three;
+	private TextView text_four;
+	private Animation drop_one;
+	private Animation drop_two;
+	private Animation drop_three;
+	private Animation slide_in;
 	//DbHelper Db;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,8 +75,29 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
 		
         tvProgress = (TextView) this.findViewById(R.id.start_up_progress);
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-        
+        text_one=(TextView) findViewById(R.id.textView_c);
+ 	   text_two=(TextView) findViewById(R.id.textView_h);
+ 	   text_three=(TextView) findViewById(R.id.textView_n);
+ 	   text_four=(TextView) findViewById(R.id.textView_text);
+ 	  drop_one=AnimationUtils.loadAnimation(getApplicationContext(),
+              R.anim.drop_one);
+	   drop_one.setAnimationListener(this);
+	   
+	   drop_two=AnimationUtils.loadAnimation(getApplicationContext(),
+              R.anim.drop_two);
+	   drop_two.setAnimationListener(this);
+	   
+	   drop_three=AnimationUtils.loadAnimation(getApplicationContext(),
+              R.anim.drop_three);
+	   drop_three.setAnimationListener(this);
+	   
+	   slide_in=AnimationUtils.loadAnimation(getApplicationContext(),
+              R.anim.slide_in);
+	   slide_in.setAnimationListener(this);
+	   text_one.setAnimation(drop_one);
+	   text_two.setAnimation(drop_two);
+	   text_three.setAnimation(drop_three);
+	   text_four.setAnimation(slide_in);
         // set up local dirs
  		if(!MobileLearning.createDirs()){
  			AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -101,7 +133,7 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
 			startActivity(new Intent(StartUpActivity.this, LoginActivity.class));
 			finish();
 		} else {
-			startActivity(new Intent(StartUpActivity.this, HomeActivity.class));
+			startActivity(new Intent(StartUpActivity.this, MainScreenActivity.class));
 			finish();
 		}
     }
@@ -162,5 +194,26 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
 
 	public void installProgressUpdate(DownloadProgress dp) {
 		this.updateProgress(dp.getMessage());
+	}
+
+
+	@Override
+	public void onAnimationStart(Animation animation) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onAnimationEnd(Animation animation) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onAnimationRepeat(Animation animation) {
+		// TODO Auto-generated method stub
+		
 	}
 }

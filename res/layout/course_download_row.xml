@@ -4,9 +4,14 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="5dp"
+    android:padding="10dp"
     android:weightSum="1.0" >
 
+  <View
+            android:id="@+id/view1"
+            android:layout_width="11dp"
+            android:layout_height="46dp"
+            android:background="@color/Green" />
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -19,14 +24,17 @@
             style="@style/NormalTextDark"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/TextColorWine" />
 
         <TextView
             android:id="@+id/module_desc"
             style="@style/SmallTextDarkItalic"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/TextColorGreen" />
+
     </LinearLayout>
 
     <Button

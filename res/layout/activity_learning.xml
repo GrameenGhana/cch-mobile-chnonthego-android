@@ -24,7 +24,7 @@
         <ExpandableListView
             android:id="@+id/expandableListView_learningCategory"
             android:layout_width="match_parent"
-            android:layout_height="400dp" >
+            android:layout_height="296dp" >
         </ExpandableListView>
 
         <LinearLayout
@@ -32,24 +32,14 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical|center" >
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add learning    "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/TextColorGreen"
-                android:textStyle="italic" />
-
             <Button
                 android:id="@+id/button_addLearning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_set_button"
+                android:drawableLeft="@drawable/ic_add"
                 android:minHeight="28dip"
-                android:text="Add"
-                android:textColor="@color/White"
-                android:textStyle="bold" />
+                android:text="Add "
+                android:textColor="@color/TextColorWine" />
 
         </LinearLayout>
 

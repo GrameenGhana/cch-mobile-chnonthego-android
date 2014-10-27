@@ -94,12 +94,12 @@
             android:id="@+id/button_dialogSetEVent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_set_button"
+            android:drawableLeft="@drawable/ic_action_done"
             android:minHeight="28dip"
             android:padding="5dp"
             android:text="Set event"
-            android:textColor="@color/White"
-            android:textStyle="bold" />
+            android:textColor="@color/TextColorWine"
+            android:textStyle="normal" />
 
     </LinearLayout>
 

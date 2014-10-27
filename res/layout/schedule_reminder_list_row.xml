@@ -11,8 +11,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:textColor="@color/text_dark"
+            android:textColor="@color/TextColorWine"
             android:textSize="16sp"
-            android:textStyle="normal"/>
+            android:textStyle="normal" />
   
 </LinearLayout>

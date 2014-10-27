@@ -3,6 +3,7 @@
     android:id="@+id/module_row"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/White"
     android:orientation="vertical"
     android:padding="5dp" >
 
@@ -12,24 +13,24 @@
         android:orientation="horizontal" 
         android:gravity="center_vertical">
 
-        
         <ImageView
             android:id="@+id/course_image"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_margin="4dp"
-            android:gravity="center_vertical"
             android:contentDescription="@string/app_logo_alt"
-            android:src="@drawable/dc_logo" />
+            android:gravity="center_vertical"
+            android:src="@drawable/app_icon" />
 
         <TextView
             android:id="@+id/module_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:textColor="@color/text_light"
+            android:textColor="@color/TextColorWine"
             android:textSize="18sp"
-            android:textStyle="normal"/>
+            android:textStyle="normal" />
+
     </LinearLayout>
 
     <ProgressBar

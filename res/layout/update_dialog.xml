@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="20dp" >
+
+        <TextView
+            android:id="@+id/textView_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Were you able to acheive this target?"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/TextColorWine" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup_updateDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radio_updateDialogYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/apptheme_btn_radio_holo_light"
+                android:checked="true"
+                android:text="Yes" />
+
+            <RadioButton
+                android:id="@+id/radio_updateDialogNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/apptheme_btn_radio_holo_light"
+                android:text="No" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout_justification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Justification:"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <EditText
+                android:id="@+id/editText_dialogJustification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/apptheme_edit_text_holo_light"
+                android:ems="10"
+                android:inputType="textMultiLine" >
+
+            </EditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Comment (Optional):"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <EditText
+                android:id="@+id/editText_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/apptheme_edit_text_holo_light"
+                android:ems="10"
+                android:inputType="textMultiLine" >
+            </EditText>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            android:textColor="@color/TextColorWine" />
+
+    </LinearLayout>
+
+</LinearLayout>

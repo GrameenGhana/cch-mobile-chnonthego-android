@@ -26,7 +26,6 @@ import org.digitalcampus.oppia.model.User;
 import org.digitalcampus.oppia.task.LoginTask;
 import org.digitalcampus.oppia.task.Payload;
 import org.digitalcampus.oppia.utils.UIUtils;
-import org.grameenfoundation.cch.activity.HomeActivity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -56,15 +55,15 @@ public class LoginActivity extends AppActivity implements SubmitListener  {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
+		setContentView(R.layout.activity_login_new);
 		
 		getSupportActionBar().hide();
 		
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		Db = new DbHelper(getApplicationContext());
 		
-		usernameField = (EditText) findViewById(R.id.login_username_field);
-        passwordField = (EditText) findViewById(R.id.login_password_field);
+		usernameField = (EditText) findViewById(R.id.editText_username);
+        passwordField = (EditText) findViewById(R.id.editText_password);
     }
 	
 	public void onLoginClick(View view){
@@ -93,7 +92,7 @@ public class LoginActivity extends AppActivity implements SubmitListener  {
 		if (u != null){
 			if (u.isPasswordRight()) {
 				setUserPreferences(u);
-				startActivity(new Intent(this, HomeActivity.class));
+				startActivity(new Intent(this, MainScreenActivity.class));
 				finish();
 			} else {
 				UIUtils.showAlert(this,R.string.error,"Invalid login details. Please try again.");
@@ -149,7 +148,7 @@ public class LoginActivity extends AppActivity implements SubmitListener  {
 	    	Db.addUser(u);
 	    	
 			// return to main activity
-	    	startActivity(new Intent(this, HomeActivity.class));
+	    	startActivity(new Intent(this, MainScreenActivity.class));
 			finish();
 		} else {
 			UIUtils.showAlert(this, R.string.title_login, response.getResultResponse());

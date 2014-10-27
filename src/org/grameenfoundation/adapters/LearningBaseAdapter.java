@@ -1,8 +1,10 @@
 package org.grameenfoundation.adapters;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
-import org.grameenfoundation.chnonthego.R;
+import org.digitalcampus.mobile.learningGF.R;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -30,23 +32,24 @@ public class LearningBaseAdapter extends BaseExpandableListAdapter {
 	 private int count;
 	 public int lastExpandedGroupPosition;    
 	 private Context mContext;
+	private HashMap<Integer, Boolean> mSelection = new HashMap<Integer, Boolean>();
 
-	 public LearningBaseAdapter(Context mContext,String[] grList,ArrayList<String>ChildItemAntenatalCare,
-			 ArrayList<String>ChildItemPostnatalCare,
+	 public LearningBaseAdapter(Context mContext,String[] grList,//ArrayList<String>ChildItemAntenatalCare,
+			// ArrayList<String>ChildItemPostnatalCare,
 			 ArrayList<String>ChildItemFamilyPlanning,
-			 ArrayList<String>ChildItemChildHealth,
-			 ArrayList<String>ChildItemGeneral,
-			 ArrayList<String>ChildItemOther,
+			// ArrayList<String>ChildItemChildHealth,
+			// ArrayList<String>ChildItemGeneral,
+			 //ArrayList<String>ChildItemOther,
 			 int[] imageId, ExpandableListView learningList) {
 	  groupItem = grList;
 	  this.mContext=mContext;
 	  minflater = LayoutInflater.from(mContext);
-	  this.ChildItemAntenatalCare = ChildItemAntenatalCare;
-	  this.ChildItemPostnatalCare = ChildItemPostnatalCare;
+	  //this.ChildItemAntenatalCare = ChildItemAntenatalCare;
+	  //this.ChildItemPostnatalCare = ChildItemPostnatalCare;
 	  this.ChildItemFamilyPlanning=ChildItemFamilyPlanning;
-	  this.ChildItemChildHealth = ChildItemChildHealth;
-	  this.ChildItemGeneral=ChildItemGeneral;
-	  this.ChildItemOther=ChildItemOther;
+	  //this.ChildItemChildHealth = ChildItemChildHealth;
+	  //this.ChildItemGeneral=ChildItemGeneral;
+	  //this.ChildItemOther=ChildItemOther;
 	  this.imageId=imageId;
 	  this.learningList=learningList;
 	 
@@ -68,10 +71,11 @@ public class LearningBaseAdapter extends BaseExpandableListAdapter {
 	   TextView text=(TextView) convertView.findViewById(R.id.textView_otherCategory);
 	   switch(groupPosition){
 	   case 0:
-		 
-		   text.setText(ChildItemAntenatalCare.get(childPosition));
+		   text.setText(ChildItemFamilyPlanning.get(childPosition)); 
+		   //text.setText(ChildItemAntenatalCare.get(childPosition));
 		   text.setTypeface(custom_font);
 		   break;
+		   /*
 	   case 1:
 		  // TextView text=(TextView) convertView.findViewById(R.id.textView_eventCategory);
 		   text.setText(ChildItemPostnatalCare.get(childPosition)); 
@@ -93,6 +97,7 @@ public class LearningBaseAdapter extends BaseExpandableListAdapter {
 		   text.setText(ChildItemOther.get(childPosition)); 
 		   text.setTypeface(custom_font);
 		   break;
+		   */
 	   }
 	
 	  return convertView;
@@ -120,7 +125,7 @@ public class LearningBaseAdapter extends BaseExpandableListAdapter {
 	   
 	   Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
       	      "fonts/Roboto-Thin.ttf");
-	   category.setTypeface(custom_font);
+	   //category.setTypeface(custom_font);
 	   
 	  return convertView;
 	 }
@@ -138,8 +143,10 @@ public class LearningBaseAdapter extends BaseExpandableListAdapter {
 	public int getChildrenCount(int groupPosition) {
 		switch(groupPosition){
 		case 0:
-			count=ChildItemAntenatalCare.size();
+			count=ChildItemFamilyPlanning.size();	
+			//count=ChildItemAntenatalCare.size();
 			break;
+			/*
 		case 1:
 			count=ChildItemPostnatalCare.size();
 			break;
@@ -155,6 +162,7 @@ public class LearningBaseAdapter extends BaseExpandableListAdapter {
 		case 5:
 			count=ChildItemOther.size();
 			break;
+			*/
 		}
 		return count;
 	}
@@ -172,8 +180,10 @@ public class LearningBaseAdapter extends BaseExpandableListAdapter {
 		String item=null;
 		switch(groupPosition){
 		case 0:
-			item=ChildItemAntenatalCare.get(childPosition);
+			item=ChildItemFamilyPlanning.get(childPosition);
+			//item=ChildItemAntenatalCare.get(childPosition);
 			break;
+			/*
 		case 1:
 			item=ChildItemPostnatalCare.get(childPosition);
 			break;
@@ -189,6 +199,7 @@ public class LearningBaseAdapter extends BaseExpandableListAdapter {
 		case 5:
 			item=ChildItemOther.get(childPosition);
 			break;
+			*/
 		}
 		return item;
 	}
@@ -220,4 +231,28 @@ public class LearningBaseAdapter extends BaseExpandableListAdapter {
        lastExpandedGroupPosition = groupPosition;
        
    }
+	
+	public void setNewSelection(int position, boolean value) {
+		mSelection.put(position, value);
+        notifyDataSetChanged();
+    }
+
+    public boolean isPositionChecked(int position) {
+        Boolean result = mSelection.get(position);
+        return result == null ? false : result;
+    }
+
+    public Set<Integer> getCurrentCheckedPosition() {
+        return mSelection.keySet();
+    }
+
+    public void removeSelection(int position) {
+        mSelection.remove(position);
+        notifyDataSetChanged();
+    }
+
+    public void clearSelection() {
+        mSelection = new HashMap<Integer, Boolean>();
+        notifyDataSetChanged();
+    }
 	}

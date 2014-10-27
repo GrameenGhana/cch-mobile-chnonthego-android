@@ -90,12 +90,11 @@
             android:id="@+id/button_dialogAddEvent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_set_button"
+            android:drawableLeft="@drawable/ic_add"
             android:minHeight="28dp"
             android:minWidth="74dp"
             android:text="Add"
-            android:textColor="@color/White"
-            android:textStyle="bold"
+            android:textColor="@color/TextColorWine"
             android:typeface="serif" />
 
     </LinearLayout>

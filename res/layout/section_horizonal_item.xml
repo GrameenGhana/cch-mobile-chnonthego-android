@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<LinearLayout android:layout_width="wrap_content"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
         android:id="@+id/activity_object"
@@ -29,14 +28,15 @@
             android:id="@+id/activity_title"
             android:layout_width="135dp"
             android:layout_height="fill_parent"
+            android:background="@android:color/transparent"
+            android:ellipsize="end"
             android:gravity="center_horizontal"
-            android:textColor="@color/text_light"
+            android:maxLines="2"
+            android:singleLine="false"
+            android:textColor="@color/highlight_dark"
             android:textSize="14sp"
-            android:textStyle="normal"
-            android:background="@color/background_dark"
-            android:maxLines="2" 
-			android:ellipsize="end" 
-			android:singleLine="false" />
+            android:textStyle="normal" />
+
     </LinearLayout>
 
 </LinearLayout>

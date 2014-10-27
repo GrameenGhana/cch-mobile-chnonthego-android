@@ -1,6 +1,7 @@
 package org.grameenfoundation.adapters;
 
-import org.grameenfoundation.chnonthego.R;
+
+import org.digitalcampus.mobile.learningGF.R;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -55,9 +56,7 @@ public class PlannerBaseAdapter extends BaseAdapter{
 	          TextView textView2 = (TextView) list.findViewById(R.id.textView_plannerCategory);
 	            ImageView imageView = (ImageView)list.findViewById(R.id.imageView_plannerIcon);
 	            textView2.setText(category[position]);
-	            Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-		          	      "fonts/Roboto-Thin.ttf");
-		            textView2.setTypeface(custom_font);
+	            
 	           
 	            imageView.setImageResource(Imageid[position]);
 	           

@@ -2,7 +2,9 @@ package org.grameenfoundation.chnonthego;
 
 import java.util.ArrayList;
 
+import org.digitalcampus.mobile.learningGF.R;
 import org.grameenfoundation.database.CHNDatabaseHandler;
+
 
 
 import android.app.Activity;
@@ -115,7 +117,7 @@ public class LoginActivity extends Activity{
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login, menu);
+		getMenuInflater().inflate(R.menu.activity_login, menu);
 		return true;
 	}
 

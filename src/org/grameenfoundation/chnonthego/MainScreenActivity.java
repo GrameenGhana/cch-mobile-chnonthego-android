@@ -6,14 +6,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import org.digitalcampus.mobile.learningGF.R;
 import org.grameenfoundation.adapters.CoverageListAdapter;
 import org.grameenfoundation.adapters.EventsDetailPagerAdapter;
 import org.grameenfoundation.adapters.MainScreenBaseAdapter;
-import org.grameenfoundation.chnonthego.NewEventPlannerActivity.CoverageActivity;
-import org.grameenfoundation.chnonthego.NewEventPlannerActivity.EventsActivity;
-import org.grameenfoundation.chnonthego.NewEventPlannerActivity.LearningActivity;
-import org.grameenfoundation.chnonthego.NewEventPlannerActivity.OtherActivity;
-import org.grameenfoundation.chnonthego.NewEventPlannerActivity.SectionsPagerAdapter;
+
 import org.grameenfoundation.database.CHNDatabaseHandler;
 import org.grameenfoundation.poc.PointOfCareActivity;
 
@@ -225,8 +222,8 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		Intent intent;
 		switch(position){
 		case 0:
-			intent=new Intent(mContext, NewEventPlannerActivity.class);
-			startActivity(intent);
+			//intent=new Intent(mContext, NewEventPlannerActivity.class);
+			//startActivity(intent);
 			break;
 		case 1:
 			intent=new Intent(mContext, PointOfCareActivity.class);

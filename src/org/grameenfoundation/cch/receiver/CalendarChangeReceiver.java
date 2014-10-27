@@ -1,24 +1,37 @@
 package org.grameenfoundation.cch.receiver;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.digitalcampus.oppia.application.DbHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
+
+
+
+
+
+
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
+import android.provider.CalendarContract.Events;
+import android.provider.CalendarContract.Instances;
+import android.text.format.DateUtils;
 import android.util.Log;
 
 public class CalendarChangeReceiver extends BroadcastReceiver {
 
 	public static final String TAG = CalendarChangeReceiver.class.getSimpleName();
-
+	
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		// Log.d(TAG, "Noting change in calendar");

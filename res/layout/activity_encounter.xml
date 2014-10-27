@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/White"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="20dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="204dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Where are you encountering the client?"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/TextColorGreen"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp" >
+
+        <ListView
+            android:id="@+id/listView_encounter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/ButtonBackgroundGrey"
+            android:divider="@color/White"
+            android:dividerHeight="10dp" 
+            android:gravity="center">
+
+        </ListView>
+
+    </LinearLayout>
+
+</LinearLayout>
