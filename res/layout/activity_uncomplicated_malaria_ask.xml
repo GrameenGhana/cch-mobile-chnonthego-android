@@ -1,57 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="@color/White"
+    android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="10dp" >
+        android:padding="20dp" >
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="First Visit"
+            android:text="Does the client have the following?"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextColorGreen" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="340dp"
         android:orientation="vertical"
-        android:padding="10dp" >
+        android:padding="20dp" >
 
-        <ExpandableListView
-            android:id="@+id/expandableListView_firstVisit"
+        <ListView
+            android:id="@+id/listView_malaria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/BackgroundGrey"
             android:divider="@color/White"
             android:dividerHeight="5dp" >
 
-        </ExpandableListView>
+        </ListView>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/button_estimateTrimester"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="Estimate Trimester"
-            android:textColor="@color/TextColorWine" />
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/button_next"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.23"
+                android:text="Next"
+                android:textColor="@color/TextColorWine" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

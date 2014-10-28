@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -45,8 +46,71 @@ public class ExamineThePatientActivity extends Activity {
 	    ListAdapter adapter2=new ListAdapter(mContext,look_items);
 	    ListAdapter adapter3=new ListAdapter(mContext,check_items);
 	    listView_ask.setAdapter(adapter1);
+	    listView_ask.setOnTouchListener(new ListView.OnTouchListener() {
+	        @Override
+	        public boolean onTouch(View v, MotionEvent event) {
+	            int action = event.getAction();
+	            switch (action) {
+	            case MotionEvent.ACTION_DOWN:
+	                // Disallow ScrollView to intercept touch events.
+	                v.getParent().requestDisallowInterceptTouchEvent(true);
+	                break;
+
+	            case MotionEvent.ACTION_UP:
+	                // Allow ScrollView to intercept touch events.
+	                v.getParent().requestDisallowInterceptTouchEvent(false);
+	                break;
+	            }
+
+	            // Handle ListView touch events.
+	            v.onTouchEvent(event);
+	            return true;
+	        }
+	    });
 	    listView_look.setAdapter(adapter2);
+	    listView_look.setOnTouchListener(new ListView.OnTouchListener() {
+	        @Override
+	        public boolean onTouch(View v, MotionEvent event) {
+	            int action = event.getAction();
+	            switch (action) {
+	            case MotionEvent.ACTION_DOWN:
+	                // Disallow ScrollView to intercept touch events.
+	                v.getParent().requestDisallowInterceptTouchEvent(true);
+	                break;
+
+	            case MotionEvent.ACTION_UP:
+	                // Allow ScrollView to intercept touch events.
+	                v.getParent().requestDisallowInterceptTouchEvent(false);
+	                break;
+	            }
+
+	            // Handle ListView touch events.
+	            v.onTouchEvent(event);
+	            return true;
+	        }
+	    });
 	    listView_check.setAdapter(adapter3);
+	    listView_check.setOnTouchListener(new ListView.OnTouchListener() {
+	        @Override
+	        public boolean onTouch(View v, MotionEvent event) {
+	            int action = event.getAction();
+	            switch (action) {
+	            case MotionEvent.ACTION_DOWN:
+	                // Disallow ScrollView to intercept touch events.
+	                v.getParent().requestDisallowInterceptTouchEvent(true);
+	                break;
+
+	            case MotionEvent.ACTION_UP:
+	                // Allow ScrollView to intercept touch events.
+	                v.getParent().requestDisallowInterceptTouchEvent(false);
+	                break;
+	            }
+
+	            // Handle ListView touch events.
+	            v.onTouchEvent(event);
+	            return true;
+	        }
+	    });
 	    button_next=(Button) findViewById(R.id.button_next);
 	    button_next.setOnClickListener(new OnClickListener(){
 
@@ -90,9 +154,9 @@ public class ExamineThePatientActivity extends Activity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if( convertView == null ){
 			      
-				  convertView = minflater.inflate(R.layout.listview_text_single,parent, false);
+				  convertView = minflater.inflate(R.layout.listview_single,parent, false);
 			    }
-			 TextView text=(TextView) convertView.findViewById(R.id.textView_listViewText);
+			 TextView text=(TextView) convertView.findViewById(R.id.textView_textSingle);
 			 text.setText(items[position]);
 			 if(position%2==0){
 				 convertView.setBackgroundColor(getResources().getColor(R.color.BackgroundGrey));

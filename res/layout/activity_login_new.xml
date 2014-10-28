@@ -59,7 +59,9 @@
                 android:ems="10"
                 android:hint="@string/username"
                 android:inputType="textPersonName"
+                android:minHeight="38dp"
                 android:textStyle="italic" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -75,6 +77,7 @@
                 android:background="@drawable/bg_set_button"
                 android:hint="@string/password"
                 android:inputType="textPassword"
+                android:minHeight="38dp"
                 android:textStyle="italic" >
 
                 <requestFocus />

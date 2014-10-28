@@ -9,32 +9,38 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="10dp" >
+        android:padding="15dp" >
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="First Visit"
+            android:text="Does the client have a fever?"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextColorGreen" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(Temperature greater than 38 °C)"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/TextColorWine" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical"
-        android:padding="10dp" >
+        android:paddingBottom="30dp" >
 
-        <ExpandableListView
-            android:id="@+id/expandableListView_firstVisit"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/BackgroundGrey"
-            android:divider="@color/White"
-            android:dividerHeight="5dp" >
-
-        </ExpandableListView>
+            android:src="@drawable/take_temperature" />
 
     </LinearLayout>
 
@@ -45,13 +51,19 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/button_estimateTrimester"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="Estimate Trimester"
+            android:id="@+id/button_yes"
+            android:layout_width="278dp"
+            android:layout_height="62dp"
+            android:text="Yes"
             android:textColor="@color/TextColorWine" />
+
+        <Button
+            android:id="@+id/button_no"
+            android:layout_width="281dp"
+            android:layout_height="65dp"
+            android:text="No"
+            android:textColor="@color/TextColorWine" />
+
     </LinearLayout>
 
 </LinearLayout>

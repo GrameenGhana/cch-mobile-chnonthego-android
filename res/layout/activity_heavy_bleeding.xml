@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Take Action: Bleeding from Cord or Elsewhere from the Body "
+            android:text="Take Action: Heavy Bleeding  "
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextColorWine" />
 
@@ -50,6 +50,15 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_phone"
                 android:text=" Call provider and arrange transport "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_blood"
+                android:paddingTop="10dp"
+                android:text="Organize blood donors"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -86,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="1. Wash hands with soap and clean water "
+                android:text="1. Place client in a lying-down position   "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -94,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="2. Apply pressure to the bleeding site with a sterile gauze to reduce bleeding"
+                android:text="2. DO NOT perform vaginal exam"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -102,7 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="3. Retie cord firmly with sterile cord ties, if baby is bleeding from the umbilical cord"
+                android:text="3. Give 2 tablets of paracetamol for pain"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -110,30 +119,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="4. Keep baby warm "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="5. If baby can feed and not vomiting, help mother to breastfeed "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="6. If baby is not able to breastfeed, give small sips of expressed breast milk that has been collected in a clean container with a lid "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="7. Teach mother how to keep the baby warm on the way to the health facility  "
+                android:text="4. Encourage fluid intake "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -177,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_accompany"
                 android:paddingBottom="10dp"
-                android:text=" Have a family member accompany mother and baby to the health facility"
+                android:text="Accompany client and have a family member accompany client to the health facility"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView

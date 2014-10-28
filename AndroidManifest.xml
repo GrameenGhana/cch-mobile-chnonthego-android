@@ -214,6 +214,12 @@
         <activity android:name="org.grameenfoundation.poc.CalculatorsActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.ReferencesMenuActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.ReferencesActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionBleedingActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.AskMalariaFeverActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.AskMalariaFeverYesActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.AskMalariaComplicatedActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionSevereMalariaActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.AskMalariaUnComplicatedActivity"></activity>
     </application>
 
 </manifest>

@@ -39,15 +39,17 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_refer"
                 android:paddingBottom="5dp"
-                android:text="1. Refer mother and baby to a health center or hospital IMMEDIATELY"
+                android:text=" Refer mother and baby to a health center or hospital IMMEDIATELY"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2. Call provider and arrange transport "
+                android:drawableLeft="@drawable/ic_phone"
+                android:text=" Call provider and arrange transport "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -63,8 +65,9 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_transport"
             android:padding="10dp"
-            android:text="While waiting for transport:"
+            android:text="While waiting for transport:    "
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextColorGreen" />
 
@@ -139,7 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Take Action: Continue"
+            android:text="Take Action: Do the following"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextColorWine" />
 
@@ -156,23 +159,26 @@
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_record"
                 android:paddingBottom="10dp"
-                android:text="3. Record baby’s clinical information in client’s maternal health or “Red” book. If possible, also fill out referral form"
+                android:text=" Record baby’s clinical information in client’s maternal health or “Red” book. If possible, also fill out referral form"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_accompany"
                 android:paddingBottom="10dp"
-                android:text="4. Accompany mother and baby, and have a family member accompany mother and baby to the health facility"
+                android:text=" Accompany mother and baby, and have a family member accompany mother and baby to the health facility"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5. Follow up with client after discharge from health center or hospital "
+                android:drawableLeft="@drawable/ic_follow_up"
+                android:text=" Follow up with client after discharge from health center or hospital "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>

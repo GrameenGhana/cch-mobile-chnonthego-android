@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Take Action: Bleeding from Cord or Elsewhere from the Body "
+            android:text="Take Action: Light Bleeding  "
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextColorWine" />
 
@@ -86,54 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="1. Wash hands with soap and clean water "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="2. Apply pressure to the bleeding site with a sterile gauze to reduce bleeding"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="3. Retie cord firmly with sterile cord ties, if baby is bleeding from the umbilical cord"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="4. Keep baby warm "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="5. If baby can feed and not vomiting, help mother to breastfeed "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="6. If baby is not able to breastfeed, give small sips of expressed breast milk that has been collected in a clean container with a lid "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="7. Teach mother how to keep the baby warm on the way to the health facility  "
+                android:text="1. Encourage fluid intake   "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -177,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_accompany"
                 android:paddingBottom="10dp"
-                android:text=" Have a family member accompany mother and baby to the health facility"
+                android:text="Accompany client and have a family member accompany client to the health facility"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView

@@ -8,10 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ public class AskHerActivity extends Activity {
 	
 	Context mContext;
 	private ListView listView_askHer;
+	private Button button_no;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -28,9 +31,9 @@ public class AskHerActivity extends Activity {
 	    getActionBar().setTitle("Point of Care> Antenatal Care");
 	    listView_askHer=(ListView) findViewById(R.id.listView_askHer);
 	    String[] items={"Excessive Vomiting","Offensive/discolored discharge",
-	    				"Sever abdominal pain","Feotal Movements",
-	    				"Epiatstric Pain","Bleeding","Oedaema of the feet, face or ankles",
-	    				"BP ≥ 90mm Hg","Sever headache/blurred vision",
+	    				"Sever abdominal pain",
+	    				"Epigastric Pain","Bleeding","Edema of the feet and hands, face, or ankles",
+	    				"BP  ≥  90mm Hg","Sever headache/blurred vision",
 	    				"Difficulty breathing",
 	    				"Signs of shock"};
 	    AskListAdapter adapter=new AskListAdapter(mContext,items);
@@ -49,7 +52,7 @@ public class AskHerActivity extends Activity {
 					break;
 				case 1	:
 					intent=new Intent(mContext,TakeActionAskHerActivity.class);
-					intent.putExtra("take_action", "Offensive/discolored discharge");
+					intent.putExtra("take_action", "Offensive/discolored vaginal discharge");
 					startActivity(intent);
 					break;
 				case 2:
@@ -59,40 +62,50 @@ public class AskHerActivity extends Activity {
 					break;
 				case 3:
 					intent=new Intent(mContext,TakeActionAskHerActivity.class);
-					intent.putExtra("take_action", "Feotal Movements");
-					startActivity(intent);
-					break;
-				case 4:
-					intent=new Intent(mContext,TakeActionAskHerActivity.class);
 					intent.putExtra("take_action", "Epigastric Pain");
 					startActivity(intent);
 					break;
-				case 5:
+				case 4:
 					intent=new Intent(mContext,AskBleedingActivity.class);
+					startActivity(intent);
+					break;
+				case 5:
+					intent=new Intent(mContext,TakeActionAskHerActivity.class);
+					intent.putExtra("take_action", "Edema of the feet, face or ankles");
 					startActivity(intent);
 					break;
 				case 6:
 					intent=new Intent(mContext,TakeActionAskHerActivity.class);
-					intent.putExtra("take_action", "Oedaema of the feet, face or ankles");
+					intent.putExtra("take_action", "BP  ≥  90mm Hg");
 					startActivity(intent);
 					break;
 				case 7:
 					intent=new Intent(mContext,TakeActionAskHerActivity.class);
-					intent.putExtra("take_action", "REFER PATIENT NOW!");
+					intent.putExtra("take_action", "Severe headache/blurred vision");
+					startActivity(intent);
+					break;
+				case 8:
+					intent=new Intent(mContext,TakeActionAskHerActivity.class);
+					intent.putExtra("take_action", "Difficulty Breathing");
 					startActivity(intent);
 					break;
 				case 9:
-					intent=new Intent(mContext,TakeActionAskHerActivity.class);
-					intent.putExtra("take_action", "DIFFICULTY BREATHING!");
-					startActivity(intent);
-					break;
-				case 10:
 					intent=new Intent(mContext,TakeActionAskHerActivity.class);
 					intent.putExtra("take_action", "Shock");
 					startActivity(intent);
 					break;
 				}
 				
+			}
+	    	
+	    });
+	    button_no=(Button) findViewById(R.id.button_no);
+	    button_no.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(mContext, AskMalariaFeverActivity.class);
+				startActivity(intent);
 			}
 	    	
 	    });

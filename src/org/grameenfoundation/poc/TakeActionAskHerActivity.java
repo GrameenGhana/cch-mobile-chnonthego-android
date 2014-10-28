@@ -6,28 +6,81 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class TakeActionAskHerActivity extends Activity {
 
-	private ListView listView_takeAction;
+	//private ListView listView_takeAction;
 	private TextView textView_takeAction;
 	private String take_action_category;
 	Context mContext;
+	private ImageView imageView;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_take_action_ask_her);
+	   
 	    mContext=TakeActionAskHerActivity.this;
-	    textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
+	    
 	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
           take_action_category= extras.getString("take_action");
-          textView_takeAction.setText(take_action_category);
         }
-	    listView_takeAction=(ListView) findViewById(R.id.listView_takeAction);
+      
+        if(take_action_category.equals("Excessive Vomiting")){
+        	  setContentView(R.layout.activity_danger_signs);
+        	  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
+        	  imageView=(ImageView) findViewById(R.id.imageView1);
+        	  textView_takeAction.setText(take_action_category);
+        	  imageView.setImageResource(R.drawable.excessive_vomiting);
+        	  
+    	    }else if(take_action_category.equals("Offensive/discolored vaginal discharge")){
+    	      setContentView(R.layout.activity_danger_signs);
+           	  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
+           	  imageView=(ImageView) findViewById(R.id.imageView1);
+           	  textView_takeAction.setText(take_action_category);
+           	  imageView.setImageResource(R.drawable.ic_image_placeholder);
+           	  
+    	    }else if(take_action_category.equals("Sever abdominal pain")){
+    	    	 setContentView(R.layout.activity_danger_signs);
+              	  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
+              	  imageView=(ImageView) findViewById(R.id.imageView1);
+              	  textView_takeAction.setText(take_action_category);
+              	  imageView.setImageResource(R.drawable.severe_abdominal);
+              	  
+    	    }else if(take_action_category.equals("Epigastric Pain")){
+    	    	setContentView(R.layout.activity_danger_signs);
+            	  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
+            	  imageView=(ImageView) findViewById(R.id.imageView1);
+            	  textView_takeAction.setText(take_action_category);
+            	  imageView.setImageResource(R.drawable.ic_image_placeholder);
+    	    }else if(take_action_category.equals("Edema of the feet, face or ankles")){
+    	    	setContentView(R.layout.activity_danger_signs);
+          	  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
+          	  imageView=(ImageView) findViewById(R.id.imageView1);
+          	  textView_takeAction.setText(take_action_category);
+          	  imageView.setImageResource(R.drawable.edema);
+    	    }else if(take_action_category.equals("BP  ≥  90mm Hg")){
+    	    	setContentView(R.layout.activity_danger_signs);
+            	  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
+            	  imageView=(ImageView) findViewById(R.id.imageView1);
+            	  textView_takeAction.setText(take_action_category);
+            	  imageView.setImageResource(R.drawable.ic_image_placeholder);
+    	    }else if(take_action_category.equals("Severe headache/blurred vision")){
+    	    	setContentView(R.layout.activity_danger_signs);
+          	  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
+          	  imageView=(ImageView) findViewById(R.id.imageView1);
+          	  textView_takeAction.setText(take_action_category);
+          	  imageView.setImageResource(R.drawable.severe_headache);
+    	    }else if(take_action_category.equals("Difficulty Breathing")){
+    	    	setContentView(R.layout.activity_difficulty_breathing_anc);
+    	    }else if(take_action_category.equals("Shock")){
+    	    	setContentView(R.layout.activity_shock_anc);
+    	    }
+	    //listView_takeAction=(ListView) findViewById(R.id.listView_takeAction);
+	    /*
 	    if(take_action_category.equals("Excessive Vomiting")){
 	    String[] items={"Refer to the nearest health centre or hospital immediately",
 	    				"Call provider and arrange transport",
@@ -108,6 +161,7 @@ public class TakeActionAskHerActivity extends Activity {
 ArrayAdapter<String> adapter=new ArrayAdapter<String>(mContext,android.R.layout.simple_list_item_1, shock_items);
   listView_takeAction.setAdapter(adapter);
 	    }
+	    */
 	}
 
 }

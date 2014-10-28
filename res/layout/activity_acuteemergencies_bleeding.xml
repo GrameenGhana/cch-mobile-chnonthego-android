@@ -26,15 +26,15 @@
         android:orientation="vertical"
         android:padding="10dp" >
 
-        <ExpandableListView
-            android:id="@+id/expandableListView_acuteEmergencyBleeding"
+        <ListView
+            android:id="@+id/listView_excessiveBleeding"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/BackgroundGrey"
             android:divider="@color/White"
             android:dividerHeight="5dp" >
 
-        </ExpandableListView>
+        </ListView>
 
     </LinearLayout>
 
