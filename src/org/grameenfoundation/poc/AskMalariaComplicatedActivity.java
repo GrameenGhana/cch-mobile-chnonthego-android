@@ -41,6 +41,7 @@ public class AskMalariaComplicatedActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent=new Intent(mContext,TakeActionSevereMalariaActivity.class);
+				intent.putExtra("category","severe malaria");
 				startActivity(intent);
 			}
 	    	

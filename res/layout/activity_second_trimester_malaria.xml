@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/stroke_bg_curry" >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="661dp"
+    android:background="@drawable/stroke_bg_curry"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.00"
+        android:background="@color/White"
+        android:orientation="vertical"
+        android:paddingBottom="20dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Take Action: 2nd Trimester"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/TextColorWine" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/customborder"
+            android:divider="@drawable/divider"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:showDividers="middle" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_refer"
+                android:paddingBottom="5dp"
+                android:text="If client is due for a scheduled ANC visit, refer her to see a midwife "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_drink"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="Encourage fluid intake "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_follow_up"
+                android:text="Follow up with client in 24 hours, if there is no improvement refer client to the health center or hospital "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/White"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="If client is not due for a scheduled visit, and does not have with any danger signs provide anti-malarial treatment :"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/TextColorWine" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/customborder"
+            android:divider="@drawable/divider"
+            android:dividerPadding="2dp"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:showDividers="middle" >
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="1. Quinine: 600 mg 8 hourly for 7 days "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2. OR Artesunate + Amodiaquine according to guidelines [see section 8.4] to be taken with high energy drinks, like glucose "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3. OR Artemether + Lumefantrine tablets to be taken with a fatty meal according to guidelines "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4. Paracetamol 1000 mg (2 tablets) maybe given every 4-6 hr until fever returns to normal"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="244dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Counsel client on the following: "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/TextColorWine" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="296dp"
+            android:background="@drawable/customborder"
+            android:divider="@drawable/divider"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:paddingBottom="20dp"
+            android:showDividers="middle" >
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="1. Importance of taking malaria medicines for treatment "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="2. Sleeping under an ITN every night "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3. Importance of taking SP to prevent future episodes of malaria "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4. Eating foods rich in iron, folate and vitamin C "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>

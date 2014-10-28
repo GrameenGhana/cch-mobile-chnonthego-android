@@ -220,6 +220,8 @@
         <activity android:name="org.grameenfoundation.poc.AskMalariaComplicatedActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.TakeActionSevereMalariaActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.AskMalariaUnComplicatedActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.AskMalariaTrimesterActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.PerformMalariaTestActivity"></activity>
     </application>
 
 </manifest>
