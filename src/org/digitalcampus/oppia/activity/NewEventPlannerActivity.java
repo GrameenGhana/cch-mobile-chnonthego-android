@@ -32,7 +32,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -303,61 +302,57 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 		              
 		            @Override
 		            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-		                switch (item.getItemId()) {
-		                    case R.id.option1:
-		                        nr = 0;
-		                    System.out.println(selected_position);
-		                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+		                int itemId = item.getItemId();
+						if (itemId == R.id.option1) {
+							nr = 0;
+							System.out.println(selected_position);
+							AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 		            				getActivity());
-		             
-		            			// set title
-		            			alertDialogBuilder.setTitle("Delete event?");
-		             
-		            			// set dialog message
-		            			alertDialogBuilder
-		            				.setMessage("You are about to delete an event. Proceed?")
-		            				.setCancelable(false)
-		            				.setIcon(R.drawable.ic_error)
-		            				.setPositiveButton("No",new DialogInterface.OnClickListener() {
-		            					public void onClick(DialogInterface dialog,int id) {
-		            						// if this button is clicked, close
-		            						// current activity
-		            						dialog.cancel();
-		            					}
-		            				  })
-		            				.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
-		            					public void onClick(DialogInterface dialog,int id) {
-		            						// if this button is clicked, just close
-		            						// the dialog box and do nothing
-		            						if(db.deleteEventCategory(selected_position)==true){
-		            							getActivity().runOnUiThread(new Runnable() {
-		    							            @Override
-		    							            public void run() {
-		    							            	
-		    							            	 eventName=db.getAllEventName(month_passed);
-		    							 			    eventNumber=db.getAllEventNumber(month_passed);
-		    							 			    eventsId=db.getAllEventID(month_passed);
-		    							 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventsId);
-		    							 			    events_adapter.notifyDataSetChanged();
-		    							 			    listView_events.setAdapter(events_adapter);	
-		    							            }
-		    							        });
-		       	    		        		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
-		       									         Toast.LENGTH_LONG).show();
-		       		    		        	}
-		       		    		        	
-		            						events_adapter.clearSelection();
-		       		                      
-		            					}
-		            				});
-		             
-		            				// create alert dialog
-		            				AlertDialog alertDialog = alertDialogBuilder.create();
-		             
-		            				// show it
-		            				alertDialog.show();
-		            				  mode.finish();
-		                }
+							// set title
+							alertDialogBuilder.setTitle("Delete event?");
+							// set dialog message
+							alertDialogBuilder
+								.setMessage("You are about to delete an event. Proceed?")
+								.setCancelable(false)
+								.setIcon(R.drawable.ic_error)
+								.setPositiveButton("No",new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,int id) {
+										// if this button is clicked, close
+										// current activity
+										dialog.cancel();
+									}
+								  })
+								.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,int id) {
+										// if this button is clicked, just close
+										// the dialog box and do nothing
+										if(db.deleteEventCategory(selected_position)==true){
+											getActivity().runOnUiThread(new Runnable() {
+									            @Override
+									            public void run() {
+									            	
+									            	 eventName=db.getAllEventName(month_passed);
+									 			    eventNumber=db.getAllEventNumber(month_passed);
+									 			    eventsId=db.getAllEventID(month_passed);
+									 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventsId);
+									 			    events_adapter.notifyDataSetChanged();
+									 			    listView_events.setAdapter(events_adapter);	
+									            }
+									        });
+							    		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
+											         Toast.LENGTH_LONG).show();
+							        	}
+							        	
+										events_adapter.clearSelection();
+							          
+									}
+								});
+							// create alert dialog
+							AlertDialog alertDialog = alertDialogBuilder.create();
+							// show it
+							alertDialog.show();
+							mode.finish();
+						}
 		                return false;
 		            }
 		              
@@ -591,23 +586,20 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 								public void onCheckedChanged(
 										RadioGroup buttonView,
 										int isChecked) {
-									switch(isChecked){
-									case R.id.radio_people:
+									if (isChecked == R.id.radio_people) {
 										items3=new String[]{"0 - 11 months","12 - 23 months",
 												"24 -59 months","Women in fertile age",
 												"Expected pregnancy"};
 										ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
 										spinner_coverageName.setAdapter(adapter3);
 										coverage_detail="People";
-										break;
-									case R.id.radio_immunization:
+									} else if (isChecked == R.id.radio_immunization) {
 										items3=new String[]{"BCG",
 												"Penta 3","OPV 3","Rota 2",
 												"PCV 3","Measles Rubella","Yellow fever"};
 										ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
 										spinner_coverageName.setAdapter(adapter4);
 										coverage_detail="Immunization";
-										break;
 									}
 									
 								}
@@ -645,72 +637,68 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				              
 				            @Override
 				            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-				                switch (item.getItemId()) {
-				                    case R.id.option1:
-				                        nr = 0;
-				                    System.out.println(selected_position);
-				                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				                int itemId = item.getItemId();
+								if (itemId == R.id.option1) {
+									nr = 0;
+									System.out.println(selected_position);
+									AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				            				getActivity());
-				             
-				            			// set title
-				            			alertDialogBuilder.setTitle("Delete event?");
-				             
-				            			// set dialog message
-				            			alertDialogBuilder
-				            				.setMessage("You are about to delete an event. Proceed?")
-				            				.setCancelable(false)
-				            				.setIcon(R.drawable.ic_error)
-				            				.setPositiveButton("No",new DialogInterface.OnClickListener() {
-				            					public void onClick(DialogInterface dialog,int id) {
-				            						// if this button is clicked, close
-				            						// current activity
-				            						dialog.cancel();
-				            					}
-				            				  })
-				            				.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
-				            					public void onClick(DialogInterface dialog,int id) {
-				            						// if this button is clicked, just close
-				            						// the dialog box and do nothing
-				            						if(db.deleteCoverageCategory(selected_position)==true){
-				            							getActivity().runOnUiThread(new Runnable() {
-				            					            @Override
-				            					            public void run() {
-				            					            	
-				            					            	coveragePeopleTarget=db.getAllCoveragePeopleTarget(month_passed);
-				            								    coveragePeopleNumber=db.getAllCoveragePeopleNumber(month_passed);
-				            								    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod(month_passed);
-				            								    
-				            								    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget(month_passed);
-				            								    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber(month_passed);
-				            								    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod(month_passed);
-				            								    coveragePeopleId=db.getAllCoveragePeopleId(month_passed);
-				            								    coverageImmunizationId=db.getAllCoverageImmunizationsId(month_passed);
-				            								    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
-				            								    coverage_adapter=new CoverageListAdapter(getActivity(),group,coveragePeopleTarget,coveragePeopleNumber,
-				            											coveragePeoplePeriod,coverageImmunzationTarget,
-				            											coverageImmunzationNumber,coverageImmunzationPeriod,
-				            											coveragePeopleId,coverageImmunizationId,
-				            											imageId,listView_coverage);
-				            								    coverage_adapter.notifyDataSetChanged();
-				            								    listView_coverage.setAdapter(coverage_adapter);	
-				            					            }
-				            					        });	
-				       	    		        		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
-				       									         Toast.LENGTH_LONG).show();
-				       		    		        	}
-				       		    		        	
-				            						coverage_adapter.clearSelection();
-				       		                      
-				            					}
-				            				});
-				             
-				            				// create alert dialog
-				            				AlertDialog alertDialog = alertDialogBuilder.create();
-				             
-				            				// show it
-				            				alertDialog.show();
-				            				  mode.finish();
-				                }
+									// set title
+									alertDialogBuilder.setTitle("Delete event?");
+									// set dialog message
+									alertDialogBuilder
+										.setMessage("You are about to delete an event. Proceed?")
+										.setCancelable(false)
+										.setIcon(R.drawable.ic_error)
+										.setPositiveButton("No",new DialogInterface.OnClickListener() {
+											public void onClick(DialogInterface dialog,int id) {
+												// if this button is clicked, close
+												// current activity
+												dialog.cancel();
+											}
+										  })
+										.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+											public void onClick(DialogInterface dialog,int id) {
+												// if this button is clicked, just close
+												// the dialog box and do nothing
+												if(db.deleteCoverageCategory(selected_position)==true){
+													getActivity().runOnUiThread(new Runnable() {
+											            @Override
+											            public void run() {
+											            	
+											            	coveragePeopleTarget=db.getAllCoveragePeopleTarget(month_passed);
+														    coveragePeopleNumber=db.getAllCoveragePeopleNumber(month_passed);
+														    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod(month_passed);
+														    
+														    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget(month_passed);
+														    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber(month_passed);
+														    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod(month_passed);
+														    coveragePeopleId=db.getAllCoveragePeopleId(month_passed);
+														    coverageImmunizationId=db.getAllCoverageImmunizationsId(month_passed);
+														    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
+														    coverage_adapter=new CoverageListAdapter(getActivity(),group,coveragePeopleTarget,coveragePeopleNumber,
+																	coveragePeoplePeriod,coverageImmunzationTarget,
+																	coverageImmunzationNumber,coverageImmunzationPeriod,
+																	coveragePeopleId,coverageImmunizationId,
+																	imageId,listView_coverage);
+														    coverage_adapter.notifyDataSetChanged();
+														    listView_coverage.setAdapter(coverage_adapter);	
+											            }
+											        });	
+									    		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
+													         Toast.LENGTH_LONG).show();
+									        	}
+									        	
+												coverage_adapter.clearSelection();
+									          
+											}
+										});
+									// create alert dialog
+									AlertDialog alertDialog = alertDialogBuilder.create();
+									// show it
+									alertDialog.show();
+									mode.finish();
+								}
 				                return false;
 				            }
 				              
@@ -804,8 +792,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 						public void onCheckedChanged(
 								RadioGroup buttonView,
 								int isChecked) {
-							switch(isChecked){
-							case R.id.radio_people:
+							if (isChecked == R.id.radio_people) {
 								items3=new String[]{"0 - 11 months","12 - 23 months",
 										"24 -59 months","Women in fertile age",
 										"Expected pregnancy"};
@@ -813,8 +800,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 								spinner_coverageName.setAdapter(adapter3);
 								int spinner_position=adapter3.getPosition(selected_items[0]);
 								spinner_coverageName.setSelection(spinner_position);
-								break;
-							case R.id.radio_immunization:
+							} else if (isChecked == R.id.radio_immunization) {
 								items3=new String[]{"BCG",
 										"Penta 3","OPV 3","Rota 2",
 										"PCV 3","Measles Rubella","Yellow fever"};
@@ -822,7 +808,6 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 								spinner_coverageName.setAdapter(adapter4);
 								int spinner_position2=adapter4.getPosition(selected_items[0]);
 								spinner_coverageName.setSelection(spinner_position2);
-								break;
 							}	
 						}
 				    });
@@ -970,70 +955,66 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 		              
 		            @Override
 		            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-		                switch (item.getItemId()) {
-		                    case R.id.option1:
-		                        nr = 0;
-		                    System.out.println(selected_position);
-		                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+		                int itemId = item.getItemId();
+						if (itemId == R.id.option1) {
+							nr = 0;
+							System.out.println(selected_position);
+							AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 		            				getActivity());
-		             
-		            			// set title
-		            			alertDialogBuilder.setTitle("Delete event?");
-		             
-		            			// set dialog message
-		            			alertDialogBuilder
-		            				.setMessage("You are about to delete an event. Proceed?")
-		            				.setCancelable(false)
-		            				.setIcon(R.drawable.ic_error)
-		            				.setPositiveButton("No",new DialogInterface.OnClickListener() {
-		            					public void onClick(DialogInterface dialog,int id) {
-		            						// if this button is clicked, close
-		            						// current activity
-		            						dialog.cancel();
-		            					}
-		            				  })
-		            				.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
-		            					public void onClick(DialogInterface dialog,int id) {
-		            						// if this button is clicked, just close
-		            						// the dialog box and do nothing
-		            						if(db.deleteLearningCategory(selected_position)==true){
-		            							getActivity().runOnUiThread(new Runnable() {
-		    										@Override
-		    							            public void run() {
-		    							            	
-		    							            	AntenatalCare=db.getAllLearningAntenatalCare();
-		    										    PostnatalCare=db.getAllLearningPostnatalCare();
-		    										    FamilyPlanning=db.getAllLearningFamilyPlanning(month_passed);
-		    										    ChildHealth=db.getAllLearningChildHealth();
-		    										    General=db.getAllLearningGeneral();
-		    										    Other=db.getAllLearningOther();
-		    										    learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,//AntenatalCare,
-		       													//PostnatalCare,
-		       													FamilyPlanning,
-		       													//ChildHealth,
-		       													//General,
-		       													//Other,
-		       													imageId,learningList);
-		    										    learning_adapter.notifyDataSetChanged();
-		    										    learningList.setAdapter(learning_adapter);	
-		    							            }
-		    							        });	
-		       	    		        		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
-		       									         Toast.LENGTH_LONG).show();
-		       		    		        	}
-		       		    		        	
-		            						learning_adapter.clearSelection();
-		       		                      
-		            					}
-		            				});
-		             
-		            				// create alert dialog
-		            				AlertDialog alertDialog = alertDialogBuilder.create();
-		             
-		            				// show it
-		            				alertDialog.show();
-		            				  mode.finish();
-		                }
+							// set title
+							alertDialogBuilder.setTitle("Delete event?");
+							// set dialog message
+							alertDialogBuilder
+								.setMessage("You are about to delete an event. Proceed?")
+								.setCancelable(false)
+								.setIcon(R.drawable.ic_error)
+								.setPositiveButton("No",new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,int id) {
+										// if this button is clicked, close
+										// current activity
+										dialog.cancel();
+									}
+								  })
+								.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,int id) {
+										// if this button is clicked, just close
+										// the dialog box and do nothing
+										if(db.deleteLearningCategory(selected_position)==true){
+											getActivity().runOnUiThread(new Runnable() {
+												@Override
+									            public void run() {
+									            	
+									            	AntenatalCare=db.getAllLearningAntenatalCare();
+												    PostnatalCare=db.getAllLearningPostnatalCare();
+												    FamilyPlanning=db.getAllLearningFamilyPlanning(month_passed);
+												    ChildHealth=db.getAllLearningChildHealth();
+												    General=db.getAllLearningGeneral();
+												    Other=db.getAllLearningOther();
+												    learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,//AntenatalCare,
+															//PostnatalCare,
+															FamilyPlanning,
+															//ChildHealth,
+															//General,
+															//Other,
+															imageId,learningList);
+												    learning_adapter.notifyDataSetChanged();
+												    learningList.setAdapter(learning_adapter);	
+									            }
+									        });	
+							    		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
+											         Toast.LENGTH_LONG).show();
+							        	}
+							        	
+										learning_adapter.clearSelection();
+							          
+									}
+								});
+							// create alert dialog
+							AlertDialog alertDialog = alertDialogBuilder.create();
+							// show it
+							alertDialog.show();
+							mode.finish();
+						}
 		                return false;
 		            }
 		              
@@ -1366,61 +1347,57 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 		              
 		            @Override
 		            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-		                switch (item.getItemId()) {
-		                    case R.id.option1:
-		                        nr = 0;
-		                    System.out.println(selected_position);
-		                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+		                int itemId = item.getItemId();
+						if (itemId == R.id.option1) {
+							nr = 0;
+							System.out.println(selected_position);
+							AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 		            				getActivity());
-		             
-		            			// set title
-		            			alertDialogBuilder.setTitle("Delete event?");
-		             
-		            			// set dialog message
-		            			alertDialogBuilder
-		            				.setMessage("You are about to delete an event. Proceed?")
-		            				.setCancelable(false)
-		            				.setIcon(R.drawable.ic_error)
-		            				.setPositiveButton("No",new DialogInterface.OnClickListener() {
-		            					public void onClick(DialogInterface dialog,int id) {
-		            						// if this button is clicked, close
-		            						// current activity
-		            						dialog.cancel();
-		            					}
-		            				  })
-		            				.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
-		            					public void onClick(DialogInterface dialog,int id) {
-		            						// if this button is clicked, just close
-		            						// the dialog box and do nothing
-		            						if(db.deleteOthereCategory(selected_position)==true){
-		            							getActivity().runOnUiThread(new Runnable() {
-		            								@Override
-		            					            public void run() {
-		            									otherCategory=db.getAllOtherCategory(month_passed);
-		            								    otherNumber=db.getAllOtherNumber(month_passed);
-		            								    otherPeriod=db.getAllOtherPeriod(month_passed);
-		            								    otherId=db.getAllOthersId(month_passed);
-		            								    other_adapter=new OtherBaseAdapter(getActivity(),otherCategory,otherNumber,otherPeriod,otherId);
-		            							    	other_adapter.notifyDataSetChanged();
-		            							    	listView_other.setAdapter(other_adapter);	
-		            					            }
-		            					        });	
-		       	    		        		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
-		       									         Toast.LENGTH_LONG).show();
-		       		    		        	}
-		       		    		        	
-		            						other_adapter.clearSelection();
-		       		                      
-		            					}
-		            				});
-		             
-		            				// create alert dialog
-		            				AlertDialog alertDialog = alertDialogBuilder.create();
-		             
-		            				// show it
-		            				alertDialog.show();
-		            				  mode.finish();
-		                }
+							// set title
+							alertDialogBuilder.setTitle("Delete event?");
+							// set dialog message
+							alertDialogBuilder
+								.setMessage("You are about to delete an event. Proceed?")
+								.setCancelable(false)
+								.setIcon(R.drawable.ic_error)
+								.setPositiveButton("No",new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,int id) {
+										// if this button is clicked, close
+										// current activity
+										dialog.cancel();
+									}
+								  })
+								.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,int id) {
+										// if this button is clicked, just close
+										// the dialog box and do nothing
+										if(db.deleteOthereCategory(selected_position)==true){
+											getActivity().runOnUiThread(new Runnable() {
+												@Override
+									            public void run() {
+													otherCategory=db.getAllOtherCategory(month_passed);
+												    otherNumber=db.getAllOtherNumber(month_passed);
+												    otherPeriod=db.getAllOtherPeriod(month_passed);
+												    otherId=db.getAllOthersId(month_passed);
+												    other_adapter=new OtherBaseAdapter(getActivity(),otherCategory,otherNumber,otherPeriod,otherId);
+											    	other_adapter.notifyDataSetChanged();
+											    	listView_other.setAdapter(other_adapter);	
+									            }
+									        });	
+							    		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
+											         Toast.LENGTH_LONG).show();
+							        	}
+							        	
+										other_adapter.clearSelection();
+							          
+									}
+								});
+							// create alert dialog
+							AlertDialog alertDialog = alertDialogBuilder.create();
+							// show it
+							alertDialog.show();
+							mode.finish();
+						}
 		                return false;
 		            }
 		              

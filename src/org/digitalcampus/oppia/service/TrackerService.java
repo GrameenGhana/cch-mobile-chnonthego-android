@@ -174,7 +174,7 @@ public class TrackerService extends Service implements APIRequestListener {
 		
 		if(updateAvailable){
 			Bitmap icon = BitmapFactory.decodeResource(getResources(),
-	                R.drawable.dc_logo);
+	                R.drawable.app_icon);
 			NotificationCompat.Builder mBuilder =
 				    new NotificationCompat.Builder(this)
 				    .setSmallIcon(R.drawable.ic_stat_notification)

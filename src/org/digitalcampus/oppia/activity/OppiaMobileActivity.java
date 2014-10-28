@@ -208,37 +208,30 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
-		switch (item.getItemId()) {
-			case R.id.menu_about:
-				startActivity(new Intent(this, AboutActivity.class));
-				return true;
-			case R.id.menu_download:
-				startActivity(new Intent(this, TagSelectActivity.class));
-				return true;
-			case R.id.menu_settings:
-				Intent i = new Intent(this, PrefsActivity.class);
-				Bundle tb = new Bundle();
-				ArrayList<Lang> langs = new ArrayList<Lang>();
-				for(Course m: courses){
-					langs.addAll(m.getLangs());
-				}
-				tb.putSerializable("langs", langs);
-				i.putExtras(tb);
-				startActivity(i);
-				return true;
-			/*case R.id.menu_language:
-				createLanguageDialog();
-				return true;*/
-			case R.id.menu_help:
-				startActivity(new Intent(this, HelpActivity.class));
-				return true;
-			/*case R.id.menu_monitor:
-				startActivity(new Intent(this, MonitorActivity.class));
-				return true;*/
-			case R.id.menu_logout:
-				logout();
-				return true;
+		int itemId = item.getItemId();
+		if (itemId == R.id.menu_about) {
+			startActivity(new Intent(this, AboutActivity.class));
+			return true;
+		} else if (itemId == R.id.menu_download) {
+			startActivity(new Intent(this, TagSelectActivity.class));
+			return true;
+		} else if (itemId == R.id.menu_settings) {
+			Intent i = new Intent(this, PrefsActivity.class);
+			Bundle tb = new Bundle();
+			ArrayList<Lang> langs = new ArrayList<Lang>();
+			for(Course m: courses){
+				langs.addAll(m.getLangs());
+			}
+			tb.putSerializable("langs", langs);
+			i.putExtras(tb);
+			startActivity(i);
+			return true;
+		} else if (itemId == R.id.menu_help) {
+			startActivity(new Intent(this, HelpActivity.class));
+			return true;
+		} else if (itemId == R.id.menu_logout) {
+			logout();
+			return true;
 		}
 		return true;
 	}
@@ -317,13 +310,13 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 	public boolean onContextItemSelected(android.view.MenuItem item) {
 		android.widget.AdapterView.AdapterContextMenuInfo info = (android.widget.AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 		tempCourse = (Course) info.targetView.getTag();
-		switch (item.getItemId()) {
-			case R.id.course_context_delete:
-				confirmCourseDelete();
-				return true;
-			case R.id.course_context_reset:
-				confirmCourseReset();
-				return true;
+		int itemId = item.getItemId();
+		if (itemId == R.id.course_context_delete) {
+			confirmCourseDelete();
+			return true;
+		} else if (itemId == R.id.course_context_reset) {
+			confirmCourseReset();
+			return true;
 		}
 		return true;
 	}

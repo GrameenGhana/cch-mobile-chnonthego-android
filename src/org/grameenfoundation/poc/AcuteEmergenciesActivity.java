@@ -75,11 +75,10 @@ public class AcuteEmergenciesActivity extends Activity implements OnClickListene
 	@Override
 	public void onClick(View v) {
 		Intent intent;
-		switch(v.getId()){
-		case R.id.button_acuteEmergenciesNo:
-		intent=new Intent(mContext,PreviousVisitActivity.class);
-		startActivity(intent);
-			break;
+		int id = v.getId();
+		if (id == R.id.button_acuteEmergenciesNo) {
+			intent=new Intent(mContext,PreviousVisitActivity.class);
+			startActivity(intent);
 		}
 		
 	}

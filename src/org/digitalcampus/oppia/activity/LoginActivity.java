@@ -163,13 +163,12 @@ public class LoginActivity extends AppActivity implements SubmitListener  {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
-		switch (item.getItemId()) {
-		case R.id.menu_settings:
+		int itemId = item.getItemId();
+		if (itemId == R.id.menu_settings) {
 			Intent i = new Intent(this, PrefsActivity.class);
 			startActivity(i);
 			return true;
-		default:
+		} else {
 			return super.onOptionsItemSelected(item);
 		}
 	}

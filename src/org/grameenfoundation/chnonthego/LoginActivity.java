@@ -134,12 +134,11 @@ public class LoginActivity extends Activity{
 	}
 
 	public void Login(View v){
-		switch(v.getId()){
-		case R.id.button_login:
+		int id = v.getId();
+		if (id == R.id.button_login) {
 			username_entered=editText_username.getText().toString();
 			password_entered=editText_password.getText().toString();
 			verifyLoginDetails();
-			break;
 		}
 	}
 	

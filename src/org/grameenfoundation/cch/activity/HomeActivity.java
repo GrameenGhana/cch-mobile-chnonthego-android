@@ -280,22 +280,20 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
-		switch (item.getItemId()) {
-			case R.id.menu_settings:
-				Intent i = new Intent(this, PrefsActivity.class);				
-				startActivity(i);
-				return true;
-			
-			case R.id.menu_about:
-				startActivity(new Intent(this, AboutActivity.class));
-				return true;
-			case R.id.menu_help:
-				startActivity(new Intent(this, HelpActivity.class));
-				return true;
-			case R.id.menu_logout:
-				logout();
-				return true;
+		int itemId = item.getItemId();
+		if (itemId == R.id.menu_settings) {
+			Intent i = new Intent(this, PrefsActivity.class);
+			startActivity(i);
+			return true;
+		} else if (itemId == R.id.menu_about) {
+			startActivity(new Intent(this, AboutActivity.class));
+			return true;
+		} else if (itemId == R.id.menu_help) {
+			startActivity(new Intent(this, HelpActivity.class));
+			return true;
+		} else if (itemId == R.id.menu_logout) {
+			logout();
+			return true;
 		}
 		return true;
 	}

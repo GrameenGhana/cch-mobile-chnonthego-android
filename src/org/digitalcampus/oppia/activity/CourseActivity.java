@@ -217,33 +217,14 @@ public class CourseActivity extends SherlockFragmentActivity implements ActionBa
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
-		switch (item.getItemId()) {
-		/*case R.id.menu_language:
-			createLanguageDialog();
-			return true;
-		*/	
-		case R.id.menu_help:
+		int itemId = item.getItemId();
+		if (itemId == R.id.menu_help) {
 			startActivity(new Intent(this, HelpActivity.class));
 			return true;
-		case android.R.id.home:
+		} else if (itemId == android.R.id.home) {
 			this.finish();
 			return true;
-		/*case R.id.menu_tts:
-			if (myTTS == null && !ttsRunning) {
-				// check for TTS data
-				Intent checkTTSIntent = new Intent();
-				checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-				startActivityForResult(checkTTSIntent, TTS_CHECK);
-			} else if (myTTS != null && ttsRunning) {
-				this.stopReading();
-			} else {
-				// TTS not installed so show message
-				Toast.makeText(this, this.getString(R.string.error_tts_start), Toast.LENGTH_LONG).show();
-			}
-			supportInvalidateOptionsMenu();
-			return true;*/
-		default:
+		} else {
 			return super.onOptionsItemSelected(item);
 		}
 	}

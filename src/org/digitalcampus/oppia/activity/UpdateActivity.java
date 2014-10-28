@@ -61,15 +61,12 @@ public class UpdateActivity extends Activity {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				
-				switch(checkedId){
-				case R.id.radio_updateDialogYes:
+				if (checkedId == R.id.radio_updateDialogYes) {
 					linearLayout_comment.setVisibility(View.VISIBLE);
 					linearLayout_justification.setVisibility(View.GONE);
-					break;
-				case R.id.radio_updateDialogNo:
+				} else if (checkedId == R.id.radio_updateDialogNo) {
 					linearLayout_justification.setVisibility(View.VISIBLE);
 					linearLayout_comment.setVisibility(View.VISIBLE);
-					break;
 				}
 			}
 		});
