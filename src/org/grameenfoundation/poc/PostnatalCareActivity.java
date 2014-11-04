@@ -32,8 +32,8 @@ public class PostnatalCareActivity extends Activity{
 	    setContentView(R.layout.activity_postnatal_care_menu);
 	    mContext=PostnatalCareActivity.this;
 	    listView_postnatal=(ListView) findViewById(R.id.listView_postnatalCare);
-	    String[] items={"Diagnostic Tool","Counselling"};
-	    int[] images={R.drawable.ic_diagnostic,R.drawable.ic_counselling};
+	    String[] items={"Diagnostic Tool","Counselling","Quick Reads"};
+	    int[] images={R.drawable.ic_diagnostic,R.drawable.ic_counselling,R.drawable.ic_references};
 	    PostnatalCareListAdapter adapter=new PostnatalCareListAdapter(mContext,items,images);
 	    listView_postnatal.setAdapter(adapter);
 	    listView_postnatal.setOnItemClickListener(new OnItemClickListener(){
@@ -45,6 +45,10 @@ public class PostnatalCareActivity extends Activity{
 				switch(position){
 				case 0:
 					intent=new Intent(mContext,PostnatalCareSectionActivity.class);
+					startActivity(intent);
+					break;
+				case 1:
+					intent=new Intent(mContext,PostnatalCareCounsellingTopicsActivity.class);
 					startActivity(intent);
 					break;
 				}
@@ -122,6 +126,8 @@ public class PostnatalCareActivity extends Activity{
 			 text.setGravity(Gravity.LEFT);
 			 text.setPadding(10, 0, 0, 0);
 			 text.setText(items[position]);
+			 ImageView image=(ImageView) convertView.findViewById(R.id.imageView_groupImage);
+			 image.setImageResource(images[position]);
 			    return convertView;
 		}
 	}

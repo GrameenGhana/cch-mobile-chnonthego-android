@@ -3,16 +3,13 @@
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-<LinearLayout 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
 
-    <View
-        android:id="@+id/view1"
-        android:layout_width="wrap_content"
-        android:layout_height="10dp"
-        android:background="@color/Curry" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="475dp"
+    android:background="@drawable/stroke_bg_curry"
+    android:orientation="vertical"
+    android:padding="10dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,9 +21,10 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text=" In Facility Care for Diarrhoea with Some Dehydration"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
 
         <TextView
             android:id="@+id/textView1"
@@ -34,14 +32,14 @@
             android:layout_height="wrap_content"
             android:text="Take Action: First 4-hour period"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Curry" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/customborder"
+        android:background="@drawable/custom_border2"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:padding="20dp"
@@ -52,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="1. Determine amount of ORS to give during the first 4 hour period"
+            android:text="\u2022 Determine amount of ORS to give during the first 4 hour period"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -60,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="2. 1If the baby wants more ORS than recommended, give more"
+            android:text="\u2022 If the baby wants more ORS than recommended, give more"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -68,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="3. For babies who are not breastfed, also give 100 – 200 mL of clean water during this period if you use standard ORS  "
+            android:text="\u2022 For babies who are not breastfed, also give 100 – 200 mL of clean water during this period if you use standard ORS  "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <LinearLayout
@@ -81,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="4. Show the mother how to give ORS: "
+                android:text="\u2022 Show the mother how to give ORS: "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -89,7 +87,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="2dp"
-                android:text="     --- Give frequent small sips from a clean cup"
+                android:layout_marginLeft="40dp"
+                android:text="\u2022 Give frequent small sips from a clean cup"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -97,7 +96,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="2dp"
-                android:text="     --- If the child vomits, wait 10 minutes.  Then continue, but more slowly."
+                android:layout_marginLeft="40dp"
+                android:text="\u2022 If the child vomits, wait 10 minutes.  Then continue, but more slowly."
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -105,16 +105,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="2dp"
-                android:text="     --- Continue breastfeeding whenever child wants "
+                android:layout_marginLeft="40dp"
+                android:text="\u2022 Continue breastfeeding whenever child wants "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
 

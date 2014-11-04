@@ -14,17 +14,18 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="Ask client:  "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine"
+            android:textColor="@color/TextBrown"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@drawable/custom_border2"
+            android:divider="@drawable/divider"
             android:orientation="vertical"
-                android:divider="@drawable/divider"
             android:showDividers="middle" >
 
             <TextView
@@ -32,7 +33,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="       ---How are you feeling? "
+                android:text="\u2022 How are you feeling? "
+                android:layout_marginLeft="20dp"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -40,7 +42,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="      --- Do you have andy pains? Do you have any concerns?"
+                  android:layout_marginLeft="20dp"
+                android:text="\u2022 Do you have andy pains? Do you have any concerns?"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -54,16 +57,17 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:text="Check maternal records for: "
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/TextColorWine"
+                android:textColor="@color/TextBrown"
                 android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/customborder"
+                android:background="@drawable/custom_border2"
                 android:divider="@drawable/divider"
                 android:orientation="vertical"
                 android:showDividers="middle" >
@@ -73,7 +77,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
-                    android:text="      --- Past obstetric history"
+                    android:layout_marginLeft="20dp"
+                    android:text="\u2022 Past obstetric history"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
@@ -81,7 +86,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
-                    android:text="      --- Contraceptive history"
+                    android:layout_marginLeft="20dp"
+                    android:text="\u2022 Contraceptive history"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
@@ -89,7 +95,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
-                    android:text="      --- Personal medical and surgical history, including any known allergies to medication "
+                     android:layout_marginLeft="20dp"
+                    android:text="\u2022 Personal medical and surgical history, including any known allergies to medication "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
@@ -97,7 +104,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
-                    android:text="      --- Family medical history"
+                     android:layout_marginLeft="20dp"
+                    android:text="\u2022 Family medical history"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
@@ -105,7 +113,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
-                    android:text="      --- History of present pregnancy"
+                     android:layout_marginLeft="20dp"
+                    android:text="\u2022 History of present pregnancy"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
@@ -113,7 +122,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
-                    android:text="      -- Gestational of present pregnancy and estimate current trimester "
+                     android:layout_marginLeft="20dp"
+                    android:text="\u2022 Gestational of present pregnancy and estimate current trimester "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
             </LinearLayout>

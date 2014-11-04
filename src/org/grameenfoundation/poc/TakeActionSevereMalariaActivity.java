@@ -28,7 +28,19 @@ public class TakeActionSevereMalariaActivity extends Activity {
             setContentView(R.layout.activity_third_trimester_malaria);
             }
 	
-	    
+        else if(take_action_category.equals("negative")){
+            setContentView(R.layout.activity_malaria_test_negative);
+            }
+        else if(take_action_category.equals("not_done")){
+            setContentView(R.layout.activity_malaria_test_not_done);
+            }
+        else if(take_action_category.equals("severe anaemia")){
+            setContentView(R.layout.activity_severe_anaemia_take_action);
+            }
+        else if(take_action_category.equals("no anaemia")){
+            setContentView(R.layout.activity_no_anaemia_take_action);
+            }
+	
 	   
 	}
 

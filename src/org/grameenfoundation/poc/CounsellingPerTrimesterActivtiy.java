@@ -26,7 +26,8 @@ public class CounsellingPerTrimesterActivtiy extends Activity {
 	    setContentView(R.layout.activity_couselling);
 	    mContext=CounsellingPerTrimesterActivtiy.this;
 	    getActionBar().setDisplayShowHomeEnabled(false);
-	    getActionBar().setTitle("Point of Care> Counselling");
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("Counselling");
 	    listView_counselling=(ListView) findViewById(R.id.listView_cousellingMenu);
 	    String[] items={"First Trimester","Second Trimester","Third Trimester"};
 	    CounsellingListAdapter adapter=new CounsellingListAdapter(mContext,items);

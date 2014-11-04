@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="How heavy is the clients bleeding?"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/TextColorGreen" />
+        android:textColor="@color/TextBrown" />
 
     <ImageView
         android:id="@+id/imageView1"
@@ -23,6 +23,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:orientation="vertical"
         android:padding="10dp" >
 

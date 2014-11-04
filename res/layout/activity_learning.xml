@@ -24,7 +24,9 @@
         <ExpandableListView
             android:id="@+id/expandableListView_learningCategory"
             android:layout_width="match_parent"
-            android:layout_height="296dp" >
+            android:layout_height="296dp"
+            android:background="?android:attr/activatedBackgroundIndicator" >
+
         </ExpandableListView>
 
         <LinearLayout

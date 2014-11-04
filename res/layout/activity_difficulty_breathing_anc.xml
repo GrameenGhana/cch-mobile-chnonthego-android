@@ -29,7 +29,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeAction"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"
@@ -62,19 +62,19 @@
         android:orientation="vertical" >
 
          <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableRight="@drawable/ic_transport"
-            android:padding="10dp"
-            android:text="While waiting for transport:    "
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+             android:id="@+id/textView4"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:drawableRight="@drawable/ic_transport"
+             android:padding="10dp"
+             android:text="While waiting for transport:    "
+             android:textAppearance="?android:attr/textAppearanceMedium"
+             android:textColor="@color/Blue" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeAction"
             android:divider="@drawable/divider"
             android:dividerPadding="2dp"
             android:orientation="vertical"
@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="1. Remove tight clothing around client’s chest  "
+                android:text="\u2022 Remove tight clothing around client’s chest  "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -94,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="2. Prop her up if she is conscious"
+                android:text="\u2022 Prop her up if she is conscious"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -102,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="3. If she is unconscious, tilt her head back and lift her chin to open airway"
+                android:text="\u2022 If she is unconscious, tilt her head back and lift her chin to open airway"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="4. Clear mouth of any secretions"
+                android:text="\u2022 Clear mouth of any secretions"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -118,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="5. Open nearby windows to ensure adequate ventilation "
+                android:text="\u2022 Open nearby windows to ensure adequate ventilation "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -127,7 +127,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="291dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <TextView
@@ -141,8 +141,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="296dp"
-            android:background="@drawable/customborder"
+            android:layout_height="wrap_content"
+            android:background="@color/TakeAction"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"

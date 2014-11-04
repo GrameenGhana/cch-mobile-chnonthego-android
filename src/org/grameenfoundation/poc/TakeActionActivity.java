@@ -31,7 +31,7 @@ public class TakeActionActivity extends Activity{
 	 
 	    mContext=TakeActionActivity.this;
 	    getActionBar().setDisplayShowHomeEnabled(false);
-	    getActionBar().setTitle("Point of Care> Antenatal Care> Take Action");
+	    getActionBar().setTitle("Point of Care");
 	   // listView_takeAction=(ListView) findViewById(R.id.listView_takeAction);
 	  //  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
 	    Bundle extras = getIntent().getExtras(); 

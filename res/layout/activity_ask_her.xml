@@ -18,13 +18,14 @@
             android:layout_height="wrap_content"
             android:text="Does the client have any of the following?"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:orientation="vertical"
         android:padding="30dp" >
 
@@ -49,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="No"
-                android:textColor="@color/TextColorWine" />
+                android:textColor="@color/TextBrown" />
 
         </LinearLayout>
     </LinearLayout>

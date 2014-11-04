@@ -25,7 +25,7 @@ public class AskMalariaUnComplicatedActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_positive_malaria);
+	    setContentView(R.layout.activity_uncomplicated_malaria_ask);
 	    mContext=AskMalariaUnComplicatedActivity.this;
 	    listView_malaria=(ListView) findViewById(R.id.listView_malaria);
 	    String[] items={"Fever or history of fever present within the last 2-3 days ",

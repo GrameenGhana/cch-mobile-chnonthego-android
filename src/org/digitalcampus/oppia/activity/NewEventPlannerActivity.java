@@ -73,7 +73,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 public class NewEventPlannerActivity extends SherlockFragmentActivity implements ActionBar.TabListener, OnSharedPreferenceChangeListener{
 	 private DbHelper dbh;
 	SectionsPagerAdapter mSectionsPagerAdapter;
-	public String current_month;
+	public static String current_month;
 	
 	private static final String EVENT_PLANNER_ID = "Event Planner";
 	public static final String TAG = NewEventPlannerActivity.class.getSimpleName();
@@ -95,7 +95,8 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
       
         final ActionBar actionBar =getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.setTitle("Target Setting");
+        actionBar.setTitle("Event Planner");
+        actionBar.setSubtitle("Target Setting");
         actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setHomeButtonEnabled(true);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -388,6 +389,9 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 		        });
 		    
 			   Button b = (Button) rootView.findViewById(R.id.button_addEvent);
+			   if(!month_passed.equalsIgnoreCase(current_month)){
+				  b.setVisibility(View.GONE); 
+			   }
 			    b.setOnClickListener(new OnClickListener() {
 			    	@Override
 				       public void onClick(View v) {
@@ -425,7 +429,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 							    	getActivity().runOnUiThread(new Runnable() {
 							            @Override
 							            public void run() {
-							            	
+							            	textview_status.setText(" ");
 							            	 eventName=db.getAllEventName(month_passed);
 							 			    eventNumber=db.getAllEventNumber(month_passed);
 							 			    eventsId=db.getAllEventID(month_passed);
@@ -570,6 +574,9 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			    }
 			  
 			    Button b = (Button) rootView.findViewById(R.id.button_addCoverage);
+			    if(!month_passed.equalsIgnoreCase(current_month)){
+					  b.setVisibility(View.GONE); 
+				   }
 			    b.setOnClickListener(new OnClickListener() {
 			    	 String coverage_detail;
 			       @Override
@@ -739,7 +746,6 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 							    	getActivity().runOnUiThread(new Runnable() {
 							            @Override
 							            public void run() {
-							            	
 							            	coveragePeopleTarget=db.getAllCoveragePeopleTarget(month_passed);
 										    coveragePeopleNumber=db.getAllCoveragePeopleNumber(month_passed);
 										    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod(month_passed);
@@ -1036,6 +1042,9 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 		            }
 		        });
 			    Button b = (Button) rootView.findViewById(R.id.button_addLearning);
+			    if(!month_passed.equalsIgnoreCase(current_month)){
+					  b.setVisibility(View.GONE); 
+				   }
 			    b.setOnClickListener(new OnClickListener() {
 
 			       @Override
@@ -1419,6 +1428,9 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 		            }
 		        });
 			    Button b = (Button) rootView.findViewById(R.id.button_addOther);
+			    if(!month_passed.equalsIgnoreCase(current_month)){
+					  b.setVisibility(View.GONE); 
+				   }
 			    b.setOnClickListener(new OnClickListener() {
 
 			       @Override
@@ -1446,7 +1458,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 							    	getActivity().runOnUiThread(new Runnable() {
 										@Override
 							            public void run() {
-							            	
+											textStatus.setText(" ");
 											otherCategory=db.getAllOtherCategory(month_passed);
 										    otherNumber=db.getAllOtherNumber(month_passed);
 										    otherPeriod=db.getAllOtherPeriod(month_passed);

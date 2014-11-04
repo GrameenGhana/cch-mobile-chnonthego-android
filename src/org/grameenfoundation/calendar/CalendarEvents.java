@@ -61,10 +61,10 @@ public class CalendarEvents {
 		mContext.startActivity(intent);
     }
 	public void addEvent(String evt, String location, String desc)
-    {	
-		long calID = 3;
+    {	/*
+		long calID = 4;
 		
-		Calendar cal = Calendar.getInstance();
+		
 		ContentResolver cr = mContext.getContentResolver();
 		ContentValues values = new ContentValues();
 		values.put(Events.DTSTART, cal.getTimeInMillis());
@@ -74,17 +74,21 @@ public class CalendarEvents {
 		values.put(Events.CALENDAR_ID, calID);
 		values.put(Events.AVAILABILITY,  Events.AVAILABILITY_BUSY);
 		values.put(Events.EVENT_LOCATION, location);
-		values.put(Events.EVENT_TIMEZONE, "Casablanca");
+		values.put(Events.EVENT_TIMEZONE, "America/Los_Angeles");
 		values.put(CalendarContract.EXTRA_EVENT_ALL_DAY,  false);
 		Uri uri = cr.insert(Events.CONTENT_URI, values);
-		System.out.println(TimeZone.getAvailableIDs());
+		System.out.println(TimeZone.getAvailableIDs().toString());
 		// get the event ID that is the last element in the Uri
-		long eventID = Long.parseLong(uri.getLastPathSegment());
 		
+		long eventID = Long.parseLong(uri.getLastPathSegment());
+		if(eventID!=0){
+			System.out.println(String.valueOf(eventID));
+		}
+		*/
 		//beginTime.set(2012, 0, 19, 7, 30);
 		//Calendar endTime = Calendar.getInstance();
 		//endTime.set(2012, 0, 19, 8, 30);
-		/*
+		Calendar cal = Calendar.getInstance();
 		Intent	intent = new Intent(Intent.ACTION_EDIT)
 		        .setData(Events.CONTENT_URI)
 		        .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTimeInMillis())
@@ -96,7 +100,7 @@ public class CalendarEvents {
 		 		.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY , false);
 		
 		mContext.startActivity(intent);
-		*/
+		
     }
     
 	public class MyEvent

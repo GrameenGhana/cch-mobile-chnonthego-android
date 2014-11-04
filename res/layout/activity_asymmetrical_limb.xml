@@ -27,12 +27,12 @@
             android:padding="10dp"
             android:text="Take Action: Asymmetrical Limb Movement "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Curry" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeActionCurry"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"
@@ -73,12 +73,12 @@
             android:padding="10dp"
             android:text="While waiting for transport:    "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/Blue" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeActionCurry"
             android:divider="@drawable/divider"
             android:dividerPadding="2dp"
             android:orientation="vertical"
@@ -90,35 +90,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="1. Gently handle limb that is not moving "
+                android:text="\u2022 Gently handle limb that is not moving "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2. If baby can feed and not vomiting, help mother to breastfeed "
+                android:text="\u2022 If baby can feed and not vomiting, help mother to breastfeed "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3. If baby is not able to breastfeed, give small sips of expressed breast milk that has been collected in a clean container with a lid "
+                android:text="\u2022 If baby is not able to breastfeed, give small sips of expressed breast milk that has been collected in a clean container with a lid "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4. Advise mother to gently handle baby and the limb that is not moving  "
+                android:text="\u2022 Advise mother to gently handle baby and the limb that is not moving  "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5. Teach mother how to keep the baby warm on the way to the health facility  "
+                android:text="\u2022 Teach mother how to keep the baby warm on the way to the health facility  "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -135,14 +135,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-             android:text="Take Action: Do the following"
+            android:text="Take Action: Do the following"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Curry" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="296dp"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeActionCurry"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"

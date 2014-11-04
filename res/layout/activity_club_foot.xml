@@ -11,12 +11,6 @@
     android:orientation="vertical"
     android:padding="10dp" >
 
-    <View
-        android:id="@+id/view1"
-        android:layout_width="wrap_content"
-        android:layout_height="10dp"
-        android:background="@color/Curry" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +24,7 @@
             android:padding="10dp"
             android:text="Take Action: Club Foot  "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Curry" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="1. Refer mother and baby to a health center or hospital for special treatment  "
+                android:text="\u2022 Refer mother and baby to a health center or hospital for special treatment  "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -54,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="2. Call provider and arrange transport "
+                android:text="\u2022 Call provider and arrange transport "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -62,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="3. Advise mother to have another family member accompany her and the baby to the health facility"
+                android:text="\u2022 Advise mother to have another family member accompany her and the baby to the health facility"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -70,14 +64,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="4. Record baby’s clinical information in client’s maternal health or “Red” book. If possible, also fill out referral form "
+                android:text="\u2022 Record baby’s clinical information in client’s maternal health or “Red” book. If possible, also fill out referral form "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5. Follow up with client after discharge from health center or hospital  "
+                android:text="\u2022 Follow up with client after discharge from health center or hospital  "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -90,12 +84,6 @@
         android:orientation="vertical" >
 
     </LinearLayout>
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="wrap_content"
-        android:layout_height="10dp"
-        android:background="@color/Curry" />
 
 </LinearLayout>
 </ScrollView>

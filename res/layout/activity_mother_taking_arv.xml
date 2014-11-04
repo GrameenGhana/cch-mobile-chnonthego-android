@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    android:orientation="vertical"
+    android:padding="20dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="When mother is taking ARVs:"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/TextColorGreen" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="178dp"
+            android:layout_height="77dp"
+            android:src="@drawable/taking_arv" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/customborder"
+        android:divider="@drawable/divider"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:showDividers="middle" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="\u2022 Exclusively breastfeeding (giving only breast milk) for the first 6 months together with ARVs for either yourself and your baby will greatly help reduce chances of HIV passing from yourself to your baby"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+          <TextView
+              android:id="@+id/textView3"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:padding="5dp"
+              android:text="\u2022 By only giving breast milk, your baby also receives all the benefits of breastfeeding including protection from diarrhoea and other illnesses "
+              android:textAppearance="?android:attr/textAppearanceSmall" />
+          
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="\u2022 It is very important to avoid mixed feeding. Mixed feeding means feeding your baby both breast milk and any other foods or liquids, including infant formula, animal milks, or wate"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="\u2022 Take your baby to ART centre to be tested for HIV when he/she is 6 weeks old  "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next: "
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/TextColorGreen" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="167dp"
+            android:layout_height="97dp"
+            android:src="@drawable/not_taking_arv" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/customborder"
+        android:divider="@drawable/divider"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:showDividers="middle" >
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="\u2022 All babies who test positive for HIV at 6 weeks should breastfeed exclusively until 6 months, even without ARV interventions, and then continue breastfeeding for up to 2 years or longer. Complementary foods should be introduced at 6 months "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="\u2022 All breastfeeding babies who test negative for HIV at 6 weeks should continue to exclusively breastfeed until 6 months, even without ARV interventions, and continue to breastfeed until 12 months.  Complementary foods should be introduced at 6 months.  After 12 months, breastfeeding should only stop once a safe and nutritionally adequate diet without can be given to the baby"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>

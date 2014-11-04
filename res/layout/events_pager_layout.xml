@@ -42,6 +42,13 @@
                 android:layout_height="wrap_content"
                 android:text=" events planned for today."
                 android:typeface="serif" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_action_next_item" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -53,7 +60,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp" >
+                android:paddingBottom="10dp"
+                android:visibility="gone" >
 
                 <TextView
                     android:id="@+id/textView1"
@@ -79,7 +87,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="You have  "
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/background_dark"
+                    android:textStyle="bold"
+                    android:typeface="serif" />
 
                 <TextView
                     android:id="@+id/textView_eventTargetsNumber"
@@ -87,14 +98,18 @@
                     android:layout_height="wrap_content"
                     android:text="1"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/TextColorGreen" />
+                    android:textColor="@color/TextColorGreen"
+                    android:typeface="serif" />
 
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="  target(s) to update."
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/background_dark"
+                    android:textStyle="bold"
+                    android:typeface="serif" />
 
                 <TextView
                     android:id="@+id/textView_clickHere"
@@ -102,7 +117,9 @@
                     android:layout_height="wrap_content"
                     android:text=" click here"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/TextColorWine" />
+                    android:textColor="@color/TextColorWine"
+                    android:visibility="gone" />
+
             </LinearLayout>
 
         </LinearLayout>

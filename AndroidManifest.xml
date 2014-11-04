@@ -222,6 +222,26 @@
         <activity android:name="org.grameenfoundation.poc.AskMalariaUnComplicatedActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.AskMalariaTrimesterActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.PerformMalariaTestActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.AnaemiaAskActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.SeverAnaemiaAskActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.PostnatalCareCounsellingTopicsActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.BreastProblemsCounsellingActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.BreastProblemsCounsellingNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ComplicationReadinessMenuActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ComplicationReadinessActionActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.FamilyPlanningPostpartumActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.FamilyPlanningPostpartumNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.HomeCareForInfantActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ImmunisationScheduleActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.InfantFeedingMenuActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ExclusiveBreastFeedingActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.InfantFeedingNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.BreastAttachementActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.GoodAttachementActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.FeedingFrequencyActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ExpressBreastmilkActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ExpressBreastmilkNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ExpressBreastmilkFinalActivity"></activity>
     </application>
 
 </manifest>

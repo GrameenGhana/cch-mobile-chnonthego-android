@@ -1,14 +1,22 @@
 package org.digitalcampus.oppia.activity;
 
 import java.util.Calendar;
+
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.mobile.learningGF.R.color;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -22,6 +30,9 @@ public class TargetMonthOptionsActivity extends Activity implements OnItemClickL
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_month_options);
+	    getActionBar().setDisplayShowHomeEnabled(false);
+	    getActionBar().setTitle("Event Planner");
+	    getActionBar().setSubtitle("Target Month Options");
 	    listView_monthOption=(ListView) findViewById(R.id.listView_targetMonthOptions);
 	    listView_monthOption.setOnItemClickListener(this);
 	    Calendar c = Calendar.getInstance();
@@ -65,7 +76,7 @@ public class TargetMonthOptionsActivity extends Activity implements OnItemClickL
         	break;
         }
 	    String[] items={"January","February","March","April","May","June","July","August","September","October","November","December"};
-	    ArrayAdapter<String> adapter=new ArrayAdapter<String>(TargetMonthOptionsActivity.this, android.R.layout.simple_list_item_1, items);
+	    ListAdapter adapter=new ListAdapter(TargetMonthOptionsActivity.this,items);
 	 
 	    listView_monthOption.setAdapter(adapter);
 	    
@@ -150,5 +161,48 @@ public class TargetMonthOptionsActivity extends Activity implements OnItemClickL
 		}
 		
 	}
+	class ListAdapter extends BaseAdapter{
+		Context mContext;
+		String[] items;
+		 public LayoutInflater minflater;
+		
+		public ListAdapter(Context c, String[] items){
+			this.mContext=c;
+			this.items=items;
+			 minflater = LayoutInflater.from(mContext);
+		}
+
+		@Override
+		public int getCount() {
+			return items.length;
+		}
+
+		@Override
+		public String[] getItem(int position) {
+			
+			String[] values=new String[]{items[position]};
+			return values;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			if( convertView == null ){
+			      
+				  convertView = minflater.inflate(R.layout.listview_text_single,parent, false);
+			    }
+			 TextView text=(TextView) convertView.findViewById(R.id.textView_listViewText);
+			 text.setPadding(10, 0, 0, 0);
+			 text.setText(items[position]);
+			
+			    return convertView;
+		}
+	}
+	
 
 }

@@ -58,7 +58,8 @@ public final class PlanEventActivity extends Activity implements OnClickListener
 	    mContext=PlanEventActivity.this;
 	    dbh = new DbHelper(getApplicationContext());
 	    getActionBar().setDisplayShowHomeEnabled(false);
-	    getActionBar().setTitle("Event Planning> Plan Event");
+	    getActionBar().setTitle("Event Planner");
+	    getActionBar().setSubtitle("Event Planning");
 	    c= new CalendarEvents(mContext);
 	    startTime = System.currentTimeMillis();
 	    spinner_eventName=(Spinner) findViewById(R.id.spinner_eventPlanType);

@@ -168,13 +168,17 @@
 	 <string name="action_logout">Logout</string>
 	 <color name="BackgroundGrey">#E1DFD4</color> 
 	<color name="Brown">#6E5747</color>
+	<color name="TextBrown">#190707</color>
 	<color name="Red">#880000</color>
-	<color name="TakeAction">#FFC9F2</color>
+	<color name="TakeAction">#FBEFF8</color>
+	<color name="TakeActionCurry">#F7F8E0</color>
+		<color name="TakeActionGreen">#BCF5A9</color>
 	<color name="BackgroundBrown">#7D695B</color>
 	 <string name="sans_serif">sans-serif-light</string>
 	 <color name="BorderBrown">#CBC8B5</color>
 	<color name="ButtonBackgroundGrey">#E2E1D6</color> 
 	<color name="TextColorWine">#520000</color>
+	<color name="Blue">#08088A</color>
 	<string-array name="EventNames">
 	   
 	         <item>ANC Static</item>

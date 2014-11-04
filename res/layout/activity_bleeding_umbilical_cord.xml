@@ -29,7 +29,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeAction"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"
@@ -61,7 +61,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-       
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
@@ -70,11 +69,12 @@
             android:padding="10dp"
             android:text="While waiting for transport:    "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
-        <LinearLayout
+            android:textColor="@color/Blue" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeAction"
             android:divider="@drawable/divider"
             android:dividerPadding="2dp"
             android:orientation="vertical"
@@ -85,8 +85,9 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:paddingBottom="5dp"
-                android:text="1. Wash hands with soap and clean water "
+                android:text="\u2022 Wash hands with soap and clean water "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -94,7 +95,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="2. Apply pressure to the bleeding site with a sterile gauze to reduce bleeding"
+                android:layout_marginLeft="20dp"
+                android:text="\u2022  Apply pressure to the bleeding site with a sterile gauze to reduce bleeding"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -102,7 +104,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="3. Retie cord firmly with sterile cord ties, if baby is bleeding from the umbilical cord"
+                android:layout_marginLeft="20dp"
+                android:text="\u2022 Retie cord firmly with sterile cord ties, if baby is bleeding from the umbilical cord"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -110,7 +113,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="4. Keep baby warm "
+                 android:layout_marginLeft="20dp"
+                android:text="\u2022 Keep baby warm "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -118,7 +122,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="5. If baby can feed and not vomiting, help mother to breastfeed "
+                 android:layout_marginLeft="20dp"
+                android:text="\u2022 If baby can feed and not vomiting, help mother to breastfeed "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -126,14 +131,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="6. If baby is not able to breastfeed, give small sips of expressed breast milk that has been collected in a clean container with a lid "
+                android:layout_marginLeft="20dp"
+                android:text="\u2022 If baby is not able to breastfeed, give small sips of expressed breast milk that has been collected in a clean container with a lid "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="7. Teach mother how to keep the baby warm on the way to the health facility  "
+                 android:paddingBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:text="\u2022 Teach mother how to keep the baby warm on the way to the health facility  "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -157,7 +165,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="296dp"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeAction"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"

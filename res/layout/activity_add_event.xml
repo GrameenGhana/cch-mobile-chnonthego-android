@@ -14,16 +14,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="Add an Event"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/TextColorGreen" />
+                android:textColor="@color/TextBrown" />
+
         </LinearLayout>
 
         <TableLayout
@@ -44,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:text="Event:    "
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/TextColorWine" />
+                    android:textColor="@color/TextBrown" />
 
                 <Spinner
                     android:id="@+id/spinner_eventPlanType"
@@ -68,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:text="Location: "
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/TextColorWine" />
+                    android:textColor="@color/TextBrown" />
 
                 <AutoCompleteTextView
                     android:id="@+id/AutoCompleteTextView_location"
@@ -95,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:text="Description"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/TextColorWine" />
+                    android:textColor="@color/TextBrown" />
 
                 <EditText
                     android:id="@+id/editText_eventPlanDescription"
@@ -127,7 +128,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_add"
                     android:text="Add Event"
-                    android:textColor="@color/TextColorWine" />
+                    android:textColor="@color/TextBrown" />
 
                 <View
                     android:id="@+id/view1"
@@ -140,7 +141,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_view_button"
                     android:text="View Calendar"
-                    android:textColor="@color/TextColorWine" />
+                    android:textColor="@color/TextBrown" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

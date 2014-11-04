@@ -18,7 +18,7 @@
             android:padding="10dp"
             android:text="Does the client have a maternal health or &quot;red&quot; book?"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
 
         <ImageView
             android:id="@+id/imageView1"
@@ -37,17 +37,17 @@
 
         <Button
             android:id="@+id/button_yes"
-            android:layout_width="match_parent"
+            android:layout_width="287dp"
             android:layout_height="match_parent"
             android:text="Yes"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/TextBrown" />
 
         <Button
             android:id="@+id/button_no"
-            android:layout_width="match_parent"
+            android:layout_width="286dp"
             android:layout_height="wrap_content"
             android:text="No"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 

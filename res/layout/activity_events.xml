@@ -2,10 +2,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/White" >
+
 <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@color/White"
     android:gravity="center"
     android:orientation="vertical" >
 
@@ -19,7 +22,9 @@
     <ListView
         android:id="@+id/listView_events"
         android:layout_width="wrap_content"
-        android:layout_height="300dp" >
+        android:layout_height="300dp"
+        android:background="@drawable/listchoice_selector"
+        android:choiceMode="multipleChoice" >
 
     </ListView>
 
@@ -35,7 +40,7 @@
             android:drawableLeft="@drawable/ic_add"
             android:minHeight="28dp"
             android:text="Add event"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    android:orientation="vertical"
+    android:padding="20dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="Feeding a sick baby:"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/TextColorGreen" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="178dp"
+            android:layout_height="77dp"
+            android:src="@drawable/feeding_sick_baby" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/customborder"
+        android:divider="@drawable/divider"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:showDividers="middle" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="\u2022 Breastfeed more frequently during illness, including diarrhoea, will help baby fight sickness, reduce weight loss and recover more quickly"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+          <TextView
+              android:id="@+id/textView3"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:padding="5dp"
+              android:text="\u2022 Breastfeeding also provides comfort to your sick baby.  If your baby refuses to breastfeed, encourage your baby until he or she takes the breast again "
+              android:textAppearance="?android:attr/textAppearanceSmall" />
+          
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="\u2022 Give only breast milk and medicines recommended by your doctor/health care provider"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="\u2022 If the baby is too weak to suckle, express breast milk to feed him or her.  This will help you to keep up your milk supply and prevent breast difficulties "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            
+             <TextView
+                 android:id="@+id/textView6"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:padding="5dp"
+                 android:text="\u2022 After each illness, increase the frequency of breastfeeding to help your baby regain health and weight "
+                 android:textAppearance="?android:attr/textAppearanceSmall" />
+
+              <TextView
+                  android:id="@+id/textView7"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:padding="5dp"
+                  android:text="\u2022 When you are sick, you can continue to breastfeed your baby.  You may need extra food and support during this time  "
+                  android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>

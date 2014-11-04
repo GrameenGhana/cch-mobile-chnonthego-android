@@ -46,6 +46,7 @@ public class ExamineThePatientActivity extends Activity {
 	    ListAdapter adapter2=new ListAdapter(mContext,look_items);
 	    ListAdapter adapter3=new ListAdapter(mContext,check_items);
 	    listView_ask.setAdapter(adapter1);
+	    /*
 	    listView_ask.setOnTouchListener(new ListView.OnTouchListener() {
 	        @Override
 	        public boolean onTouch(View v, MotionEvent event) {
@@ -67,7 +68,9 @@ public class ExamineThePatientActivity extends Activity {
 	            return true;
 	        }
 	    });
+	    */
 	    listView_look.setAdapter(adapter2);
+	    /*
 	    listView_look.setOnTouchListener(new ListView.OnTouchListener() {
 	        @Override
 	        public boolean onTouch(View v, MotionEvent event) {
@@ -89,7 +92,9 @@ public class ExamineThePatientActivity extends Activity {
 	            return true;
 	        }
 	    });
+	    */
 	    listView_check.setAdapter(adapter3);
+	    /*
 	    listView_check.setOnTouchListener(new ListView.OnTouchListener() {
 	        @Override
 	        public boolean onTouch(View v, MotionEvent event) {
@@ -111,6 +116,7 @@ public class ExamineThePatientActivity extends Activity {
 	            return true;
 	        }
 	    });
+	    */
 	    button_next=(Button) findViewById(R.id.button_next);
 	    button_next.setOnClickListener(new OnClickListener(){
 

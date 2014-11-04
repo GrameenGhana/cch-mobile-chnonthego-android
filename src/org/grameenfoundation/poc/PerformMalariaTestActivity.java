@@ -31,7 +31,27 @@ public class PerformMalariaTestActivity extends Activity {
 	    	
 	    });
 	    button_negative=(Button) findViewById(R.id.button_negative);
+	    button_negative.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(PerformMalariaTestActivity.this,TakeActionSevereMalariaActivity.class);
+				intent.putExtra("category", "negative");
+				startActivity(intent);
+			}
+	    	
+	    });
 	    button_testNotDone=(Button) findViewById(R.id.button_testNotDone);
+	    button_testNotDone.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(PerformMalariaTestActivity.this,TakeActionSevereMalariaActivity.class);
+				intent.putExtra("category", "not done");
+				startActivity(intent);
+			}
+	    	
+	    });
 	}
 
 }

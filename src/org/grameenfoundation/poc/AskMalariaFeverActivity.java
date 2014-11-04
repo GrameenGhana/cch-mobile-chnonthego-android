@@ -33,6 +33,15 @@ public class AskMalariaFeverActivity extends Activity {
 	    	
 	    });
 	    button_no=(Button) findViewById(R.id.button_no);
+	    button_no.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(mContext,AnaemiaAskActivity.class);
+				startActivity(intent);
+			}
+	    	
+	    });
 	}
 
 }

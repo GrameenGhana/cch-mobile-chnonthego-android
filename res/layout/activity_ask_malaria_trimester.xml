@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:orientation="vertical"
         android:padding="20dp" >
 
@@ -18,13 +19,14 @@
             android:gravity="center"
             android:text="What trimester is the client currently in?"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/Green" />
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:orientation="vertical"
         android:padding="20dp" >
 

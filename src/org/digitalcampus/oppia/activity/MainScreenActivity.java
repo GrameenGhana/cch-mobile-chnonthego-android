@@ -17,6 +17,7 @@ import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.cch.activity.HomeActivity;
 import org.grameenfoundation.database.CHNDatabaseHandler;
 import org.grameenfoundation.poc.PointOfCareActivity;
+import org.grameenfoundation.cch.utils.TypefaceUtil;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -76,7 +77,8 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	    mContext=MainScreenActivity.this;
 	    getActionBar().setDisplayShowHomeEnabled(false);
 	    getActionBar().setTitle("Welcome");
-	   // TypefaceUtil.overrideFont(mContext, "SERIF", "fonts/Roboto-Thin.ttf");
+	    getActionBar().setSubtitle("Home Page");
+	    TypefaceUtil.overrideFont(mContext, "SERIF", "fonts/Roboto-Thin.ttf");
 	    main_menu_listview=(ListView) findViewById(R.id.listView_mainScreenMenu);
 	    time_now=new Time();
 		compared_time=new Time();

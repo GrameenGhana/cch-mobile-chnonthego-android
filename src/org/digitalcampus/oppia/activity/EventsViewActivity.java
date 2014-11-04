@@ -52,7 +52,8 @@ public class EventsViewActivity extends Activity {
 	    dbh = new DbHelper(mContext);
 	    String[] groupItems={"Today","Tomorrow","Future"};
 	    getActionBar().setDisplayShowHomeEnabled(false);
-	    getActionBar().setTitle("Event Planning> Current Events");
+	    getActionBar().setTitle("Event Planner");
+	    getActionBar().setSubtitle("Planned Events");
 	    ChildItemEventTypeToday=c.getTodaysEventsType();
 	    ChildItemEventTypeTomorrow=c.getTomorrowEventsType();
 		ChildItemEventTypeFuture=c.getFutureEventsType();

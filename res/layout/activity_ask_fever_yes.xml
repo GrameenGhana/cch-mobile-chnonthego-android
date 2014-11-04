@@ -26,12 +26,12 @@
             android:padding="10dp"
             android:text="Ask:"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Curry" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeActionCurry"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"
@@ -42,14 +42,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="1. How long have you had a fever? "
+                android:text="\u2022  How long have you had a fever? "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2. If more than 7 days, have you had a fever every day? "
+                android:text="\u2022  If more than 7 days, have you had a fever every day? "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -69,12 +69,12 @@
             android:padding="10dp"
             android:text="Look, Listen, Feel"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Curry" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeActionCurry"
             android:divider="@drawable/divider"
             android:dividerPadding="2dp"
             android:orientation="vertical"
@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="Assess if client has of the following danger signs "
+                android:text="\u2022 Assess if client has of the following danger signs "
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
 
@@ -94,63 +94,71 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="      --- Persistent vomiting"
+                android:layout_marginLeft="40dp"
+                android:text="\u2022 Persistent vomiting"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="      --- Convulsions  "
+                  android:layout_marginLeft="40dp"
+                android:text="\u2022 Convulsions  "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="      --- Altered consciousness "
+                android:layout_marginLeft="40dp"
+                android:text="\u2022 Altered consciousness "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="      --- Dark, coca-cola coloured urine"
+                android:layout_marginLeft="40dp"
+                android:text="\u2022 Dark, coca-cola coloured urine"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="      --- Persistent temperature ≥ 39C "
+                android:layout_marginLeft="40dp"
+                android:text="\u2022 Persistent temperature ≥ 39C "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="      --- Prostration "
+                android:layout_marginLeft="40dp"
+                android:text="\u2022 Prostration "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="      --- Jaundice "
+                 android:layout_marginLeft="40dp"
+                android:text="\u2022 Jaundice "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="      --- Severe pallor "
+                android:layout_marginLeft="40dp"
+                android:text="\u2022 Severe pallor "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Shock"
+                android:text="\u2022 Shock"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
 
@@ -158,28 +166,31 @@
                 android:id="@+id/textView15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="      --- Cold moist skin "
+                 android:layout_marginLeft="40dp"
+                android:text="\u2022 Cold moist skin "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="      --- Weak or fast pulse: >110/min "
+                android:layout_marginLeft="40dp"
+                android:text="\u2022 Weak or fast pulse: >110/min "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="      --- Check BP: is it systolic BP &lt;90 mmHg"
+                 android:layout_marginLeft="40dp"
+                android:text="\u2022 Check BP: is it systolic BP &lt;90 mmHg"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bleeding"
+                android:text="\u2022 Bleeding"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
 
@@ -200,7 +211,7 @@
             android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:text="Next"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 
