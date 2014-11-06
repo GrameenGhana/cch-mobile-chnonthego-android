@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:text="Where are you encountering mother and baby? "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 

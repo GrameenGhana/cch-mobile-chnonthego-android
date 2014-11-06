@@ -242,6 +242,13 @@
         <activity android:name="org.grameenfoundation.poc.ExpressBreastmilkActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.ExpressBreastmilkNextActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.ExpressBreastmilkFinalActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionSomeDehydrationEncounterActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionSomeDehydrationEncounterNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionDiarrhoeaNoDehydrationActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionDiarrhoeaNoDehydrationNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionDiarrhoeaNoDehydrationNextTwoActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionDiarrhoeaActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.HIVInfectionActivity"></activity>
     </application>
 
 </manifest>

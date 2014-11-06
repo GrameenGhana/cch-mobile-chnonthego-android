@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/White"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingTop="10dp" >
@@ -17,26 +19,40 @@
             android:layout_height="wrap_content"
             android:text="Does the baby have jaundice?"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
-
+            android:textColor="@color/TextBrown" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="286dp"
+        android:background="@color/White"
         android:orientation="vertical"
-        android:padding="40dp" >
+        android:padding="20dp" >
 
-        <ListView
-            android:id="@+id/listView_jaundice"
+        <ExpandableListView
+            android:id="@+id/expandableListView_jaundice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/BackgroundGrey"
             android:divider="@color/White"
             android:dividerHeight="5dp" >
+        </ExpandableListView>
+    </LinearLayout>
 
-        </ListView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
 
+        <Button
+            android:id="@+id/button_no"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:background="@color/Green"
+            android:text="No"
+            android:textColor="@color/White"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>

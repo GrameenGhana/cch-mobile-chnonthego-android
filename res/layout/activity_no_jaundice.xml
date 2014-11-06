@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/White" >
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -23,7 +24,7 @@
             android:padding="10dp"
             android:text="Take Action: No Jaundice "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Green" />
 
     </LinearLayout>
 
@@ -40,15 +41,16 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:text="1. Advise mother to give home care for the young infant"
+            android:padding="5dp"
+            android:text="\u2022 Advise mother to give home care for the young infant"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2. Now assess baby for other serious conditions, birth injuries and abnormalities"
+            android:padding="5dp"
+            android:text="\u2022 Now assess baby for other serious conditions, birth injuries and abnormalities"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>

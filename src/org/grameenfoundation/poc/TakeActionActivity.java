@@ -28,10 +28,9 @@ public class TakeActionActivity extends Activity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	 
 	    mContext=TakeActionActivity.this;
-	    getActionBar().setDisplayShowHomeEnabled(false);
 	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("Antenatal Care");
 	   // listView_takeAction=(ListView) findViewById(R.id.listView_takeAction);
 	  //  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
 	    Bundle extras = getIntent().getExtras(); 
@@ -46,48 +45,6 @@ public class TakeActionActivity extends Activity{
         	 setContentView(R.layout.activity_shock_anc);
         }
 	}
-	class TakeActionListAdapter extends BaseAdapter{
-		Context mContext;
-		String[] items;
-		 public LayoutInflater minflater;
-		 int[] images;
-		
-		public TakeActionListAdapter(Context c, String[] items,int[] images){
-			this.mContext=c;
-			this.items=items;
-			 minflater = LayoutInflater.from(mContext);
-			 this.images=images;
-		}
-
-		@Override
-		public int getCount() {
-			return items.length;
-		}
-
-		@Override
-		public Object getItem(int position) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			if( convertView == null ){
-			      
-				  convertView = minflater.inflate(R.layout.listview_text_single,parent, false);
-			    }
-			 TextView text=(TextView) convertView.findViewById(R.id.textView_listViewText);
-			 text.setGravity(Gravity.LEFT);
-			 text.setPadding(10, 0, 0, 0);
-			 text.setText(items[position]);
-			    return convertView;
-		}
-	}
+	
 	
 }

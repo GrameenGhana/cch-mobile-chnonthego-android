@@ -14,47 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@drawable/divider"
-        android:orientation="vertical"
-        android:padding="10dp" >
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Check:"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="vertical" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="20dp" >
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="      ----Jaundice if baby > 48 hours old and &lt; 14 days old "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="      ----AND palms and soles are not yellow"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
@@ -67,16 +27,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Take Action: Severe Jaunice"
+            android:text="Take Action: Jaundice"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
-
+            android:textColor="@color/Curry" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/customborder"
+        android:background="@color/TakeActionCurry"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:padding="10dp"
@@ -105,7 +64,6 @@
             android:paddingBottom="5dp"
             android:text="3. Follow up with client in 1 day, if jaundice is worse refer URGENTLY to a health center or hospital "
             android:textAppearance="?android:attr/textAppearanceSmall" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -113,15 +71,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingTop="30dp" >
-
     </LinearLayout>
 
- <LinearLayout
-     android:layout_width="match_parent"
-     android:layout_height="178dp"
-     android:orientation="vertical"
-     android:showDividers="middle" >
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="178dp"
+        android:layout_weight="0.23"
+        android:orientation="vertical"
+        android:showDividers="middle" >
     </LinearLayout>
 </LinearLayout>
+
 </ScrollView>

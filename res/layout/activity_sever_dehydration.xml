@@ -17,59 +17,6 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Check:"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@drawable/divider"
-        android:orientation="vertical"
-        android:showDividers="middle" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="20dp" >
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="      ---- Movement only when stimulated or no movement "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="      ---- Sunken eyes"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="      ---- Skin pinch goes back very slowly "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,7 +30,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/customborder"
+        android:background="@color/TakeAction"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:padding="10dp"
@@ -93,14 +40,18 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1. Refer mother and baby to a health center or hospital IMMEDIATELY"
+            android:drawableLeft="@drawable/ic_refer"
+            android:padding="5dp"
+            android:text="Refer mother and baby to a health center or hospital IMMEDIATELY"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2. Call provider and arrange transport "
+            android:drawableLeft="@drawable/ic_phone"
+            android:padding="5dp"
+            android:text="Call provider and arrange transport "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
@@ -115,17 +66,18 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_transport"
             android:padding="10dp"
-            android:text="What to do while waiting for transport to arrive:"
+            android:text="While waiting for transport to arrive:"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/Blue" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/customborder"
+        android:background="@color/TakeAction"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:padding="10dp"
@@ -135,47 +87,53 @@
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:paddingBottom="5dp"
-            android:text="1. Prepare ORS "
+            android:text="\u2022 Prepare ORS "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:paddingBottom="5dp"
-            android:text="2. Advise mother to give frequent sips of ORS to the baby on the way to the health facility, if baby can suckle or take sips"
+            android:text="\u2022 Advise mother to give frequent sips of ORS to the baby on the way to the health facility, if baby can suckle or take sips"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:paddingBottom="5dp"
-            android:text="3. Advise mother to continue breastfeeding  "
+            android:text="\u2022 Advise mother to continue breastfeeding  "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:paddingBottom="5dp"
-            android:text="4. If baby is not able to breastfeed, give small sips of expressed breast milk that has been collected in a clean container with a lid "
+            android:bufferType="spannable"
+            android:text="\u2022 If baby is not able to breastfeed, give small sips of expressed breast milk that has been collected in a clean container with a lid "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/textView17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:paddingBottom="5dp"
-            android:text="5. Teach mother how to keep the baby warm on the way to the health facility  "
+            android:text="\u2022 Teach mother how to keep the baby warm on the way to the health facility  "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
 
  <LinearLayout
      android:layout_width="match_parent"
-     android:layout_height="246dp"
+     android:layout_height="wrap_content"
      android:orientation="vertical" >
 
         <TextView
@@ -183,14 +141,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Take Action: Continue"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextColorWine" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="296dp"
-            android:background="@drawable/customborder"
+            android:layout_height="wrap_content"
+            android:background="@color/TakeAction"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"
@@ -200,23 +157,29 @@
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_record"
+                android:padding="5dp"
                 android:paddingBottom="10dp"
-                android:text="3. Record baby’s clinical information in client’s maternal health or “Red” book. If possible, also fill out referral form"
+                android:text="Record baby’s clinical information in client’s maternal health or “Red” book. If possible, also fill out referral form"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_accompany"
+                android:padding="5dp"
                 android:paddingBottom="10dp"
-                android:text="4. Accompany mother and baby, and have a family member accompany mother and baby to the health facility"
+                android:text="Accompany mother and baby, and have a family member accompany mother and baby to the health facility"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5. Follow up with client after discharge from health center or hospital "
+                android:drawableLeft="@drawable/ic_follow_up"
+                android:padding="5dp"
+                android:text="Follow up with client after discharge from health center or hospital "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>

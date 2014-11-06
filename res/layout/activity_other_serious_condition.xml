@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="Do the following:"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 
@@ -32,6 +32,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="Ask:"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="bold" />
@@ -41,7 +42,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/customborder"
+        android:background="@drawable/custom_border2"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:padding="10dp"
@@ -52,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="1. Has the baby passed urine and meconium?"
+            android:text="\u2022 Has the baby passed urine and meconium?"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -60,14 +61,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="2. Is there blood in the stool?"
+            android:text="\u2022 Is there blood in the stool?"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3. Is the baby vomiting every feed? What is the colour? "
+            android:text="\u2022 Is the baby vomiting every feed? What is the colour? "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
@@ -92,7 +93,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/customborder"
+        android:background="@drawable/custom_border2"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:padding="10dp"
@@ -103,7 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="1. For newborns, look at the presenting part of the body: is there swelling and bruises "
+            android:text="\u2022 For newborns, look at the presenting part of the body: is there swelling and bruises "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -111,7 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="2. Feel for soft swelling covering the whole scalp"
+            android:text="\u2022 Feel for soft swelling covering the whole scalp"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -119,14 +120,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="3. Look for bleeding from cord stump or anywhere else on the body"
+            android:text="\u2022 Look for bleeding from cord stump or anywhere else on the body"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4. Look for birth abnormalities "
+            android:text="\u2022 Look for birth abnormalities "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
@@ -143,7 +144,7 @@
             android:layout_width="210dp"
             android:layout_height="wrap_content"
             android:text="Next"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 

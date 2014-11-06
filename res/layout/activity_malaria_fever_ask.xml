@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/White"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="15dp" >
@@ -17,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="Does the client have a fever?"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
 
         <TextView
             android:id="@+id/textView2"
@@ -25,13 +27,14 @@
             android:layout_height="wrap_content"
             android:text="(Temperature greater than 38 °C)"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Brown" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingBottom="30dp" >
@@ -47,6 +50,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:gravity="center"
         android:orientation="vertical" >
 
@@ -54,15 +58,25 @@
             android:id="@+id/button_yes"
             android:layout_width="278dp"
             android:layout_height="62dp"
+            android:background="@color/Red"
             android:text="Yes"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/White"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="282dp"
+            android:layout_height="12dp"
+            android:background="@color/White" />
 
         <Button
             android:id="@+id/button_no"
             android:layout_width="281dp"
             android:layout_height="65dp"
+            android:background="@color/Green"
             android:text="No"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/White"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

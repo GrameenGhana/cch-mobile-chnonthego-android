@@ -16,28 +16,40 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Does the baby have any of following symptoms?"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextBrown" />
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="292dp"
         android:background="@color/White"
         android:orientation="vertical"
-        android:padding="30dp" >
+        android:padding="20dp" >
 
-        <ListView
-            android:id="@+id/listView_diarrhoeaSections"
+        <ExpandableListView
+            android:id="@+id/expandableListView_diarrhoeaSections"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/BackgroundGrey"
             android:divider="@color/White"
             android:dividerHeight="5dp" >
+        </ExpandableListView>
+    </LinearLayout>
 
-        </ListView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/button_no"
+            android:layout_width="174dp"
+            android:layout_height="wrap_content"
+            android:text="No" />
 
     </LinearLayout>
 

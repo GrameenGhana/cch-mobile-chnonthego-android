@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -19,6 +21,7 @@ public class OtherSeriousConditionsNextActivity extends Activity {
 
 	private ListView listView_otherCondition;
 	private Context mContext;
+	private Button button_no;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -31,10 +34,22 @@ public class OtherSeriousConditionsNextActivity extends Activity {
 	    				"Open tissue on head, abdomen or back",
 	    				"No urine or meconium since birth & baby > 24 hours old ",
 	    				"Vomiting after every feed; Vomit green, bloody",
-	    				"Blood in stool",
-	    				"No serious conditions"};
+	    				"Blood in stool"};
 	    OtherConditionsListAdapter adapter=new OtherConditionsListAdapter(mContext,items);
 	    listView_otherCondition.setAdapter(adapter);
+	    button_no=(Button) findViewById(R.id.button_no);
+	    button_no.setOnClickListener(new OnClickListener(){
+
+			private Intent intent;
+
+			@Override
+			public void onClick(View v) {
+				intent=new Intent(mContext,NoSeriousConditionsActivity.class);
+				startActivity(intent);
+				
+			}
+	    	
+	    });
 	    listView_otherCondition.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
@@ -72,10 +87,7 @@ public class OtherSeriousConditionsNextActivity extends Activity {
 					intent.putExtra("category", "no urine");
 					startActivity(intent);
 					break;
-				case 6:
-					intent=new Intent(mContext,NoSeriousConditionsActivity.class);
-					startActivity(intent);
-					break;
+			
 				}
 			}
 	    	

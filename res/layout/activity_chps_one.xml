@@ -39,7 +39,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_border2"
+        android:background="@color/TakeActionCurry"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:padding="20dp"
@@ -110,6 +110,20 @@
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/button_next"
+            android:layout_width="198dp"
+            android:layout_height="wrap_content"
+            android:text="Next" />
 
     </LinearLayout>
 

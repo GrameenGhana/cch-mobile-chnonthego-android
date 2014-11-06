@@ -157,6 +157,7 @@
     <string name="title_activity_cchlogin">CCHLogin</string>
     <string name="hello_world">Hello world!</string>
         <string name="action_settings">Settings</string>
+        <string name="message1">Zinc Supplements <b>(only for children aged 2 months – 5 years)</b> </string>
     <string name="login">Login</string>
     <color name="White">#ffffff</color>
     <string name="username">Username</string>
@@ -168,11 +169,12 @@
 	 <string name="action_logout">Logout</string>
 	 <color name="BackgroundGrey">#E1DFD4</color> 
 	<color name="Brown">#6E5747</color>
-	<color name="TextBrown">#190707</color>
+	<color name="TextBrown">#493D26</color>
 	<color name="Red">#880000</color>
 	<color name="TakeAction">#FBEFF8</color>
 	<color name="TakeActionCurry">#F7F8E0</color>
 		<color name="TakeActionGreen">#BCF5A9</color>
+		<color name="Transparent">#10000000</color>
 	<color name="BackgroundBrown">#7D695B</color>
 	 <string name="sans_serif">sans-serif-light</string>
 	 <color name="BorderBrown">#CBC8B5</color>

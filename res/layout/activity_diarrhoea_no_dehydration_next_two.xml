@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:paddingTop="10dp" >
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1. "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Give Extra Fluids (continued)"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:background="@drawable/custom_border2"
+                 android:divider="@drawable/divider"
+                 android:orientation="vertical"
+                 android:padding="10dp"
+                 android:showDividers="middle" >
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:paddingBottom="10dp"
+                     android:paddingLeft="30dp"
+                     android:paddingRight="0dp" >
+
+                     <ImageView
+                         android:id="@+id/imageView1"
+                         android:layout_width="wrap_content"
+                         android:layout_height="20dp"
+                         android:src="@drawable/ic_bullet" />
+
+                     <TextView
+                         android:id="@+id/textView5"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:paddingLeft="10dp"
+                         android:paddingRight="0dp"
+                         android:text="Teach the mother how to mix and give ORS.  "
+                         android:textAppearance="?android:attr/textAppearanceSmall" />
+                 </LinearLayout>
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:paddingBottom="10dp"
+                     android:paddingLeft="30dp"
+                     android:paddingRight="0dp" >
+
+                     <ImageView
+                         android:id="@+id/imageView2"
+                         android:layout_width="wrap_content"
+                         android:layout_height="20dp"
+                         android:src="@drawable/ic_bullet" />
+
+                     <TextView
+                         android:id="@+id/textView6"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:paddingLeft="10dp"
+                         android:paddingRight="0dp"
+                         android:text="Give her 3 packets of ORS to use at home "
+                         android:textAppearance="?android:attr/textAppearanceSmall" />
+                 </LinearLayout>
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:orientation="vertical" >
+
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:paddingBottom="10dp"
+                         android:paddingLeft="30dp"
+                         android:paddingRight="0dp" >
+
+                         <ImageView
+                             android:id="@+id/imageView3"
+                             android:layout_width="wrap_content"
+                             android:layout_height="20dp"
+                             android:src="@drawable/ic_bullet" />
+
+                         <TextView
+                             android:id="@+id/textView7"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:paddingLeft="10dp"
+                             android:paddingRight="0dp"
+                             android:text="Show the mother how much fluid to give in addition to the usual fluid intake: "
+                             android:textAppearance="?android:attr/textAppearanceSmall" />
+                     </LinearLayout>
+
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:paddingLeft="60dp"
+                         android:paddingRight="0dp" >
+
+                         <ImageView
+                             android:id="@+id/imageView4"
+                             android:layout_width="wrap_content"
+                             android:layout_height="20dp"
+                             android:src="@drawable/ic_bullet" />
+
+                         <TextView
+                             android:id="@+id/textView8"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:paddingLeft="10dp"
+                             android:paddingRight="0dp"
+                             android:text="0 - 2 years of age: 50 – 100 mL after each loose stool "
+                             android:textAppearance="?android:attr/textAppearanceSmall" />
+                     </LinearLayout>
+
+                 </LinearLayout>
+             </LinearLayout>
+             <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:padding="10dp"
+                      >
+
+                     <ImageView
+                         android:id="@+id/imageView7"
+                         android:layout_width="wrap_content"
+                         android:layout_height="20dp"
+                         android:src="@drawable/ic_bullet" />
+
+                     <TextView
+                         android:id="@+id/textView11"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:paddingLeft="10dp"
+                         android:paddingRight="0dp"
+                         android:text="Tell mother to: "
+                         android:textAppearance="?android:attr/textAppearanceSmall"
+                         android:textColor="@color/Blue" />
+
+                 </LinearLayout>
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:background="@drawable/custom_border2"
+                 android:divider="@drawable/divider"
+                 android:orientation="vertical"
+                 android:showDividers="middle" >
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:paddingBottom="10dp"
+                     android:paddingLeft="30dp"
+                     android:paddingRight="0dp" >
+
+                     <ImageView
+                         android:layout_width="wrap_content"
+                         android:layout_height="20dp"
+                         android:src="@drawable/ic_bullet" />
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:paddingLeft="10dp"
+                         android:paddingRight="0dp"
+                         android:text="Give frequent small sips from a clean cup "
+                         android:textAppearance="?android:attr/textAppearanceSmall" />
+                 </LinearLayout>
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:paddingBottom="10dp"
+                     android:paddingLeft="30dp"
+                     android:paddingRight="0dp" >
+
+                     <ImageView
+                         android:layout_width="wrap_content"
+                         android:layout_height="20dp"
+                         android:src="@drawable/ic_bullet" />
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:paddingLeft="10dp"
+                         android:paddingRight="0dp"
+                         android:text="If the child vomits, wait 10 minutes. Then continue, but more slowly"
+                         android:textAppearance="?android:attr/textAppearanceSmall" />
+                 </LinearLayout>
+				<LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:paddingBottom="10dp"
+                     android:paddingLeft="30dp"
+                     android:paddingRight="0dp" >
+
+                     <ImageView
+                         android:layout_width="wrap_content"
+                         android:layout_height="20dp"
+                         android:src="@drawable/ic_bullet" />
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:paddingLeft="10dp"
+                         android:paddingRight="0dp"
+                         android:text="Continue giving extra fluid until the diarrhoea stops "
+                         android:textAppearance="?android:attr/textAppearanceSmall" />
+                 </LinearLayout>
+             </LinearLayout>
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:orientation="vertical" >
+
+             </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+             <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:paddingTop="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2."
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No need to give zinc supplements for children &lt; 2 months of age with diarrhoea"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:paddingTop="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3."
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Continue Feeding "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+            <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:paddingLeft="40dp"
+                         android:paddingRight="0dp" >
+
+                         <ImageView
+                             android:layout_width="wrap_content"
+                             android:layout_height="20dp"
+                             android:src="@drawable/ic_bullet" />
+
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:paddingLeft="10dp"
+                             android:paddingRight="0dp"
+                             android:text="Counsel mother to exclusive breastfeed (giving only breast milk), after diarrhoea stops  "
+                             android:textAppearance="?android:attr/textAppearanceSmall" />
+                     </LinearLayout>
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:paddingTop="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4."
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="When to return to the health facility "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>

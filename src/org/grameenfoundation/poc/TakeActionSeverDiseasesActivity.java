@@ -37,6 +37,8 @@ public class TakeActionSeverDiseasesActivity extends Activity {
         	setContentView(R.layout.activity_hypothermia);	
         }else if(take_action_category.equals("low")){
         	setContentView(R.layout.activity_low_temperature);
+        }else if(take_action_category.equals("fast_breathing")){
+        	setContentView(R.layout.activity_fast_breathing);
         }
 	}
 

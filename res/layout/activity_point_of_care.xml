@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-     android:layout_weight="1.01"
+    android:layout_weight="1.01"
+    android:background="@color/BackgroundGrey"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -19,8 +20,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="@drawable/bg_marquee"
+            android:layout_height="135dp"
+            android:background="@color/White"
             android:orientation="vertical" >
 
         </LinearLayout>
@@ -31,15 +32,22 @@
             android:layout_height="10dp"
             android:background="@color/BorderBrown" />
 
-        <ListView
-            android:id="@+id/listView_pocMenu"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="194dp"
-            android:layout_weight="1.45"
+            android:layout_height="wrap_content"
             android:background="@color/BackgroundGrey"
-            android:dividerHeight="2dp"
-            android:fadingEdgeLength="6dp" >
-        </ListView>
+            android:orientation="vertical" >
+
+            <ListView
+                android:id="@+id/listView_pocMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/BackgroundGrey"
+                android:dividerHeight="2dp"
+                android:fadingEdgeLength="6dp" >
+            </ListView>
+
+        </LinearLayout>
 
     </LinearLayout>
 

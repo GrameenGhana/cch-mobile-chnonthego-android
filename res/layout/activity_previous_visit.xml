@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="Is this the first time seeing a nurse or a midwife?"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 

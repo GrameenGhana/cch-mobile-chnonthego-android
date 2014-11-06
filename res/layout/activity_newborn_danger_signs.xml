@@ -3,9 +3,11 @@
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-<LinearLayout 
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/White"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -22,12 +24,12 @@
             android:padding="20dp"
             android:text="Newborn danger signs"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@drawable/custom_border2"
             android:divider="@drawable/divider"
             android:gravity="center"
             android:orientation="vertical"
@@ -43,6 +45,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Poor or no suckling"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
@@ -57,6 +60,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Baby feels too hot or cold"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
@@ -68,20 +72,30 @@
                 android:layout_weight="0.88"
                 android:src="@drawable/convulsin" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Convulsions or fits "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="bold" />
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="5dp" >
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(abnormal movement of any part of the body)"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Convulsions or fits "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="(abnormal movement of any part of the body)"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/imageView4"
@@ -89,20 +103,29 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/jaundice" />
 
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Jaundice"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="bold" />
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="5dp" >
 
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(yellow eyes, skin, palms &amp; soles)"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jaundice"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(yellow eyes, skin, palms &amp; soles)"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -114,6 +137,7 @@
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Sleeps too much or hard to wake"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
@@ -128,6 +152,7 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Difficulty breathing"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
@@ -142,6 +167,7 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Cord is red or draining pus"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
@@ -156,6 +182,7 @@
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Skin sores and pus from eyes"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
@@ -170,6 +197,7 @@
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Small baby"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
@@ -184,20 +212,22 @@
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Diarrhoea"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/imageView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                 android:layout_width="118dp"
+                android:layout_height="83dp"
                 android:src="@drawable/persistent_vomiting" />
 
             <TextView
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Persistent vomiting "
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />

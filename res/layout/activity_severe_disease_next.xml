@@ -17,13 +17,13 @@
             android:layout_height="wrap_content"
             android:text="Does the baby have any of the following symptoms? "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="303dp"
         android:background="@color/White"
         android:orientation="vertical"
         android:padding="20dp" >
@@ -37,6 +37,23 @@
             android:dividerHeight="5dp" >
 
         </ListView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/button_no"
+            android:layout_width="234dp"
+            android:layout_height="wrap_content"
+            android:background="@color/Green"
+            android:text="No"
+            android:textColor="@color/White"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

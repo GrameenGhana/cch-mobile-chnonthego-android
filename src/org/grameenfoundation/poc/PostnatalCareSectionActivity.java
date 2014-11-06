@@ -60,6 +60,10 @@ public class PostnatalCareSectionActivity extends Activity {
 					intent=new Intent(mContext,OtherSeriousConditionsActivity.class);
 					startActivity(intent);
 					break;
+				case 5:
+					intent=new Intent(mContext,DiarrhoeaActivity.class);
+					startActivity(intent);
+					break;
 				}
 				
 			}

@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.00"
+        android:background="@color/White"
         android:orientation="vertical" >
 
         <TextView
@@ -24,7 +25,7 @@
             android:padding="10dp"
             android:text="Take Action: Severe Disease or Local Infection Unlikely"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Green" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,14 +41,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="1. Advise mother to give home care for the baby "
+                android:text="\u2022 Advise mother to give home care for the baby "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2. Now examine baby for jaundice "
+                android:text="\u2022 Now examine baby for jaundice "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -56,14 +57,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="304dp"
+        android:background="@color/White"
         android:orientation="vertical" >
 
     </LinearLayout>

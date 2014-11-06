@@ -18,6 +18,8 @@ public class BreastAttachementActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_breast_attachement);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("Postnatal Care Counselling");
 	    button_next=(Button) findViewById(R.id.button_next);
 	    button_next.setOnClickListener(new OnClickListener(){
 

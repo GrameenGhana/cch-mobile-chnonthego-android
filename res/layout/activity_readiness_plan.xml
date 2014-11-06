@@ -11,6 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:orientation="vertical" >
 
         <TextView
@@ -21,20 +22,21 @@
             android:padding="20dp"
             android:text="Help client on complication readiness plan, specifically on:"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:orientation="vertical"
         android:padding="20dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@drawable/custom_border2"
             android:divider="@drawable/divider"
             android:gravity="center"
             android:orientation="vertical"
@@ -51,6 +53,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Plan for transport, which family member(s) will accompany mother &amp; baby and where to go if complications occurs"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -64,6 +67,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Register mother &amp; baby for health insurance or renew your NHIS. "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -77,8 +81,10 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Go to the health facility as soon as danger signs occur "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
+
         </LinearLayout>
 
     </LinearLayout>

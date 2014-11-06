@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.BulletSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,13 +29,15 @@ public class BreastProblemsCounsellingActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_breast_problems_counselling);
 	    mContext=BreastProblemsCounsellingActivity.this;
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("Postnatal Care Counselling");
 	   listView_breastProblem=(ListView) findViewById(R.id.listView_breastfeeding);
-	   String[] items={"1. Position and attach baby correctly on the breast.  Breastfeeding should not hurt",
-			   			"2. If you develop cracked nipples, put some breast milk on them.  Do not use any types of creams or ointments except when prescribed by a health care provider ",
-			   			"3. Feed frequently to prevent breasts from becoming swollen",
-			   			"4. If baby misses a feed you should express some milk to breast soft",
-			   			"5. If one or both breasts become painful or hot to the touch, mother should contact a health care provider",
-			   			"6. If you have any trouble practicing exclusive breastfeeding, discuss with a trained counselor"};
+	   String[] items={"Position and attach baby correctly on the breast.  Breastfeeding should not hurt",
+			   			"If you develop cracked nipples, put some breast milk on them.  Do not use any types of creams or ointments except when prescribed by a health care provider ",
+			   			"Feed frequently to prevent breasts from becoming swollen",
+			   			"If baby misses a feed you should express some milk to breast soft",
+			   			"If one or both breasts become painful or hot to the touch, mother should contact a health care provider",
+			   			"If you have any trouble practicing exclusive breastfeeding, discuss with a trained counselor"};
 	   ListAdapter adapter=new ListAdapter(mContext,items);  
 	   listView_breastProblem.setAdapter(adapter);
 	   button_next=(Button) findViewById(R.id.button_next);
@@ -82,7 +86,11 @@ public class BreastProblemsCounsellingActivity extends Activity {
 				  convertView = minflater.inflate(R.layout.listview_single,parent, false);
 			    }
 			 TextView text=(TextView) convertView.findViewById(R.id.textView_textSingle);
-			 text.setText(items[position]);
+			 CharSequence t1 = items[position];
+			   SpannableString s1 = new SpannableString(t1);
+			   s1.setSpan(new BulletSpan(15), 0, t1.length(), 0);
+			 text.setText(s1);
+			 text.setPadding(10, 0, 0, 0);
 			 if(position%2==0){
 				 convertView.setBackgroundColor(getResources().getColor(R.color.BackgroundGrey));
 			 }else{

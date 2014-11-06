@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="Does the client have the following?"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 
@@ -53,8 +53,10 @@
                 android:id="@+id/button_yes"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
+                android:background="@color/Red"
                 android:text="Yes"
-                android:textColor="@color/TextColorWine" />
+                android:textColor="@color/White"
+                android:textStyle="bold" />
 
             <View
                 android:id="@+id/view1"
@@ -65,8 +67,10 @@
                 android:id="@+id/button_no"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
+                android:background="@color/Green"
                 android:text="No"
-                android:textColor="@color/TextColorGreen" />
+                android:textColor="@color/White"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

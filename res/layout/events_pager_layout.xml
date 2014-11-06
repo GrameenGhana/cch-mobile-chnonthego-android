@@ -60,8 +60,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:visibility="gone" >
+                android:paddingBottom="10dp" >
 
                 <TextView
                     android:id="@+id/textView1"
@@ -117,8 +116,7 @@
                     android:layout_height="wrap_content"
                     android:text=" click here"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/TextColorWine"
-                    android:visibility="gone" />
+                    android:textColor="@color/TextColorWine" />
 
             </LinearLayout>
 

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:paddingTop="10dp" >
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1. "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Give Extra Fluids (as much as the child will take) "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+             <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="\u2022 Tell mother to: "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/Blue" />
+
+        </LinearLayout>
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:background="@drawable/customborder"
+                 android:divider="@drawable/divider"
+                 android:orientation="vertical"
+                 android:padding="10dp"
+                 android:showDividers="middle" >
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:paddingBottom="10dp"
+                     android:paddingLeft="30dp"
+                     android:paddingRight="0dp" >
+
+                     <ImageView
+                         android:id="@+id/imageView1"
+                         android:layout_width="wrap_content"
+                         android:layout_height="20dp"
+                         android:src="@drawable/ic_bullet" />
+
+                     <TextView
+                         android:id="@+id/textView5"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:paddingLeft="10dp"
+                         android:paddingRight="0dp"
+                         android:text="Breastfeed frequently and for longer at each feed "
+                         android:textAppearance="?android:attr/textAppearanceSmall" />
+                 </LinearLayout>
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:paddingBottom="10dp"
+                     android:paddingLeft="30dp"
+                     android:paddingRight="0dp" >
+
+                     <ImageView
+                         android:id="@+id/imageView2"
+                         android:layout_width="wrap_content"
+                         android:layout_height="20dp"
+                         android:src="@drawable/ic_bullet" />
+
+                     <TextView
+                         android:id="@+id/textView6"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:paddingLeft="10dp"
+                         android:paddingRight="0dp"
+                         android:text="If baby is exclusively breastfed, give ORS or clean water in addition to breast milk "
+                         android:textAppearance="?android:attr/textAppearanceSmall" />
+                 </LinearLayout>
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:orientation="vertical" >
+
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:paddingBottom="10dp"
+                         android:paddingLeft="30dp"
+                         android:paddingRight="0dp" >
+
+                         <ImageView
+                             android:id="@+id/imageView3"
+                             android:layout_width="wrap_content"
+                             android:layout_height="20dp"
+                             android:src="@drawable/ic_bullet" />
+
+                         <TextView
+                             android:id="@+id/textView7"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:paddingLeft="10dp"
+                             android:paddingRight="0dp"
+                             android:text="If baby is NOT exclusively breastfed, give one or more of the following: "
+                             android:textAppearance="?android:attr/textAppearanceSmall" />
+                     </LinearLayout>
+
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:paddingLeft="60dp"
+                         android:paddingRight="0dp" >
+
+                         <ImageView
+                             android:id="@+id/imageView4"
+                             android:layout_width="wrap_content"
+                             android:layout_height="20dp"
+                             android:src="@drawable/ic_bullet" />
+
+                         <TextView
+                             android:id="@+id/textView8"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:paddingLeft="10dp"
+                             android:paddingRight="0dp"
+                             android:text="ORS "
+                             android:textAppearance="?android:attr/textAppearanceSmall" />
+                     </LinearLayout>
+
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:paddingLeft="60dp"
+                         android:paddingRight="0dp" >
+
+                         <ImageView
+                             android:id="@+id/imageView5"
+                             android:layout_width="wrap_content"
+                             android:layout_height="20dp"
+                             android:src="@drawable/ic_bullet" />
+
+                         <TextView
+                             android:id="@+id/textView9"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:paddingLeft="10dp"
+                             android:paddingRight="0dp"
+                             android:text="Safe food-based fluids: such as soup without pepper, strained rice water, mashed kenkey with clean water, coconut water, koko (porridge)   "
+                             android:textAppearance="?android:attr/textAppearanceSmall" />
+                     </LinearLayout>
+
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:paddingLeft="60dp"
+                         android:paddingRight="0dp" >
+
+                         <ImageView
+                             android:id="@+id/imageView6"
+                             android:layout_width="wrap_content"
+                             android:layout_height="20dp"
+                             android:src="@drawable/ic_bullet" />
+
+                         <TextView
+                             android:id="@+id/textView10"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:paddingLeft="10dp"
+                             android:paddingRight="0dp"
+                             android:text="Clean water "
+                             android:textAppearance="?android:attr/textAppearanceSmall" />
+                     </LinearLayout>
+
+                 </LinearLayout>
+             </LinearLayout>
+             <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:padding="10dp"
+                      >
+
+                     <ImageView
+                         android:id="@+id/imageView7"
+                         android:layout_width="wrap_content"
+                         android:layout_height="20dp"
+                         android:src="@drawable/ic_bullet" />
+
+                     <TextView
+                         android:id="@+id/textView11"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:paddingLeft="10dp"
+                         android:paddingRight="0dp"
+                         android:text="It is especially important to give ORS at home when:"
+                         android:textAppearance="?android:attr/textAppearanceSmall"
+                         android:textColor="@color/Blue" />
+
+                 </LinearLayout>
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:background="@drawable/customborder"
+                 android:divider="@drawable/divider"
+                 android:orientation="vertical"
+                 android:showDividers="middle" >
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:paddingBottom="10dp"
+                     android:paddingLeft="30dp"
+                     android:paddingRight="0dp" >
+
+                     <ImageView
+                         android:layout_width="wrap_content"
+                         android:layout_height="20dp"
+                         android:src="@drawable/ic_bullet" />
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:paddingLeft="10dp"
+                         android:paddingRight="0dp"
+                         android:text="The baby has been treated with some or severe dehydration during this visit"
+                         android:textAppearance="?android:attr/textAppearanceSmall" />
+                 </LinearLayout>
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:paddingBottom="10dp"
+                     android:paddingLeft="30dp"
+                     android:paddingRight="0dp" >
+
+                     <ImageView
+                         android:layout_width="wrap_content"
+                         android:layout_height="20dp"
+                         android:src="@drawable/ic_bullet" />
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:paddingLeft="10dp"
+                         android:paddingRight="0dp"
+                         android:text="The baby cannot return to a health facility if the diarrhoea gets worse "
+                         android:textAppearance="?android:attr/textAppearanceSmall" />
+                 </LinearLayout>
+
+             </LinearLayout>
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:orientation="vertical" >
+
+                 <Button
+                     android:id="@+id/button_next"
+                     android:layout_width="220dp"
+                     android:layout_height="wrap_content"
+                     android:text="Next" />
+
+             </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>

@@ -17,6 +17,7 @@
         android:layout_weight="0.00"
         android:background="@color/White"
         android:orientation="vertical"
+        android:padding="10dp"
         android:paddingBottom="20dp" >
 
         <TextView
@@ -26,7 +27,7 @@
             android:padding="10dp"
             android:text="Take Action: No Anaemia   "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Green" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_counsel"
-                android:paddingBottom="5dp"
+                android:padding="5dp"
                 android:text="Counsel client to eat foods rich in iron and folate + vitamin C "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -51,6 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_counsel"
+                android:padding="5dp"
                 android:text="Counsel client on topics relevant to the trimester she is in "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -59,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_refer"
-                android:paddingBottom="10dp"
+                android:padding="5dp"
                 android:text="Accompany mother and have a family member accompany mother to the health facility"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 

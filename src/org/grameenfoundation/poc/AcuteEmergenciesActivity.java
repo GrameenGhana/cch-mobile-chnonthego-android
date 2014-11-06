@@ -30,8 +30,8 @@ public class AcuteEmergenciesActivity extends Activity implements OnClickListene
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_acuteemergencies);
 	    mContext=AcuteEmergenciesActivity.this;
-	    getActionBar().setDisplayShowHomeEnabled(false);
-	    getActionBar().setTitle("Point of Care> Acute Emergencies");
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("Antenatal Care Diagnostic");
 	    listView_acuteEmergencies=(ListView) findViewById(R.id.listView_acuteEmergencies);
 	    String[] emergencies={"Difficulty breathing","Edema(feet and hands, face or ankles)","Excessive bleeding","Signs of shock"};
 	    ListAdapter adapter=new ListAdapter(mContext, emergencies);

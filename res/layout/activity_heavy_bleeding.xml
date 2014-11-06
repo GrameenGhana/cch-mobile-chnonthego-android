@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.00"
+        android:gravity="center"
         android:orientation="vertical" >
 
         <TextView
@@ -26,10 +27,16 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextColorWine" />
 
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/execessive_bleeding" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeAction"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"
@@ -70,7 +77,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-       
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
@@ -79,11 +85,12 @@
             android:padding="10dp"
             android:text="While waiting for transport:    "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/Blue" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeAction"
             android:divider="@drawable/divider"
             android:dividerPadding="2dp"
             android:orientation="vertical"
@@ -95,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="1. Place client in a lying-down position   "
+                android:text="\u2022 Place client in a lying-down position   "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -103,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="2. DO NOT perform vaginal exam"
+                android:text="\u2022 DO NOT perform vaginal exam"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -111,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="3. Give 2 tablets of paracetamol for pain"
+                android:text="\u2022 Give 2 tablets of paracetamol for pain"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -119,7 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="4. Encourage fluid intake "
+                android:text="\u2022 Encourage fluid intake "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -128,7 +135,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="268dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <TextView
@@ -142,8 +149,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="296dp"
-            android:background="@drawable/customborder"
+            android:layout_height="wrap_content"
+            android:background="@color/TakeAction"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"

@@ -10,6 +10,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.BulletSpan;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -29,17 +31,19 @@ public class BreastProblemsCounsellingNextActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_breast_counselling_next);
 	    mContext=BreastProblemsCounsellingNextActivity.this;
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("Postnatal Care Counselling");
 	   expandableListView_breastProblems=(ExpandableListView) findViewById(R.id.expandableListView_breastProblems);
-	   String[] groupItems={"1. Breast Engorgement","2. Cracked/Sore Nipples","3. Mastitis"};
-	   String[] firstItems={"1. Continue breastfeeding","2. Make sure baby correctly position and attach properly to your breast",
-			   				"3. Empty breasts by expressing breast milk","4. Apply warm compress before feeds and cold compress in-between feeds",
-			   				"5.	Breastfeed more frequently "};
-	   String[] secondItems={"1. Continue breastfeeding","2. Make sure baby correctly position and attach properly to your breast",
-			   				"3. Apply breast milk to affected nipple after feeding and air dry"};
-	   String[] thirdItems={"1. Continue breastfeeding","2. Make sure baby correctly position and attach properly to your breast",
-			   				"3. Empty breasts by expressing breast milk",
-			   				"4. Apply warm compress before feeds and cold compress in-between feeds",
-			   				"5. Breastfeed more frequently, once mother starts treatment"};
+	   String[] groupItems={"Breast Engorgement","Cracked/Sore Nipples","Mastitis"};
+	   String[] firstItems={"Continue breastfeeding","Make sure baby correctly position and attach properly to your breast",
+			   				"Empty breasts by expressing breast milk","Apply warm compress before feeds and cold compress in-between feeds",
+			   				"Breastfeed more frequently "};
+	   String[] secondItems={"Continue breastfeeding"," Make sure baby correctly position and attach properly to your breast",
+			   				"Apply breast milk to affected nipple after feeding and air dry"};
+	   String[] thirdItems={"Continue breastfeeding","Make sure baby correctly position and attach properly to your breast",
+			   				"Empty breasts by expressing breast milk",
+			   				"Apply warm compress before feeds and cold compress in-between feeds",
+			   				"Breastfeed more frequently, once mother starts treatment"};
 	   ListAdapter adapter=new ListAdapter(mContext,groupItems,firstItems,secondItems,thirdItems,expandableListView_breastProblems);
 	   expandableListView_breastProblems.setAdapter(adapter);
 	}
@@ -89,23 +93,36 @@ public class BreastProblemsCounsellingNextActivity extends Activity {
 		   }
 		   if(groupPosition==0){
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_textSingle);
-		   text.setText(firstItems[childPosition]);
+		   CharSequence t1 = firstItems[childPosition];
+		   SpannableString s1 = new SpannableString(t1);
+		   s1.setSpan(new BulletSpan(15), 0, t1.length(), 0);
+		   text.setText(s1);
 		   text.setTypeface(custom_font);
-		   text.setGravity(Gravity.LEFT);
-		   text.setTextColor(Color.BLACK);
+		   //text.setGravity(Gravity.LEFT);
+		   text.setTextColor(getResources().getColor(R.color.TextBrown));
 		   }else if(groupPosition==1){
 			   TextView text=(TextView) convertView.findViewById(R.id.textView_textSingle);
-			   text.setText(secondItems[childPosition]);
-			   text.setGravity(Gravity.LEFT);
+			   CharSequence t2 = secondItems[childPosition];
+			   SpannableString s2 = new SpannableString(t2);
+			   s2.setSpan(new BulletSpan(15), 0, t2.length(), 0);
+			   text.setText(s2);
+			   //text.setGravity(Gravity.LEFT);
 			   text.setTypeface(custom_font);
+			   text.setTextColor(getResources().getColor(R.color.TextBrown));
 		   }else if(groupPosition==2){
 			   TextView text=(TextView) convertView.findViewById(R.id.textView_textSingle);
-			   text.setText(thirdItems[childPosition]);
+			   CharSequence t3= thirdItems[childPosition];
+			   SpannableString s3 = new SpannableString(t3);
+			   s3.setSpan(new BulletSpan(15), 0, t3.length(), 0);
+			   text.setText(s3);
+			  
 			   text.setTypeface(custom_font);
-			   text.setGravity(Gravity.LEFT);
+			   text.setTextColor(getResources().getColor(R.color.TextBrown));
+			   //text.setGravity(Gravity.LEFT);
 		   }
 		   if(childPosition%2==0){
 				 convertView.setBackgroundColor(getResources().getColor(R.color.White));
+				// convertView.setGravity(Gravity.LEFT);
 			 }else{
 				 convertView.setBackgroundColor(getResources().getColor(R.color.BackgroundGrey));
 			 }

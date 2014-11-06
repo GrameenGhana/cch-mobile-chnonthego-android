@@ -2,63 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/stroke_bg_curry"
     android:orientation="vertical" >
-
-    <View
-        android:id="@+id/view1"
-        android:layout_width="wrap_content"
-        android:layout_height="10dp"
-        android:background="@color/Curry" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Check:"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="    --- Restless and irritable"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="    ---Sunken eyes"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="    --- Skin pinch goes back slowly"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingTop="20dp" >
+        android:padding="20dp" >
 
         <TextView
             android:id="@+id/textView5"
@@ -66,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="Does the baby have any signs of other severe disease? "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 
@@ -82,15 +34,24 @@
             android:layout_width="222dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.46"
+            android:background="@color/Curry"
             android:text="Yes"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/White"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp" />
 
         <Button
             android:id="@+id/button_no"
             android:layout_width="226dp"
             android:layout_height="wrap_content"
+            android:background="@color/Curry"
             android:text="No"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/White"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

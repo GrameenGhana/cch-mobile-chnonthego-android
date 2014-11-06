@@ -18,6 +18,8 @@ public class AskMalariaFeverYesActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_ask_fever_yes);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("Antenatal Care Diagnostic");
 	    button_next=(Button) findViewById(R.id.button_next);
 	    button_next.setOnClickListener(new OnClickListener(){
 

@@ -11,8 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:orientation="vertical"
+        android:padding="10dp"
         android:paddingBottom="10dp" >
 
         <TextView
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:text="Do the following:"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
     </LinearLayout>
 
     <LinearLayout
@@ -36,7 +36,6 @@
             android:padding="10dp"
             android:text="Ask:"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/TextColorWine"
             android:textSize="22sp"
             android:textStyle="bold" />
 
@@ -45,7 +44,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/customborder"
+        android:background="@drawable/custom_border2"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:showDividers="middle" >
@@ -54,31 +53,31 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="1. Is baby having any difficulty in feeding? "
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textSize="17sp" />
+            android:text="\u2022 Is baby having any difficulty in feeding? "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="2. Has the baby been given any herbal medicines since birth?"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textSize="17sp" />
+            android:text="\u2022 Has the baby been given any herbal medicines since birth?"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="3. Has baby had convulsions (fits)? "
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textSize="17sp" />
+            android:text="\u2022 Has baby had convulsions (fits)? "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
 
@@ -95,7 +94,6 @@
             android:padding="10dp"
             android:text="Look, Listen, Feel"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/TextColorWine"
             android:textSize="22sp"
             android:textStyle="bold" />
 
@@ -105,125 +103,89 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2.34"
-        android:background="@drawable/customborder"
+        android:background="@drawable/custom_border2"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:padding="10dp"
         android:showDividers="middle" >
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="BREATHING"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="1. Not breathing (apnoea)"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textSize="17sp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="2. Count the breaths in 1 minute:"
+                android:padding="10dp"
+                android:text="BREATHING"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="17sp" />
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="             --- Slow breathing (&lt;20 bpm)"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:paddingBottom="10dp"
-                android:text="             --- Fast breathing (≥ 60 bpm).  Repeat count to ensure fast breathing "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="15sp" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="3. Look and listen for grunting"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textSize="17sp" />
-
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="4. Look for chest in-drawing  "
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textSize="17sp" />
-
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="MOVEMENTS/TONE/CONVULSION"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:paddingTop="10dp"
-                android:text="1. Look at baby’s movements. If baby is sleeping, ask the mother to wake him/her"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="17sp" />
+                android:text="\u2022 Not breathing (apnoea)"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:text="\u2022 Count the breaths in 1 minute:"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:text="\u2022 Slow breathing (&lt;20 bpm)"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:paddingBottom="10dp"
+                    android:text="\u2022 Fast breathing (≥ 60 bpm).  Repeat count to ensure fast breathing "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="              ---Does the baby move on his/her own? Are they normal and symmetrical? "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="15sp" />
+                android:layout_marginLeft="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="\u2022 Look and listen for grunting"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="\u2022 Look for chest in-drawing  "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:text="2. Is the baby convulsing now (abnormal movements of part or the whole body)? "
-            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -231,85 +193,144 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/textView18"
+                android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3. If the baby is not moving, gently stimulate him/her"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:padding="10dp"
+                android:text="MOVEMENTS/TONE/CONVULSION"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:text="\u2022 Look at baby’s movements. If baby is sleeping, ask the mother to wake him/her"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:padding="5dp"
+                    android:text="\u2022 Does the baby move on his/her own? Are they normal and symmetrical? "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/textView19"
+                android:id="@+id/textView17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="              ---Does the baby not move at all?  "
+                android:layout_marginLeft="20dp"
+                android:padding="10dp"
+                android:text="\u2022 Is the baby convulsing now (abnormal movements of part or the whole body)? "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:text="\u2022 If the baby is not moving, gently stimulate him/her"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:layout_marginLeft="50dp"
+                    android:text="\u2022 Does the baby not move at all?  "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView20"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="SKIN,EYES,UMBILICUS"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold" />
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/textView21"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:text="1. Are there any skin pustules? "
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="SKIN,EYES,UMBILICUS"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:text="2. Redness, swelling of skin? "
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="\u2022 Are there any skin pustules? "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
-            android:id="@+id/textView23"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:text="3. Look at the umbilicus. Is it red or draining pus?"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="\u2022 Redness, swelling of skin? "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
-            android:id="@+id/textView24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:text="4. Look at the eyes.  Are they swollen and draining pus?  Are they yellow?"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="\u2022 Look at the umbilicus. Is it red or draining pus?"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
-            android:id="@+id/textView25"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:text="5. Check for cyanosis. Are the baby’s lips and tongue look blue?  "
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="\u2022 Look at the eyes.  Are they swollen and draining pus?  Are they yellow?"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
-            android:id="@+id/textView26"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:text="6. Does the baby have severe pallor? "
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="\u2022 Check for cyanosis. Are the baby’s lips and tongue look blue?  "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
-            android:id="@+id/textView27"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="7. Measure axillary temperature "
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="\u2022 Does the baby have severe pallor? "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="\u2022 Measure axillary temperature "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

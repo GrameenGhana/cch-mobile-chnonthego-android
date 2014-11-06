@@ -2,13 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/White"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical" >
+        android:background="@color/White"
+        android:gravity="left"
+        android:orientation="vertical"
+        android:padding="20dp" >
 
         <TextView
             android:id="@+id/textView1"
@@ -16,26 +19,25 @@
             android:layout_height="wrap_content"
             android:text="Click to view targets by month"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/TextBrown" />
 
-        <LinearLayout
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/White"
+        android:orientation="vertical"
+        android:padding="20dp" >
+
+        <ListView
+            android:id="@+id/listView_targetMonthOptions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp" >
-
-            <ListView
-                android:id="@+id/listView_targetMonthOptions"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/BackgroundGrey"
-                android:divider="@color/White"
-                android:dividerHeight="5dp" >
-
-            </ListView>
-
-        </LinearLayout>
-
+            android:background="@color/BackgroundGrey"
+            android:divider="@color/White"
+            android:dividerHeight="5dp" >
+        </ListView>
     </LinearLayout>
 
 </LinearLayout>

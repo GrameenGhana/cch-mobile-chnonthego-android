@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.00"
+        android:gravity="center"
         android:orientation="vertical" >
 
         <TextView
@@ -24,12 +25,18 @@
             android:padding="10dp"
             android:text="Take Action: Mild Hypothermia "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Curry" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="152dp"
+            android:layout_height="152dp"
+            android:src="@drawable/baby_cold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeActionCurry"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"
@@ -40,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="1. Warm the baby skin to skin, cover baby with a blanket, and more clothes"
+                android:text="\u2022 Warm the baby skin to skin, cover baby with a blanket, and more clothes"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -48,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="2. If the baby can feed, help mother to breastfeed"
+                android:text="\u2022 If the baby can feed, help mother to breastfeed"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -56,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="3. If the baby cannot breastfeed, give small sips of expressed breast milk that’s been collected in a clean container with a lid "
+                android:text="\u2022 If the baby cannot breastfeed, give small sips of expressed breast milk that’s been collected in a clean container with a lid "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -64,22 +71,76 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="4. If temperature is not increasing (≥ 36.5 C) after 2 hours, give extra warmth and refer mother and baby to a health center "
+                android:text="\u2022 If temperature is not increasing (≥ 36.5 C) after 2 hours, give extra warmth and refer mother and baby to a health center "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_refer"
                 android:paddingBottom="5dp"
-                android:text="5. If any danger signs present, refer to a health center or hospital IMMEDIATELY"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:text="If any danger signs present, refer to a health center or hospital IMMEDIATELY"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/Red" />
 
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="6. Call provider and arrange transport "
+                android:drawableLeft="@drawable/ic_phone"
+                android:text="Call provider and arrange transport "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_transport"
+            android:padding="10dp"
+            android:text="While waiting for transport:     "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/Blue" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/TakeActionCurry"
+            android:divider="@drawable/divider"
+            android:dividerPadding="2dp"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:showDividers="middle" >
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="\u2022 If baby is not able to breastfeed, give small sips of expressed breast milk that has been collected in a clean container with a lid "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="\u2022 Advise mother to not put the baby on her back "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="\u2022 Teach mother how to keep the baby warm on the way to the health facility"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -92,70 +153,18 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="While waiting for transport:"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
-            android:divider="@drawable/divider"
-            android:dividerPadding="2dp"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:showDividers="middle" >
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="1. If baby is not able to breastfeed, give small sips of expressed breast milk that has been collected in a clean container with a lid "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="2. Advise mother to not put the baby on her back "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="3. Teach mother how to keep the baby warm on the way to the health facility"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="251dp"
-        android:orientation="vertical" >
-
-        <TextView
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="Take Action: Continue"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Curry" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="296dp"
-            android:background="@drawable/customborder"
+            android:layout_height="wrap_content"
+            android:background="@color/TakeActionCurry"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"
@@ -165,23 +174,26 @@
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_record"
                 android:paddingBottom="10dp"
-                android:text="7. Record baby’s clinical information in client’s maternal health or “Red” book. If possible, also fill out referral form"
+                android:text="Record baby’s clinical information in client’s maternal health or “Red” book. If possible, also fill out referral form"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_accompany"
                 android:paddingBottom="10dp"
-                android:text="8. Accompany mother and baby, and have a family member accompany mother and baby to the health facility"
+                android:text="Accompany mother and baby, and have a family member accompany mother and baby to the health facility"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="9. Follow up with client after discharge from health center or hospital "
+                android:drawableLeft="@drawable/ic_follow_up"
+                android:text="Follow up with client after discharge from health center or hospital "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>

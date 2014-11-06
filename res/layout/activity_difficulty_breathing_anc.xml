@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.00"
+        android:gravity="center"
         android:orientation="vertical" >
 
         <TextView
@@ -25,6 +26,12 @@
             android:text="Take Action: Difficulty breathing or not breathing"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextColorWine" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/difficulty_breathing" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_refer"
                 android:paddingBottom="5dp"
-                android:text=" Refer mother and baby to a health center or hospital IMMEDIATELY"
+                android:text=" Refer client to a health center or hospital IMMEDIATELY"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView

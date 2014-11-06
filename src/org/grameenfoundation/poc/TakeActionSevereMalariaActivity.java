@@ -31,7 +31,7 @@ public class TakeActionSevereMalariaActivity extends Activity {
         else if(take_action_category.equals("negative")){
             setContentView(R.layout.activity_malaria_test_negative);
             }
-        else if(take_action_category.equals("not_done")){
+        else if(take_action_category.equals("not done")){
             setContentView(R.layout.activity_malaria_test_not_done);
             }
         else if(take_action_category.equals("severe anaemia")){

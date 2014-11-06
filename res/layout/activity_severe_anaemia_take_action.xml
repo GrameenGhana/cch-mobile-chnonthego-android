@@ -26,12 +26,12 @@
             android:padding="10dp"
             android:text="Take Action: Severe or Moderate Anaemia  "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Curry" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeActionCurry"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_refer"
-                android:paddingBottom="5dp"
+                android:padding="5dp"
                 android:text=" Refer mother and baby to a health center or hospital IMMEDIATELY"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -51,6 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_phone"
+                android:padding="5dp"
                 android:text=" Call provider and arrange transport "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -59,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_accompany"
-                android:paddingBottom="10dp"
+                android:padding="5dp"
                 android:text="Accompany mother and have a family member accompany mother to the health facility"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -68,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_record"
-                android:paddingBottom="10dp"
+                android:padding="5dp"
                 android:text="Record clinical information in client’s maternal health or “Red” book. If possible, also fill out referral form "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -77,6 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_follow_up"
+                android:padding="5dp"
                 android:text=" Follow up with client after discharge from health center or hospital "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 

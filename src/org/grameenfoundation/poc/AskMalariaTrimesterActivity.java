@@ -24,6 +24,8 @@ public class AskMalariaTrimesterActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_ask_malaria_trimester);
 	    mContext=AskMalariaTrimesterActivity.this;
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("Antenatal Care Diagnostic");
 	    listView_askMalariaTrimester=(ListView) findViewById(R.id.listView_askMalariaTrimester);
 	    String[] items={"1st Trimester","2nd Trimester","3rd Trimester"};
 	    ListAdapter adapter=new ListAdapter(mContext,items);

@@ -24,7 +24,7 @@
             android:padding="20dp"
             android:text="Mother must remember to : "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
 
         <ImageView
             android:id="@+id/imageView1"
@@ -37,59 +37,126 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/customborder"
+        android:background="@drawable/custom_border2"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:padding="10dp"
         android:showDividers="middle" >
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="\u2022 Exclusive breastfeeding during the first 6 months protects mother from getting pregnant as long as periods have not returned. Consult family planning counsellor as soon as possible after giving birth "
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:gravity="top" >
 
-          <TextView
-              android:id="@+id/textView3"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:padding="5dp"
-              android:text="\u2022 When baby is 6 months old continue breastfeeding and being giving other foods "
-              android:textAppearance="?android:attr/textAppearanceSmall" />
-          
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_bullet" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Exclusive breastfeeding during the first 6 months protects mother from getting pregnant as long as periods have not returned. Consult family planning counsellor as soon as possible after giving birth "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+			<ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_bullet" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="When baby is 6 months old continue breastfeeding and being giving other foods "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+			<ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_bullet" />
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="\u2022 Watch for signs of diarrhoea, fever, difficulty breathing, or refusal to feed because these need prompt attention "
+                android:text="Watch for signs of diarrhoea, fever, difficulty breathing, or refusal to feed because these need prompt attention "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
-            
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_bullet" />
+
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="\u2022 If mother is HIV-infected, she should not feed her baby from a nipple that is cracked or bleeding. Instead, she should feed from the other breast and express and discard milk from the breasted that is affected"
+                android:text="If mother is HIV-infected, she should not feed her baby from a nipple that is cracked or bleeding. Instead, she should feed from the other breast and express and discard milk from the breasted that is affected"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
-              
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+			  <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_bullet" />
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="\u2022 Getting infected or re-infected with HIV while breastfeeding increases the risk of mother to child transmission.  Important to practice safe sex by using condoms consistently and correctly "
+                android:text="Getting infected or re-infected with HIV while breastfeeding increases the risk of mother to child transmission.  Important to practice safe sex by using condoms consistently and correctly "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
-            
-              <TextView
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_bullet" />
+
+            <TextView
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="\u2022 To protect the baby, the mother must know her HIV status"
+                android:text="To protect the baby, the mother must know her HIV status"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

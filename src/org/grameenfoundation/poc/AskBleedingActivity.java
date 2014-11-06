@@ -32,8 +32,8 @@ public class AskBleedingActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_acuteemergencies_bleeding);
 	    mContext=AskBleedingActivity.this;
-	    getActionBar().setDisplayShowHomeEnabled(false);
-	    getActionBar().setTitle("Point of Care> Antenatal Care");
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("Antenatal Care Diagnostic");
 	    listView_bleeding=(ListView) findViewById(R.id.listView_excessiveBleeding);
 	    String[] items={"Heavy(more than 2 pad changes in 24hours)","Light(fewer than 2 pad changes in 24hours)"};
 	    ListAdapter adapter=new ListAdapter(mContext,items);

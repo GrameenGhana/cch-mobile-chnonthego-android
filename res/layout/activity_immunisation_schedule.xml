@@ -11,6 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="20dp" >
@@ -21,7 +22,7 @@
             android:layout_height="wrap_content"
             android:text="Immunisation Schedule for Infants    "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
 
         <ImageView
             android:id="@+id/imageView1"

@@ -9,7 +9,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/White"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="10dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="Check mother’s and baby’s records:  "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 
@@ -39,9 +40,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text=">>> Check mother’s antenatal details:"
+            android:text="Check mother’s antenatal details:"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/TextColorWine"
+            android:textColor="@color/Brown"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -49,7 +50,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/customborder"
+        android:background="@drawable/custom_border2"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:padding="10dp"
@@ -60,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="1. Hepatitis B, HIV and Syphilis screening"
+            android:text="\u2022 Hepatitis B, HIV and Syphilis screening"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -68,14 +69,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="2. Premature rupture of membranes (>18 hours before delivery) "
+            android:text="\u2022 Premature rupture of membranes (>18 hours before delivery) "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3. Diabetes during pregnancy"
+            android:text="\u2022 Diabetes during pregnancy"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
@@ -91,9 +92,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text=">>> Check delivery details"
+            android:text="Check delivery details:"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/TextColorWine"
+            android:textColor="@color/Brown"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -101,7 +102,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/customborder"
+        android:background="@drawable/custom_border2"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:padding="10dp"
@@ -112,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="1. Date and place of delivery "
+            android:text="\u2022 Date and place of delivery "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -120,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="2. Type of delivery "
+            android:text="\u2022 Type of delivery "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -128,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="3. Duration of labor"
+            android:text="\u2022 Duration of labor"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -136,7 +137,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="4. Condition of baby at birth "
+            android:text="\u2022 Condition of baby at birth "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -144,14 +145,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="5. APGAR score "
+            android:text="\u2022 APGAR score "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6. Resuscitation at birth"
+            android:text="\u2022 Resuscitation at birth"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
@@ -166,9 +167,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text=">>> Preterm/small baby status "
+            android:text="Preterm/small baby status "
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/TextColorWine"
+            android:textColor="@color/Brown"
             android:textStyle="bold" />
 
         <TextView
@@ -176,9 +177,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text=">>> Check for: "
+            android:text="Check for: "
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/TextColorWine"
+            android:textColor="@color/Brown"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -186,7 +187,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/customborder"
+        android:background="@drawable/custom_border2"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:padding="10dp"
@@ -197,35 +198,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="1. Birth weight of baby, current weight of baby"
+            android:text="\u2022 Birth weight of baby, current weight of baby"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2. Gestational age of client at delivery, if known"
+            android:text="\u2022 Gestational age of client at delivery, if known"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/textView17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3. Temperature"
+            android:text="\u2022 Temperature"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/textView18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4. Immunization status of mother and baby"
+            android:text="\u2022 Immunization status of mother and baby"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/textView19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5. Sickle cell status"
+            android:text="\u2022 Sickle cell status"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>

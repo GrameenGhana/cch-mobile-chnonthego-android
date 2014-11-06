@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ public class NoSeriousConditionsActivity extends Activity {
 
 	Context mContext;
 	private ListView listView_noConditions;
+	private Button button_no;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -28,9 +30,21 @@ public class NoSeriousConditionsActivity extends Activity {
 	    listView_noConditions=(ListView) findViewById(R.id.listView_noConditions);
 	    String[] items={"Asymmetrical limb movement, one limb does not move",
 	    				"Firm swelling/bump on one or both sides of head",
-	    				"Bruises, swelling on buttocks ",
-	    				"No injuries"};
+	    				"Bruises, swelling on buttocks "};
 	    NoConditionsListAdapter adapter=new NoConditionsListAdapter(mContext,items);
+	    button_no=(Button) findViewById(R.id.button_no);
+	    button_no.setOnClickListener(new OnClickListener(){
+
+			private Intent intent;
+
+			@Override
+			public void onClick(View v) {
+				intent=new Intent(mContext,NoInjuriesActivity.class);
+				startActivity(intent);
+				
+			}
+	    	
+	    });
 	    listView_noConditions.setAdapter(adapter);
 	    listView_noConditions.setOnItemClickListener(new OnItemClickListener(){
 
@@ -54,10 +68,7 @@ public class NoSeriousConditionsActivity extends Activity {
 					intent.putExtra("category","firm swelling");
 					startActivity(intent);
 					break;
-				case 3:
-					intent=new Intent(mContext,NoInjuriesActivity.class);
-					startActivity(intent);
-					break;
+				
 				}
 				
 			}

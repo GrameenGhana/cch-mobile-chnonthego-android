@@ -5,10 +5,13 @@ import org.grameenfoundation.poc.NoInjuriesActivity.NoInjuriesListAdapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,10 +35,37 @@ public class TakeActionSomeDehydrationNoActivity extends Activity {
         listView_someDehydrationNo=(ListView) findViewById(R.id.listView_someDehydrationNo);
         String[] items={"Home visit or Outreach Clinic",
         				"CHPS + mother & baby is able to stay for > 4 hours at facility ",
-        				"CHPS or Health Center + clients NOT able to stay for 4 hours at facility",
-        				"Diarrhoea with No Dehydration  "};
+        				"CHPS or Health Center + clients NOT able to stay for 4 hours at facility"};
         SomeDehydrationListAdapter adapter=new SomeDehydrationListAdapter(TakeActionSomeDehydrationNoActivity.this,items);
 	    listView_someDehydrationNo.setAdapter(adapter);
+	    listView_someDehydrationNo.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+					Intent intent;
+					switch(position){
+					case 0:
+						intent =new Intent(TakeActionSomeDehydrationNoActivity.this,TakeActionSomeDehydrationEncounterActivity.class);
+						intent.putExtra("category","home_visit");
+						startActivity(intent);
+						break;
+					case 1:
+						intent =new Intent(TakeActionSomeDehydrationNoActivity.this,TakeActionSomeDehydrationEncounterActivity.class);
+						intent.putExtra("category","chps_one");
+						startActivity(intent);
+						break;
+					case 2:
+						intent =new Intent(TakeActionSomeDehydrationNoActivity.this,TakeActionSomeDehydrationEncounterActivity.class);
+						intent.putExtra("category","chps_two");
+						startActivity(intent);
+						break;
+					
+					}
+				
+			}
+	    	
+	    });
         }
 	}
 	class SomeDehydrationListAdapter extends BaseAdapter{

@@ -27,12 +27,12 @@
             android:padding="10dp"
             android:text="Take Action: 1st Trimester"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Curry" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeActionCurry"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"
@@ -82,12 +82,12 @@
             android:padding="10dp"
             android:text="If client is not due for a scheduled visit, and does not have with any danger signs provide anti-malarial treatment :"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Curry" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeActionCurry"
             android:divider="@drawable/divider"
             android:dividerPadding="2dp"
             android:orientation="vertical"
@@ -99,21 +99,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="1. Oral quinine: 600 mg 8 hourly for 7 days "
+                android:text="\u2022 Oral quinine: 600 mg 8 hourly for 7 days "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2. OR oral quinine according to body weight [link to malaria dosage calculator] for 3 days + 300 mg of clindamycin 3 times daily for 3 days  "
+                android:text="\u2022 OR oral quinine according to body weight [link to malaria dosage calculator] for 3 days + 300 mg of clindamycin 3 times daily for 3 days  "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3. Paracetamol 1000 mg (2 tablets) maybe given every 4-6 hr until fever returns to normal "
+                android:text="\u2022 Paracetamol 1000 mg (2 tablets) maybe given every 4-6 hr until fever returns to normal "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -132,12 +132,12 @@
             android:padding="10dp"
             android:text="Counsel client on the following: "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Curry" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="296dp"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeActionCurry"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"
@@ -149,7 +149,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="1. Importance of taking malaria medicines for treatment "
+                android:text="\u2022 Importance of taking malaria medicines for treatment "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -157,21 +157,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="2. Sleeping under an ITN every night "
+                android:text="\u2022 Sleeping under an ITN every night "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3. Importance of taking SP to prevent future episodes of malaria "
+                android:text="\u2022 Importance of taking SP to prevent future episodes of malaria "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4. Eating foods rich in iron, folate and vitamin C "
+                android:text="\u2022 Eating foods rich in iron, folate and vitamin C "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>

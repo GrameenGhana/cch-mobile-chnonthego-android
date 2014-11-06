@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,6 +22,7 @@ public class SevereDiseasesNextActivity extends Activity {
 
 	private ListView listView_severDiseaseSymptoms;
 	private Context mContext;
+	private Button button_no;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -33,10 +36,23 @@ public class SevereDiseasesNextActivity extends Activity {
 	    				"Cyanosis or pallor","Low body temperature (< 35.5 C)",
 	    				"Fever (> 37.5 C)","Feeding difficulty, not feeding well, or not able to feed",
 	    				"Mild Hypothermia (35.5 – 36.5 C) ",
-	    				"Umbilicus Infection or Skin Pustules","Eye Infection ",
-	    				"No symptoms"};
+	    				"Umbilicus Infection or Skin Pustules","Eye Infection "};
 	    SymptomsListAdapter adapter=new SymptomsListAdapter(mContext,items);
 	    listView_severDiseaseSymptoms.setAdapter(adapter);
+	    button_no=(Button) findViewById(R.id.button_no);
+	    button_no.setOnClickListener(new OnClickListener(){
+
+			private Intent intent;
+
+			@Override
+			public void onClick(View v) {
+				intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
+				intent.putExtra("category", "no symptoms");
+				startActivity(intent);
+				
+			}
+	    	
+	    });
 	    listView_severDiseaseSymptoms.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
@@ -47,6 +63,21 @@ public class SevereDiseasesNextActivity extends Activity {
 				case 0:
 					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
 					intent.putExtra("category", "difficulty");
+					startActivity(intent);
+					break;
+				case 1:
+					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
+					intent.putExtra("category", "fast_breathing");
+					startActivity(intent);
+					break;
+				case 2:
+					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
+					intent.putExtra("category", "fast_breathing");
+					startActivity(intent);
+					break;
+				case 3:
+					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
+					intent.putExtra("category", "fast_breathing");
 					startActivity(intent);
 					break;
 				case 4:
@@ -89,11 +120,7 @@ public class SevereDiseasesNextActivity extends Activity {
 					intent.putExtra("category", "eye");
 					startActivity(intent);
 					break;
-				case 12:
-					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
-					intent.putExtra("category", "no symptoms");
-					startActivity(intent);
-					break;
+				
 				}
 				
 			}

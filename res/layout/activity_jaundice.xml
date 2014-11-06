@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+<LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="20dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,8 +22,13 @@
             android:layout_height="wrap_content"
             android:text="Do the following:"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
 
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="154dp"
+            android:layout_height="140dp"
+            android:src="@drawable/jaundice1" />
     </LinearLayout>
 
     <LinearLayout
@@ -31,6 +41,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="If Jaundice present, Ask:"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="bold" />
@@ -40,7 +51,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/customborder"
+        android:background="@drawable/custom_border2"
         android:orientation="vertical"
         android:padding="10dp" >
 
@@ -48,7 +59,7 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1.  When did the jaundice first appear? "
+            android:text="\u2022 When did the jaundice first appear? "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
@@ -73,7 +84,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/customborder"
+        android:background="@drawable/custom_border2"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:padding="10dp"
@@ -84,14 +95,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="1.  Look for jaundice (yellow eyes or skin) "
+            android:text="\u2022  Look for jaundice (yellow eyes or skin) "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2.  Look at the young infant’s palms and soles.  Are they yellow?  "
+            android:bufferType="spannable"
+            android:text="\u2022  Look at the young infant’s palms and soles.  Are they yellow?  "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
@@ -100,7 +112,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="20dp" >
 
         <Button
             android:id="@+id/button_next"
@@ -108,8 +121,9 @@
             android:layout_width="210dp"
             android:layout_height="wrap_content"
             android:text="Next"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 
 </LinearLayout>
+</ScrollView>

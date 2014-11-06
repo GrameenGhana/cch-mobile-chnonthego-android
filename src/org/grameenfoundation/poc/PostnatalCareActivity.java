@@ -11,26 +11,92 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Animation.AnimationListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class PostnatalCareActivity extends Activity{
+public class PostnatalCareActivity extends Activity implements AnimationListener{
 
 	Context mContext;
 	private ListView listView_postnatal;
+	private ImageButton imageButton_baby;
+	private ImageButton imageButton_mother;
+	private LinearLayout linearLayout_counselling;
+	private LinearLayout linearLayout_diagnosticDetails;
+	private LinearLayout linearLayout_diagnostic;
+	private LinearLayout linearLayout_quickReads;
+	private Animation slide_up;
+	private Animation slide_down;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_postnatal_care_menu);
 	    mContext=PostnatalCareActivity.this;
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("Postnatal Care");
+	    imageButton_baby=(ImageButton) findViewById(R.id.imageButton_newBorn);
+	    imageButton_mother=(ImageButton) findViewById(R.id.imageButton_mother);
+	    linearLayout_counselling=(LinearLayout) findViewById(R.id.linearLayout_counselling);
+	    linearLayout_diagnosticDetails=(LinearLayout) findViewById(R.id.linearLayout_diagnosticDetails);
+	    linearLayout_diagnostic=(LinearLayout) findViewById(R.id.linearLayout_diagnostic);
+	    linearLayout_quickReads=(LinearLayout) findViewById(R.id.linearLayout_quickReads);
+	    slide_up=AnimationUtils.loadAnimation(getApplicationContext(),
+	              R.anim.slide_up);
+	    slide_up.setAnimationListener(this);
+		   
+	    slide_down=AnimationUtils.loadAnimation(getApplicationContext(),
+	              R.anim.slide_down);
+	    slide_down.setAnimationListener(this);
+	    
+	    imageButton_baby.setOnClickListener(new OnClickListener(){
+	    	Intent intent;
+			@Override
+			public void onClick(View v) {
+				intent=new Intent(mContext,PostnatalCareSectionActivity.class);
+				startActivity(intent);
+			}
+	    	
+	    });
+	    linearLayout_counselling.setOnClickListener(new OnClickListener(){
+
+			private Intent intent;
+
+			@Override
+			public void onClick(View v) {
+				intent=new Intent(mContext,PostnatalCareCounsellingTopicsActivity.class);
+				startActivity(intent);
+				
+			}
+	    	
+	    });
+	    
+	    linearLayout_diagnostic.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				if(linearLayout_diagnosticDetails.getVisibility()==View.VISIBLE){
+					linearLayout_diagnosticDetails.setVisibility(View.GONE);
+				}else if(linearLayout_diagnosticDetails.getVisibility()==View.GONE){
+					linearLayout_diagnosticDetails.setVisibility(View.VISIBLE);
+				}
+				
+			}
+	    	
+	    });
+	    /*
 	    listView_postnatal=(ListView) findViewById(R.id.listView_postnatalCare);
 	    String[] items={"Diagnostic Tool","Counselling","Quick Reads"};
 	    int[] images={R.drawable.ic_diagnostic,R.drawable.ic_counselling,R.drawable.ic_references};
@@ -56,6 +122,7 @@ public class PostnatalCareActivity extends Activity{
 			}
 	    	
 	    });
+	    */
 	    /*
 	    expandablelistView_postnatal=(ExpandableListView) findViewById(R.id.expandableListView_postnatalCare);
 	    String[] groupitems={"Diagnostic Tool","Counselling"};
@@ -245,4 +312,19 @@ public class PostnatalCareActivity extends Activity{
 
 
 	*/
+	@Override
+	public void onAnimationStart(Animation animation) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onAnimationEnd(Animation animation) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onAnimationRepeat(Animation animation) {
+		// TODO Auto-generated method stub
+		
+	}
 }
