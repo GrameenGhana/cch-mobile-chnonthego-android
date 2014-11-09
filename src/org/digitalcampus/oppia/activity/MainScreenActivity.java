@@ -15,6 +15,7 @@ import org.grameenfoundation.adapters.EventsDetailPagerAdapter;
 import org.grameenfoundation.adapters.MainScreenBaseAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.cch.activity.HomeActivity;
+import org.grameenfoundation.cch.activity.StayingWellActivity;
 import org.grameenfoundation.database.CHNDatabaseHandler;
 import org.grameenfoundation.poc.PointOfCareActivity;
 
@@ -115,6 +116,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	    			  R.drawable.ic_learning_center,
 	    			  R.drawable.ic_achievement,
 	    			  R.drawable.ic_staying_well};
+	    
 	    MainScreenBaseAdapter adapter=new MainScreenBaseAdapter(mContext,categories,images);
 	    main_menu_listview.setAdapter(adapter);				
 	    main_menu_listview.setOnItemClickListener(this);
@@ -442,6 +444,10 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		case 3:
 			intent = new Intent(getApplicationContext(), AchievementCenterActivity.class);
             startActivity(intent);	
+			break;
+		case 4:
+			intent = new Intent(getApplicationContext(), StayingWellActivity.class);
+			startActivity(intent);
 			break;
 		}
 		
