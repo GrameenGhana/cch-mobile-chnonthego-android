@@ -38,6 +38,8 @@ public class JaundiceSectionsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_jaundice_sections);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Diagnostic");
 	    mContext=JaundiceSectionsActivity.this;
 	    listView_sections=(ExpandableListView) findViewById(R.id.expandableListView_jaundice);
 	    String[] items={"Severe Jaundice","Jaundice"};

@@ -12,6 +12,8 @@ public class RecordsCheckActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_records_check);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Diagnostic");
 	}
 
 }

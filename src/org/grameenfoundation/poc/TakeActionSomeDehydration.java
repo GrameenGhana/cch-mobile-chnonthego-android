@@ -21,6 +21,8 @@ public class TakeActionSomeDehydration extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_some_dehydration);
+		getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Diagnostic");
 		mContext=TakeActionSomeDehydration.this;
 		button_yes=(Button) findViewById(R.id.button_yes);
 		button_yes.setOnClickListener(new OnClickListener(){

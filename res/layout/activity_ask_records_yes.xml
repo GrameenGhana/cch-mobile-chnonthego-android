@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/White"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:orientation="vertical"
         android:padding="20dp" >
 
@@ -23,28 +25,52 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_border2"
+            android:background="@color/White"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:showDividers="middle" >
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="\u2022 How are you feeling? "
-                android:layout_marginLeft="20dp"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                  android:layout_marginLeft="20dp"
-                android:text="\u2022 Do you have andy pains? Do you have any concerns?"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="How are you feeling? "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+			<ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_bullet" />
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Do you have andy pains? Do you have any concerns?"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -67,65 +93,119 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/custom_border2"
                 android:divider="@drawable/divider"
                 android:orientation="vertical"
                 android:showDividers="middle" >
-
+				 <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+			<ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_bullet" />
                 <TextView
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:text="\u2022 Past obstetric history"
+                      android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Past obstetric history"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
+			</LinearLayout>
 
-                <TextView
-                    android:id="@+id/textView6"
+				 <LinearLayout
+				     android:layout_width="match_parent"
+				     android:layout_height="wrap_content" >
+				<ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
+                    android:layout_height="15dp"
                     android:layout_marginLeft="20dp"
-                    android:text="\u2022 Contraceptive history"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:src="@drawable/ic_bullet" />
+				     <TextView
+				         android:id="@+id/textView6"
+				         android:layout_width="wrap_content"
+				         android:layout_height="wrap_content"
+				         android:paddingBottom="5dp"
+                    	 android:paddingLeft="10dp"
+                    	 android:paddingRight="0dp"
+				         android:text="Contraceptive history"
+				         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+				 </LinearLayout>
+				 <LinearLayout
+				     android:layout_width="match_parent"
+				     android:layout_height="wrap_content" >
+				<ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_bullet" />
                 <TextView
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
-                     android:layout_marginLeft="20dp"
-                    android:text="\u2022 Personal medical and surgical history, including any known allergies to medication "
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Personal medical and surgical history, including any known allergies to medication "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
-
+				</LinearLayout>
+				<LinearLayout
+				     android:layout_width="match_parent"
+				     android:layout_height="wrap_content" >
+				<ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_bullet" />
                 <TextView
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                     android:layout_marginLeft="20dp"
-                    android:text="\u2022 Family medical history"
+                     android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Family medical history"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
-
+			</LinearLayout>
+			<LinearLayout
+				     android:layout_width="match_parent"
+				     android:layout_height="wrap_content" >
+				<ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_bullet" />
                 <TextView
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
-                     android:layout_marginLeft="20dp"
-                    android:text="\u2022 History of present pregnancy"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="History of present pregnancy"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
-
+				</LinearLayout>
+				<LinearLayout
+				     android:layout_width="match_parent"
+				     android:layout_height="wrap_content" >
+				<ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_bullet" />
                 <TextView
                     android:id="@+id/textView10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                     android:layout_marginLeft="20dp"
-                    android:text="\u2022 Gestational of present pregnancy and estimate current trimester "
+                   android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Gestational of present pregnancy and estimate current trimester "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
-
+			</LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

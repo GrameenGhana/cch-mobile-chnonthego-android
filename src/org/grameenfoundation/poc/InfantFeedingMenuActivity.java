@@ -24,6 +24,8 @@ public class InfantFeedingMenuActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_infant_feeding_menu);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Counselling");
 	    listView_infantFeeding=(ListView) findViewById(R.id.listView_infantFeeding);
 	    String[] items={"Importance of Exclusive Breastfeeding","Breast Attachment",
 	    				"How Often to Breastfeed","Breastfeeding a Low Birth Weight Baby",

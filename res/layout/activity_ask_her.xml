@@ -19,12 +19,11 @@
             android:text="Does the client have any of the following?"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextBrown" />
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:background="@color/White"
         android:orientation="vertical"
         android:padding="30dp" >
@@ -32,27 +31,26 @@
         <ListView
             android:id="@+id/listView_askHer"
             android:layout_width="match_parent"
-            android:layout_height="284dp"
-            android:layout_weight="0.27"
+            android:layout_height="wrap_content"
             android:background="@color/BackgroundGrey"
             android:divider="@color/White"
             android:dividerHeight="5dp" >
         </ListView>
+    </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/button_no"
+            android:layout_width="249dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical" >
+            android:text="No"
+            android:textColor="@color/Brown" />
 
-            <Button
-                android:id="@+id/button_no"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="No"
-                android:textColor="@color/TextBrown" />
-
-        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

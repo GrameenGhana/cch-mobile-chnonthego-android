@@ -48,6 +48,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -65,6 +66,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -360,7 +362,6 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 		            @Override	
 		            public void onItemCheckedStateChanged(ActionMode mode, int position,
 		                    long id, boolean checked) {
-		                // TODO Auto-generated method stub
 		                 if (checked) {
 		                        nr++;
 		                        selected_position=(int) id;
@@ -389,9 +390,10 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 		        });
 		    
 			   Button b = (Button) rootView.findViewById(R.id.button_addEvent);
-			   if(!month_passed.equalsIgnoreCase(current_month)){
+			   /*if(!month_passed.equalsIgnoreCase(current_month)){
 				  b.setVisibility(View.GONE); 
 			   }
+			   */
 			    b.setOnClickListener(new OnClickListener() {
 			    	@Override
 				       public void onClick(View v) {
@@ -539,6 +541,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			private RadioGroup category_options;
 			private String[] items3;
 			int selected_position;
+			protected RadioButton category_people;
 			 public CoverageActivity(){
 
          }
@@ -574,9 +577,9 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			    }
 			  
 			    Button b = (Button) rootView.findViewById(R.id.button_addCoverage);
-			    if(!month_passed.equalsIgnoreCase(current_month)){
+			   /* if(!month_passed.equalsIgnoreCase(current_month)){
 					  b.setVisibility(View.GONE); 
-				   }
+				   }*/
 			    b.setOnClickListener(new OnClickListener() {
 			    	 String coverage_detail;
 			       @Override
@@ -584,10 +587,11 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			    	   final Dialog dialog = new Dialog(getActivity());
 						dialog.setContentView(R.layout.coverage_add_dialog);
 						final Spinner spinner_coverageName=(Spinner) dialog.findViewById(R.id.spinner_dialogCoverageName);
-						dialog.setTitle("Add Coverage");
-						
-						  category_options=(RadioGroup) dialog.findViewById(R.id.radioGroup_category);
+						 category_options=(RadioGroup) dialog.findViewById(R.id.radioGroup_category);
 						  category_options.check(R.id.radio_people);
+						  category_people=(RadioButton) dialog.findViewById(R.id.radio_people);
+						  category_people.setChecked(true);
+						dialog.setTitle("Add Coverage");
 						    category_options.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 						    	
 								public void onCheckedChanged(
@@ -651,10 +655,10 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 									AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				            				getActivity());
 									// set title
-									alertDialogBuilder.setTitle("Delete event?");
+									alertDialogBuilder.setTitle("Delete?");
 									// set dialog message
 									alertDialogBuilder
-										.setMessage("You are about to delete an event. Proceed?")
+										.setMessage("You are about to delete. Proceed?")
 										.setCancelable(false)
 										.setIcon(R.drawable.ic_error)
 										.setPositiveButton("No",new DialogInterface.OnClickListener() {
@@ -968,10 +972,10 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 							AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 		            				getActivity());
 							// set title
-							alertDialogBuilder.setTitle("Delete event?");
+							alertDialogBuilder.setTitle("Delete?");
 							// set dialog message
 							alertDialogBuilder
-								.setMessage("You are about to delete an event. Proceed?")
+								.setMessage("You are about to delete. Proceed?")
 								.setCancelable(false)
 								.setIcon(R.drawable.ic_error)
 								.setPositiveButton("No",new DialogInterface.OnClickListener() {
@@ -1042,9 +1046,9 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 		            }
 		        });
 			    Button b = (Button) rootView.findViewById(R.id.button_addLearning);
-			    if(!month_passed.equalsIgnoreCase(current_month)){
+			   /* if(!month_passed.equalsIgnoreCase(current_month)){
 					  b.setVisibility(View.GONE); 
-				   }
+				   }*/
 			    b.setOnClickListener(new OnClickListener() {
 
 			       @Override
@@ -1363,10 +1367,10 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 							AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 		            				getActivity());
 							// set title
-							alertDialogBuilder.setTitle("Delete event?");
+							alertDialogBuilder.setTitle("Delete?");
 							// set dialog message
 							alertDialogBuilder
-								.setMessage("You are about to delete an event. Proceed?")
+								.setMessage("You are about to delete. Proceed?")
 								.setCancelable(false)
 								.setIcon(R.drawable.ic_error)
 								.setPositiveButton("No",new DialogInterface.OnClickListener() {
@@ -1428,9 +1432,9 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 		            }
 		        });
 			    Button b = (Button) rootView.findViewById(R.id.button_addOther);
-			    if(!month_passed.equalsIgnoreCase(current_month)){
+			   /* if(!month_passed.equalsIgnoreCase(current_month)){
 					  b.setVisibility(View.GONE); 
-				   }
+				   }*/
 			    b.setOnClickListener(new OnClickListener() {
 
 			       @Override

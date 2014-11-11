@@ -21,7 +21,8 @@ public class TakeActionAskHerActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	   
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("ANC Diagnostic");
 	    mContext=TakeActionAskHerActivity.this;
 	    
 	    Bundle extras = getIntent().getExtras(); 

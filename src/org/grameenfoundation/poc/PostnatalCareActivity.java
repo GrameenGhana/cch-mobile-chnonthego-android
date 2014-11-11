@@ -70,6 +70,15 @@ public class PostnatalCareActivity extends Activity implements AnimationListener
 			}
 	    	
 	    });
+	    imageButton_mother.setOnClickListener(new OnClickListener(){
+	    	Intent intent;
+			@Override
+			public void onClick(View v) {
+				intent=new Intent(mContext,PostnatalCareMotherDiagnosticToolActivity.class);
+				startActivity(intent);
+			}
+	    	
+	    });
 	    linearLayout_counselling.setOnClickListener(new OnClickListener(){
 
 			private Intent intent;
@@ -179,7 +188,6 @@ public class PostnatalCareActivity extends Activity implements AnimationListener
 
 		@Override
 		public long getItemId(int position) {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 

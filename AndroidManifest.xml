@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.digitalcampus.mobile.learningGF"
-    android:versionCode="62"
-    android:versionName="3.0.19" 
+    android:versionCode="100"
+    android:versionName="3.0.21" 
     android:screenOrientation="portrait">
 
     <uses-sdk
@@ -249,6 +249,43 @@
         <activity android:name="org.grameenfoundation.poc.TakeActionDiarrhoeaNoDehydrationNextTwoActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.TakeActionDiarrhoeaActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.HIVInfectionActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.HIVInfectionStatusActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionHIVInfectionActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.HIVInfectionAskActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.LowBirthWeightActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.LowWeightNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.LowBirthWeightNextTwoActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.LowBirthWeightNextThreeActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionFeedingProblemsActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.KangarooCareActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.KangarooCareNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.KangarooCareNextTwoActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.KeepingBabyWarmAndMalariaActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.NutritionCounsellingActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.NutritionCounsellingNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.NutritionCounsellingNextTwoActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.NutritionCounsellingNextThreeActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.SelfCareActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.SelfCarNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TreatingLocationInfectionActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TreatingLocalInfectionNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ReturningForCareActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ReturningForCareNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ReturningForCareNextTwoActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TreatingDiarrhoeaActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TreatingUnComplicatedMalariaActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TreatingUncomplicatedMalariaNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TreatingUncomplicatedMalariaNextTwoActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TreatingUncomplicatedMalariaNextThreeActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TreatingUncomplicatedMalariaNextFourActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.PostpartumExercisesActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.PostpartumExerciseNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.PostpartumExercisesNextTwoActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.PostpartumExercisesNextThreeActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.PostpartumExercisesNextFourActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.PostnatalCareMotherDiagnosticToolActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.MaternalEmergenciesActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionMaternalEmergenciesActivity"></activity>
     </application>
 
 </manifest>

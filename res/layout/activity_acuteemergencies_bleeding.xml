@@ -14,10 +14,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/TextBrown" />
 
-    <ImageView
+    <org.grameenfoundation.cch.utils.PinchZoom
         android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="116dp"
         android:src="@drawable/bleeding" />
 
     <LinearLayout

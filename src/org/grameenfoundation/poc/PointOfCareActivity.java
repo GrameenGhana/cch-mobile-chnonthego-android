@@ -1,12 +1,17 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.activity.HelpActivity;
+import org.digitalcampus.oppia.activity.MainScreenActivity;
 import org.grameenfoundation.adapters.PointOfCareBaseAdapter;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -50,5 +55,35 @@ public class PointOfCareActivity extends Activity implements OnItemClickListener
 		}
 		
 	}
-
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    // Inflate the menu items for use in the action bar
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.custom_action_bar, menu);
+	    return super.onCreateOptionsMenu(menu);
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent;
+	    switch (item.getItemId()) {
+	        case R.id.action_home:
+	        	Intent goHome = new Intent(Intent.ACTION_MAIN);
+	 	          goHome.setClass(PointOfCareActivity.this, MainScreenActivity.class);
+	 	          goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	 	          startActivity(goHome);
+	 	          finish();
+	 	         
+	            return true;
+	        case R.id.action_help:
+	        	intent = new Intent(Intent.ACTION_MAIN);
+	        	intent.setClass(PointOfCareActivity.this, HelpActivity.class);
+	        	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	 	          startActivity(intent);
+	 	          finish();
+	 	         
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
 }

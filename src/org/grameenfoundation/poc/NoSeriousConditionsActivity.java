@@ -26,6 +26,8 @@ public class NoSeriousConditionsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_no_serious_conditions);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Diagnostic");
 	    mContext=NoSeriousConditionsActivity.this;
 	    listView_noConditions=(ListView) findViewById(R.id.listView_noConditions);
 	    String[] items={"Asymmetrical limb movement, one limb does not move",

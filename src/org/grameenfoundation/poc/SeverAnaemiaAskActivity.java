@@ -20,6 +20,8 @@ public class SeverAnaemiaAskActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_severe_anaemia);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("ANC Diagnostic");
 	    mContext=SeverAnaemiaAskActivity.this;
 	    button_yes=(Button) findViewById(R.id.button_yes);
 	    button_yes.setOnClickListener(new OnClickListener(){

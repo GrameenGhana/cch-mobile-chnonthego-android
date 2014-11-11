@@ -19,7 +19,7 @@ public class BreastAttachementActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_breast_attachement);
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("Postnatal Care Counselling");
+	    getActionBar().setSubtitle("PNC Counselling");
 	    button_next=(Button) findViewById(R.id.button_next);
 	    button_next.setOnClickListener(new OnClickListener(){
 

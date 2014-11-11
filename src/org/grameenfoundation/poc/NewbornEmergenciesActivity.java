@@ -25,6 +25,8 @@ public class NewbornEmergenciesActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_newborn_emergency);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Diagnostic");
 	    mContext=NewbornEmergenciesActivity.this;
 	    listView_newbornEmergency=(ListView) findViewById(R.id.listView_newbornEmergency);
 	    String[] items={"Not breathing or gasping Difficulty breathing: chest in-drawing, grunting",

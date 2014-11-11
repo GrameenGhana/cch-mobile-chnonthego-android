@@ -30,7 +30,7 @@ public class BreastProblemsCounsellingActivity extends Activity {
 	    setContentView(R.layout.activity_breast_problems_counselling);
 	    mContext=BreastProblemsCounsellingActivity.this;
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("Postnatal Care Counselling");
+	    getActionBar().setSubtitle("PNC Counselling");
 	   listView_breastProblem=(ListView) findViewById(R.id.listView_breastfeeding);
 	   String[] items={"Position and attach baby correctly on the breast.  Breastfeeding should not hurt",
 			   			"If you develop cracked nipples, put some breast milk on them.  Do not use any types of creams or ointments except when prescribed by a health care provider ",

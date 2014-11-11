@@ -29,7 +29,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeAction"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"
@@ -61,7 +61,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-       
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
@@ -70,11 +69,12 @@
             android:padding="10dp"
             android:text="While waiting for transport:    "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/Blue" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeAction"
             android:divider="@drawable/divider"
             android:dividerPadding="2dp"
             android:orientation="vertical"
@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="1. Encourage fluid intake   "
+                android:text="\u2022 Encourage fluid intake   "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -94,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="2. Give 2 tablets of paracetamol if client can tolerate it"
+                android:text="\u2022 Give 2 tablets of paracetamol if client can tolerate it"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -111,14 +111,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Take Action: Do the following"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextColorWine" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="296dp"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeAction"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"

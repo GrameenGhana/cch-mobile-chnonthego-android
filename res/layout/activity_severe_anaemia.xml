@@ -45,7 +45,7 @@
             android:paddingTop="20dp"
             android:text="Pallor "
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/TextBrown" />
 
         <View
             android:id="@+id/view1"
@@ -64,7 +64,7 @@
             android:paddingTop="20dp"
             android:text="Hb &lt;11 g/dL, if possible to measure"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 

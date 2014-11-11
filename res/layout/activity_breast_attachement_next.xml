@@ -7,12 +7,14 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/White"
     android:orientation="vertical"
     android:padding="10dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:orientation="vertical" >
 
         <TextView
@@ -29,7 +31,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_border2"
+        android:background="@color/White"
         android:divider="@drawable/divider"
         android:gravity="center"
         android:orientation="vertical"
@@ -95,6 +97,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:gravity="center"
         android:orientation="vertical" >
 
@@ -103,7 +106,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="Next"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 

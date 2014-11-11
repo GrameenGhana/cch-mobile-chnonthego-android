@@ -27,8 +27,8 @@ public class DiagnosticToolActivity extends Activity implements OnItemClickListe
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_encounter);
 	    mContext=DiagnosticToolActivity.this;
-	    getActionBar().setDisplayShowHomeEnabled(false);
-	    getActionBar().setTitle("Point of Care> Diagnostic Tool");
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("ANC Diagnostic");
 	    listView_encounter=(ListView) findViewById(R.id.listView_encounter);
 	    listView_encounter.setOnItemClickListener(this);
 	    /*

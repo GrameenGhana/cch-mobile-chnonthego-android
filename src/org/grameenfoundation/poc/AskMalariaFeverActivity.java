@@ -23,7 +23,7 @@ public class AskMalariaFeverActivity extends Activity {
 	    setContentView(R.layout.activity_malaria_fever_ask);
 	    mContext=AskMalariaFeverActivity.this;
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("Antenatal Care Diagnostic");
+	    getActionBar().setSubtitle("ANC Diagnostic");
 	    button_yes=(Button) findViewById(R.id.button_yes);
 	    button_yes.setOnClickListener(new OnClickListener(){
 

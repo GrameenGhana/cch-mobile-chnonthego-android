@@ -25,6 +25,8 @@ public class PostnatalCareCounsellingTopicsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_postnatal_care_counselling);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Counselling");
 	    mContext=PostnatalCareCounsellingTopicsActivity.this;
 	    listView_counselling=(ListView) findViewById(R.id.listView_counsellingTopics);
 	    String[] items={"Breast Problems","Complication Readiness & Newborn Dangers",
@@ -68,6 +70,73 @@ public class PostnatalCareCounsellingTopicsActivity extends Activity {
 					break;
 				case 5:
 					intent=new Intent(mContext,InfantFeedingMenuActivity.class);
+					startActivity(intent);
+					break;
+				case 6:
+					intent=new Intent(mContext,KangarooCareActivity.class);
+					startActivity(intent);
+					break;
+				case 7:
+					intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
+					intent.putExtra("value", "keeping_baby_warm");
+					startActivity(intent);
+					break;
+				case 8:
+					intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
+					intent.putExtra("value", "malaria");
+					startActivity(intent);
+					break;
+				case 9:
+					intent=new Intent(mContext,NutritionCounsellingActivity.class);
+					startActivity(intent);
+					break;
+				case 10:
+					intent=new Intent(mContext,PostpartumExercisesActivity.class);
+					startActivity(intent);
+					break;
+				case 11	:
+					intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
+					intent.putExtra("value", "psychosocial_support");
+					startActivity(intent);
+					break;
+				case 12	:
+					intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
+					intent.putExtra("value", "rest_activity");
+					startActivity(intent);
+					break;
+				case 13:
+					intent=new Intent(mContext,SelfCareActivity.class);
+					startActivity(intent);
+					break;
+				case 14:
+					intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
+					intent.putExtra("value", "sexual_relations");
+					startActivity(intent);
+					break;
+				case 15:
+					intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
+					intent.putExtra("value", "tt_immunization");
+					startActivity(intent);
+					break;
+				case 16:
+					intent=new Intent(mContext,TreatingLocationInfectionActivity.class);
+					startActivity(intent);
+					break;
+				case 17:
+					intent=new Intent(mContext,ReturningForCareActivity.class);
+					startActivity(intent);
+					break;
+				case 18:
+					intent=new Intent(mContext,TreatingDiarrhoeaActivity.class);
+					startActivity(intent);
+					break;
+				case 19:
+					intent=new Intent(mContext,TreatingUnComplicatedMalariaActivity.class);
+					startActivity(intent);
+					break;
+				case 20:
+					intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
+					intent.putExtra("value", "bloody_diarrhoea");
 					startActivity(intent);
 					break;
 				}

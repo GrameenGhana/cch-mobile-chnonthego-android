@@ -75,7 +75,7 @@ public class TargetMonthOptionsActivity extends Activity implements OnItemClickL
         	month_value="December";
         	break;
         }
-	    String[] items={"January","February","March","April","May","June","July","August","September","October","November","December"};
+	    String[] items={"November 2014","December 2014","January 2015","February 2015","March 2015","April 2015","May 2015","June 2015","July 2015","August 2015","September 2015","October 2015","November 2015","December 2015"};
 	    ListAdapter adapter=new ListAdapter(TargetMonthOptionsActivity.this,items);
 	 
 	    listView_monthOption.setAdapter(adapter);
@@ -87,72 +87,84 @@ public class TargetMonthOptionsActivity extends Activity implements OnItemClickL
 		Intent intent;
 		switch(position){
 		case 0:
-			current_month="January";
+			current_month="November";
 			intent=new Intent(TargetMonthOptionsActivity.this,NewEventPlannerActivity.class);
         	intent.putExtra("month", current_month);
         	startActivity(intent);
         	break;
         case 1:
-        	current_month="February";
+        	current_month="December";
         	intent=new Intent(TargetMonthOptionsActivity.this,NewEventPlannerActivity.class);
         	intent.putExtra("month", current_month);
         	startActivity(intent);
         	break;
         case 2:
-        	current_month="March";
+        	current_month="January";
         	intent=new Intent(TargetMonthOptionsActivity.this,NewEventPlannerActivity.class);
         	intent.putExtra("month", current_month);
         	startActivity(intent);
         	break;
         case 3:
-        	current_month="April";
+        	current_month="February";
         	intent=new Intent(TargetMonthOptionsActivity.this,NewEventPlannerActivity.class);
         	intent.putExtra("month", current_month);
         	startActivity(intent);
         	break;
         case 4:
-        	current_month="May";
+        	current_month="March";
         	intent=new Intent(TargetMonthOptionsActivity.this,NewEventPlannerActivity.class);
         	intent.putExtra("month", current_month);
         	startActivity(intent);
         	break;
         case 5:
-        	current_month="June";
+        	current_month="April";
         	intent=new Intent(TargetMonthOptionsActivity.this,NewEventPlannerActivity.class);
         	intent.putExtra("month", current_month);
         	startActivity(intent);
         	break;
         case 6:
-        	current_month="July";
+        	current_month="May";
         	intent=new Intent(TargetMonthOptionsActivity.this,NewEventPlannerActivity.class);
         	intent.putExtra("month", current_month);
         	startActivity(intent);
         	break;
         case 7:
-        	current_month="August";
+        	current_month="June";
         	intent=new Intent(TargetMonthOptionsActivity.this,NewEventPlannerActivity.class);
         	intent.putExtra("month", current_month);
         	startActivity(intent);
         	break;
         case 8:
-        	current_month="September";
+        	current_month="July";
         	intent=new Intent(TargetMonthOptionsActivity.this,NewEventPlannerActivity.class);
         	intent.putExtra("month", current_month);
         	startActivity(intent);
         	break;
         case 9:
-        	current_month="October";
+        	current_month="August";
         	intent=new Intent(TargetMonthOptionsActivity.this,NewEventPlannerActivity.class);
         	intent.putExtra("month", current_month);
         	startActivity(intent);
         	break;
         case 10:
-        	current_month="November";
+        	current_month="September";
         	intent=new Intent(TargetMonthOptionsActivity.this,NewEventPlannerActivity.class);
         	intent.putExtra("month", current_month);
         	startActivity(intent);
         	break;
         case 11:
+        	current_month="October";
+        	intent=new Intent(TargetMonthOptionsActivity.this,NewEventPlannerActivity.class);
+        	intent.putExtra("month", current_month);
+        	startActivity(intent);
+        	break;
+        case 12:
+        	current_month="November";
+        	intent=new Intent(TargetMonthOptionsActivity.this,NewEventPlannerActivity.class);
+        	intent.putExtra("month", current_month);
+        	startActivity(intent);
+        	break;
+        case 13:
         	current_month="December";
         	intent=new Intent(TargetMonthOptionsActivity.this,NewEventPlannerActivity.class);
         	intent.putExtra("month", current_month);

@@ -13,6 +13,8 @@ public class ComplicationReadinessActionActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Counselling");
 	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
           take_action_category= extras.getString("value");

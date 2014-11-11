@@ -11,6 +11,8 @@ public class HomeCareForInfantActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Counselling");
 	    setContentView(R.layout.activity_home_care_infant);
 	}
 

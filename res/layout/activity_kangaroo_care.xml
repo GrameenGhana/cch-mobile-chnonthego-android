@@ -3,16 +3,19 @@
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-<LinearLayout 
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="10dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingBottom="10dp" >
 
         <TextView
             android:id="@+id/textView1"
@@ -21,7 +24,90 @@
             android:padding="20dp"
             android:text="Teach mother how to keep low weight baby warm at home "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_border2"
+        android:divider="@drawable/divider"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:showDividers="middle" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_bullet" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="Keep room warm (at least 25 C), and make sure there is no draft or windows open during cold weather "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+	<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_bullet" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="Avoid bathing the low weight baby.  When washing or bathing, do it in a very warm room with water.  Dry thoroughly, and clothe the young infant immediately"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_bullet" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="Change clothes (e.g. nappies) whenever baby is wet "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="30dp" >
+
+        <Button
+            android:id="@+id/button_next"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 

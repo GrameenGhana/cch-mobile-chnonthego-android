@@ -32,7 +32,7 @@ public class BreastProblemsCounsellingNextActivity extends Activity {
 	    setContentView(R.layout.activity_breast_counselling_next);
 	    mContext=BreastProblemsCounsellingNextActivity.this;
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("Postnatal Care Counselling");
+	    getActionBar().setSubtitle("PNC Counselling");
 	   expandableListView_breastProblems=(ExpandableListView) findViewById(R.id.expandableListView_breastProblems);
 	   String[] groupItems={"Breast Engorgement","Cracked/Sore Nipples","Mastitis"};
 	   String[] firstItems={"Continue breastfeeding","Make sure baby correctly position and attach properly to your breast",

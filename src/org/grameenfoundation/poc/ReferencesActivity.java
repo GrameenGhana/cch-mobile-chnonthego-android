@@ -20,6 +20,8 @@ public class ReferencesActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_third_trimester_counselling);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("ANC References");
 	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
           url= extras.getString("url");

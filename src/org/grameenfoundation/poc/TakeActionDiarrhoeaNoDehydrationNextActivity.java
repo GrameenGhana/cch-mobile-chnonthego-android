@@ -18,6 +18,8 @@ public class TakeActionDiarrhoeaNoDehydrationNextActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_diarrhoea_no_dehydration_next);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Diagnostic");
 		button_next=(Button) findViewById(R.id.button_next);
 		button_next.setOnClickListener(new OnClickListener(){
 

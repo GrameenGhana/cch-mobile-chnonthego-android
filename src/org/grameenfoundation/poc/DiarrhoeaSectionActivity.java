@@ -33,7 +33,7 @@ public class DiarrhoeaSectionActivity extends Activity {
 	    setContentView(R.layout.activity_diarrhoea_sections);
 	    mContext=DiarrhoeaSectionActivity.this;
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("Postnatal Care Diagnostic");
+	    getActionBar().setSubtitle("PNC Diagnostic");
     listView_diarrhoeaSections=(ExpandableListView) findViewById(R.id.expandableListView_diarrhoeaSections);
 	    String[] items={"Diarrhoea with Severe Dehydration ",
 	    				"Diarrhoea with Some Dehydration",

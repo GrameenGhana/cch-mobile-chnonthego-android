@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Counsel mother on malaria prevention and seeking care when symptoms arise  "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/TextBrown" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:src="@drawable/sleeping_in_net" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_border2"
+            android:divider="@drawable/divider"
+            android:orientation="vertical"
+            android:showDividers="middle" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Keep your home environment clean"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
+		<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="To sleep under an insecticide treated net every night with her baby"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
+
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" >
+
+			<LinearLayout
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content" >
+
+			    <ImageView
+			        android:layout_width="wrap_content"
+			        android:layout_height="15dp"
+			        android:src="@drawable/ic_bullet" />
+
+			    <TextView
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:paddingBottom="10dp"
+			        android:paddingLeft="10dp"
+			        android:paddingRight="0dp"
+			        android:text="Seek immediate treatment when baby has a fever or any of the following signs:"
+			        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+			</LinearLayout>
+		<LinearLayout
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content" >
+
+			    <ImageView
+			        android:layout_width="wrap_content"
+			        android:layout_height="15dp"
+			        android:layout_marginLeft="50dp"
+			        android:src="@drawable/ic_bullet" />
+
+			    <TextView
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:paddingBottom="5dp"
+			        android:paddingLeft="10dp"
+			        android:paddingRight="0dp"
+			        android:text="Baby is unable to drink or breastfeed"
+			        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+			</LinearLayout>
+			<LinearLayout
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content" >
+
+			    <ImageView
+			        android:layout_width="wrap_content"
+			        android:layout_height="15dp"
+			        android:layout_marginLeft="50dp"
+			        android:src="@drawable/ic_bullet" />
+
+			    <TextView
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:paddingBottom="5dp"
+			        android:paddingLeft="10dp"
+			        android:paddingRight="0dp"
+			        android:text="Baby is vomiting everything he/she drinks or eats"
+			        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+			</LinearLayout>
+			<LinearLayout
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content" >
+
+			    <ImageView
+			        android:layout_width="wrap_content"
+			        android:layout_height="15dp"
+			        android:layout_marginLeft="50dp"
+			        android:src="@drawable/ic_bullet" />
+
+			    <TextView
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:paddingBottom="5dp"
+			        android:paddingLeft="10dp"
+			        android:paddingRight="0dp"
+			        android:text="Baby has history of convulsions, and/or"
+			        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+			</LinearLayout>
+			<LinearLayout
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content" >
+
+			    <ImageView
+			        android:layout_width="wrap_content"
+			        android:layout_height="15dp"
+			        android:layout_marginLeft="50dp"
+			        android:src="@drawable/ic_bullet" />
+
+			    <TextView
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:paddingBottom="5dp"
+			        android:paddingLeft="10dp"
+			        android:paddingRight="0dp"
+			        android:text="Baby is lethargic, unconscious, or convulsing"
+			        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+			</LinearLayout>
+		</LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>

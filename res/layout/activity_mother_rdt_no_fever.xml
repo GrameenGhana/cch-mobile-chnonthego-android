@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="522dp"
+    android:background="@drawable/stroke_bg_green"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    
+<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.00"
+            android:orientation="vertical" >
+
+ 
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/str_take_action"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/highlight_light" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/TakeAction"
+                android:divider="@drawable/divider"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:showDividers="middle" >
+
+                <TextView
+                    android:id="@+id/TextView77"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_refer"
+                    android:paddingBottom="5dp"
+                    android:text="@string/str_counsel_mother_sleep_net_wth_baby"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+   <Button
+       android:id="@+id/button_testNotDone"
+       android:layout_width="197dp"
+       android:layout_height="wrap_content"
+       android:layout_weight="0.00"
+       android:background="@color/Curry"
+       android:text="@string/str_test_anaemia"
+       android:textColor="@color/White" />
+
+            </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>

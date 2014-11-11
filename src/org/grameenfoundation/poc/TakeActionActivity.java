@@ -30,7 +30,7 @@ public class TakeActionActivity extends Activity{
 	    super.onCreate(savedInstanceState);
 	    mContext=TakeActionActivity.this;
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("Antenatal Care");
+	    getActionBar().setSubtitle("ANC Diagnostic");
 	   // listView_takeAction=(ListView) findViewById(R.id.listView_takeAction);
 	  //  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
 	    Bundle extras = getIntent().getExtras(); 

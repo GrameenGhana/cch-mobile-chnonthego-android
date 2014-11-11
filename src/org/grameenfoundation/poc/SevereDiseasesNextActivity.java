@@ -28,6 +28,8 @@ public class SevereDiseasesNextActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_severe_disease_next);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Diagnostic");
 	    mContext=SevereDiseasesNextActivity.this;
 	    listView_severDiseaseSymptoms=(ListView) findViewById(R.id.listView_severDiseaseSymptoms);
 	    String[] items={"Not breathing (apnea) or Slow breathing < 20 bpm","Fast breathing (≥ 60 bpm)",

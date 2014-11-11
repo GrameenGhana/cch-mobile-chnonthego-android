@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="20dp" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/kangaroo_care6" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_border2"
+        android:divider="@drawable/divider"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:showDividers="middle" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_bullet" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="When not in skin to skin contact, keep baby clothed and covered as much as possible at all times. Dress baby in extra clothing including hat and socks"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+
+	    <ImageView
+	        android:layout_width="wrap_content"
+	        android:layout_height="15dp"
+	        android:src="@drawable/ic_bullet" />
+
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="0dp"
+	        android:text="Loosely wrap the young baby in a soft dry cloth and cover with a blanket "
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
+	</LinearLayout>
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+
+	    <ImageView
+	        android:layout_width="wrap_content"
+	        android:layout_height="15dp"
+	        android:src="@drawable/ic_bullet" />
+
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="0dp"
+	        android:text="Check frequently if baby’s hands and feet are warm.  If cold, rewarm baby using skin to skin contact "
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
+	</LinearLayout>
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+
+	    <ImageView
+	        android:layout_width="wrap_content"
+	        android:layout_height="15dp"
+	        android:src="@drawable/ic_bullet" />
+
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="0dp"
+	        android:text="Breastfeed baby often (or give expressed breast milk by cup) "
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
+	</LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

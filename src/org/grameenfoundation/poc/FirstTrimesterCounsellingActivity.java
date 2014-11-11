@@ -19,6 +19,8 @@ public class FirstTrimesterCounsellingActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_first_trimester_counselling);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("ANC Counselling");
 	    myWebView = (WebView) findViewById(R.id.webView_firstTrimesterCounselling);	    	 
 		myWebView.getSettings().setJavaScriptEnabled(true);
 		myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");

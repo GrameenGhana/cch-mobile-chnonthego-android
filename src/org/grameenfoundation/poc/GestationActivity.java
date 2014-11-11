@@ -25,6 +25,8 @@ public class GestationActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_gestation);
 	    mContext=GestationActivity.this;
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("ANC Diagnostic");
 	    listView_gestation=(ListView) findViewById(R.id.listView_gestation);
 	    String[] items={"1st Trimester","2nd Trimester","3rd Trimester"};
 	    GestationListAdapter adapter=new GestationListAdapter(mContext,items);

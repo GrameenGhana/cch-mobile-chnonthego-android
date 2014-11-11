@@ -27,6 +27,8 @@ public class PostnatalCareSectionActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_postnatal_care_sections);
 	    mContext=PostnatalCareSectionActivity.this;
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Diagnostic");
 	    listView_postnatalSections=(ListView) findViewById(R.id.listView_postnatalCareSections);
 	    String[] items={"Newborn Emergency","Records & History","Very Severe Disease & Local Bacterial Infections",
 				"Jaundice","Other Serious Conditions, Birth Injury & Abnormalities",
@@ -62,6 +64,14 @@ public class PostnatalCareSectionActivity extends Activity {
 					break;
 				case 5:
 					intent=new Intent(mContext,DiarrhoeaActivity.class);
+					startActivity(intent);
+					break;
+				case 6:
+					intent=new Intent(mContext,HIVInfectionStatusActivity.class);
+					startActivity(intent);
+					break;
+				case 7:
+					intent=new Intent(mContext,LowBirthWeightActivity.class);
 					startActivity(intent);
 					break;
 				}

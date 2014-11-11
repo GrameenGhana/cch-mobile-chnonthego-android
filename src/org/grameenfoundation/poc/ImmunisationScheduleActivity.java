@@ -12,6 +12,8 @@ public class ImmunisationScheduleActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_immunisation_schedule);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Counselling");
 	}
 
 }

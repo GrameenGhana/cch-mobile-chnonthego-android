@@ -5,16 +5,22 @@
           android:icon="@drawable/ic_action_home" 
           android:showAsAction="ifRoom|withText"
             android:title="@string/action_home"/>
-<item
+		<item
         android:id="@+id/a_More"
         android:icon="@drawable/ic_action_overflow"
         android:showAsAction="always"
         android:title="More">
         <menu >
             <item android:id="@+id/action_logout"
-          android:icon="@drawable/ic_action_system" 
+          android:icon="@drawable/ic_action_logout" 
           android:showAsAction="withText"
             android:title="@string/action_logout"/>
+        </menu>
+         <menu >
+            <item android:id="@+id/action_help"
+          android:icon="@drawable/ic_action_help" 
+          android:showAsAction="withText"
+            android:title="Help"/>
         </menu>
         </item>
 

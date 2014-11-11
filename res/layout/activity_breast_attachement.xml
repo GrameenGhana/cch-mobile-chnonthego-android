@@ -13,6 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:gravity="center"
         android:orientation="vertical" >
 
@@ -37,52 +38,90 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_border2"
+        android:background="@color/White"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:padding="10dp"
         android:showDividers="middle" >
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:layout_marginLeft="20dp"
-            android:text="\u2022 Baby should be put to the breast within the 1st hour of birth "
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
+            <ImageView
+                android:layout_width="wrap_content"
+                  android:layout_marginLeft="20dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_bullet" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="Baby should be put to the breast within the 1st hour of birth "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+		 <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                  android:layout_marginLeft="20dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_bullet" />
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-          	android:layout_marginLeft="20dp"            
-            android:text="\u2022 Good attachment helps to ensure that baby suckles well"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"        
+            android:text="Good attachment helps to ensure that baby suckles well"
             android:textAppearance="?android:attr/textAppearanceSmall" />
+		</LinearLayout>
+		 <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
+            <ImageView
+                android:layout_width="wrap_content"
+                  android:layout_marginLeft="20dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_bullet" />
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:layout_marginLeft="20dp" 
-            android:text="\u2022 Good attachment helps mother to produce a good supply of breast milk"
+          	android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp" 
+            android:text="Good attachment helps mother to produce a good supply of breast milk"
             android:textAppearance="?android:attr/textAppearanceSmall" />
+		</LinearLayout>
+		 <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_bullet" />
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-             android:layout_marginLeft="20dp" 
-            android:text="\u2022 Good attachment helps prevent sore and cracked nipples"
+           	android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp" 
+            android:text="Good attachment helps prevent sore and cracked nipples"
             android:textAppearance="?android:attr/textAppearanceSmall" />
-
+	</LinearLayout>
     </LinearLayout>
 
     <LinearLayout

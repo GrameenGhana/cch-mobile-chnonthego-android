@@ -1034,7 +1034,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		values.put(CCH_TRACKER_DATA, data);
 		values.put(CCH_TRACKER_START_DATETIME, starttime);
 		values.put(CCH_TRACKER_END_DATETIME, endtime);
-		//Log.v("insertCCHLOG", values.toString());
+		Log.v("insertCCHLOG", values.toString());
 		db.insertOrThrow(CCH_TRACKER_TABLE, null, values);
 	}
 	

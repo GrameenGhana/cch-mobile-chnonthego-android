@@ -14,6 +14,8 @@ public class TakeActionJaundiceActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    Bundle extras = getIntent().getExtras(); 
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Diagnostic");
         if (extras != null) {
           take_action_category= extras.getString("category");
         }

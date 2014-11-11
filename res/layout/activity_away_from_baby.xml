@@ -31,17 +31,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.42"
-        android:background="@drawable/custom_border2"
+        android:background="@color/White"
         android:orientation="vertical"
-        android:padding="20dp" >
+        android:padding="10dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="310dp" >
+            android:layout_height="380dp">
 
-            <ImageView
+            <org.grameenfoundation.cch.utils.PinchZoom
                 android:id="@+id/imageView1"
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/away_from_baby" />
 
@@ -53,44 +53,84 @@
                 android:padding="10dp"
                 android:showDividers="middle" >
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:text="\u2022 Learn to express your breast milk soon after baby is born "
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:text="\u2022 Breastfeed exclusively and frequently for the whole time you are with your baby "
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_bullet" />
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:text="\u2022 Express and store breast milk before you leave your home so that your baby’s caregiver can feed your baby while you are away "
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:text="Learn to express your breast milk soon after baby is born "
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:paddingBottom="5dp"
-                    android:text="\u2022 Teach your baby’s caregiver how to use a clean open cup to feed your baby while you are away "
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_bullet" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:text="Breastfeed exclusively and frequently for the whole time you are with your baby "
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_bullet" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:text="Express and store breast milk before you leave your home so that your baby’s caregiver can feed your baby while you are away "
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+				  <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_bullet" />
+                    
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:paddingBottom="5dp"
+                        android:text="Teach your baby’s caregiver how to use a clean open cup to feed your baby while you are away "
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
@@ -102,51 +142,100 @@
             android:padding="10dp"
             android:showDividers="middle" >
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="2dp"
-                android:padding="5dp"
-                android:text=" \u2022 Expressed breast milk stored in a cool, covered place stays in good condition for 8 hours, even in hot climate"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+			  <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_bullet" />
+                
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="5dp"
+                    android:text=" Expressed breast milk stored in a cool, covered place stays in good condition for 8 hours, even in hot climate"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="2dp"
-                android:padding="5dp"
-                android:text="\u2022 Take extra time for the feeds before separation from baby and when you return home"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="2dp"
-                android:padding="5dp"
-                android:text="\u2022 Increase the number of feeds while you are with the baby.  This means increasing night and weekend feedings "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+			  <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_bullet" />
+                
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="5dp"
+                    android:text="Take extra time for the feeds before separation from baby and when you return home"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="2dp"
-                android:padding="5dp"
-                android:text="\u2022 If possible, carry the baby with you to work to breastfeed.  If this is not possible, consider having someone bring the baby to you to breastfeed when you have a break"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="2dp"
-                android:padding="5dp"
-                android:text="\u2022 Get extra support from family members in caring for your baby and other children, and for doing household chores "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+			  <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_bullet" />
+                
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="5dp"
+                    android:text="Increase the number of feeds while you are with the baby.  This means increasing night and weekend feedings "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+			  <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_bullet" />
+                
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="5dp"
+                    android:text="If possible, carry the baby with you to work to breastfeed.  If this is not possible, consider having someone bring the baby to you to breastfeed when you have a break"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+			  <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_bullet" />
+                
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="5dp"
+                    android:text="Get extra support from family members in caring for your baby and other children, and for doing household chores "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

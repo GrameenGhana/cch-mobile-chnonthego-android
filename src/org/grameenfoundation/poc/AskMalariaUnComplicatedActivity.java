@@ -28,7 +28,7 @@ public class AskMalariaUnComplicatedActivity extends Activity {
 	    setContentView(R.layout.activity_uncomplicated_malaria_ask);
 	    mContext=AskMalariaUnComplicatedActivity.this;
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("Antenatal Care Diagnostic");
+	    getActionBar().setSubtitle("ANC Diagnostic");
 	    listView_malaria=(ListView) findViewById(R.id.listView_malaria);
 	    String[] items={"Fever or history of fever present within the last 2-3 days ",
 	    				"Chills","Rigor (shivering) ",

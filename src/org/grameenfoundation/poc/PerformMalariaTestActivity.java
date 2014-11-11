@@ -20,6 +20,8 @@ public class PerformMalariaTestActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_malaria_test_);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("ANC Diagnostic");
 	    button_positive=(Button) findViewById(R.id.button_positive);
 	    button_positive.setOnClickListener(new OnClickListener(){
 

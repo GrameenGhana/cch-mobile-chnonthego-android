@@ -19,6 +19,8 @@ public class DiarrhoeaActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_diarrhoea);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Diagnostic");
 	    mContext=DiarrhoeaActivity.this;
 	    button_next=(Button) findViewById(R.id.button_next);
 	    button_next.setOnClickListener(new OnClickListener(){

@@ -45,6 +45,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainScreenActivity extends FragmentActivity implements OnItemClickListener, OnSharedPreferenceChangeListener {
 
@@ -269,7 +270,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		        	current_month="December";
 		        	break;
 		        }
-			 eventUpdateItemsDaily=dbh.getAllDailyEvents(current_month);
+		        eventUpdateItemsDaily=dbh.getAllDailyEvents(current_month);
 				coverageUpdateItemsDaily=dbh.getAllDailyCoverage(current_month);
 				otherUpdateItemsDaily=dbh.getAllDailyOther(current_month);
 				//Intent service2 = new Intent(this,UpdateTargetsService.class);
@@ -447,6 +448,23 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		
 	}
 	
-	 
+	private boolean doubleBackToExitPressedOnce = false;
+
+	@Override
+	protected void onResume() {
+	    super.onResume();
+	    // .... other stuff in my onResume ....
+	    this.doubleBackToExitPressedOnce = false;
+	}
+
+	@Override
+	public void onBackPressed() {
+	    if (doubleBackToExitPressedOnce) {
+	        super.onBackPressed();
+	        return;
+	    }
+	    this.doubleBackToExitPressedOnce = true;
+	    Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+	}
 
 }

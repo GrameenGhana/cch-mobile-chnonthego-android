@@ -6,65 +6,34 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="">
+
+  	<!--REQUIRED CSS files-->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/cchbasics.css" rel="stylesheet">
+    <link href="../../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../css/cch.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../webfont/css/bootstrapx.css">
+
     <title>CCH Android Application</title>
- 				<!--REQUIRED CSS files-->
-				<link href="../../css/bootstrap.min.css" rel="stylesheet">
-				<link href="../../css/metro-bootstrap.min.css" rel="stylesheet">
-				<link href="../../css/metro-bootstrap-responsive.min.css" rel="stylesheet">
-				<link href="../../css/iconFont.min.css" rel="stylesheet">
-				<link href="../../css/cchbasics.css" rel="stylesheet">
-				<link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-				<link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-				<link href="../../css/cch.css" rel="stylesheet">
-				<link href="../../css/wfmi-style.css" rel="stylesheet">
-
-				<title>CCH Android Application</title>
-			  </head>
-
-  <body>
-      <div class="container dropme">
-	<div class="row">
-	<center>
+  </head>
+  <body class="greenback">
+    <div class="container dropme">
 		<div class="col-md-6 col-md-offset-3">
+			<div class="row">
+				<a href="index.html"><H2><i class="fa fa-home pull-right greenme"></i></H2></a>
 			<H3><strong>EXERCISE</strong></H3>
-			Here are some exercises you can encourage your clients to do <br />
-			<br /><br />
-			<strong>Pelvic Rock</strong>
-			<br />
-			<img src="./images/pelvicrock.png"></img>
-			<br /><br />
-			<strong>Head and Shoulder Lift</strong><br />
-			<img src="./images/headshoulderlift.png"></img><br /><br />
-			<strong>Squat</strong><br />
-			<img src="./images/squat.png"></img><br /><br />
-			<strong>Rib Cage Lift</strong><br />
-			<img src="./images/ribcagelift.png"></img><br /><br />
-			Rib Cage Lift (Strengthens leg muscles and makes it easier to breathe)
-			<input type="submit" class="btn btn-success btn-block" value="Contents" onclick="window.location='index.html'"/>
+			Here are some exercises you can encourage your clients to do <br /><br/>
+			<a href="pelvicrock.html">Pelvic Rock</a><br />
+			<a href="headshoulderlift.html">Head and Shoulder Lift</a><br />
+			<a href="squat.html">Squat</a><br />
+			<a href="ribcagelift.html">Rib Cage Lift</a><br />
+
+				<a href="pelvicrock.html"><H2><i class="fa fa-arrow-right pull-right greenme"><br><h6>Next</h6></i></H2></a>
+
+			</div>
+
+		</div>
+
 	</div>
-	</center>
-	</div>
-    </div><!-- /.container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./starter_files/jquery-1.10.2.min.js"></script>
-    <script src="./starter_files/bootstrap.min.js"></script>
-  	<script type="text/javascript">
-		var questions = [];
-		
-		function clearoff()
-		{
-				myTxtBox = document.getElementById('QText');
-				myTxtBox.value="";
-		}
-		
-		function save()
-		{
-			questions.push({question:'Where was the pregnant women seen?', desc:'Location',options:'4'});
-		}
-
-
-</body></html>
+</body>
+</html>

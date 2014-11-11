@@ -25,6 +25,8 @@ public class PreviousVisitActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_previous_visit);
 	    mContext=PreviousVisitActivity.this;
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("ANC Diagnostic");
 	    listView_previousVisit=(ListView) findViewById(R.id.listView_previousVisit);
 	    String[] listItems={"Yes","No"};
 	    PreviousVisitListAdapter adapter=new PreviousVisitListAdapter(mContext,listItems);

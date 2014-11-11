@@ -31,6 +31,8 @@ public class ExamineThePatientActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_examine_patient);
 	    mContext=ExamineThePatientActivity.this;
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("ANC Diagnostic");
 	    listView_ask=(ListView) findViewById(R.id.listView_ask);
 	    listView_look=(ListView) findViewById(R.id.listView_look);
 	    listView_check=(ListView) findViewById(R.id.listView_check);

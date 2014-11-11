@@ -291,7 +291,8 @@
                      android:id="@+id/button_next"
                      android:layout_width="220dp"
                      android:layout_height="wrap_content"
-                     android:text="Next" />
+                     android:text="Next"
+                     android:textColor="@color/TextBrown" />
 
              </LinearLayout>
 

@@ -25,8 +25,8 @@ public class CalculatorsMenuActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_postnatal_care_sections);
 	    mContext=CalculatorsMenuActivity.this;
-	    getActionBar().setDisplayShowHomeEnabled(false);
-	    getActionBar().setTitle("Point of Care> Calculators");
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("ANC Calculators");
 	    listView_calculators=(ListView) findViewById(R.id.listView_postnatalCareSections);
 	    String[] items={"Trimester Calculator","Dosage Calculator"};
 	    CalculatorsSectionsListAdapter adapter=new CalculatorsSectionsListAdapter(mContext,items);

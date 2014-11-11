@@ -43,12 +43,6 @@
                 android:text=" events planned for today."
                 android:typeface="serif" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_action_next_item" />
-
         </LinearLayout>
 
         <LinearLayout

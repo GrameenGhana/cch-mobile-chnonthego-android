@@ -28,6 +28,8 @@ public class FirstVisitActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_first_visit);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("ANC Diagnostic");
 	    mContext=FirstVisitActivity.this;
 	    groupItems=new String[]{"Record Personal Information","Take medical history"};
 	    ChildItemsOne=new String[]{"Name"," Age","Home address","Occupation","Marital status: Husband or partner","Next of kin: Name, address, telephone number"};

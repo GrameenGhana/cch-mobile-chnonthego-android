@@ -12,6 +12,8 @@ public class FamilyPlanningPostpartumNextActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_family_planning_postpartum_next);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Counselling");
 	}
 
 }

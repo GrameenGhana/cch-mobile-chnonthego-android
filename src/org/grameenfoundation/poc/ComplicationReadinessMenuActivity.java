@@ -27,6 +27,8 @@ public class ComplicationReadinessMenuActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_complication_readiness_counselling);
 	    mContext=ComplicationReadinessMenuActivity.this;
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Counselling");
 	    listView_complication=(ListView) findViewById(R.id.listView_complicationReadinessMenu);
 	    String[] items={"Danger Signs in the Mother ","Newborn danger signs","Other maternal danger signs","Other newborn danger signs"};
 	    ListAdapter adapter=new ListAdapter(mContext,items);

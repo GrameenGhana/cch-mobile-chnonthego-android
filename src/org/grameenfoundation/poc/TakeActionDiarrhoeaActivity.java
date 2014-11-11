@@ -14,7 +14,7 @@ public class TakeActionDiarrhoeaActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("Postnatal Care");
+	    getActionBar().setSubtitle("PNC Diagnostic");
 	   // listView_takeAction=(ListView) findViewById(R.id.listView_takeAction);
 	  //  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
 	    Bundle extras = getIntent().getExtras(); 

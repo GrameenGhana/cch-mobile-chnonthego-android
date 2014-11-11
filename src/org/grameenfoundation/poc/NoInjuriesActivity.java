@@ -24,6 +24,8 @@ public class NoInjuriesActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_no_injuries);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Diagnostic");
 	    mContext=NoInjuriesActivity.this;
 	    listView_noInjuries=(ListView) findViewById(R.id.listView_noInjuries);
 	    String[] items={"Club Foot","Cleft palate","Unusual Appearance, other abnormalities","No Injuries (Check baby for diarrhoea) "};

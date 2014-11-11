@@ -27,12 +27,12 @@
             android:padding="10dp"
             android:text="Take Action: 2nd Trimester"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Curry" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeActionCurry"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"
@@ -82,12 +82,12 @@
             android:padding="10dp"
             android:text="If client is not due for a scheduled visit, and does not have with any danger signs provide anti-malarial treatment :"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Blue" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/customborder"
+            android:background="@color/TakeActionCurry"
             android:divider="@drawable/divider"
             android:dividerPadding="2dp"
             android:orientation="vertical"
@@ -129,7 +129,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="244dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <TextView
@@ -139,12 +139,12 @@
             android:padding="10dp"
             android:text="Counsel client on the following: "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Curry" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="296dp"
-            android:background="@drawable/customborder"
+            android:layout_height="wrap_content"
+            android:background="@color/TakeActionCurry"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"

@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:orientation="vertical"
         android:padding="20dp" >
 
@@ -24,7 +25,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:background="@color/White"
+        android:orientation="vertical"
+        android:padding="10dp" >
 
         <ExpandableListView
             android:id="@+id/expandableListView_breastProblems"

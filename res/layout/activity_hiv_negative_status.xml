@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="Are you trained to provide HIV testing and counseling?"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/TextBrown" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/button_yes"
+            android:layout_width="202dp"
+            android:layout_height="wrap_content"
+            android:text="Yes" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:background="@color/White" />
+
+        <Button
+            android:id="@+id/button_no"
+            android:layout_width="202dp"
+            android:layout_height="wrap_content"
+            android:text="No" />
+
+    </LinearLayout>
+
+</LinearLayout>

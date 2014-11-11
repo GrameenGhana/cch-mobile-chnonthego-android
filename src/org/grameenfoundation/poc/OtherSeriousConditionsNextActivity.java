@@ -27,6 +27,8 @@ public class OtherSeriousConditionsNextActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_other_serious_condition_next);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Diagnostic");
 	    mContext=OtherSeriousConditionsNextActivity.this;
 	    listView_otherCondition=(ListView) findViewById(R.id.listView_otherConditions);
 	    String[] items={"Bleeding from Umbilical Cord or Elsewhere from the Body",

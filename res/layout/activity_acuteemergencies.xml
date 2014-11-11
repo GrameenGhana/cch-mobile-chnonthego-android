@@ -25,14 +25,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="310dp"
         android:orientation="vertical"
         android:padding="10dp" >
 
         <ListView
             android:id="@+id/listView_acuteEmergencies"
             android:layout_width="match_parent"
-            android:layout_height="309dp"
+            android:layout_height="wrap_content"
             android:background="@color/ButtonBackgroundGrey"
             android:divider="@color/White"
             android:dividerHeight="10dp"

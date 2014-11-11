@@ -29,7 +29,7 @@ public class AskMalariaComplicatedActivity extends Activity {
 	    setContentView(R.layout.activity_positive_malaria);
 	    mContext=AskMalariaComplicatedActivity.this;
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("Antenatal Care Diagnostic");
+	    getActionBar().setSubtitle("ANC Diagnostic");
 	    listView_malaria=(ListView) findViewById(R.id.listView_malaria);
 	    String[] items={"Persistent vomiting","Prostration","Convulsions","Jaundice",
     					"Altered consciousness","Severe pallor","Dark, coca-cola coloured urine",

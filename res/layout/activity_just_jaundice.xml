@@ -34,7 +34,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="400dp"
         android:background="@color/TakeActionCurry"
         android:divider="@drawable/divider"
         android:orientation="vertical"
@@ -64,21 +64,6 @@
             android:paddingBottom="5dp"
             android:text="3. Follow up with client in 1 day, if jaundice is worse refer URGENTLY to a health center or hospital "
             android:textAppearance="?android:attr/textAppearanceSmall" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="30dp" >
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="178dp"
-        android:layout_weight="0.23"
-        android:orientation="vertical"
-        android:showDividers="middle" >
     </LinearLayout>
 </LinearLayout>
 

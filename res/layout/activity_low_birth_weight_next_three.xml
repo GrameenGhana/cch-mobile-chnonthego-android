@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Does the baby have any of the following problems? "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/Blue" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="273dp"
+            android:orientation="vertical"
+            android:padding="20dp" >
+
+            <ListView
+                android:id="@+id/listView_lowBirthWeightMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/BackgroundGrey"
+                android:divider="@color/White"
+                android:dividerHeight="5dp" >
+
+            </ListView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/button_no"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:text="No" />
+
+    </LinearLayout>
+
+</LinearLayout>

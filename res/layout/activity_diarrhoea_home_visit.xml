@@ -95,15 +95,6 @@
                 android:text="\u2022 Prepare ORS "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="    [Section 10.1]"
-                android:clickable="true"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/Red" />
-
         </LinearLayout>
 
         <TextView

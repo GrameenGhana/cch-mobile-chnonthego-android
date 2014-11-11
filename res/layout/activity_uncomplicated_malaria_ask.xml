@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="Does the client have the following?"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.23"
                 android:text="Next"
-                android:textColor="@color/TextColorWine" />
+                android:textColor="@color/TextBrown" />
         </LinearLayout>
 
     </LinearLayout>
