@@ -11,16 +11,18 @@
         android:showAsAction="always"
         android:title="More">
         <menu >
-            <item android:id="@+id/action_logout"
+          <item android:id="@+id/action_logout"
           android:icon="@drawable/ic_action_logout" 
           android:showAsAction="withText"
             android:title="@string/action_logout"/>
-        </menu>
-         <menu >
             <item android:id="@+id/action_help"
           android:icon="@drawable/ic_action_help" 
           android:showAsAction="withText"
             android:title="Help"/>
+            <item android:id="@+id/action_about"
+          android:icon="@drawable/ic_action_about" 
+          android:showAsAction="withText"
+            android:title="About"/>
         </menu>
         </item>
 

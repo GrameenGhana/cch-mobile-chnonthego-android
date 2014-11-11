@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.activity.AboutActivity;
 import org.digitalcampus.oppia.activity.HelpActivity;
 import org.digitalcampus.oppia.activity.MainScreenActivity;
 import org.grameenfoundation.adapters.PointOfCareBaseAdapter;
@@ -82,6 +83,13 @@ public class PointOfCareActivity extends Activity implements OnItemClickListener
 	 	          finish();
 	 	         
 	            return true;
+	        case R.id.action_about:
+	        	intent = new Intent(Intent.ACTION_MAIN);
+	        	intent.setClass(PointOfCareActivity.this, AboutActivity.class);
+	        	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	 	          startActivity(intent);
+	 	          finish();
+	        	return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }

@@ -448,23 +448,20 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		
 	}
 	
-	private boolean doubleBackToExitPressedOnce = false;
+	private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
+	private long mBackPressed;
 
 	@Override
-	protected void onResume() {
-	    super.onResume();
-	    // .... other stuff in my onResume ....
-	    this.doubleBackToExitPressedOnce = false;
-	}
-
-	@Override
-	public void onBackPressed() {
-	    if (doubleBackToExitPressedOnce) {
-	        super.onBackPressed();
+	public void onBackPressed()
+	{
+	    if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) 
+	    { 
+	        super.onBackPressed(); 
 	        return;
 	    }
-	    this.doubleBackToExitPressedOnce = true;
-	    Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+	    else { Toast.makeText(getBaseContext(), "Press back button again to exit", Toast.LENGTH_SHORT).show(); }
+
+	    mBackPressed = System.currentTimeMillis();
 	}
 
 }

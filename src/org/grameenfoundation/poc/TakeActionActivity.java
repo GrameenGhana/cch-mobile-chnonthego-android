@@ -4,6 +4,7 @@ package org.grameenfoundation.poc;
 import java.util.ArrayList;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TakeActionActivity extends Activity{
 
@@ -23,28 +25,41 @@ public class TakeActionActivity extends Activity{
 	private String take_action_category;
 	//private TextView textView_takeAction;
 	private Context mContext;
+	private Long start_time;
+	private Long end_time;
+	private DbHelper dbh;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    mContext=TakeActionActivity.this;
+	    dbh=new DbHelper(mContext);
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("ANC Diagnostic");
+	    getActionBar().setSubtitle("ANC Diagnostic: Acute Emergencies");
 	   // listView_takeAction=(ListView) findViewById(R.id.listView_takeAction);
 	  //  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
 	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
           take_action_category= extras.getString("take_action");
+          start_time=extras.getLong("start_time");
         }
         if(take_action_category.equals("Difficulty breathing")){
         	   setContentView(R.layout.activity_difficulty_breathing_anc);
+        	   end_time=System.currentTimeMillis();
         }else if(take_action_category.equals("Edema")){
         	 setContentView(R.layout.activity_edema_of_feet);
+        	 end_time=System.currentTimeMillis();
         }else if(take_action_category.equals("Shock")){
         	 setContentView(R.layout.activity_shock_anc);
+        	 end_time=System.currentTimeMillis();
         }
 	}
-	
+	public void onBackPressed()
+	{
+	    
+		dbh.insertCCHLog("Point of Care", "ANC Acute Emergencies: Take Action", start_time.toString(), end_time.toString());
+		finish();
+	}
 	
 }

@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,15 +24,20 @@ public class AcuteEmergenciesActivity extends Activity implements OnClickListene
 	private ListView listView_acuteEmergencies;
 	private Context mContext;
 	private Button button_acuteEmergenciesNo;
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_acuteemergencies);
+	    start_time=System.currentTimeMillis();
 	    mContext=AcuteEmergenciesActivity.this;
+	    dbh=new DbHelper(mContext);
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("Antenatal Care Diagnostic");
+	    getActionBar().setSubtitle("ANC Diagnostic: Acute Emergencies");
 	    listView_acuteEmergencies=(ListView) findViewById(R.id.listView_acuteEmergencies);
 	    String[] emergencies={"Difficulty breathing","Edema(feet and hands, face or ankles)","Excessive bleeding","Signs of shock"};
 	    ListAdapter adapter=new ListAdapter(mContext, emergencies);
@@ -52,12 +58,14 @@ public class AcuteEmergenciesActivity extends Activity implements OnClickListene
 		extra_info="Difficulty breathing";
 		intent=new Intent(mContext, TakeActionActivity.class);
 		intent.putExtra("take_action", extra_info);
+		intent.putExtra("start_time", System.currentTimeMillis());
 		startActivity(intent);
 		break;
 		case 1:
 		extra_info="Edema";
 		intent=new Intent(mContext, TakeActionActivity.class);
 		intent.putExtra("take_action", extra_info);
+		intent.putExtra("start_time", System.currentTimeMillis());
 		startActivity(intent);
 			break;
 			
@@ -65,12 +73,14 @@ public class AcuteEmergenciesActivity extends Activity implements OnClickListene
 		//extra_info="Refer patient now";
 		intent=new Intent(mContext, AskBleedingActivity.class);
 		//intent.putExtra("take_action", extra_info);
+		intent.putExtra("start_time", System.currentTimeMillis());
 		startActivity(intent);
 			break;
 		case 3:
 			extra_info="Shock";
 			intent=new Intent(mContext, TakeActionActivity.class);
 			intent.putExtra("take_action", extra_info);
+			intent.putExtra("start_time", System.currentTimeMillis());
 			startActivity(intent);
 				break;	
 		}
@@ -125,5 +135,13 @@ public class AcuteEmergenciesActivity extends Activity implements OnClickListene
 		}
 		
 	}
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "ANC Acute Emergencies", start_time.toString(), end_time.toString());
+		finish();
+	}
+	
 
 }

@@ -52,10 +52,10 @@ public class DbHelper extends SQLiteOpenHelper {
 	static final String DB_NAME = "mobilelearning.db";
 	static final int DB_VERSION = 15;
 
-	private SQLiteDatabase db;
+	private SQLiteDatabase db=this.getWritableDatabase();
 	private SharedPreferences prefs;
 	private Context ctx;
-	private SQLiteDatabase read;
+	private SQLiteDatabase read=this.getReadableDatabase();
 
 	
 	private static final String COURSE_TABLE = "Module";
@@ -441,7 +441,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	
 	// returns id of the row
 	public long addOrUpdateCourse(Course course) {
-
+		db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(COURSE_C_VERSIONID, course.getVersionId());
 		values.put(COURSE_C_TITLE, course.getTitleJSONString());
@@ -468,6 +468,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 
 	public boolean insertEventSet(String event_name, String event_period, String event_number, String month,String sync_status){
+		db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(COL_EVENT_SET_NAME,event_name);
 		values.put(COL_EVENT_PERIOD,event_period);
@@ -481,6 +482,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		return true;
 	}
 	public boolean insertCoverageSet(String category_name, String category_detail,String coverage_period, String coverage_number,String month, String sync_status){
+		db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(COL_COVERAGE_SET_CATEGORY_NAME,category_name);
 		values.put(COL_COVERAGE_SET_CATEGORY_DETAIL,category_detail);
@@ -496,6 +498,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 	public boolean insertLearning(String learning_category, String learning_description, String month,String sync_status){
+		db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(COL_LEARNING_CATEGORY,learning_category);
 		values.put(COL_LEARNING_DESCRIPTION,learning_description);
@@ -509,6 +512,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 	public boolean insertOther(String other_category,String other_number,String other_period,String month, String sync_status){
+		db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(COL_OTHER_CATEGORY,other_category);
 		values.put(COL_OTHER_NUMBER,other_number);
@@ -523,6 +527,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 	public long insertJustification(String type,String type_detail,String justification,String comment, String sync_status){
+		db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(COL_TYPE,type);
 		values.put(COL_TYPE_DETAIL,type_detail);
@@ -536,6 +541,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		return newRowId;
 	}
 	public long refreshCourse(Course course){
+		db = this.getWritableDatabase();
 		long modId = this.getCourseID(course.getShortname());
 		ContentValues values = new ContentValues();
 		values.put(COURSE_C_VERSIONID, course.getVersionId());
@@ -554,9 +560,10 @@ public class DbHelper extends SQLiteOpenHelper {
 	
 	
 	public int getCourseID(String shortname){
+		read=this.getReadableDatabase();
 		String s = COURSE_C_SHORTNAME + "=?";
 		String[] args = new String[] { shortname };
-		Cursor c = db.query(COURSE_TABLE, null, s, args, null, null, null);
+		Cursor c = read.query(COURSE_TABLE, null, s, args, null, null, null);
 		if(c.getCount() == 0){
 			c.close();
 			return 0;
@@ -569,6 +576,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 	public void updateScheduleVersion(long modId, long scheduleVersion){
+		db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(COURSE_C_SCHEDULE, scheduleVersion);
 		db.update(COURSE_TABLE, values, COURSE_C_ID + "=" + modId, null);
@@ -576,6 +584,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	
 	public void insertActivities(ArrayList<Activity> acts) {
 		// acts.listIterator();
+		db = this.getWritableDatabase();
 		for (Activity a : acts) {
 			ContentValues values = new ContentValues();
 			values.put(ACTIVITY_C_COURSEID, a.getModId());
@@ -590,6 +599,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
 	public void insertSchedule(ArrayList<ActivitySchedule> actsched) {
 		// acts.listIterator();
+		db = this.getWritableDatabase();
 		for (ActivitySchedule as : actsched) {
 			ContentValues values = new ContentValues();
 			values.put(ACTIVITY_C_STARTDATE, as.getStartTimeString());
@@ -600,6 +610,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	
 	public void insertTrackers(ArrayList<TrackerLog> trackers, long modId) {
 		// acts.listIterator();
+		db = this.getWritableDatabase();
 		for (TrackerLog t : trackers) {
 			ContentValues values = new ContentValues();
 			values.put(TRACKER_LOG_C_DATETIME, t.getDateTimeString());
@@ -612,6 +623,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 	public void resetSchedule(int modId){
+		db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(ACTIVITY_C_STARTDATE,"");
 		values.put(ACTIVITY_C_ENDDATE,"");
@@ -619,9 +631,10 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 	public ArrayList<Course> getCourses() {
+		read=this.getReadableDatabase();
 		ArrayList<Course> courses = new ArrayList<Course>();
 		String order = COURSE_C_TITLE + " ASC";
-		Cursor c = db.query(COURSE_TABLE, null, null, null, null, null, order);
+		Cursor c = read.query(COURSE_TABLE, null, null, null, null, null, order);
 		c.moveToFirst();
 		while (c.isAfterLast() == false) {
 			Course course = new Course();
@@ -641,10 +654,11 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 	public Course getCourse(long modId) {
+		read=this.getReadableDatabase();
 		Course m = null;
 		String s = COURSE_C_ID + "=?";
 		String[] args = new String[] { String.valueOf(modId) };
-		Cursor c = db.query(COURSE_TABLE, null, s, args, null, null, null);
+		Cursor c = read.query(COURSE_TABLE, null, s, args, null, null, null);
 		c.moveToFirst();
 		while (c.isAfterLast() == false) {
 			m = new Course();
@@ -663,6 +677,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 	public void insertLog(int modId, String digest, String data, boolean completed){
+		db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(TRACKER_LOG_C_COURSEID, modId);
 		values.put(TRACKER_LOG_C_ACTIVITYDIGEST, digest);
@@ -672,6 +687,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 	public float getCourseProgress(int modId){
+		db = this.getWritableDatabase();
 		String sql = "SELECT a."+ ACTIVITY_C_ID + ", " +
 				"l."+ TRACKER_LOG_C_ACTIVITYDIGEST + 
 				" as d FROM "+ACTIVITY_TABLE + " a " +
@@ -694,6 +710,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 	public float getSectionProgress(int modId, int sectionId){
+		db = this.getWritableDatabase();
 		String sql = "SELECT a."+ ACTIVITY_C_ID + ", " +
 						"l."+ TRACKER_LOG_C_ACTIVITYDIGEST + 
 						" as d FROM "+ACTIVITY_TABLE + " a " +
@@ -722,6 +739,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 	public int resetCourse(int modId){
+		db = this.getWritableDatabase();
 		// delete quiz results
 		this.deleteQuizResults(modId);
 		
@@ -732,6 +750,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	
 	public void deleteCourse(int modId){
 		// delete log
+		db = this.getWritableDatabase();
 		resetCourse(modId);
 		
 		// delete activities
@@ -749,6 +768,8 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 	public boolean isInstalled(String shortname){
+		db = this.getWritableDatabase();
+		read=this.getReadableDatabase();
 		String s = COURSE_C_SHORTNAME + "=?";
 		String[] args = new String[] { shortname };
 		Cursor c = db.query(COURSE_TABLE, null, s, args, null, null, null);
@@ -1027,6 +1048,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 	public void insertCCHLog(String module, String data, String starttime, String endtime){
+		db = this.getWritableDatabase();
 		String userid = prefs.getString(ctx.getString(R.string.prefs_username), "noid"); 
 		ContentValues values = new ContentValues();
 		values.put(CCH_TRACKER_USERID, userid);
@@ -1111,7 +1133,7 @@ public class DbHelper extends SQLiteOpenHelper {
             values.put(CCH_USER_BADGES, u.getBadges());
             values.put(CCH_USER_SCORING, (u.isScoringEnabled() ? 1:0));
         	db.insert(CCH_USER_TABLE, null, values);
-        	db.close(); // Closing database connection
+        	//db.close(); // Closing database connection
 		}
     }
 	
@@ -1132,7 +1154,7 @@ public class DbHelper extends SQLiteOpenHelper {
            
         // Inserting Row        
         db.update(CCH_USER_TABLE, values, CCH_STAFF_ID + "="+u.getUsername()+"'", null);
-        db.close(); // Closing database connection        
+       // db.close(); // Closing database connection        
     }
 	
 	public void updateUser(String staff_id, String apikey, String firstname, String lastname, int points, int badges, boolean scoring) 
@@ -1148,7 +1170,7 @@ public class DbHelper extends SQLiteOpenHelper {
            
         // Inserting Row        
         db.update(CCH_USER_TABLE, values, CCH_STAFF_ID + "=" + staff_id, null);
-        db.close(); // Closing database connection        
+       // db.close(); // Closing database connection        
     }
 	
     // check if User exists
@@ -1319,7 +1341,7 @@ public ArrayList<String> getAllCoverageImmunizationsPeriod(String month){
 		list.add(c.getString(c.getColumnIndex(COL_COVERAGE_SET_PERIOD)));
 		c.moveToNext();						
 	}
-	c.close();
+c.close();
 	return list;
 }
 

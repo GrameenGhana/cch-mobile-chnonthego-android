@@ -1,6 +1,10 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.activity.AboutActivity;
+import org.digitalcampus.oppia.activity.HelpActivity;
+import org.digitalcampus.oppia.activity.MainScreenActivity;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +13,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,14 +33,19 @@ public class AskBleedingActivity extends Activity {
 	String[] groupItems;
 	String[] ChildItemsOne;
 	String[] ChildItemsTwo;
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_acuteemergencies_bleeding);
 	    mContext=AskBleedingActivity.this;
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("ANC Diagnostic");
+	    getActionBar().setSubtitle("ANC Diagnostic: Excessive Bleeding");
 	    listView_bleeding=(ListView) findViewById(R.id.listView_excessiveBleeding);
 	    String[] items={"Heavy(more than 2 pad changes in 24hours)","Light(fewer than 2 pad changes in 24hours)"};
 	    ListAdapter adapter=new ListAdapter(mContext,items);
@@ -232,4 +244,49 @@ public class AskBleedingActivity extends Activity {
 		
 	}
 	*/
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    // Inflate the menu items for use in the action bar
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.custom_action_bar, menu);
+	    return super.onCreateOptionsMenu(menu);
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent;
+	    switch (item.getItemId()) {
+	        case R.id.action_home:
+	        	Intent goHome = new Intent(Intent.ACTION_MAIN);
+	 	          goHome.setClass(mContext, MainScreenActivity.class);
+	 	          goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	 	          startActivity(goHome);
+	 	          finish();
+	 	         
+	            return true;
+	        case R.id.action_help:
+	        	intent = new Intent(Intent.ACTION_MAIN);
+	        	intent.setClass(mContext, HelpActivity.class);
+	        	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	 	          startActivity(intent);
+	 	          finish();
+	 	         
+	            return true;
+	        case R.id.action_about:
+	        	intent = new Intent(Intent.ACTION_MAIN);
+	        	intent.setClass(mContext, AboutActivity.class);
+	        	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	 	          startActivity(intent);
+	 	          finish();
+	        	return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "ANC Excessive Bleeding", start_time.toString(), end_time.toString());
+		finish();
+	}
 }

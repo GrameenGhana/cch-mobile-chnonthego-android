@@ -1,7 +1,12 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.adapters.AntenatalCareBaseAdapter;
+
+
+
+
 
 
 
@@ -18,6 +23,9 @@ public class AntenatalCareActivity extends Activity implements OnItemClickListen
 
 	private ListView listView_ancMenu;
 	private Context mContext;
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -25,6 +33,8 @@ public class AntenatalCareActivity extends Activity implements OnItemClickListen
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_antenatal_care);
 	    mContext=AntenatalCareActivity.this;
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("Antenatal Care");
 	    listView_ancMenu=(ListView) findViewById(R.id.listView_antenatalCare);
@@ -62,6 +72,13 @@ public class AntenatalCareActivity extends Activity implements OnItemClickListen
 		}
 		
 		
+	}
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "Antenatal Care", start_time.toString(), end_time.toString());
+		finish();
 	}
 
 }
