@@ -133,9 +133,22 @@
             //lets call the pop manager on application start
             App.back();
 
+            // Ask for new plan each month
+            if (cch.getProfileStatus()!="" && !cch.showLegal() && cch.changeMonthlyPlan()) {
+                App.navigateTo('gliving/chooseplan.html')
+            }
+
             // process some other stuff
             if ($('.greetinglabel')) {
                 $('.greetinglabel').html(cch.getGreeting());
+            }
+
+            if ($('#routineinfo')) {
+                $('#routineinfo').html(cch.getRoutineInfo("y"));
+            }
+
+            if ($('#routine_title')) {
+                $('#routine_title').html(cch.getRoutineInfo(""));
             }
 
             $('#legalno').click(function(e) {
@@ -148,6 +161,181 @@
                 window.location = 'file:///android_asset/www/cch/modules/stayingwell/index.html';
             });
         //});
+    };
+
+    App.initPageRun = function (id) {
+
+        // process some other stuff
+        if ($('.greetinglabel')) {
+            $('.greetinglabel').html(cch.getGreeting());
+        }
+            
+        if ($('#routineinfo')) {
+            $('#routineinfo').html(cch.getRoutineInfo("y"));
+        }
+
+        if ($('#routine_title')) {
+            $('#routine_title').html(cch.getRoutineInfo(""));
+        }
+
+
+        if ($('.surveynext') || $('.plannext')) {
+            var _dots = $(id).find('.slick-dots');
+            $(_dots).css('display', 'none');
+        } else {
+            var _dots = $(id).find('.slick-dots');
+            $(_dots).css('display', 'inline-block');
+        }
+
+        if ($('.surveynext')) {
+            $('.surveynext').click(function(e) {
+                var showError = false;
+                var ids = this.id.split(',');
+                for(var i=0; i < ids.length; i++) {
+                    if (! ($('#'+ids[i]+'A').is(':checked') || 
+                           $('#'+ids[i]+'B').is(':checked') || 
+                           $('#'+ids[i]+'C').is(':checked'))  
+                        ) { showError = true; }
+                }
+                if (showError) {
+                    jQuery.facebox({ div: '#fillerror' });
+                } else { 
+                   var _carousel = $(id).find('.carousel');
+                    $(_carousel).slickNext();
+                } 
+            }); 
+        }
+
+        if ($('.surveyprev')) {
+            $('.surveyprev').click(function(e) {
+                var _carousel = $(id).find('.carousel');
+                $(_carousel).slickPrev(); 
+            }); 
+        }
+
+        $('#surveydone').click(function(e) {
+                var responses = '';
+                var expectedresponses = 10;
+                for(var i=1; i<=10; i++)
+                {
+                    $('[name="question'+i+'"]').each(function() {
+                        if($('#'+this.id).is(':checked'))
+                        {
+                            responses += $('#'+this.id).val()+",";
+                            expectedresponses--;
+                        }
+                    });
+                } 
+                if (expectedresponses != 0)
+                {
+                    jQuery.facebox({ div: '#fillerror' });
+                } else {
+                    cch.setProfileStatus(responses);
+                    App.navigateTo('home.html');
+                }
+        });
+
+        if ($('.plannext')) {
+            $('.plannext').click(function(e) {
+                var showError = false;
+                var ids = this.id.split(',');
+                for(var i=0; i < ids.length; i++) {
+                    if (! ($('#'+ids[i]+'A').is(':checked') || 
+                           $('#'+ids[i]+'B').is(':checked') || 
+                           $('#'+ids[i]+'C').is(':checked') ||
+                           $('#'+ids[i]+'D').is(':checked') ||
+                           $('#'+ids[i]+'E').is(':checked') ||
+                           $('#'+ids[i]+'F').is(':checked') )  
+                        ) { showError = true; }
+                }
+                if (showError) {
+                    jQuery.facebox({ div: '#fillerror' });
+                } else { 
+                   var _carousel = $(id).find('.carousel');
+                    $(_carousel).slickNext();
+                } 
+            }); 
+        }
+        
+        $('#plandone').click(function(e) {
+                var response = '';
+                $('[name="plan"]').each(function() {
+                     if($('#'+this.id).is(':checked'))
+                     {
+                        response = $('#'+this.id).val();
+                     }
+                });
+                cch.setMonthlyPlan(response);
+                App.navigateTo('home.html');       
+        });
+    };
+
+    //function for loading and animation navigation views
+    App.navigationView = function () {
+
+        //look for all class names with the name navigation-view
+        //attach an event to them
+        //extract the data object
+        $(document).delegate('.navigation-view', App.CURRENT_EVENT, function (e) {
+
+            e.preventDefault();
+            var _view = $(this).data('view');
+            var temp_id = "view" + App.createHash();
+            var _id = App.HASH_TAG + temp_id;
+            if (typeof _view === 'undefined') {
+                alert("Error Loading Page");
+            }
+
+            if (~ _view.indexOf('http')) {
+                window.location = _view;
+            }
+
+            if (~ _view.indexOf('gliving')) {
+                var profile = cch.getProfileStatus(); 
+                if (profile=="") {
+                    _view = 'gliving/survey.html';
+                } else {
+                    var plan = cch.getMonthlyPlan();
+                    if (plan=="") {
+                        _view = "gliving/chooseplan.html";
+                    } else {
+                        if (~ _view.indexOf('routines')) {
+                            if (! (_view == "gliving/content/routines/index.html")) {
+                                _view = _view.replace("routines/","routines/"+profile+"/");
+                            }
+                        }
+                    }
+                }
+            }
+
+            App.navigateTo(_view);
+        });
+    };
+
+    App.navigateTo = function(_view) {
+        var page = 'www/cch/modules/stayingwell/templates/'+_view;
+        var template = cch.getFileTemplate(page);
+
+        var temp_id = "view" + App.createHash();
+        var _id = App.HASH_TAG + temp_id;
+
+        var _json = {
+            template: template,
+            id: temp_id,
+            index: App.Z_INDEX++
+        };
+        var temp = _.template($("script.fullscreen-view").html(), _json);
+        $(App.EL).append(temp);
+        App.VIEW_MANAGER.push(_id);
+        App.clearViews();
+        App.setToDeviceOffsetX(_id);
+        App.setToDeviceSize(_id);
+        $(window).trigger('resize');
+        App.screenxReverse(_id);
+        App.innerViews(_id);
+        App.carousel(_id);
+        App.detectBackButton(_id);
+        App.initPageRun(_id);
     };
 
     //lets check for pages with the class name page-with-back-button
@@ -186,7 +374,7 @@
                 var slideOpt = {
                     'lazyLoad': 'progressive',
                     'touchMove': false,
-                    infinite: true,
+                    infinite: false,
                     'dots': true,
                     'arrows': false,
                     'autoplay': false,
@@ -234,6 +422,19 @@
             $('.main-modal').remove();
             var _view = $(this).data('view');
             var _type = $(this).data('type');
+
+            if (~ _view.indexOf('gliving')) {
+                var profile = cch.getProfileStatus(); 
+                if (profile=="") {
+                    _view = 'gliving/survey.html';
+                } else {
+                    if (~ _view.indexOf('routines')) {
+                        if (! (_view == "gliving/content/routines/index.html")) {
+                            _view = _view.replace("routines/","routines/"+profile+"/");
+                        }
+                    }
+                }
+            }
 
             var _template = ['script/text!templates/' + _view];
             if (typeof _view === 'undefined') {
@@ -302,127 +503,6 @@
     };
 
 
-    App.initPageRun = function (id) {
-
-        // process some other stuff
-        if ($('.greetinglabel')) {
-            $('.greetinglabel').html(cch.getGreeting());
-        }
-
-        if ($('.surveynext')) {
-            var _dots = $(id).find('.slick-dots');
-            $(_dots).css('display', 'none');
-        } else {
-            var _dots = $(id).find('.slick-dots');
-            $(_dots).css('display', 'inline-block');
-        }
-
-        if ($('.surveynext')) {
-            $('.surveynext').click(function(e) {
-                var showError = false;
-                var ids = this.id.split(',');
-                for(var i=0; i < ids.length; i++) {
-                    if (! ($('#'+ids[i]+'A').is(':checked') || 
-                           $('#'+ids[i]+'B').is(':checked') || 
-                           $('#'+ids[i]+'C').is(':checked'))  
-                        ) { showError = true; }
-                }
-                if (showError) {
-                    jQuery.facebox({ div: '#fillerror' });
-                } else { 
-                   var _carousel = $(id).find('.carousel');
-                    $(_carousel).slickNext();
-                } 
-            }); 
-        }
-
-        if ($('.surveyprev')) {
-            $('.surveyprev').click(function(e) {
-                var _carousel = $(id).find('.carousel');
-                $(_carousel).slickPrev(); 
-            }); 
-        }
-
-
-        $('#surveydone').click(function(e) {
-                var responses = '';
-                for(var i=1; i<=10; i++)
-                {
-                    $('[name="question'+i+'"]').each(function() {
-                        if($('#'+this.id).is(':checked'))
-                        {
-                            responses += $('#'+this.id).val()+",";
-                        }
-                    });
-                } 
-                cch.setProfileStatus(responses);
-                App.navigateTo('gliving/content/index.html');       
-        });
-    };
-
-    App.navigateTo = function(_view) {
-        var page = 'www/cch/modules/stayingwell/templates/'+_view;
-        var template = cch.getFileTemplate(page);
-
-        var temp_id = "view" + App.createHash();
-        var _id = App.HASH_TAG + temp_id;
-
-        var _json = {
-            template: template,
-            id: temp_id,
-            index: App.Z_INDEX++
-        };
-        var temp = _.template($("script.fullscreen-view").html(), _json);
-        $(App.EL).append(temp);
-        App.VIEW_MANAGER.push(_id);
-        App.clearViews();
-        App.setToDeviceOffsetX(_id);
-        App.setToDeviceSize(_id);
-        $(window).trigger('resize');
-        App.screenxReverse(_id);
-        App.innerViews(_id);
-        App.carousel(_id);
-        App.detectBackButton(_id);
-        App.initPageRun(_id);
-    };
-
-
-    //function for loading and animation navigation views
-    App.navigationView = function () {
-
-        //look for all class names with the name navigation-view
-        //attach an event to them
-        //extract the data object
-        $(document).delegate('.navigation-view', App.CURRENT_EVENT, function (e) {
-
-            e.preventDefault();
-            var _view = $(this).data('view');
-            var temp_id = "view" + App.createHash();
-            var _id = App.HASH_TAG + temp_id;
-            if (typeof _view === 'undefined') {
-                alert("Error Loading Page");
-            }
-
-            if (~ _view.indexOf('http')) {
-                window.location = _view;
-            }
-
-            if (~ _view.indexOf('gliving')) {
-                var profile = cch.getProfileStatus(); 
-                if (profile=="") {
-                    _view = 'gliving/survey.html';
-                } else {
-                    if (~ _view.indexOf('routines')) {
-                        if (! (_view == "gliving/content/routines/index.html")) {
-                            _view = _view.replace("routines/","routines/"+profile+"/");
-                        }
-                    }
-                }
-            }
-
-            App.navigateTo(_view);
-        });
-    };
 
     //remove a view from the view stack
     App.back = function () {

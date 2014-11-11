@@ -7,6 +7,10 @@ function CCH() {
     	return Android.getGreeting();
     },
 
+    this.getRoutineInfo = function(inclcharet) {
+        return Android.getRoutineInfo(inclcharet);
+    },
+
     this.showLegal = function() {
         return (Android.getLegalStatus()=="") ? true : false;
     },

@@ -39,7 +39,14 @@ public class StayingWellWebAppInterface {
     public String getGreeting() {
     	String username = getUsername();
     	username = (username.isEmpty()) ? username : " "+username;
-		return getGreetingByTime() + username;
+    	String g = (getTime()=="") ? "Hello" : "Good " + getTime();
+    	return g + username;
+    }
+    
+    @JavascriptInterface
+    public String getRoutineInfo(String charet) {
+		return "You have <span class=\"highlight\">5</span> activities this "+getTime()
+				+ ((!charet.isEmpty()) ? "<span class=\"charet\"></span>": "");
     }
     
     @JavascriptInterface
@@ -137,26 +144,26 @@ public class StayingWellWebAppInterface {
         Toast.makeText(mContext, toast, Toast.LENGTH_LONG).show();
     }  
     
-    private String getGreetingByTime()
+    private String getTime()
     {
     	 Time time = new Time();
 		 time.setToNow();
 		    
 		 if (time.hour < 12)
 		 {
-			 return "Good morning";
+			 return "morning";
 		 } 
 		 else if (time.hour >= 12 && time.hour <= 17)
 		 {
-		     return "Good afternoon";
+		     return "afternoon";
 		 }
 		 else if (time.hour > 17 && time.hour < 23)
 		 {
-		     return "Good evening";
+		     return "evening";
 		 } 
 		 else 
 		 {
-		      return "Hello";
+		      return "";
 		 }
     }
 }

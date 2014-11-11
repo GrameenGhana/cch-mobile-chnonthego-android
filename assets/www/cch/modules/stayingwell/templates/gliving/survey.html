@@ -1,35 +1,33 @@
 <!-- top section -->
 <div class="top-section" style="  display: block;">
     
-    <div id="fillerror" style="width: 200px; display:none;">
-        <p style="width: 180px; color:red">Please answer each question before proceeding...</p>
+    <div id="fillerror" style="width:200px; display:none;">
+        <p style="width: 250px; color:red; padding-left: 30px;">Please answer each question before proceeding...</p>
     </div>
 
     <div class="carousel">
+
+        <!-- Question 1 -->
         <div class="greeting">
             <h1 class="greetinglabel"></h1>
-            <h2>To help make the content relevant to you,
-                 please complete this survey</h2> 
-            <br/>
+            <h2>To help make the content relevant to you, please complete this survey</h2> 
+            <br/><br/>
+            <h2 class="question">Which of the following <b class="highlight">BEST</b> describes you?</h2><br/>
             
             <div class="survey">
                 <ul class="survey_list">
                     <li>
-                        <p class="question">Which of the following <b>BEST</b> describes you?</p>
                         <p class="answer">
                             <input type="radio" id="question1A" name="question1" value="A">
-                            <label>
-                                <span><span></span></span>Driven, Resourceful, Organized
-                            </label>
+                            <label for="question1A">Driven, Resourceful, Organized</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question1B" name="question1" value="B">
-                            <label><span><span></span></span>Compassionate, Caring, Team Player
-                            </label>
+                            <label for="question1B">Compassionate, Caring, Team Player</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question1C" name="question1" value="C">
-                            <label><span><span></span></span>Creative, Communicative, Quick Decision Making</label>
+                            <label for="question1C">Creative, Communicative, Quick Decision Making</label>
                         </p>
                     </li>
                 </ul>
@@ -38,30 +36,23 @@
             <br/><button class="info surveynext large" id="question1">Next</button>        
         </div>
 
+        <!-- Question 2 -->
         <div class="greeting">
-            <h2>Which of the following do you struggle with <b class="highlight">MOST</b>?</h2> 
-            <br/>
+            <h2 class="question">Which of the following do you struggle with <b class="highlight">MOST</b>?</h2><br/> 
             <div class="survey">
                 <ul class="survey_list">
                     <li>
-                        <!--
-                        <p class="question">Which of the following do you struggle with <b>MOST</b>?</p>
-                        -->
                         <p class="answer">
                             <input type="radio" id="question2A" name="question2" value="A">
-                            <label>
-                                <span><span></span></span>Being Impatient, Stubborn
-                            </label>
+                            <label for="question2A">Being Impatient, Stubborn</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question2B" name="question2" value="B">
-                            <label><span><span></span></span>Loneliness, Feeling helpless
-                            </label>
+                            <label for="question2B">Loneliness, Feeling helpless</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question2C" name="question2" value="C">
-                            <label><span><span></span></span>Lack of focus, low energy
-                            </label>
+                            <label for="question2C">Lack of focus, low energy</label>
                         </p>
                     </li>
                 </ul>
@@ -69,29 +60,24 @@
             <br/><button class="info surveynext large" id="question2">Next</button>        
         </div>
 
+        <!-- Question 3 -->
         <div class="greeting">
-
-            <h2>What do you value <b class="highlight">MOST</b> in your job?</h2> 
+            <h2 class="question">What do you value <b class="highlight">MOST</b> in your job?</h2><br/> 
 
             <div class="survey">
                 <ul class="survey_list">
                     <li>
-                        <p class="question">What do you value <b>MOST</b> in your job?</p>
                         <p class="answer">
                             <input type="radio" id="question3A" name="question3" value="A">
-                            <label>
-                                <span><span></span></span>Finding useful and creative solutions for my clients' problems
-                            </label>
+                            <label for="question3A">Finding useful and creative solutions for my clients' problems</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question3B" name="question3" value="B">
-                            <label><span><span></span></span>Being part of a strong community of CHNs
-                            </label>
+                            <label for="question3B">Being part of a strong community of CHNs</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question3C" name="question3" value="C">
-                            <label><span><span></span></span>Earning respect and support from my supervisors
-                            </label>
+                            <label for="question3C">Earning respect and support from my supervisors</label>
                         </p>
                     </li>
                 </ul>
@@ -99,185 +85,182 @@
             <br/><button class="info surveynext large" id="question3">Next</button>        
         </div>
 
+        <!-- Question 4 -->
         <div class="greeting">
-            <h2 class="question">What do you enjoy <b class="highlight">MOST</b> from your interactions with clients?</h2>
+            <h2 class="question">What do you enjoy <b class="highlight">MOST</b> from your interactions with clients?</h2><br/>
 
             <div class="survey">
                 <ul class="survey_list">
                     <li>
                         <p class="answer">
                             <input type="radio" id="question4A" name="question4" value="A">
-                            <label>
-                                <span><span></span></span>Figure out their medical isssues, and know how to treat them</label>
+                            <label for="question4A">Figure out their medical isssues, and know how to treat them</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question4B" name="question4" value="B">
-                            <label><span><span></span></span>Hear their problems, and help them make healthy choices</label>
+                            <label for="question4B">Hear their problems, and help them make healthy choices</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question4C" name="question4" value="C">
-                            <label><span><span></span></span>Feeling respected or admired by clients
-                            </label>
+                            <label for="question4C">Feeling respected or admired by clients</label>
                         </p>
                     </li>
                 </ul>
             </div>
-            <br/><button class="info surveynext small" id="question4">Next</button>        
+            <br/><button class="info surveynext large" id="question4">Next</button>        
         </div>
 
+        <!-- Question 5 -->
         <div class="greeting">
+            <h2 class="question">My <b class="highlight">FIRST</b> reaction when I get feedback or criticism is to:</h2><br/>
+
             <div class="survey">
                 <ul class="survey_list">
                     <li>
-                        <p class="question">My <b>FIRST</b> reaction when I get feedback or criticism is to:</p>
                         <p class="answer">
                             <input type="radio" id="question5A" name="question5" value="A">
-                            <label>
-                                <span><span></span></span>Get update or angry because I think I am right
-                            </label>
+                            <label for="question5A">Get update or angry because I think I am right</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question5B" name="question5" value="B">
-                            <label><span><span></span></span>Keep quiet, and take in the criticism
-                            </label>
+                            <label for="question5B">Keep quiet, and take in the criticism</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question5C" name="question5" value="C">
-                            <label><span><span></span></span>Not be bothered and ignore the comments
-                            </label>
+                            <label for="question5C">Not be bothered and ignore the comments</label>
                         </p>
                     </li>
                 </ul>
             </div>
+            <br/><button class="info surveynext large" id="question5">Next</button>        
+        </div>   
+
+        <!-- Question 6 -->
+        <div class="greeting">
+            <h2 class="question">What activities help you relieve stress?</h2><br/> 
 
             <div class="survey">
                 <ul class="survey_list">
                     <li>
-                        <p class="question">What activities help you relieve stress?</p> 
                         <p class="answer">
                             <input type="radio" id="question6A" name="question6" value="A">
-                            <label>
-                                <span><span></span></span>Being active such as walking, exercise, cooking
-                            </label>
+                            <label for="question6A">Being active such as walking, exercise, cooking</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question6B" name="question6" value="B">
-                            <label><span><span></span></span>Talking to friends, family and others
-                            </label>
+                            <label for="question6B">Talking to friends, family and others</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question6C" name="question6" value="C">
-                            <label><span><span></span></span>Doing creative things such as singing and dancing
-                            </label>
+                            <label for="question6C">Doing creative things such as singing and dancing</label>
                         </p>
                     </li>
                 </ul>
             </div>
+            <br/><button class="info surveynext large" id="question6">Next</button>        
+        </div>
 
 
+        <!-- Question 7 -->
+        <div class="greeting">
+            <h2 class="question">When you experience challenges, how do you handle them?</h2><br/>
             <div class="survey">
                 <ul class="survey_list">
                     <li>
-                        <p class="question">When you experience challenges, how do you handle them?</p>
                         <p class="answer">
                             <input type="radio" id="question7A" name="question7" value="A">
-                            <label>
-                                <span><span></span></span>I read or talk to people and find a solution to the challenge
+                            <label for="question7A">I read or talk to people and find a solution to the challenge</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question7B" name="question7" value="B">
-                            <label><span><span></span></span>I try to solve the challenge with others</label>
+                            <label for="question7B">I try to solve the challenge with others</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question7C" name="question7" value="C">
-                            <label><span><span></span></span>I bring up the challenge to others and ask for advise
-                            </label>
+                            <label for="question7C">I bring up the challenge to others and ask for advise</label>
                         </p>
                     </li>
                 </ul>
             </div>
-
-            <br/><button class="info surveynext small" id="question5,question6,question7">Next</button>        
+            <br/><button class="info surveynext large" id="question7">Next</button>        
         </div>
 
-      <div class="greeting">
+        <!-- Question 8 -->
+        <div class="greeting">
+            <h2 class="question">Which of the following <b>BEST</b> describes how you use money?</h2><br/>
             <div class="survey">
                 <ul class="survey_list">
                     <li>
-                        <p class="question">Which of the following <b>BEST</b> describes how you use money?</p>
                         <p class="answer">
                             <input type="radio" id="question8A" name="question8" value="A">
-                            <label>
-                                <span><span></span></span>I spend on myself, but I am careful about how I spend
-                            </label>
+                            <label for="question8A">I spend on myself, but I am careful about how I spend</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question8B" name="question8" value="B">
-                            <label><span><span></span></span>I find it easy to save. When I spend I buy for others
-                            </label>
+                            <label for="question8B">I find it easy to save. When I spend I buy for others</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question8C" name="question8" value="C">
-                            <label><span><span></span></span>I like to buy expensive, good quality items for myself
-                            </label>
+                            <label for="question8C">I like to buy expensive, good quality items for myself</label>
                         </p>
                     </li>
                 </ul>
             </div>
+            <br/><button class="info surveynext large" id="question8">Next</button>        
+        </div>
 
+        <!-- Question 9 -->
+        <div class="greeting">
+            <h2 class="question">How do you feel about routines?</h2><br/> 
             <div class="survey">
                 <ul class="survey_list">
                     <li>
-                        <p class="question">How do you feel about routines?</p> 
                         <p class="answer">
                             <input type="radio" id="question9A" name="question9" value="A">
-                            <label>
-                                <span><span></span></span>I like my own routines and am disciplined in following them
-                            </label>
+                            <label for="question9A">I like my own routines and am disciplined in following them</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question9B" name="question9" value="B">
-                            <label><span><span></span></span>I find it difficult to change my routines
-                            </label>
+                            <label for="question9B">I find it difficult to change my routines</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question9C" name="question9" value="C">
-                            <label><span><span></span></span>I get bored easily and find it difficult to stick with routines
-                            </label>
+                            <label for="question9C">I get bored easily and find it difficult to stick with routines</label>
                         </p>
                     </li>
                 </ul>
             </div>
+            <br/><button class="info surveynext large" id="question9">Next</button>        
+        </div>
 
-
+        <!-- Question 10 -->
+        <div class="greeting">
+            <h2 class="question">Which of the following motivates you in life?</h2><br/>
             <div class="survey">
                 <ul class="survey_list">
                     <li>
-                        <p class="question">Which of the following motivates you in life?</p>
                         <p class="answer">
                             <input type="radio" id="question10A" name="question10" value="A">
-                            <label>
-                                <span><span></span></span>Making a difference in society
+                            <label for="question10A">Making a difference in society</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question10B" name="question10" value="B">
-                            <label><span><span></span></span>Having a good relationship with my family and friends
+                            <label for="question10B">Having a good relationship with my family and friends</label>
                         </p>
                         <p class="answer">
                             <input type="radio" id="question10C" name="question10" value="C">
-                            <label><span><span></span></span>Being respected by others
-                            </label>
+                            <label for="question10C">Being respected by others</label>
                         </p>
                     </li>
                 </ul>
             </div>
 
-            <br/><button class="info surveynext small" id="question8,question9,question10">Next</button>        
+            <br/><button class="info surveynext large" id="question10">Next</button>        
         </div>
 
         <div class="greeting">
             <h1 class="greetinglabel"></h1>
-            <h2>Thank you for completing the survey! Now your content will be tailored to you!</h2> 
+            <h2>Thank you for completing the survey! Now your content will be tailored to you!</h2>
             <br/>
             <br/><button class="success" id="surveydone">Continue</button>        
         </div>    
@@ -289,8 +272,6 @@
 
 <!-- bottom section -->
 <div class="bottom-section">
-    <ul class="main_menu">
-        <li class="learning_center menu_preview"></li>
-     </ul>
+    <!--<div id="back_btn" class="back-button"></div>-->
 </div>
 <!-- bottom section -->
