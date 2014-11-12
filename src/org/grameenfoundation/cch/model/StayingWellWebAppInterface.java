@@ -3,6 +3,7 @@ package org.grameenfoundation.cch.model;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
@@ -44,10 +45,44 @@ public class StayingWellWebAppInterface {
     }
     
     @JavascriptInterface
-    public String getRoutineInfo(String charet) {
-		return "You have <span class=\"highlight\">5</span> activities this "+getTime()
-				+ ((!charet.isEmpty()) ? "<span class=\"charet\"></span>": "");
+    public String getRoutineInfo(String infoType) {
+    	
+    	// if no profile encourage client to sign up
+    	//if (getProfileStatus()=="") {
+    		return "Welcome to Staying Well";
+    	//}
+    	
+    	// if no plan has been set...
+    /*	if (getMonthlyPlan()=="") {
+    		return "Please <a href=\"#\" class=\"navigation-view\" data-view=\"gliving/chooseplan.html\">select a plan</a> to get routine recommendations.";
+    	}
+    	
+    	Calendar c  = Calendar.getInstance();
+    	int year = c.get(Calendar.YEAR);
+    	int month = c.get(Calendar.MONTH);
+    	int day = c.get(Calendar.DAY_OF_MONTH);
+    	String timeofday = getTime();
+
+    	int numactivities = 5;
+    	    	
+    	String title = "You have <span class=\"highlight\">"+numactivities+"</span> activities this "+timeofday;
+    	
+    	// Get routine items
+    	if (infoType.equals("list"))
+    	{
+    		return "<h3 id=\"routine_title\">"+title+"</h3>"
+            		+ "<li>Sip on <a href=\"#\" class=\"navigation-view\" data-view=\"gliving/content/worksheets/diet/drink warm water.html\">warm water</a> when you wake up in the morning</li>"
+            		+ "<li>Brush your teeth, and <a href=\"#\" class=\"navigation-view\" data-view=\"gliving/content/worksheets/personalcare/tongue scraping.html\">scrape your tongue</a> to remove any coating</li>"
+            		+ "<li><a href=\"#\" class=\"navigation-view\" data-view=\"gliving/content/worksheets/personalcare/hair treatment.html\">Nourish hair</a> with coconut oil</li>"
+            		+ "<li>Once a week, <a href=\"#\" class=\"navigation-view\" data-view=\"gliving/content/worksheets/personalcare/massage body.html\">massage your body</a> with coconut oil </li>"
+            		+ "<li>Use <a href=\"#\" class=\"modal-view\" data-view=\"gliving/content/worksheets/personalcare/neem water.html\">neem water</a> to wash off the oil from your body and hair </li>";
+    	} else {
+    		return title + ((infoType.equals("label")) ? " <span class=\"charet\"></span>": "");
+    	}
+    	*/
     }
+    
+    
     
     @JavascriptInterface
     public String getLegalStatus() {
@@ -91,7 +126,7 @@ public class StayingWellWebAppInterface {
      
     @JavascriptInterface
     public String getMonthlyPlan() {
-    	String plan = dbh.getSWInfo(DbHelper.CCH_SW_MONTH_PLAN);
+    	String plan = "strength";//dbh.getSWInfo(DbHelper.CCH_SW_MONTH_PLAN);
     	return (plan==null) ? "" : plan;
     }
     
@@ -105,9 +140,10 @@ public class StayingWellWebAppInterface {
     
     @JavascriptInterface
     public String changeMonthlyPlan() {
+    	
     	String lastupdate = dbh.getSWInfo(DbHelper.CCH_SW_MONTH_PLAN_LASTUPDATE);
     	if (lastupdate==null || lastupdate.equals("")) {
-    			return "true";
+    			return "false";
     	} else {
     		Long lu = Long.parseLong(lastupdate);
     		
@@ -121,8 +157,7 @@ public class StayingWellWebAppInterface {
     		}
     	}
     }
-    
- 
+     
     @JavascriptInterface
     public String getFileTemplate(String filename)
     {	

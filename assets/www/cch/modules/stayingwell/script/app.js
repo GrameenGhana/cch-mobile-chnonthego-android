@@ -123,16 +123,6 @@
 
             });
 
-            //lets call the navigation view initializer on application start
-            App.navigationView();
-
-            //lets call modal view event delegation on app start
-            App.modalView();
-            App.imageModal();
-
-            //lets call the pop manager on application start
-            App.back();
-
             // Ask for new plan each month
             if (cch.getProfileStatus()!="" && !cch.showLegal() && cch.changeMonthlyPlan()) {
                 App.navigateTo('gliving/chooseplan.html')
@@ -143,12 +133,12 @@
                 $('.greetinglabel').html(cch.getGreeting());
             }
 
-            if ($('#routineinfo')) {
-                $('#routineinfo').html(cch.getRoutineInfo("y"));
+            if ($('#routines_label')) {
+                $('#routines_label').html(cch.getRoutineInfo('label'));
             }
 
-            if ($('#routine_title')) {
-                $('#routine_title').html(cch.getRoutineInfo(""));
+            if ($('.routines_today')) {
+                $('.routines_today').html(cch.getRoutineInfo('list'));
             }
 
             $('#legalno').click(function(e) {
@@ -160,22 +150,33 @@
                 cch.setLegalStatus("agreed");
                 window.location = 'file:///android_asset/www/cch/modules/stayingwell/index.html';
             });
+
+            //lets call the navigation view initializer on application start
+            App.navigationView();
+
+            //lets call modal view event delegation on app start
+            App.modalView();
+            App.imageModal();
+
+            //lets call the pop manager on application start
+            App.back();
+
         //});
     };
 
     App.initPageRun = function (id) {
 
-        // process some other stuff
         if ($('.greetinglabel')) {
             $('.greetinglabel').html(cch.getGreeting());
         }
             
-        if ($('#routineinfo')) {
-            $('#routineinfo').html(cch.getRoutineInfo("y"));
+        if ($('.routines_label')) {
+            $('.routines_label').html(cch.getRoutineInfo('label'));
         }
 
-        if ($('#routine_title')) {
-            $('#routine_title').html(cch.getRoutineInfo(""));
+        if ($('.routines_today')) {
+            $('.routines_today').html(cch.getRoutineInfo('list'));
+            App.modalView();
         }
 
 
@@ -231,7 +232,7 @@
                     jQuery.facebox({ div: '#fillerror' });
                 } else {
                     cch.setProfileStatus(responses);
-                    App.navigateTo('home.html');
+                    App.navigateTo('gliving/chooseplan.html');
                 }
         });
 

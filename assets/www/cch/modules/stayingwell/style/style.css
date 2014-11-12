@@ -201,6 +201,7 @@ p.clear {
     left: 0;
     right: 0;
     position: absolute;
+    -webkit-backface-visibility: hidden; 
     z-index: 0;
 }
 
@@ -245,7 +246,7 @@ p.clear {
 }
 
 .body {
-    position: fixed;
+    position:fixed;
     left: 0;
     top: 0;
     bottom: 0;
@@ -253,6 +254,7 @@ p.clear {
     background: #fff;
     z-index: 998;
     height: 100%
+    border: 1px solid green;
 }
 
 .canvas {
