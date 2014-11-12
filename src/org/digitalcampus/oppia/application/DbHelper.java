@@ -119,6 +119,15 @@ public class DbHelper extends SQLiteOpenHelper {
 	private static final String CCH_USER_BADGES = "badges";
 	private static final String CCH_USER_SCORING = "scoring_enabled";
 	
+	// CCH: Staying Well table
+    private static final String CCH_SW_TABLE = "stayingwell";
+	private static final String CCH_SW_ID = BaseColumns._ID;
+	private static final String CCH_SW_STAFF_ID = "staff_id";
+	public static final String CCH_SW_LEGAL_STATUS = "sw_legal";
+	public static final String CCH_SW_PROFILE_STATUS = "sw_profile";
+	public static final String CCH_SW_PROFILE_RESPONSES = "sw_profileresponse";
+	public static final String CCH_SW_MONTH_PLAN = "sw_monthplan";
+	public static final String CCH_SW_MONTH_PLAN_LASTUPDATE = "sw_planupdatetime";
 	
 	//CCH: Events Table
 		public static final String EVENTS_SET_TABLE="events_set";
@@ -177,6 +186,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		
 		/* CCH additions */
 		createCCHTrackerTable(db);
+		createStayingWellTable(db);
 		
 		/*CHN Target tracking changes*/
 		createEventsSetTable(db);
@@ -1102,7 +1112,63 @@ public class DbHelper extends SQLiteOpenHelper {
 		return db.update(CCH_TRACKER_TABLE, values, CCH_TRACKER_ID + "=" + rowId, null);
 	}
 	
+	/** Staying Well table **/
+	public void createStayingWellTable(SQLiteDatabase db)
+	{
+		String l_sql = "create table if not exists " + CCH_SW_TABLE + " (" + 
+				CCH_SW_ID + " integer primary key autoincrement, " + 
+				CCH_SW_STAFF_ID + " text, " + 
+				CCH_SW_LEGAL_STATUS + " text, " + 
+				CCH_SW_PROFILE_STATUS + " text default '', " + 
+				CCH_SW_PROFILE_RESPONSES + " text default '', " + 
+				CCH_SW_MONTH_PLAN + " text default '', " + 
+				CCH_SW_MONTH_PLAN_LASTUPDATE + " text default '')" ; 		
+		db.execSQL(l_sql);
+		
+		// Insert initial information TODO: GET USER ID
+		String userid = "David"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid"); 
+		ContentValues values = new ContentValues();
+		values.put(CCH_SW_STAFF_ID, userid);
+		values.put(CCH_SW_LEGAL_STATUS, "");
+		values.put(CCH_SW_PROFILE_STATUS, "");
+		values.put(CCH_SW_PROFILE_RESPONSES, "");
+		values.put(CCH_SW_MONTH_PLAN, "");
+		values.put(CCH_SW_MONTH_PLAN_LASTUPDATE, "");
+		db.insertOrThrow(CCH_SW_TABLE, null, values);
+	}
+	
+	public void updateSWInfo(String field, String value) {
+		SQLiteDatabase db = this.getWritableDatabase(); 
+        ContentValues values = new ContentValues();
+        values.put(field, value); 
+        Log.e("CCH","Updating "+field+" with "+value);
+		String userid = "David";//prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
+        db.update(CCH_SW_TABLE, values, CCH_SW_STAFF_ID + "='"+userid+"'", null);
+        db.close(); // Closing database connection      
+	}
+	
+	// check if User exists
+	public String getSWInfo(String field) 
+	{			
+		String userid = "David"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
 
+		SQLiteDatabase db = this.getReadableDatabase();		 
+		Cursor cursor = db.query(CCH_SW_TABLE, new String[] { field }, CCH_SW_STAFF_ID + "=?",
+			            new String[] { String.valueOf(userid) }, null, null, null, null); 	        
+		
+		if (cursor == null || cursor.getCount()==0) {
+			Log.e("CCH DB","Value for "+field+" is null or no result");	
+			return null;	    	
+		}
+		
+		cursor.moveToFirst();
+		
+		Log.e("CCH DB","Value for "+field+": "+cursor.getString(0));	
+			    
+		// return value
+		return cursor.getString(0);
+	}
+		
 	/** User tables **/
 	public void createUserTable(SQLiteDatabase db){
 		String l_sql = "create table if not exists " + CCH_USER_TABLE + " (" + 
