@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/Red"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.08"
+            android:background="@color/White"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/TextView14"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:text="@string/str_danger_signs_mother"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/Red" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cab_background_bottom_example"
+            android:orientation="vertical"
+            android:padding="5dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/ImageView06"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/poor_sucking" />
+
+                <TextView
+                    android:id="@+id/TextView03"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/str_poor_no_sucking"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextBrown" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView12"
+                    android:layout_width="193dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/str_baby_feels_hot_cold"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextBrown" />
+
+                <ImageView
+                    android:id="@+id/ImageView04"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baby_cold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/ImageView03"
+                    android:layout_width="94dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/convulsin" />
+
+                <TextView
+                    android:id="@+id/TextView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/str_convulsion_fits"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextBrown" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView10"
+                    android:layout_width="114dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="62.30"
+                    android:text="@string/str_jaundice_yellow_eyes_skins"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextBrown" />
+
+                <ImageView
+                    android:id="@+id/ImageView02740"
+                    android:layout_width="123dp"
+                    android:layout_height="94dp"
+                    android:src="@drawable/jaundice" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/ImageView01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/too_much_sleep" />
+
+                <TextView
+                    android:id="@+id/TextView08"
+                    android:layout_width="232dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/str_sleep_too_much_hard_wake_up"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextBrown" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView05"
+                    android:layout_width="232dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/str_difficulty_breathing"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextBrown" />
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/difficulty_breathing" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/White"
+            android:orientation="vertical"
+            android:padding="5dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/ImageView603"
+                    android:layout_width="94dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/red_cord" />
+
+                <TextView
+                    android:id="@+id/TextView511"
+                    android:layout_width="176dp"
+                    android:layout_height="41dp"
+                    android:text="@string/str_red_cord_draining_pus"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextBrown" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView510"
+                    android:layout_width="114dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="17.44"
+                    android:text="@string/str_skin_sores_pus_from_eyes"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextBrown" />
+
+                <ImageView
+                    android:id="@+id/ImageView502"
+                    android:layout_width="165dp"
+                    android:layout_height="94dp"
+                    android:layout_weight="0.73"
+                    android:src="@drawable/skin_sores" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/White"
+            android:orientation="vertical"
+            android:padding="5dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView109"
+                    android:layout_width="114dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="17.44"
+                    android:text="@string/str_small_baby"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextBrown" />
+
+                <ImageView
+                    android:id="@+id/ImageView01111"
+                    android:layout_width="165dp"
+                    android:layout_height="94dp"
+                    android:layout_weight="0.73"
+                    android:src="@drawable/small_baby" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/ImageView0129"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/diarrhoea" />
+
+                <TextView
+                    android:id="@+id/TextView081"
+                    android:layout_width="232dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/str_diarrhoea"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextBrown" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView051"
+                    android:layout_width="232dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/str_persistent_vomiting"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextBrown" />
+
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/persistent_vomiting" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.08"
+            android:background="@color/TakeAction"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/TextView14777"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:text="@string/str_other_newborn_danger_signs"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/Red" />
+
+            <TextView
+                android:id="@+id/TextView0790"
+                android:layout_width="match_parent"
+                android:layout_height="31dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="1dp"
+                android:text="@string/str_cynaosis_blueness_colour"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/TextBrown" />
+
+            <TextView
+                android:id="@+id/TextView04"
+                android:layout_width="match_parent"
+                android:layout_height="31dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="1dp"
+                android:text="@string/str_swollen_limbs_skull"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/TextBrown" />
+
+            <TextView
+                android:id="@+id/TextView02"
+                android:layout_width="match_parent"
+                android:layout_height="31dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="1dp"
+                android:text="@string/str_crying_weakly_inconsolably"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/TextBrown" />
+
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="match_parent"
+                android:layout_height="31dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="1dp"
+                android:text="@string/str_pallor"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/TextBrown" />
+                  
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
