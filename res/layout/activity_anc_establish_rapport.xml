@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/TextView14"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_weight="0.27"
+                android:text="@string/str_when_speaking_to_client_keep_in_mind"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/Blue" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/TakeAction"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/TextView04"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.20"
+                android:paddingLeft="10dp"
+                android:paddingRight="1dp"
+                android:text="@string/str_courtesy_and_kind"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/TextBrown" />
+
+            <TextView
+                android:id="@+id/TextView03"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.36"
+                android:paddingLeft="10dp"
+                android:paddingRight="1dp"
+                android:text="@string/str_listern_ask_client"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/TextBrown" />
+
+            <TextView
+                android:id="@+id/TextView02"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.56"
+                android:paddingLeft="10dp"
+                android:paddingRight="1dp"
+                android:text="@string/str_health_education_shd_individualised"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/TextBrown" />
+
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.26"
+                android:paddingLeft="10dp"
+                android:paddingRight="1dp"
+                android:text="@string/str_answer_question_ask_client"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/TextBrown" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    
+
+</ScrollView>

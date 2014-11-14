@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/stroke_bg_curry" >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="661dp"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.00"
+        android:background="@color/White"
+        android:orientation="vertical"
+        android:paddingBottom="20dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/str_nutrition_counseling"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/Curry" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/TakeActionCurry"
+            android:divider="@drawable/divider"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:showDividers="middle" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.85" >
+
+                <ImageView
+                    android:id="@+id/ImageView06"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/diet_star_1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:id="@+id/TextView11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:text="@string/str_1_star"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/TextView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.85"
+                android:text="@string/str_staples_grains"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/TakeActionCurry"
+            android:divider="@drawable/divider"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:showDividers="middle" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.85" >
+
+                <ImageView
+                    android:id="@+id/ImageView05"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/diet_star_2" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:id="@+id/TextView09"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:text="@string/str_1_star"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/TextView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.85"
+                android:text="@string/str_legumes_beans_lentils_peas"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/TakeActionCurry"
+            android:divider="@drawable/divider"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:showDividers="middle" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.85" >
+
+                <ImageView
+                    android:id="@+id/ImageView04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/diet_star_3" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:id="@+id/TextView07"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:text="@string/str_1_star"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/TextView08"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.85"
+                android:text="@string/str_vitamin_1_fruits"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/TakeActionCurry"
+            android:divider="@drawable/divider"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:showDividers="middle" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.85" >
+
+                <ImageView
+                    android:id="@+id/ImageView03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/diet_star_1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:id="@+id/TextView05"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:text="@string/str_1_star"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/TextView06"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.85"
+                android:text="@string/str_staples_grains"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.85" >
+
+                <ImageView
+                    android:id="@+id/ImageView02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/diet_star_4" />
+
+                <TextView
+                    android:id="@+id/TextView04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.85"
+                    android:text="@string/str_vitamin_a_vegetables"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/TakeActionCurry"
+            android:divider="@drawable/divider"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:showDividers="middle" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.85" >
+
+                <ImageView
+                    android:id="@+id/ImageView01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/diet_star_1_animal_protien" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:id="@+id/TextView01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:text="@string/str_1_star"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.85" >
+
+                <ImageView
+                    android:id="@+id/ImageView02740"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/diet_star_1_oils" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_oil_fats_magarine"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/TextView02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.85"
+                android:text="@string/str_animal_source_foods"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/TakeActionCurry"
+                android:divider="@drawable/divider"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:showDividers="middle" >
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.00"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="20dp" >
+
+        <Button
+            android:id="@+id/button_next"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:textColor="@color/TextBrown" />
+
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>
