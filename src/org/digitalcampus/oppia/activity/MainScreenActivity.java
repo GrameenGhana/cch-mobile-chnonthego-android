@@ -200,7 +200,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			 	rootView=inflater.inflate(R.layout.events_pager_layout,null,false);
 			 	prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 			 	//loginPref=getApplicationContext().getSharedPreferences("loginPrefs", MODE_WORLD_READABLE);
-			    name=prefs.getString(getString(R.string.prefs_username), "name");
+			    name=prefs.getString("first_name", "name");
 			    dbh=new DbHelper(getActivity());
 			    status=(TextView) rootView.findViewById(R.id.textView_status);
 			    event_number=(TextView) rootView.findViewById(R.id.textView_eventsNumber);

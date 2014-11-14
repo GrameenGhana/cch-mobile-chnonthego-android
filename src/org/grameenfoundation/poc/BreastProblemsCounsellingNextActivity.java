@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.activity.EventsViewActivity;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,14 +26,19 @@ public class BreastProblemsCounsellingNextActivity extends Activity {
 
 	private ExpandableListView expandableListView_breastProblems;
 	 private Context mContext;
+	 private DbHelper dbh;
+		private Long start_time;
+		private Long end_time;
 	 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_breast_counselling_next);
 	    mContext=BreastProblemsCounsellingNextActivity.this;
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Counselling");
+	    getActionBar().setSubtitle("PNC Counselling:  Breast Problems");
 	   expandableListView_breastProblems=(ExpandableListView) findViewById(R.id.expandableListView_breastProblems);
 	   String[] groupItems={"Breast Engorgement","Cracked/Sore Nipples","Mastitis"};
 	   String[] firstItems={"Continue breastfeeding","Make sure baby correctly position and attach properly to your breast",
@@ -219,5 +225,11 @@ public class BreastProblemsCounsellingNextActivity extends Activity {
 	    }
 	} 
 
-	
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "PNC Counselling Breast Problems", start_time.toString(), end_time.toString());
+		finish();
+	}
 }

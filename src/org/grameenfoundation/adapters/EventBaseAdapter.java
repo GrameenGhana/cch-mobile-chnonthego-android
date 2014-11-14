@@ -23,12 +23,14 @@ public class EventBaseAdapter extends BaseAdapter{
 	 private Context mContext;
 	 private final ArrayList<String> eventName;
 	 private final ArrayList<String> eventNumber;
+	 private final ArrayList<String> eventPeriod;
 	 private final ArrayList<String> id;
 	 private HashMap<Integer, Boolean> mSelection = new HashMap<Integer, Boolean>();
-	 public EventBaseAdapter(Context c,ArrayList<String> eventName ,ArrayList<String> eventNumber,ArrayList<String> id) {
+	 public EventBaseAdapter(Context c,ArrayList<String> eventName ,ArrayList<String> eventNumber,ArrayList<String> eventPeriod,ArrayList<String> id) {
        mContext = c;
        this.eventName = eventName;
        this.eventNumber=eventNumber;
+       this.eventPeriod=eventPeriod;
        this.id=id;
    }
 	@Override
@@ -39,7 +41,7 @@ public class EventBaseAdapter extends BaseAdapter{
 
 	@Override
 	public String[] getItem(int position) {
-		String[] items={eventName.get(position),eventNumber.get(position)};
+		String[] items={eventName.get(position),eventNumber.get(position),eventPeriod.get(position)};
 		return items;
 	}
 
@@ -56,20 +58,28 @@ public class EventBaseAdapter extends BaseAdapter{
 	        	  LayoutInflater inflater = (LayoutInflater) mContext
 	        		        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	        	  list = new View(mContext);
-	        	  list = inflater.inflate(R.layout.event_listview_single, null);
+	        	  list = inflater.inflate(R.layout.coverage_expandable_child_single, null);
 	       
 	          } else {
 	        	  list = (View) convertView;
 	          }
-	          TextView textView2 = (TextView) list.findViewById(R.id.textView_eventCategory);
+	          TextView textView2 = (TextView) list.findViewById(R.id.textView_coverageCategory);
 	          textView2.setText(eventName.get(position));
 	          
-	          TextView textView3 = (TextView) list.findViewById(R.id.textView_eventNumber);
+	          TextView textView3 = (TextView) list.findViewById(R.id.textView_coverageNumber);
 	          textView3.setText(eventNumber.get(position));
+	          
+	          TextView textView4 = (TextView) list.findViewById(R.id.textView_coveragePeriod);
+	          textView4.setText(eventPeriod.get(position));
 	            Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
 		          	      "fonts/Roboto-Thin.ttf");
 		         //textView2.setTypeface(custom_font);
 		         //textView3.setTypeface(custom_font);
+	            if(isPositionChecked(position)==true){
+	            	list.setBackgroundColor(color.BackgroundGrey);
+	            }else if(clearSelection()){
+	            	list.setBackgroundColor(color.White);
+	            }
 
 	      return list;
 	    }
@@ -92,9 +102,10 @@ public class EventBaseAdapter extends BaseAdapter{
         notifyDataSetChanged();
     }
 
-    public void clearSelection() {
+    public boolean clearSelection() {
         mSelection = new HashMap<Integer, Boolean>();
         notifyDataSetChanged();
+        return true;
     }
 		
 	}

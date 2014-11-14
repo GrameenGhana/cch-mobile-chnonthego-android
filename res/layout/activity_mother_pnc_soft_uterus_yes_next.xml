@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ask client: How long ago did you give birth? "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/Brown" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ButtonBackgroundGrey"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&lt; 24 hours  "
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/TextBrown" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout_oneButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="gone" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/button_oneYes"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@color/Red"
+                android:text="Yes"
+                android:textColor="@color/White" />
+ 		<View
+        android:layout_width="10dp"
+        android:layout_height="20dp" />
+            <Button
+                android:id="@+id/button_oneNo"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@color/Green"
+                android:text="No"
+                android:textColor="@color/White" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+<LinearLayout
+        android:id="@+id/LinearLayout_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ButtonBackgroundGrey"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="> 24 hours – 2 weeks   "
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/TextBrown" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout_twoButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="gone" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/button_twoYes"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@color/Red"
+                android:text="Yes"
+                android:textColor="@color/White" />
+ 		<View
+        android:layout_width="10dp"
+        android:layout_height="20dp" />
+            <Button
+                android:id="@+id/button_twoNo"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@color/Green"
+                android:text="No"
+                android:textColor="@color/White" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
+</ScrollView>

@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,14 +16,19 @@ public class SeverAnaemiaAskActivity extends Activity {
 	private Button button_yes;
 	private Button button_no;
 	Context mContext;
-	/** Called when the activity is first created. */
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time; 
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_severe_anaemia);
-	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("ANC Diagnostic");
 	    mContext=SeverAnaemiaAskActivity.this;
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("ANC Diagnostic: Anaemia");
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    button_yes=(Button) findViewById(R.id.button_yes);
 	    button_yes.setOnClickListener(new OnClickListener(){
 
@@ -46,5 +52,11 @@ public class SeverAnaemiaAskActivity extends Activity {
 	    	
 	    });
 	}
-
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "ANC Diagnostic: Anaemia", start_time.toString(), end_time.toString());
+		finish();
+	}
 }

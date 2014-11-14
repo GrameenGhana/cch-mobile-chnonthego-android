@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,14 +20,18 @@ public class NoInjuriesActivity extends Activity {
 
 	private ListView listView_noInjuries;
 	Context mContext;
-	/** Called when the activity is first created. */
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_no_injuries);
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic");
+	    getActionBar().setSubtitle("PNC Diagnostic:Other Serious Conditions");
 	    mContext=NoInjuriesActivity.this;
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    listView_noInjuries=(ListView) findViewById(R.id.listView_noInjuries);
 	    String[] items={"Club Foot","Cleft palate","Unusual Appearance, other abnormalities","No Injuries (Check baby for diarrhoea) "};
 	    NoInjuriesListAdapter adapter=new NoInjuriesListAdapter(mContext,items);
@@ -95,5 +100,12 @@ public class NoInjuriesActivity extends Activity {
 			 text.setText(listItems[position]);
 			    return convertView;
 		}
+	}
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "PNC Diagnostic Other Serious Conditions", start_time.toString(), end_time.toString());
+		finish();
 	}
 }

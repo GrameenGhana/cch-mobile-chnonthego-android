@@ -80,7 +80,8 @@ public class LoginActivity extends AppActivity implements SubmitListener  {
         pDialog = new ProgressDialog(this);
         pDialog.setTitle(R.string.title_login);
         pDialog.setMessage(this.getString(R.string.login_process));
-        pDialog.setCancelable(true);
+        pDialog.setCancelable(false);
+        pDialog.setCanceledOnTouchOutside(false);
         pDialog.show();
         
     	User u = new User();
@@ -123,11 +124,21 @@ public class LoginActivity extends AppActivity implements SubmitListener  {
 
 	public void setUserPreferences(User u)
 	{
+		String username=usernameField.getText().toString();
+		String[] usernameSplit=username.split(" ");
+		String firstName;
+		if(usernameSplit.length>=0){
+		firstName=usernameSplit[0];
+		}else {
+			firstName=username;
+		}
 		// set params
 		Editor editor = prefs.edit();
     	editor.putString(getString(R.string.prefs_username), usernameField.getText().toString());
     	editor.putString(getString(R.string.prefs_api_key), u.getApi_key());
     	editor.putString(getString(R.string.prefs_display_name), u.getDisplayName());
+    	editor.putString("first_name", firstName);
+    	System.out.println("Username: "+firstName);
     	editor.putInt(getString(R.string.prefs_points), u.getPoints());
     	editor.putInt(getString(R.string.prefs_badges), u.getBadges());
     	editor.putBoolean(getString(R.string.prefs_scoring_enabled), u.isScoringEnabled());

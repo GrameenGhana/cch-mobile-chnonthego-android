@@ -167,6 +167,16 @@ public class DbHelper extends SQLiteOpenHelper {
 		public static final String COL_TYPE_DETAIL="type_detail";
 		public static final String COL_JUSTIFICATION="justification";
 		public static final String COL_COMMENT="comment";
+		
+		//CCH: Update Justification Table
+		public static final String CALENDAR_EVENTS_TABLE="calendar_events";
+		public static final String COL_USERID="user_id";
+		public static final String COL_EVENTTYPE="event_type";
+		public static final String COL_DESCRIPTION="description";
+		public static final String COL_LOCATION="location";
+		public static final String COL_DTSTART="dtstart";
+		public static final String COL_DTEND="dtend";
+		public static final String COL_EVENTID="event_id";
 	// Constructor
 	public DbHelper(Context ctx) { //
 		super(ctx, DB_NAME, null, DB_VERSION);
@@ -194,6 +204,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		createLearningTable(db);
 		createOtherTable(db);
 		createJustificationTable(db);
+		createCalendarEventsTable(db);
 	}
 
 	public void createCourseTable(SQLiteDatabase db){
@@ -243,7 +254,21 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 
-	
+	public void createCalendarEventsTable(SQLiteDatabase db){
+		//	table create statement for events set table 
+			final String CALENDAR_EVENTS_CREATE_TABLE =
+				    "CREATE TABLE " + CALENDAR_EVENTS_TABLE + " (" +
+				    		BaseColumns._ID + " INTEGER PRIMARY KEY," +
+				    		COL_EVENTTYPE + TEXT_TYPE + COMMA_SEP +
+				    		COL_EVENTID + TEXT_TYPE + COMMA_SEP +
+				    		COL_USERID + TEXT_TYPE + COMMA_SEP +
+				    		COL_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+				    		COL_LOCATION + TEXT_TYPE + COMMA_SEP +
+				    		COL_DTSTART + TEXT_TYPE + COMMA_SEP +
+				    		COL_DTEND+TEXT_TYPE+
+				    " )";
+			db.execSQL(CALENDAR_EVENTS_CREATE_TABLE);
+		}
 	public void createEventsSetTable(SQLiteDatabase db){
 	//	table create statement for events set table 
 		final String EVENT_SET_CREATE_TABLE =
@@ -329,6 +354,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			db.execSQL("drop table if exists " + LEARNING_TABLE);
 			db.execSQL("drop table if exists " + OTHER_TABLE);
 			db.execSQL("drop table if exists " + JUSTIFICATION_TABLE);
+			db.execSQL("drop table if exists " + CALENDAR_EVENTS_TABLE);
 			createCourseTable(db);
 			createActivityTable(db);
 			createLogTable(db);
@@ -340,6 +366,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			createLearningTable(db);
 			createOtherTable(db);
 			createJustificationTable(db);
+			createCalendarEventsTable(db);
 			return;
 		}
 		
@@ -476,7 +503,51 @@ public class DbHelper extends SQLiteOpenHelper {
 		} 
 		return -1;
 	}
-
+	public boolean insertCalendarEvent(long event_id, String event_type, String user_id, String description, String location,long dtstart,long dtend){
+		db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(COL_EVENTID,event_id);
+		values.put(COL_EVENTTYPE,event_type);
+		values.put(COL_USERID,user_id);
+		values.put(COL_DESCRIPTION,description);
+		values.put(COL_LOCATION,location);
+		values.put(COL_DTSTART,dtstart);
+		values.put(COL_DTEND,dtend);
+		
+		long newRowId;
+		newRowId = db.insert(
+				CALENDAR_EVENTS_TABLE, null, values);
+		
+		return true;
+	}
+	public HashMap<String,String> getCalendarEvents(String user_id){
+		HashMap<String,String> list=new HashMap<String,String>();
+		 String strQuery="select "+BaseColumns._ID
+	             +","+COL_EVENTTYPE
+	             +","+COL_EVENTID
+	             +","+COL_DESCRIPTION
+	             +","+COL_LOCATION
+	             +","+COL_DTSTART
+	             +","+COL_DTEND
+	             +" from "+CALENDAR_EVENTS_TABLE
+	             +" where "+COL_USERID
+	             +" = '"+user_id+"'";	
+		 
+		System.out.println(strQuery);
+		Cursor c=read.rawQuery(strQuery, null);
+		c.moveToFirst();
+		while (c.isAfterLast()==false){
+			list.put("event_type",c.getString(c.getColumnIndex(COL_EVENTTYPE)));
+			list.put("event_id",c.getString(c.getColumnIndex(COL_EVENTTYPE)));
+			list.put("event_description", c.getString(c.getColumnIndex(COL_DESCRIPTION)));
+			list.put("event_location",  c.getString(c.getColumnIndex(COL_LOCATION)));
+			list.put("event_dtstart",  c.getString(c.getColumnIndex(COL_DTSTART)));
+			list.put("event_dtend",  c.getString(c.getColumnIndex(COL_DTEND)));
+			c.moveToNext();						
+		}
+		c.close();
+		return list;
+	}
 	public boolean insertEventSet(String event_name, String event_period, String event_number, String month,String sync_status){
 		db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -1060,6 +1131,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	public void insertCCHLog(String module, String data, String starttime, String endtime){
 		db = this.getWritableDatabase();
 		String userid = prefs.getString(ctx.getString(R.string.prefs_username), "noid"); 
+		System.out.println(userid);
 		ContentValues values = new ContentValues();
 		values.put(CCH_TRACKER_USERID, userid);
 		values.put(CCH_TRACKER_MODULE, module);
@@ -1298,7 +1370,7 @@ public ArrayList<String> getAllEventName(String month){
              +" where "+COL_EVENT_MONTH
              +" = '"+month+"'";
 	 
-	System.out.println(strQuery);
+	System.out.println("Name: "+strQuery);
 	Cursor c=read.rawQuery(strQuery, null);
 	c.moveToFirst();
 	while (c.isAfterLast()==false){
@@ -1317,7 +1389,7 @@ public ArrayList<String> getAllEventNumber(String month){
              +" where "+COL_EVENT_MONTH
              +" = '"+month+"'";
 	 
-	System.out.println(strQuery);
+	System.out.println("Number: "+strQuery);
 	Cursor c=read.rawQuery(strQuery, null);
 	c.moveToFirst();
 	while (c.isAfterLast()==false){
@@ -1337,11 +1409,29 @@ public ArrayList<String> getAllEventID(String month){
              +" where "+COL_EVENT_MONTH
              +" = '"+month+"'";
 	 
-	System.out.println(strQuery);
+	System.out.println("ID: "+strQuery);
 	Cursor c=read.rawQuery(strQuery, null);
 	c.moveToFirst();
 	while (c.isAfterLast()==false){
 	list.add(c.getString(c.getColumnIndex(BaseColumns._ID)));
+		c.moveToNext();						
+	}
+	c.close();
+	return list;
+}
+public ArrayList<String> getAllEventPeriod(String month){
+	ArrayList<String> list=new ArrayList<String>();
+	 String strQuery="select "+BaseColumns._ID
+             +","+COL_EVENT_PERIOD
+             +" from "+EVENTS_SET_TABLE
+             +" where "+COL_EVENT_MONTH
+             +" = '"+month+"'";
+	 
+	System.out.println("Period: "+strQuery);
+	Cursor c=read.rawQuery(strQuery, null);
+	c.moveToFirst();
+	while (c.isAfterLast()==false){
+	list.add(c.getString(c.getColumnIndex(COL_EVENT_PERIOD)));
 		c.moveToNext();						
 	}
 	c.close();
@@ -2056,6 +2146,8 @@ public HashMap<String,String> getAllYearlyEvents(String month){
 	c.close();
 	return list;
 }
+
+
 public boolean editEventCategory(String event_category,String event_number,String event_period, long id){
 	    
         String updateQuery = "Update "+EVENTS_SET_TABLE+" set "+

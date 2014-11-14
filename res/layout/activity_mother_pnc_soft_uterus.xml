@@ -9,27 +9,28 @@
         android:id="@+id/TextView01"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:padding="10dp"
         android:text="@string/str_encounterd_client_given_birth_last_2weeks"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/Brown" />
 
     <Button
-        android:id="@+id/Button01"
+        android:id="@+id/button_no"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/Red"
-        android:text="@string/no"
-        android:textColor="@color/White" />
-<View
-            android:layout_width="wrap_content"
-            android:layout_height="16dp" />
+        android:text="No \n\ Check breast problems"
+        android:textColor="@color/Brown" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="16dp" />
+
     <Button
-        android:id="@+id/Button02"
+        android:id="@+id/button_yes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/Green"
         android:text="@string/yes"
-        android:textColor="@color/White" />
+        android:textColor="@color/Brown" />
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.poc.PostnatalCareSectionActivity.PostnatalSectionsListAdapter;
 
 import android.app.Activity;
@@ -20,13 +21,18 @@ public class PostnatalCareMotherDiagnosticToolActivity extends Activity {
 
 	Context mContext;
 	private ListView listView_postnatalSections;
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time;  
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_postnatal_care_sections);
 	    mContext=PostnatalCareMotherDiagnosticToolActivity.this;
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic");
+	    getActionBar().setSubtitle("PNC Diagnostic: Mother");
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    listView_postnatalSections=(ListView) findViewById(R.id.listView_postnatalCareSections);
 	    String[] items={"Maternal Emergencies ","Records & History","Management of Danger Signs",
 				"Malaria","Anaemia ","Soft Uterus, Perineal Tear","Breast Problems"};
@@ -41,6 +47,30 @@ public class PostnatalCareMotherDiagnosticToolActivity extends Activity {
 				switch(position){
 				case 0:
 					intent=new Intent(mContext,MaternalEmergenciesActivity.class);
+					startActivity(intent);
+					break;
+				case 1:
+					intent=new Intent(mContext,RecordsAskActivity.class);
+					startActivity(intent);
+					break;
+				case 2:
+					intent=new Intent(mContext,ManagingDangerSignsMotherPNCActivity.class);
+					startActivity(intent);
+					break;
+				case 3:
+					intent=new Intent(mContext,AskMalariaFeverPNCMotherActivity.class);
+					startActivity(intent);
+					break;
+				case 4:
+					intent=new Intent(mContext,AnaemiaPNCMotherAskActivity.class);
+					startActivity(intent);
+					break;
+				case 5:
+					intent=new Intent(mContext,SoftUterusPNCMotherActivity.class);
+					startActivity(intent);
+					break;
+				case 6:
+					intent=new Intent(mContext,BreastProblemsPNCMotherActivity.class);
 					startActivity(intent);
 					break;
 				}
@@ -83,6 +113,13 @@ public class PostnatalCareMotherDiagnosticToolActivity extends Activity {
 			 text.setText(listItems[position]);
 			    return convertView;
 		}
+	}
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "PNC Diagnostic:  Mother", start_time.toString(), end_time.toString());
+		finish();
 	}
 		
 	}

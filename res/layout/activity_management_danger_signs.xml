@@ -2,15 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/stroke_bg_curry" >
+    android:layout_height="match_parent" >
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="661dp"
+    android:background="@color/White"
     android:orientation="vertical"
     android:padding="10dp" >
-
     
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,61 +42,215 @@
             android:padding="10dp"
             android:text="Ask:"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/Curry" />
+            android:textColor="@color/Brown" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/TakeActionCurry"
+            android:background="@drawable/custom_border2"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <TextView
-                android:id="@+id/TextView05"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="\u2022 Where did you deliver"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/TextView04"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="\u2022 Where did you deliver"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
 
-            <TextView
-                android:id="@+id/TextView03"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="\u2022 When did you deliver"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Did you attend antenatal clinic?"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:id="@+id/TextView77"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="\u2022 How long was labour and delivery? "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+		<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/TextView01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="\u2022 Do you have any concerns? "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Where did you deliver? "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="When did you deliver? "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="How long was labour and delivery?  "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Do you have any concerns? "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
+			<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="40dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Any bleeding? How much blood did you lose?"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="40dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Severe headache/blurred vision?"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="40dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Severe abdominal pain? "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="40dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Pain in the calf? "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="40dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Painful micturition (urination)? "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>v
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/TakeActionCurry"
                 android:divider="@drawable/divider"
                 android:dividerPadding="2dp"
                 android:orientation="vertical"
@@ -115,50 +268,6 @@
                         android:orientation="vertical" >
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/TextView10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="10dp"
-                        android:text="- Any bleeding? How much blood did you lose?"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                    <TextView
-                        android:id="@+id/TextView09"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="10dp"
-                        android:text="- Severe headache/blurred vision? "
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                    <TextView
-                        android:id="@+id/TextView08"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="10dp"
-                        android:text="-	Severe abdominal pain? "
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                    <TextView
-                        android:id="@+id/TextView06"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="10dp"
-                        android:text="-	Pain in the calf? "
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                    <TextView
-                        android:id="@+id/TextView07"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="10dp"
-                        android:text="-	Painful micturition (urination)? "
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -170,18 +279,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/White"
-        android:orientation="vertical" >
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_weight="0.00"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingTop="20dp" >
+        android:paddingTop="10dp" >
 
         <Button
             android:id="@+id/button_next"

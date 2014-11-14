@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.poc.NoInjuriesActivity.NoInjuriesListAdapter;
 
 import android.app.Activity;
@@ -20,13 +21,17 @@ public class TakeActionSomeDehydrationNoActivity extends Activity {
 
 	private String take_action_category;
 	private ListView listView_someDehydrationNo;
-
+	private Long start_time;
+	private Long end_time;
+	private DbHelper dbh;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    Bundle extras = getIntent().getExtras(); 
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic");
+	    getActionBar().setSubtitle("PNC Diagnostic: Diarrhoea");
+	    dbh=new DbHelper(TakeActionSomeDehydrationNoActivity.this);
+	    start_time=System.currentTimeMillis();
         if (extras != null) {
           take_action_category= extras.getString("category");
         }
@@ -105,5 +110,11 @@ public class TakeActionSomeDehydrationNoActivity extends Activity {
 			    return convertView;
 		}
 		
+	}
+	public void onBackPressed()
+	{
+		 end_time=System.currentTimeMillis();
+		dbh.insertCCHLog("Point of Care", "PNC Diagnostic: Diarrhoea" , start_time.toString(), end_time.toString());
+		finish();
 	}
 }

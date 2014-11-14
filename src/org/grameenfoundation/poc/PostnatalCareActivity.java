@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -40,6 +41,9 @@ public class PostnatalCareActivity extends Activity implements AnimationListener
 	private LinearLayout linearLayout_quickReads;
 	private Animation slide_up;
 	private Animation slide_down;
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time; 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -47,6 +51,8 @@ public class PostnatalCareActivity extends Activity implements AnimationListener
 	    mContext=PostnatalCareActivity.this;
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("Postnatal Care");
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    imageButton_baby=(ImageButton) findViewById(R.id.imageButton_newBorn);
 	    imageButton_mother=(ImageButton) findViewById(R.id.imageButton_mother);
 	    linearLayout_counselling=(LinearLayout) findViewById(R.id.linearLayout_counselling);
@@ -334,5 +340,13 @@ public class PostnatalCareActivity extends Activity implements AnimationListener
 	public void onAnimationRepeat(Animation animation) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "Postnatal Care", start_time.toString(), end_time.toString());
+		finish();
 	}
 }

@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,14 +18,17 @@ public class TakeActionAskHerActivity extends Activity {
 	private String take_action_category;
 	Context mContext;
 	private ImageView imageView;
-	/** Called when the activity is first created. */
+	private Long start_time;
+	private Long end_time;
+	private DbHelper dbh;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("ANC Diagnostic");
+	    getActionBar().setSubtitle("ANC Diagnostic: Managing Danger Signs");
 	    mContext=TakeActionAskHerActivity.this;
-	    
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
           take_action_category= extras.getString("take_action");
@@ -164,5 +168,10 @@ ArrayAdapter<String> adapter=new ArrayAdapter<String>(mContext,android.R.layout.
 	    }
 	    */
 	}
-
+	public void onBackPressed()
+	{
+		 end_time=System.currentTimeMillis();
+		dbh.insertCCHLog("Point of Care", "ANC Diagnostic: Managing Danger Signs", start_time.toString(), end_time.toString());
+		finish();
+	}
 }

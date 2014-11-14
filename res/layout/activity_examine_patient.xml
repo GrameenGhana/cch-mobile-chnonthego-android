@@ -9,7 +9,8 @@
     android:layout_height="match_parent"
     android:background="@color/White"
     android:gravity="center"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="10dp" >
 
     <TextView
         android:id="@+id/textView2"
@@ -37,8 +38,7 @@
         <ListView
             android:id="@+id/listView_ask"
             android:layout_width="match_parent"
-            android:layout_height="193dp"
-            android:layout_weight="4.43"
+            android:layout_height="200dp"
             android:background="@drawable/custom_border2" >
         </ListView>
     </LinearLayout>
@@ -61,7 +61,7 @@
         <ListView
             android:id="@+id/listView_look"
             android:layout_width="match_parent"
-            android:layout_height="164dp"
+            android:layout_height="200dp"
             android:background="@drawable/custom_border2" >
         </ListView>
     </LinearLayout>
@@ -84,7 +84,7 @@
         <ListView
             android:id="@+id/listView_check"
             android:layout_width="match_parent"
-            android:layout_height="125dp"
+            android:layout_height="200dp"
             android:background="@drawable/custom_border2" >
         </ListView>
     </LinearLayout>

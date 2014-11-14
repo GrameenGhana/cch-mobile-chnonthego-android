@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,14 +13,17 @@ import android.widget.Button;
 public class NutritionCounsellingNextTwoActivity extends Activity {
 
 	private Button button_next;
-
-	/** Called when the activity is first created. */
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_nutrition_counselling_next_two);
+	    dbh=new DbHelper(NutritionCounsellingNextTwoActivity.this);
+	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Counselling");
+	    getActionBar().setSubtitle("PNC Counselling: Nutrition");
 	    button_next=(Button) findViewById(R.id.button_next);
 	    button_next.setOnClickListener(new OnClickListener(){
 
@@ -32,5 +36,11 @@ public class NutritionCounsellingNextTwoActivity extends Activity {
 	    });
 	}
 	
-
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "PNC Counselling Nutrition", start_time.toString(), end_time.toString());
+		finish();
+	}
 }

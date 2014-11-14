@@ -243,6 +243,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			private ListView listView_events;
 			private ArrayList<String> eventName;
 			private ArrayList<String> eventNumber;
+			private ArrayList<String> eventPeriod;
 			private ArrayList<String> eventsId;
 			private DbHelper db;
 			 public static final String ARG_SECTION_NUMBER = "section_number";       
@@ -266,7 +267,8 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			    eventName=db.getAllEventName(month_passed);
 			    eventNumber=db.getAllEventNumber(month_passed);
 			    eventsId=db.getAllEventID(month_passed);
-			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventsId);
+			    eventPeriod=db.getAllEventPeriod(month_passed);
+			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventPeriod,eventsId);
 			    events_adapter.notifyDataSetChanged();
 			    listView_events.setAdapter(events_adapter);	
 			    if(listView_events.getCount()>0){
@@ -276,7 +278,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			    }
 			    listView_events.setOnItemClickListener(this);
 			    listView_events.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-		          
+			    listView_events.setSelector(R.drawable.listchoice_selector);
 			    listView_events.setMultiChoiceModeListener(new MultiChoiceModeListener() {
 		              
 		            private int nr = 0;
@@ -337,7 +339,8 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 									            	 eventName=db.getAllEventName(month_passed);
 									 			    eventNumber=db.getAllEventNumber(month_passed);
 									 			    eventsId=db.getAllEventID(month_passed);
-									 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventsId);
+									 			   eventPeriod=db.getAllEventPeriod(month_passed);
+									 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventPeriod,eventsId);
 									 			    events_adapter.notifyDataSetChanged();
 									 			    listView_events.setAdapter(events_adapter);	
 									            }
@@ -435,13 +438,14 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 							            	 eventName=db.getAllEventName(month_passed);
 							 			    eventNumber=db.getAllEventNumber(month_passed);
 							 			    eventsId=db.getAllEventID(month_passed);
-							 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventsId);
+							 			   eventPeriod=db.getAllEventPeriod(month_passed);
+							 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventPeriod,eventsId);
 							 			    events_adapter.notifyDataSetChanged();
 							 			    listView_events.setAdapter(events_adapter);	
 							            }
 							        });
 							    
-							    	 Toast.makeText(getActivity().getApplicationContext(), "Event set successfully!",
+							    	 Toast.makeText(getActivity().getApplicationContext(), "Event target set successfully!",
 									         Toast.LENGTH_LONG).show();
 							    }else{
 							    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
@@ -465,13 +469,14 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				System.out.println(selected_items[0]+" "+selected_items[1]);
 				final Dialog dialog = new Dialog(getActivity());
 				dialog.setContentView(R.layout.event_set_dialog);
-				dialog.setTitle("Edit Event");
+				dialog.setTitle("Edit Event Target");
 				final EditText editText_eventNumber=(EditText) dialog.findViewById(R.id.editText_dialogEventPeriodNumber);
-				String[] items={"Daily","Monthly","Weekly","Yearly"};
+				String[] items={"Daily","Monthly","Weekly","Yearly","Quarterly"};
 				ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
 				final Spinner spinner_event_name=(Spinner) dialog.findViewById(R.id.spinner_eventName);
 				final Spinner spinner_eventPeriod=(Spinner) dialog.findViewById(R.id.spinner_dialogEventPeriod);
 				spinner_eventPeriod.setAdapter(adapter);
+				int spinner_position_period=adapter.getPosition(selected_items[2]);
 				String[] items_names={"ANC Static","ANC Outreach","CWC Static","CWC Outreach",
 						"PNC Clinic","Routine Home visit","Special Home visit",
 						"Family Planning","Health Talk","CMAM Clinic","School Health",
@@ -500,12 +505,13 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 					            	eventName=db.getAllEventName(month_passed);
 					 			    eventNumber=db.getAllEventNumber(month_passed);
 					 			    eventsId=db.getAllEventID(month_passed);
-					 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventsId);
+					 			   eventPeriod=db.getAllEventPeriod(month_passed);
+					 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventPeriod,eventsId);
 					 			    events_adapter.notifyDataSetChanged();
 					 			    listView_events.setAdapter(events_adapter);	
 					            }
 					        });	
-					    	 Toast.makeText(getActivity().getApplicationContext(), "Event edited successfully!",
+					    	 Toast.makeText(getActivity().getApplicationContext(), "Event target edited successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
 					    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
@@ -591,7 +597,12 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 						  category_options.check(R.id.radio_people);
 						  category_people=(RadioButton) dialog.findViewById(R.id.radio_people);
 						  category_people.setChecked(true);
-						dialog.setTitle("Add Coverage");
+						  items3=new String[]{"0 - 11 months","12 - 23 months",
+									"24 -59 months","Women in fertile age",
+									"Expected pregnancy"};
+							ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
+							spinner_coverageName.setAdapter(adapter3);
+						dialog.setTitle("Add Coverage Target");
 						    category_options.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 						    	
 								public void onCheckedChanged(
@@ -616,12 +627,12 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 								}
 
 						    });
-						String[] items2={"Daily","Monthly","Weekly"};
+						String[] items2={"Daily","Monthly","Weekly","Yearly","Quarterly"};
 					
 						listView_coverage.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-				          
+						listView_coverage.setSelector(R.drawable.listchoice_selector);
 						listView_coverage.setMultiChoiceModeListener(new MultiChoiceModeListener() {
-				              
+							
 				            private int nr = 0;
 				              
 				            @Override
@@ -655,10 +666,10 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 									AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				            				getActivity());
 									// set title
-									alertDialogBuilder.setTitle("Delete?");
+									alertDialogBuilder.setTitle("Delete Coverage Target?");
 									// set dialog message
 									alertDialogBuilder
-										.setMessage("You are about to delete. Proceed?")
+										.setMessage("You are about to delete this coverage target. Proceed?")
 										.setCancelable(false)
 										.setIcon(R.drawable.ic_error)
 										.setPositiveButton("No",new DialogInterface.OnClickListener() {
@@ -708,6 +719,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 									AlertDialog alertDialog = alertDialogBuilder.create();
 									// show it
 									alertDialog.show();
+									
 									mode.finish();
 								}
 				                return false;
@@ -769,7 +781,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 										    listView_coverage.setAdapter(coverage_adapter);	
 							            }
 							        });	
-							    	 Toast.makeText(getActivity().getApplicationContext(), "Coverage added successfully!",
+							    	 Toast.makeText(getActivity().getApplicationContext(), "Coverage target added successfully!",
 									         Toast.LENGTH_LONG).show();
 							    }else{
 							    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
@@ -793,10 +805,15 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				selected_items=coverage_adapter.getChild(groupPosition,childPosition);
 				dialog.setContentView(R.layout.coverage_add_dialog);
 				final Spinner spinner_coverageName=(Spinner) dialog.findViewById(R.id.spinner_dialogCoverageName);
-				dialog.setTitle("Edit Coverage");
+				dialog.setTitle("Edit Coverage Target");
 			
 				 category_options=(RadioGroup) dialog.findViewById(R.id.radioGroup_category);
 				  category_options.check(R.id.radio_people);
+				  items3=new String[]{"0 - 11 months","12 - 23 months",
+							"24 -59 months","Women in fertile age",
+							"Expected pregnancy"};
+					ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
+					spinner_coverageName.setAdapter(adapter3);
 				    category_options.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 				    	
 						public void onCheckedChanged(
@@ -821,7 +838,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 							}	
 						}
 				    });
-				String[] items2={"Daily","Monthly","Weekly"};
+				String[] items2={"Daily","Monthly","Weekly","Yearly","Quarterly"};
 				final Spinner spinner_coveragePeriod=(Spinner) dialog.findViewById(R.id.spinner_coveragePeriod);
 				ArrayAdapter<String> spinner_adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items2);
 				spinner_coveragePeriod.setAdapter(spinner_adapter);
@@ -862,7 +879,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 								    listView_coverage.setAdapter(coverage_adapter);	
 					            }
 					        });	
-					    	 Toast.makeText(getActivity().getApplicationContext(), "Coverage edited successfully!",
+					    	 Toast.makeText(getActivity().getApplicationContext(), "Coverage target edited successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
 					    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
@@ -936,7 +953,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			    
 			    textStatus=(TextView) rootView.findViewById(R.id.textView_learningStatus);
 			    learningList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-		          
+			    learningList.setSelector(R.drawable.listchoice_selector);
 			    learningList.setMultiChoiceModeListener(new MultiChoiceModeListener() {
 		              
 		            private int nr = 0;
@@ -972,10 +989,10 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 							AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 		            				getActivity());
 							// set title
-							alertDialogBuilder.setTitle("Delete?");
+							alertDialogBuilder.setTitle("Delete learning target?");
 							// set dialog message
 							alertDialogBuilder
-								.setMessage("You are about to delete. Proceed?")
+								.setMessage("You are about to delete this learning target. Proceed?")
 								.setCancelable(false)
 								.setIcon(R.drawable.ic_error)
 								.setPositiveButton("No",new DialogInterface.OnClickListener() {
@@ -1055,7 +1072,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			       public void onClick(View v) {
 			    	   final Dialog dialog = new Dialog(getActivity());
 						dialog.setContentView(R.layout.learning_add_dialog);
-						dialog.setTitle("Add Learning Category");
+						dialog.setTitle("Add Learning Target");
 						final Spinner spinner_learningCatagory=(Spinner) dialog.findViewById(R.id.spinner_learningHeader);
 						String[] items={"Family Planning"};
 						ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
@@ -1160,7 +1177,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 										    learningList.setAdapter(learning_adapter);	
 							            }
 							        });	
-							    	 Toast.makeText(getActivity().getApplicationContext(), "Added successfully!",
+							    	 Toast.makeText(getActivity().getApplicationContext(), "Learning target added successfully!",
 									         Toast.LENGTH_LONG).show();
 							    }else{
 							    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
@@ -1180,7 +1197,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 					selected_item=learning_adapter.getChild(groupPosition, childPosition);
 				 	final Dialog dialog = new Dialog(getActivity());
 					dialog.setContentView(R.layout.learning_add_dialog);
-					dialog.setTitle("Edit Learning Category");
+					dialog.setTitle("Edit Learning Target");
 					final Spinner spinner_learningCatagory=(Spinner) dialog.findViewById(R.id.spinner_learningHeader);
 					String[] items={"Family Planning"};
 					ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
@@ -1286,7 +1303,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 									    learningList.setAdapter(learning_adapter);	
 						            }
 						        });	
-						    	 Toast.makeText(getActivity().getApplicationContext(), "Edited successfully!",
+						    	 Toast.makeText(getActivity().getApplicationContext(), "Learning target edited successfully!",
 								         Toast.LENGTH_LONG).show();
 						    }else{
 						    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
@@ -1331,6 +1348,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			   textStatus=(TextView) rootView.findViewById(R.id.textView_otherStatus);
 			   listViewPopulate();
 			   listView_other.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+			   listView_other.setSelector(R.drawable.listchoice_selector);
 		          
 			   listView_other.setMultiChoiceModeListener(new MultiChoiceModeListener() {
 		              
@@ -1367,10 +1385,10 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 							AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 		            				getActivity());
 							// set title
-							alertDialogBuilder.setTitle("Delete?");
+							alertDialogBuilder.setTitle("Delete target?");
 							// set dialog message
 							alertDialogBuilder
-								.setMessage("You are about to delete. Proceed?")
+								.setMessage("You are about to delete this target. Proceed?")
 								.setCancelable(false)
 								.setIcon(R.drawable.ic_error)
 								.setPositiveButton("No",new DialogInterface.OnClickListener() {
@@ -1441,10 +1459,10 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			       public void onClick(View v) {
 			    	   final Dialog dialog = new Dialog(getActivity());
 						dialog.setContentView(R.layout.event_add_dialog);
-						dialog.setTitle("Add other Category");
+						dialog.setTitle("Add Other Target");
 						final EditText editText_otherCategory=(EditText) dialog.findViewById(R.id.editText_dialogOtherName);
 						final Spinner spinner_otherPeriod=(Spinner) dialog.findViewById(R.id.spinner_dialogOtherPeriod);
-						String[] items={"Daily","Monthly","Weekly"};
+						String[] items={"Daily","Monthly","Weekly","Yearly","Quarterly"};
 						ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
 						spinner_otherPeriod.setAdapter(adapter);
 						final EditText editText_otherNumber=(EditText) dialog.findViewById(R.id.editText_dialogOtherNumber);
@@ -1472,7 +1490,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 									    	listView_other.setAdapter(other_adapter);	
 							            }
 							        });	
-							    	 Toast.makeText(getActivity().getApplicationContext(), "Added successfully!",
+							    	 Toast.makeText(getActivity().getApplicationContext(), "Added target successfully!",
 									         Toast.LENGTH_LONG).show();
 							    }else{
 							    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
@@ -1494,7 +1512,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				    	other_adapter.notifyDataSetChanged();
 				    	listView_other.setAdapter(other_adapter);	
 				    }else if (otherCategory.size()==0){
-				    	textStatus.setText("No other categories found!");
+				    	textStatus.setText("No other targets found!");
 				    }
 				    
 				
@@ -1508,11 +1526,11 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				String[] selected_items=other_adapter.getItem(position);
 				final Dialog dialog = new Dialog(getActivity());
 				dialog.setContentView(R.layout.event_add_dialog);
-				dialog.setTitle("Edit other Category");
+				dialog.setTitle("Edit Other Target");
 				final EditText editText_otherCategory=(EditText) dialog.findViewById(R.id.editText_dialogOtherName);
 				editText_otherCategory.setText(selected_items[0]);
 				final Spinner spinner_otherPeriod=(Spinner) dialog.findViewById(R.id.spinner_dialogOtherPeriod);
-				String[] items={"Daily","Monthly","Weekly","Yearly"};
+				String[] items={"Daily","Monthly","Weekly","Yearly","Quarterly"};
 				ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
 				spinner_otherPeriod.setAdapter(adapter);
 				int spinner_position=adapter.getPosition(selected_items[2]);
@@ -1542,7 +1560,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 							    	listView_other.setAdapter(other_adapter);	
 					            }
 					        });	
-					    	 Toast.makeText(getActivity().getApplicationContext(), "Edited successfully!",
+					    	 Toast.makeText(getActivity().getApplicationContext(), "Target edtied successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
 					    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",

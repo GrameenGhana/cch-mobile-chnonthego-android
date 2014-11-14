@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,15 +21,19 @@ public class PostnatalCareSectionActivity extends Activity {
 
 	private ListView listView_postnatalSections;
 	private Context mContext;
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time;  
 
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_postnatal_care_sections);
 	    mContext=PostnatalCareSectionActivity.this;
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic");
+	    getActionBar().setSubtitle("PNC Diagnostic: Baby");
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    listView_postnatalSections=(ListView) findViewById(R.id.listView_postnatalCareSections);
 	    String[] items={"Newborn Emergency","Records & History","Very Severe Disease & Local Bacterial Infections",
 				"Jaundice","Other Serious Conditions, Birth Injury & Abnormalities",
@@ -116,5 +121,11 @@ public class PostnatalCareSectionActivity extends Activity {
 		}
 		
 	}
-
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "PNC Diagnostic:  Baby", start_time.toString(), end_time.toString());
+		finish();
+	}
 }

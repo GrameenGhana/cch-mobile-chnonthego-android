@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,13 +21,17 @@ public class DiagnosticToolActivity extends Activity implements OnItemClickListe
 
 	private Context mContext;
 	private ListView listView_encounter;
-
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_encounter);
 	    mContext=DiagnosticToolActivity.this;
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC Diagnostic");
 	    listView_encounter=(ListView) findViewById(R.id.listView_encounter);
@@ -114,6 +119,13 @@ public class DiagnosticToolActivity extends Activity implements OnItemClickListe
 			    return convertView;
 		}
 		
+	}
+	public void onBackPressed()
+	{
+		end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "ANC Diagnostic Tool", start_time.toString(), end_time.toString());
+		finish();
 	}
 
 }

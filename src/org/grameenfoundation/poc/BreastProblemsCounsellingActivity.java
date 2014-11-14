@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,15 +23,19 @@ public class BreastProblemsCounsellingActivity extends Activity {
 	private ListView listView_breastProblem;
 	Context mContext;
 	private Button button_next;
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time;
 
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_breast_problems_counselling);
 	    mContext=BreastProblemsCounsellingActivity.this;
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Counselling");
+	    getActionBar().setSubtitle("PNC Counselling: Breast Problems");
 	   listView_breastProblem=(ListView) findViewById(R.id.listView_breastfeeding);
 	   String[] items={"Position and attach baby correctly on the breast.  Breastfeeding should not hurt",
 			   			"If you develop cracked nipples, put some breast milk on them.  Do not use any types of creams or ointments except when prescribed by a health care provider ",
@@ -99,5 +104,12 @@ public class BreastProblemsCounsellingActivity extends Activity {
 			    return convertView;
 		}
 		
+	}
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "PNC Counselling Breast Problems", start_time.toString(), end_time.toString());
+		finish();
 	}
 }

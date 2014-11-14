@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,13 +23,18 @@ public class NoSeriousConditionsActivity extends Activity {
 	Context mContext;
 	private ListView listView_noConditions;
 	private Button button_no;
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_no_serious_conditions);
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic");
+	    getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions");
 	    mContext=NoSeriousConditionsActivity.this;
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    listView_noConditions=(ListView) findViewById(R.id.listView_noConditions);
 	    String[] items={"Asymmetrical limb movement, one limb does not move",
 	    				"Firm swelling/bump on one or both sides of head",
@@ -112,5 +118,12 @@ public class NoSeriousConditionsActivity extends Activity {
 			    return convertView;
 		}
 		
+	}
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "PNC Diagnostic Other Serious Conditions", start_time.toString(), end_time.toString());
+		finish();
 	}
 }

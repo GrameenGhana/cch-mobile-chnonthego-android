@@ -41,7 +41,7 @@ public class AnaemiaAskActivity extends Activity {
 	{
 	    end_time=System.currentTimeMillis();
 	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
-		dbh.insertCCHLog("Point of Care", "ANC Anaemia", start_time.toString(), end_time.toString());
+		dbh.insertCCHLog("Point of Care", "ANC Diagnostic Anaemia", start_time.toString(), end_time.toString());
 		finish();
 	}
 }

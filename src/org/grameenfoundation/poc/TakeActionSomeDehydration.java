@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,15 +16,21 @@ public class TakeActionSomeDehydration extends Activity {
 	private Button button_yes;
 	private Button button_no;
 	private Context mContext;
+	private Long start_time;
+	private Long end_time;
+	private DbHelper dbh;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_some_dehydration);
-		getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic");
 		mContext=TakeActionSomeDehydration.this;
+		getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Diagnostic: Diarrhoea");
+	    
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 		button_yes=(Button) findViewById(R.id.button_yes);
 		button_yes.setOnClickListener(new OnClickListener(){
 
@@ -47,5 +54,10 @@ public class TakeActionSomeDehydration extends Activity {
 			
 		});
 	}
-
+	public void onBackPressed()
+	{
+		 end_time=System.currentTimeMillis();
+		dbh.insertCCHLog("Point of Care", "PNC Diagnostic: Diarrhoea" , start_time.toString(), end_time.toString());
+		finish();
+	}
 }

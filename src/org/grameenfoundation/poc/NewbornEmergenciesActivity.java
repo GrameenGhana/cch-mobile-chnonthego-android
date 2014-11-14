@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,14 +20,19 @@ public class NewbornEmergenciesActivity extends Activity {
 
 	private ListView listView_newbornEmergency;
 	Context mContext;
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_newborn_emergency);
+	    dbh=new DbHelper(NewbornEmergenciesActivity.this);
+	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic");
+	    getActionBar().setSubtitle("PNC Diagnostic: Newborn Emergencies");
 	    mContext=NewbornEmergenciesActivity.this;
 	    listView_newbornEmergency=(ListView) findViewById(R.id.listView_newbornEmergency);
 	    String[] items={"Not breathing or gasping Difficulty breathing: chest in-drawing, grunting",
@@ -98,5 +104,12 @@ public class NewbornEmergenciesActivity extends Activity {
 			    return convertView;
 		}
 		
+	}
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "PNC Diagnostic Newborn Emergencies", start_time.toString(), end_time.toString());
+		finish();
 	}
 }

@@ -2,21 +2,19 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/stroke_bg_curry" >
+    android:layout_height="match_parent" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="488dp"
         android:layout_weight="0.00"
-        android:background="@color/Red"
+        android:background="@color/White"
         android:orientation="vertical"
         android:padding="10dp" >
 
-        
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="661dp"
+            android:layout_height="wrap_content"
             android:background="@color/text_light"
             android:orientation="vertical"
             android:padding="10dp" >
@@ -47,127 +45,40 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="311dp"
         android:background="@color/White"
         android:orientation="vertical" >
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.00"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingTop="20dp" >
+        <ListView
+            android:id="@+id/listView_dangerSigns"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/BackgroundGrey"
+            android:divider="@color/White"
+            android:dividerHeight="5dp" >
 
-        <Button
-            android:id="@+id/Button03"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Difficulty breathing or cyanosis "
-            android:textColor="@color/TextBrown" />
+        </ListView>
 
-        <Button
-            android:id="@+id/Button02"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Shock  "
-            android:textColor="@color/TextBrown" />
-
-        <Button
-            android:id="@+id/Button01"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Heavy bleeding "
-            android:textColor="@color/TextBrown" />
-
-        <Button
-            android:id="@+id/button_next"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Convulsing (now or recently), Unconscious "
-            android:textColor="@color/TextBrown" />  
-            
-            <Button
-            android:id="@+id/button_next1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Severe headache/blurred vision "
-            android:textColor="@color/TextBrown" />  
-            
-            <Button
-            android:id="@+id/button_next2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Diastolic BP ≥ 90 mmHg"
-            android:textColor="@color/TextBrown" /> 
-
-<Button
-            android:id="@+id/button_next3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Severe abdominal pain "
-            android:textColor="@color/TextBrown" />  
-            
-            <Button
-            android:id="@+id/button_next4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Persistent vomiting"
-            android:textColor="@color/TextBrown" /> 
-            
-            <Button
-            android:id="@+id/button_next5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Pain in calf with or without swelling "
-            android:textColor="@color/TextBrown" /> 
-            
-            <Button
-            android:id="@+id/button_next6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Painful or tender wound"
-            android:textColor="@color/TextBrown" />
-            
-            
-                
-            <Button
-            android:id="@+id/button_next7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Pain on urination/dribbling urine"
-            android:textColor="@color/TextBrown" />
-            
-                
-            <Button
-            android:id="@+id/button_next8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Pallor"
-            android:textColor="@color/TextBrown" />
-            
-                
-            <Button
-            android:id="@+id/button_next9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Abnormal behaviour/depression "
-            android:textColor="@color/TextBrown" />    
-            
-            
-            <Button
-            android:id="@+id/button_next10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="No sign "
-            android:textColor="@color/TextBrown" />
-        
-    
-
-        
     </LinearLayout>
 </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp" >
+
+            <Button
+                android:id="@+id/button_no"
+                android:layout_width="238dp"
+                android:layout_height="wrap_content"
+                android:background="@color/Green"
+                android:text="No Danger Signs"
+                android:textColor="@color/White" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 

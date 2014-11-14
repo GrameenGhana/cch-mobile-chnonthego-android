@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/White"
+        android:orientation="vertical"
+        android:padding="20dp" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Ask:  "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/TextBrown"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_border2"
+            android:divider="@drawable/divider"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:showDividers="middle" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="How are you feeling? "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+			<ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="How do you breasts feel? "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="Check/Look, Listen, Feel"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/TextBrown"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_border2"
+            android:orientation="vertical"
+            android:padding="10dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@drawable/divider"
+                android:orientation="vertical"
+                android:showDividers="middle" >
+				 <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+			<ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Examine breasts  "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+			</LinearLayout>
+
+				 <LinearLayout
+				     android:layout_width="match_parent"
+				     android:layout_height="wrap_content" >
+				<ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_bullet" />
+
+				     <TextView
+				         android:id="@+id/textView6"
+				         android:layout_width="wrap_content"
+				         android:layout_height="wrap_content"
+				         android:paddingBottom="5dp"
+				         android:paddingLeft="10dp"
+				         android:paddingRight="0dp"
+				         android:text="Check temperature"
+				         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+				 </LinearLayout>
+				 <LinearLayout
+				     android:layout_width="match_parent"
+				     android:layout_height="wrap_content" >
+				<ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Observe a feed.  Check for positioning and attachment "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+				</LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="30dp" >
+
+            <Button
+                android:id="@+id/button_next"
+                android:layout_width="222dp"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:textColor="@color/Brown" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
