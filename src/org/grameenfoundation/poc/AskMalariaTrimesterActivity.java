@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,13 +20,18 @@ public class AskMalariaTrimesterActivity extends Activity {
 
 	private ListView listView_askMalariaTrimester;
 	  Context mContext;
+	  private DbHelper dbh;
+		private Long start_time;
+		private Long end_time;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_ask_malaria_trimester);
 	    mContext=AskMalariaTrimesterActivity.this;
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("ANC Diagnostic");
+	    getActionBar().setSubtitle("ANC Diagnostic: Malaria");
 	    listView_askMalariaTrimester=(ListView) findViewById(R.id.listView_askMalariaTrimester);
 	    String[] items={"1st Trimester","2nd Trimester","3rd Trimester"};
 	    ListAdapter adapter=new ListAdapter(mContext,items);
@@ -98,4 +104,12 @@ public class AskMalariaTrimesterActivity extends Activity {
 			    return convertView;
 		}
 	}
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "ANC Diagnostic Malaria", start_time.toString(), end_time.toString());
+		finish();
+	}
+
 }

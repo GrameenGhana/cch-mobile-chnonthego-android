@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_refer"
                 android:padding="5dp"
-                android:text=" Refer mother and baby to a health center or hospital IMMEDIATELY"
+                android:text="Refer client to the health center or hospital IMMEDIATELY"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -193,6 +193,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:orientation="vertical" >
 
         <TextView

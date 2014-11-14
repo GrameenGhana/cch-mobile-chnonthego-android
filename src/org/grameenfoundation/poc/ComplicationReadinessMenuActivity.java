@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,13 +23,18 @@ public class ComplicationReadinessMenuActivity extends Activity {
 	private ListView listView_complication;
 	Context mContext;
 	private Button button_next;
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_complication_readiness_counselling);
 	    mContext=ComplicationReadinessMenuActivity.this;
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Counselling");
+	    getActionBar().setSubtitle("PNC Counselling: Complication Readiness");
 	    listView_complication=(ListView) findViewById(R.id.listView_complicationReadinessMenu);
 	    String[] items={"Danger Signs in the Mother ","Newborn danger signs","Other maternal danger signs","Other newborn danger signs"};
 	    ListAdapter adapter=new ListAdapter(mContext,items);
@@ -112,5 +118,12 @@ public class ComplicationReadinessMenuActivity extends Activity {
 			    return convertView;
 		}
 		
+	}
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "PNC Counselling Complication Readiness", start_time.toString(), end_time.toString());
+		finish();
 	}
 }

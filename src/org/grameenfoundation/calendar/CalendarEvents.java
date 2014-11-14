@@ -4,17 +4,23 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Instances;
@@ -32,10 +38,13 @@ public class CalendarEvents {
     private int thismonthEventsNum = 0;
     private int thismonthEventsDone = 0;
     private String previousLocations = "";
+	private SharedPreferences prefs;
+    private static DbHelper dbh;
     
 	public CalendarEvents(Context c){
 		this.mContext=c;
 		readCalendarEvent(c);
+		dbh = new DbHelper(c);
 	}
 	
 	public void addRecurringEvent(String evt, String location, String desc,String rrule)
@@ -60,34 +69,37 @@ public class CalendarEvents {
 		//System.out.println(rrule);
 		mContext.startActivity(intent);
     }
-	public void addEvent(String evt, String location, String desc)
-    {	/*
-		long calID = 4;
-		
-		
+	public void addEvent(String evt, String location, String desc,long dtstart,long dtend)
+    {	
+		long calID = 1;
+		TimeZone timeZone = TimeZone.getDefault();
+		Calendar cal = Calendar.getInstance();
 		ContentResolver cr = mContext.getContentResolver();
 		ContentValues values = new ContentValues();
-		values.put(Events.DTSTART, cal.getTimeInMillis());
-		values.put(Events.DTEND,  cal.getTimeInMillis()+60*60*1000);
+		values.put(Events.DTSTART, dtstart);
+		values.put(Events.DTEND,  dtend);
 		values.put(Events.TITLE, evt);
 		values.put(Events.DESCRIPTION, desc);
 		values.put(Events.CALENDAR_ID, calID);
 		values.put(Events.AVAILABILITY,  Events.AVAILABILITY_BUSY);
 		values.put(Events.EVENT_LOCATION, location);
-		values.put(Events.EVENT_TIMEZONE, "America/Los_Angeles");
+		values.put(Events.EVENT_TIMEZONE, timeZone.getID());
 		values.put(CalendarContract.EXTRA_EVENT_ALL_DAY,  false);
 		Uri uri = cr.insert(Events.CONTENT_URI, values);
-		System.out.println(TimeZone.getAvailableIDs().toString());
+		//System.out.println(TimeZone.getAvailableIDs().toString());
 		// get the event ID that is the last element in the Uri
 		
 		long eventID = Long.parseLong(uri.getLastPathSegment());
 		if(eventID!=0){
 			System.out.println(String.valueOf(eventID));
 		}
-		*/
+		
+		
 		//beginTime.set(2012, 0, 19, 7, 30);
 		//Calendar endTime = Calendar.getInstance();
 		//endTime.set(2012, 0, 19, 8, 30);
+		/*
+		prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 		Calendar cal = Calendar.getInstance();
 		Intent	intent = new Intent(Intent.ACTION_EDIT)
 		        .setData(Events.CONTENT_URI)
@@ -99,8 +111,14 @@ public class CalendarEvents {
 		        .putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY)
 		 		.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY , false);
 		
-		mContext.startActivity(intent);
+		//long eventID = Long.parseLong(Events.CONTENT_URI.getLastPathSegment());
+		//System.out.println(String.valueOf(eventID));
+		*/
+		//String user_id = prefs.getString(mContext.getString(R.string.prefs_username), "noid"); 
+		//dbh.insertCalendarEvent(eventID,evt, user_id, desc, location, cal.getTimeInMillis(),  cal.getTimeInMillis()+60*60*1000);
+		//mContext.startActivity(intent);
 		
+	
     }
     
 	public class MyEvent
@@ -175,7 +193,13 @@ public class CalendarEvents {
 	public String getNumEventsToday() {	
     	return String.valueOf(todaysEventsNum) ;
     }
-	
+	public HashMap<String, String> getTodaysCalendarEvents(){
+		HashMap<String,String> list=new HashMap<String,String>();
+		
+		
+		return list;
+		
+	}
 	public ArrayList<String> getTodaysEventsType() {
 			ArrayList<String> events =new ArrayList<String>(); 
 	       int evNum = 0;
@@ -499,6 +523,73 @@ public class CalendarEvents {
    	}
     public void readCalendarEvent(Context context){
     	{
+    		/*
+    		ArrayList<String> event_Id;
+    		ArrayList<String> event_type;
+    		ArrayList<String> event_description;
+    		ArrayList<String> dtstart;
+    		ArrayList<String> dtend;
+    		ArrayList<String> event_location;
+    		HashMap<String,String> list=new HashMap<String,String>();
+    		String user_id = prefs.getString(mContext.getString(R.string.prefs_username), "noid"); 
+    		list=dbh.getCalendarEvents(user_id);
+    		event_Id=new ArrayList<String>();
+    		event_Id.add(list.get("event_id"));
+    		event_type=new ArrayList<String>();
+    		event_type.add(list.get("event_type"));
+    		event_description=new ArrayList<String>();
+    		event_description.add(list.get("event_description"));
+    		dtstart=new ArrayList<String>();
+    		dtstart.add(list.get("event_dtstart"));
+    		dtend=new ArrayList<String>();
+    		dtend.add(list.get("event_dtend"));
+    		event_location=new ArrayList<String>();
+    		event_location.add(list.get("event_location"));
+    		
+    		 calEvents.clear();
+             todaysEventsNum = 0;
+             tomorrowsEventsNum = 0;
+             futureEventsNum = 0;
+             thismonthEventsNum = 0;
+             thismonthEventsDone = 0;
+             previousLocations = "";
+             for(int i = 0; i<=list.size();i++){
+    		  MyEvent payload = new MyEvent();
+         	   payload.eventId = Long.valueOf(event_Id.get(i));
+         	   payload.eventType = event_type.get(i);
+         	   payload.description = event_description.get(i);
+         	   payload.startDate =Long.valueOf(dtstart.get(i));
+         	   payload.endDate = Long.valueOf(dtend.get(i));
+         	   payload.location = event_location.get(i);
+         	   
+         	   calEvents.add(payload);
+        	   
+         	   if (payload.isToday())              { todaysEventsNum++;    } 
+         	   else if (payload.isTomorrow())      { tomorrowsEventsNum++; } 
+         	   else if (payload.isFuture())        { futureEventsNum++;    }
+         	   
+         	   if (payload.isThisMonth())     { thismonthEventsNum++; }
+         	   if (payload.isThisMonth(true)) { thismonthEventsDone++; }
+             }
+         	  */ 
+    		Uri uri = CalendarContract.Calendars.CONTENT_URI;
+    		 long calID = 0;
+    		String[] projection = new String[] {
+    		       CalendarContract.Calendars._ID
+    		       //CalendarContract.Calendars.ACCOUNT_NAME,
+    		       //CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,
+    		       //CalendarContract.Calendars.NAME,
+    		       //CalendarContract.Calendars.CALENDAR_COLOR
+    		};
+
+    		Cursor calendarCursor =  context.getContentResolver()
+                    .query(uri, projection, null, null, null);
+    		while(calendarCursor.moveToNext()){
+    			
+    			 calID=calendarCursor.getLong(0);
+    			 System.out.println("Calendar Ids: "+String.valueOf(calID));
+    		}
+    		
             Cursor cursor = context.getContentResolver()
                     .query(
                             Uri.parse("content://com.android.calendar/events"),
@@ -549,6 +640,7 @@ public class CalendarEvents {
             }  
             
             cursor.close();
+            
      }
     	
     }

@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,12 +15,17 @@ public class HIVInfectionAskActivity extends Activity {
 	private String category;
 	private Button button_no;
 	private Button button_yes;
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic");
+	    getActionBar().setSubtitle("PNC Diagnostic: HIV Infection");
+	    dbh=new DbHelper(HIVInfectionAskActivity.this);
+	    start_time=System.currentTimeMillis();
 	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
           category= extras.getString("value");
@@ -75,5 +81,11 @@ public class HIVInfectionAskActivity extends Activity {
      }
 	  
 	}
-
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "PNC Diagnostic HIV Infection", start_time.toString(), end_time.toString());
+		finish();
+	}
 }

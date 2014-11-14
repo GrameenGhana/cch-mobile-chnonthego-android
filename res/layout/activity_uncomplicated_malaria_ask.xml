@@ -53,7 +53,7 @@
                 android:id="@+id/button_next"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.23"
+                android:layout_weight="0.22"
                 android:text="Next"
                 android:textColor="@color/TextBrown" />
         </LinearLayout>

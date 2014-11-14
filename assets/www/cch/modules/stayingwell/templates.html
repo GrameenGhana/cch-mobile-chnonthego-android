@@ -1,0 +1,34 @@
+<!-- begin fullscreen view template -->
+<script class="fullscreen-view" type="text/template">
+    <div id="{{= id }}"
+         class="canvas" style="z-index:{{= index }}">
+        {{= template }}
+    </div>
+</script>
+<!-- end fullscreen view template -->
+<!-- begin modal view template -->
+<script class="modal-view" type="text/template">
+    <div class="modal main-modal">
+        <div style="position: relative">
+            <div class="modal_content modal-content" style="display: none">
+                <div class="modal_close modal-close"></div>
+                <div style="background-color: #fff"> {{= template }} </div>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- end modal view template -->
+<!-- begin image view template -->
+<script class="image-view" type="text/template">
+    <div class="modal image-modal">
+        <div style="position: relative">
+            <div class="modal_content image-modal-content" style="display: none">
+                <div class="modal_close image-modal-close"></div>
+                <ul class="action_list">
+                    <li style="background-color: #fff"> {{= template }} </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- end image view template -->

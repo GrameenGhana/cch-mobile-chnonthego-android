@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,13 +20,18 @@ import android.widget.TextView;
 public class InfantFeedingMenuActivity extends Activity {
 
 	private ListView listView_infantFeeding;
-	/** Called when the activity is first created. */
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_infant_feeding_menu);
+	    dbh=new DbHelper(InfantFeedingMenuActivity.this);
+	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Counselling");
+	    getActionBar().setSubtitle("PNC Counselling: Infant Feeding");
 	    listView_infantFeeding=(ListView) findViewById(R.id.listView_infantFeeding);
 	    String[] items={"Importance of Exclusive Breastfeeding","Breast Attachment",
 	    				"How Often to Breastfeed","Breastfeeding a Low Birth Weight Baby",
@@ -134,5 +140,12 @@ public class InfantFeedingMenuActivity extends Activity {
 			 text.setText(items[position]);
 			    return convertView;
 		}
+	}
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "PNC Counselling Infant Feeding", start_time.toString(), end_time.toString());
+		finish();
 	}
 }

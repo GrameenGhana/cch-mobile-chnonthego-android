@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,14 +9,18 @@ import android.os.Bundle;
 public class TakeActionNoInjuriesActivity extends Activity {
 
 	private String take_action_category;
-
-	/** Called when the activity is first created. */
+	private Long start_time;
+	private Long end_time;
+	private DbHelper dbh;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    Bundle extras = getIntent().getExtras(); 
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic");
+	    getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions");
+	    dbh=new DbHelper(TakeActionNoInjuriesActivity.this);
+	    start_time=System.currentTimeMillis();
         if (extras != null) {
           take_action_category= extras.getString("category");
         }
@@ -27,5 +32,10 @@ public class TakeActionNoInjuriesActivity extends Activity {
         setContentView(R.layout.activity_unusual_appearance);
         }
 	}
-
+	public void onBackPressed()
+	{
+		 end_time=System.currentTimeMillis();
+		dbh.insertCCHLog("Point of Care", "PNC Diagnostic: Other Serious Conditions", start_time.toString(), end_time.toString());
+		finish();
+	}
 }

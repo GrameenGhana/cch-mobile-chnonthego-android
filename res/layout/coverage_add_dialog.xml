@@ -10,6 +10,8 @@
         android:gravity="center"
         android:orientation="vertical"
         android:paddingBottom="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:paddingTop="20dp" >
 
         <LinearLayout
@@ -71,33 +73,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="15dp" >
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:text="Number: "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/Brown"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/editText_dialogCoverageNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:nextFocusDown="@+id/spinner_dialogCoverageCategory"
-                android:textStyle="italic" >
-            </EditText>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:paddingBottom="10dp" >
 
@@ -121,18 +96,54 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingBottom="10dp" >
+            android:paddingBottom="15dp" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:text="Number: "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/Brown"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editText_dialogCoverageNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:nextFocusDown="@+id/spinner_dialogCoverageCategory"
+                android:textStyle="italic" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
 
             <Button
                 android:id="@+id/button_dialogAddCoverage"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_add"
-                android:minHeight="28dip"
-                android:text="Add"
-                android:textColor="@color/TextColorWine" />
+                android:padding="5dp"
+                android:text="Save"
+                android:textColor="@color/TextBrown" />
+
+   <View
+            android:id="@+id/view1"
+            android:layout_width="54dp"
+            android:layout_height="82dp" />
+
+            <Button
+                android:id="@+id/button_cancel"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Cancel"
+                android:textColor="@color/TextBrown" />
 
         </LinearLayout>
     </LinearLayout>

@@ -9,12 +9,14 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="661dp"
+    android:background="@color/White"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.00"
+        android:background="@color/White"
         android:gravity="center"
         android:orientation="vertical" >
 
@@ -90,7 +92,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/TakeAction"
+            android:background="@color/White"
             android:divider="@drawable/divider"
             android:dividerPadding="2dp"
             android:orientation="vertical"
@@ -136,6 +138,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:orientation="vertical" >
 
         <TextView

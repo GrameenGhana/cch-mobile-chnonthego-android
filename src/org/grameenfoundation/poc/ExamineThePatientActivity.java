@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -24,6 +25,9 @@ public class ExamineThePatientActivity extends Activity {
 	private ListView listView_check;
 	private Context mContext;
 	private Button button_next;
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -31,8 +35,10 @@ public class ExamineThePatientActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_examine_patient);
 	    mContext=ExamineThePatientActivity.this;
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("ANC Diagnostic");
+	    getActionBar().setSubtitle("ANC Diagnostic: Danger Signs");
 	    listView_ask=(ListView) findViewById(R.id.listView_ask);
 	    listView_look=(ListView) findViewById(R.id.listView_look);
 	    listView_check=(ListView) findViewById(R.id.listView_check);
@@ -174,5 +180,12 @@ public class ExamineThePatientActivity extends Activity {
 			    return convertView;
 		}
 		
+	}
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "ANC Diagnostic Managing Danger Signs", start_time.toString(), end_time.toString());
+		finish();
 	}
 }

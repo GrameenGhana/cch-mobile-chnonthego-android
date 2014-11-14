@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.digitalcampus.mobile.learningGF"
-    android:versionCode="100"
-    android:versionName="3.0.21" 
+    android:versionCode="101"
+    android:versionName="3.0.22" 
     android:screenOrientation="portrait">
 
     <uses-sdk
@@ -45,6 +45,13 @@
         </activity>
         <activity
             android:name="org.grameenfoundation.cch.activity.HomeActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Example" 
+             android:screenOrientation="portrait"
+  			 android:configChanges="orientation|keyboardHidden">
+        </activity>
+          <activity
+            android:name="org.grameenfoundation.cch.activity.StayingWellActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.Example" 
              android:screenOrientation="portrait"
@@ -286,6 +293,29 @@
         <activity android:name="org.grameenfoundation.poc.PostnatalCareMotherDiagnosticToolActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.MaternalEmergenciesActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.TakeActionMaternalEmergenciesActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.AskMotherRecordsPNCActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.AskMotherRecordsPNCNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ManagingDangerSignsMotherPNCActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ManagingDangerSignsMotherPNCNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ManagingDangerSignsMotherPNCNextTwoActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionManagingDangerSignsMotherPNCActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.MalariaMotherPNCActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.AskMalariaFeverMotherPNCYesActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.AnaemiaPNCMotherAskActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.PerformMalariaTestPNCMotherActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.SeverAnaemiaAskPNCMotherActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.AskMalariaComplicatedPNCMotherActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionSevereMalariaPNCMotherActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.AskMalariaUnComplicatedPNCMotherActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionUncomplicatedMalariaPNCMotherActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.AskMalariaFeverPNCMotherActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.SoftUterusPNCMotherActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.SoftUterusPNCMotherYesActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.SoftUterusPNCMotherYesNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionSoftUterusPNCMotherActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.BreastProblemsPNCMotherActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TakeActionBreastProblemsPNCMotherActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.BreastProblemsPNCMotherNextActivity"></activity>
     </application>
 
 </manifest>

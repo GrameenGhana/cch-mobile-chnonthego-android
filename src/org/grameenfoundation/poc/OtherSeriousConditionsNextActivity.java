@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,14 +23,18 @@ public class OtherSeriousConditionsNextActivity extends Activity {
 	private ListView listView_otherCondition;
 	private Context mContext;
 	private Button button_no;
-	/** Called when the activity is first created. */
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time; 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_other_serious_condition_next);
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic");
+	    getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions");
 	    mContext=OtherSeriousConditionsNextActivity.this;
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    listView_otherCondition=(ListView) findViewById(R.id.listView_otherConditions);
 	    String[] items={"Bleeding from Umbilical Cord or Elsewhere from the Body",
 	    				"Soft swelling Covering Whole Scalp",
@@ -130,5 +135,12 @@ public class OtherSeriousConditionsNextActivity extends Activity {
 			    return convertView;
 		}
 		
+	}
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "PNC Diagnostic: Other Serious Conditions", start_time.toString(), end_time.toString());
+		finish();
 	}
 }

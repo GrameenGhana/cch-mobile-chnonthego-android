@@ -1,6 +1,7 @@
 package org.digitalcampus.oppia.activity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
@@ -28,6 +29,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -51,6 +53,7 @@ public final class PlanEventActivity extends Activity implements OnClickListener
 	Long startTime;
 	 CalendarEvents c;
 	String rrule;
+	private DatePicker datePicker;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -85,6 +88,7 @@ public final class PlanEventActivity extends Activity implements OnClickListener
 	   // repeatingLayout.setVisibility(View.GONE);
 	    button_viewCalendar=(Button) findViewById(R.id.button_eventViewCalendar);
 	    button_viewCalendar.setOnClickListener(this);
+	    datePicker=(DatePicker) findViewById(R.id.datePicker1);
 	}
 	    /*
 	    radioGroup_repeating=(RadioGroup) findViewById(R.id.radioGroup_recurringChoice);
@@ -165,7 +169,15 @@ public final class PlanEventActivity extends Activity implements OnClickListener
 						String eventName=spinner_eventName.getSelectedItem().toString();
 						String eventLocation=editText_event_location.getText().toString();
 						String eventDescription=editText_eventDescription.getText().toString();
-						c.addEvent(eventName, eventLocation, eventDescription);
+						long dtstart;
+						long dtend;
+						Calendar start=Calendar.getInstance();
+						start.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
+						start.set(Calendar.MONTH, datePicker.getMonth());
+						start.set(Calendar.YEAR, datePicker.getYear());
+						dtstart=start.getTimeInMillis();
+						dtend=start.getTimeInMillis()+60*60*1000;
+						c.addEvent(eventName, eventLocation, eventDescription,dtstart,dtend);
 						dialog.cancel();
 						AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 			    				mContext);

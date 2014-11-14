@@ -26,14 +26,22 @@
 
     </LinearLayout>
 
-    <ExpandableListView
-        android:id="@+id/expandableListView1"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="?android:attr/activatedBackgroundIndicator"
-        android:fontFamily="sans-serif-light" >
+        android:layout_height="302dp"
+        android:orientation="vertical" >
 
-    </ExpandableListView>
+        <ExpandableListView
+            android:id="@+id/expandableListView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/activatedBackgroundIndicator"
+            android:dividerHeight="5dp"
+            android:fontFamily="sans-serif-light" >
+
+        </ExpandableListView>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,8 +55,8 @@
             android:drawableLeft="@drawable/ic_add"
             android:fontFamily="sans-serif-light"
             android:minHeight="28dip"
-            android:text="Add coverage"
-            android:textColor="@color/TextColorWine" />
+            android:text="Add target"
+            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 

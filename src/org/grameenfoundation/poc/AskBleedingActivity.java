@@ -286,7 +286,7 @@ public class AskBleedingActivity extends Activity {
 	{
 	    end_time=System.currentTimeMillis();
 	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
-		dbh.insertCCHLog("Point of Care", "ANC Excessive Bleeding", start_time.toString(), end_time.toString());
+		dbh.insertCCHLog("Point of Care", "ANC Diagnostic Excessive Bleeding", start_time.toString(), end_time.toString());
 		finish();
 	}
 }

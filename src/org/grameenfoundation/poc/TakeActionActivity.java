@@ -28,6 +28,7 @@ public class TakeActionActivity extends Activity{
 	private Long start_time;
 	private Long end_time;
 	private DbHelper dbh;
+	String data;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -37,6 +38,7 @@ public class TakeActionActivity extends Activity{
 	    dbh=new DbHelper(mContext);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC Diagnostic: Acute Emergencies");
+	    
 	   // listView_takeAction=(ListView) findViewById(R.id.listView_takeAction);
 	  //  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
 	    Bundle extras = getIntent().getExtras(); 
@@ -46,19 +48,16 @@ public class TakeActionActivity extends Activity{
         }
         if(take_action_category.equals("Difficulty breathing")){
         	   setContentView(R.layout.activity_difficulty_breathing_anc);
-        	   end_time=System.currentTimeMillis();
         }else if(take_action_category.equals("Edema")){
         	 setContentView(R.layout.activity_edema_of_feet);
-        	 end_time=System.currentTimeMillis();
         }else if(take_action_category.equals("Shock")){
         	 setContentView(R.layout.activity_shock_anc);
-        	 end_time=System.currentTimeMillis();
         }
 	}
 	public void onBackPressed()
 	{
-	    
-		dbh.insertCCHLog("Point of Care", "ANC Acute Emergencies: Take Action", start_time.toString(), end_time.toString());
+		 end_time=System.currentTimeMillis();
+		dbh.insertCCHLog("Point of Care", "ANC Diagnostic: Acute Emergencies", start_time.toString(), end_time.toString());
 		finish();
 	}
 	

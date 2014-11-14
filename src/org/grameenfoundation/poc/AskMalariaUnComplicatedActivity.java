@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.poc.AskMalariaComplicatedActivity.ListAdapter;
 
 import android.app.Activity;
@@ -20,6 +21,9 @@ public class AskMalariaUnComplicatedActivity extends Activity {
 	private Context mContext;
 	private ListView listView_malaria;
 	private Button button_next;
+	 private DbHelper dbh;
+		private Long start_time;
+		private Long end_time;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -27,8 +31,10 @@ public class AskMalariaUnComplicatedActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_uncomplicated_malaria_ask);
 	    mContext=AskMalariaUnComplicatedActivity.this;
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("ANC Diagnostic");
+	    getActionBar().setSubtitle("ANC Diagnostic: Malaria");
 	    listView_malaria=(ListView) findViewById(R.id.listView_malaria);
 	    String[] items={"Fever or history of fever present within the last 2-3 days ",
 	    				"Chills","Rigor (shivering) ",
@@ -87,5 +93,12 @@ public class AskMalariaUnComplicatedActivity extends Activity {
 			    return convertView;
 		}
 		
+	}
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "ANC Diagnostic Malaria", start_time.toString(), end_time.toString());
+		finish();
 	}
 }

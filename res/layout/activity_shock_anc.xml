@@ -14,6 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:padding="10dp" >
@@ -22,7 +23,7 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Check:"
+            android:text="Definition:"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -32,6 +33,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -44,14 +46,16 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="      ----- Cold, moist skin "
+                android:layout_marginLeft="40dp"
+                android:text="\u2022 Cold, moist skin "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="      ----- Weak but fast pulse"
+                 android:layout_marginLeft="40dp"
+                android:text="\u2022 Weak but fast pulse"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -59,7 +63,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="      ----- Systolic BP ≤ 90 mmHg "
+                 android:layout_marginLeft="40dp"
+                android:text="\u2022 Systolic BP ≤ 90 mmHg "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -138,7 +143,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/TakeAction"
+            android:background="@color/White"
             android:divider="@drawable/divider"
             android:dividerPadding="2dp"
             android:orientation="vertical"

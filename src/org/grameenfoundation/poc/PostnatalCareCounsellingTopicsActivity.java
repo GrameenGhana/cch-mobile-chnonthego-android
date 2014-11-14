@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.poc.PostnatalCareSectionActivity.PostnatalSectionsListAdapter;
 
 import android.app.Activity;
@@ -20,7 +21,9 @@ public class PostnatalCareCounsellingTopicsActivity extends Activity {
 
 	private ListView listView_counselling;
 	private Context mContext;
-	/** Called when the activity is first created. */
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time; 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -28,6 +31,8 @@ public class PostnatalCareCounsellingTopicsActivity extends Activity {
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Counselling");
 	    mContext=PostnatalCareCounsellingTopicsActivity.this;
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    listView_counselling=(ListView) findViewById(R.id.listView_counsellingTopics);
 	    String[] items={"Breast Problems","Complication Readiness & Newborn Dangers",
 	    				"Family Planning in the Postpartum Period","Home Care for the Infant",
@@ -179,5 +184,12 @@ public class PostnatalCareCounsellingTopicsActivity extends Activity {
 			    return convertView;
 		}
 		
+	}
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "PNC Counselling", start_time.toString(), end_time.toString());
+		finish();
 	}
 }

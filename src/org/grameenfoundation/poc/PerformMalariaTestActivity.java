@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,14 +15,18 @@ public class PerformMalariaTestActivity extends Activity {
 	private Button button_positive;
 	private Button button_negative;
 	private Button button_testNotDone;
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time; 
 
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_malaria_test_);
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("ANC Diagnostic");
+	    getActionBar().setSubtitle("ANC Diagnostic: Malaria");
+	    dbh=new DbHelper(PerformMalariaTestActivity.this);
+	    start_time=System.currentTimeMillis();
 	    button_positive=(Button) findViewById(R.id.button_positive);
 	    button_positive.setOnClickListener(new OnClickListener(){
 
@@ -55,5 +60,11 @@ public class PerformMalariaTestActivity extends Activity {
 	    	
 	    });
 	}
-
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "ANC Diagnostic: Malaria", start_time.toString(), end_time.toString());
+		finish();
+	}
 }

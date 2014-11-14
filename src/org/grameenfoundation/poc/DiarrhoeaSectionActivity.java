@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -27,13 +28,18 @@ public class DiarrhoeaSectionActivity extends Activity {
 	private ExpandableListView listView_diarrhoeaSections;
 	Context mContext;
 	private Button button_no;
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_diarrhoea_sections);
 	    mContext=DiarrhoeaSectionActivity.this;
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic");
+	    getActionBar().setSubtitle("PNC Diagnostic: Diarrhoea");
     listView_diarrhoeaSections=(ExpandableListView) findViewById(R.id.expandableListView_diarrhoeaSections);
 	    String[] items={"Diarrhoea with Severe Dehydration ",
 	    				"Diarrhoea with Some Dehydration",
@@ -272,6 +278,12 @@ public class DiarrhoeaSectionActivity extends Activity {
 	    }
 	} 
 	
-	
+	public void onBackPressed()
+	{
+	    
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "PNC Diagnostic Diarrhoea", start_time.toString(), end_time.toString());
+		finish();
+	}
 
 }

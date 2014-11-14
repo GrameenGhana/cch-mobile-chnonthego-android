@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,15 +9,16 @@ import android.os.Bundle;
 public class TakeActionDiarrhoeaActivity extends Activity {
 
 	private String take_action_category;
-
-	/** Called when the activity is first created. */
+	private Long start_time;
+	private Long end_time;
+	private DbHelper dbh;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic");
-	   // listView_takeAction=(ListView) findViewById(R.id.listView_takeAction);
-	  //  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
+	    getActionBar().setSubtitle("PNC Diagnostic: Diarrhoea");
+	    dbh=new DbHelper(TakeActionDiarrhoeaActivity.this);
+	    start_time=System.currentTimeMillis();
 	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
           take_action_category= extras.getString("value");
@@ -29,5 +31,10 @@ public class TakeActionDiarrhoeaActivity extends Activity {
    	   setContentView(R.layout.activity_no_diarrhoea);
    }
 	}
-
+	public void onBackPressed()
+	{
+		 end_time=System.currentTimeMillis();
+		dbh.insertCCHLog("Point of Care", "PNC Diagnostic: Diarrhoea", start_time.toString(), end_time.toString());
+		finish();
+	}
 }

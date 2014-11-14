@@ -74,7 +74,7 @@
             android:layout_width="281dp"
             android:layout_height="65dp"
             android:background="@color/Green"
-            android:text="No"
+            android:text="No Fever"
             android:textColor="@color/White"
             android:textStyle="bold" />
 
