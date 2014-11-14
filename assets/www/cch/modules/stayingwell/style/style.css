@@ -181,12 +181,12 @@ p.clear {
 }
 
 .top-section {
+    position: relative;
+    display: block; 
     text-align: center;
     width: 100%;
     height: 200px;
-    display: table-cell;
-    position: relative;
-    vertical-align: middle;
+    vertical-align: top;
     border-top: 5px solid #CBC8B5;
     border-bottom: 5px solid #CBC8B5;
     background: url('../assets/bg-marquee.png');
@@ -254,7 +254,6 @@ p.clear {
     background: #fff;
     z-index: 998;
     height: 100%
-    border: 1px solid green;
 }
 
 .canvas {
@@ -554,6 +553,7 @@ div.scrollfader_top {
 
 .gcontent div.notice {
     color: #ccc;
+    color: #53AB1F;
     font-size:small;
     margin-top: 10px;
     width: 250px;

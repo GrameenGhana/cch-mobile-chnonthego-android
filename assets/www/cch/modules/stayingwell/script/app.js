@@ -300,9 +300,12 @@
                     if (plan=="") {
                         _view = "gliving/chooseplan.html";
                     } else {
-                        if (~ _view.indexOf('routines')) {
+                        if ((~ _view.indexOf('routines')) || (~ _view.indexOf('stressfree'))) {
                             if (! (_view == "gliving/content/routines/index.html")) {
                                 _view = _view.replace("routines/","routines/"+profile+"/");
+                            }
+                            if (! (_view == "gliving/content/stressfree/index.html")) {
+                                _view = _view.replace("stressfree/","stressfree/"+profile+"/");
                             }
                         }
                     }
@@ -429,9 +432,12 @@
                 if (profile=="") {
                     _view = 'gliving/survey.html';
                 } else {
-                    if (~ _view.indexOf('routines')) {
+                    if ((~ _view.indexOf('routines')) || (~ _view.indexOf('routines'))) {
                         if (! (_view == "gliving/content/routines/index.html")) {
                             _view = _view.replace("routines/","routines/"+profile+"/");
+                        }
+                        if (! (_view == "gliving/content/stressfree/index.html")) {
+                            _view = _view.replace("stressfree/","stressfree/"+profile+"/");
                         }
                     }
                 }

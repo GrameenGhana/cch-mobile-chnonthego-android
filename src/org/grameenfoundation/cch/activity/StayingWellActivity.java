@@ -26,6 +26,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
@@ -84,7 +85,7 @@ public class StayingWellActivity extends AppActivity implements OnSharedPreferen
 		myWebView = (WebView) findViewById(R.id.webView1);	    	 
 		myWebView.getSettings().setJavaScriptEnabled(true);
 		myWebView.addJavascriptInterface(new StayingWellWebAppInterface(this), "Android");
-		myWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);	         
+		myWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);	  
 		myWebView.setWebViewClient(new WebViewClient(){
 				
 			    @Override
@@ -109,7 +110,24 @@ public class StayingWellActivity extends AppActivity implements OnSharedPreferen
 		    					view.loadUrl(url);
 		    				}
 		    				return true;
-				}				
+				}		
+				 
+				 @Override
+				public boolean shouldOverrideKeyEvent (WebView view, KeyEvent event) {
+					 	if ((event.getAction() == KeyEvent.KEYCODE_BACK) && view.canGoBack()) {
+					        //view.goBack();
+					 		Log.e("CCH","I am here");
+					 		view.loadUrl("javascript:window.App.back();");
+					 		
+					    } else if((event.getAction() == KeyEvent.KEYCODE_BACK) && !view.canGoBack()) {
+					 		Log.e("CCH","I am here");
+
+					    	view.clearHistory();
+					    	view.loadUrl(HOME_URL);	        
+					    } 
+						
+					    return false; 
+				}
 		});
 		
 	    oldPageUrl = "";
