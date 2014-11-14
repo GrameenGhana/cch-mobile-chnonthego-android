@@ -472,7 +472,7 @@ Treat client with Artesunate-Amodiaquine (see section 10.2).  If they cannot tol
 	              <string name="str_wipe_genetals_from_frnt_back">\u2022\tWipe genitals from front to back (vulva to anus)</string>
 	              <string name="str_6_10_hrs_sleep_nite">"\u2022\tEncourage client to take between 6-10 hours of sleep every night "</string>
 	              <string name="str_advise_rest_1_hour_in_day">\u2022\tAdvise her to rest for one hour during the day</string>
-	              <string name="str_encourage_client_undertak_moderate_exercise">?\tEncourage client to undertake moderate exercise regularly, especially if her daily activities do not entail much physical exercise</string>
+	              <string name="str_encourage_client_undertak_moderate_exercise">\tEncourage client to undertake moderate exercise regularly, especially if her daily activities do not entail much physical exercise</string>
 	              <string name="str_exercise">Excercises</string>
 	              <string name="str_pelvic_rock_help">"Pelvic Rock: helps relieves backache and pressure in the abdomen, and strengthens muscles in the abdomen "</string>
 	              <string name="str_pelvic_1">"1.\tGet down on your hand and knees "</string>
@@ -555,7 +555,7 @@ Treat client with Artesunate-Amodiaquine (see section 10.2).  If they cannot tol
 	              <string name="str_women_known_to_have_glucose_6_phosphate">- Women known to have Glucose-6-Phosphate Dehydrogenase (G6PD) enzyme deficiency, either full or partial defect</string>
 	              <string name="str_women_known_severe_liver_disease">- Women known to have severe liver disease</string>
 	              <string name="str_women_with_unexplained_recurrent_jaundice">- Women with unexplained recurrent jaundice</string>
-	              <string name="str_women_allergic_sulphur">?\tWomen who are known to be allergic to sulphur-containing drugs or pyrimethamine component</string>
+	              <string name="str_women_allergic_sulphur">Women who are known to be allergic to sulphur-containing drugs or pyrimethamine component</string>
 	              <string name="str_women_received_treatment_sulphur_drugs">- Women who have received treatment with sulphur-based drugs, e.g. cotrimoxazole within 4 weeks of being seen at the clinic</string>
 	              <string name="str_women_hiv_aids_cotrimoxazole">- Women with HIV/AIDS who have been put on cotrimoxazole for opportunistic infections</string>
 	              <string name="str_women_preg_beyond_36">"- Women with pregnancy beyond 36 weeks (8 months) gestation "</string>
@@ -600,7 +600,7 @@ Treat client with Artesunate-Amodiaquine (see section 10.2).  If they cannot tol
 	              <string name="str_administartion_management_vomiting_other_support_treate">Administration, Management of Vomiting, and Other Supportive Treatment for Treatment with ACTs</string>
 	              <string name="str_preferable_client_1st_dose_with_nurse">"- Preferable that client takes the first dose of the drug in front of the nurse or health worker "</string>
 	              <string name="str_preferable_administer_medicine_fater_meal">"- Preferable to administer medicine after the client has eaten a meal "</string>
-	              <string name="str_if_vomit_after_30_min_retake_dosage">?\tIf vomiting occurs within 30 minutes, the dosage of medicine should be repeated.  If vomiting stops, give client the 2nd and 3rd doses to take at home if you are sure that your instructions will be followed</string>
+	              <string name="str_if_vomit_after_30_min_retake_dosage">If vomiting occurs within 30 minutes, the dosage of medicine should be repeated.  If vomiting stops, give client the 2nd and 3rd doses to take at home if you are sure that your instructions will be followed</string>
 	              <string name="str_ask_client_health_center">- Ask client to go to the health center or hospital if vomiting persists</string>
 	              <string name="str_treatment_fever_paracetamol">"- Treatment of fever with Paracetamol is a recommended part of supportive care for malaria.  Paracetamol in tablet form may be given every 4-6 hours until the temperature is normal.  "</string>
 	              <string name="str_additional_advise_client">"-In addition to the above clients should be advised to: "</string>
@@ -609,11 +609,11 @@ Treat client with Artesunate-Amodiaquine (see section 10.2).  If they cannot tol
 	              <string name="str_use_itn_other_preventive_measures">- Use ITNs and other preventive measures</string>
 	              <string name="str_take_analgesics_prescribed">- Takes analgesics as prescribed, e.g. paracetamol 1 g (2 tablets) every 6 hours, if needed</string>
 	              <string name="str_counsel_follow_up_treatement_uncomplicated_malaria">Counseling and Follow-up after Treatment of Uncomplicated Malaria</string>
-	              <string name="str_counsel_to_comply_treatement_avoid_resistance_to_drugs">?\tCounsel client to comply with treatment to avoid development of resistance of antimalarial drugs</string>
+	              <string name="str_counsel_to_comply_treatement_avoid_resistance_to_drugs">Counsel client to comply with treatment to avoid development of resistance of antimalarial drugs</string>
 	              <string name="str_educate_importance_full_dose">- Educate her on the importance of taking full dose of drugs in order to clear the parasites from the blood, and thus prevent progression of disease to complications like anemia</string>
 	              <string name="str_educate_client_on">- Also educate client on:</string>
-	              <string name="str_danger_signs_return_follow_up">?\tDanger signs and to return for follow-up after treatment is completed or if her conditions worsens</string>
-	              <string name="str_report_adverse_reaction_to_drug_immediately">"- Report any adverse reactions to the drugs immediately "</string>
-	              <string name="str_itpt_sp_must_be_followed_as_previously_started">- Intermittent prevention treatment (IPTp) schedule with sulfa-doxine pyramethamine (SP) should be followed if it has previously been started, or should be started at next visit if not started previously</string>
+	              <string name="str_danger_signs_return_follow_up">Danger signs and to return for follow-up after treatment is completed or if her conditions worsens</string>
+	              <string name="str_report_adverse_reaction_to_drug_immediately">"Report any adverse reactions to the drugs immediately "</string>
+	              <string name="str_itpt_sp_must_be_followed_as_previously_started">Intermittent prevention treatment (IPTp) schedule with sulfa-doxine pyramethamine (SP) should be followed if it has previously been started, or should be started at next visit if not started previously</string>
 
 </resources>

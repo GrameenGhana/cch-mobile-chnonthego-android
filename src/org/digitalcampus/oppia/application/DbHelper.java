@@ -129,6 +129,29 @@ public class DbHelper extends SQLiteOpenHelper {
 	public static final String CCH_SW_MONTH_PLAN = "sw_monthplan";
 	public static final String CCH_SW_MONTH_PLAN_LASTUPDATE = "sw_planupdatetime";
 	
+	// CCH: Staying Well Routines tables
+    private static final String CCH_SW_ROUTINE_TABLE = "stayingwell_routines";
+	private static final String CCH_SW_ROUTINE_ID = BaseColumns._ID;
+	private static final String CCH_SW_ROUTINE_TOD = "timeofday";
+	private static final String CCH_SW_ROUTINE_PROFILE = "profile";
+	private static final String CCH_SW_ROUTINE_PLAN = "plan";
+	private static final String CCH_SW_ROUTINE_ACTION = "action";
+	private static final String CCH_SW_ROUTINE_ORDER  = "doorder";
+    private static final String CCH_SW_ROUTINE_TODO_TABLE = "stayingwell_routinetodos";
+	private static final String CCH_SW_ROUTINE_TODO_ID = BaseColumns._ID;
+	private static final String CCH_SW_ROUTINE_TODO_STAFF_ID = "staff_id";
+	private static final String CCH_SW_ROUTINE_TODO_PROFILE  = "profile";
+	private static final String CCH_SW_ROUTINE_TODO_PLAN  = "plan";
+	private static final String CCH_SW_ROUTINE_TODO_YEAR = "year";
+	private static final String CCH_SW_ROUTINE_TODO_MONTH = "month";
+	private static final String CCH_SW_ROUTINE_TODO_DAY = "day";
+	private static final String CCH_SW_ROUTINE_TODO_TOD = "timeofday";
+	private static final String CCH_SW_ROUTINE_TODO_ACTION = "action";
+	private static final String CCH_SW_ROUTINE_TODO_ORDER  = "doorder";
+	public static final String CCH_SW_ROUTINE_TODO_TIMEDONE  = "timedone";
+	public static final String CCH_SW_ROUTINE_TODO_LOGGED  = "logged";
+
+	
 	//CCH: Events Table
 		public static final String EVENTS_SET_TABLE="events_set";
 		public static final String COL_EVENT_SET_NAME="event_name";
@@ -601,9 +624,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		values.put(COL_OTHER_MONTH,month);
 		values.put(COL_SYNC_STATUS,sync_status);
 		
-		long newRowId;
-		newRowId = db.insert(
-				OTHER_TABLE, null, values);
+		db.insert(OTHER_TABLE, null, values);
 		return true;
 	}
 	
@@ -1207,8 +1228,35 @@ public class DbHelper extends SQLiteOpenHelper {
 		values.put(CCH_SW_MONTH_PLAN, "");
 		values.put(CCH_SW_MONTH_PLAN_LASTUPDATE, "");
 		db.insertOrThrow(CCH_SW_TABLE, null, values);
+		
+		l_sql = "create table if not exists " + CCH_SW_ROUTINE_TABLE + " (" + 
+				CCH_SW_ROUTINE_ID + " integer primary key autoincrement, " + 
+				CCH_SW_ROUTINE_TOD + " text, " + 
+				CCH_SW_ROUTINE_PROFILE + " text, " + 
+				CCH_SW_ROUTINE_PLAN + " text, " + 
+				CCH_SW_ROUTINE_ACTION + " text default '', " + 
+				CCH_SW_ROUTINE_ORDER + " integer default 0)" ; 
+		db.execSQL(l_sql);
+		
+		insertDefaultRoutineValues();
+		
+		l_sql = "create table if not exists " + CCH_SW_ROUTINE_TODO_TABLE + " (" + 
+				CCH_SW_ROUTINE_TODO_ID + " integer primary key autoincrement, " + 
+				CCH_SW_ROUTINE_TODO_STAFF_ID + " text, " + 
+				CCH_SW_ROUTINE_TODO_PROFILE + " text, " + 
+				CCH_SW_ROUTINE_TODO_PLAN + " text, " + 
+				CCH_SW_ROUTINE_TODO_YEAR + " int, " + 
+				CCH_SW_ROUTINE_TODO_MONTH + " int, " + 
+				CCH_SW_ROUTINE_TODO_DAY + " int, " + 
+				CCH_SW_ROUTINE_TODO_TOD + " text default '', " + 
+				CCH_SW_ROUTINE_TODO_ACTION + " text default '', " + 
+				CCH_SW_ROUTINE_TODO_TIMEDONE + " text default '', " + 
+				CCH_SW_ROUTINE_TODO_LOGGED + " integer default 0, " + 
+				CCH_SW_ROUTINE_TODO_ORDER + " integer default 0)" ; 
+		db.execSQL(l_sql);    	
 	}
 	
+
 	public void updateSWInfo(String field, String value) {
 		SQLiteDatabase db = this.getWritableDatabase(); 
         ContentValues values = new ContentValues();
@@ -1219,7 +1267,16 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close(); // Closing database connection      
 	}
 	
-	// check if User exists
+	public void updateSWRoutineTodoInfo(String field, String value, String uuid) {
+		SQLiteDatabase db = this.getWritableDatabase(); 
+        ContentValues values = new ContentValues();
+        values.put(field, value); 
+        Log.e("CCH","Updating "+field+" with "+value);
+		String userid = "David";//prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
+        db.update(CCH_SW_ROUTINE_TODO_TABLE, values, CCH_SW_ROUTINE_TODO_STAFF_ID + "='"+userid+"' AND "+CCH_SW_ROUTINE_TODO_ID+'='+uuid, null);
+        db.close(); // Closing database connection      
+	}
+	
 	public String getSWInfo(String field) 
 	{			
 		String userid = "David"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
@@ -1239,6 +1296,27 @@ public class DbHelper extends SQLiteOpenHelper {
 			    
 		// return value
 		return cursor.getString(0);
+	}
+
+	public String getSWRoutineTodoInfo(String field) 
+	{			
+			String userid = "David"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
+
+			SQLiteDatabase db = this.getReadableDatabase();		 
+			Cursor cursor = db.query(CCH_SW_ROUTINE_TODO_TABLE, new String[] { field }, CCH_SW_ROUTINE_TODO_STAFF_ID + "=?",
+				            new String[] { String.valueOf(userid) }, null, null, null, null); 	        
+			
+			if (cursor == null || cursor.getCount()==0) {
+				Log.e("CCH DB","Value for "+field+" is null or no result");	
+				return null;	    	
+			}
+			
+			cursor.moveToFirst();
+			
+			Log.e("CCH DB","Value for "+field+": "+cursor.getString(0));	
+				    
+			// return value
+			return cursor.getString(0);
 	}
 		
 	/** User tables **/
@@ -2095,139 +2173,161 @@ public HashMap<String,String> getAllMonthlyEvents(String month){
 	return list;
 }
 
-public HashMap<String,String> getAllWeeklyEvents(String month){
-	HashMap<String,String> list=new HashMap<String,String>();
-	 String strQuery="select "+BaseColumns._ID
-             +","+COL_EVENT_SET_NAME
-             +","+COL_EVENT_NUMBER
-             +" from "+EVENTS_SET_TABLE
-             +" where "+COL_EVENT_PERIOD
-             + " = '"+"Weekly"+"'"
-             +" and "+COL_EVENT_MONTH
-             +" = '"+month+"'"
-             +" and "+COL_SYNC_STATUS
-             + " = '"+"new_record"+"'";	
-	 
-	System.out.println("Weekly events "+strQuery);
-	Cursor c=read.rawQuery(strQuery, null);
-	c.moveToFirst();
-	while (c.isAfterLast()==false){
-		list.put("event_id",c.getString(c.getColumnIndex(BaseColumns._ID)));
-		list.put("event_name", c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
-		list.put("event_number",  c.getString(c.getColumnIndex(COL_EVENT_NUMBER)));
-		c.moveToNext();	
-		System.out.println("Weekly events"+list);
+	public HashMap<String,String> getAllWeeklyEvents(String month){
+		HashMap<String,String> list=new HashMap<String,String>();
+		 String strQuery="select "+BaseColumns._ID
+	             +","+COL_EVENT_SET_NAME
+	             +","+COL_EVENT_NUMBER
+	             +" from "+EVENTS_SET_TABLE
+	             +" where "+COL_EVENT_PERIOD
+	             + " = '"+"Weekly"+"'"
+	             +" and "+COL_EVENT_MONTH
+	             +" = '"+month+"'"
+	             +" and "+COL_SYNC_STATUS
+	             + " = '"+"new_record"+"'";	
+		 
+		System.out.println("Weekly events "+strQuery);
+		Cursor c=read.rawQuery(strQuery, null);
+		c.moveToFirst();
+		while (c.isAfterLast()==false){
+			list.put("event_id",c.getString(c.getColumnIndex(BaseColumns._ID)));
+			list.put("event_name", c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
+			list.put("event_number",  c.getString(c.getColumnIndex(COL_EVENT_NUMBER)));
+			c.moveToNext();	
+			System.out.println("Weekly events"+list);
+		}
+		c.close();
+		return list;
 	}
-	c.close();
-	return list;
+	public HashMap<String,String> getAllYearlyEvents(String month){
+		HashMap<String,String> list=new HashMap<String,String>();
+		 String strQuery="select "+BaseColumns._ID
+	             +","+COL_EVENT_SET_NAME
+	             +","+COL_EVENT_NUMBER
+	             +" from "+EVENTS_SET_TABLE
+	             +" where "+COL_EVENT_PERIOD
+	             + " = '"+"Yearly"+"'"
+	             +" and "+COL_EVENT_MONTH
+	             +" = '"+month+"'"
+	             +" and "+COL_SYNC_STATUS
+	             + " = '"+"new_record"+"'";	
+		 
+		System.out.println(strQuery);
+		Cursor c=read.rawQuery(strQuery, null);
+		c.moveToFirst();
+		while (c.isAfterLast()==false){
+			list.put("event_id",c.getString(c.getColumnIndex(BaseColumns._ID)));
+			list.put("event_name", c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
+			list.put("event_number",  c.getString(c.getColumnIndex(COL_EVENT_NUMBER)));
+			c.moveToNext();						
+		}
+		c.close();
+		return list;
+	
 }
-public HashMap<String,String> getAllYearlyEvents(String month){
-	HashMap<String,String> list=new HashMap<String,String>();
-	 String strQuery="select "+BaseColumns._ID
-             +","+COL_EVENT_SET_NAME
-             +","+COL_EVENT_NUMBER
-             +" from "+EVENTS_SET_TABLE
-             +" where "+COL_EVENT_PERIOD
-             + " = '"+"Yearly"+"'"
-             +" and "+COL_EVENT_MONTH
-             +" = '"+month+"'"
-             +" and "+COL_SYNC_STATUS
-             + " = '"+"new_record"+"'";	
-	 
-	System.out.println(strQuery);
-	Cursor c=read.rawQuery(strQuery, null);
-	c.moveToFirst();
-	while (c.isAfterLast()==false){
-		list.put("event_id",c.getString(c.getColumnIndex(BaseColumns._ID)));
-		list.put("event_name", c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
-		list.put("event_number",  c.getString(c.getColumnIndex(COL_EVENT_NUMBER)));
-		c.moveToNext();						
+
+
+	public boolean editEventCategory(String event_category,String event_number,String event_period, long id){
+		    
+	        String updateQuery = "Update "+EVENTS_SET_TABLE+" set "+
+	        					COL_EVENT_SET_NAME+" = '"+ event_category +"'"+
+	        					","+COL_EVENT_NUMBER+" = '"+event_number+"'"+
+	        					","+COL_EVENT_PERIOD+" = '"+event_period+"'"+
+	        					" where "+BaseColumns._ID+" = "+id;
+	        db.execSQL(updateQuery);
+		return true;
+		
 	}
-	c.close();
-	return list;
-}
+	
+	public boolean deleteEventCategory(long id){
+		    
+		 String deleteQuery="Delete from "+EVENTS_SET_TABLE+" where "+
+				 			BaseColumns._ID+" = "+ id;
+		 System.out.println(deleteQuery);
+	        db.execSQL(deleteQuery);
+		return true;
+		
+	}
+	
+	public boolean deleteCoverageCategory(long id){
 
-
-public boolean editEventCategory(String event_category,String event_number,String event_period, long id){
+		 String deleteQuery="Delete from "+COVERAGE_SET_TABLE+" where "+
+				 			BaseColumns._ID+" = "+ id;
+		 System.out.println(deleteQuery);
+	       db.execSQL(deleteQuery);
+		return true;
+		
+	}
+	
+	public boolean deleteLearningCategory(long id){
 	    
-        String updateQuery = "Update "+EVENTS_SET_TABLE+" set "+
-        					COL_EVENT_SET_NAME+" = '"+ event_category +"'"+
-        					","+COL_EVENT_NUMBER+" = '"+event_number+"'"+
-        					","+COL_EVENT_PERIOD+" = '"+event_period+"'"+
-        					" where "+BaseColumns._ID+" = "+id;
-        db.execSQL(updateQuery);
-	return true;
-	
-}
-
-public boolean deleteEventCategory(long id){
+		 String deleteQuery="Delete from "+LEARNING_TABLE+" where "+
+				 			BaseColumns._ID+" = "+ id;
+		 System.out.println(deleteQuery);
+	      db.execSQL(deleteQuery);
+		return true;
+		
+	}
+	public boolean deleteOthereCategory(long id){
 	    
-	 String deleteQuery="Delete from "+EVENTS_SET_TABLE+" where "+
-			 			BaseColumns._ID+" = "+ id;
-	 System.out.println(deleteQuery);
-        db.execSQL(deleteQuery);
-	return true;
+		 String deleteQuery="Delete from "+OTHER_TABLE+" where "+
+				 			BaseColumns._ID+" = "+ id;
+		 System.out.println(deleteQuery);
+	      db.execSQL(deleteQuery);
+		return true;
+		
+	}
+	public boolean editCoverage(String coverage_category,String coverage_number,String coverage_period, long id){
+		    
+	        String updateQuery = "Update "+COVERAGE_SET_TABLE+" set "+
+	        					COL_COVERAGE_SET_CATEGORY_NAME+" = '"+ coverage_category +"'"+
+	        					","+COL_COVERAGE_NUMBER+" = '"+coverage_number+"'"+
+	        					","+COL_COVERAGE_SET_PERIOD+" = '"+coverage_period+"'"+
+	        					" where "+BaseColumns._ID+" = "+id;
+	        db.execSQL(updateQuery);
+		return true;
+		
+	}
 	
-}
+	public boolean editLearning(String learning_category,String learning_description, long id){
+		    
+	        String updateQuery = "Update "+LEARNING_TABLE+" set "+
+	        					COL_LEARNING_CATEGORY+" = '"+ learning_category +"'"+
+	        					","+COL_LEARNING_DESCRIPTION+" = '"+learning_description+"'"+
+	        					" where "+BaseColumns._ID+" = "+id;
+	        db.execSQL(updateQuery);
+		return true;
+	}
+	
+	public boolean editOther(String other_category,String other_number,String other_period, long id){
+		    
+	        String updateQuery = "Update "+OTHER_TABLE+" set "+
+	        					COL_OTHER_CATEGORY+" = '"+ other_category +"'"+
+	        					","+COL_OTHER_NUMBER+" = '"+ other_number +"'"+
+	        					","+COL_OTHER_PERIOD+" = '"+other_period+"'"+
+	        					" where "+BaseColumns._ID+" = "+id;
+	        db.execSQL(updateQuery);
+		return true;	
+	}
 
-public boolean deleteCoverageCategory(long id){
-    
-	 String deleteQuery="Delete from "+COVERAGE_SET_TABLE+" where "+
-			 			BaseColumns._ID+" = "+ id;
-	 System.out.println(deleteQuery);
-       db.execSQL(deleteQuery);
-	return true;
+	private void insertDefaultRoutineValues() {
 	
-}
-
-public boolean deleteLearningCategory(long id){
-    
-	 String deleteQuery="Delete from "+LEARNING_TABLE+" where "+
-			 			BaseColumns._ID+" = "+ id;
-	 System.out.println(deleteQuery);
-      db.execSQL(deleteQuery);
-	return true;
-	
-}
-public boolean deleteOthereCategory(long id){
-    
-	 String deleteQuery="Delete from "+OTHER_TABLE+" where "+
-			 			BaseColumns._ID+" = "+ id;
-	 System.out.println(deleteQuery);
-      db.execSQL(deleteQuery);
-	return true;
-	
-}
-public boolean editCoverage(String coverage_category,String coverage_number,String coverage_period, long id){
-	    
-        String updateQuery = "Update "+COVERAGE_SET_TABLE+" set "+
-        					COL_COVERAGE_SET_CATEGORY_NAME+" = '"+ coverage_category +"'"+
-        					","+COL_COVERAGE_NUMBER+" = '"+coverage_number+"'"+
-        					","+COL_COVERAGE_SET_PERIOD+" = '"+coverage_period+"'"+
-        					" where "+BaseColumns._ID+" = "+id;
-        db.execSQL(updateQuery);
-	return true;
-	
-}
-
-public boolean editLearning(String learning_category,String learning_description, long id){
-	    
-        String updateQuery = "Update "+LEARNING_TABLE+" set "+
-        					COL_LEARNING_CATEGORY+" = '"+ learning_category +"'"+
-        					","+COL_LEARNING_DESCRIPTION+" = '"+learning_description+"'"+
-        					" where "+BaseColumns._ID+" = "+id;
-        db.execSQL(updateQuery);
-	return true;
-}
-
-public boolean editOther(String other_category,String other_number,String other_period, long id){
-	    
-        String updateQuery = "Update "+OTHER_TABLE+" set "+
-        					COL_OTHER_CATEGORY+" = '"+ other_category +"'"+
-        					","+COL_OTHER_NUMBER+" = '"+ other_number +"'"+
-        					","+COL_OTHER_PERIOD+" = '"+other_period+"'"+
-        					" where "+BaseColumns._ID+" = "+id;
-        db.execSQL(updateQuery);
-	return true;	
-}
+		/*ContentValues values = new ContentValues();
+		values.put(CCH_SW_LEGAL_STATUS, "");
+		values.put(CCH_SW_PROFILE_STATUS, "");
+		values.put(CCH_SW_PROFILE_RESPONSES, "");
+		values.put(CCH_SW_MONTH_PLAN, "");
+		values.put(CCH_SW_MONTH_PLAN_LASTUPDATE, "");
+		db.insertOrThrow(CCH_SW_TABLE, null, values);
+		
+		l_sql = "create table if not exists " + CCH_SW_ROUTINE_TABLE + " (" + 
+				CCH_SW_ROUTINE_ID + " integer primary key autoincrement, " + 
+				CCH_SW_ROUTINE_TOD + " text, " + 
+				CCH_SW_ROUTINE_PROFILE + " text, " + 
+				CCH_SW_ROUTINE_PLAN + " text, " + 
+				CCH_SW_ROUTINE_ACTION + " text default '', " + 
+				CCH_SW_ROUTINE_ORDER + " integer default 0)" ; 
+		db.execSQL(l_sql);
+		*/
+	}
 }
