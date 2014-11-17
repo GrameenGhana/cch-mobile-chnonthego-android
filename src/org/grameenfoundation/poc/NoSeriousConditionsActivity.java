@@ -16,64 +16,71 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class NoSeriousConditionsActivity extends Activity {
+public class NoSeriousConditionsActivity extends BaseActivity {
 
-	Context mContext;
+//	Context mContext;
 	private ListView listView_noConditions;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_no_serious_conditions);
-	    mContext=NoSeriousConditionsActivity.this;
-	    listView_noConditions=(ListView) findViewById(R.id.listView_noConditions);
-	    String[] items={"Asymmetrical limb movement, one limb does not move",
-	    				"Firm swelling/bump on one or both sides of head",
-	    				"Bruises, swelling on buttocks ",
-	    				"No injuries"};
-	    NoConditionsListAdapter adapter=new NoConditionsListAdapter(mContext,items);
-	    listView_noConditions.setAdapter(adapter);
-	    listView_noConditions.setOnItemClickListener(new OnItemClickListener(){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_no_serious_conditions);
+		mContext = NoSeriousConditionsActivity.this;
+		listView_noConditions = (ListView) findViewById(R.id.listView_noConditions);
+		String[] items = {
+				"Asymmetrical limb movement, one limb does not move",
+				"Firm swelling/bump on one or both sides of head",
+				"Bruises, swelling on buttocks ", "No injuries" };
+		NoConditionsListAdapter adapter = new NoConditionsListAdapter(mContext,
+				items);
+		listView_noConditions.setAdapter(adapter);
+		listView_noConditions.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Intent intent;
-				switch(position){
+				switch (position) {
 				case 0:
-					intent=new Intent(mContext,TakeActionNoConditionsActivity.class);
-					intent.putExtra("category","asymmetrical");
+					intent = new Intent(mContext,
+							TakeActionNoConditionsActivity.class);
+					intent.putExtra("category", "asymmetrical");
 					startActivity(intent);
 					break;
 				case 1:
-					intent=new Intent(mContext,TakeActionNoConditionsActivity.class);
-					intent.putExtra("category","firm swelling");
+					intent = new Intent(mContext,
+							TakeActionNoConditionsActivity.class);
+					intent.putExtra("category", "firm swelling");
 					startActivity(intent);
 					break;
 				case 2:
-					intent=new Intent(mContext,TakeActionNoConditionsActivity.class);
-					intent.putExtra("category","firm swelling");
+					intent = new Intent(mContext,
+							TakeActionNoConditionsActivity.class);
+					intent.putExtra("category", "firm swelling");
 					startActivity(intent);
 					break;
 				case 3:
-					intent=new Intent(mContext,NoInjuriesActivity.class);
+					intent = new Intent(mContext, NoInjuriesActivity.class);
 					startActivity(intent);
 					break;
 				}
-				
+
 			}
-	    	
-	    });
+
+		});
 	}
-	class NoConditionsListAdapter extends BaseAdapter{
+
+	class NoConditionsListAdapter extends BaseAdapter {
 		Context mContext;
 		String[] listItems;
-		 public LayoutInflater minflater;
-		
-		public NoConditionsListAdapter(Context mContext,String[] listItems){
-		this.mContext=mContext;
-		this.listItems=listItems;
-		 minflater = LayoutInflater.from(mContext);
+		public LayoutInflater minflater;
+
+		public NoConditionsListAdapter(Context mContext, String[] listItems) {
+			this.mContext = mContext;
+			this.listItems = listItems;
+			minflater = LayoutInflater.from(mContext);
 		}
+
 		@Override
 		public int getCount() {
 			return listItems.length;
@@ -91,13 +98,15 @@ public class NoSeriousConditionsActivity extends Activity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			if( convertView == null ){
-				  convertView = minflater.inflate(R.layout.listview_text_single,parent, false);
-			    }
-			 TextView text=(TextView) convertView.findViewById(R.id.textView_listViewText);
-			 text.setText(listItems[position]);
-			    return convertView;
+			if (convertView == null) {
+				convertView = minflater.inflate(R.layout.listview_text_single,
+						parent, false);
+			}
+			TextView text = (TextView) convertView
+					.findViewById(R.id.textView_listViewText);
+			text.setText(listItems[position]);
+			return convertView;
 		}
-		
+
 	}
 }

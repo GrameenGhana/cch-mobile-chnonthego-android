@@ -5,13 +5,14 @@ import org.digitalcampus.mobile.learningGF.R;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TakeActionSevereDehydrationActivity extends Activity {
+public class TakeActionSevereDehydrationActivity extends BaseActivity {
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_sever_dehydration);
+		super.onCreate(savedInstanceState);
+		mContext=TakeActionSevereDehydrationActivity.this;
+		setContentView(R.layout.activity_sever_dehydration);
 	}
 
 }

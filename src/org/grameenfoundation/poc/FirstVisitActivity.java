@@ -17,51 +17,61 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-public class FirstVisitActivity extends Activity {
-	Context mContext;
+public class FirstVisitActivity extends BaseActivity {
+//	Context mContext;
 	String[] groupItems;
 	String[] ChildItemsOne;
 	String[] ChildItemsTwo;
 	private ExpandableListView expandableListView_firstVisit;
 	private Button button_estimate;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_first_visit);
-	    mContext=FirstVisitActivity.this;
-	    groupItems=new String[]{"Record Personal Information","Take medical history"};
-	    ChildItemsOne=new String[]{"Name"," Age","Home address","Occupation","Marital status: Husband or partner","Next of kin: Name, address, telephone number"};
-	    ChildItemsTwo=new String[]{" Past obstetric history"," Past contraceptive history","Personal medical and surgical history, including any known allergies to medication","Family medical history","History of present pregnancy"};
-	    expandableListView_firstVisit=(ExpandableListView) findViewById(R.id.expandableListView_firstVisit);
-	    FirstVisitExpandableListAdapter adapter=new FirstVisitExpandableListAdapter(mContext,groupItems,ChildItemsOne,ChildItemsTwo);
-	    expandableListView_firstVisit.setAdapter(adapter);
-	    button_estimate=(Button) findViewById(R.id.button_estimateTrimester);
-	    button_estimate.setOnClickListener(new OnClickListener(){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_first_visit);
+		mContext = FirstVisitActivity.this;
+		groupItems = new String[] { "Record Personal Information",
+				"Take medical history" };
+		ChildItemsOne = new String[] { "Name", " Age", "Home address",
+				"Occupation", "Marital status: Husband or partner",
+				"Next of kin: Name, address, telephone number" };
+		ChildItemsTwo = new String[] {
+				" Past obstetric history",
+				" Past contraceptive history",
+				"Personal medical and surgical history, including any known allergies to medication",
+				"Family medical history", "History of present pregnancy" };
+		expandableListView_firstVisit = (ExpandableListView) findViewById(R.id.expandableListView_firstVisit);
+		FirstVisitExpandableListAdapter adapter = new FirstVisitExpandableListAdapter(
+				mContext, groupItems, ChildItemsOne, ChildItemsTwo);
+		expandableListView_firstVisit.setAdapter(adapter);
+		button_estimate = (Button) findViewById(R.id.button_estimateTrimester);
+		button_estimate.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent=new Intent(mContext,EstimateTrimester.class);
+				Intent intent = new Intent(mContext, EstimateTrimester.class);
 				startActivity(intent);
 			}
-	    	
-	    });
+
+		});
 	}
 
-	
-	class FirstVisitExpandableListAdapter extends BaseExpandableListAdapter{
+	class FirstVisitExpandableListAdapter extends BaseExpandableListAdapter {
 		Context mContext;
 		String[] groupItems;
 		String[] ChildItemsOne;
 		String[] ChildItemsTwo;
-		 public LayoutInflater minflater;
-		
-		public FirstVisitExpandableListAdapter(Context c, String[] groupItems,String[] ChildItemsOne,String[] ChildItemsTwo){
-			this.mContext=c;
-			this.groupItems=groupItems;
-			this.ChildItemsOne=ChildItemsOne;
-			this.ChildItemsTwo=ChildItemsTwo;
-			 minflater = LayoutInflater.from(mContext);
+		public LayoutInflater minflater;
+
+		public FirstVisitExpandableListAdapter(Context c, String[] groupItems,
+				String[] ChildItemsOne, String[] ChildItemsTwo) {
+			this.mContext = c;
+			this.groupItems = groupItems;
+			this.ChildItemsOne = ChildItemsOne;
+			this.ChildItemsTwo = ChildItemsTwo;
+			minflater = LayoutInflater.from(mContext);
 		}
+
 		@Override
 		public int getGroupCount() {
 			return groupItems.length;
@@ -70,12 +80,12 @@ public class FirstVisitActivity extends Activity {
 		@Override
 		public int getChildrenCount(int groupPosition) {
 			int count = 0;
-			switch(groupPosition){
+			switch (groupPosition) {
 			case 0:
-				count=ChildItemsOne.length;
+				count = ChildItemsOne.length;
 				break;
 			case 1:
-				count=ChildItemsTwo.length;
+				count = ChildItemsTwo.length;
 				break;
 			}
 			return count;
@@ -114,40 +124,44 @@ public class FirstVisitActivity extends Activity {
 		@Override
 		public View getGroupView(int groupPosition, boolean isExpanded,
 				View convertView, ViewGroup parent) {
-			if( convertView == null ){
-			      
-				  convertView = minflater.inflate(R.layout.listview_text_single,parent, false);
-			    }
-			 TextView text=(TextView) convertView.findViewById(R.id.textView_listViewText);
-			 text.setGravity(Gravity.LEFT);
-			 
-			 text.setPadding(10, 0, 0, 0);
-			 text.setText(groupItems[groupPosition]);
-			    return convertView;
+			if (convertView == null) {
+
+				convertView = minflater.inflate(R.layout.listview_text_single,
+						parent, false);
+			}
+			TextView text = (TextView) convertView
+					.findViewById(R.id.textView_listViewText);
+			text.setGravity(Gravity.LEFT);
+
+			text.setPadding(10, 0, 0, 0);
+			text.setText(groupItems[groupPosition]);
+			return convertView;
 		}
 
 		@Override
 		public View getChildView(int groupPosition, int childPosition,
 				boolean isLastChild, View convertView, ViewGroup parent) {
-			if( convertView == null ){
-			      
-				  convertView = minflater.inflate(R.layout.listview_text_single,parent, false);
-			    }
-			 TextView text=(TextView) convertView.findViewById(R.id.textView_listViewText);
-			switch(groupPosition){
+			if (convertView == null) {
+
+				convertView = minflater.inflate(R.layout.listview_text_single,
+						parent, false);
+			}
+			TextView text = (TextView) convertView
+					.findViewById(R.id.textView_listViewText);
+			switch (groupPosition) {
 			case 0:
-			
-			 text.setGravity(Gravity.CENTER);
-			 text.setTextColor(Color.rgb(104,176,54));
-			 text.setText(ChildItemsOne[childPosition]);
-			 break;
+
+				text.setGravity(Gravity.CENTER);
+				text.setTextColor(Color.rgb(104, 176, 54));
+				text.setText(ChildItemsOne[childPosition]);
+				break;
 			case 1:
-				 text.setGravity(Gravity.CENTER);
-				 text.setTextColor(Color.rgb(104,176,54));
-				 text.setText(ChildItemsTwo[childPosition]);
+				text.setGravity(Gravity.CENTER);
+				text.setTextColor(Color.rgb(104, 176, 54));
+				text.setText(ChildItemsTwo[childPosition]);
 				break;
 			}
-			    return convertView;
+			return convertView;
 		}
 
 		@Override
@@ -155,6 +169,6 @@ public class FirstVisitActivity extends Activity {
 			// TODO Auto-generated method stub
 			return false;
 		}
-		
+
 	}
 }

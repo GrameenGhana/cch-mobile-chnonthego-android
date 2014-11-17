@@ -10,28 +10,28 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class RecordsAskActivity extends Activity {
+public class RecordsAskActivity extends BaseActivity {
 
 	private Button button_next;
-	private Context mContext;
+//	private Context mContext;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_records_ask);
-	    mContext=RecordsAskActivity.this;
-	  	button_next=(Button) findViewById(R.id.button_next);
-	  	button_next.setOnClickListener(new OnClickListener(){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_records_ask);
+		mContext = RecordsAskActivity.this;
+		button_next = (Button) findViewById(R.id.button_next);
+		button_next.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent=new Intent(mContext,RecordsCheckActivity.class);
+				Intent intent = new Intent(mContext, RecordsCheckActivity.class);
 				startActivity(intent);
-				
+
 			}
-	  		
-	  	});
+
+		});
 	}
 
 }

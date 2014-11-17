@@ -14,10 +14,10 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-public class AskBleedingActivity extends Activity {
+public class AskBleedingActivity extends BaseActivity {
 
 	private ExpandableListView expandableListView_bleeding;
-	private Context mContext;
+//	private Context mContext;
 	String[] groupItems;
 	String[] ChildItemsOne;
 	String[] ChildItemsTwo;

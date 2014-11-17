@@ -15,58 +15,63 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class CounsellingPerTrimesterActivtiy extends Activity {
+public class CounsellingPerTrimesterActivtiy extends BaseActivity {
 
 	private ListView listView_counselling;
-	Context mContext;
-	
+//	Context mContext;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_couselling);
-	    mContext=CounsellingPerTrimesterActivtiy.this;
-	    getActionBar().setDisplayShowHomeEnabled(false);
-	    getActionBar().setTitle("Point of Care> Counselling");
-	    listView_counselling=(ListView) findViewById(R.id.listView_cousellingMenu);
-	    String[] items={"First Trimester","Second Trimester","Third Trimester"};
-	    CounsellingListAdapter adapter=new CounsellingListAdapter(mContext,items);
-	    listView_counselling.setAdapter(adapter);
-	    listView_counselling.setOnItemClickListener(new OnItemClickListener(){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_couselling);
+		mContext = CounsellingPerTrimesterActivtiy.this;
+		getActionBar().setDisplayShowHomeEnabled(false);
+		getActionBar().setTitle("Point of Care> Counselling");
+		listView_counselling = (ListView) findViewById(R.id.listView_cousellingMenu);
+		String[] items = { "First Trimester", "Second Trimester",
+				"Third Trimester" };
+		CounsellingListAdapter adapter = new CounsellingListAdapter(mContext,
+				items);
+		listView_counselling.setAdapter(adapter);
+		listView_counselling.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Intent intent;
-				switch(position){
+				switch (position) {
 				case 0:
-					intent=new Intent(mContext,FirstTrimesterCounsellingActivity.class);
+					intent = new Intent(mContext,
+							FirstTrimesterCounsellingActivity.class);
 					startActivity(intent);
 					break;
 				case 1:
-					intent=new Intent(mContext,SecondTrimesterCounsellingActivity.class);
+					intent = new Intent(mContext,
+							SecondTrimesterCounsellingActivity.class);
 					startActivity(intent);
 					break;
 				case 2:
-					intent=new Intent(mContext,ThirdTrimesterActivity.class);
-					startActivity(intent);					
+					intent = new Intent(mContext, ThirdTrimesterActivity.class);
+					startActivity(intent);
 					break;
 				}
-				
+
 			}
-	    	
-	    });
+
+		});
 	}
 
-	class CounsellingListAdapter extends BaseAdapter{
+	class CounsellingListAdapter extends BaseAdapter {
 		Context mContext;
 		String[] listItems;
-		 public LayoutInflater minflater;
-		
-		public CounsellingListAdapter(Context mContext,String[] listItems){
-		this.mContext=mContext;
-		this.listItems=listItems;
-		 minflater = LayoutInflater.from(mContext);
+		public LayoutInflater minflater;
+
+		public CounsellingListAdapter(Context mContext, String[] listItems) {
+			this.mContext = mContext;
+			this.listItems = listItems;
+			minflater = LayoutInflater.from(mContext);
 		}
+
 		@Override
 		public int getCount() {
 			return listItems.length;
@@ -84,13 +89,15 @@ public class CounsellingPerTrimesterActivtiy extends Activity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			if( convertView == null ){
-				  convertView = minflater.inflate(R.layout.other_listview_single,parent, false);
-			    }
-			 TextView text=(TextView) convertView.findViewById(R.id.textView_otherCategory);
-			 text.setText(listItems[position]);
-			    return convertView;
+			if (convertView == null) {
+				convertView = minflater.inflate(R.layout.other_listview_single,
+						parent, false);
+			}
+			TextView text = (TextView) convertView
+					.findViewById(R.id.textView_otherCategory);
+			text.setText(listItems[position]);
+			return convertView;
 		}
-		
+
 	}
 }

@@ -10,27 +10,28 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class DiarrhoeaActivity extends Activity {
+public class DiarrhoeaActivity extends BaseActivity {
 
 	private Button button_next;
-	Context mContext;
-	
+//	Context mContext;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_diarrhoea);
-	    mContext=DiarrhoeaActivity.this;
-	    button_next=(Button) findViewById(R.id.button_next);
-	    button_next.setOnClickListener(new OnClickListener(){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_diarrhoea);
+		mContext = DiarrhoeaActivity.this;
+		button_next = (Button) findViewById(R.id.button_next);
+		button_next.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent=new Intent(mContext,DiarrhoeaSectionActivity.class);
+				Intent intent = new Intent(mContext,
+						DiarrhoeaSectionActivity.class);
 				startActivity(intent);
-				
+
 			}
-	    	
-	    });
+
+		});
 	}
 
 }

@@ -1,21 +1,27 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.activity.AboutActivity;
+import org.digitalcampus.oppia.activity.HelpActivity;
 import org.grameenfoundation.adapters.PointOfCareBaseAdapter;
+import org.grameenfoundation.chnonthego.MainScreenActivity;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class PointOfCareActivity extends Activity implements OnItemClickListener {
+public class PointOfCareActivity extends BaseActivity implements OnItemClickListener {
 
 	private ListView listView_menu;
-	private Context mContext;
+//	private Context mContext;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -50,5 +56,7 @@ public class PointOfCareActivity extends Activity implements OnItemClickListener
 		}
 		
 	}
+	
+	
 
 }

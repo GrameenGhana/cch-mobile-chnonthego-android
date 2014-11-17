@@ -15,82 +15,100 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class OtherSeriousConditionsNextActivity extends Activity {
+public class OtherSeriousConditionsNextActivity extends BaseActivity {
 
 	private ListView listView_otherCondition;
-	private Context mContext;
+//	private Context mContext;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_other_serious_condition_next);
-	    mContext=OtherSeriousConditionsNextActivity.this;
-	    listView_otherCondition=(ListView) findViewById(R.id.listView_otherConditions);
-	    String[] items={"Bleeding from Umbilical Cord or Elsewhere from the Body",
-	    				"Soft swelling Covering Whole Scalp",
-	    				"Open tissue on head, abdomen or back",
-	    				"No urine or meconium since birth & baby > 24 hours old ",
-	    				"Vomiting after every feed; Vomit green, bloody",
-	    				"Blood in stool",
-	    				"No serious conditions"};
-	    OtherConditionsListAdapter adapter=new OtherConditionsListAdapter(mContext,items);
-	    listView_otherCondition.setAdapter(adapter);
-	    listView_otherCondition.setOnItemClickListener(new OnItemClickListener(){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_other_serious_condition_next);
+		mContext = OtherSeriousConditionsNextActivity.this;
+		listView_otherCondition = (ListView) findViewById(R.id.listView_otherConditions);
+		String[] items = {
+				"Bleeding from Umbilical Cord or Elsewhere from the Body",
+				"Soft swelling Covering Whole Scalp",
+				"Open tissue on head, abdomen or back",
+				"No urine or meconium since birth & baby > 24 hours old ",
+				"Vomiting after every feed; Vomit green, bloody",
+				"Blood in stool", "No serious conditions" };
+		OtherConditionsListAdapter adapter = new OtherConditionsListAdapter(
+				mContext, items);
+		listView_otherCondition.setAdapter(adapter);
+		listView_otherCondition
+				.setOnItemClickListener(new OnItemClickListener() {
 
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				Intent intent;
-				switch(position){
-				case 0:
-					intent=new Intent(mContext,TakeActionOtherSeriousConditionActivity.class);
-					intent.putExtra("category", "bleeding");
-					startActivity(intent);
-					break;
-				case 1:
-					intent=new Intent(mContext,TakeActionOtherSeriousConditionActivity.class);
-					intent.putExtra("category", "soft swelling");
-					startActivity(intent);
-					break;
-				case 2:
-					intent=new Intent(mContext,TakeActionOtherSeriousConditionActivity.class);
-					intent.putExtra("category", "open tissue");
-					startActivity(intent);
-					break;
-				case 3:
-					intent=new Intent(mContext,TakeActionOtherSeriousConditionActivity.class);
-					intent.putExtra("category", "no urine");
-					startActivity(intent);
-					break;
-				case 4:
-					intent=new Intent(mContext,TakeActionOtherSeriousConditionActivity.class);
-					intent.putExtra("category", "no urine");
-					startActivity(intent);
-					break;
-				case 5:
-					intent=new Intent(mContext,TakeActionOtherSeriousConditionActivity.class);
-					intent.putExtra("category", "no urine");
-					startActivity(intent);
-					break;
-				case 6:
-					intent=new Intent(mContext,NoSeriousConditionsActivity.class);
-					startActivity(intent);
-					break;
-				}
-			}
-	    	
-	    });
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						Intent intent;
+						switch (position) {
+						case 0:
+							intent = new Intent(
+									mContext,
+									TakeActionOtherSeriousConditionActivity.class);
+							intent.putExtra("category", "bleeding");
+							startActivity(intent);
+							break;
+						case 1:
+							intent = new Intent(
+									mContext,
+									TakeActionOtherSeriousConditionActivity.class);
+							intent.putExtra("category", "soft swelling");
+							startActivity(intent);
+							break;
+						case 2:
+							intent = new Intent(
+									mContext,
+									TakeActionOtherSeriousConditionActivity.class);
+							intent.putExtra("category", "open tissue");
+							startActivity(intent);
+							break;
+						case 3:
+							intent = new Intent(
+									mContext,
+									TakeActionOtherSeriousConditionActivity.class);
+							intent.putExtra("category", "no urine");
+							startActivity(intent);
+							break;
+						case 4:
+							intent = new Intent(
+									mContext,
+									TakeActionOtherSeriousConditionActivity.class);
+							intent.putExtra("category", "no urine");
+							startActivity(intent);
+							break;
+						case 5:
+							intent = new Intent(
+									mContext,
+									TakeActionOtherSeriousConditionActivity.class);
+							intent.putExtra("category", "no urine");
+							startActivity(intent);
+							break;
+						case 6:
+							intent = new Intent(mContext,
+									NoSeriousConditionsActivity.class);
+							startActivity(intent);
+							break;
+						}
+					}
+
+				});
 	}
-	class OtherConditionsListAdapter extends BaseAdapter{
+
+	class OtherConditionsListAdapter extends BaseAdapter {
 		Context mContext;
 		String[] listItems;
-		 public LayoutInflater minflater;
-		
-		public OtherConditionsListAdapter(Context mContext,String[] listItems){
-		this.mContext=mContext;
-		this.listItems=listItems;
-		 minflater = LayoutInflater.from(mContext);
+		public LayoutInflater minflater;
+
+		public OtherConditionsListAdapter(Context mContext, String[] listItems) {
+			this.mContext = mContext;
+			this.listItems = listItems;
+			minflater = LayoutInflater.from(mContext);
 		}
+
 		@Override
 		public int getCount() {
 			return listItems.length;
@@ -108,13 +126,15 @@ public class OtherSeriousConditionsNextActivity extends Activity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			if( convertView == null ){
-				  convertView = minflater.inflate(R.layout.listview_text_single,parent, false);
-			    }
-			 TextView text=(TextView) convertView.findViewById(R.id.textView_listViewText);
-			 text.setText(listItems[position]);
-			    return convertView;
+			if (convertView == null) {
+				convertView = minflater.inflate(R.layout.listview_text_single,
+						parent, false);
+			}
+			TextView text = (TextView) convertView
+					.findViewById(R.id.textView_listViewText);
+			text.setText(listItems[position]);
+			return convertView;
 		}
-		
+
 	}
 }

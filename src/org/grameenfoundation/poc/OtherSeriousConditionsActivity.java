@@ -17,27 +17,28 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class OtherSeriousConditionsActivity extends Activity {
+public class OtherSeriousConditionsActivity extends BaseActivity {
 
 	private Button button_next;
 	private ListView listView_otherCondition;
-	private Context mContext;
+//	private Context mContext;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_other_serious_condition);
-	    mContext=OtherSeriousConditionsActivity.this;
-	    button_next=(Button) findViewById(R.id.button_next);
-	    button_next.setOnClickListener(new OnClickListener(){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_other_serious_condition);
+		mContext = OtherSeriousConditionsActivity.this;
+		button_next = (Button) findViewById(R.id.button_next);
+		button_next.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent=new Intent(mContext,OtherSeriousConditionsNextActivity.class);
+				Intent intent = new Intent(mContext,
+						OtherSeriousConditionsNextActivity.class);
 				startActivity(intent);
 			}
-	    	
-	    });
+
+		});
 	}
 }
