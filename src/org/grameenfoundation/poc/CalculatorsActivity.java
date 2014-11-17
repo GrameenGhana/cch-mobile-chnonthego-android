@@ -18,28 +18,29 @@ public class CalculatorsActivity extends BaseActivity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_third_trimester_counselling);
-		mContext = CalculatorsActivity.this;
-		Bundle extras = getIntent().getExtras();
-		if (extras != null) {
-			url = extras.getString("url");
-		}
-		myWebView = (WebView) findViewById(R.id.webView_thirdTrimesterCounselling);
+	    super.onCreate(savedInstanceState);
+	    mContext =CalculatorsActivity.this;
+	    setContentView(R.layout.activity_third_trimester_counselling);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("ANC Calculators");
+	    Bundle extras = getIntent().getExtras(); 
+        if (extras != null) {
+          url= extras.getString("url");
+        }
+	    myWebView = (WebView) findViewById(R.id.webView_thirdTrimesterCounselling);	    	 
 		myWebView.getSettings().setJavaScriptEnabled(true);
 		myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
-		myWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+		myWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);	 
 		myWebView.loadUrl(url);
-		myWebView.setWebViewClient(new WebViewClient() {
-
+		myWebView.setWebViewClient(new WebViewClient(){
+				
 			@Override
-			public void onReceivedError(WebView view, int errorCod,
-					String description, String failingUrl) {
-				Toast.makeText(view.getContext(), description,
-						Toast.LENGTH_LONG).show();
-			}
-
-		});
+			     public void onReceivedError(WebView view, int errorCod,String description, String failingUrl) {
+		            Toast.makeText(view.getContext(), description , Toast.LENGTH_LONG).show();
+		         }
+			    
+			     
+	});
 	}
 
 }

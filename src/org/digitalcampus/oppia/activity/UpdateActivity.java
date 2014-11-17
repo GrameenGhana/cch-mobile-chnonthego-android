@@ -28,12 +28,18 @@ public class UpdateActivity extends Activity {
 	private Button dialogButton;
 	private DbHelper db;
 	private Context mContext;
-	private String id;
+	private long id;
 	private String number;
 	private String name;
 	private String type;
+	private String period;
+	private String dueDate;
 	private LinearLayout linearLayout_comment;
 	private LinearLayout linearLayout_justification;
+	private LinearLayout linearLayout_achievedNumber;
+	private EditText achievedNumber;
+	private long start_time;
+	private long end_time;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -45,31 +51,34 @@ public class UpdateActivity extends Activity {
 		justification=(EditText) findViewById(R.id.editText_dialogJustification);
 		linearLayout_comment=(LinearLayout) findViewById(R.id.LinearLayout_comment);
 		linearLayout_justification=(LinearLayout) findViewById(R.id.LinearLayout_justification);
+		linearLayout_achievedNumber=(LinearLayout) findViewById(R.id.linearLayout_achievedNumber);
+		achievedNumber=(EditText) findViewById(R.id.editText_achievedNumber);
+		start_time=System.currentTimeMillis();
 		comment=(EditText) findViewById(R.id.editText_comment);
 		 message=(TextView) findViewById(R.id.textView_message);
 		 db=new DbHelper(mContext);
 		 Bundle extras = getIntent().getExtras(); 
 	        if (extras != null) {
-	          id= extras.getString("id");
+	          id= extras.getLong("id");
 	          number=extras.getString("number");
 	          name=extras.getString("name");
 	          type=extras.getString("type");
+	          period=extras.getString("period");
+	          dueDate=extras.getString("due_date");
 	        }
-		message.setText("Were you able to achieve your target of "+number+" "+name +"?");
+		message.setText("Were you able to achieve your "+period+ " target of "+number+" "+name +" by "+dueDate+"?");
 		update=(RadioGroup) findViewById(R.id.radioGroup_updateDialog);
 		update.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				
-				switch(checkedId){
-				case R.id.radio_updateDialogYes:
+				if (checkedId == R.id.radio_updateDialogYes) {
 					linearLayout_comment.setVisibility(View.VISIBLE);
 					linearLayout_justification.setVisibility(View.GONE);
-					break;
-				case R.id.radio_updateDialogNo:
+				} else if (checkedId == R.id.radio_updateDialogNo) {
 					linearLayout_justification.setVisibility(View.VISIBLE);
 					linearLayout_comment.setVisibility(View.VISIBLE);
-					break;
+					linearLayout_achievedNumber.setVisibility(View.VISIBLE);
 				}
 			}
 		});
@@ -79,14 +88,27 @@ public class UpdateActivity extends Activity {
 			            	
 			            	String justification_text=justification.getText().toString();
 			            	String comment_text=comment.getText().toString();
-		                	if(db.insertJustification(name, number, justification_text, comment_text, "new_record") !=0){
-		                	long last_id=db.insertJustification(name, number, justification_text, comment_text, "new_record");
+			            	String number_achieved=achievedNumber.getText().toString();
+			            	String 	update_status = "updated";
+			            	/*
+			            	if(!number_achieved.equals(" ")&&Integer.valueOf(number_achieved)==0){
+			            		update_status.equals("not_achieved");
+			            	}else if(number_achieved.equals(" ")){
+			            		update_status.equals("not_achieved");
+			            	}else if(Integer.valueOf(number_achieved)>0 &&Integer.valueOf(number_achieved)<Integer.valueOf(number)){
+			            		update_status.equals("new_record");
+			            	}else if(update.getCheckedRadioButtonId()==R.id.radio_updateDialogYes){
+			            		update_status.equals("updated");
+			            	}*/
+		                	if(db.insertJustification(name, number, justification_text, comment_text,number,number_achieved,id, "new_record") !=0){
+		                	long last_id=db.insertJustification(name, number, justification_text, comment_text,number,number_achieved,id,"new_record");
 		                	if(type.equals("event")){
 		                	JSONObject json = new JSONObject();
 							 try {
 								json.put("id", last_id);
 								 json.put("event_type", name);
 								 json.put("event_number", number);
+								 json.put("achieved_number", number_achieved);
 								 if(justification_text.equals(" ")){
 								 json.put("justification", "did not justify");
 								 }else {
@@ -97,13 +119,15 @@ public class UpdateActivity extends Activity {
 							}
 							 db.insertCCHLog("Event Planner", json.toString(), " ", " ");
 							 System.out.println(json.toString());
-							 db.updateEventTarget("updated", Long.valueOf(id));
+							 db.updateEventTarget(update_status, id);
+							 
 		                	}else if(type.equals("coverage")){
 		                		JSONObject json = new JSONObject();
 								 try {
 									json.put("id", last_id);
 									 json.put("coverage_type", name);
 									 json.put("coverage_number", number);
+									 json.put("achieved_number", number_achieved);
 									 if(justification_text.equals(" ")){
 									 json.put("justification", "did not justify");
 									 }else {
@@ -114,13 +138,14 @@ public class UpdateActivity extends Activity {
 								}
 								 db.insertCCHLog("Event Planner", json.toString(), " ", " ");
 								 System.out.println(json.toString());
-								 db.updateCoverageTarget("updated", Long.valueOf(id));
+								 db.updateCoverageTarget(update_status, id);
 		                	}else if(type.equals("other")){
 		                		JSONObject json = new JSONObject();
 								 try {
 									json.put("id", last_id);
 									 json.put("other_type", name);
 									 json.put("other_number", number);
+									 json.put("achieved_number", number_achieved);
 									 if(justification_text.equals(" ")){
 									 json.put("justification", "did not justify");
 									 }else {
@@ -131,7 +156,7 @@ public class UpdateActivity extends Activity {
 								}
 								 db.insertCCHLog("Event Planner", json.toString(), " ", " ");
 								 System.out.println(json.toString());
-								 db.updateOtherTarget("updated", Long.valueOf(id));
+								 db.updateOtherTarget(update_status, id);
 		                	}
 							 Toast.makeText(getApplicationContext(), "Target updated!",
 					         Toast.LENGTH_SHORT).show();

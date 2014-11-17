@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,77 +17,84 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class PostnatalCareSectionActivity extends BaseActivity {
+public class PostnatalCareSectionActivity extends Activity {
 
 	private ListView listView_postnatalSections;
-//	private Context mContext;
+	private Context mContext;
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time;  
 
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_postnatal_care_sections);
-		mContext = PostnatalCareSectionActivity.this;
-		listView_postnatalSections = (ListView) findViewById(R.id.listView_postnatalCareSections);
-		String[] items = { "Newborn Emergency", "Records & History",
-				"Very Severe Disease & Local Bacterial Infections", "Jaundice",
-				"Other Serious Conditions, Birth Injury & Abnormalities",
-				"Diarrhoea", "HIV Infection ",
-				"Feeding Problems, Low Weight for Age" };
-		PostnatalSectionsListAdapter adapter = new PostnatalSectionsListAdapter(
-				mContext, items);
-		listView_postnatalSections.setAdapter(adapter);
-		listView_postnatalSections
-				.setOnItemClickListener(new OnItemClickListener() {
+	    super.onCreate(savedInstanceState);
+	    setContentView(R.layout.activity_postnatal_care_sections);
+	    mContext=PostnatalCareSectionActivity.this;
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Diagnostic: Baby");
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
+	    listView_postnatalSections=(ListView) findViewById(R.id.listView_postnatalCareSections);
+	    String[] items={"Newborn Emergency","Records & History","Very Severe Disease & Local Bacterial Infections",
+				"Jaundice","Other Serious Conditions, Birth Injury & Abnormalities",
+				"Diarrhoea","HIV Infection ","Feeding Problems, Low Weight for Age"};
+	    PostnatalSectionsListAdapter adapter=new PostnatalSectionsListAdapter(mContext,items);
+	    listView_postnatalSections.setAdapter(adapter);
+	    listView_postnatalSections.setOnItemClickListener(new OnItemClickListener(){
 
-					@Override
-					public void onItemClick(AdapterView<?> parent, View view,
-							int position, long id) {
-						Intent intent;
-						switch (position) {
-						case 0:
-							intent = new Intent(mContext,
-									NewbornEmergenciesActivity.class);
-							startActivity(intent);
-							break;
-						case 1:
-							intent = new Intent(mContext,
-									RecordsAskActivity.class);
-							startActivity(intent);
-							break;
-						case 2:
-							intent = new Intent(mContext,
-									SevereDiseasesActivity.class);
-							startActivity(intent);
-							break;
-						case 3:
-							intent = new Intent(mContext,
-									JaundiceActivity.class);
-							startActivity(intent);
-							break;
-						case 4:
-							intent = new Intent(mContext,
-									OtherSeriousConditionsActivity.class);
-							startActivity(intent);
-							break;
-						}
-
-					}
-
-				});
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent intent;
+				switch(position){
+				case 0:
+					intent=new Intent(mContext,NewbornEmergenciesActivity.class);
+					startActivity(intent);
+					break;
+				case 1:
+					intent=new Intent(mContext,RecordsAskActivity.class);
+					startActivity(intent);
+					break;
+				case 2:
+					intent=new Intent(mContext,SevereDiseasesActivity.class);
+					startActivity(intent);
+					break;
+				case 3:
+					intent=new Intent(mContext,JaundiceActivity.class);
+					startActivity(intent);
+					break;
+				case 4:
+					intent=new Intent(mContext,OtherSeriousConditionsActivity.class);
+					startActivity(intent);
+					break;
+				case 5:
+					intent=new Intent(mContext,DiarrhoeaActivity.class);
+					startActivity(intent);
+					break;
+				case 6:
+					intent=new Intent(mContext,HIVInfectionStatusActivity.class);
+					startActivity(intent);
+					break;
+				case 7:
+					intent=new Intent(mContext,LowBirthWeightActivity.class);
+					startActivity(intent);
+					break;
+				}
+				
+			}
+	    	
+	    });
 	}
-
-	class PostnatalSectionsListAdapter extends BaseAdapter {
+	class PostnatalSectionsListAdapter extends BaseAdapter{
 		Context mContext;
 		String[] listItems;
-		public LayoutInflater minflater;
-
-		public PostnatalSectionsListAdapter(Context mContext, String[] listItems) {
-			this.mContext = mContext;
-			this.listItems = listItems;
-			minflater = LayoutInflater.from(mContext);
+		 public LayoutInflater minflater;
+		
+		public PostnatalSectionsListAdapter(Context mContext,String[] listItems){
+		this.mContext=mContext;
+		this.listItems=listItems;
+		 minflater = LayoutInflater.from(mContext);
 		}
-
 		@Override
 		public int getCount() {
 			return listItems.length;
@@ -104,16 +112,20 @@ public class PostnatalCareSectionActivity extends BaseActivity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			if (convertView == null) {
-				convertView = minflater.inflate(R.layout.other_listview_single,
-						parent, false);
-			}
-			TextView text = (TextView) convertView
-					.findViewById(R.id.textView_otherCategory);
-			text.setText(listItems[position]);
-			return convertView;
+			if( convertView == null ){
+				  convertView = minflater.inflate(R.layout.other_listview_single,parent, false);
+			    }
+			 TextView text=(TextView) convertView.findViewById(R.id.textView_otherCategory);
+			 text.setText(listItems[position]);
+			    return convertView;
 		}
-
+		
 	}
-
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "PNC Diagnostic:  Baby", start_time.toString(), end_time.toString());
+		finish();
+	}
 }

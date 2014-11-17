@@ -18,6 +18,7 @@ import org.grameenfoundation.cch.activity.HomeActivity;
 import org.grameenfoundation.cch.activity.StayingWellActivity;
 import org.grameenfoundation.database.CHNDatabaseHandler;
 import org.grameenfoundation.poc.PointOfCareActivity;
+import org.grameenfoundation.cch.utils.TypefaceUtil;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -45,6 +46,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainScreenActivity extends FragmentActivity implements OnItemClickListener, OnSharedPreferenceChangeListener {
 
@@ -77,7 +79,8 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	    mContext=MainScreenActivity.this;
 	    getActionBar().setDisplayShowHomeEnabled(false);
 	    getActionBar().setTitle("Welcome");
-	   // TypefaceUtil.overrideFont(mContext, "SERIF", "fonts/Roboto-Thin.ttf");
+	    getActionBar().setSubtitle("Home Page");
+	    TypefaceUtil.overrideFont(mContext, "SERIF", "fonts/Roboto-Thin.ttf");
 	    main_menu_listview=(ListView) findViewById(R.id.listView_mainScreenMenu);
 	    time_now=new Time();
 		compared_time=new Time();
@@ -89,8 +92,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		compared_time.set(time_now.second, 0, 17, time_now.monthDay, time_now.month, time_now.year);
 		week.set(time_now.second, 0, 17, 5, time_now.month, time_now.year);
 		end_of_month.set(time_now.second, 0, 17, 31, time_now.month, time_now.year);
-		String today= String.valueOf(time_now.hour) +":"+String.valueOf(time_now.minute)+String.valueOf(time_now.second)
-					+","+String.valueOf(time_now.monthDay)+"/"+String.valueOf(time_now.month)+"/"+String.valueOf(time_now.year);
+		String today= String.valueOf(time_now.monthDay)+"-"+String.valueOf(time_now.month+1)+"-"+String.valueOf(time_now.year);
 		String compared_today= String.valueOf(compared_time.hour) +":"+String.valueOf(compared_time.minute)+String.valueOf(compared_time.second)
 				+","+String.valueOf(compared_time.monthDay)+"/"+String.valueOf(compared_time.month)+"/"+String.valueOf(compared_time.year);
 		
@@ -181,6 +183,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		 public ArrayList<String> EventTypeToday;
 		private SharedPreferences prefs;
 		private String current_month;
+		String due_date;
 		private HashMap<String, String> eventUpdateItemsDaily;
 		private HashMap<String, String> coverageUpdateItemsDaily;
 		private HashMap<String, String> otherUpdateItemsDaily;
@@ -197,12 +200,13 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			 	rootView=inflater.inflate(R.layout.events_pager_layout,null,false);
 			 	prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 			 	//loginPref=getApplicationContext().getSharedPreferences("loginPrefs", MODE_WORLD_READABLE);
-			    name=prefs.getString(getString(R.string.prefs_username), "name");
+			    name=prefs.getString("first_name", "name");
 			    dbh=new DbHelper(getActivity());
 			    status=(TextView) rootView.findViewById(R.id.textView_status);
 			    event_number=(TextView) rootView.findViewById(R.id.textView_eventsNumber);
 			    Time time = new Time();
 			    time.setToNow();
+			    String today= String.valueOf(time.monthDay)+"-"+String.valueOf(time.month+1)+"-"+String.valueOf(time.year);
 			    Calendar rightNow = Calendar.getInstance();
 			    java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("MMMM");
 			   // month= rightNow.get(Calendar.MONTH)+1;
@@ -231,6 +235,10 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			 }
 			 Calendar c = Calendar.getInstance();
 		        int month=c.get(Calendar.MONTH)+1;
+		        int day=c.get(Calendar.DAY_OF_WEEK);
+		        int year=c.get(Calendar.YEAR);
+		        due_date=day+"-"+month+"-"+year;
+		        System.out.println(today);
 		        switch(month){
 		        case 1:
 			        	current_month="January";
@@ -269,9 +277,9 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		        	current_month="December";
 		        	break;
 		        }
-			 eventUpdateItemsDaily=dbh.getAllDailyEvents(current_month);
-				coverageUpdateItemsDaily=dbh.getAllDailyCoverage(current_month);
-				otherUpdateItemsDaily=dbh.getAllDailyOther(current_month);
+		        eventUpdateItemsDaily=dbh.getAllEvents(current_month,today);
+				coverageUpdateItemsDaily=dbh.getAllCoverage(current_month,today);
+				otherUpdateItemsDaily=dbh.getAllOther(current_month,today);
 				//Intent service2 = new Intent(this,UpdateTargetsService.class);
 				//this.startService(service2);
 				
@@ -365,22 +373,20 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		
 		@Override
 		public boolean onOptionsItemSelected(MenuItem item) {
-			// Handle item selection
-			switch (item.getItemId()) {
-				case R.id.menu_settings:
-					Intent i = new Intent(this, PrefsActivity.class);				
-					startActivity(i);
-					return true;
-				
-				case R.id.menu_about:
-					startActivity(new Intent(this, AboutActivity.class));
-					return true;
-				case R.id.menu_help:
-					startActivity(new Intent(this, HelpActivity.class));
-					return true;
-				case R.id.menu_logout:
-					logout();
-					return true;
+			int itemId = item.getItemId();
+			if (itemId == R.id.menu_settings) {
+				Intent i = new Intent(this, PrefsActivity.class);
+				startActivity(i);
+				return true;
+			} else if (itemId == R.id.menu_about) {
+				startActivity(new Intent(this, AboutActivity.class));
+				return true;
+			} else if (itemId == R.id.menu_help) {
+				startActivity(new Intent(this, HelpActivity.class));
+				return true;
+			} else if (itemId == R.id.menu_logout) {
+				logout();
+				return true;
 			}
 			return true;
 		}
@@ -453,6 +459,20 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		
 	}
 	
-	 
+	private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
+	private long mBackPressed;
+	
+	@Override
+	public void onBackPressed()
+	{
+	    if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) 
+	    { 
+	        super.onBackPressed(); 
+	        return;
+	    }
+	    else { Toast.makeText(getBaseContext(), "Press back button again to exit", Toast.LENGTH_SHORT).show(); }
+
+	    mBackPressed = System.currentTimeMillis();
+	}
 
 }

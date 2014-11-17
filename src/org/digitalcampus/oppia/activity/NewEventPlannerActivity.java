@@ -1,7 +1,10 @@
 package org.digitalcampus.oppia.activity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 import org.digitalcampus.mobile.learningGF.R;
@@ -16,6 +19,7 @@ import org.grameenfoundation.cch.activity.HomeActivity;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.Activity;
 import android.content.Context;
@@ -27,12 +31,12 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -49,6 +53,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.RadioButton;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -64,8 +70,7 @@ import android.view.ActionMode;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AbsListView.MultiChoiceModeListener;
-import android.widget.AdapterView.OnItemLongClickListener;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -74,7 +79,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 public class NewEventPlannerActivity extends SherlockFragmentActivity implements ActionBar.TabListener, OnSharedPreferenceChangeListener{
 	 private DbHelper dbh;
 	SectionsPagerAdapter mSectionsPagerAdapter;
-	public String current_month;
+	public static String current_month;
 	
 	private static final String EVENT_PLANNER_ID = "Event Planner";
 	public static final String TAG = NewEventPlannerActivity.class.getSimpleName();
@@ -96,7 +101,8 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
       
         final ActionBar actionBar =getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.setTitle("Target Setting");
+        actionBar.setTitle("Event Planner");
+        actionBar.setSubtitle("Target Setting");
         actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setHomeButtonEnabled(true);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -234,21 +240,60 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
          }
  }
 		
-	 public static class EventsActivity extends Fragment implements OnItemClickListener{
+	 public static class EventsActivity extends Fragment implements OnChildClickListener{
 
 			private Context mContext;															
-			private TextView textview_status;
-			private ListView listView_events;
-			private ArrayList<String> eventName;
-			private ArrayList<String> eventNumber;
-			private ArrayList<String> eventsId;
+			private ExpandableListView listView_events;
+			 private ArrayList<String> dailyEventName;
+			 private ArrayList<String> dailyEventNumber;
+			 private ArrayList<String> dailyEventPeriod;
+			 private ArrayList<String> dailyEventDueDate;
+			 private ArrayList<String> dailyEventStatus;
+			 private ArrayList<String>  dailyEventId;
+			 
+			 private ArrayList<String> weeklyEventName;
+			 private ArrayList<String> weeklyEventNumber;
+			 private ArrayList<String> weeklyEventPeriod;
+			 private ArrayList<String> weeklyEventDueDate;
+			 private ArrayList<String> weeklyEventStatus;
+			 private ArrayList<String> weeklyEventId;
+			 
+			 private ArrayList<String> monthlyEventName;
+			 private ArrayList<String> monthlyEventNumber;
+			 private ArrayList<String> monthlyEventPeriod;
+			 private ArrayList<String> monthlyEventDueDate;
+			 private ArrayList<String> monthlyEventStatus;
+			 private ArrayList<String> monthlyEventId;
+			 
+			 private ArrayList<String> yearlyEventName;
+			 private ArrayList<String> yearlyEventNumber;
+			 private ArrayList<String> yearlyEventPeriod;
+			 private ArrayList<String> yearlyEventDueDate;
+			 private ArrayList<String> yearlyEventStatus;
+			 private ArrayList<String> yearlyEventId;
+			 
+			 private ArrayList<String> midYearEventName;
+			 private ArrayList<String> midYearEventNumber;
+			 private ArrayList<String> midYearEventPeriod;
+			 private ArrayList<String> midYearEventDueDate;
+			 private ArrayList<String> midYearEventStatus;
+			 private ArrayList<String> midYearEventId;
+			 
+			 private HashMap<String,String> dailyEventTargets;
+			 private HashMap<String,String> weeklyEventTargets;
+			 private HashMap<String,String> monthlyEventTargets;
+			 private HashMap<String,String> yearlyEventTargets;
+			 private HashMap<String,String> midYearEventTargets;
+			 private String[] groupItems;
 			private DbHelper db;
 			 public static final String ARG_SECTION_NUMBER = "section_number";       
 			View rootView;
 			private EventBaseAdapter events_adapter;
 			private String[] selected_items;
 			int selected_position;
-
+			private long selected_id;
+			static String due_date ;
+			private static TextView dueDateValue;
 			 public EventsActivity(){
 
             }
@@ -257,149 +302,144 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			    mContext=getActivity().getApplicationContext();
 			    //TypefaceUtil.overrideFont(mContext, "SERIF", "fonts/Roboto-Thin.ttf");
 			    db=new DbHelper(getActivity());
-			    textview_status=(TextView) rootView.findViewById(R.id.textView_eventsStatus);
-			    listView_events=(ListView) rootView.findViewById(R.id.listView_events);
-			    listView_events.setOnItemClickListener(this);
-			    //registerForContextMenu(listView_events);
-			    eventName=db.getAllEventName(month_passed);
-			    eventNumber=db.getAllEventNumber(month_passed);
-			    eventsId=db.getAllEventID(month_passed);
-			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventsId);
-			    events_adapter.notifyDataSetChanged();
+			    listView_events=(ExpandableListView) rootView.findViewById(R.id.expandableListView_events);
+			  
+			    dailyEventTargets=db.getAllUnupdatedDailyEvents(month_passed);
+			    System.out.println(dailyEventTargets);
+			    weeklyEventTargets=db.getAllUnupdatedWeeklyEvents(month_passed);
+			    System.out.println(weeklyEventTargets);
+			    monthlyEventTargets=db.getAllUnupdatedMonthlyEvents(month_passed);
+			    System.out.println(monthlyEventTargets);
+			    yearlyEventTargets=db.getAllUnupdatedYearlyEvents(month_passed);
+			    System.out.println(yearlyEventTargets);
+			    midYearEventTargets=db.getAllUnupdatedMidyearEvents(month_passed);
+			    System.out.println(midYearEventTargets);
+			   
+			    dailyEventName=new ArrayList<String>();
+			    dailyEventName.add(dailyEventTargets.get("event_name"));
+			    dailyEventNumber=new ArrayList<String>();
+			    dailyEventNumber.add(dailyEventTargets.get("event_number"));
+			    dailyEventPeriod=new ArrayList<String>();
+			    dailyEventPeriod.add(dailyEventTargets.get("event_period"));
+			    dailyEventDueDate=new ArrayList<String>();
+			    dailyEventDueDate.add(dailyEventTargets.get("due_date"));
+			    dailyEventStatus=new ArrayList<String>();
+			    dailyEventStatus.add(dailyEventTargets.get("sync_status"));
+			    
+			    dailyEventId=new ArrayList<String>();
+			    dailyEventId.add(dailyEventTargets.get("event_id"));
+			    
+			    weeklyEventName=new ArrayList<String>();
+			    weeklyEventName.add(weeklyEventTargets.get("event_name"));
+			    weeklyEventNumber=new ArrayList<String>();
+			    weeklyEventNumber.add(weeklyEventTargets.get("event_number"));
+			    weeklyEventPeriod=new ArrayList<String>();
+			    weeklyEventPeriod.add(weeklyEventTargets.get("event_period"));
+			    weeklyEventDueDate=new ArrayList<String>();
+			    weeklyEventDueDate.add(weeklyEventTargets.get("due_date"));
+			    weeklyEventStatus=new ArrayList<String>();
+			    weeklyEventStatus.add(weeklyEventTargets.get("sync_status"));
+			    weeklyEventId=new ArrayList<String>();
+			    weeklyEventId.add(weeklyEventTargets.get("event_id"));
+			    
+			    monthlyEventName=new ArrayList<String>();
+			    monthlyEventName.add(monthlyEventTargets.get("event_name"));
+			    monthlyEventNumber=new ArrayList<String>();
+			    monthlyEventNumber.add(monthlyEventTargets.get("event_number"));
+			    monthlyEventPeriod=new ArrayList<String>();
+			    monthlyEventPeriod.add(monthlyEventTargets.get("event_period"));
+			    monthlyEventDueDate=new ArrayList<String>();
+			    monthlyEventDueDate.add(monthlyEventTargets.get("due_date"));
+			    monthlyEventStatus=new ArrayList<String>();
+			    monthlyEventStatus.add(monthlyEventTargets.get("sync_status"));
+			    monthlyEventId=new ArrayList<String>();
+			    monthlyEventId.add(monthlyEventTargets.get("event_id"));
+			    
+			    yearlyEventName=new ArrayList<String>();
+			    yearlyEventName.add(yearlyEventTargets.get("event_name"));
+			    yearlyEventNumber=new ArrayList<String>();
+			    yearlyEventNumber.add(yearlyEventTargets.get("event_number"));
+			    yearlyEventPeriod=new ArrayList<String>();
+			    yearlyEventPeriod.add(yearlyEventTargets.get("event_period"));
+			    yearlyEventDueDate=new ArrayList<String>();
+			    yearlyEventDueDate.add(yearlyEventTargets.get("due_date"));
+			    yearlyEventStatus=new ArrayList<String>();
+			    yearlyEventStatus.add(yearlyEventTargets.get("sync_status"));
+			    yearlyEventId=new ArrayList<String>();
+			    yearlyEventId.add(yearlyEventTargets.get("event_id"));
+			    
+			    midYearEventName=new ArrayList<String>();
+			    midYearEventName.add(midYearEventTargets.get("event_name"));
+			    midYearEventNumber=new ArrayList<String>();
+			    midYearEventNumber.add(midYearEventTargets.get("event_number"));
+			    midYearEventPeriod=new ArrayList<String>();
+			    midYearEventPeriod.add(midYearEventTargets.get("event_period"));
+			    midYearEventDueDate=new ArrayList<String>();
+			    midYearEventDueDate.add(midYearEventTargets.get("due_date"));
+			    midYearEventStatus=new ArrayList<String>();
+			    midYearEventStatus.add(midYearEventTargets.get("sync_status"));
+			    midYearEventId=new ArrayList<String>();
+			    midYearEventId.add(midYearEventTargets.get("event_id"));
+			    groupItems=new String[]{"Daily","Weekly","Monthly","Annually","Mid-year"};
+			    events_adapter=new EventBaseAdapter(mContext,dailyEventName ,
+															dailyEventNumber,
+															dailyEventPeriod,
+															dailyEventDueDate,
+															dailyEventStatus,
+															dailyEventId,
+							
+															weeklyEventName,
+															weeklyEventNumber,
+															weeklyEventPeriod,
+							weeklyEventDueDate,
+							weeklyEventStatus,
+							weeklyEventId,
+							
+							monthlyEventName,
+							monthlyEventNumber,
+							monthlyEventPeriod,
+							monthlyEventDueDate,
+							monthlyEventStatus,
+							monthlyEventId,
+							
+							yearlyEventName,
+							yearlyEventNumber,
+							yearlyEventPeriod,
+							yearlyEventDueDate,
+							yearlyEventStatus,
+							yearlyEventId,
+							
+							midYearEventName,
+							midYearEventNumber,
+							midYearEventPeriod,
+							midYearEventDueDate,
+							midYearEventStatus,
+							midYearEventId,
+							groupItems,
+							listView_events);
+			  
+			   
 			    listView_events.setAdapter(events_adapter);	
-			    if(listView_events.getCount()>0){
-			    	textview_status.setText(" ");	
-			    }else if (listView_events.getCount()==0){
-			    	textview_status.setText("You have not entered any events!");
-			    }
-			    listView_events.setOnItemClickListener(this);
-			    listView_events.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-		          
-			    listView_events.setMultiChoiceModeListener(new MultiChoiceModeListener() {
-		              
-		            private int nr = 0;
-		              
-		            @Override
-		            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-		                
-		                return false;
-		            }
-		              
-		            @Override
-		            public void onDestroyActionMode(ActionMode mode) {
-		                
-		            	events_adapter.clearSelection();
-		            }
-		              
-		            @Override
-		            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-		            
-		                  
-		                nr = 0;
-		                MenuInflater inflater = getActivity().getMenuInflater();
-		                inflater.inflate(R.menu.context_menu, menu);
-		                return true;
-		            }
-		              
-		            @Override
-		            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-		                switch (item.getItemId()) {
-		                    case R.id.option1:
-		                        nr = 0;
-		                    System.out.println(selected_position);
-		                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-		            				getActivity());
-		             
-		            			// set title
-		            			alertDialogBuilder.setTitle("Delete event?");
-		             
-		            			// set dialog message
-		            			alertDialogBuilder
-		            				.setMessage("You are about to delete an event. Proceed?")
-		            				.setCancelable(false)
-		            				.setIcon(R.drawable.ic_error)
-		            				.setPositiveButton("No",new DialogInterface.OnClickListener() {
-		            					public void onClick(DialogInterface dialog,int id) {
-		            						// if this button is clicked, close
-		            						// current activity
-		            						dialog.cancel();
-		            					}
-		            				  })
-		            				.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
-		            					public void onClick(DialogInterface dialog,int id) {
-		            						// if this button is clicked, just close
-		            						// the dialog box and do nothing
-		            						if(db.deleteEventCategory(selected_position)==true){
-		            							getActivity().runOnUiThread(new Runnable() {
-		    							            @Override
-		    							            public void run() {
-		    							            	
-		    							            	 eventName=db.getAllEventName(month_passed);
-		    							 			    eventNumber=db.getAllEventNumber(month_passed);
-		    							 			    eventsId=db.getAllEventID(month_passed);
-		    							 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventsId);
-		    							 			    events_adapter.notifyDataSetChanged();
-		    							 			    listView_events.setAdapter(events_adapter);	
-		    							            }
-		    							        });
-		       	    		        		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
-		       									         Toast.LENGTH_LONG).show();
-		       		    		        	}
-		       		    		        	
-		            						events_adapter.clearSelection();
-		       		                      
-		            					}
-		            				});
-		             
-		            				// create alert dialog
-		            				AlertDialog alertDialog = alertDialogBuilder.create();
-		             
-		            				// show it
-		            				alertDialog.show();
-		            				  mode.finish();
-		                }
-		                return false;
-		            }
-		              
-		            @Override	
-		            public void onItemCheckedStateChanged(ActionMode mode, int position,
-		                    long id, boolean checked) {
-		                // TODO Auto-generated method stub
-		                 if (checked) {
-		                        nr++;
-		                        selected_position=(int) id;
-		                        
-		                        events_adapter.setNewSelection(position, checked);                    
-		                    } else {
-		                        nr--;
-		                        events_adapter.removeSelection(position);                 
-		                    }
-		                    mode.setTitle(nr + " selected");
-		                    
-		            }
-		        });
-		          
-		      listView_events.setOnItemLongClickListener(new OnItemLongClickListener() {
-		  
-		            @Override
-		            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-		                    int position, long arg3) {
-		                // TODO Auto-generated method stub
-		                  
-		            	listView_events.setItemChecked(position, !events_adapter.isPositionChecked(position));
-		            	
-		                return false;
-		            }
-		        });
-		    
+			    View empty_view=new View(getActivity());
+			    listView_events.setEmptyView(empty_view);
+			    events_adapter.notifyDataSetChanged();
+			   
+			    listView_events.setOnChildClickListener(this);
+			   
 			   Button b = (Button) rootView.findViewById(R.id.button_addEvent);
+			   /*if(!month_passed.equalsIgnoreCase(current_month)){
+				  b.setVisibility(View.GONE); 
+			   }
+			   */
 			    b.setOnClickListener(new OnClickListener() {
-			    	@Override
+			    	
+
+					@Override
 				       public void onClick(View v) {
 			    		final Dialog dialog = new Dialog(getActivity());
 						dialog.setContentView(R.layout.event_set_dialog);
 						dialog.setTitle("Set Event Target");
-						String[] items={"Daily","Monthly","Weekly","Yearly"};
+						String[] items={"Daily","Weekly","Monthly","Annually","Quarterly","Mid-year"};
 						final Spinner spinner_event_period=(Spinner) dialog.findViewById(R.id.spinner_dialogEventPeriod);
 						final Spinner spinner_event_name=(Spinner) dialog.findViewById(R.id.spinner_eventName);
 						
@@ -414,33 +454,165 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 						//ArrayList<String> list=db.getAllEventCategory();
 						ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items_names);
 						spinner_event_name.setAdapter(adapter2);
-						
+						Button datepickerDialog=(Button) dialog.findViewById(R.id.button_setDateDialog);
+						datepickerDialog.setOnClickListener(new OnClickListener(){
+
+							@Override
+							public void onClick(View v) {
+								 DialogFragment newFragment = new DatePickerFragment();
+								    newFragment.show(getFragmentManager(), "datePicker");
+								
+							}
+							
+						});
+						Button cancel=(Button) dialog.findViewById(R.id.button_cancel);
+						cancel.setOnClickListener(new OnClickListener(){
+
+							@Override
+							public void onClick(View v) {
+							dialog.dismiss();
+								
+							}
+							
+						});
 						Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogSetEVent);
 						dialogButton.setText("Save");
+						dueDateValue=(TextView) dialog.findViewById(R.id.textView_dueDateValue);
 						dialogButton.setOnClickListener(new OnClickListener() {
 							@Override
 							public void onClick(View v) {
 								dialog.dismiss();
-								
+							
 								EditText editText_event_period=(EditText) dialog.findViewById(R.id.editText_dialogEventPeriodNumber);
 								String event_period=spinner_event_period.getSelectedItem().toString();
 								String event_name=spinner_event_name.getSelectedItem().toString();
 								String event_period_number=editText_event_period.getText().toString();
-							    if(db.insertEventSet(event_name, event_period, event_period_number, month_passed,"new_record") ==true){
+							    if(db.insertEventSet(event_name, event_period, event_period_number, month_passed,due_date,"new_record") ==true){
 							    	getActivity().runOnUiThread(new Runnable() {
 							            @Override
 							            public void run() {
-							            	
-							            	 eventName=db.getAllEventName(month_passed);
-							 			    eventNumber=db.getAllEventNumber(month_passed);
-							 			    eventsId=db.getAllEventID(month_passed);
-							 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventsId);
-							 			    events_adapter.notifyDataSetChanged();
-							 			    listView_events.setAdapter(events_adapter);	
+							            	dailyEventTargets=db.getAllUnupdatedDailyEvents(month_passed);
+										    System.out.println(dailyEventTargets);
+										    weeklyEventTargets=db.getAllUnupdatedWeeklyEvents(month_passed);
+										    System.out.println(weeklyEventTargets);
+										    monthlyEventTargets=db.getAllUnupdatedMonthlyEvents(month_passed);
+										    System.out.println(monthlyEventTargets);
+										    yearlyEventTargets=db.getAllUnupdatedYearlyEvents(month_passed);
+										    System.out.println(yearlyEventTargets);
+										    midYearEventTargets=db.getAllUnupdatedMidyearEvents(month_passed);
+										    System.out.println(midYearEventTargets);
+										   
+										    dailyEventName=new ArrayList<String>();
+										    dailyEventName.add(dailyEventTargets.get("event_name"));
+										    dailyEventNumber=new ArrayList<String>();
+										    dailyEventNumber.add(dailyEventTargets.get("event_number"));
+										    dailyEventPeriod=new ArrayList<String>();
+										    dailyEventPeriod.add(dailyEventTargets.get("event_period"));
+										    dailyEventDueDate=new ArrayList<String>();
+										    dailyEventDueDate.add(dailyEventTargets.get("due_date"));
+										    dailyEventStatus=new ArrayList<String>();
+										    dailyEventStatus.add(dailyEventTargets.get("sync_status"));
+										    
+										    dailyEventId=new ArrayList<String>();
+										    dailyEventId.add(dailyEventTargets.get("event_id"));
+										    
+										    weeklyEventName=new ArrayList<String>();
+										    weeklyEventName.add(weeklyEventTargets.get("event_name"));
+										    weeklyEventNumber=new ArrayList<String>();
+										    weeklyEventNumber.add(weeklyEventTargets.get("event_number"));
+										    weeklyEventPeriod=new ArrayList<String>();
+										    weeklyEventPeriod.add(weeklyEventTargets.get("event_period"));
+										    weeklyEventDueDate=new ArrayList<String>();
+										    weeklyEventDueDate.add(weeklyEventTargets.get("due_date"));
+										    weeklyEventStatus=new ArrayList<String>();
+										    weeklyEventStatus.add(weeklyEventTargets.get("sync_status"));
+										    weeklyEventId=new ArrayList<String>();
+										    weeklyEventId.add(weeklyEventTargets.get("event_id"));
+										    
+										    monthlyEventName=new ArrayList<String>();
+										    monthlyEventName.add(monthlyEventTargets.get("event_name"));
+										    monthlyEventNumber=new ArrayList<String>();
+										    monthlyEventNumber.add(monthlyEventTargets.get("event_number"));
+										    monthlyEventPeriod=new ArrayList<String>();
+										    monthlyEventPeriod.add(monthlyEventTargets.get("period"));
+										    monthlyEventDueDate=new ArrayList<String>();
+										    monthlyEventDueDate.add(monthlyEventTargets.get("due_date"));
+										    monthlyEventStatus=new ArrayList<String>();
+										    monthlyEventStatus.add(monthlyEventTargets.get("sync_status"));
+										    monthlyEventId=new ArrayList<String>();
+										    monthlyEventId.add(monthlyEventTargets.get("event_id"));
+										    
+										    yearlyEventName=new ArrayList<String>();
+										    yearlyEventName.add(yearlyEventTargets.get("event_name"));
+										    yearlyEventNumber=new ArrayList<String>();
+										    yearlyEventNumber.add(yearlyEventTargets.get("event_number"));
+										    yearlyEventPeriod=new ArrayList<String>();
+										    yearlyEventPeriod.add(yearlyEventTargets.get("event_period"));
+										    yearlyEventDueDate=new ArrayList<String>();
+										    yearlyEventDueDate.add(yearlyEventTargets.get("event_due_date"));
+										    yearlyEventStatus=new ArrayList<String>();
+										    yearlyEventStatus.add(yearlyEventTargets.get("sync_status"));
+										    yearlyEventId=new ArrayList<String>();
+										    yearlyEventId.add(yearlyEventTargets.get("event_id"));
+										    
+										    midYearEventName=new ArrayList<String>();
+										    midYearEventName.add(midYearEventTargets.get("event_name"));
+										    midYearEventNumber=new ArrayList<String>();
+										    midYearEventNumber.add(midYearEventTargets.get("event_number"));
+										    midYearEventPeriod=new ArrayList<String>();
+										    midYearEventPeriod.add(midYearEventTargets.get("event_period"));
+										    midYearEventDueDate=new ArrayList<String>();
+										    midYearEventDueDate.add(midYearEventTargets.get("due_date"));
+										    midYearEventStatus=new ArrayList<String>();
+										    midYearEventStatus.add(midYearEventTargets.get("sync_status"));
+										    midYearEventId=new ArrayList<String>();
+										    midYearEventId.add(midYearEventTargets.get("event_id"));
+										    groupItems=new String[]{"Daily","Weekly","Monthly","Annually","Mid-year"};
+										    events_adapter=new EventBaseAdapter(mContext,dailyEventName ,
+																						dailyEventNumber,
+																						dailyEventPeriod,
+																						dailyEventDueDate,
+																						dailyEventStatus,
+																						dailyEventId,
+														
+																						weeklyEventName,
+																						weeklyEventNumber,
+																						weeklyEventPeriod,
+														weeklyEventDueDate,
+														weeklyEventStatus,
+														weeklyEventId,
+														
+														monthlyEventName,
+														monthlyEventNumber,
+														monthlyEventPeriod,
+														monthlyEventDueDate,
+														monthlyEventStatus,
+														monthlyEventId,
+														
+														yearlyEventName,
+														yearlyEventNumber,
+														yearlyEventPeriod,
+														yearlyEventDueDate,
+														yearlyEventStatus,
+														yearlyEventId,
+														
+														midYearEventName,
+														midYearEventNumber,
+														midYearEventPeriod,
+														midYearEventDueDate,
+														midYearEventStatus,
+														midYearEventId,
+														groupItems,
+														listView_events);
+										  
+										   
+										    listView_events.setAdapter(events_adapter);	
+										    events_adapter.notifyDataSetChanged();
+							 			   
 							            }
 							        });
 							    
-							    	 Toast.makeText(getActivity().getApplicationContext(), "Event set successfully!",
+							    	 Toast.makeText(getActivity().getApplicationContext(), "Event target set successfully!",
 									         Toast.LENGTH_LONG).show();
 							    }else{
 							    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
@@ -455,91 +627,108 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			return rootView;
 				   
 			}
-			 
+			 public static class DatePickerFragment extends DialogFragment
+			 				implements DatePickerDialog.OnDateSetListener {
+
+				 @Override
+				 	public Dialog onCreateDialog(Bundle savedInstanceState) {
+// Use the current date as the default date in the picker
+final Calendar c = Calendar.getInstance();
+int year = c.get(Calendar.YEAR);
+int month = c.get(Calendar.MONTH);
+int day = c.get(Calendar.DAY_OF_MONTH);
+
+// Create a new instance of DatePickerDialog and return it
+return new DatePickerDialog(getActivity(), this, year, month, day);
+}
+
+public void onDateSet(DatePicker view, int year, int month, int day) {
+		int month_value=month+1;
+		due_date=day+"-"+month_value+"-"+year;
+		dueDateValue.setText(due_date);
+}
+}
 		
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					final long id) {
-				selected_items=events_adapter.getItem(position);
-				System.out.println(selected_items[0]+" "+selected_items[1]);
-				final Dialog dialog = new Dialog(getActivity());
-				dialog.setContentView(R.layout.event_set_dialog);
-				dialog.setTitle("Edit Event");
-				final EditText editText_eventNumber=(EditText) dialog.findViewById(R.id.editText_dialogEventPeriodNumber);
-				String[] items={"Daily","Monthly","Weekly","Yearly"};
-				ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
-				final Spinner spinner_event_name=(Spinner) dialog.findViewById(R.id.spinner_eventName);
-				final Spinner spinner_eventPeriod=(Spinner) dialog.findViewById(R.id.spinner_dialogEventPeriod);
-				spinner_eventPeriod.setAdapter(adapter);
-				String[] items_names={"ANC Static","ANC Outreach","CWC Static","CWC Outreach",
-						"PNC Clinic","Routine Home visit","Special Home visit",
-						"Family Planning","Health Talk","CMAM Clinic","School Health",
-						"Adolescent Health","Mop-up Activity/Event","Community Durbar",
-						"National Activity/Event","Staff meetings/durbars","Workshops","Leave/Excuse Duty",
-						"Personal","Other"};
-				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items_names);
-				spinner_event_name.setAdapter(adapter2);
-				int spinner_position=adapter2.getPosition(selected_items[0]);
-				spinner_event_name.setSelection(spinner_position);
-				editText_eventNumber.setText(selected_items[1]);
-				Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogSetEVent);
-				dialogButton.setText("Save");
-				dialogButton.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						dialog.dismiss();
-						
-						String event_name=spinner_event_name.getSelectedItem().toString();
-						String event_number=editText_eventNumber.getText().toString();
-						String event_period=spinner_eventPeriod.getSelectedItem().toString();
-					    if(db.editEventCategory(event_name, event_number, event_period, id)==true){
-					    	getActivity().runOnUiThread(new Runnable() {
-					            @Override
-					            public void run() {
-					            	eventName=db.getAllEventName(month_passed);
-					 			    eventNumber=db.getAllEventNumber(month_passed);
-					 			    eventsId=db.getAllEventID(month_passed);
-					 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventsId);
-					 			    events_adapter.notifyDataSetChanged();
-					 			    listView_events.setAdapter(events_adapter);	
-					            }
-					        });	
-					    	 Toast.makeText(getActivity().getApplicationContext(), "Event edited successfully!",
-							         Toast.LENGTH_LONG).show();
-					    }else{
-					    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
-							         Toast.LENGTH_LONG).show();
-					    }
-					}
-				});
-				
-	 				dialog.show();
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, final long id) {
+				selected_items=events_adapter.getChild(groupPosition, childPosition);
+				selected_id=Long.parseLong(selected_items[5]);
+				String event_name=selected_items[0];
+				String event_number=selected_items[1];
+				String event_period=selected_items[2];
+				String due_date=selected_items[3];
+				String status=selected_items[4];
+				Intent intent=new Intent(getActivity(),EventTargetsDetailActivity.class);
+				intent.putExtra("event_id",selected_id);
+				intent.putExtra("event_name",event_name);
+				intent.putExtra("event_number",event_number);
+				intent.putExtra("event_period", event_period);
+				intent.putExtra("due_date", due_date);
+				intent.putExtra("status", status);
+				startActivity(intent);
+					return true;
 		}
-	 
+			
 	 }
 	 public static class CoverageActivity extends Fragment implements OnChildClickListener{
 
 			private Context mContext;															
-			private ArrayList<String> coveragePeopleTarget;
-			private ArrayList<String> coveragePeopleNumber;
-			private ArrayList<String> coveragePeoplePeriod;
-			private ArrayList<String> coverageImmunzationTarget;
-			private ArrayList<String> coverageImmunzationNumber;
-			private ArrayList<String> coverageImmunzationPeriod;
-			private ArrayList<String> coveragePeopleId;
-			private ArrayList<String> coverageImmunizationId;
+			 private ArrayList<String> dailyCoverageName;
+			 private ArrayList<String> dailyCoverageNumber;
+			 private ArrayList<String> dailyCoveragePeriod;
+			 private ArrayList<String> dailyCoverageDueDate;
+			 private ArrayList<String> dailyCoverageStatus;
+			 private ArrayList<String>  dailyCoverageId;
+			 
+			 private ArrayList<String> weeklyCoverageName;
+			 private ArrayList<String> weeklyCoverageNumber;
+			 private ArrayList<String> weeklyCoveragePeriod;
+			 private ArrayList<String> weeklyCoverageDueDate;
+			 private ArrayList<String> weeklyCoverageStatus;
+			 private ArrayList<String> weeklyCoverageId;
+			 
+			 private ArrayList<String> monthlyCoverageName;
+			 private ArrayList<String> monthlyCoverageNumber;
+			 private ArrayList<String> monthlyCoveragePeriod;
+			 private ArrayList<String> monthlyCoverageDueDate;
+			 private ArrayList<String> monthlyCoverageStatus;
+			 private ArrayList<String> monthlyCoverageId;
+			 
+			 private ArrayList<String> yearlyCoverageName;
+			 private ArrayList<String> yearlyCoverageNumber;
+			 private ArrayList<String> yearlyCoveragePeriod;
+			 private ArrayList<String> yearlyCoverageDueDate;
+			 private ArrayList<String> yearlyCoverageStatus;
+			 private ArrayList<String> yearlyCoverageId;
+			 
+			 private ArrayList<String> midYearCoverageName;
+			 private ArrayList<String> midYearCoverageNumber;
+			 private ArrayList<String> midYearCoveragePeriod;
+			 private ArrayList<String> midYearCoverageDueDate;
+			 private ArrayList<String> midYearCoverageStatus;
+			 private ArrayList<String> midYearCoverageId;
+			 
+			 private HashMap<String,String> dailyCoverageTargets;
+			 private HashMap<String,String> weeklyCoverageTargets;
+			 private HashMap<String,String> monthlyCoverageTargets;
+			 private HashMap<String,String> yearlyCoverageTargets;
+			 private HashMap<String,String> midYearCoverageTargets;
+			 private String[] groupItems;
 			private DbHelper db;
 			 public static final String ARG_SECTION_NUMBER = "section_number";       
 			View rootView;
 			private ExpandableListView listView_coverage;
-			private TextView textStatus;
-			private String[] group={"People","Immunizations"};
-			private int[] imageId={R.drawable.ic_people,R.drawable.ic_syringe};
 			private CoverageListAdapter coverage_adapter;
 			private String[] selected_items;
 			private RadioGroup category_options;
 			private String[] items3;
 			int selected_position;
+			protected RadioButton category_people;
+			private long selected_id;
+			static String due_date ;
+			private static TextView dueDateValue;
+			
 			 public CoverageActivity(){
 
          }
@@ -547,190 +736,193 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				 rootView=inflater.inflate(R.layout.activity_coverage,null,false);
 			    mContext=getActivity().getApplicationContext();
 			    db=new DbHelper(getActivity());
-			    coveragePeopleTarget=db.getAllCoveragePeopleTarget(month_passed);
-			    coveragePeopleNumber=db.getAllCoveragePeopleNumber(month_passed);
-			    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod(month_passed);
-			    
-			    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget(month_passed);
-			    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber(month_passed);
-			    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod(month_passed);
-			    coveragePeopleId=db.getAllCoveragePeopleId(month_passed);
-			    coverageImmunizationId=db.getAllCoverageImmunizationsId(month_passed);
+				groupItems=new String[]{"Daily","Weekly","Monthly","Annually","Mid-year"};
 			    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
 			    listView_coverage.setOnChildClickListener(this);
-			    //registerForContextMenu(listView_coverage);
-			    textStatus=(TextView) rootView.findViewById(R.id.textView_coverageStatus);
-			    coverage_adapter=new CoverageListAdapter(getActivity(),group,coveragePeopleTarget,coveragePeopleNumber,
-			    																		coveragePeoplePeriod,coverageImmunzationTarget,
-			    																		coverageImmunzationNumber,coverageImmunzationPeriod,
-			    																		coveragePeopleId,coverageImmunizationId,
-			    																		imageId,listView_coverage);
+			    dailyCoverageTargets=db.getAllUnupdatedDailyEvents(month_passed);
+			    weeklyCoverageTargets=db.getAllUnupdatedWeeklyEvents(month_passed);
+			    monthlyCoverageTargets=db.getAllUnupdatedMonthlyEvents(month_passed);
+			    yearlyCoverageTargets=db.getAllUnupdatedYearlyEvents(month_passed);
+			    midYearCoverageTargets=db.getAllUnupdatedMidyearEvents(month_passed);
+			   
+			    dailyCoverageName=new ArrayList<String>();
+			    dailyCoverageName.add(dailyCoverageTargets.get("coverage_name"));
+			    dailyCoverageNumber=new ArrayList<String>();
+			    dailyCoverageNumber.add(dailyCoverageTargets.get("coverage_number"));
+			    dailyCoveragePeriod=new ArrayList<String>();
+			    dailyCoveragePeriod.add(dailyCoverageTargets.get("coverage_period"));
+			    dailyCoverageDueDate=new ArrayList<String>();
+			    dailyCoverageDueDate.add(dailyCoverageTargets.get("due_date"));
+			    dailyCoverageStatus=new ArrayList<String>();
+			    dailyCoverageStatus.add(dailyCoverageTargets.get("sync_status"));
+			    dailyCoverageId=new ArrayList<String>();
+			    dailyCoverageId.add(dailyCoverageTargets.get("coverage_id"));
+			    
+			    weeklyCoverageName=new ArrayList<String>();
+			    weeklyCoverageName.add(weeklyCoverageTargets.get("coverage_name"));
+			    weeklyCoverageNumber=new ArrayList<String>();
+			    weeklyCoverageNumber.add(weeklyCoverageTargets.get("coverage_number"));
+			    weeklyCoveragePeriod=new ArrayList<String>();
+			    weeklyCoveragePeriod.add(weeklyCoverageTargets.get("coverage_period"));
+			    weeklyCoverageDueDate=new ArrayList<String>();
+			    weeklyCoverageDueDate.add(weeklyCoverageTargets.get("due_date"));
+			    weeklyCoverageStatus=new ArrayList<String>();
+			    weeklyCoverageStatus.add(weeklyCoverageTargets.get("sync_status"));
+			    weeklyCoverageId=new ArrayList<String>();
+			    weeklyCoverageId.add(weeklyCoverageTargets.get("coverage_id"));
+			    
+			    monthlyCoverageName=new ArrayList<String>();
+			    monthlyCoverageName.add(monthlyCoverageTargets.get("coverage_name"));
+			    monthlyCoverageNumber=new ArrayList<String>();
+			    monthlyCoverageNumber.add(monthlyCoverageTargets.get("coverage_number"));
+			    monthlyCoveragePeriod=new ArrayList<String>();
+			    monthlyCoveragePeriod.add(monthlyCoverageTargets.get("coverage_period"));
+			    monthlyCoverageDueDate=new ArrayList<String>();
+			    monthlyCoverageDueDate.add(monthlyCoverageTargets.get("due_date"));
+			    monthlyCoverageStatus=new ArrayList<String>();
+			    monthlyCoverageStatus.add(monthlyCoverageTargets.get("sync_status"));
+			    monthlyCoverageId=new ArrayList<String>();
+			    monthlyCoverageId.add(monthlyCoverageTargets.get("coverage_id"));
+			    
+			    yearlyCoverageName=new ArrayList<String>();
+			    yearlyCoverageName.add(yearlyCoverageTargets.get("coverage_name"));
+			    yearlyCoverageNumber=new ArrayList<String>();
+			    yearlyCoverageNumber.add(yearlyCoverageTargets.get("coverage_number"));
+			    yearlyCoveragePeriod=new ArrayList<String>();
+			    yearlyCoveragePeriod.add(yearlyCoverageTargets.get("coverage_period"));
+			    yearlyCoverageDueDate=new ArrayList<String>();
+			    yearlyCoverageDueDate.add(yearlyCoverageTargets.get("due_date"));
+			    yearlyCoverageStatus=new ArrayList<String>();
+			    yearlyCoverageStatus.add(yearlyCoverageTargets.get("sync_status"));
+			    yearlyCoverageId=new ArrayList<String>();
+			    yearlyCoverageId.add(yearlyCoverageTargets.get("coverage_id"));
+			    
+			    midYearCoverageName=new ArrayList<String>();
+			    midYearCoverageName.add(midYearCoverageTargets.get("coverage_name"));
+			    midYearCoverageNumber=new ArrayList<String>();
+			    midYearCoverageNumber.add(midYearCoverageTargets.get("coverage_number"));
+			    midYearCoveragePeriod=new ArrayList<String>();
+			    midYearCoveragePeriod.add(midYearCoverageTargets.get("coverage_period"));
+			    midYearCoverageDueDate=new ArrayList<String>();
+			    midYearCoverageDueDate.add(midYearCoverageTargets.get("due_date"));
+			    midYearCoverageStatus=new ArrayList<String>();
+			    midYearCoverageStatus.add(midYearCoverageTargets.get("sync_status"));
+			    midYearCoverageId=new ArrayList<String>();
+			    midYearCoverageId.add(midYearCoverageTargets.get("coverage_id"));
+			    groupItems=new String[]{"Daily","Weekly","Monthly","Yearly","Mid-year"};
+			    coverage_adapter=new CoverageListAdapter(mContext,dailyCoverageName ,
+															dailyCoverageNumber,
+															dailyCoveragePeriod,
+															dailyCoverageDueDate,
+															dailyCoverageStatus,
+															dailyCoverageId,
+							
+															weeklyCoverageName,
+															weeklyCoverageNumber,
+															weeklyCoveragePeriod,
+															weeklyCoverageDueDate,
+															weeklyCoverageStatus,
+															weeklyCoverageId,
+							
+															monthlyCoverageName,
+															monthlyCoverageNumber,
+															monthlyCoveragePeriod,
+															monthlyCoverageDueDate,
+															monthlyCoverageStatus,
+															monthlyCoverageId,
+							
+															yearlyCoverageName,
+															yearlyCoverageNumber,
+															yearlyCoveragePeriod,
+															yearlyCoverageDueDate,
+															yearlyCoverageStatus,
+															yearlyCoverageId,
+							
+															midYearCoverageName,
+															midYearCoverageNumber,
+															midYearCoveragePeriod,
+															midYearCoverageDueDate,
+															midYearCoverageStatus,
+															midYearCoverageId,
+															groupItems,
+															listView_coverage);
+			   
+			    
 			    coverage_adapter.notifyDataSetChanged();
 		    	listView_coverage.setAdapter(coverage_adapter);	
-			    if(listView_coverage.getChildCount()>0){
-			    	textStatus.setText(" ");
-			    	
-			    }else if (listView_coverage.getChildCount()==0){
-			    	textStatus.setText(" ");
-			    }
-			  
+		    	 View empty_view=new View(getActivity());
+		    	 listView_coverage.setEmptyView(empty_view);
+		    	listView_coverage.setOnChildClickListener(this);
 			    Button b = (Button) rootView.findViewById(R.id.button_addCoverage);
+			   /* if(!month_passed.equalsIgnoreCase(current_month)){
+					  b.setVisibility(View.GONE); 
+				   }*/
 			    b.setOnClickListener(new OnClickListener() {
 			    	 String coverage_detail;
 			       @Override
 			       public void onClick(View v) {
 			    	   final Dialog dialog = new Dialog(getActivity());
 						dialog.setContentView(R.layout.coverage_add_dialog);
+						Button datepickerDialog=(Button) dialog.findViewById(R.id.button_setDateDialog);
+						datepickerDialog.setOnClickListener(new OnClickListener(){
+
+							@Override
+							public void onClick(View v) {
+								 DialogFragment newFragment = new DatePickerFragment();
+								    newFragment.show(getFragmentManager(), "datePicker");
+								
+							}
+							
+						});
+						Button cancel=(Button) dialog.findViewById(R.id.button_cancel);
+						cancel.setOnClickListener(new OnClickListener(){
+
+							@Override
+							public void onClick(View v) {
+							dialog.dismiss();
+								
+							}
+							
+						});
+						dueDateValue=(TextView) dialog.findViewById(R.id.textView_dueDateValue);
 						final Spinner spinner_coverageName=(Spinner) dialog.findViewById(R.id.spinner_dialogCoverageName);
-						dialog.setTitle("Add Coverage");
-						
-						  category_options=(RadioGroup) dialog.findViewById(R.id.radioGroup_category);
+						 category_options=(RadioGroup) dialog.findViewById(R.id.radioGroup_category);
 						  category_options.check(R.id.radio_people);
+						  category_people=(RadioButton) dialog.findViewById(R.id.radio_people);
+						  category_people.setChecked(true);
+						  items3=new String[]{"0 - 11 months","12 - 23 months",
+											"24 -59 months","Women in fertile age",
+											"Expected pregnancy"};
+							ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
+							spinner_coverageName.setAdapter(adapter3);
+						dialog.setTitle("Add Coverage Target");
 						    category_options.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 						    	
 								public void onCheckedChanged(
 										RadioGroup buttonView,
 										int isChecked) {
-									switch(isChecked){
-									case R.id.radio_people:
+									if (isChecked == R.id.radio_people) {
 										items3=new String[]{"0 - 11 months","12 - 23 months",
 												"24 -59 months","Women in fertile age",
 												"Expected pregnancy"};
 										ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
 										spinner_coverageName.setAdapter(adapter3);
 										coverage_detail="People";
-										break;
-									case R.id.radio_immunization:
+									} else if (isChecked == R.id.radio_immunization) {
 										items3=new String[]{"BCG",
 												"Penta 3","OPV 3","Rota 2",
 												"PCV 3","Measles Rubella","Yellow fever"};
 										ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
 										spinner_coverageName.setAdapter(adapter4);
 										coverage_detail="Immunization";
-										break;
 									}
 									
 								}
 
 						    });
-						String[] items2={"Daily","Monthly","Weekly"};
+						    String[] items2={"Daily","Weekly","Monthly","Annually","Quarterly","Mid-year"};
 					
-						listView_coverage.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-				          
-						listView_coverage.setMultiChoiceModeListener(new MultiChoiceModeListener() {
-				              
-				            private int nr = 0;
-				              
-				            @Override
-				            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-				                
-				                return false;
-				            }
-				              
-				            @Override
-				            public void onDestroyActionMode(ActionMode mode) {
-				                
-				            	coverage_adapter.clearSelection();
-				            }
-				              
-				            @Override
-				            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-				            
-				                  
-				                nr = 0;
-				                MenuInflater inflater = getActivity().getMenuInflater();
-				                inflater.inflate(R.menu.context_menu, menu);
-				                return true;
-				            }
-				              
-				            @Override
-				            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-				                switch (item.getItemId()) {
-				                    case R.id.option1:
-				                        nr = 0;
-				                    System.out.println(selected_position);
-				                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				            				getActivity());
-				             
-				            			// set title
-				            			alertDialogBuilder.setTitle("Delete event?");
-				             
-				            			// set dialog message
-				            			alertDialogBuilder
-				            				.setMessage("You are about to delete an event. Proceed?")
-				            				.setCancelable(false)
-				            				.setIcon(R.drawable.ic_error)
-				            				.setPositiveButton("No",new DialogInterface.OnClickListener() {
-				            					public void onClick(DialogInterface dialog,int id) {
-				            						// if this button is clicked, close
-				            						// current activity
-				            						dialog.cancel();
-				            					}
-				            				  })
-				            				.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
-				            					public void onClick(DialogInterface dialog,int id) {
-				            						// if this button is clicked, just close
-				            						// the dialog box and do nothing
-				            						if(db.deleteCoverageCategory(selected_position)==true){
-				            							getActivity().runOnUiThread(new Runnable() {
-				            					            @Override
-				            					            public void run() {
-				            					            	
-				            					            	coveragePeopleTarget=db.getAllCoveragePeopleTarget(month_passed);
-				            								    coveragePeopleNumber=db.getAllCoveragePeopleNumber(month_passed);
-				            								    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod(month_passed);
-				            								    
-				            								    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget(month_passed);
-				            								    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber(month_passed);
-				            								    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod(month_passed);
-				            								    coveragePeopleId=db.getAllCoveragePeopleId(month_passed);
-				            								    coverageImmunizationId=db.getAllCoverageImmunizationsId(month_passed);
-				            								    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
-				            								    coverage_adapter=new CoverageListAdapter(getActivity(),group,coveragePeopleTarget,coveragePeopleNumber,
-				            											coveragePeoplePeriod,coverageImmunzationTarget,
-				            											coverageImmunzationNumber,coverageImmunzationPeriod,
-				            											coveragePeopleId,coverageImmunizationId,
-				            											imageId,listView_coverage);
-				            								    coverage_adapter.notifyDataSetChanged();
-				            								    listView_coverage.setAdapter(coverage_adapter);	
-				            					            }
-				            					        });	
-				       	    		        		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
-				       									         Toast.LENGTH_LONG).show();
-				       		    		        	}
-				       		    		        	
-				            						coverage_adapter.clearSelection();
-				       		                      
-				            					}
-				            				});
-				             
-				            				// create alert dialog
-				            				AlertDialog alertDialog = alertDialogBuilder.create();
-				             
-				            				// show it
-				            				alertDialog.show();
-				            				  mode.finish();
-				                }
-				                return false;
-				            }
-				              
-				            @Override	
-				            public void onItemCheckedStateChanged(ActionMode mode, int position,
-				                    long id, boolean checked) {
-				                // TODO Auto-generated method stub
-				                 if (checked) {
-				                        nr++;
-				                        selected_position=(int) id;
-				                        
-				                        coverage_adapter.setNewSelection(position, checked);                    
-				                    } else {
-				                        nr--;
-				                        coverage_adapter.removeSelection(position);                 
-				                    }
-				                    mode.setTitle(nr + " selected");
-				                    
-				            }
-				        });
+						
 						
 						final Spinner spinner_coveragePeriod=(Spinner) dialog.findViewById(R.id.spinner_coveragePeriod);
 						ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items2);
@@ -747,31 +939,124 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 								String coverage_name=spinner_coverageName.getSelectedItem().toString();
 								String coverage_period=spinner_coveragePeriod.getSelectedItem().toString();
 								String coverage_number=editText_coverageNumber.getText().toString();
-							    if(db.insertCoverageSet(coverage_name, coverage_detail, coverage_period, coverage_number, month_passed,"new_record") ==true){
+							    if(db.insertCoverageSet(coverage_name, coverage_detail, coverage_period, coverage_number, month_passed,due_date,"new_record") ==true){
 							    	getActivity().runOnUiThread(new Runnable() {
 							            @Override
 							            public void run() {
-							            	
-							            	coveragePeopleTarget=db.getAllCoveragePeopleTarget(month_passed);
-										    coveragePeopleNumber=db.getAllCoveragePeopleNumber(month_passed);
-										    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod(month_passed);
-										    
-										    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget(month_passed);
-										    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber(month_passed);
-										    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod(month_passed);
-										    coveragePeopleId=db.getAllCoveragePeopleId(month_passed);
-										    coverageImmunizationId=db.getAllCoverageImmunizationsId(month_passed);
-										    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
-										    coverage_adapter=new CoverageListAdapter(getActivity(),group,coveragePeopleTarget,coveragePeopleNumber,
-													coveragePeoplePeriod,coverageImmunzationTarget,
-													coverageImmunzationNumber,coverageImmunzationPeriod,
-													coveragePeopleId,coverageImmunizationId,
-													imageId,listView_coverage);
-										    coverage_adapter.notifyDataSetChanged();
-										    listView_coverage.setAdapter(coverage_adapter);	
+							            	dailyCoverageTargets=db.getAllUnupdatedDailyEvents(month_passed);
+							  			    weeklyCoverageTargets=db.getAllUnupdatedWeeklyEvents(month_passed);
+							  			    monthlyCoverageTargets=db.getAllUnupdatedMonthlyEvents(month_passed);
+							  			    yearlyCoverageTargets=db.getAllUnupdatedYearlyEvents(month_passed);
+							  			    midYearCoverageTargets=db.getAllUnupdatedMidyearEvents(month_passed);
+							  			   
+							  			    dailyCoverageName=new ArrayList<String>();
+							  			    dailyCoverageName.add(dailyCoverageTargets.get("coverage_name"));
+							  			    dailyCoverageNumber=new ArrayList<String>();
+							  			    dailyCoverageNumber.add(dailyCoverageTargets.get("coverage_number"));
+							  			    dailyCoveragePeriod=new ArrayList<String>();
+							  			    dailyCoveragePeriod.add(dailyCoverageTargets.get("coverage_period"));
+							  			    dailyCoverageDueDate=new ArrayList<String>();
+							  			    dailyCoverageDueDate.add(dailyCoverageTargets.get("due_date"));
+							  			    dailyCoverageStatus=new ArrayList<String>();
+							  			    dailyCoverageStatus.add(dailyCoverageTargets.get("sync_status"));
+							  			    dailyCoverageId=new ArrayList<String>();
+							  			    dailyCoverageId.add(dailyCoverageTargets.get("coverage_id"));
+							  			    
+							  			    weeklyCoverageName=new ArrayList<String>();
+							  			    weeklyCoverageName.add(weeklyCoverageTargets.get("coverage_name"));
+							  			    weeklyCoverageNumber=new ArrayList<String>();
+							  			    weeklyCoverageNumber.add(weeklyCoverageTargets.get("coverage_number"));
+							  			    weeklyCoveragePeriod=new ArrayList<String>();
+							  			    weeklyCoveragePeriod.add(weeklyCoverageTargets.get("coverage_period"));
+							  			    weeklyCoverageDueDate=new ArrayList<String>();
+							  			    weeklyCoverageDueDate.add(weeklyCoverageTargets.get("due_date"));
+							  			    weeklyCoverageStatus=new ArrayList<String>();
+							  			    weeklyCoverageStatus.add(weeklyCoverageTargets.get("sync_status"));
+							  			    weeklyCoverageId=new ArrayList<String>();
+							  			    weeklyCoverageId.add(weeklyCoverageTargets.get("coverage_id"));
+							  			    
+							  			    monthlyCoverageName=new ArrayList<String>();
+							  			    monthlyCoverageName.add(monthlyCoverageTargets.get("coverage_name"));
+							  			    monthlyCoverageNumber=new ArrayList<String>();
+							  			    monthlyCoverageNumber.add(monthlyCoverageTargets.get("coverage_number"));
+							  			    monthlyCoveragePeriod=new ArrayList<String>();
+							  			    monthlyCoveragePeriod.add(monthlyCoverageTargets.get("coverage_period"));
+							  			    monthlyCoverageDueDate=new ArrayList<String>();
+							  			    monthlyCoverageDueDate.add(monthlyCoverageTargets.get("due_date"));
+							  			    monthlyCoverageStatus=new ArrayList<String>();
+							  			    monthlyCoverageStatus.add(monthlyCoverageTargets.get("sync_status"));
+							  			    monthlyCoverageId=new ArrayList<String>();
+							  			    monthlyCoverageId.add(monthlyCoverageTargets.get("coverage_id"));
+							  			    
+							  			    yearlyCoverageName=new ArrayList<String>();
+							  			    yearlyCoverageName.add(yearlyCoverageTargets.get("coverage_name"));
+							  			    yearlyCoverageNumber=new ArrayList<String>();
+							  			    yearlyCoverageNumber.add(yearlyCoverageTargets.get("coverage_number"));
+							  			    yearlyCoveragePeriod=new ArrayList<String>();
+							  			    yearlyCoveragePeriod.add(yearlyCoverageTargets.get("coverage_period"));
+							  			    yearlyCoverageDueDate=new ArrayList<String>();
+							  			    yearlyCoverageDueDate.add(yearlyCoverageTargets.get("due_date"));
+							  			    yearlyCoverageStatus=new ArrayList<String>();
+							  			    yearlyCoverageStatus.add(yearlyCoverageTargets.get("sync_status"));
+							  			    yearlyCoverageId=new ArrayList<String>();
+							  			    yearlyCoverageId.add(yearlyCoverageTargets.get("coverage_id"));
+							  			    
+							  			    midYearCoverageName=new ArrayList<String>();
+							  			    midYearCoverageName.add(midYearCoverageTargets.get("coverage_name"));
+							  			    midYearCoverageNumber=new ArrayList<String>();
+							  			    midYearCoverageNumber.add(midYearCoverageTargets.get("coverage_number"));
+							  			    midYearCoveragePeriod=new ArrayList<String>();
+							  			    midYearCoveragePeriod.add(midYearCoverageTargets.get("coverage_period"));
+							  			    midYearCoverageDueDate=new ArrayList<String>();
+							  			    midYearCoverageDueDate.add(midYearCoverageTargets.get("due_date"));
+							  			    midYearCoverageStatus=new ArrayList<String>();
+							  			    midYearCoverageStatus.add(midYearCoverageTargets.get("sync_status"));
+							  			    midYearCoverageId=new ArrayList<String>();
+							  			    midYearCoverageId.add(midYearCoverageTargets.get("coverage_id"));
+							  			    groupItems=new String[]{"Daily","Weekly","Monthly","Yearly","Mid-year"};
+							  			    coverage_adapter=new CoverageListAdapter(mContext,dailyCoverageName ,
+							  															dailyCoverageNumber,
+							  															dailyCoveragePeriod,
+							  															dailyCoverageDueDate,
+							  															dailyCoverageStatus,
+							  															dailyCoverageId,
+							  							
+							  															weeklyCoverageName,
+							  															weeklyCoverageNumber,
+							  															weeklyCoveragePeriod,
+							  															weeklyCoverageDueDate,
+							  															weeklyCoverageStatus,
+							  															weeklyCoverageId,
+							  							
+							  															monthlyCoverageName,
+							  															monthlyCoverageNumber,
+							  															monthlyCoveragePeriod,
+							  															monthlyCoverageDueDate,
+							  															monthlyCoverageStatus,
+							  															monthlyCoverageId,
+							  							
+							  															yearlyCoverageName,
+							  															yearlyCoverageNumber,
+							  															yearlyCoveragePeriod,
+							  															yearlyCoverageDueDate,
+							  															yearlyCoverageStatus,
+							  															yearlyCoverageId,
+							  							
+							  															midYearCoverageName,
+							  															midYearCoverageNumber,
+							  															midYearCoveragePeriod,
+							  															midYearCoverageDueDate,
+							  															midYearCoverageStatus,
+							  															midYearCoverageId,
+							  															groupItems,
+							  															listView_coverage);
+							  			   
+							  			    
+							  			    coverage_adapter.notifyDataSetChanged();
+							  		    	listView_coverage.setAdapter(coverage_adapter);	
 							            }
 							        });	
-							    	 Toast.makeText(getActivity().getApplicationContext(), "Coverage added successfully!",
+							    	 Toast.makeText(getActivity().getApplicationContext(), "Coverage target added successfully!",
 									         Toast.LENGTH_LONG).show();
 							    }else{
 							    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
@@ -786,112 +1071,64 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				   
 			}
 			
-			
+			 public static class DatePickerFragment extends DialogFragment
+				implements DatePickerDialog.OnDateSetListener {
+
+	 @Override
+	 	public Dialog onCreateDialog(Bundle savedInstanceState) {
+//Use the current date as the default date in the picker
+final Calendar c = Calendar.getInstance();
+int year = c.get(Calendar.YEAR);
+int month = c.get(Calendar.MONTH);
+int day = c.get(Calendar.DAY_OF_MONTH);
+
+//Create a new instance of DatePickerDialog and return it
+return new DatePickerDialog(getActivity(), this, year, month, day);
+}
+
+public void onDateSet(DatePicker view, int year, int month, int day) {
+int month_value=month+1;
+due_date=day+"-"+month_value+"-"+year;
+dueDateValue.setText(due_date);
+}
+}
 
 			@Override
 			public boolean onChildClick(ExpandableListView parent, View v,
 					int groupPosition, int childPosition, final long id) {
-				final Dialog dialog = new Dialog(getActivity());
-				selected_items=coverage_adapter.getChild(groupPosition,childPosition);
-				dialog.setContentView(R.layout.coverage_add_dialog);
-				final Spinner spinner_coverageName=(Spinner) dialog.findViewById(R.id.spinner_dialogCoverageName);
-				dialog.setTitle("Edit Coverage");
-			
-				 category_options=(RadioGroup) dialog.findViewById(R.id.radioGroup_category);
-				  category_options.check(R.id.radio_people);
-				    category_options.setOnCheckedChangeListener(new OnCheckedChangeListener(){
-				    	
-						public void onCheckedChanged(
-								RadioGroup buttonView,
-								int isChecked) {
-							switch(isChecked){
-							case R.id.radio_people:
-								items3=new String[]{"0 - 11 months","12 - 23 months",
-										"24 -59 months","Women in fertile age",
-										"Expected pregnancy"};
-								ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
-								spinner_coverageName.setAdapter(adapter3);
-								int spinner_position=adapter3.getPosition(selected_items[0]);
-								spinner_coverageName.setSelection(spinner_position);
-								break;
-							case R.id.radio_immunization:
-								items3=new String[]{"BCG",
-										"Penta 3","OPV 3","Rota 2",
-										"PCV 3","Measles Rubella","Yellow fever"};
-								ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
-								spinner_coverageName.setAdapter(adapter4);
-								int spinner_position2=adapter4.getPosition(selected_items[0]);
-								spinner_coverageName.setSelection(spinner_position2);
-								break;
-							}	
-						}
-				    });
-				String[] items2={"Daily","Monthly","Weekly"};
-				final Spinner spinner_coveragePeriod=(Spinner) dialog.findViewById(R.id.spinner_coveragePeriod);
-				ArrayAdapter<String> spinner_adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items2);
-				spinner_coveragePeriod.setAdapter(spinner_adapter);
-				
-				final EditText editText_coverageNumber=(EditText) dialog.findViewById(R.id.editText_dialogCoverageNumber);
-				editText_coverageNumber.setText(selected_items[1]);
-				Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddCoverage);
-				dialogButton.setText("Save");
-				dialogButton.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						dialog.dismiss();
-						
-						String coverage_name=spinner_coverageName.getSelectedItem().toString();
-						String coverage_period=spinner_coveragePeriod.getSelectedItem().toString();
-						String coverage_number=editText_coverageNumber.getText().toString();
-					    if(db.editCoverage(coverage_name, coverage_number, coverage_period, id) ==true){
-					    	getActivity().runOnUiThread(new Runnable() {
-					            @Override
-					            public void run() {
-					            	
-					            	coveragePeopleTarget=db.getAllCoveragePeopleTarget(month_passed);
-								    coveragePeopleNumber=db.getAllCoveragePeopleNumber(month_passed);
-								    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod(month_passed);
-								    
-								    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget(month_passed);
-								    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber(month_passed);
-								    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod(month_passed);
-								    coveragePeopleId=db.getAllCoveragePeopleId(month_passed);
-								    coverageImmunizationId=db.getAllCoverageImmunizationsId(month_passed);
-								    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
-								    coverage_adapter=new CoverageListAdapter(getActivity(),group,coveragePeopleTarget,coveragePeopleNumber,
-											coveragePeoplePeriod,coverageImmunzationTarget,
-											coverageImmunzationNumber,coverageImmunzationPeriod,
-											coveragePeopleId,coverageImmunizationId,
-											imageId,listView_coverage);
-								    coverage_adapter.notifyDataSetChanged();
-								    listView_coverage.setAdapter(coverage_adapter);	
-					            }
-					        });	
-					    	 Toast.makeText(getActivity().getApplicationContext(), "Coverage edited successfully!",
-							         Toast.LENGTH_LONG).show();
-					    }else{
-					    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
-							         Toast.LENGTH_LONG).show();
-					    }
-					}
-				});
-	 				dialog.show();
+				selected_items=coverage_adapter.getChild(groupPosition, childPosition);
+				selected_id=Long.parseLong(selected_items[5]);
+				System.out.println(selected_items[0]+" "+selected_items[1]);
+				String coverage_name=selected_items[0];
+				String coverage_number=selected_items[1];
+				String coverage_period=selected_items[2];
+				String due_date=selected_items[3];
+				String status=selected_items[4];
+				Intent intent=new Intent(getActivity(),CoverageTargetsDetailActivity.class);
+				intent.putExtra("coverage_id",selected_id);
+				intent.putExtra("coverage_name",coverage_name);
+				intent.putExtra("coverage_number",coverage_number);
+				intent.putExtra("coverage_period", coverage_period);
+				intent.putExtra("due_date", due_date);
+				intent.putExtra("status", status);
+				startActivity(intent);
 				return true;
 			}
 			
 	 }
 	 
-	 public static class LearningActivity extends Fragment implements OnChildClickListener{
+	 public static class LearningActivity extends Fragment implements OnItemClickListener{
 
 			private Context mContext;															
 			
-			 public ArrayList<String> AntenatalCare;
-			 public ArrayList<String> PostnatalCare;
-			 public ArrayList<String> FamilyPlanning;
-			 public ArrayList<String> ChildHealth;
-			 public ArrayList<String> General;
-			 public ArrayList<String> Other;
-			 public ExpandableListView learningList;
+			 private ArrayList<String> learningCategory;
+			 private ArrayList<String> learningDescription;
+			 private ArrayList<String> learningDueDate;
+			 private ArrayList<String> learningStatus;
+			 private ArrayList<String> learningTopic;
+			 private ArrayList<String> learningId;
+			 
+			 private HashMap<String,String> learning;
 			 private DbHelper db;
 			 private LearningBaseAdapter learning_adapter;
 			 public static final String ARG_SECTION_NUMBER = "section_number";       
@@ -904,6 +1141,13 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 
 			private int[] imageId;
 			int selected_position;
+
+			private ListView learningList;
+
+			private String[] selected_items;
+			static String due_date ;
+			private static TextView dueDateValue;
+			private long selected_id;
 			 public LearningActivity(){
 
       }
@@ -911,157 +1155,46 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				rootView=inflater.inflate(R.layout.activity_learning,null,false);
 			    mContext=getActivity().getApplicationContext();
 			    db=new DbHelper(getActivity());
-			    learningList=(ExpandableListView) rootView.findViewById(R.id.expandableListView_learningCategory);
-			    AntenatalCare=db.getAllLearningAntenatalCare();
-			    PostnatalCare=db.getAllLearningPostnatalCare();
-			    FamilyPlanning=db.getAllLearningFamilyPlanning(month_passed);
-			    ChildHealth=db.getAllLearningChildHealth();
-			    General=db.getAllLearningGeneral();
-			    Other=db.getAllLearningOther();
-			    textStatus=(TextView) rootView.findViewById(R.id.textView_learningStatus);
-			   groupItem=new String[]{"Family Planning"};
-			   imageId=new int[]{R.drawable.ic_family};
+			    learningList=(ListView) rootView.findViewById(R.id.listView_learningCategory);
+			    learning=db.getAllUnupdatedLearning(month_passed);
+			   System.out.println(learning);
+			    learningCategory=new ArrayList<String>();
+			    learningCategory.add(learning.get("learning_category"));
+			    learningDescription=new ArrayList<String>();
+			    learningDescription.add(learning.get("learning_description"));
+			    learningTopic=new ArrayList<String>();
+			    learningTopic.add(learning.get("learning_topic"));
+			    learningDueDate=new ArrayList<String>();
+			    learningDueDate.add(learning.get("due_date"));
+			    learningStatus=new ArrayList<String>();
+			    learningStatus.add(learning.get("sync_status"));
+			    learningId=new ArrayList<String>();
+			    learningId.add(learning.get("learning_id"));
 		   
-			   learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,//AntenatalCare,
-				   													//PostnatalCare,
-				   													FamilyPlanning,
-				   													//ChildHealth,
-				   													//General,
-				   													//Other,
-				   													imageId,learningList);
-			   learning_adapter.notifyDataSetChanged();
+			   learning_adapter=new LearningBaseAdapter(getActivity(),learningCategory ,
+						learningDescription,
+						learningDueDate,
+						learningStatus,
+						learningTopic,
+						learningId);
+			 learning_adapter.notifyDataSetChanged();
 	    	learningList.setAdapter(learning_adapter);	
-	    	learningList.setOnChildClickListener(this);
-		   	if(learningList.getChildCount()>0){
-		    	textStatus.setText(" ");
-		    }else if (learningList.getChildCount()==0){
-		    	textStatus.setText(" ");
-		    }
-			    //registerForContextMenu(learningList);
-			    
-			    textStatus=(TextView) rootView.findViewById(R.id.textView_learningStatus);
-			    learningList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-		          
-			    learningList.setMultiChoiceModeListener(new MultiChoiceModeListener() {
-		              
-		            private int nr = 0;
-		              
-		            @Override
-		            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-		                
-		                return false;
-		            }
-		              
-		            @Override
-		            public void onDestroyActionMode(ActionMode mode) {
-		                
-		            	learning_adapter.clearSelection();
-		            }
-		              
-		            @Override
-		            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-		            
-		                  
-		                nr = 0;
-		                MenuInflater inflater = getActivity().getMenuInflater();
-		                inflater.inflate(R.menu.context_menu, menu);
-		                return true;
-		            }
-		              
-		            @Override
-		            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-		                switch (item.getItemId()) {
-		                    case R.id.option1:
-		                        nr = 0;
-		                    System.out.println(selected_position);
-		                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-		            				getActivity());
-		             
-		            			// set title
-		            			alertDialogBuilder.setTitle("Delete event?");
-		             
-		            			// set dialog message
-		            			alertDialogBuilder
-		            				.setMessage("You are about to delete an event. Proceed?")
-		            				.setCancelable(false)
-		            				.setIcon(R.drawable.ic_error)
-		            				.setPositiveButton("No",new DialogInterface.OnClickListener() {
-		            					public void onClick(DialogInterface dialog,int id) {
-		            						// if this button is clicked, close
-		            						// current activity
-		            						dialog.cancel();
-		            					}
-		            				  })
-		            				.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
-		            					public void onClick(DialogInterface dialog,int id) {
-		            						// if this button is clicked, just close
-		            						// the dialog box and do nothing
-		            						if(db.deleteLearningCategory(selected_position)==true){
-		            							getActivity().runOnUiThread(new Runnable() {
-		    										@Override
-		    							            public void run() {
-		    							            	
-		    							            	AntenatalCare=db.getAllLearningAntenatalCare();
-		    										    PostnatalCare=db.getAllLearningPostnatalCare();
-		    										    FamilyPlanning=db.getAllLearningFamilyPlanning(month_passed);
-		    										    ChildHealth=db.getAllLearningChildHealth();
-		    										    General=db.getAllLearningGeneral();
-		    										    Other=db.getAllLearningOther();
-		    										    learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,//AntenatalCare,
-		       													//PostnatalCare,
-		       													FamilyPlanning,
-		       													//ChildHealth,
-		       													//General,
-		       													//Other,
-		       													imageId,learningList);
-		    										    learning_adapter.notifyDataSetChanged();
-		    										    learningList.setAdapter(learning_adapter);	
-		    							            }
-		    							        });	
-		       	    		        		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
-		       									         Toast.LENGTH_LONG).show();
-		       		    		        	}
-		       		    		        	
-		            						learning_adapter.clearSelection();
-		       		                      
-		            					}
-		            				});
-		             
-		            				// create alert dialog
-		            				AlertDialog alertDialog = alertDialogBuilder.create();
-		             
-		            				// show it
-		            				alertDialog.show();
-		            				  mode.finish();
-		                }
-		                return false;
-		            }
-		              
-		            @Override	
-		            public void onItemCheckedStateChanged(ActionMode mode, int position,
-		                    long id, boolean checked) {
-		                // TODO Auto-generated method stub
-		                 if (checked) {
-		                        nr++;
-		                        selected_position=(int) id;
-		                        
-		                        learning_adapter.setNewSelection(position, checked);                    
-		                    } else {
-		                        nr--;
-		                        learning_adapter.removeSelection(position);                 
-		                    }
-		                    mode.setTitle(nr + " selected");
-		                    
-		            }
-		        });
+	    	learningList.setOnItemClickListener(this);
+		   
+	    														
 			    Button b = (Button) rootView.findViewById(R.id.button_addLearning);
+			   /* if(!month_passed.equalsIgnoreCase(current_month)){
+					  b.setVisibility(View.GONE); 
+				   }*/
 			    b.setOnClickListener(new OnClickListener() {
 
-			       @Override
+			       private TextView dueDateValue;
+
+				@Override
 			       public void onClick(View v) {
 			    	   final Dialog dialog = new Dialog(getActivity());
 						dialog.setContentView(R.layout.learning_add_dialog);
-						dialog.setTitle("Add Learning Category");
+						dialog.setTitle("Add Learning Target");
 						final Spinner spinner_learningCatagory=(Spinner) dialog.findViewById(R.id.spinner_learningHeader);
 						String[] items={"Family Planning"};
 						ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
@@ -1128,7 +1261,6 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 
 							@Override
 							public void onNothingSelected(AdapterView<?> parent) {
-								// TODO Auto-generated method stub
 								
 							}
 							
@@ -1136,6 +1268,28 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 						
 						Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddLearning);
 						dialogButton.setText("Save");
+						Button datepickerDialog=(Button) dialog.findViewById(R.id.button_setDateDialog);
+						datepickerDialog.setOnClickListener(new OnClickListener(){
+
+							@Override
+							public void onClick(View v) {
+								 DialogFragment newFragment = new DatePickerFragment();
+								    newFragment.show(getFragmentManager(), "datePicker");
+								
+							}
+							
+						});
+						dueDateValue=(TextView) dialog.findViewById(R.id.textView_dueDateValue);
+						Button cancel=(Button) dialog.findViewById(R.id.button_cancel);
+						cancel.setOnClickListener(new OnClickListener(){
+
+							@Override
+							public void onClick(View v) {
+							dialog.dismiss();
+								
+							}
+							
+						});
 						dialogButton.setOnClickListener(new OnClickListener() {
 							@Override
 							public void onClick(View v) {
@@ -1143,30 +1297,38 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 								
 								Spinner editText_learningDescription=(Spinner) dialog.findViewById(R.id.spinner_learningDescription);
 								String learning_category=spinner_learningCatagory.getSelectedItem().toString();
+								String learning_course=spinner_learningCourse.getSelectedItem().toString();
 								String learning_description=editText_learningDescription.getSelectedItem().toString();
-							    if(db.insertLearning(learning_category, learning_description,month_passed, "new_record") ==true){
+							    if(db.insertLearning(learning_category, learning_description,learning_course,month_passed,due_date, "new_record") ==true){
 							    	getActivity().runOnUiThread(new Runnable() {
 										@Override
 							            public void run() {
-							            	
-							            	AntenatalCare=db.getAllLearningAntenatalCare();
-										    PostnatalCare=db.getAllLearningPostnatalCare();
-										    FamilyPlanning=db.getAllLearningFamilyPlanning(month_passed);
-										    ChildHealth=db.getAllLearningChildHealth();
-										    General=db.getAllLearningGeneral();
-										    Other=db.getAllLearningOther();
-										    learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,//AntenatalCare,
-   													//PostnatalCare,
-   													FamilyPlanning,
-   													//ChildHealth,
-   													//General,
-   													//Other,
-   													imageId,learningList);
-										    learning_adapter.notifyDataSetChanged();
-										    learningList.setAdapter(learning_adapter);	
+											 learning=db.getAllUnupdatedDailyEvents(month_passed);
+											   
+											    learningCategory=new ArrayList<String>();
+											    learningCategory.add(learning.get("learning_category"));
+											    learningDescription=new ArrayList<String>();
+											    learningDescription.add(learning.get("learning_description"));
+											    learningTopic=new ArrayList<String>();
+											    learningTopic.add(learning.get("learning_topic"));
+											    learningDueDate=new ArrayList<String>();
+											    learningDueDate.add(learning.get("due_date"));
+											    learningStatus=new ArrayList<String>();
+											    learningStatus.add(learning.get("sync_status"));
+											    learningId=new ArrayList<String>();
+											    learningId.add(learning.get("learning_id"));
+										   
+											   learning_adapter=new LearningBaseAdapter(getActivity(),learningCategory ,
+														learningDescription,
+														learningDueDate,
+														learningStatus,
+														learningTopic,
+														learningId);
+											 learning_adapter.notifyDataSetChanged();
+									    	learningList.setAdapter(learning_adapter);	
 							            }
 							        });	
-							    	 Toast.makeText(getActivity().getApplicationContext(), "Added successfully!",
+							    	 Toast.makeText(getActivity().getApplicationContext(), "Learning target added successfully!",
 									         Toast.LENGTH_LONG).show();
 							    }else{
 							    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
@@ -1180,146 +1342,104 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			return rootView;
 				   
 			 }			
-			@Override
-			public boolean onChildClick(ExpandableListView parent, View v,
-					int groupPosition, int childPosition, final long id) {
-					selected_item=learning_adapter.getChild(groupPosition, childPosition);
-				 	final Dialog dialog = new Dialog(getActivity());
-					dialog.setContentView(R.layout.learning_add_dialog);
-					dialog.setTitle("Edit Learning Category");
-					final Spinner spinner_learningCatagory=(Spinner) dialog.findViewById(R.id.spinner_learningHeader);
-					String[] items={"Family Planning"};
-					ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
-					spinner_learningCatagory.setAdapter(adapter);
-					final Spinner spinner_learningCourse=(Spinner) dialog.findViewById(R.id.spinner_learningCourse);
-					String[] items2={"Family Planning 101","Family Planning Counselling",
-									"Family Planning for people living with HIV","Hormonal Contraceptives",
-									"Postpartum Family Planning"};
-					final Spinner spinner_learningDescription=(Spinner) dialog.findViewById(R.id.spinner_learningDescription);
-					ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items2);
-					spinner_learningCourse.setAdapter(adapter2);
-					
-					spinner_learningCourse.setOnItemSelectedListener(new OnItemSelectedListener(){
-						
-						@Override
-						public void onItemSelected(AdapterView<?> parent,
-								View view, int position, long id) {
-							switch (position){
-							case 0:
-								String[] items3={"Rationale for voluntary family planning",
-										"Family Planning method considerations",
-										"Short-acting contraceptive methods",
-										"Long-acting contraceptive methods",
-										"Special needs"};
-						ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
-						spinner_learningDescription.setAdapter(adapter3);
-								break;
-							case 1:
-								String[] items4={"Family planning counselling",
-										"Family planning counselling skills"};
-						ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items4);
-						spinner_learningDescription.setAdapter(adapter4);
-								break;
-							case 2:
-								String[] items5={"Family Planning/Reproductive Health",
-										"Family planning for people living with HIV",
-										"Reproductive Health",
-										"Helping Clients Make a Family Planning",
-										"Family Planning in PMTCT Services"};
-						ArrayAdapter<String> adapter5=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items5);
-						spinner_learningDescription.setAdapter(adapter5);
-								break;
-							case 3:
-								String[] items6={"Hormonal Contraceptives",
-										"Oral contraceptives",
-										"Emergency contraceptive pills",
-										"Injectable contraceptives",
-										"Implants",
-										"Benefits and risks of hormonal contraceptives"};
-						ArrayAdapter<String> adapter6=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items6);
-						spinner_learningDescription.setAdapter(adapter6);
-								break;
-							case 4:
-								String[] items7={"Rationale for postpartum family planning",
-										"Contraceptive method considerations",
-										"Service delivery:Clinical Considerations",
-										"Service delivery:Integration and linkage"};
-						ArrayAdapter<String> adapter7=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items7);
-						spinner_learningDescription.setAdapter(adapter7);
-								break;
-							}
-							
-						}
-
-						@Override
-						public void onNothingSelected(AdapterView<?> parent) {
-							// TODO Auto-generated method stub
-							
-						}
-						
-					});
-					
-					int spinner_position=adapter2.getPosition(selected_item);
-					spinner_learningDescription.setSelection(spinner_position);
-					Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddLearning);
-					dialogButton.setText("Save");
-					dialogButton.setOnClickListener(new OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							dialog.dismiss();
-							
-							String learning_category=spinner_learningCatagory.getSelectedItem().toString();
-							String learning_description=spinner_learningDescription.getSelectedItem().toString();
-						    if(db.editLearning(learning_category, learning_description, id) ==true){
-						    	getActivity().runOnUiThread(new Runnable() {
-									@Override
-						            public void run() {
-						            	
-						            	AntenatalCare=db.getAllLearningAntenatalCare();
-									    PostnatalCare=db.getAllLearningPostnatalCare();
-									    FamilyPlanning=db.getAllLearningFamilyPlanning(month_passed);
-									    ChildHealth=db.getAllLearningChildHealth();
-									    General=db.getAllLearningGeneral();
-									    Other=db.getAllLearningOther();
-									    learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,//AntenatalCare,
-													//PostnatalCare,
-													FamilyPlanning,
-													//ChildHealth,
-													//General,
-													//Other,
-													imageId,learningList);
-									    learning_adapter.notifyDataSetChanged();
-									    learningList.setAdapter(learning_adapter);	
-						            }
-						        });	
-						    	 Toast.makeText(getActivity().getApplicationContext(), "Edited successfully!",
-								         Toast.LENGTH_LONG).show();
-						    }else{
-						    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
-								         Toast.LENGTH_LONG).show();
-						    }
-						}
-					});
-		 				dialog.show();
-				return true;
-			}
 			
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+			selected_items=learning_adapter.getItem(position);
+			selected_id=Long.parseLong(selected_items[5]);
+			System.out.println(selected_items[0]+" "+selected_items[1]);
+			String learning_category=selected_items[0];
+			String learning_course=selected_items[1];
+			String learing_topic=selected_items[2];
+			String due_date=selected_items[3];
+			String status=selected_items[4];
+			Intent intent=new Intent(getActivity(),LearningTargetsDetailActivity.class);
+			intent.putExtra("learning_id",selected_id);
+			intent.putExtra("learning_category",learning_category);
+			intent.putExtra("learning_course",learning_course);
+			intent.putExtra("learning_topic", learing_topic);
+			intent.putExtra("due_date", due_date);
+			intent.putExtra("status", status);
+			startActivity(intent);
+			}
+			public static class DatePickerFragment extends DialogFragment
+				implements DatePickerDialog.OnDateSetListener {
+
+ @Override
+ 	public Dialog onCreateDialog(Bundle savedInstanceState) {
+//Use the current date as the default date in the picker
+final Calendar c = Calendar.getInstance();
+int year = c.get(Calendar.YEAR);
+int month = c.get(Calendar.MONTH);
+int day = c.get(Calendar.DAY_OF_MONTH);
+
+//Create a new instance of DatePickerDialog and return it
+return new DatePickerDialog(getActivity(), this, year, month, day);
+}
+
+public void onDateSet(DatePicker view, int year, int month, int day) {
+int month_value=month+1;
+due_date=day+"-"+month_value+"-"+year;
+dueDateValue.setText(due_date);
+}
+}
 	 }
 	 
-	 public static class OtherActivity extends Fragment implements OnItemClickListener{
+	 public static class OtherActivity extends Fragment implements OnChildClickListener{
 
 			private Context mContext;															
-			private ArrayList<String> otherCategory;
-			 private ArrayList<String> otherNumber;
-			 private ArrayList<String> otherPeriod;
-			private ArrayList<String> otherId;
+			private ArrayList<String> dailyOtherName;
+			 private ArrayList<String> dailyOtherNumber;
+			 private ArrayList<String> dailyOtherPeriod;
+			 private ArrayList<String> dailyOtherDueDate;
+			 private ArrayList<String> dailyOtherStatus;
+			 private ArrayList<String>  dailyOtherId;
+			 
+			 private ArrayList<String> weeklyOtherName;
+			 private ArrayList<String> weeklyOtherNumber;
+			 private ArrayList<String> weeklyOtherPeriod;
+			 private ArrayList<String> weeklyOtherDueDate;
+			 private ArrayList<String> weeklyOtherStatus;
+			 private ArrayList<String> weeklyOtherId;
+			 
+			 private ArrayList<String> monthlyOtherName;
+			 private ArrayList<String> monthlyOtherNumber;
+			 private ArrayList<String> monthlyOtherPeriod;
+			 private ArrayList<String> monthlyOtherDueDate;
+			 private ArrayList<String> monthlyOtherStatus;
+			 private ArrayList<String> monthlyOtherId;
+			 
+			 private ArrayList<String> yearlyOtherName;
+			 private ArrayList<String> yearlyOtherNumber;
+			 private ArrayList<String> yearlyOtherPeriod;
+			 private ArrayList<String> yearlyOtherDueDate;
+			 private ArrayList<String> yearlyOtherStatus;
+			 private ArrayList<String> yearlyOtherId;
+			 
+			 private ArrayList<String> midYearOtherName;
+			 private ArrayList<String> midYearOtherNumber;
+			 private ArrayList<String> midYearOtherPeriod;
+			 private ArrayList<String> midYearOtherDueDate;
+			 private ArrayList<String> midYearOtherStatus;
+			 private ArrayList<String> midYearOtherId;
+			 
+			 private HashMap<String,String> dailyOtherTargets;
+			 private HashMap<String,String> weeklyOtherTargets;
+			 private HashMap<String,String> monthlyOtherTargets;
+			 private HashMap<String,String> yearlyOtherTargets;
+			 private HashMap<String,String> midYearOtherTargets;
+			 private String[] groupItems;
 			private DbHelper db;
 			 public static final String ARG_SECTION_NUMBER = "section_number";       
 			View rootView;
-			private ListView listView_other;
+			private ExpandableListView listView_other;
 			private TextView textStatus;
 			private OtherBaseAdapter other_adapter;
 			int selected_position;
+			private long selected_id;
+			static String due_date ;
+			private static TextView dueDateValue;
 			 public OtherActivity(){
 
    }
@@ -1327,159 +1447,286 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				 rootView=inflater.inflate(R.layout.activity_other,null,false);
 			    mContext=getActivity().getApplicationContext();
 			    db=new DbHelper(getActivity());
-			    otherCategory=db.getAllOtherCategory(month_passed);
-			    otherNumber=db.getAllOtherNumber(month_passed);
-			    otherPeriod=db.getAllOtherPeriod(month_passed);
-			    otherId=db.getAllOthersId(month_passed);
-			    listView_other=(ListView) rootView.findViewById(R.id.listView_other);
-			    listView_other.setOnItemClickListener(this);
-			
+			    dailyOtherTargets=db.getAllUnupdatedDailyOther(month_passed);
+			    weeklyOtherTargets=db.getAllUpupdatedWeeklyOther(month_passed);
+			    monthlyOtherTargets=db.getAllUnupdatedMonthlyOthers(month_passed);
+			    yearlyOtherTargets=db.getAllUnupdatedYearlyOther(month_passed);
+			    midYearOtherTargets=db.getAllUnupdatedMidYearOther(month_passed);
+			   
+			    dailyOtherName=new ArrayList<String>();
+			    dailyOtherName.add(dailyOtherTargets.get("other_name"));
+			    dailyOtherNumber=new ArrayList<String>();
+			    dailyOtherNumber.add(dailyOtherTargets.get("other_number"));
+			    dailyOtherPeriod=new ArrayList<String>();
+			    dailyOtherPeriod.add(dailyOtherTargets.get("other_period"));
+			    dailyOtherDueDate=new ArrayList<String>();
+			    dailyOtherDueDate.add(dailyOtherTargets.get("other_due_date"));
+			    dailyOtherStatus=new ArrayList<String>();
+			    dailyOtherStatus.add(dailyOtherTargets.get("sync_status"));
+			    dailyOtherId=new ArrayList<String>();
+			    dailyOtherId.add(dailyOtherTargets.get("other_id"));
+			    
+			    weeklyOtherName=new ArrayList<String>();
+			    weeklyOtherName.add(weeklyOtherTargets.get("other_name"));
+			    weeklyOtherNumber=new ArrayList<String>();
+			    weeklyOtherNumber.add(weeklyOtherTargets.get("other_number"));
+			    weeklyOtherPeriod=new ArrayList<String>();
+			    weeklyOtherPeriod.add(weeklyOtherTargets.get("other_period"));
+			    weeklyOtherDueDate=new ArrayList<String>();
+			    weeklyOtherDueDate.add(weeklyOtherTargets.get("other_due_date"));
+			    weeklyOtherStatus=new ArrayList<String>();
+			    weeklyOtherStatus.add(weeklyOtherTargets.get("sync_status"));
+			    weeklyOtherId=new ArrayList<String>();
+			    weeklyOtherId.add(weeklyOtherTargets.get("other_id"));
+			    
+			    monthlyOtherName=new ArrayList<String>();
+			    monthlyOtherName.add(monthlyOtherTargets.get("other_name"));
+			    monthlyOtherNumber=new ArrayList<String>();
+			    monthlyOtherNumber.add(monthlyOtherTargets.get("other_number"));
+			    monthlyOtherPeriod=new ArrayList<String>();
+			    monthlyOtherPeriod.add(monthlyOtherTargets.get("other_period"));
+			    monthlyOtherDueDate=new ArrayList<String>();
+			    monthlyOtherDueDate.add(monthlyOtherTargets.get("other_due_date"));
+			    monthlyOtherStatus=new ArrayList<String>();
+			    monthlyOtherStatus.add(monthlyOtherTargets.get("sync_status"));
+			    monthlyOtherId=new ArrayList<String>();
+			    monthlyOtherId.add(monthlyOtherTargets.get("other_id"));
+			    
+			    yearlyOtherName=new ArrayList<String>();
+			    yearlyOtherName.add(yearlyOtherTargets.get("other_name"));
+			    yearlyOtherNumber=new ArrayList<String>();
+			    yearlyOtherNumber.add(yearlyOtherTargets.get("other_number"));
+			    yearlyOtherPeriod=new ArrayList<String>();
+			    yearlyOtherPeriod.add(yearlyOtherTargets.get("other_period"));
+			    yearlyOtherDueDate=new ArrayList<String>();
+			    yearlyOtherDueDate.add(yearlyOtherTargets.get("other_due_date"));
+			    yearlyOtherStatus=new ArrayList<String>();
+			    yearlyOtherStatus.add(yearlyOtherTargets.get("sync_status"));
+			    yearlyOtherId=new ArrayList<String>();
+			    yearlyOtherId.add(yearlyOtherTargets.get("other_id"));
+			    
+			    midYearOtherName=new ArrayList<String>();
+			    midYearOtherName.add(midYearOtherTargets.get("other_name"));
+			    midYearOtherNumber=new ArrayList<String>();
+			    midYearOtherNumber.add(midYearOtherTargets.get("other_number"));
+			    midYearOtherPeriod=new ArrayList<String>();
+			    midYearOtherPeriod.add(midYearOtherTargets.get("other_period"));
+			    midYearOtherDueDate=new ArrayList<String>();
+			    midYearOtherDueDate.add(midYearOtherTargets.get("other_due_date"));
+			    midYearOtherStatus=new ArrayList<String>();
+			    midYearOtherStatus.add(midYearOtherTargets.get("sync_status"));
+			    midYearOtherId=new ArrayList<String>();
+			    midYearOtherId.add(midYearOtherTargets.get("other_id"));
+			    groupItems=new String[]{"Daily","Weekly","Monthly","Annually","Mid-year"};
+			    other_adapter=new OtherBaseAdapter(mContext,dailyOtherName ,
+															dailyOtherNumber,
+															dailyOtherPeriod,
+															dailyOtherDueDate,
+							dailyOtherStatus,
+							 dailyOtherId,
+							
+							weeklyOtherName,
+							weeklyOtherNumber,
+							weeklyOtherPeriod,
+							weeklyOtherDueDate,
+							weeklyOtherStatus,
+							weeklyOtherId,
+							
+							monthlyOtherName,
+							monthlyOtherNumber,
+							monthlyOtherPeriod,
+							monthlyOtherDueDate,
+							monthlyOtherStatus,
+							monthlyOtherId,
+							
+							yearlyOtherName,
+							yearlyOtherNumber,
+							yearlyOtherPeriod,
+							yearlyOtherDueDate,
+							yearlyOtherStatus,
+							yearlyOtherId,
+							
+							midYearOtherName,
+							midYearOtherNumber,
+							midYearOtherPeriod,
+							midYearOtherDueDate,
+							midYearOtherStatus,
+							midYearOtherId,
+							groupItems,
+							listView_other);
+			  
+			    listView_other=(ExpandableListView) rootView.findViewById(R.id.expandableListView_other);
+			    listView_other.setAdapter(other_adapter);
+			    listView_other.setOnChildClickListener(this);
 			   textStatus=(TextView) rootView.findViewById(R.id.textView_otherStatus);
-			   listViewPopulate();
-			   listView_other.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-		          
-			   listView_other.setMultiChoiceModeListener(new MultiChoiceModeListener() {
-		              
-		            private int nr = 0;
-		              
-		            @Override
-		            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-		                
-		                return false;
-		            }
-		              
-		            @Override
-		            public void onDestroyActionMode(ActionMode mode) {
-		                
-		            	other_adapter.clearSelection();
-		            }
-		              
-		            @Override
-		            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-		            
-		                  
-		                nr = 0;
-		                MenuInflater inflater = getActivity().getMenuInflater();
-		                inflater.inflate(R.menu.context_menu, menu);
-		                return true;
-		            }
-		              
-		            @Override
-		            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-		                switch (item.getItemId()) {
-		                    case R.id.option1:
-		                        nr = 0;
-		                    System.out.println(selected_position);
-		                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-		            				getActivity());
-		             
-		            			// set title
-		            			alertDialogBuilder.setTitle("Delete event?");
-		             
-		            			// set dialog message
-		            			alertDialogBuilder
-		            				.setMessage("You are about to delete an event. Proceed?")
-		            				.setCancelable(false)
-		            				.setIcon(R.drawable.ic_error)
-		            				.setPositiveButton("No",new DialogInterface.OnClickListener() {
-		            					public void onClick(DialogInterface dialog,int id) {
-		            						// if this button is clicked, close
-		            						// current activity
-		            						dialog.cancel();
-		            					}
-		            				  })
-		            				.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
-		            					public void onClick(DialogInterface dialog,int id) {
-		            						// if this button is clicked, just close
-		            						// the dialog box and do nothing
-		            						if(db.deleteOthereCategory(selected_position)==true){
-		            							getActivity().runOnUiThread(new Runnable() {
-		            								@Override
-		            					            public void run() {
-		            									otherCategory=db.getAllOtherCategory(month_passed);
-		            								    otherNumber=db.getAllOtherNumber(month_passed);
-		            								    otherPeriod=db.getAllOtherPeriod(month_passed);
-		            								    otherId=db.getAllOthersId(month_passed);
-		            								    other_adapter=new OtherBaseAdapter(getActivity(),otherCategory,otherNumber,otherPeriod,otherId);
-		            							    	other_adapter.notifyDataSetChanged();
-		            							    	listView_other.setAdapter(other_adapter);	
-		            					            }
-		            					        });	
-		       	    		        		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
-		       									         Toast.LENGTH_LONG).show();
-		       		    		        	}
-		       		    		        	
-		            						other_adapter.clearSelection();
-		       		                      
-		            					}
-		            				});
-		             
-		            				// create alert dialog
-		            				AlertDialog alertDialog = alertDialogBuilder.create();
-		             
-		            				// show it
-		            				alertDialog.show();
-		            				  mode.finish();
-		                }
-		                return false;
-		            }
-		              
-		            @Override	
-		            public void onItemCheckedStateChanged(ActionMode mode, int position,
-		                    long id, boolean checked) {
-		                // TODO Auto-generated method stub
-		                 if (checked) {
-		                        nr++;
-		                        selected_position=(int) id;
-		                        
-		                        other_adapter.setNewSelection(position, checked);                    
-		                    } else {
-		                        nr--;
-		                        other_adapter.removeSelection(position);                 
-		                    }
-		                    mode.setTitle(nr + " selected");
-		                    
-		            }
-		        });
+			  
+			   
 			    Button b = (Button) rootView.findViewById(R.id.button_addOther);
+			   /* if(!month_passed.equalsIgnoreCase(current_month)){
+					  b.setVisibility(View.GONE); 
+				   }*/
 			    b.setOnClickListener(new OnClickListener() {
 
 			       @Override
 			       public void onClick(View v) {
 			    	   final Dialog dialog = new Dialog(getActivity());
 						dialog.setContentView(R.layout.event_add_dialog);
-						dialog.setTitle("Add other Category");
+						dialog.setTitle("Add Other Target");
 						final EditText editText_otherCategory=(EditText) dialog.findViewById(R.id.editText_dialogOtherName);
 						final Spinner spinner_otherPeriod=(Spinner) dialog.findViewById(R.id.spinner_dialogOtherPeriod);
-						String[] items={"Daily","Monthly","Weekly"};
+						String[] items={"Daily","Weekly","Monthly","Annually","Quarterly","Mid-year"};
 						ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
 						spinner_otherPeriod.setAdapter(adapter);
 						final EditText editText_otherNumber=(EditText) dialog.findViewById(R.id.editText_dialogOtherNumber);
 						Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddEvent);
 						dialogButton.setText("Save");
+						Button datepickerDialog=(Button) dialog.findViewById(R.id.button_setDateDialog);
+						datepickerDialog.setOnClickListener(new OnClickListener(){
+
+							@Override
+							public void onClick(View v) {
+								 DialogFragment newFragment = new DatePickerFragment();
+								    newFragment.show(getFragmentManager(), "datePicker");
+								
+							}
+							
+						});
+						dueDateValue=(TextView) dialog.findViewById(R.id.textView_dueDateValue);
+						Button cancel=(Button) dialog.findViewById(R.id.button_cancel);
+						cancel.setOnClickListener(new OnClickListener(){
+
+							@Override
+							public void onClick(View v) {
+							dialog.dismiss();
+								
+							}
+							
+						});
 						dialogButton.setOnClickListener(new OnClickListener() {
 							@Override
 							public void onClick(View v) {
 								dialog.dismiss();
-								
+							
 								String other_category=editText_otherCategory.getText().toString();
 								String other_number=editText_otherNumber.getText().toString();
 								String other_period=spinner_otherPeriod.getSelectedItem().toString();
-							    if(db.insertOther(other_category,other_number,other_period,month_passed, "new_record") ==true){
+							    if(db.insertOther(other_category,other_number,other_period,month_passed,due_date,"new_record") ==true){
 							    	getActivity().runOnUiThread(new Runnable() {
 										@Override
 							            public void run() {
-							            	
-											otherCategory=db.getAllOtherCategory(month_passed);
-										    otherNumber=db.getAllOtherNumber(month_passed);
-										    otherPeriod=db.getAllOtherPeriod(month_passed);
-										    otherId=db.getAllOthersId(month_passed);
-										    other_adapter=new OtherBaseAdapter(getActivity(),otherCategory,otherNumber,otherPeriod,otherId);
-									    	other_adapter.notifyDataSetChanged();
-									    	listView_other.setAdapter(other_adapter);	
+											dailyOtherTargets=db.getAllUnupdatedDailyOther(month_passed);
+										    weeklyOtherTargets=db.getAllUpupdatedWeeklyOther(month_passed);
+										    monthlyOtherTargets=db.getAllUnupdatedMonthlyOthers(month_passed);
+										    yearlyOtherTargets=db.getAllUnupdatedYearlyOther(month_passed);
+										    midYearOtherTargets=db.getAllUnupdatedMidYearOther(month_passed);
+										   
+										    dailyOtherName=new ArrayList<String>();
+										    dailyOtherName.add(dailyOtherTargets.get("other_name"));
+										    dailyOtherNumber=new ArrayList<String>();
+										    dailyOtherNumber.add(dailyOtherTargets.get("other_number"));
+										    dailyOtherPeriod=new ArrayList<String>();
+										    dailyOtherPeriod.add(dailyOtherTargets.get("other_period"));
+										    dailyOtherDueDate=new ArrayList<String>();
+										    dailyOtherDueDate.add(dailyOtherTargets.get("other_due_date"));
+										    dailyOtherStatus=new ArrayList<String>();
+										    dailyOtherStatus.add(dailyOtherTargets.get("sync_status"));
+										    dailyOtherId=new ArrayList<String>();
+										    dailyOtherId.add(dailyOtherTargets.get("other_id"));
+										    
+										    weeklyOtherName=new ArrayList<String>();
+										    weeklyOtherName.add(weeklyOtherTargets.get("other_name"));
+										    weeklyOtherNumber=new ArrayList<String>();
+										    weeklyOtherNumber.add(weeklyOtherTargets.get("other_number"));
+										    weeklyOtherPeriod=new ArrayList<String>();
+										    weeklyOtherPeriod.add(weeklyOtherTargets.get("other_period"));
+										    weeklyOtherDueDate=new ArrayList<String>();
+										    weeklyOtherDueDate.add(weeklyOtherTargets.get("other_due_date"));
+										    weeklyOtherStatus=new ArrayList<String>();
+										    weeklyOtherStatus.add(weeklyOtherTargets.get("sync_status"));
+										    weeklyOtherId=new ArrayList<String>();
+										    weeklyOtherId.add(weeklyOtherTargets.get("other_id"));
+										    
+										    monthlyOtherName=new ArrayList<String>();
+										    monthlyOtherName.add(monthlyOtherTargets.get("other_name"));
+										    monthlyOtherNumber=new ArrayList<String>();
+										    monthlyOtherNumber.add(monthlyOtherTargets.get("other_number"));
+										    monthlyOtherPeriod=new ArrayList<String>();
+										    monthlyOtherPeriod.add(monthlyOtherTargets.get("other_period"));
+										    monthlyOtherDueDate=new ArrayList<String>();
+										    monthlyOtherDueDate.add(monthlyOtherTargets.get("other_due_date"));
+										    monthlyOtherStatus=new ArrayList<String>();
+										    monthlyOtherStatus.add(monthlyOtherTargets.get("sync_status"));
+										    monthlyOtherId=new ArrayList<String>();
+										    monthlyOtherId.add(monthlyOtherTargets.get("other_id"));
+										    
+										    yearlyOtherName=new ArrayList<String>();
+										    yearlyOtherName.add(yearlyOtherTargets.get("other_name"));
+										    yearlyOtherNumber=new ArrayList<String>();
+										    yearlyOtherNumber.add(yearlyOtherTargets.get("other_number"));
+										    yearlyOtherPeriod=new ArrayList<String>();
+										    yearlyOtherPeriod.add(yearlyOtherTargets.get("other_period"));
+										    yearlyOtherDueDate=new ArrayList<String>();
+										    yearlyOtherDueDate.add(yearlyOtherTargets.get("other_due_date"));
+										    yearlyOtherStatus=new ArrayList<String>();
+										    yearlyOtherStatus.add(yearlyOtherTargets.get("sync_status"));
+										    yearlyOtherId=new ArrayList<String>();
+										    yearlyOtherId.add(yearlyOtherTargets.get("other_id"));
+										    
+										    midYearOtherName=new ArrayList<String>();
+										    midYearOtherName.add(midYearOtherTargets.get("other_name"));
+										    midYearOtherNumber=new ArrayList<String>();
+										    midYearOtherNumber.add(midYearOtherTargets.get("other_number"));
+										    midYearOtherPeriod=new ArrayList<String>();
+										    midYearOtherPeriod.add(midYearOtherTargets.get("other_period"));
+										    midYearOtherDueDate=new ArrayList<String>();
+										    midYearOtherDueDate.add(midYearOtherTargets.get("other_due_date"));
+										    midYearOtherStatus=new ArrayList<String>();
+										    midYearOtherStatus.add(midYearOtherTargets.get("sync_status"));
+										    midYearOtherId=new ArrayList<String>();
+										    midYearOtherId.add(midYearOtherTargets.get("other_id"));
+										    groupItems=new String[]{"Daily","Weekly","Monthly","Annually","Mid-year"};
+										    other_adapter=new OtherBaseAdapter(mContext,dailyOtherName ,
+																						dailyOtherNumber,
+																						dailyOtherPeriod,
+																						dailyOtherDueDate,
+														dailyOtherStatus,
+														 dailyOtherId,
+														
+														weeklyOtherName,
+														weeklyOtherNumber,
+														weeklyOtherPeriod,
+														weeklyOtherDueDate,
+														weeklyOtherStatus,
+														weeklyOtherId,
+														
+														monthlyOtherName,
+														monthlyOtherNumber,
+														monthlyOtherPeriod,
+														monthlyOtherDueDate,
+														monthlyOtherStatus,
+														monthlyOtherId,
+														
+														yearlyOtherName,
+														yearlyOtherNumber,
+														yearlyOtherPeriod,
+														yearlyOtherDueDate,
+														yearlyOtherStatus,
+														yearlyOtherId,
+														
+														midYearOtherName,
+														midYearOtherNumber,
+														midYearOtherPeriod,
+														midYearOtherDueDate,
+														midYearOtherStatus,
+														midYearOtherId,
+														groupItems,
+														listView_other);
+										  
+										    listView_other=(ExpandableListView) rootView.findViewById(R.id.expandableListView_other);
+										    listView_other.setAdapter(other_adapter);
 							            }
 							        });	
-							    	 Toast.makeText(getActivity().getApplicationContext(), "Added successfully!",
+							    	 Toast.makeText(getActivity().getApplicationContext(), "Added target successfully!",
 									         Toast.LENGTH_LONG).show();
 							    }else{
 							    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
@@ -1493,75 +1740,51 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			return rootView;
 				   
 			}
-			
-			public boolean listViewPopulate(){
-				 if(otherCategory.size()>0){
-				    	textStatus.setText(" ");
-				    	other_adapter=new OtherBaseAdapter(getActivity(),otherCategory,otherNumber,otherPeriod,otherId);
-				    	other_adapter.notifyDataSetChanged();
-				    	listView_other.setAdapter(other_adapter);	
-				    }else if (otherCategory.size()==0){
-				    	textStatus.setText("No other categories found!");
-				    }
-				    
-				
+			 public static class DatePickerFragment extends DialogFragment
+				implements DatePickerDialog.OnDateSetListener {
+
+@Override
+	public Dialog onCreateDialog(Bundle savedInstanceState) {
+//Use the current date as the default date in the picker
+final Calendar c = Calendar.getInstance();
+int year = c.get(Calendar.YEAR);
+int month = c.get(Calendar.MONTH);
+int day = c.get(Calendar.DAY_OF_MONTH);
+
+//Create a new instance of DatePickerDialog and return it
+return new DatePickerDialog(getActivity(), this, year, month, day);
+}
+
+public void onDateSet(DatePicker view, int year, int month, int day) {
+int month_value=month+1;
+due_date=day+"-"+month_value+"-"+year;
+dueDateValue.setText(due_date);
+}
+}
+			@Override
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, long id) {
+				String[] selected_items=other_adapter.getChild(groupPosition, childPosition);
+				selected_id=Long.parseLong(selected_items[5]);
+				System.out.println(selected_items[0]+" "+selected_items[1]);
+				String other_name=selected_items[0];
+				String other_number=selected_items[1];
+				String other_period=selected_items[2];
+				String due_date=selected_items[3];
+				String status=selected_items[4];
+				Intent intent=new Intent(getActivity(),OtherTargetsDetailActivity.class);
+				intent.putExtra("other_id",selected_id);
+				intent.putExtra("other_name",other_name);
+				intent.putExtra("other_number",other_number);
+				intent.putExtra("other_period", other_period);
+				intent.putExtra("due_date", due_date);
+				intent.putExtra("status", status);
+				startActivity(intent);
 				return true;
 			}
-			
-			
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, final long id) {
-				String[] selected_items=other_adapter.getItem(position);
-				final Dialog dialog = new Dialog(getActivity());
-				dialog.setContentView(R.layout.event_add_dialog);
-				dialog.setTitle("Edit other Category");
-				final EditText editText_otherCategory=(EditText) dialog.findViewById(R.id.editText_dialogOtherName);
-				editText_otherCategory.setText(selected_items[0]);
-				final Spinner spinner_otherPeriod=(Spinner) dialog.findViewById(R.id.spinner_dialogOtherPeriod);
-				String[] items={"Daily","Monthly","Weekly","Yearly"};
-				ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
-				spinner_otherPeriod.setAdapter(adapter);
-				int spinner_position=adapter.getPosition(selected_items[2]);
-				spinner_otherPeriod.setSelection(spinner_position);
-				final EditText editText_otherNumber=(EditText) dialog.findViewById(R.id.editText_dialogOtherNumber);
-				editText_otherNumber.setText(selected_items[1]);
-				Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddEvent);
-				dialogButton.setText("Save");
-				dialogButton.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						dialog.dismiss();
-						
-						String other_category=editText_otherCategory.getText().toString();
-						String other_number=editText_otherNumber.getText().toString();
-						String other_period=spinner_otherPeriod.getSelectedItem().toString();
-					    if(db.editOther(other_category, other_number, other_period, id) ==true){
-					    	getActivity().runOnUiThread(new Runnable() {
-								@Override
-					            public void run() {
-									otherCategory=db.getAllOtherCategory(month_passed);
-								    otherNumber=db.getAllOtherNumber(month_passed);
-								    otherPeriod=db.getAllOtherPeriod(month_passed);
-								    otherId=db.getAllOthersId(month_passed);
-								    other_adapter=new OtherBaseAdapter(getActivity(),otherCategory,otherNumber,otherPeriod,otherId);
-							    	other_adapter.notifyDataSetChanged();
-							    	listView_other.setAdapter(other_adapter);	
-					            }
-					        });	
-					    	 Toast.makeText(getActivity().getApplicationContext(), "Edited successfully!",
-							         Toast.LENGTH_LONG).show();
-					    }else{
-					    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
-							         Toast.LENGTH_LONG).show();
-					    }
-					}
-				});
-	 				dialog.show();
 				
 			}
-			
-	 }
+	 
 	 @Override
 		public boolean onKeyDown(int keyCode, KeyEvent event) {
 			if ((keyCode == KeyEvent.KEYCODE_BACK)) {
