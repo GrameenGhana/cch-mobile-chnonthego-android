@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class PostpartumExercisesNextFourActivity extends Activity {
+public class PostpartumExercisesNextFourActivity extends BaseActivity {
 
 	private DbHelper dbh;
 	private Long start_time;
@@ -15,6 +15,7 @@ public class PostpartumExercisesNextFourActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext= PostpartumExercisesNextFourActivity.this;
 	    setContentView(R.layout.activity_postpartum_exercises_next_four);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Counselling: Postpartum Exercises");

@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class NutritionCounsellingNextActivity extends Activity {
+public class NutritionCounsellingNextActivity extends BaseActivity {
 
 	private Button button_next;
 	private DbHelper dbh;
@@ -20,6 +20,7 @@ public class NutritionCounsellingNextActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext=NutritionCounsellingNextActivity.this;
 	    setContentView(R.layout.activity_nutrition_next);
 	    dbh=new DbHelper(NutritionCounsellingNextActivity.this);
 	    start_time=System.currentTimeMillis();

@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class FeedingFrequencyActivity extends Activity {
+public class FeedingFrequencyActivity extends BaseActivity {
 
 	private Button button_next;
 	private DbHelper dbh;
@@ -20,6 +20,7 @@ public class FeedingFrequencyActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = FeedingFrequencyActivity.this;
 	    setContentView(R.layout.activity_feeding_frequency);
 	    dbh=new DbHelper(FeedingFrequencyActivity.this);
 	    start_time=System.currentTimeMillis();

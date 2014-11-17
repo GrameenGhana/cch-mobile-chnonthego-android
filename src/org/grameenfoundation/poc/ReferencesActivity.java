@@ -10,7 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-public class ReferencesActivity extends Activity {
+public class ReferencesActivity extends BaseActivity {
 
 	private WebView myWebView;
 	private String url;
@@ -19,6 +19,7 @@ public class ReferencesActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = ReferencesActivity.this;
 	    setContentView(R.layout.activity_third_trimester_counselling);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC References");

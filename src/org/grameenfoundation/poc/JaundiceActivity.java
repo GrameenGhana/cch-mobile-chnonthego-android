@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class JaundiceActivity extends Activity {
+public class JaundiceActivity extends BaseActivity {
 
 	private Button button_next;
 	protected Context mContext;
@@ -22,6 +22,7 @@ public class JaundiceActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext= JaundiceActivity.this;
 	    setContentView(R.layout.activity_jaundice);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Diagnostic: Jaundice");

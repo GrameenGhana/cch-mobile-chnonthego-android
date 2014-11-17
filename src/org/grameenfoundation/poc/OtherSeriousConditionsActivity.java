@@ -18,11 +18,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class OtherSeriousConditionsActivity extends Activity {
+public class OtherSeriousConditionsActivity extends BaseActivity {
 
 	private Button button_next;
 	private ListView listView_otherCondition;
-	private Context mContext;
+//	private Context mContext;
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;

@@ -11,12 +11,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class TakeActionAskHerActivity extends Activity {
+public class TakeActionAskHerActivity extends BaseActivity {
 
 	//private ListView listView_takeAction;
 	private TextView textView_takeAction;
 	private String take_action_category;
-	Context mContext;
+//	Context mContext;
 	private ImageView imageView;
 	private Long start_time;
 	private Long end_time;

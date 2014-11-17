@@ -16,10 +16,10 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class NoInjuriesActivity extends Activity {
+public class NoInjuriesActivity extends BaseActivity {
 
 	private ListView listView_noInjuries;
-	Context mContext;
+//	Context mContext;
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;

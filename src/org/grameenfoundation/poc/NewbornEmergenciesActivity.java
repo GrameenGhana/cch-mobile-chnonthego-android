@@ -16,7 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class NewbornEmergenciesActivity extends Activity {
+public class NewbornEmergenciesActivity extends BaseActivity {
 
 	private ListView listView_newbornEmergency;
 	Context mContext;
@@ -28,6 +28,7 @@ public class NewbornEmergenciesActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext=NewbornEmergenciesActivity.this;
 	    setContentView(R.layout.activity_newborn_emergency);
 	    dbh=new DbHelper(NewbornEmergenciesActivity.this);
 	    start_time=System.currentTimeMillis();

@@ -16,7 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class GestationActivity extends Activity {
+public class GestationActivity extends BaseActivity {
 
 	private ListView listView_gestation;
 	Context mContext;
@@ -27,6 +27,7 @@ public class GestationActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext= GestationActivity.this;
 	    setContentView(R.layout.activity_gestation);
 	    mContext=GestationActivity.this;
 	    dbh=new DbHelper(mContext);

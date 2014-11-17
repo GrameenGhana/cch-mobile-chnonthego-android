@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class FamilyPlanningPostpartumActivity extends Activity {
+public class FamilyPlanningPostpartumActivity extends BaseActivity {
 
 	private Button button_next;
 	private DbHelper dbh;
@@ -20,6 +20,7 @@ public class FamilyPlanningPostpartumActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext=FamilyPlanningPostpartumActivity.this;
 	    setContentView(R.layout.activity_family_planning_postpartum);
 	    dbh=new DbHelper(FamilyPlanningPostpartumActivity.this);
 	    start_time=System.currentTimeMillis();

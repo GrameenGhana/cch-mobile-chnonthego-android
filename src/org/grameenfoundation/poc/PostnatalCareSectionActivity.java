@@ -17,10 +17,10 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class PostnatalCareSectionActivity extends Activity {
+public class PostnatalCareSectionActivity extends BaseActivity {
 
 	private ListView listView_postnatalSections;
-	private Context mContext;
+//	private Context mContext;
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;  

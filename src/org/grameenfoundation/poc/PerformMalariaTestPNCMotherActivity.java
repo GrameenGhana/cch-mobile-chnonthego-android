@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class PerformMalariaTestPNCMotherActivity extends Activity {
+public class PerformMalariaTestPNCMotherActivity extends BaseActivity {
 
 	private Button button_positive;
 	private Button button_negative;
@@ -22,6 +22,7 @@ public class PerformMalariaTestPNCMotherActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext=PerformMalariaTestPNCMotherActivity.this;
 	    setContentView(R.layout.activity_malaria_test_);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Mother Diagnostic: Malaria");

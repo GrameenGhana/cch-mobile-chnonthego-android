@@ -6,13 +6,14 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class NutritionCounsellingNextThreeActivity extends Activity {
+public class NutritionCounsellingNextThreeActivity extends BaseActivity {
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext= NutritionCounsellingNextThreeActivity.this;
 	    setContentView(R.layout.activity_nutrition_counselling_next_three_activity);
 	    dbh=new DbHelper(NutritionCounsellingNextThreeActivity.this);
 	    start_time=System.currentTimeMillis();

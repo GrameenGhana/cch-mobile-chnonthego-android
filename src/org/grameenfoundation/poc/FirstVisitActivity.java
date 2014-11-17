@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-public class FirstVisitActivity extends Activity {
+public class FirstVisitActivity extends BaseActivity {
 	Context mContext;
 	String[] groupItems;
 	String[] ChildItemsOne;
@@ -32,6 +32,7 @@ public class FirstVisitActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_first_visit);
+	    mContext=FirstVisitActivity.this;
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC Diagnostic: Records & History");
 	    mContext=FirstVisitActivity.this;

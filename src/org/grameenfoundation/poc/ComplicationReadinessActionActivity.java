@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class ComplicationReadinessActionActivity extends Activity {
+public class ComplicationReadinessActionActivity extends BaseActivity {
 
 	private String take_action_category;
 	private DbHelper dbh;
@@ -17,6 +17,7 @@ public class ComplicationReadinessActionActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    getActionBar().setTitle("Point of Care");
+	    mContext= ComplicationReadinessActionActivity.this;
 	    getActionBar().setSubtitle("PNC Counselling: Complication Readiness");
 	    dbh=new DbHelper(ComplicationReadinessActionActivity.this);
 	    start_time=System.currentTimeMillis();
