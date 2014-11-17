@@ -29,9 +29,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class PostnatalCareActivity extends Activity implements AnimationListener{
+public class PostnatalCareActivity extends BaseActivity implements AnimationListener{
 
-	Context mContext;
+//	Context mContext;
 	private ListView listView_postnatal;
 	private ImageButton imageButton_baby;
 	private ImageButton imageButton_mother;
@@ -47,6 +47,7 @@ public class PostnatalCareActivity extends Activity implements AnimationListener
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = PostnatalCareActivity.this;
 	    setContentView(R.layout.activity_postnatal_care_menu);
 	    mContext=PostnatalCareActivity.this;
 	    getActionBar().setTitle("Point of Care");

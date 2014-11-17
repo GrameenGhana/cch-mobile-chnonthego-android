@@ -6,13 +6,14 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TreatingLocalInfectionNextActivity extends Activity {
+public class TreatingLocalInfectionNextActivity extends BaseActivity {
 	private Long start_time;
 	private Long end_time;
 	private DbHelper dbh;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = TreatingLocalInfectionNextActivity.this;
 	    setContentView(R.layout.activity_treating_local_infection_next);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Counselling: Treating Local Infection");

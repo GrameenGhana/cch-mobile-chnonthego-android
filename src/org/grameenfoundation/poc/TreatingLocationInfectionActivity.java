@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class TreatingLocationInfectionActivity extends Activity {
+public class TreatingLocationInfectionActivity extends BaseActivity {
 
 	private Button button_next;
 	private Long start_time;
@@ -20,6 +20,7 @@ public class TreatingLocationInfectionActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = TreatingLocationInfectionActivity.this;
 	    setContentView(R.layout.activity_local_infections_training);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Counselling: Treating Local Infection");

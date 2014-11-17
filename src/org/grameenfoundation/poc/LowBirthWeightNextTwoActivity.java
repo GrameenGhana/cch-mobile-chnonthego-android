@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class LowBirthWeightNextTwoActivity extends Activity {
+public class LowBirthWeightNextTwoActivity extends BaseActivity {
 
 	private Button button_next;
 	private DbHelper dbh;
@@ -21,6 +21,7 @@ public class LowBirthWeightNextTwoActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext= LowBirthWeightNextTwoActivity.this;
 	    setContentView(R.layout.activity_low_weight_next_two);
 	    dbh=new DbHelper(LowBirthWeightNextTwoActivity.this);
 	    start_time=System.currentTimeMillis();

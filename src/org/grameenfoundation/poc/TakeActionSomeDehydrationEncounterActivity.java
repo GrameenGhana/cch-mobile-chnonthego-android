@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class TakeActionSomeDehydrationEncounterActivity extends Activity {
+public class TakeActionSomeDehydrationEncounterActivity extends BaseActivity {
 
 	private String take_action_category;
 	private Button button_next;
@@ -23,6 +23,7 @@ public class TakeActionSomeDehydrationEncounterActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    Bundle extras = getIntent().getExtras(); 
+	    mContext = TakeActionSomeDehydrationEncounterActivity.this;
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Diagnostic: Diarrhoea");
 	    dbh=new DbHelper(TakeActionSomeDehydrationEncounterActivity.this);

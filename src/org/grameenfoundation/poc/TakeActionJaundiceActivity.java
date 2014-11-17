@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TakeActionJaundiceActivity extends Activity {
+public class TakeActionJaundiceActivity extends BaseActivity {
 
 	private String take_action_category;
 	private Long start_time;
@@ -16,6 +16,7 @@ public class TakeActionJaundiceActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = TakeActionJaundiceActivity.this;
 	    Bundle extras = getIntent().getExtras(); 
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Diagnostic: Jaundice");

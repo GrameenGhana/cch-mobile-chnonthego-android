@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TakeActionDiarrhoeaActivity extends Activity {
+public class TakeActionDiarrhoeaActivity extends BaseActivity {
 
 	private String take_action_category;
 	private Long start_time;

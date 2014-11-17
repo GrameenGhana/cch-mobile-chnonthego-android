@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class TakeActionManagingDangerSignsMotherPNCActivity extends Activity {
+public class TakeActionManagingDangerSignsMotherPNCActivity extends BaseActivity {
 
 	private Long start_time;
 	private Long end_time;
@@ -18,6 +18,7 @@ public class TakeActionManagingDangerSignsMotherPNCActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext= TakeActionManagingDangerSignsMotherPNCActivity.this;
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Mother Diagnostic: Managing Danger Signs");
 	    dbh=new DbHelper(TakeActionManagingDangerSignsMotherPNCActivity.this);

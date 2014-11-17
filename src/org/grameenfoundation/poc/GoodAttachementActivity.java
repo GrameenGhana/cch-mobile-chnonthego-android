@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class GoodAttachementActivity extends Activity {
+public class GoodAttachementActivity extends BaseActivity {
 
 	private String take_action_category;
 	private DbHelper dbh;
@@ -15,6 +15,7 @@ public class GoodAttachementActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext=GoodAttachementActivity.this;
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Counselling: Good Attachment");
 	    dbh=new DbHelper(GoodAttachementActivity.this);

@@ -8,13 +8,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.Button;
 
-public class TakeActionUncomplicatedMalariaPNCMotherActivity extends Activity {
+public class TakeActionUncomplicatedMalariaPNCMotherActivity extends BaseActivity {
 
 	private Button button_next;
 	 private DbHelper dbh;
 		private Long start_time;
 		private Long end_time;
-		private Context mContext;
+//		private Context mContext;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);

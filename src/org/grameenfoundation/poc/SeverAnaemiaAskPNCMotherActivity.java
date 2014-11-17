@@ -11,12 +11,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class SeverAnaemiaAskPNCMotherActivity extends Activity {
+public class SeverAnaemiaAskPNCMotherActivity extends BaseActivity {
 
 
 	private Button button_yes;
 	private Button button_no;
-	Context mContext;
+//	Context mContext;
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time; 

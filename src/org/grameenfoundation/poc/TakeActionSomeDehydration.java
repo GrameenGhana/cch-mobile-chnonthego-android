@@ -11,11 +11,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class TakeActionSomeDehydration extends Activity {
+public class TakeActionSomeDehydration extends BaseActivity {
 
 	private Button button_yes;
 	private Button button_no;
-	private Context mContext;
+//	private Context mContext;
 	private Long start_time;
 	private Long end_time;
 	private DbHelper dbh;

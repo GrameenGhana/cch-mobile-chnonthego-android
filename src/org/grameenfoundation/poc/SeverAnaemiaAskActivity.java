@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class SeverAnaemiaAskActivity extends Activity {
+public class SeverAnaemiaAskActivity extends BaseActivity {
 
 	private Button button_yes;
 	private Button button_no;
@@ -23,6 +23,7 @@ public class SeverAnaemiaAskActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = SeverAnaemiaAskActivity.this;
 	    setContentView(R.layout.activity_severe_anaemia);
 	    mContext=SeverAnaemiaAskActivity.this;
 	    getActionBar().setTitle("Point of Care");

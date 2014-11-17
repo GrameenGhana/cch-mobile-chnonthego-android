@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TakeActionNoConditionsActivity extends Activity {
+public class TakeActionNoConditionsActivity extends BaseActivity {
 
 	private String take_action_category;
 	private Long start_time;
@@ -16,6 +16,7 @@ public class TakeActionNoConditionsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    Bundle extras = getIntent().getExtras(); 
+	    mContext = TakeActionNoConditionsActivity.this;
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions");
 	    dbh=new DbHelper(TakeActionNoConditionsActivity.this);

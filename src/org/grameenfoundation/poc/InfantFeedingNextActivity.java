@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class InfantFeedingNextActivity extends Activity {
+public class InfantFeedingNextActivity extends BaseActivity {
 
 	private String take_action_category;
 	private Button button_next;
@@ -23,7 +23,7 @@ public class InfantFeedingNextActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    getActionBar().setTitle("Point of Care");
-	  
+	  mContext=InfantFeedingNextActivity.this;
 	    dbh=new DbHelper(InfantFeedingNextActivity.this);
 	    start_time=System.currentTimeMillis();
 	    Bundle extras = getIntent().getExtras(); 

@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TakeActionFeedingProblemsActivity extends Activity {
+public class TakeActionFeedingProblemsActivity extends BaseActivity {
 
 	private String take_action_category;
 	private Long start_time;
@@ -19,6 +19,7 @@ public class TakeActionFeedingProblemsActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Diagnostic: Feeding Problems");
+	    mContext = TakeActionFeedingProblemsActivity.this;
 	    dbh=new DbHelper(TakeActionFeedingProblemsActivity.this);
 	    start_time=System.currentTimeMillis();
 	   // listView_takeAction=(ListView) findViewById(R.id.listView_takeAction);

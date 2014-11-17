@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TakeActionHIVInfectionActivity extends Activity {
+public class TakeActionHIVInfectionActivity extends BaseActivity {
 
 	private String category;
 	private Long start_time;
@@ -17,6 +17,7 @@ public class TakeActionHIVInfectionActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    Bundle extras = getIntent().getExtras(); 
 	    getActionBar().setTitle("Point of Care");
+	    mContext = TakeActionHIVInfectionActivity.this;
 	    getActionBar().setSubtitle("PNC Diagnostic: HIV Infection");
 	    dbh=new DbHelper(TakeActionHIVInfectionActivity.this);
 	    start_time=System.currentTimeMillis();

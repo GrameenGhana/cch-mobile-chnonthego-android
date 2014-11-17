@@ -10,13 +10,14 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-public class ThirdTrimesterActivity extends Activity {
+public class ThirdTrimesterActivity extends BaseActivity {
 	private WebView myWebView;
 	private static final String URL = "file:///android_asset/www/cch/modules/poc/checktrimester3.html";
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = ThirdTrimesterActivity.this;
 	    setContentView(R.layout.activity_third_trimester_counselling);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC Counselling");

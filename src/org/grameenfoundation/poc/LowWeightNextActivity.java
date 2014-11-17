@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class LowWeightNextActivity extends Activity {
+public class LowWeightNextActivity extends BaseActivity {
 
 	private Button button_next;
 	private DbHelper dbh;
@@ -20,6 +20,7 @@ public class LowWeightNextActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext=LowWeightNextActivity.this;
 	    setContentView(R.layout.activity_low_weight_next);
 	    dbh=new DbHelper(LowWeightNextActivity.this);
 	    start_time=System.currentTimeMillis();

@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TreatingUncomplicatedMalariaNextFourActivity extends Activity {
+public class TreatingUncomplicatedMalariaNextFourActivity extends BaseActivity {
 
 	private Long start_time;
 	private Long end_time;
@@ -14,6 +14,7 @@ public class TreatingUncomplicatedMalariaNextFourActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = TreatingUncomplicatedMalariaNextFourActivity.this;
 	    setContentView(R.layout.activity_treating_uncomplicated_malaria_next_four);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Counselling: Treating UnComplicated Malaria");

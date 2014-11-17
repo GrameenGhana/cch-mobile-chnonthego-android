@@ -17,7 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class TakeActionSomeDehydrationNoActivity extends Activity {
+public class TakeActionSomeDehydrationNoActivity extends BaseActivity {
 
 	private String take_action_category;
 	private ListView listView_someDehydrationNo;
@@ -28,6 +28,7 @@ public class TakeActionSomeDehydrationNoActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    Bundle extras = getIntent().getExtras(); 
+	    mContext = TakeActionSomeDehydrationNoActivity.this;
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Diagnostic: Diarrhoea");
 	    dbh=new DbHelper(TakeActionSomeDehydrationNoActivity.this);

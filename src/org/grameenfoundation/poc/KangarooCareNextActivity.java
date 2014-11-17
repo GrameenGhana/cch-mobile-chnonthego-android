@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class KangarooCareNextActivity extends Activity {
+public class KangarooCareNextActivity extends BaseActivity {
 
 	private Button button_next;
 	private DbHelper dbh;

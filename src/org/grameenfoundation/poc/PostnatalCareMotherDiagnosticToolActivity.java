@@ -17,9 +17,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class PostnatalCareMotherDiagnosticToolActivity extends Activity {
+public class PostnatalCareMotherDiagnosticToolActivity extends BaseActivity {
 
-	Context mContext;
+//	Context mContext;
 	private ListView listView_postnatalSections;
 	private DbHelper dbh;
 	private Long start_time;

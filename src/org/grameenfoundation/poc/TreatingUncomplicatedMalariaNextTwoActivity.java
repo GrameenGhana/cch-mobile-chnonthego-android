@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class TreatingUncomplicatedMalariaNextTwoActivity extends Activity {
+public class TreatingUncomplicatedMalariaNextTwoActivity extends BaseActivity {
 
 	private Button button_next;
 	private Long start_time;
@@ -19,6 +19,7 @@ public class TreatingUncomplicatedMalariaNextTwoActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext= TreatingUncomplicatedMalariaNextTwoActivity.this;
 	    setContentView(R.layout.activity_treating_uncomplicated_malaria_next_two);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Counselling: Treating UnComplicated Malaria");

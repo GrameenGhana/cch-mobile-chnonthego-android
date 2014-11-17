@@ -11,7 +11,7 @@ import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.Button;
 
-public class PostpartumExercisesNextTwoActivity extends Activity {
+public class PostpartumExercisesNextTwoActivity extends BaseActivity {
 
 	private WebView myWebView;
 	private Button button_next;
@@ -22,6 +22,7 @@ public class PostpartumExercisesNextTwoActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = PostpartumExercisesNextTwoActivity.this;
 	    setContentView(R.layout.activity_postpartum_exercises_next_two);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Counselling: Postpartum Exercises");

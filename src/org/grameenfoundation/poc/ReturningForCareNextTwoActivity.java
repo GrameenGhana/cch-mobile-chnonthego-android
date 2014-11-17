@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class ReturningForCareNextTwoActivity extends Activity {
+public class ReturningForCareNextTwoActivity extends BaseActivity {
 
 	private DbHelper dbh;
 	private Long start_time;
@@ -14,6 +14,7 @@ public class ReturningForCareNextTwoActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext= ReturningForCareNextTwoActivity.this;
 	    setContentView(R.layout.activity_returning_for_care_next_two);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Counselling: Returning for care");

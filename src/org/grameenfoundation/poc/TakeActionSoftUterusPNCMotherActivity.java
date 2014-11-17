@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TakeActionSoftUterusPNCMotherActivity extends Activity {
+public class TakeActionSoftUterusPNCMotherActivity extends BaseActivity {
 	
 	private DbHelper dbh;
 	private Long start_time;
@@ -15,6 +15,7 @@ public class TakeActionSoftUterusPNCMotherActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = TakeActionSoftUterusPNCMotherActivity.this;
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Mother Diagnostic: Soft Uterus");
 	    dbh=new DbHelper(TakeActionSoftUterusPNCMotherActivity.this);

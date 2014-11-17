@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TakeActionSevereMalariaPNCMotherActivity extends Activity {
+public class TakeActionSevereMalariaPNCMotherActivity extends BaseActivity {
 	private String take_action_category;
 	private Long start_time;
 	private Long end_time;
@@ -18,7 +18,7 @@ public class TakeActionSevereMalariaPNCMotherActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    Bundle extras = getIntent().getExtras(); 
 	    getActionBar().setTitle("Point of Care");
-	
+	mContext= TakeActionSevereMalariaPNCMotherActivity.this;
 	    dbh=new DbHelper(TakeActionSevereMalariaPNCMotherActivity.this);
 	    start_time=System.currentTimeMillis();
         if (extras != null) {

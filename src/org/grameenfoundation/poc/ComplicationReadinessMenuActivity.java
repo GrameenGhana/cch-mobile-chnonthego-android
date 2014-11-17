@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ComplicationReadinessMenuActivity extends Activity {
+public class ComplicationReadinessMenuActivity extends BaseActivity {
 
 	private ListView listView_complication;
 	Context mContext;
@@ -29,6 +29,7 @@ public class ComplicationReadinessMenuActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext= ComplicationReadinessMenuActivity.this;
 	    setContentView(R.layout.activity_complication_readiness_counselling);
 	    mContext=ComplicationReadinessMenuActivity.this;
 	    dbh=new DbHelper(mContext);

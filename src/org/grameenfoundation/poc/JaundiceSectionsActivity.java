@@ -28,10 +28,10 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class JaundiceSectionsActivity extends Activity {
+public class JaundiceSectionsActivity extends BaseActivity {
 
 	private ExpandableListView listView_sections;
-	private Context mContext;
+//	private Context mContext;
 	private Button button_no;
 	private DbHelper dbh;
 	private Long start_time;
@@ -41,6 +41,7 @@ public class JaundiceSectionsActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext=JaundiceSectionsActivity.this;
 	    setContentView(R.layout.activity_jaundice_sections);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Diagnostic: Jaundice");

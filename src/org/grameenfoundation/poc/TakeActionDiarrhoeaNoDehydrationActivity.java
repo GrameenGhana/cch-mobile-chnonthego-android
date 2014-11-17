@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class TakeActionDiarrhoeaNoDehydrationActivity extends Activity {
+public class TakeActionDiarrhoeaNoDehydrationActivity extends BaseActivity {
 
 	private Button button_next;
 	private Long start_time;
@@ -20,6 +20,7 @@ public class TakeActionDiarrhoeaNoDehydrationActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    this.mContext = TakeActionDiarrhoeaNoDehydrationActivity.this;
 	    setContentView(R.layout.activity_diarrhoea_no_dehydration);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Diagnostic: Diarrhoea");

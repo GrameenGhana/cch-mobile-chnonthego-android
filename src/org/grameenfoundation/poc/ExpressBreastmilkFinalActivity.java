@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class ExpressBreastmilkFinalActivity extends Activity {
+public class ExpressBreastmilkFinalActivity extends BaseActivity {
 
 	private DbHelper dbh;
 	private Long start_time;
@@ -14,6 +14,7 @@ public class ExpressBreastmilkFinalActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext=ExpressBreastmilkFinalActivity.this;
 	    setContentView(R.layout.activity_express_breastmilk_final);
 	    dbh=new DbHelper(ExpressBreastmilkFinalActivity.this);
 	    start_time=System.currentTimeMillis();

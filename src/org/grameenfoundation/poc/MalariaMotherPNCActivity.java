@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class MalariaMotherPNCActivity extends Activity {
+public class MalariaMotherPNCActivity extends BaseActivity {
 	private Button button_no;
 	private Button button_yes;
 	private Context mContext;
@@ -23,6 +23,7 @@ public class MalariaMotherPNCActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext= MalariaMotherPNCActivity.this;
 	    setContentView(R.layout.activity_malaria_fever_ask);
 	    mContext=MalariaMotherPNCActivity.this;
 	    dbh=new DbHelper(mContext);

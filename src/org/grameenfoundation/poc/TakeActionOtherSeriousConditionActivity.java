@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TakeActionOtherSeriousConditionActivity extends Activity {
+public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
 
 	private String take_action_category;
 	private Long start_time;
@@ -16,6 +16,7 @@ public class TakeActionOtherSeriousConditionActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext= TakeActionOtherSeriousConditionActivity.this;
 	    Bundle extras = getIntent().getExtras(); 
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions");

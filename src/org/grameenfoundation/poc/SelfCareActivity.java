@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class SelfCareActivity extends Activity {
+public class SelfCareActivity extends BaseActivity {
 
 	private Button button_next;
 	private DbHelper dbh;
@@ -20,6 +20,7 @@ public class SelfCareActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = SelfCareActivity.this;
 	    setContentView(R.layout.activity_self_care);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Counselling: Self-Care & Personal Hygiene");

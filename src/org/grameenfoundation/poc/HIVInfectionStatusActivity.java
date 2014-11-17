@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class HIVInfectionStatusActivity extends Activity {
+public class HIVInfectionStatusActivity extends BaseActivity {
 
 	private Button button_negative;
 	private Button button_positive;
@@ -21,6 +21,7 @@ public class HIVInfectionStatusActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext=HIVInfectionStatusActivity.this;
 	    setContentView(R.layout.activity_hiv_status);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Diagnostic: HIV Infection");

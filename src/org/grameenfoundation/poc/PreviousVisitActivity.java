@@ -17,7 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class PreviousVisitActivity extends Activity {
+public class PreviousVisitActivity extends BaseActivity {
 
 	private ListView listView_previousVisit;
 	Context mContext;
@@ -27,6 +27,7 @@ public class PreviousVisitActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = PreviousVisitActivity.this;
 	    setContentView(R.layout.activity_previous_visit);
 	    mContext=PreviousVisitActivity.this;
 	    dbh=new DbHelper(mContext);

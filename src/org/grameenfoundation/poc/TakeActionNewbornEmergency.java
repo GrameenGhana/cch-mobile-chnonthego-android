@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TakeActionNewbornEmergency extends Activity {
+public class TakeActionNewbornEmergency extends BaseActivity {
 
 	private String take_action_category;
 	private Long start_time;
@@ -16,6 +16,7 @@ public class TakeActionNewbornEmergency extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext=TakeActionNewbornEmergency.this;
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Diagnostic: Newborn Emergencies");
 	    dbh=new DbHelper(TakeActionNewbornEmergency.this);

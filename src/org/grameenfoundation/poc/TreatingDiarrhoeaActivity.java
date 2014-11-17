@@ -6,13 +6,14 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TreatingDiarrhoeaActivity extends Activity {
+public class TreatingDiarrhoeaActivity extends BaseActivity {
 	private Long start_time;
 	private Long end_time;
 	private DbHelper dbh;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = TreatingDiarrhoeaActivity.this;
 	    setContentView(R.layout.activity_treating_diarrhoea);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Counselling: Treating Diarrhoea");

@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MaternalEmergenciesActivity extends Activity {
+public class MaternalEmergenciesActivity extends BaseActivity {
 
 	private ListView listView;
 	private DbHelper dbh;
@@ -29,6 +29,7 @@ public class MaternalEmergenciesActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext=MaternalEmergenciesActivity.this;
 	    setContentView(R.layout.activity_maternal_emergencies);
 	    dbh=new DbHelper(MaternalEmergenciesActivity.this);
 	    start_time=System.currentTimeMillis();
