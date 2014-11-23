@@ -2,19 +2,25 @@
     <div class="menu">
 
 <!-- top section -->
-<div class="top-section">
-   
+<div class="top-section" style="margin-top: -100px; display: block; border:0;">
+      
     <div id="fillerror" style="width:200px; display:none;">
         <p style="width: 250px; color:red; padding-left: 30px;">Please answer each question before proceeding...</p>
     </div>
 
     <div class="carousel">
 
+        <!-- Intro -->
+        <div class="greeting">
+            <h1 class="greetinglabel"></h1>
+            <h2 class="question"><span style="color:#aaa">To help make the content relevant to you, please complete this survey</span> 
+            <br/><br/><br/>
+            <br/><button class="info surveynext large" id="ne">Next</button>        
+        </div>
+
         <!-- Question 1 -->
         <div class="greeting">
             <h1 class="greetinglabel"></h1>
-            <h2>To help make the content relevant to you, please complete this survey</h2> 
-            <br/><br/>
             <h2 class="question">Which of the following <b class="highlight">BEST</b> describes you?</h2><br/>
             
             <div class="survey">
@@ -36,7 +42,7 @@
                 </ul>
             </div>
 
-            <br/><button class="info surveynext large" id="question1">Next</button>        
+            <button class="info surveynext large" id="question1">Next</button>        
         </div>
 
         <!-- Question 2 -->
@@ -270,6 +276,7 @@
 
         <div style="clear: both;"></div>
     </div>
+
 </div>
 <!-- top section -->
 

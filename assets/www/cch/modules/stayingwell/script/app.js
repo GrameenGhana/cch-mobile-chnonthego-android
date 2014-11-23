@@ -188,22 +188,29 @@
             $(_dots).css('display', 'inline-block');
         }
 
+
         if ($('.surveynext')) {
             $('.surveynext').click(function(e) {
                 var showError = false;
-                var ids = this.id.split(',');
-                for(var i=0; i < ids.length; i++) {
-                    if (! ($('#'+ids[i]+'A').is(':checked') || 
-                           $('#'+ids[i]+'B').is(':checked') || 
-                           $('#'+ids[i]+'C').is(':checked'))  
-                        ) { showError = true; }
+                if (this.id != "ne") {
+                
+                	var ids = this.id.split(',');
+                	for(var i=0; i < ids.length; i++) {
+                    	if (! ($('#'+ids[i]+'A').is(':checked') || 
+                           		$('#'+ids[i]+'B').is(':checked') || 
+                           		$('#'+ids[i]+'C').is(':checked'))  
+                        	) { showError = true; }
+                	}
+                	if (showError) {
+                    	jQuery.facebox({ div: '#fillerror' });
+                	} else { 
+                   		var _carousel = $(id).find('.carousel');
+                    	$(_carousel).slickNext();
+                	}
+                }  else {
+                		var _carousel = $(id).find('.carousel');
+                    	$(_carousel).slickNext();
                 }
-                if (showError) {
-                    jQuery.facebox({ div: '#fillerror' });
-                } else { 
-                   var _carousel = $(id).find('.carousel');
-                    $(_carousel).slickNext();
-                } 
             }); 
         }
 

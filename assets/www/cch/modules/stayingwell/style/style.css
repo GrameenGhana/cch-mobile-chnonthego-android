@@ -302,7 +302,7 @@ button { padding:4px 12px;text-align:center;vertical-align:middle !important;bac
     color: #53AB1F;
     text-align: left;
     width: 70%;
-    margin: 0 auto;
+   margin: 0 auto;
 }
 
 .survey_list li {
@@ -310,6 +310,7 @@ button { padding:4px 12px;text-align:center;vertical-align:middle !important;bac
 }
 
 .question {
+    padding-top: 20px;
     color: #53AB1F;
 }
 

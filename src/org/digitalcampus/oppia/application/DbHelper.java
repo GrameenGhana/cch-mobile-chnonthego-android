@@ -1167,7 +1167,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase(); 
         ContentValues values = new ContentValues();
         values.put(field, value); 
-        Log.e("CCH","Updating "+field+" with "+value);
+        //Log.e("CCH","Updating "+field+" with "+value);
 		String userid = "David";//prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
         db.update(CCH_SW_TABLE, values, CCH_SW_STAFF_ID + "='"+userid+"'", null);
         db.close(); // Closing database connection      
@@ -1177,7 +1177,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase(); 
         ContentValues values = new ContentValues();
         values.put(field, value); 
-        Log.e("CCH","Updating "+field+" with "+value);
+        //Log.e("CCH","Updating "+field+" with "+value);
 		String userid = "David";//prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
         db.update(CCH_SW_ROUTINE_TODO_TABLE, values, CCH_SW_ROUTINE_TODO_STAFF_ID + "='"+userid+"' AND "+CCH_SW_ROUTINE_TODO_ID+'='+uuid, null);
         db.close(); // Closing database connection      
