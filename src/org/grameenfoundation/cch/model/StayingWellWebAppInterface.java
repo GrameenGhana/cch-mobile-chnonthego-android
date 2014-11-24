@@ -47,6 +47,8 @@ public class StayingWellWebAppInterface {
     @JavascriptInterface
     public String getRoutineInfo(String infoType) {
     	
+		return "Welcome to Staying Well";
+/*
     	// if no profile encourage client to sign up
     	if (getProfileStatus()=="" || getMonthlyPlan()=="") {
     		return "Welcome to Staying Well";
@@ -74,6 +76,7 @@ public class StayingWellWebAppInterface {
     	} else {
     		return title + ((infoType.equals("label")) ? " <span class=\"charet\"></span>": "");
     	}
+  	*/
     }
     
     

@@ -815,3 +815,10 @@ ol .illustration, ul .illustration {
     background: url('../assets/content_imgs/stomach_massage.PNG');
     background-size: 290px 143px;
 }
+
+.about_science {
+    width: 290px;
+    height: 233px;
+    background: url('../assets/about_plans_wheel.PNG');
+    background-size: 290px 233px;
+}
