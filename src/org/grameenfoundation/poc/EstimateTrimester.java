@@ -50,6 +50,8 @@ public class EstimateTrimester extends FragmentActivity {
 	    
 	    setContentView(R.layout.activity_estimate_trimester);
 	    mAdapter = new CalendarAdapter(getSupportFragmentManager());
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("ANC Diagnostic");
 	    /*
 	    myWebView = (WebView) findViewById(R.id.webView_estimate);	
 	    myWebView.getSettings().setJavaScriptEnabled(true);

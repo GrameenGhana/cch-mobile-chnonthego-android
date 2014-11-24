@@ -1,4 +1,4 @@
-package org.digitalcampus.oppia.activity;
+																																																															package org.digitalcampus.oppia.activity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,6 +14,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,14 +42,20 @@ public class UpdateTargetActivity extends Activity{
 	ArrayList<String> eventType;
 	ArrayList<String> eventId;
 	ArrayList<String> eventNumber;
+	ArrayList<String> eventPeriod;
+	ArrayList<String> eventDueDate;
 	
 	ArrayList<String> coverageType;
 	ArrayList<String> coverageId;
 	ArrayList<String> coverageNumber;
+	ArrayList<String> coveragePeriod;
+	ArrayList<String> coverageDueDate;
 	
 	ArrayList<String> otherType;
 	ArrayList<String> otherId;
 	ArrayList<String> otherNumber;
+	ArrayList<String> otherPeriod;
+	ArrayList<String> otherDueDate;
 	private eventsUpdateListAdapter eventUpdateAdapter;
 	private String current_month;
 	private LinearLayout linearLayout_eventsUpdate;
@@ -61,7 +68,7 @@ public class UpdateTargetActivity extends Activity{
 	private HashMap<String, String> learningUpdateItemsDaily;
 	private coverageUpdateListAdapter coverageUpdateAdapter;
 	private otherUpdateListAdapter otherUpdateAdapter;
-	
+	String due_date;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +86,9 @@ public class UpdateTargetActivity extends Activity{
 	    db=new DbHelper(mContext);
 	    Calendar c = Calendar.getInstance();
         int month=c.get(Calendar.MONTH)+1;
+        Time time = new Time();
+	    time.setToNow();
+	    String today= String.valueOf(time.monthDay)+"-"+String.valueOf(time.month+1)+"-"+String.valueOf(time.year);
         switch(month){
         case 1:
 	        	current_month="January";
@@ -118,7 +128,7 @@ public class UpdateTargetActivity extends Activity{
         	break;
         }
 	    //retrieve daily event targets that need to be updated
-	    eventUpdateItemsDaily=db.getAllDailyEvents(current_month);
+	    eventUpdateItemsDaily=db.getAllEvents(current_month,today);
 	   
 	    if(eventUpdateItemsDaily.isEmpty()){
 	    	linearLayout_eventsUpdate.setVisibility(View.GONE);
@@ -127,14 +137,18 @@ public class UpdateTargetActivity extends Activity{
 	    	eventId=new ArrayList<String>();
 	    	eventNumber=new ArrayList<String>();
 	    	eventType=new ArrayList<String>();
+	    	eventDueDate=new ArrayList<String>();
+	    	eventPeriod=new ArrayList<String>();
 	 	    eventId.add(eventUpdateItemsDaily.get("event_id"));
 	 	    eventNumber.add(eventUpdateItemsDaily.get("event_number"));
 	 	   eventType.add(eventUpdateItemsDaily.get("event_name"));
-	    	eventUpdateAdapter=new eventsUpdateListAdapter(mContext, eventType, eventId, eventNumber);
+	 	   eventDueDate.add(eventUpdateItemsDaily.get("due_date"));
+	 	   eventPeriod.add(eventUpdateItemsDaily.get("event_period"));
+	    	eventUpdateAdapter=new eventsUpdateListAdapter(mContext, eventType, eventId, eventNumber,eventPeriod,eventDueDate);
 	 	    listView_eventsUpdate.setAdapter(eventUpdateAdapter);
 	    }
 	    //retrieve monthly coverage targets that need to be updated
-	    coverageUpdateItemsDaily=db.getAllDailyCoverage(current_month);
+	    coverageUpdateItemsDaily=db.getAllCoverage(current_month,today);
 	   
 		if(coverageUpdateItemsDaily.isEmpty()){
 			linearLayout_coverageUpdate.setVisibility(View.GONE);	
@@ -142,14 +156,18 @@ public class UpdateTargetActivity extends Activity{
 			coverageId=new ArrayList<String>();
 			coverageNumber=new ArrayList<String>();
 	    	coverageType=new ArrayList<String>();
+	    	coverageDueDate=new ArrayList<String>();
+	    	coveragePeriod=new ArrayList<String>();
 			coverageType.add(coverageUpdateItemsDaily.get("coverage_name"));
 			coverageId.add(coverageUpdateItemsDaily.get("coverage_id"));
 			coverageNumber.add(coverageUpdateItemsDaily.get("coverage_number"));
-			coverageUpdateAdapter=new coverageUpdateListAdapter(mContext, coverageType, coverageId, coverageNumber);
+			coverageDueDate.add(coverageUpdateItemsDaily.get("due_date"));
+			coveragePeriod.add(coverageUpdateItemsDaily.get("coverage_period"));
+			coverageUpdateAdapter=new coverageUpdateListAdapter(mContext, coverageType, coverageId, coverageNumber,coveragePeriod,coverageDueDate);
 			listView_coverageUpdate.setAdapter(coverageUpdateAdapter);
 		}
 		 //retrieve monthly other targets that need to be updated
-	    otherUpdateItemsDaily=db.getAllDailyOther(current_month);
+	    otherUpdateItemsDaily=db.getAllOther(current_month,today);
 	   
 	    if(otherUpdateItemsDaily.isEmpty()){
 	    	linearLayout_otherUpdate.setVisibility(View.GONE);
@@ -157,10 +175,14 @@ public class UpdateTargetActivity extends Activity{
 	    	otherId=new ArrayList<String>();
 	    	otherNumber=new ArrayList<String>();
 			otherType=new ArrayList<String>();
+			otherDueDate=new ArrayList<String>();
+			otherPeriod=new ArrayList<String>();
 	    	 otherType.add(otherUpdateItemsDaily.get("other_name"));
 	 	    otherId.add(otherUpdateItemsDaily.get("other_id"));
 	 	    otherNumber.add(otherUpdateItemsDaily.get("other_number"));
-	    	otherUpdateAdapter=new otherUpdateListAdapter(mContext, otherType, otherId, otherNumber);
+	 	    otherDueDate.add(otherUpdateItemsDaily.get("due_date"));
+	 	   otherPeriod.add(otherUpdateItemsDaily.get("other_period"));
+	    	otherUpdateAdapter=new otherUpdateListAdapter(mContext, otherType, otherId, otherNumber,otherPeriod,otherDueDate);
 			listView_otherUpdate.setAdapter(otherUpdateAdapter);	
 	    }
 	    listView_eventsUpdate.setOnItemClickListener(new OnItemClickListener(){
@@ -175,6 +197,8 @@ public class UpdateTargetActivity extends Activity{
 				intent.putExtra("number",items[1]);
 				intent.putExtra("name", items[0]);
 				intent.putExtra("type", "event");
+				intent.putExtra("due_date", items[3]);
+				intent.putExtra("period", items[2]);
 				startActivity(intent);
 				/*
 				runOnUiThread(new Runnable() {
@@ -208,6 +232,8 @@ public class UpdateTargetActivity extends Activity{
 				intent.putExtra("number",items[1]);
 				intent.putExtra("name", items[0]);
 				intent.putExtra("type", "coverage");
+				intent.putExtra("due_date", items[3]);
+				intent.putExtra("period", items[2]);
 				startActivity(intent);
 				/*
 				runOnUiThread(new Runnable() {
@@ -241,6 +267,8 @@ public class UpdateTargetActivity extends Activity{
 				intent.putExtra("number",items[1]);
 				intent.putExtra("name", items[0]);
 				intent.putExtra("type", "other");
+				intent.putExtra("due_date", items[3]);
+				intent.putExtra("period", items[2]);
 				startActivity(intent);
 				/*
 				runOnUiThread(new Runnable() {
@@ -268,11 +296,17 @@ public class UpdateTargetActivity extends Activity{
 		ArrayList<String> eventType;
 		ArrayList<String> eventId;
 		ArrayList<String> eventNumber;
-		public eventsUpdateListAdapter(Context c, ArrayList<String> eventType,ArrayList<String> eventId,ArrayList<String> eventNumber){
+		ArrayList<String> eventPeriod;
+		ArrayList<String> eventDueDate;
+		public eventsUpdateListAdapter(Context c, ArrayList<String> eventType,ArrayList<String> eventId,
+										ArrayList<String> eventNumber,ArrayList<String> eventPeriod,
+										ArrayList<String> eventDueDate){
 			this.mContext=c;
 			this.eventType=eventType;
 			this.eventNumber=eventNumber;
 			this.eventId=eventId;
+			this.eventDueDate=eventDueDate;
+			this.eventPeriod=eventPeriod;
 		}
 	
 
@@ -284,7 +318,7 @@ public class UpdateTargetActivity extends Activity{
 	@Override
 	public String[] getItem(int position) {
 		String[] item;
-		item=new String[]{eventType.get(position),eventNumber.get(position)};
+		item=new String[]{eventType.get(position),eventNumber.get(position),eventPeriod.get(position),eventDueDate.get(position)};
 		return item;
 	}
 
@@ -312,6 +346,11 @@ public class UpdateTargetActivity extends Activity{
         
         TextView textView3 = (TextView) list.findViewById(R.id.textView_eventNumber);
         textView3.setText(eventNumber.get(position));
+        
+        TextView text3=(TextView) list.findViewById(R.id.textView_eventPeriod);
+        text3.setText(eventPeriod.get(position));
+		   TextView text4=(TextView) list.findViewById(R.id.textView_dueDate);
+		   text4.setText(eventDueDate.get(position));
 		    return list;
 	}
 	
@@ -322,12 +361,20 @@ public class UpdateTargetActivity extends Activity{
 		ArrayList<String> coverageType;
 		ArrayList<String> coverageId;
 		ArrayList<String> coverageNumber;
+		ArrayList<String> coveragePeriod;
+		ArrayList<String> coverageDueDate;
 		 public LayoutInflater minflater;
-		public coverageUpdateListAdapter(Context c, ArrayList<String> coverageType,ArrayList<String> coverageId,ArrayList<String> coverageNumber){
+		public coverageUpdateListAdapter(Context c, ArrayList<String> coverageType,
+											ArrayList<String> coverageId,
+											ArrayList<String> coverageNumber,
+											ArrayList<String> coveragePeriod,
+											ArrayList<String> coverageDueDate){
 			this.mContext=c;
 			this.coverageType=coverageType;
 			this.coverageNumber=coverageNumber;
 			this.coverageId=coverageId;
+			this.coveragePeriod=coveragePeriod;
+			this.coverageDueDate=coverageDueDate;
 		}
 	
 
@@ -339,7 +386,7 @@ public class UpdateTargetActivity extends Activity{
 	@Override
 	public String[] getItem(int position) {
 		String[] item;
-		item=new String[]{coverageType.get(position),coverageNumber.get(position)};
+		item=new String[]{coverageType.get(position),coverageNumber.get(position),coveragePeriod.get(position),coverageDueDate.get(position)};
 		return item;
 	}
 
@@ -367,6 +414,11 @@ public class UpdateTargetActivity extends Activity{
          
          TextView textView3 = (TextView) list.findViewById(R.id.textView_eventNumber);
          textView3.setText(coverageNumber.get(position));
+         
+         TextView text3=(TextView) list.findViewById(R.id.textView_eventPeriod);
+         text3.setText(coveragePeriod.get(position));
+		   TextView text4=(TextView) list.findViewById(R.id.textView_dueDate);
+		   text4.setText(coverageDueDate.get(position));
 		    return list;
 	}
 	
@@ -376,14 +428,20 @@ public class UpdateTargetActivity extends Activity{
 		ArrayList<String> otherType;
 		ArrayList<String> otherId;
 		ArrayList<String> otherNumber;
+		ArrayList<String> otherPeriod;
+		ArrayList<String> otherDueDate;
 		 public LayoutInflater minflater;
 		public otherUpdateListAdapter(Context c, ArrayList<String> otherType,
 									ArrayList<String> otherId,
-									ArrayList<String> otherNumber){
+									ArrayList<String> otherNumber,
+									ArrayList<String> otherPeriod,
+									ArrayList<String> otherDueDate){
 			this.mContext=c;
 			this.otherType=otherType;
 			this.otherNumber=otherNumber;
 			this.otherId=otherId;
+			this.otherPeriod=otherPeriod;
+			this.otherDueDate=otherDueDate;
 		}
 	
 
@@ -395,7 +453,7 @@ public class UpdateTargetActivity extends Activity{
 	@Override
 	public String[] getItem(int position) {
 		String[] item;
-		item=new String[]{otherType.get(position),otherNumber.get(position)};
+		item=new String[]{otherType.get(position),otherNumber.get(position),otherPeriod.get(position),otherDueDate.get(position)};
 		return item;
 	}
 
@@ -423,6 +481,11 @@ public class UpdateTargetActivity extends Activity{
          
          TextView textView3 = (TextView) list.findViewById(R.id.textView_eventNumber);
          textView3.setText(otherNumber.get(position));
+         
+         TextView text3=(TextView) list.findViewById(R.id.textView_eventPeriod);
+         text3.setText(otherPeriod.get(position));
+		   TextView text4=(TextView) list.findViewById(R.id.textView_dueDate);
+		   text4.setText(otherDueDate.get(position));
 		    return list;
 	}
 	

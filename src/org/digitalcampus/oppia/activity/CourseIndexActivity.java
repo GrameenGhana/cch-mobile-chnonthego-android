@@ -122,7 +122,7 @@ public class CourseIndexActivity extends AppActivity implements OnSharedPreferen
 		// set image
 		if (course.getImageFile() != null) {
 			BitmapDrawable bm = ImageUtils.LoadBMPsdcard(course.getImageFile(), this.getResources(),
-					R.drawable.dc_logo);
+					R.drawable.app_icon);
 			getSupportActionBar().setIcon(bm);
 		}
 
@@ -191,18 +191,14 @@ public class CourseIndexActivity extends AppActivity implements OnSharedPreferen
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent i;
 		Bundle tb = new Bundle();
-		// Handle item selection
-		switch (item.getItemId()) {
-		/*case R.id.menu_language:
-			createLanguageDialog();
-			return true;*/
-		case R.id.menu_help:
+		int itemId = item.getItemId();
+		if (itemId == R.id.menu_help) {
 			startActivity(new Intent(this, HelpActivity.class));
 			return true;
-		case android.R.id.home:
+		} else if (itemId == android.R.id.home) {
 			this.finish();
 			return true;
-		default:
+		} else {
 			i = new Intent(this, CourseMetaPageActivity.class);
 			tb.putSerializable(Course.TAG, course);
 			tb.putSerializable(CourseMetaPage.TAG, item.getItemId());

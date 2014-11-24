@@ -17,242 +17,89 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class LearningBaseAdapter extends BaseExpandableListAdapter {
-
-	 public String[] groupItem;
-	 public ArrayList<String> ChildItemAntenatalCare;
-	 public ArrayList<String> ChildItemPostnatalCare;
-	 public ArrayList<String> ChildItemFamilyPlanning;
-	 public ArrayList<String> ChildItemChildHealth;
-	 public ArrayList<String> ChildItemGeneral;
-	 public ArrayList<String> ChildItemOther;
-	 public ExpandableListView learningList;
-	 public int[] imageId;
+public class LearningBaseAdapter extends BaseAdapter {
+	 private final ArrayList<String> learningCategory;
+	 private final ArrayList<String> learningDescription;
+	 private final ArrayList<String> learningDueDate;
+	 private final ArrayList<String> learningStatus;
+	 private final ArrayList<String> learningTopic;
+	 private final ArrayList<String> learningId;
+	 
 	 public LayoutInflater minflater;
-	 private int count;
-	 public int lastExpandedGroupPosition;    
 	 private Context mContext;
-	private HashMap<Integer, Boolean> mSelection = new HashMap<Integer, Boolean>();
 
-	 public LearningBaseAdapter(Context mContext,String[] grList,//ArrayList<String>ChildItemAntenatalCare,
-			// ArrayList<String>ChildItemPostnatalCare,
-			 ArrayList<String>ChildItemFamilyPlanning,
-			// ArrayList<String>ChildItemChildHealth,
-			// ArrayList<String>ChildItemGeneral,
-			 //ArrayList<String>ChildItemOther,
-			 int[] imageId, ExpandableListView learningList) {
-	  groupItem = grList;
-	  this.mContext=mContext;
-	  minflater = LayoutInflater.from(mContext);
-	  //this.ChildItemAntenatalCare = ChildItemAntenatalCare;
-	  //this.ChildItemPostnatalCare = ChildItemPostnatalCare;
-	  this.ChildItemFamilyPlanning=ChildItemFamilyPlanning;
-	  //this.ChildItemChildHealth = ChildItemChildHealth;
-	  //this.ChildItemGeneral=ChildItemGeneral;
-	  //this.ChildItemOther=ChildItemOther;
-	  this.imageId=imageId;
-	  this.learningList=learningList;
+	 public LearningBaseAdapter(Context mContext,ArrayList<String> learningCategory ,
+				ArrayList<String> learningDescription,
+				ArrayList<String> learningDueDate,
+				ArrayList<String> learningStatus,
+				ArrayList<String> learningTopic,
+				ArrayList<String>  learningId) {
+		 		this.mContext = mContext;
+		 		this.learningCategory = learningCategory;
+		 		this.learningDescription=learningDescription;
+		 		this.learningTopic=learningTopic;
+		 		this.learningDueDate=learningDueDate;
+		 		this.learningStatus=learningStatus;
+		 		this.learningId=learningId;
+		 		minflater = LayoutInflater.from(mContext);
+	 }
 	 
-	 }
-	 @Override
-	 public long getChildId(int groupPosition, int childPosition) {
-	  return 0;
-	 }
-
-	 @Override
-	 public View getChildView(int groupPosition, final int childPosition,
-	   boolean isLastChild, View convertView, ViewGroup parent) {
-		 Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-	       	      "fonts/Roboto-Thin.ttf");
-	  
-	   if(convertView==null){
-		   convertView=minflater.inflate(R.layout.other_listview_single,null);
-	   }
-	   TextView text=(TextView) convertView.findViewById(R.id.textView_otherCategory);
-	   switch(groupPosition){
-	   case 0:
-		   text.setText(ChildItemFamilyPlanning.get(childPosition)); 
-		   //text.setText(ChildItemAntenatalCare.get(childPosition));
-		   text.setTypeface(custom_font);
-		   break;
-		   /*
-	   case 1:
-		  // TextView text=(TextView) convertView.findViewById(R.id.textView_eventCategory);
-		   text.setText(ChildItemPostnatalCare.get(childPosition)); 
-		   text.setTypeface(custom_font);
-		   break;
-	   case 2:
-		   text.setText(ChildItemFamilyPlanning.get(childPosition)); 
-		   text.setTypeface(custom_font);
-		   break;
-	   case 3:
-		   text.setText(ChildItemChildHealth.get(childPosition)); 
-		   text.setTypeface(custom_font);
-		   break;
-	   case 4:
-		   text.setText(ChildItemGeneral.get(childPosition)); 
-		   text.setTypeface(custom_font);		   
-		   break;
-	   case 5:
-		   text.setText(ChildItemOther.get(childPosition)); 
-		   text.setTypeface(custom_font);
-		   break;
-		   */
-	   }
-	
-	  return convertView;
-	 }
-
-
-	 													
-	 @Override
-	 public Object getGroup(int groupPosition) {
-	  return null;
-	 }
-
-
-	 @Override
-	 public View getGroupView(int groupPosition, boolean isExpanded,
-	   View convertView, ViewGroup parent) {
-	  if (convertView == null) {
-	   convertView = minflater.inflate(R.layout.expandable_group_single,parent, false);
-	  }
-	   
-	   TextView category=(TextView) convertView.findViewById(R.id.textView_groupCategory);
-	   category.setText(groupItem[groupPosition]);
-	   ImageView categoryImage=(ImageView) convertView.findViewById(R.id.imageView_groupImage);
-	   categoryImage.setImageResource(imageId[groupPosition]);
-	   
-	   Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-      	      "fonts/Roboto-Thin.ttf");
-	   //category.setTypeface(custom_font);
-	   
-	  return convertView;
-	 }
-
+	@Override
+	public int getCount() {
+		return learningCategory.size();
+	}
+	@Override
+	public String[] getItem(int position) {
+		String[] items={learningCategory.get(position),
+						learningDescription.get(position),
+						learningTopic.get(position),
+						learningDueDate.get(position),
+						learningStatus.get(position),
+						learningId.get(position)};
+		
+		return items;
+	}
+	@Override
+	public long getItemId(int position) {
+		long id=0;
+		//id=Integer.valueOf(learningId.get(position));
+		return id;
+	}
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		View list = null;
+		if(convertView==null){
+			  LayoutInflater inflater = (LayoutInflater) mContext
+      		        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+      	  list = new View(mContext);
+      	  list = inflater.inflate(R.layout.learning_listview_single, null);
+     
+        } else {
+      	  list = (View) convertView;
+        }
 	 
-	 																																				
-	@Override
-	public int getGroupCount() {
-		// TODO Auto-generated method stub
-		return groupItem.length;
-	}
-
-
-	@Override
-	public int getChildrenCount(int groupPosition) {
-		switch(groupPosition){
-		case 0:
-			count=ChildItemFamilyPlanning.size();	
-			//count=ChildItemAntenatalCare.size();
-			break;
-			/*
-		case 1:
-			count=ChildItemPostnatalCare.size();
-			break;
-		case 2:
-			count=ChildItemFamilyPlanning.size();	
-			break;
-		case 3:
-			count=ChildItemChildHealth.size();
-			break;
-		case 4:
-			count=ChildItemGeneral.size();	
-			break;
-		case 5:
-			count=ChildItemOther.size();
-			break;
-			*/
-		}
-		return count;
-	}
-
-
-	@Override
-	public long getGroupId(int groupPosition) {
-		return 0;
-	}
-
-
-
-	@Override
-	public String getChild(int groupPosition, int childPosition) {
-		String item=null;
-		switch(groupPosition){
-		case 0:
-			item=ChildItemFamilyPlanning.get(childPosition);
-			//item=ChildItemAntenatalCare.get(childPosition);
-			break;
-			/*
-		case 1:
-			item=ChildItemPostnatalCare.get(childPosition);
-			break;
-		case 2:
-			item=ChildItemFamilyPlanning.get(childPosition);
-			break;
-		case 3:
-			item=ChildItemChildHealth.get(childPosition);
-			break;
-		case 4:
-			item=ChildItemGeneral.get(childPosition);
-			break;
-		case 5:
-			item=ChildItemOther.get(childPosition);
-			break;
-			*/
-		}
-		return item;
-	}
-
-
-
-	@Override
-	public boolean hasStableIds() {
-		return true;
-	}
-
-
-
-	@Override
-	public boolean isChildSelectable(int groupPosition, int childPosition) {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	public void onGroupExpanded(int groupPosition) {
-   	
-   	if(groupPosition != lastExpandedGroupPosition){
-           learningList.collapseGroup(lastExpandedGroupPosition);
-      
-   }
-   	
-       super.onGroupExpanded(groupPosition);
-    
-       lastExpandedGroupPosition = groupPosition;
-       
-   }
+	   TextView text=(TextView) list.findViewById(R.id.textView_learningCategory);
+	   TextView text2=(TextView) list.findViewById(R.id.textView_learningCourse);
+	   TextView text3=(TextView) list.findViewById(R.id.textView_learningTopic);
+	   TextView text4=(TextView) list.findViewById(R.id.textView_dueDate);
+	   ImageView image=(ImageView) list.findViewById(R.id.imageView1);
+	   text.setText(learningCategory.get(position));
+	   text2.setText(learningDescription.get(position));
+	   text3.setText(learningTopic.get(position));
+	   text4.setText(learningDueDate.get(position));
+	   /*
+	   if(!learningStatus.isEmpty()){
+	   if(learningStatus!=null&&learningStatus.get(position).equalsIgnoreCase("updated")){
+		   image.setImageResource(R.drawable.ic_achieved);
+	   }else if(learningStatus!=null&&learningStatus.get(position).equalsIgnoreCase("new_record")){
+		   image.setImageResource(R.drawable.ic_loading);
+	   }else if(learningStatus!=null&&learningStatus.get(position).equalsIgnoreCase("not_achieved")){
+		   image.setImageResource(R.drawable.ic_not_achieved);
+	   }
+	   }
+	   */
+		return list;
 	
-	public void setNewSelection(int position, boolean value) {
-		mSelection.put(position, value);
-        notifyDataSetChanged();
-    }
-
-    public boolean isPositionChecked(int position) {
-        Boolean result = mSelection.get(position);
-        return result == null ? false : result;
-    }
-
-    public Set<Integer> getCurrentCheckedPosition() {
-        return mSelection.keySet();
-    }
-
-    public void removeSelection(int position) {
-        mSelection.remove(position);
-        notifyDataSetChanged();
-    }
-
-    public void clearSelection() {
-        mSelection = new HashMap<Integer, Boolean>();
-        notifyDataSetChanged();
-    }
 	}
+	
+}

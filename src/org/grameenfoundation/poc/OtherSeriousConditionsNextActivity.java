@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,9 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -19,22 +22,41 @@ public class OtherSeriousConditionsNextActivity extends Activity {
 
 	private ListView listView_otherCondition;
 	private Context mContext;
-	/** Called when the activity is first created. */
+	private Button button_no;
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time; 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_other_serious_condition_next);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions");
 	    mContext=OtherSeriousConditionsNextActivity.this;
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    listView_otherCondition=(ListView) findViewById(R.id.listView_otherConditions);
 	    String[] items={"Bleeding from Umbilical Cord or Elsewhere from the Body",
 	    				"Soft swelling Covering Whole Scalp",
 	    				"Open tissue on head, abdomen or back",
 	    				"No urine or meconium since birth & baby > 24 hours old ",
 	    				"Vomiting after every feed; Vomit green, bloody",
-	    				"Blood in stool",
-	    				"No serious conditions"};
+	    				"Blood in stool"};
 	    OtherConditionsListAdapter adapter=new OtherConditionsListAdapter(mContext,items);
 	    listView_otherCondition.setAdapter(adapter);
+	    button_no=(Button) findViewById(R.id.button_no);
+	    button_no.setOnClickListener(new OnClickListener(){
+
+			private Intent intent;
+
+			@Override
+			public void onClick(View v) {
+				intent=new Intent(mContext,NoSeriousConditionsActivity.class);
+				startActivity(intent);
+				
+			}
+	    	
+	    });
 	    listView_otherCondition.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
@@ -72,10 +94,7 @@ public class OtherSeriousConditionsNextActivity extends Activity {
 					intent.putExtra("category", "no urine");
 					startActivity(intent);
 					break;
-				case 6:
-					intent=new Intent(mContext,NoSeriousConditionsActivity.class);
-					startActivity(intent);
-					break;
+			
 				}
 			}
 	    	
@@ -116,5 +135,12 @@ public class OtherSeriousConditionsNextActivity extends Activity {
 			    return convertView;
 		}
 		
+	}
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "PNC Diagnostic: Other Serious Conditions", start_time.toString(), end_time.toString());
+		finish();
 	}
 }

@@ -22,48 +22,122 @@ import android.widget.TextView;
 public class CoverageListAdapter extends BaseExpandableListAdapter {
 
 	 public String[] groupItem;
-	 public ArrayList<String> ChildItemPeopleTarget;
-	 public ArrayList<String> ChildItemPeopleNumber;
-	 public ArrayList<String> ChildItemPeoplePeriod;
+	 private final ArrayList<String> dailyCoverageName;
+	 private final ArrayList<String> dailyCoverageNumber;
+	 private final ArrayList<String> dailyCoveragePeriod;
+	 private final ArrayList<String> dailyCoverageDueDate;
+	 private final ArrayList<String> dailyCoverageStatus;
+	 private final ArrayList<String> dailyCoverageId;
 	 
-	 public ArrayList<String> ChildItemImmunizationTarget;
-	 public ArrayList<String> ChildItemImmunizationNumber;
-	 public ArrayList<String> ChildItemImmunizationPeriod;
-	 public ArrayList<String> ChildItemPeopleId;
-	 public ArrayList<String> ChildItemImmunizationId;
-	 public ExpandableListView coverageList;
-	 public int[] imageId;
+	 private final ArrayList<String> weeklyCoverageName;
+	 private final ArrayList<String> weeklyCoverageNumber;
+	 private final ArrayList<String> weeklyCoveragePeriod;
+	 private final ArrayList<String> weeklyCoverageDueDate;
+	 private final ArrayList<String> weeklyCoverageStatus;
+	 private final ArrayList<String> weeklyCoverageId;
+	 
+	 private final ArrayList<String> monthlyCoverageName;
+	 private final ArrayList<String> monthlyCoverageNumber;
+	 private final ArrayList<String> monthlyCoveragePeriod;
+	 private final ArrayList<String> monthlyCoverageDueDate;
+	 private final ArrayList<String> monthlyCoverageStatus;
+	 private final ArrayList<String> monthlyCoverageId;
+	 
+	 private final ArrayList<String> yearlyCoverageName;
+	 private final ArrayList<String> yearlyCoverageNumber;
+	 private final ArrayList<String> yearlyCoveragePeriod;
+	 private final ArrayList<String> yearlyCoverageDueDate;
+	 private final ArrayList<String> yearlyCoverageStatus;
+	 private final ArrayList<String> yearlyCoverageId;
+	 
+	 private final ArrayList<String> midYearCoverageName;
+	 private final ArrayList<String> midYearCoverageNumber;
+	 private final ArrayList<String> midYearCoveragePeriod;
+	 private final ArrayList<String> midYearCoverageDueDate;
+	 private final ArrayList<String> midYearCoverageStatus;
+	 private final ArrayList<String> midYearCoverageId;
+	 private String[] groupItems;
 	 public LayoutInflater minflater;
 	 private int count;
 	 public int lastExpandedGroupPosition;    
+	 ExpandableListView coverage_list;
 	 private Context mContext;
-	 private HashMap<Integer, Boolean> mSelection = new HashMap<Integer, Boolean>();
 	
 
-	 public CoverageListAdapter(Context mContext,String[] grList,
-			 ArrayList<String> ChildItemPeopleTarget,
-			 ArrayList<String> ChildItemPeopleNumber,
-			 ArrayList<String> ChildItemPeoplePeriod,
-			 ArrayList<String> ChildItemImmunizationTarget,
-			 ArrayList<String> ChildItemImmunizationNumber,
-			 ArrayList<String> ChildItemImmunizationPeriod,
-			 ArrayList<String> childItemPeopleId,
-			 ArrayList<String> ChildItemImmunizationId,
-			 int[] imageId,
-			 ExpandableListView coverageList) {
-	  groupItem = grList;
-	  this.mContext=mContext;
-	  minflater = LayoutInflater.from(mContext);
-	  this.ChildItemPeopleTarget = ChildItemPeopleTarget;
-	  this.ChildItemPeopleNumber=ChildItemPeopleNumber;
-	  this.ChildItemPeoplePeriod=ChildItemPeoplePeriod;
-	  this.ChildItemImmunizationTarget=ChildItemImmunizationTarget;
-	  this.ChildItemImmunizationNumber=ChildItemImmunizationNumber;
-	  this.ChildItemImmunizationPeriod=ChildItemImmunizationPeriod;
-	  this.ChildItemPeopleId = childItemPeopleId;
-	  this.ChildItemImmunizationId=ChildItemImmunizationId;
-	  this.imageId=imageId;
-	  this.coverageList=coverageList;
+	 public CoverageListAdapter(Context mContext,ArrayList<String> dailyCoverageName ,
+				ArrayList<String> dailyCoverageNumber,
+				ArrayList<String> dailyCoveragePeriod,
+				ArrayList<String> dailyCoverageDueDate,
+				ArrayList<String> dailyCoverageStatus,
+				ArrayList<String> dailyCoverageId,
+				
+				ArrayList<String> weeklyCoverageName,
+				ArrayList<String> weeklyCoverageNumber,
+				ArrayList<String> weeklyCoveragePeriod,
+				ArrayList<String> weeklyCoverageDueDate,
+				ArrayList<String> weeklyCoverageStatus,
+				ArrayList<String> weeklyCoverageId,
+				
+				ArrayList<String> monthlyCoverageName,
+				ArrayList<String> monthlyCoverageNumber,
+				ArrayList<String> monthlyCoveragePeriod,
+				ArrayList<String> monthlyCoverageDueDate,
+				ArrayList<String> monthlyCoverageStatus,
+				ArrayList<String> monthlyCoverageId,
+				
+				ArrayList<String> yearlyCoverageName,
+				ArrayList<String> yearlyCoverageNumber,
+				ArrayList<String> yearlyCoveragePeriod,
+				ArrayList<String> yearlyCoverageDueDate,
+				ArrayList<String> yearlyCoverageStatus,
+				ArrayList<String> yearlyCoverageId,
+				
+				ArrayList<String> midYearCoverageName,
+				ArrayList<String> midYearCoverageNumber,
+				ArrayList<String> midYearCoveragePeriod,
+				ArrayList<String> midYearCoverageDueDate,
+				ArrayList<String> midYearCoverageStatus,
+				ArrayList<String> midYearCoverageId,
+				String[] groupItems,
+				ExpandableListView coverage_list) {
+		 		mContext = mContext;
+		 		this.dailyCoverageName = dailyCoverageName;
+		 		this.dailyCoverageNumber=dailyCoverageNumber;
+		 		this.dailyCoveragePeriod=dailyCoveragePeriod;
+		 		this.dailyCoverageDueDate=dailyCoverageDueDate;
+		 		this.dailyCoverageStatus=dailyCoverageStatus;
+		 		this.dailyCoverageId=dailyCoverageId;
+		 		minflater = LayoutInflater.from(mContext);
+
+		 		this.monthlyCoverageName = monthlyCoverageName;
+		 		this.monthlyCoverageNumber=monthlyCoverageNumber;
+		 		this.monthlyCoveragePeriod=monthlyCoveragePeriod;
+		 		this.monthlyCoverageDueDate=monthlyCoverageDueDate;
+		 		this.monthlyCoverageStatus=monthlyCoverageStatus;
+		 		this.monthlyCoverageId=monthlyCoverageId;
+
+		 		this.weeklyCoverageName = weeklyCoverageName;
+		 		this.weeklyCoverageNumber=weeklyCoverageNumber;
+		 		this.weeklyCoveragePeriod=weeklyCoveragePeriod;
+		 		this.weeklyCoverageDueDate=weeklyCoverageDueDate;
+		 		this.weeklyCoverageStatus=weeklyCoverageStatus;
+		 		this.weeklyCoverageId=weeklyCoverageId;
+
+		 		this.yearlyCoverageName = yearlyCoverageName;
+		 		this.yearlyCoverageNumber=yearlyCoverageNumber;
+		 		this.yearlyCoveragePeriod=yearlyCoveragePeriod;
+		 		this.yearlyCoverageDueDate=yearlyCoverageDueDate;
+		 		this.yearlyCoverageStatus=yearlyCoverageStatus;
+		 		this.yearlyCoverageId=yearlyCoverageId;
+
+		 		this.midYearCoverageName = midYearCoverageName;
+		 		this.midYearCoverageNumber=midYearCoverageNumber;
+		 		this.midYearCoveragePeriod=midYearCoveragePeriod;
+		 		this.midYearCoverageDueDate=midYearCoverageDueDate;
+		 		this.midYearCoverageStatus=midYearCoverageStatus;
+		 		this.midYearCoverageId=midYearCoverageId;
+		 		this.groupItems=groupItems;
+		 		this.coverage_list=coverage_list;
 	 
 	 }
 
@@ -71,31 +145,49 @@ public class CoverageListAdapter extends BaseExpandableListAdapter {
 	
 	 @Override
 	 public long getChildId(int groupPosition, int childPosition) {
-		 long id = 0;
+		 long id=0;
+		 /*
 			if(groupPosition==0){
-			id=Integer.valueOf(ChildItemPeopleId.get(childPosition));	
+				id=Integer.valueOf(dailyCoverageId.get(childPosition));
 			}else if(groupPosition==1){
-				id=Integer.valueOf(ChildItemImmunizationId.get(childPosition));		
+				id=Integer.valueOf(weeklyCoverageId.get(childPosition));
+			}else if(groupPosition==2){
+				id=Integer.valueOf(monthlyCoverageId.get(childPosition));
+			}else if(groupPosition==3){
+				id=Integer.valueOf(yearlyCoverageId.get(childPosition));
+			}else if(groupPosition==4){
+				id=Integer.valueOf(midYearCoverageId.get(childPosition));
 			}
-		return id;
+			*/
+			return id;
 	 }
 
 	 @Override
 	 public View getChildView(int groupPosition, final int childPosition,
 	   boolean isLastChild, View convertView, ViewGroup parent) {
-		 Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-	       	      "fonts/Roboto-Thin.ttf");
+		 if (convertView == null) {
+			   convertView = minflater.inflate(R.layout.coverage_expandable_child_single,parent, false);
+			  }
 	  
-	   if(convertView==null){
-		   convertView=minflater.inflate(R.layout.coverage_expandable_child_single,null);
-	   }
+	   
 	   if(groupPosition==0){
 	   TextView text=(TextView) convertView.findViewById(R.id.textView_coverageCategory);
 	   TextView text2=(TextView) convertView.findViewById(R.id.textView_coverageNumber);
 	   TextView text3=(TextView) convertView.findViewById(R.id.textView_coveragePeriod);
-	   text.setText(ChildItemPeopleTarget.get(childPosition));
-	   text2.setText(ChildItemPeopleNumber.get(childPosition));
-	   text3.setText(ChildItemPeoplePeriod.get(childPosition));
+	   TextView text4=(TextView) convertView.findViewById(R.id.textView_dueDate);
+	   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
+	   text.setText(dailyCoverageName.get(childPosition));
+	   text2.setText(dailyCoverageNumber.get(childPosition));
+	   text3.setText(dailyCoveragePeriod.get(childPosition));
+	   text4.setText(dailyCoverageDueDate.get(childPosition));
+	   /*
+	   if(dailyCoverageStatus.get(childPosition).equalsIgnoreCase("updated")){
+		   image.setImageResource(R.drawable.ic_achieved);
+	   }else if(dailyCoverageStatus.get(childPosition).equalsIgnoreCase("new_record")){
+		   image.setImageResource(R.drawable.ic_loading);
+	   }else if(dailyCoverageStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
+		   image.setImageResource(R.drawable.ic_not_achieved);
+	   }*/
 	   //text.setTypeface(custom_font);
 	   //text2.setTypeface(custom_font);
 	   //text3.setTypeface(custom_font);
@@ -103,15 +195,89 @@ public class CoverageListAdapter extends BaseExpandableListAdapter {
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_coverageCategory);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_coverageNumber);
 		   TextView text3=(TextView) convertView.findViewById(R.id.textView_coveragePeriod);
-		   text.setText(ChildItemImmunizationTarget.get(childPosition));
-		   text2.setText(ChildItemImmunizationNumber.get(childPosition));
-		   text3.setText(ChildItemImmunizationPeriod.get(childPosition));
+		   TextView text4=(TextView) convertView.findViewById(R.id.textView_dueDate);
+		   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
+		   text.setText(weeklyCoverageName.get(childPosition));
+		   text2.setText(weeklyCoverageNumber.get(childPosition));
+		   text3.setText(weeklyCoveragePeriod.get(childPosition));
+		   text4.setText(weeklyCoverageDueDate.get(childPosition));
+		   /*
+		   if(weeklyCoverageStatus!=null&&weeklyCoverageStatus.get(childPosition).equalsIgnoreCase("updated")){
+			   image.setImageResource(R.drawable.ic_achieved);
+		   }else if(weeklyCoverageStatus!=null&&weeklyCoverageStatus.get(childPosition).equalsIgnoreCase("new_record")){
+			   image.setImageResource(R.drawable.ic_loading);
+		   }else if(weeklyCoverageStatus!=null&&weeklyCoverageStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
+			   image.setImageResource(R.drawable.ic_not_achieved);
+		   }*/
+		   //text.setTypeface(custom_font);
+		   //text2.setTypeface(custom_font);
+		   //text3.setTypeface(custom_font);
+	   }else if(groupPosition==2){
+		   TextView text=(TextView) convertView.findViewById(R.id.textView_coverageCategory);
+		   TextView text2=(TextView) convertView.findViewById(R.id.textView_coverageNumber);
+		   TextView text3=(TextView) convertView.findViewById(R.id.textView_coveragePeriod);
+		   TextView text4=(TextView) convertView.findViewById(R.id.textView_dueDate);
+		   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
+		   text.setText(monthlyCoverageName.get(childPosition));
+		   text2.setText(monthlyCoverageNumber.get(childPosition));
+		   text3.setText(monthlyCoveragePeriod.get(childPosition));
+		   text4.setText(monthlyCoverageDueDate.get(childPosition));
+		   /*
+		   if(monthlyCoverageStatus!=null&&monthlyCoverageStatus.get(childPosition).equalsIgnoreCase("updated")){
+			   image.setImageResource(R.drawable.ic_achieved);
+		   }else if(monthlyCoverageStatus!=null&&monthlyCoverageStatus.get(childPosition).equalsIgnoreCase("new_record")){
+			   image.setImageResource(R.drawable.ic_loading);
+		   }else if(monthlyCoverageStatus!=null&&monthlyCoverageStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
+			   image.setImageResource(R.drawable.ic_not_achieved);
+		   }*/
+		   //text.setTypeface(custom_font);
+		   //text2.setTypeface(custom_font);
+		   //text3.setTypeface(custom_font);
+	   }else if(groupPosition==3){
+		   TextView text=(TextView) convertView.findViewById(R.id.textView_coverageCategory);
+		   TextView text2=(TextView) convertView.findViewById(R.id.textView_coverageNumber);
+		   TextView text3=(TextView) convertView.findViewById(R.id.textView_coveragePeriod);
+		   TextView text4=(TextView) convertView.findViewById(R.id.textView_dueDate);
+		   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
+		   text.setText(yearlyCoverageName.get(childPosition));
+		   text2.setText(yearlyCoverageNumber.get(childPosition));
+		   text3.setText(yearlyCoveragePeriod.get(childPosition));
+		   text4.setText(yearlyCoverageDueDate.get(childPosition));
+		   /*
+		   if(yearlyCoverageStatus!=null&&yearlyCoverageStatus.get(childPosition).equalsIgnoreCase("updated")){
+			   image.setImageResource(R.drawable.ic_achieved);
+		   }else if(yearlyCoverageStatus!=null&&yearlyCoverageStatus.get(childPosition).equalsIgnoreCase("new_record")){
+			   image.setImageResource(R.drawable.ic_loading);
+		   }else if(yearlyCoverageStatus!=null&&yearlyCoverageStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
+			   image.setImageResource(R.drawable.ic_not_achieved);
+		   }*/
+		   //text.setTypeface(custom_font);
+		   //text2.setTypeface(custom_font);
+		   //text3.setTypeface(custom_font);
+	   }else if(groupPosition==4){
+		   TextView text=(TextView) convertView.findViewById(R.id.textView_coverageCategory);
+		   TextView text2=(TextView) convertView.findViewById(R.id.textView_coverageNumber);
+		   TextView text3=(TextView) convertView.findViewById(R.id.textView_coveragePeriod);
+		   TextView text4=(TextView) convertView.findViewById(R.id.textView_dueDate);
+		   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
+		   text.setText(midYearCoverageName.get(childPosition));
+		   text2.setText(midYearCoverageNumber.get(childPosition));
+		   text3.setText(midYearCoveragePeriod.get(childPosition));
+		   text4.setText(midYearCoverageDueDate.get(childPosition));
+		   /*
+		   if(midYearCoverageStatus!=null&&midYearCoverageStatus.get(childPosition).equalsIgnoreCase("updated")){
+			   image.setImageResource(R.drawable.ic_achieved);
+		   }else if(midYearCoverageStatus!=null&&midYearCoverageStatus.get(childPosition).equalsIgnoreCase("new_record")){
+			   image.setImageResource(R.drawable.ic_loading);
+		   }else if(midYearCoverageStatus!=null&&midYearCoverageStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
+			   image.setImageResource(R.drawable.ic_not_achieved);
+		   }*/
 		   //text.setTypeface(custom_font);
 		   //text2.setTypeface(custom_font);
 		   //text3.setTypeface(custom_font);
 	   }
-	  
 	  return convertView;
+	   
 	 }
 
 
@@ -125,19 +291,15 @@ public class CoverageListAdapter extends BaseExpandableListAdapter {
 	 @Override
 	 public View getGroupView(int groupPosition, boolean isExpanded,
 	   View convertView, ViewGroup parent) {
-	  if (convertView == null) {
-	   convertView = minflater.inflate(R.layout.expandable_group_single,parent, false);
-	  }
-	   
-	   TextView category=(TextView) convertView.findViewById(R.id.textView_groupCategory);
-	   category.setText(groupItem[groupPosition]);
-	   ImageView categoryImage=(ImageView) convertView.findViewById(R.id.imageView_groupImage);
-	   categoryImage.setImageResource(imageId[groupPosition]);
-	   
-	   Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-       	      "fonts/Roboto-Thin.ttf");
-	   category.setTypeface(custom_font);
-	  return convertView;
+		 if (convertView == null) {
+			   convertView = minflater.inflate(R.layout.listview_single,parent, false);
+			  }
+			   
+			   TextView category=(TextView) convertView.findViewById(R.id.textView_textSingle);
+			   category.setText(groupItems[groupPosition]);
+			   
+			   
+			  return convertView;
 	 }
 
 	 
@@ -145,16 +307,23 @@ public class CoverageListAdapter extends BaseExpandableListAdapter {
 	@Override
 	public int getGroupCount() {
 		// TODO Auto-generated method stub
-		return groupItem.length;
+		return groupItems.length;
 	}
 
 
 	@Override
 	public int getChildrenCount(int groupPosition) {
+		int count = 0;
 		if(groupPosition==0){
-		count=ChildItemPeopleTarget.size();
-		}else if (groupPosition==1){
-		count=ChildItemImmunizationTarget.size();
+			count=dailyCoverageName.size();
+		}else if(groupPosition==1){
+			count=weeklyCoverageName.size();
+		}else if(groupPosition==2){
+			count=monthlyCoverageName.size();
+		}else if(groupPosition==3){
+			count=yearlyCoverageName.size();
+		}else if(groupPosition==4){
+			count=midYearCoverageName.size();
 		}
 		return count;
 	}
@@ -170,16 +339,44 @@ public class CoverageListAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public String[] getChild(int groupPosition, int childPosition) {
-		String[] item = null;
-		switch (groupPosition){
-		case 0:
-			item= new String[]{ChildItemPeopleTarget.get(childPosition),ChildItemPeopleNumber.get(childPosition)};
-			break;
-		case 1:
-			item= new String[]{ChildItemImmunizationTarget.get(childPosition),ChildItemImmunizationNumber.get(childPosition)};
-			break;
+		String[] childDetails = null;
+		if(groupPosition==0){
+			childDetails=new String[]{dailyCoverageName.get(childPosition),
+									 dailyCoverageNumber.get(childPosition),
+									 dailyCoveragePeriod.get(childPosition),
+									 dailyCoverageDueDate.get(childPosition),
+									 dailyCoverageStatus.get(childPosition),
+									 dailyCoverageId.get(childPosition)};
+		}else if(groupPosition==1){
+			childDetails=new String[]{weeklyCoverageName.get(childPosition),
+					weeklyCoverageNumber.get(childPosition),
+					weeklyCoveragePeriod.get(childPosition),
+					weeklyCoverageDueDate.get(childPosition),
+					weeklyCoverageStatus.get(childPosition),
+					weeklyCoverageId.get(childPosition)};
+		}else if(groupPosition==2){
+			childDetails=new String[]{monthlyCoverageName.get(childPosition),
+					 monthlyCoverageNumber.get(childPosition),
+					 monthlyCoveragePeriod.get(childPosition),
+					 monthlyCoverageDueDate.get(childPosition),
+					 monthlyCoverageStatus.get(childPosition),
+					 monthlyCoverageId.get(childPosition)};
+		}else if(groupPosition==3){
+			childDetails=new String[]{yearlyCoverageName.get(childPosition),
+					yearlyCoverageNumber.get(childPosition),
+					yearlyCoveragePeriod.get(childPosition),
+					yearlyCoverageDueDate.get(childPosition),
+					yearlyCoverageStatus.get(childPosition),
+					yearlyCoverageId.get(childPosition)};
+		}else if(groupPosition==4){
+			childDetails=new String[]{midYearCoverageName.get(childPosition),
+					midYearCoverageNumber.get(childPosition),
+					midYearCoveragePeriod.get(childPosition),
+					midYearCoverageDueDate.get(childPosition),
+					midYearCoverageStatus.get(childPosition),
+					midYearCoverageId.get(childPosition)};
 		}
-		return item;
+		return childDetails;
 			
 	}
 
@@ -198,11 +395,11 @@ public class CoverageListAdapter extends BaseExpandableListAdapter {
 		// TODO Auto-generated method stub
 		return true;
 	}
-
+/*
 	public void onGroupExpanded(int groupPosition) {
     	
     	if(groupPosition != lastExpandedGroupPosition){
-            coverageList.collapseGroup(lastExpandedGroupPosition);
+            coverage_list.collapseGroup(lastExpandedGroupPosition);
        
     }
     	
@@ -211,27 +408,6 @@ public class CoverageListAdapter extends BaseExpandableListAdapter {
         lastExpandedGroupPosition = groupPosition;
         
     }
-	public void setNewSelection(int position, boolean value) {
-		mSelection.put(position, value);
-        notifyDataSetChanged();
-    }
+*/
 
-    public boolean isPositionChecked(int position) {
-        Boolean result = mSelection.get(position);
-        return result == null ? false : result;
-    }
-
-    public Set<Integer> getCurrentCheckedPosition() {
-        return mSelection.keySet();
-    }
-
-    public void removeSelection(int position) {
-        mSelection.remove(position);
-        notifyDataSetChanged();
-    }
-
-    public void clearSelection() {
-        mSelection = new HashMap<Integer, Boolean>();
-        notifyDataSetChanged();
-    }
 	}

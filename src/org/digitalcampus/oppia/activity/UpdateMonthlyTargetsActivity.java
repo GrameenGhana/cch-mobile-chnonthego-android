@@ -177,15 +177,10 @@ public class UpdateMonthlyTargetsActivity extends Activity {
 					public void onCheckedChanged(RadioGroup group, int checkedId) {
 						LinearLayout linearLayout_comment=(LinearLayout) dialog.findViewById(R.id.LinearLayout_comment);
 						LinearLayout linearLayout_justification=(LinearLayout) dialog.findViewById(R.id.LinearLayout_justification);
-						switch(checkedId){
-						case R.id.radio_updateDialogYes:
+						if (checkedId == R.id.radio_updateDialogYes) {
 							linearLayout_comment.setVisibility(View.VISIBLE);
-							//linearLayout_justification.setVisibility(View.GONE);
-							break;
-						case R.id.radio_updateDialogNo:
+						} else if (checkedId == R.id.radio_updateDialogNo) {
 							linearLayout_justification.setVisibility(View.VISIBLE);
-							//linearLayout_comment.setVisibility(View.VISIBLE);
-							break;
 						}
 					}
 				});
@@ -196,8 +191,8 @@ public class UpdateMonthlyTargetsActivity extends Activity {
 					            	String[] items=eventUpdateAdapter.getItem(position);
 					            	String justification_text=justification.getText().toString();
 					            	String comment_text=comment.getText().toString();
-				                	if(db.insertJustification(items[0], items[1], justification_text, comment_text, "new_record") !=0){
-				                	long last_id=db.insertJustification(items[0], items[1], justification_text, comment_text, "new_record");;
+				                	if(db.insertJustification(items[0], items[1], justification_text, comment_text,"","",1, "new_record") !=0){
+				                	long last_id=db.insertJustification(items[0], items[1], justification_text, comment_text,"","",1, "new_record");;
 				                	JSONObject json = new JSONObject();
 									 try {
 										json.put("id", last_id);
@@ -254,15 +249,12 @@ public class UpdateMonthlyTargetsActivity extends Activity {
 				update.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 					@Override
 					public void onCheckedChanged(RadioGroup group, int checkedId) {
-						switch(checkedId){
-						case R.id.radio_updateDialogYes:
+						if (checkedId == R.id.radio_updateDialogYes) {
 							linearLayout_comment.setVisibility(View.VISIBLE);
 							linearLayout_justification.setVisibility(View.GONE);
-							break;
-						case R.id.radio_updateDialogNo:
+						} else if (checkedId == R.id.radio_updateDialogNo) {
 							linearLayout_justification.setVisibility(View.VISIBLE);
 							linearLayout_comment.setVisibility(View.VISIBLE);
-							break;
 						}
 					}
 				});
@@ -273,8 +265,8 @@ public class UpdateMonthlyTargetsActivity extends Activity {
 					            	String[] items=coverageUpdateAdapter.getItem(position);
 					            	String justification_text=justification.getText().toString();
 					            	String comment_text=comment.getText().toString();
-				                	db.insertJustification(items[0], items[1], justification_text, comment_text, "new_record");
-				                	long last_id=db.insertJustification(items[0], items[1], justification_text, comment_text, "new_record");;
+				                	db.insertJustification(items[0], items[1], justification_text, comment_text,"","",1, "new_record");
+				                	long last_id=db.insertJustification(items[0], items[1], justification_text, comment_text,"","",1, "new_record");;
 				                	JSONObject json = new JSONObject();
 									 try {
 										json.put("id", last_id);
@@ -330,15 +322,12 @@ public class UpdateMonthlyTargetsActivity extends Activity {
 				update.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 					@Override
 					public void onCheckedChanged(RadioGroup group, int checkedId) {
-						switch(checkedId){
-						case R.id.radio_updateDialogYes:
+						if (checkedId == R.id.radio_updateDialogYes) {
 							linearLayout_comment.setVisibility(View.VISIBLE);
 							linearLayout_justification.setVisibility(View.GONE);
-							break;
-						case R.id.radio_updateDialogNo:
+						} else if (checkedId == R.id.radio_updateDialogNo) {
 							linearLayout_justification.setVisibility(View.VISIBLE);
 							linearLayout_comment.setVisibility(View.VISIBLE);
-							break;
 						}
 					}
 				});
@@ -349,8 +338,8 @@ public class UpdateMonthlyTargetsActivity extends Activity {
 					            	String[] items=otherUpdateAdapter.getItem(position);
 					            	String justification_text=justification.getText().toString();
 					            	String comment_text=comment.getText().toString();
-				                	db.insertJustification(items[0], items[1], justification_text, comment_text, "new_record");
-				                	long last_id=db.insertJustification(items[0], items[1], justification_text, comment_text, "new_record");;
+				                	db.insertJustification(items[0], items[1], justification_text, comment_text, "","",1,"new_record");
+				                	long last_id=db.insertJustification(items[0], items[1], justification_text, comment_text,"","",1, "new_record");;
 				                	JSONObject json = new JSONObject();
 									 try {
 										json.put("id", last_id);

@@ -22,9 +22,12 @@ public class EventPlannerOptionsActivity extends Activity implements OnItemClick
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_event_planner_options);
 	    mContext=EventPlannerOptionsActivity.this;
+	    getActionBar().setDisplayShowHomeEnabled(false);
+	    getActionBar().setTitle("Event Planner");
+	    getActionBar().setSubtitle("Planner Options");
 	    listView_eventPlannerOptions=(ListView) findViewById(R.id.listView_eventPlannerOptions);
 	    listView_eventPlannerOptions.setOnItemClickListener(this);
-	   String[] items={"Plan an event","Set event targets","View planned events"};
+	   String[] items={"Plan an event","Set targets","View planned events"};
 	   int[] images={R.drawable.ic_plan_event,R.drawable.ic_event_target,R.drawable.ic_view};
 	   PlannerBaseAdapter adapter=new PlannerBaseAdapter(mContext,items,images);
 	   listView_eventPlannerOptions.setAdapter(adapter);

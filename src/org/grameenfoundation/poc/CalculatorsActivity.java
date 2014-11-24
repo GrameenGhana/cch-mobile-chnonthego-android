@@ -10,7 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-public class CalculatorsActivity extends Activity {
+public class CalculatorsActivity extends BaseActivity {
 
 	private WebView myWebView;
 	private String url;
@@ -19,7 +19,10 @@ public class CalculatorsActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext =CalculatorsActivity.this;
 	    setContentView(R.layout.activity_third_trimester_counselling);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("ANC Calculators");
 	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
           url= extras.getString("url");

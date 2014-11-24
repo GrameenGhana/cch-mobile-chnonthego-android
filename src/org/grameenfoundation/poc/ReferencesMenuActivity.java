@@ -16,15 +16,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ReferencesMenuActivity extends Activity {
+public class ReferencesMenuActivity extends BaseActivity {
 
 	Context mContext;
 	private ListView listView_calculators;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = ReferencesMenuActivity.this;
 	    setContentView(R.layout.activity_postnatal_care_sections);
 	    mContext=ReferencesMenuActivity.this;
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("ANC References");
 	    listView_calculators=(ListView) findViewById(R.id.listView_postnatalCareSections);
 	    String[] items={"Tetanus Toxoid Immunisation","Baby Immunisation Schedule","IPTP Treatment"};
 	    CalculatorsSectionsListAdapter adapter=new CalculatorsSectionsListAdapter(mContext,items);

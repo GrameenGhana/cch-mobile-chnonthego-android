@@ -15,18 +15,18 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class CounsellingPerTrimesterActivtiy extends Activity {
+public class CounsellingPerTrimesterActivtiy extends BaseActivity {
 
 	private ListView listView_counselling;
-	Context mContext;
+//	Context mContext;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_couselling);
 	    mContext=CounsellingPerTrimesterActivtiy.this;
-	    getActionBar().setDisplayShowHomeEnabled(false);
-	    getActionBar().setTitle("Point of Care> Counselling");
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("ANC Counselling");
 	    listView_counselling=(ListView) findViewById(R.id.listView_cousellingMenu);
 	    String[] items={"First Trimester","Second Trimester","Third Trimester"};
 	    CounsellingListAdapter adapter=new CounsellingListAdapter(mContext,items);

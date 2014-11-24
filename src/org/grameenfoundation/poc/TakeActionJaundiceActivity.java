@@ -1,19 +1,27 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TakeActionJaundiceActivity extends Activity {
+public class TakeActionJaundiceActivity extends BaseActivity {
 
 	private String take_action_category;
-
-	/** Called when the activity is first created. */
+	private Long start_time;
+	private Long end_time;
+	private DbHelper dbh;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = TakeActionJaundiceActivity.this;
 	    Bundle extras = getIntent().getExtras(); 
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Diagnostic: Jaundice");
+	    dbh=new DbHelper(TakeActionJaundiceActivity.this);
+	    start_time=System.currentTimeMillis();
         if (extras != null) {
           take_action_category= extras.getString("category");
         }
@@ -25,5 +33,10 @@ public class TakeActionJaundiceActivity extends Activity {
         setContentView(R.layout.activity_no_jaundice);
         }
 	}
-
+	public void onBackPressed()
+	{
+		 end_time=System.currentTimeMillis();
+		dbh.insertCCHLog("Point of Care", "PNC Diagnostic: Jaundice", start_time.toString(), end_time.toString());
+		finish();
+	}
 }

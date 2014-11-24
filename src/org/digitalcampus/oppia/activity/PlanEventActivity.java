@@ -1,6 +1,7 @@
 package org.digitalcampus.oppia.activity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
@@ -28,6 +29,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -51,6 +53,7 @@ public final class PlanEventActivity extends Activity implements OnClickListener
 	Long startTime;
 	 CalendarEvents c;
 	String rrule;
+	private DatePicker datePicker;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -58,7 +61,8 @@ public final class PlanEventActivity extends Activity implements OnClickListener
 	    mContext=PlanEventActivity.this;
 	    dbh = new DbHelper(getApplicationContext());
 	    getActionBar().setDisplayShowHomeEnabled(false);
-	    getActionBar().setTitle("Event Planning> Plan Event");
+	    getActionBar().setTitle("Event Planner");
+	    getActionBar().setSubtitle("Event Planning");
 	    c= new CalendarEvents(mContext);
 	    startTime = System.currentTimeMillis();
 	    spinner_eventName=(Spinner) findViewById(R.id.spinner_eventPlanType);
@@ -142,79 +146,72 @@ public final class PlanEventActivity extends Activity implements OnClickListener
 	@Override
 	public void onClick(View v) {
 		
-		switch(v.getId()){
-		
-		case R.id.button_eventPlanAdd:
+		int id = v.getId();
+		if (id == R.id.button_eventPlanAdd) {
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
     				mContext);
-     
-    			// set title
-    			alertDialogBuilder.setTitle("Add event?");
-     
-    			// set dialog message
-    			alertDialogBuilder
-    				.setMessage("You are about to add an event to the calendar. Proceed?")
-    				.setCancelable(false)
-    				.setPositiveButton("No",new DialogInterface.OnClickListener() {
-    					public void onClick(DialogInterface dialog,int id) {
-    						// if this button is clicked, close
-    						// current activity
-    						dialog.cancel();
-    					}
-    				  })
-    				.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
-    					public void onClick(DialogInterface dialog,int id) {
-    						String eventName=spinner_eventName.getSelectedItem().toString();
-    						String eventLocation=editText_event_location.getText().toString();
-    						String eventDescription=editText_eventDescription.getText().toString();
-    						c.addEvent(eventName, eventLocation, eventDescription);
-    						dialog.cancel();
-    						AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-    			    				mContext);
-    			     
-    			    			// set title
-    			    			alertDialogBuilder.setTitle("Add another event?");
-    			     
-    			    			// set dialog message
-    			    			alertDialogBuilder
-    			    				.setMessage("Event added. Would you like to add another event?")
-    			    				.setCancelable(false)
-    			    				.setPositiveButton("No",new DialogInterface.OnClickListener() {
-    			    					public void onClick(DialogInterface dialog,int id) {
-    			    						// if this button is clicked, close
-    			    						// current activity
-    			    						dialog.cancel();
-    			    						Intent intent=new Intent(mContext,EventPlannerOptionsActivity.class);
-    			    						startActivity(intent);
-    			    					}
-    			    				  })
-    			    				.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
-    			    					public void onClick(DialogInterface dialog,int id) {
-    			    						dialog.cancel();
-    			    						editText_event_location.setText("");
-    			    						editText_eventDescription.setText("");
-    					    		        	}
-    			    				});
-    			    				// create alert dialog
-    			    				AlertDialog alertDialog = alertDialogBuilder.create();
-    			     
-    			    				// show it
-    			    				alertDialog.show();
-		    		        	}
-    				});
-    				// create alert dialog
-    				AlertDialog alertDialog = alertDialogBuilder.create();
-     
-    				// show it
-    				alertDialog.show();
-			
-			break;
-			
-		case R.id.button_eventViewCalendar:
+			// set title
+			alertDialogBuilder.setTitle("Add event?");
+			// set dialog message
+			alertDialogBuilder
+				.setMessage("You are about to add an event to the calendar. Proceed?")
+				.setCancelable(false)
+				.setPositiveButton("No",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						// if this button is clicked, close
+						// current activity
+						dialog.cancel();
+					}
+				  })
+				.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						String eventName=spinner_eventName.getSelectedItem().toString();
+						String eventLocation=editText_event_location.getText().toString();
+						String eventDescription=editText_eventDescription.getText().toString();
+						
+						c.addEvent(eventName, eventLocation, eventDescription);
+						dialog.cancel();
+						AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+			    				mContext);
+			     
+			    			// set title
+			    			alertDialogBuilder.setTitle("Add another event?");
+			     
+			    			// set dialog message
+			    			alertDialogBuilder
+			    				.setMessage("Event added. Would you like to add another event?")
+			    				.setCancelable(false)
+			    				.setPositiveButton("No",new DialogInterface.OnClickListener() {
+			    					public void onClick(DialogInterface dialog,int id) {
+			    						// if this button is clicked, close
+			    						// current activity
+			    						dialog.cancel();
+			    						Intent intent=new Intent(mContext,EventPlannerOptionsActivity.class);
+			    						startActivity(intent);
+			    					}
+			    				  })
+			    				.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+			    					public void onClick(DialogInterface dialog,int id) {
+			    						dialog.cancel();
+			    						editText_event_location.setText("");
+			    						editText_eventDescription.setText("");
+					    		        	}
+			    				});
+			    				// create alert dialog
+			    				AlertDialog alertDialog = alertDialogBuilder.create();
+			     
+			    				// show it
+			    				alertDialog.show();
+				        	}
+				});
+			// create alert dialog
+			AlertDialog alertDialog = alertDialogBuilder.create();
+			// show it
+			alertDialog.show();
+		} else if (id == R.id.button_eventViewCalendar) {
 			Intent intent =  new Intent(Intent.ACTION_VIEW);
-		    intent.setData(Uri.parse("content://com.android.calendar/time"));
-		    startActivity(intent);
-			break;
+			intent.setData(Uri.parse("content://com.android.calendar/time"));
+			startActivity(intent);
 		}
 		
 	}

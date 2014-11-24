@@ -10,7 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-public class SecondTrimesterCounsellingActivity extends Activity {
+public class SecondTrimesterCounsellingActivity extends BaseActivity {
 
 	private WebView myWebView;
 	private static final String URL = "file:///android_asset/www/cch/modules/poc/checktrimester2.html";
@@ -18,7 +18,10 @@ public class SecondTrimesterCounsellingActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = SecondTrimesterCounsellingActivity.this;
 	    setContentView(R.layout.activity_second_trimester_activity);
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("ANC Counselling");
 	    myWebView = (WebView) findViewById(R.id.webView_secondTrimesterCounselling);	    	 
 		myWebView.getSettings().setJavaScriptEnabled(true);
 		myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");

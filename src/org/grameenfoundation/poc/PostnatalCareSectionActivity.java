@@ -1,6 +1,7 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,17 +17,23 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class PostnatalCareSectionActivity extends Activity {
+public class PostnatalCareSectionActivity extends BaseActivity {
 
 	private ListView listView_postnatalSections;
-	private Context mContext;
+//	private Context mContext;
+	private DbHelper dbh;
+	private Long start_time;
+	private Long end_time;  
 
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_postnatal_care_sections);
 	    mContext=PostnatalCareSectionActivity.this;
+	    getActionBar().setTitle("Point of Care");
+	    getActionBar().setSubtitle("PNC Diagnostic: Baby");
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
 	    listView_postnatalSections=(ListView) findViewById(R.id.listView_postnatalCareSections);
 	    String[] items={"Newborn Emergency","Records & History","Very Severe Disease & Local Bacterial Infections",
 				"Jaundice","Other Serious Conditions, Birth Injury & Abnormalities",
@@ -58,6 +65,18 @@ public class PostnatalCareSectionActivity extends Activity {
 					break;
 				case 4:
 					intent=new Intent(mContext,OtherSeriousConditionsActivity.class);
+					startActivity(intent);
+					break;
+				case 5:
+					intent=new Intent(mContext,DiarrhoeaActivity.class);
+					startActivity(intent);
+					break;
+				case 6:
+					intent=new Intent(mContext,HIVInfectionStatusActivity.class);
+					startActivity(intent);
+					break;
+				case 7:
+					intent=new Intent(mContext,LowBirthWeightActivity.class);
 					startActivity(intent);
 					break;
 				}
@@ -102,5 +121,11 @@ public class PostnatalCareSectionActivity extends Activity {
 		}
 		
 	}
-
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		dbh.insertCCHLog("Point of Care", "PNC Diagnostic:  Baby", start_time.toString(), end_time.toString());
+		finish();
+	}
 }
