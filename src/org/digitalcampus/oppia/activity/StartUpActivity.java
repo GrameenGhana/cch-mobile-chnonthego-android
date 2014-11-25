@@ -63,6 +63,7 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
 	private Animation drop_two;
 	private Animation drop_three;
 	private Animation slide_in;
+	private DbHelper db;
 	//DbHelper Db;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,8 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
         BugSenseHandler.initAndStartSession(this, MobileLearning.BUGSENSE_API_KEY);
         
         setContentView(R.layout.start_up);
+        db=new DbHelper(StartUpActivity.this);
+       // db.alterTables();
         getActionBar().hide();
 		
         tvProgress = (TextView) this.findViewById(R.id.start_up_progress);

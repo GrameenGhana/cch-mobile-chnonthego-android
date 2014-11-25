@@ -38,6 +38,7 @@ public class UpdateMonthlyTargetService extends Service {
 	private ArrayList<String> coverageId;
 	private ArrayList<String> otherId;
 	private DbHelper db;
+	private ArrayList<String> learningId;
 	
 	@Override
 	public void onCreate() {
@@ -46,6 +47,7 @@ public class UpdateMonthlyTargetService extends Service {
 		 db=new DbHelper(this);
 		Calendar c = Calendar.getInstance();
         int month=c.get(Calendar.MONTH)+1;
+        
         switch(month){
         case 1:
 	        current_month="January";
@@ -86,24 +88,65 @@ public class UpdateMonthlyTargetService extends Service {
         }
 	}
 
+	enum CoveragePeriods{
+		Daily,
+		Weekly,
+		Monthly,
+		
+	}
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Log.v(TAG, "Starting monthly target update Service");
-		eventUpdateItemsMonthly=db.getAllDailyEvents(current_month);
-		 coverageUpdateItemsMonthly=db.getAllDailyCoverage(current_month);
-		 otherUpdateItemsMonthly=db.getAllDailyOther(current_month);
-		 eventId=new ArrayList<String>();
-		 eventId.add(eventUpdateItemsMonthly.get("event_id"));
-		 coverageId=new ArrayList<String>();
-		 coverageId.add(coverageUpdateItemsMonthly.get("coverage_id"));
-		 otherId=new ArrayList<String>();
-		 otherId.add(otherUpdateItemsMonthly.get("other_id"));
-		 int number=eventUpdateItemsMonthly.get("event_id").length();
+		//eventUpdateItemsMonthly=db.getAllDailyEvents(current_month);
+		 //coverageUpdateItemsMonthly=db.getAllDailyCoverage(current_month);
+		 //otherUpdateItemsMonthly=db.getAllDailyOther(current_month);
+//		eventId=new ArrayList<String>();
+//		 eventId=db.getAllForEventsId("Monthly");
+//		 coverageId=new ArrayList<String>();
+//		 coverageId=db.getAllForCoverageId("Monthly");
+//		 otherId=new ArrayList<String>();
+//		 otherId=db.getAllForOtherId("Monthly");
+//		 learningId=new ArrayList<String>();
+//		 learningId=db.getAllForLearningId("Monthly");
+		 long numberOfEvents=0l;
+		 try {
+			 numberOfEvents =db.getCoverageCount(CoveragePeriods.Monthly.name())+db.getLearningCount(CoveragePeriods.Monthly.name())+db.getEventCount(CoveragePeriods.Monthly.name());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+//		 int number2=coverageId.size();
+//		 int number3=otherId.size();
+//		 int number4=learningId.size();
+//		 int counter;
+//		 if(eventId.size()==0){
+//				number=0;
+//			}else{
+//				number=eventId.size();
+//			}
+//			if(coverageId.size()==0){
+//				number2=0;
+//			}else {
+//				number2=coverageId.size();
+//			}
+//			if(otherId.size()==0){
+//				number3=0;
+//			}else{
+//				number3=otherId.size();
+//			}
+//			
+//			if(learningId.size()==0){
+//				number4=0;
+//			}else{
+//				number4=learningId.size();
+//			}
+//		counter=number+number2+number3+number4;
+	System.out.println(numberOfEvents);
+	if(numberOfEvents>0){
 		NotificationCompat.Builder mBuilder =
 		        new NotificationCompat.Builder(this)
 		        .setSmallIcon(R.drawable.app_icon)
 		        .setContentTitle("CHN on the go")
-		        .setContentText("You have "+String.valueOf(number)+" monthly targets to update.");
+		        .setContentText("You have "+String.valueOf(numberOfEvents)+" monthly targets to update.");
 		// Creates an explicit intent for an Activity in your app
 		Intent resultIntent = new Intent(this, UpdateMonthlyTargetsActivity.class);
 
@@ -127,7 +170,7 @@ public class UpdateMonthlyTargetService extends Service {
 		mBuilder.setAutoCancel(true);
 		// mId allows you to update the notification later on.
 		mNotificationManager.notify(mId, mBuilder.build());
-		
+	}
 		return Service.START_NOT_STICKY;
 	}
 	@Override

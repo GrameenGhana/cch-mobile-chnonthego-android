@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class AskMalariaComplicatedActivity extends Activity {
+public class AskMalariaComplicatedActivity extends BaseActivity {
 
 	private Context mContext;
 	private ListView listView_malaria;
@@ -30,6 +30,7 @@ public class AskMalariaComplicatedActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = AskMalariaComplicatedActivity.this;
 	    setContentView(R.layout.activity_positive_malaria);
 	    mContext=AskMalariaComplicatedActivity.this;
 	    dbh=new DbHelper(mContext);

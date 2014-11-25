@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class RecordsCheckActivity extends Activity {
+public class RecordsCheckActivity extends BaseActivity {
 
 	private DbHelper dbh;
 	private Long start_time;
@@ -15,6 +15,8 @@ public class RecordsCheckActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = RecordsCheckActivity.this;
+	    
 	    setContentView(R.layout.activity_records_check);
 	    dbh=new DbHelper(RecordsCheckActivity.this);
 	    start_time=System.currentTimeMillis();

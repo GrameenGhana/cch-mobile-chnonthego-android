@@ -17,7 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class InfantFeedingMenuActivity extends Activity {
+public class InfantFeedingMenuActivity extends BaseActivity {
 
 	private ListView listView_infantFeeding;
 	private DbHelper dbh;
@@ -27,6 +27,7 @@ public class InfantFeedingMenuActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext=InfantFeedingMenuActivity.this;
 	    setContentView(R.layout.activity_infant_feeding_menu);
 	    dbh=new DbHelper(InfantFeedingMenuActivity.this);
 	    start_time=System.currentTimeMillis();
@@ -135,7 +136,7 @@ public class InfantFeedingMenuActivity extends Activity {
 				  convertView = minflater.inflate(R.layout.listview_text_single,parent, false);
 			    }
 			 TextView text=(TextView) convertView.findViewById(R.id.textView_listViewText);
-			 text.setGravity(Gravity.LEFT);
+			// text.setGravity(Gravity.LEFT);
 			 text.setPadding(10, 0, 0, 0);
 			 text.setText(items[position]);
 			    return convertView;

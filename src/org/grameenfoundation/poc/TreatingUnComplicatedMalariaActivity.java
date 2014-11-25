@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class TreatingUnComplicatedMalariaActivity extends Activity {
+public class TreatingUnComplicatedMalariaActivity extends BaseActivity {
 
 	private Button button_next;
 	private Long start_time;

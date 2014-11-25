@@ -18,7 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class OtherSeriousConditionsNextActivity extends Activity {
+public class OtherSeriousConditionsNextActivity extends BaseActivity {
 
 	private ListView listView_otherCondition;
 	private Context mContext;

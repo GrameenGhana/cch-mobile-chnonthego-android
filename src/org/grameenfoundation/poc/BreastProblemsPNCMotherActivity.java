@@ -18,9 +18,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class BreastProblemsPNCMotherActivity extends Activity {
+public class BreastProblemsPNCMotherActivity extends BaseActivity {
 
-	private Context mContext;
+//	private Context mContext;
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;

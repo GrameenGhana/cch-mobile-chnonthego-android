@@ -8,7 +8,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.Button;
 
-public class TakeActionUncomplicatedMalariaPNCMotherActivity extends Activity {
+public class TakeActionUncomplicatedMalariaPNCMotherActivity extends BaseActivity {
 
 	private Button button_next;
 	 private DbHelper dbh;

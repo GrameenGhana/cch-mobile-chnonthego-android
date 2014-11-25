@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class AskMotherRecordsPNCNextActivity extends Activity {
+public class AskMotherRecordsPNCNextActivity extends BaseActivity {
 
 	private Long start_time;
 	private Long end_time;
@@ -14,6 +14,7 @@ public class AskMotherRecordsPNCNextActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = AskMotherRecordsPNCNextActivity.this;
 	    setContentView(R.layout.activity_ask_mother_records_pnc_next);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Mother Diagnostic: Records & History");

@@ -24,7 +24,8 @@ public class AskMalariaFeverPNCMotherActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_malaria_fever_ask);
+	    mContext = AskMalariaFeverPNCMotherActivity.this;
+	    	    setContentView(R.layout.activity_malaria_fever_ask);
 	    mContext=AskMalariaFeverPNCMotherActivity.this;
 	    dbh=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();

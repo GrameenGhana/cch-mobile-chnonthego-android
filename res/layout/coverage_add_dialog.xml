@@ -1,12 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/button_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Pending updates"
+            android:textColor="@color/Brown" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/custom_border2"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingBottom="50dp"
@@ -31,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:button="@drawable/apptheme_btn_radio_holo_light"
                     android:checked="true"
-                    android:text="People" />
+                    android:text="Indicators" />
 
  				<RadioButton
  				    android:id="@+id/radio_immunization"
@@ -56,12 +78,12 @@
                 android:id="@+id/textView1"
                 android:layout_width="74dp"
                 android:layout_height="wrap_content"
-                android:text="Target:  "
+                android:text="Name:"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/Brown"
                 android:textStyle="bold" />
 
-            <requestFocus />
+           
 
             <Spinner
                 android:id="@+id/spinner_dialogCoverageName"
@@ -69,28 +91,94 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
         </LinearLayout>
-
-        <LinearLayout
+	<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:paddingBottom="10dp" >
+            android:paddingBottom="15dp"
+            android:paddingTop="10dp" >
 
             <TextView
-                android:id="@+id/textView4"
-                android:layout_width="78dp"
+                android:layout_width="74dp"
                 android:layout_height="wrap_content"
-                android:text="Period:"
+                android:text="Detail:"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/Brown" />
+                android:textColor="@color/Brown"
+                android:textStyle="bold" />
+
+            <requestFocus />
 
             <Spinner
-                android:id="@+id/spinner_coveragePeriod"
+                android:id="@+id/spinner_dialogCoverageDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:imeOptions="actionNext"
-                android:nextFocusDown="@+id/button_dialogAddCoverage" />
+                android:gravity="center" >
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start date:     "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/Brown"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView_startDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.61"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <ImageButton
+                    android:id="@+id/imageButton_startDate"
+                    android:layout_width="46dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/ic_calendar_button" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="wrap_content"
+                android:layout_height="14dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" >
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Due date:    "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/Brown"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView_dueDateValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.25"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <ImageButton
+                    android:id="@+id/imageButton_dueDate"
+                    android:layout_width="46dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/ic_calendar_button" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -102,7 +190,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="75dp"
                 android:layout_height="wrap_content"
-                android:text="Number: "
+                android:text="Target:"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/Brown"
                 android:textStyle="bold" />
@@ -122,30 +210,54 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center" >
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp" >
 
-            <Button
-                android:id="@+id/button_dialogAddCoverage"
-                android:layout_width="100dp"
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="78dp"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Save"
-                android:textColor="@color/TextBrown" />
+                android:text="Remind me:"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/Brown"
+                android:textStyle="bold" />
 
-   <View
+            <Spinner
+                android:id="@+id/spinner_coveragePeriod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:imeOptions="actionNext"
+                android:nextFocusDown="@+id/button_dialogAddCoverage" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/button_dialogAddCoverage"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Save"
+            android:textColor="@color/TextBrown" />
+
+        <View
             android:id="@+id/view1"
             android:layout_width="54dp"
             android:layout_height="82dp" />
 
-            <Button
-                android:id="@+id/button_cancel"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Cancel"
-                android:textColor="@color/TextBrown" />
-
-        </LinearLayout>
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Cancel"
+            android:textColor="@color/TextBrown" />
     </LinearLayout>
 
 </LinearLayout>
+</ScrollView>

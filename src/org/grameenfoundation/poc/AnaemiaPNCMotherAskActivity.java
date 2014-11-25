@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class AnaemiaPNCMotherAskActivity extends Activity {
+public class AnaemiaPNCMotherAskActivity extends BaseActivity {
 
 	private Button button_next;
 	private DbHelper dbh;
@@ -21,6 +21,7 @@ public class AnaemiaPNCMotherAskActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = AnaemiaPNCMotherAskActivity.this;
 	    setContentView(R.layout.activity_anaemia_ask);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Mother Diagnostic: Anaemia");

@@ -17,9 +17,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class AskMalariaComplicatedPNCMotherActivity extends Activity {
+public class AskMalariaComplicatedPNCMotherActivity extends BaseActivity {
 
-	private Context mContext;
+//	private Context mContext;
 	private ListView listView_malaria;
 	private Button button_yes;
 	private Button button_no;

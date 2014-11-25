@@ -1,56 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ScrollView1"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/White" >
-
-<LinearLayout
-    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/White"
     android:gravity="center"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView_eventsStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:typeface="serif" />
-
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="282dp"
-        android:orientation="vertical" >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right" >
 
-        <ListView
-            android:id="@+id/listView_events"
+        <Button
+            android:id="@+id/button_show"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/listchoice_selector"
-            android:choiceMode="multipleChoice"
-            android:dividerHeight="5dp" >
-
-        </ListView>
+            android:minHeight="28dp"
+            android:text="Show pending updates"
+            android:textColor="@color/Brown" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal|center" >
+        android:layout_height="381dp"
+        android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/button_addEvent"
-            android:layout_width="wrap_content"
+        <ExpandableListView
+            android:id="@+id/expandableListView1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_add"
-            android:minHeight="28dp"
-            android:text="Add target"
-            android:textColor="@color/TextBrown" />
+            android:background="@color/BackgroundGrey"
+            android:dividerHeight="5dp" >
+
+        </ExpandableListView>
 
     </LinearLayout>
 
 </LinearLayout>
-</ScrollView>

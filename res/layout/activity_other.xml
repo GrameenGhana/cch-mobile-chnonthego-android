@@ -16,25 +16,35 @@
         android:gravity="center"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/textView_otherStatus"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:gravity="right" >
+
+            <Button
+                android:id="@+id/button_show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="28dip"
+                android:text="Show pending updates"
+                android:textColor="@color/Brown" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="310dp"
+            android:layout_height="393dp"
             android:orientation="vertical" >
 
-            <ListView
-                android:id="@+id/listView_other"
+            <ExpandableListView
+                android:id="@+id/expandableListView_other"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/BackgroundGrey"
                 android:choiceMode="multipleChoice"
                 android:dividerHeight="5dp" >
 
-            </ListView>
+            </ExpandableListView>
 
         </LinearLayout>
 
@@ -42,15 +52,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center" >
-
-            <Button
-                android:id="@+id/button_addOther"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_add"
-                android:minHeight="28dip"
-                android:text="Add target"
-                android:textColor="@color/TextBrown" />
 
         </LinearLayout>
 

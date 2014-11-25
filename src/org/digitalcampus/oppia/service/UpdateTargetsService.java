@@ -55,6 +55,8 @@ public class UpdateTargetsService extends Service {
 	private ArrayList<String> eventId;
 	private ArrayList<String> coverageId;
 	private ArrayList<String> otherId;
+	private HashMap<String, String> learningUpdateItemsDaily;
+	private ArrayList<String> learningId;
 	
 	@Override
 	public void onCreate() {
@@ -101,28 +103,63 @@ public class UpdateTargetsService extends Service {
 	        	current_month="December";
 	        	break;
 	        }
+	        
+	       
 	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Log.v(TAG, "Starting target update Service");
+		 Time time = new Time();
+		    time.setToNow();
+		    String today= String.valueOf(time.monthDay)+"-"+String.valueOf(time.month+1)+"-"+String.valueOf(time.year);
 		//if(time_now.equals(compared_time)){
-		 eventUpdateItemsDaily=db.getAllDailyEvents(current_month);
-		 coverageUpdateItemsDaily=db.getAllDailyCoverage(current_month);
-		 otherUpdateItemsDaily=db.getAllDailyOther(current_month);
-		 eventId=new ArrayList<String>();
-		 eventId.add(eventUpdateItemsDaily.get("event_id"));
-		 coverageId=new ArrayList<String>();
-		 coverageId.add(coverageUpdateItemsDaily.get("coverage_id"));
-		 otherId=new ArrayList<String>();
-		 otherId.add(otherUpdateItemsDaily.get("other_id"));
-		 int number=eventId.size();
-		 
+		    eventUpdateItemsDaily=db.getAllEvents(today);
+			coverageUpdateItemsDaily=db.getAllCoverage(today);
+			otherUpdateItemsDaily=db.getAllOther(today);
+			learningUpdateItemsDaily=db.getAllLearning(today);
+			 eventId=new ArrayList<String>();
+			 eventId=db.getAllForEventsId("Daily");
+			 coverageId=new ArrayList<String>();
+			 coverageId=db.getAllForCoverageId("Daily");
+			 otherId=new ArrayList<String>();
+			 otherId=db.getAllForOtherId("Daily");
+			 learningId=new ArrayList<String>();
+			 learningId=db.getAllForLearningId("Daily");
+			 int number=eventId.size();
+			 int number2=coverageId.size();
+			 int number3=otherId.size();
+			 int number4=learningId.size();
+			 int counter;
+			if(eventId.size()==0){
+				number=0;
+			}else{
+				number=eventId.size();
+			}
+			if(coverageId.size()==0){
+				number2=0;
+			}else {
+				number2=coverageId.size();
+			}
+			if(otherId.size()==0){
+				number3=0;
+			}else{
+				number3=otherId.size();
+			}
+			
+			if(learningId.size()==0){
+				number4=0;
+			}else{
+				number4=learningId.size();
+			}
+			counter=number+number2+number3+number4;
+		System.out.println(counter);
+		if(counter>0){
 		NotificationCompat.Builder mBuilder =
 		        new NotificationCompat.Builder(this)
 		        .setSmallIcon(R.drawable.app_icon)
 		        .setContentTitle("CHN on the go")
-		        .setContentText("You have "+String.valueOf(number) +" daily targets to update.");
+		        .setContentText("You have "+String.valueOf(counter) +" target(s) to update.");
 		// Creates an explicit intent for an Activity in your app
 		Intent resultIntent = new Intent(this, UpdateTargetActivity.class);
 
@@ -147,6 +184,7 @@ public class UpdateTargetsService extends Service {
 		mBuilder.setAutoCancel(true);
 		mNotificationManager.notify(mId, mBuilder.build());
 		//}
+		}
 		return Service.START_NOT_STICKY;
 		
 	}

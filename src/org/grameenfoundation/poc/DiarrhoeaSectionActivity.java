@@ -23,10 +23,10 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class DiarrhoeaSectionActivity extends Activity {
+public class DiarrhoeaSectionActivity extends BaseActivity {
 
 	private ExpandableListView listView_diarrhoeaSections;
-	Context mContext;
+//	Context mContext;
 	private Button button_no;
 	private DbHelper dbh;
 	private Long start_time;
@@ -136,6 +136,7 @@ public class DiarrhoeaSectionActivity extends Activity {
 			   TextView text1=(TextView) convertView.findViewById(R.id.textView2);
 			   TextView text2=(TextView) convertView.findViewById(R.id.textView3);
 			   TextView text3=(TextView) convertView.findViewById(R.id.textView4);
+			   TextView text4=(TextView) convertView.findViewById(R.id.textView1);
 			   CharSequence t1 = "Movement only when stimulated or no movement ";
 			   SpannableString s1 = new SpannableString(t1);
 			   s1.setSpan(new BulletSpan(15), 0, t1.length(), 0);
@@ -145,13 +146,18 @@ public class DiarrhoeaSectionActivity extends Activity {
 			   CharSequence t3 = "Skin pinch goes back very slowly ";
 			   SpannableString s3 = new SpannableString(t3);
 			   s3.setSpan(new BulletSpan(15), 0, t3.length(), 0);
+			   CharSequence t4 = "Click here to take action";
+			   SpannableString s4 = new SpannableString(t4);
+			   s4.setSpan(new BulletSpan(15), 0, t4.length(), 0);
 			   text1.setText(s1);
 			   text2.setText(s2);
 			   text3.setText(s3);
+			   text4.setText(s4);
 		   }else if(groupPosition==1){
 			   TextView text1=(TextView) convertView.findViewById(R.id.textView2);
 			   TextView text2=(TextView) convertView.findViewById(R.id.textView3);
 			   TextView text3=(TextView) convertView.findViewById(R.id.textView4);
+			   TextView text4=(TextView) convertView.findViewById(R.id.textView1);
 			   CharSequence t1 = "Restless and irritable";
 			   SpannableString s1 = new SpannableString(t1);
 			   s1.setSpan(new BulletSpan(15), 0, t1.length(), 0);
@@ -161,40 +167,59 @@ public class DiarrhoeaSectionActivity extends Activity {
 			   CharSequence t3 = "Skin pinch goes back slowly";
 			   SpannableString s3 = new SpannableString(t3);
 			   s3.setSpan(new BulletSpan(15), 0, t3.length(), 0);
+			   CharSequence t4 = "Click here to take action";
+			   SpannableString s4 = new SpannableString(t4);
+			   s4.setSpan(new BulletSpan(15), 0, t4.length(), 0);
 			   text1.setText(s1);
 			   text2.setText(s2);
 			   text3.setText(s3);
+			   text4.setText(s4);
 		   }else if(groupPosition==2){
 			   TextView text1=(TextView) convertView.findViewById(R.id.textView2);
 			   TextView text2=(TextView) convertView.findViewById(R.id.textView3);
 			   TextView text3=(TextView) convertView.findViewById(R.id.textView4);
+			   TextView text4=(TextView) convertView.findViewById(R.id.textView1);
 			   CharSequence t1 = "Not enough signs to classify as some or severe dehydration ";
 			   SpannableString s1 = new SpannableString(t1);
 			   s1.setSpan(new BulletSpan(15), 0, t1.length(), 0);
+			   CharSequence t4 = "Click here to take action";
+			   SpannableString s4 = new SpannableString(t4);
+			   s4.setSpan(new BulletSpan(15), 0, t4.length(), 0);
 			   text1.setText(s1);
 			   text2.setText("");
 			   text3.setText("");
+			   text4.setText(s4);
 		   }
 		   else if(groupPosition==3){
 			   TextView text1=(TextView) convertView.findViewById(R.id.textView2);
 			   TextView text2=(TextView) convertView.findViewById(R.id.textView3);
 			   TextView text3=(TextView) convertView.findViewById(R.id.textView4);
-			   CharSequence t1 = "Diarrhoea lasting ≥ 14 days ";
+			   TextView text4=(TextView) convertView.findViewById(R.id.textView1);
+			   CharSequence t1 = "Diarrhoea lasting = 14 days ";
 			   SpannableString s1 = new SpannableString(t1);
 			   s1.setSpan(new BulletSpan(15), 0, t1.length(), 0);
+			   CharSequence t4 = "Click here to take action";
+			   SpannableString s4 = new SpannableString(t4);
+			   s4.setSpan(new BulletSpan(15), 0, t4.length(), 0);
 			   text1.setText(s1);
 			   text2.setText("");
 			   text3.setText("");
+			   text4.setText(s4);
 		   }else if(groupPosition==4){
 			   TextView text1=(TextView) convertView.findViewById(R.id.textView2);
 			   TextView text2=(TextView) convertView.findViewById(R.id.textView3);
 			   TextView text3=(TextView) convertView.findViewById(R.id.textView4);
-			   CharSequence t1 = "Blood in stool";
+			   TextView text4=(TextView) convertView.findViewById(R.id.textView1);
+			   CharSequence t1 = " ";
 			   SpannableString s1 = new SpannableString(t1);
 			   s1.setSpan(new BulletSpan(15), 0, t1.length(), 0);
-			   text1.setText(s1);
+			   CharSequence t4 = "Click here to take action";
+			   SpannableString s4 = new SpannableString(t4);
+			   s4.setSpan(new BulletSpan(15), 0, t4.length(), 0);
+			   text1.setText(" ");
 			   text2.setText("");
-			   text3.setText("");
+			   text3.setText(" ");
+			   text4.setText(s4);
 		   }
 		  return convertView;
 		 }
@@ -280,7 +305,7 @@ public class DiarrhoeaSectionActivity extends Activity {
 	
 	public void onBackPressed()
 	{
-	    
+	    end_time=System.currentTimeMillis();
 	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
 		dbh.insertCCHLog("Point of Care", "PNC Diagnostic Diarrhoea", start_time.toString(), end_time.toString());
 		finish();

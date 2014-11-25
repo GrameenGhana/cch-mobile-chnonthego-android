@@ -188,22 +188,29 @@
             $(_dots).css('display', 'inline-block');
         }
 
+
         if ($('.surveynext')) {
             $('.surveynext').click(function(e) {
                 var showError = false;
-                var ids = this.id.split(',');
-                for(var i=0; i < ids.length; i++) {
-                    if (! ($('#'+ids[i]+'A').is(':checked') || 
-                           $('#'+ids[i]+'B').is(':checked') || 
-                           $('#'+ids[i]+'C').is(':checked'))  
-                        ) { showError = true; }
+                if (this.id != "ne") {
+                
+                	var ids = this.id.split(',');
+                	for(var i=0; i < ids.length; i++) {
+                    	if (! ($('#'+ids[i]+'A').is(':checked') || 
+                           		$('#'+ids[i]+'B').is(':checked') || 
+                           		$('#'+ids[i]+'C').is(':checked'))  
+                        	) { showError = true; }
+                	}
+                	if (showError) {
+                    	jQuery.facebox({ div: '#fillerror' });
+                	} else { 
+                   		var _carousel = $(id).find('.carousel');
+                    	$(_carousel).slickNext();
+                	}
+                }  else {
+                		var _carousel = $(id).find('.carousel');
+                    	$(_carousel).slickNext();
                 }
-                if (showError) {
-                    jQuery.facebox({ div: '#fillerror' });
-                } else { 
-                   var _carousel = $(id).find('.carousel');
-                    $(_carousel).slickNext();
-                } 
             }); 
         }
 
@@ -300,9 +307,12 @@
                     if (plan=="") {
                         _view = "gliving/chooseplan.html";
                     } else {
-                        if (~ _view.indexOf('routines')) {
+                        if ((~ _view.indexOf('routines')) || (~ _view.indexOf('stressfree'))) {
                             if (! (_view == "gliving/content/routines/index.html")) {
                                 _view = _view.replace("routines/","routines/"+profile+"/");
+                            }
+                            if (! (_view == "gliving/content/stressfree/index.html")) {
+                                _view = _view.replace("stressfree/","stressfree/"+profile+"/");
                             }
                         }
                     }
@@ -429,9 +439,12 @@
                 if (profile=="") {
                     _view = 'gliving/survey.html';
                 } else {
-                    if (~ _view.indexOf('routines')) {
+                    if ((~ _view.indexOf('routines')) || (~ _view.indexOf('routines'))) {
                         if (! (_view == "gliving/content/routines/index.html")) {
                             _view = _view.replace("routines/","routines/"+profile+"/");
+                        }
+                        if (! (_view == "gliving/content/stressfree/index.html")) {
+                            _view = _view.replace("stressfree/","stressfree/"+profile+"/");
                         }
                     }
                 }

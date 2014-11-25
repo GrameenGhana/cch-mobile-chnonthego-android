@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.digitalcampus.mobile.learningGF"
-    android:versionCode="101"
-    android:versionName="3.0.22" 
+    android:versionCode="108"
+    android:versionName="3.0.29" 
     android:screenOrientation="portrait">
 
     <uses-sdk
@@ -166,7 +166,7 @@
         <activity android:name="org.digitalcampus.oppia.activity.PlanEventActivity"></activity>
         <activity android:name="org.digitalcampus.oppia.activity.EventsViewActivity"></activity>
         <activity android:name="org.digitalcampus.oppia.activity.UpdateTargetActivity"></activity>
-        <activity android:name="org.digitalcampus.oppia.activity.TargetMonthOptionsActivity"></activity>
+        <activity android:name="org.digitalcampus.oppia.activity.PlannerViewOptionsActivity"></activity>
         <service android:name="org.digitalcampus.oppia.service.UpdateTargetsService"></service>
         <receiver android:name="org.digitalcampus.oppia.service.UpdateTargetsScheduleReciever">
             <intent-filter>
@@ -316,6 +316,14 @@
         <activity android:name="org.grameenfoundation.poc.BreastProblemsPNCMotherActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.TakeActionBreastProblemsPNCMotherActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.BreastProblemsPNCMotherNextActivity"></activity>
+        <activity android:name="org.digitalcampus.oppia.activity.EventTargetsDetailActivity"></activity>
+        <activity android:name="org.digitalcampus.oppia.activity.CoverageTargetsDetailActivity"></activity>
+        <activity android:name="org.digitalcampus.oppia.activity.LearningTargetsDetailActivity"></activity>
+        <activity android:name="org.digitalcampus.oppia.activity.OtherTargetsDetailActivity"></activity>
+        <activity android:name="org.digitalcampus.oppia.activity.CoverageActivity"></activity>
+        <receiver android:name="org.digitalcampus.oppia.service.UpdateStartWeeklyServiceReceiver"></receiver>
+        <receiver android:name="org.digitalcampus.oppia.service.UpdateTargetsWeeklyScheduleReceiver"></receiver>
+        <activity android:name="org.digitalcampus.oppia.activity.TargetSettingActivity"></activity>
     </application>
 
 </manifest>

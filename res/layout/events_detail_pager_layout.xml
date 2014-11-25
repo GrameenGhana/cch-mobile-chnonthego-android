@@ -19,7 +19,7 @@
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Today&apos;s events"
+                android:text="Today&apos;s event(s)"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/Brown"
                 android:textSize="17sp"

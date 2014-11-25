@@ -18,12 +18,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ExamineThePatientActivity extends Activity {
+public class ExamineThePatientActivity extends BaseActivity {
 
 	private ListView listView_ask;
 	private ListView listView_look;
 	private ListView listView_check;
-	private Context mContext;
+//	private Context mContext;
 	private Button button_next;
 	private DbHelper dbh;
 	private Long start_time;

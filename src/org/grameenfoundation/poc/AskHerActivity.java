@@ -18,9 +18,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class AskHerActivity extends Activity {
+public class AskHerActivity extends BaseActivity {
 	
-	Context mContext;
+//	Context mContext;
 	private ListView listView_askHer;
 	private Button button_no;
 	private DbHelper dbh;

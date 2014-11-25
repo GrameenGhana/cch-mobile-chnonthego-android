@@ -3,8 +3,8 @@ package org.grameenfoundation.poc;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.activity.AboutActivity;
 import org.digitalcampus.oppia.activity.HelpActivity;
-import org.digitalcampus.oppia.activity.MainScreenActivity;
 import org.grameenfoundation.adapters.PointOfCareBaseAdapter;
+import org.grameenfoundation.chnonthego.MainScreenActivity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,10 +18,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class PointOfCareActivity extends Activity implements OnItemClickListener {
+public class PointOfCareActivity extends BaseActivity implements OnItemClickListener {
 
 	private ListView listView_menu;
-	private Context mContext;
+//	private Context mContext;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -56,42 +56,7 @@ public class PointOfCareActivity extends Activity implements OnItemClickListener
 		}
 		
 	}
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    // Inflate the menu items for use in the action bar
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.custom_action_bar, menu);
-	    return super.onCreateOptionsMenu(menu);
-	}
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		Intent intent;
-	    switch (item.getItemId()) {
-	        case R.id.action_home:
-	        	Intent goHome = new Intent(Intent.ACTION_MAIN);
-	 	          goHome.setClass(PointOfCareActivity.this, MainScreenActivity.class);
-	 	          goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	 	          startActivity(goHome);
-	 	          finish();
-	 	         
-	            return true;
-	        case R.id.action_help:
-	        	intent = new Intent(Intent.ACTION_MAIN);
-	        	intent.setClass(PointOfCareActivity.this, HelpActivity.class);
-	        	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	 	          startActivity(intent);
-	 	          finish();
-	 	         
-	            return true;
-	        case R.id.action_about:
-	        	intent = new Intent(Intent.ACTION_MAIN);
-	        	intent.setClass(PointOfCareActivity.this, AboutActivity.class);
-	        	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	 	          startActivity(intent);
-	 	          finish();
-	        	return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
-	}
+	
+	
+
 }

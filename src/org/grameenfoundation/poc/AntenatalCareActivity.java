@@ -19,10 +19,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class AntenatalCareActivity extends Activity implements OnItemClickListener{
+public class AntenatalCareActivity extends BaseActivity implements OnItemClickListener{
 
 	private ListView listView_ancMenu;
-	private Context mContext;
+//	private Context mContext;
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;

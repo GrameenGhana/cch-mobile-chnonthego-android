@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TakeActionHIVInfectionActivity extends Activity {
+public class TakeActionHIVInfectionActivity extends BaseActivity {
 
 	private String category;
 	private Long start_time;

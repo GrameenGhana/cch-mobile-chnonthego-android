@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class AcuteEmergenciesActivity extends Activity implements OnClickListener, OnItemClickListener{
+public class AcuteEmergenciesActivity extends BaseActivity implements OnClickListener, OnItemClickListener{
 
 	private ListView listView_acuteEmergencies;
 	private Context mContext;

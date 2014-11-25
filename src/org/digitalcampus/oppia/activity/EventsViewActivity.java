@@ -6,21 +6,27 @@ import java.util.ArrayList;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.calendar.CalendarEvents;
+import org.grameenfoundation.poc.BaseActivity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.TextView;
 
-public class EventsViewActivity extends Activity {
+public class EventsViewActivity extends  BaseActivity {
 	public String[] groupItem;
 	 public ArrayList<String> ChildItemEventTypeToday;
 	 public ArrayList<String> ChildItemEventTypeTomorrow;
@@ -42,6 +48,11 @@ public class EventsViewActivity extends Activity {
 	 private static final String EVENT_PLANNER_ID = "Event Planner";
 	private ExpandableListView expandableList_events;
 	private Context mContext;
+	private Button button_viewCalendar;
+	private ArrayList<String> ChildItemEventIdToday;
+	private ArrayList<String> ChildItemEventIdTomorrow;
+	private ArrayList<String> ChildItemEventIdFuture;
+	private eventsListAdapter adapter;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -70,23 +81,62 @@ public class EventsViewActivity extends Activity {
 		ChildItemEventTimeToday=c.getTodaysEventsTime(false);
 		ChildItemEventTimeTomorrow=c.getTommorowEventsTime(false);
 		ChildItemEventTimeFuture=c.getFutureEventsTime(false);
+		
+		ChildItemEventIdToday=c.getTodaysEventsId();
+		ChildItemEventIdTomorrow=c.getTomorrowEventsId();
+		ChildItemEventIdFuture=c.getFutureEventsId();
 	    expandableList_events=(ExpandableListView) findViewById(R.id.expandableListView_calendarEvents);
-	    eventsListAdapter adapter=new eventsListAdapter(mContext,groupItems,
+	    adapter=new eventsListAdapter(mContext,groupItems,
 	    											ChildItemEventTypeToday,
 	    											ChildItemEventTypeTomorrow,
 	    											ChildItemEventTypeFuture,
+	    											
 	    											ChildItemEventDescriptionToday,
 	    											ChildItemEventDescriptionTomorrow,
-	    											ChildItemEventDescriptionFuture,		 
+	    											ChildItemEventDescriptionFuture,
+	    											
 	    											ChildItemEventDetailToday,
 	    											ChildItemEventDetailTomorrow,
-	    											ChildItemEventDetailFuture,		 
+	    											ChildItemEventDetailFuture,		
+	    											
 	    											ChildItemEventTimeToday,
 	    											ChildItemEventTimeTomorrow,
 	    											ChildItemEventTimeFuture,
+	    											
+	    											ChildItemEventIdToday,
+	    											ChildItemEventIdTomorrow,
+	    											ChildItemEventIdFuture,
+	    											
 	    											expandableList_events);
 	expandableList_events.setAdapter(adapter);
+	button_viewCalendar=(Button) findViewById(R.id.button_viewCalendar);
+	button_viewCalendar.setOnClickListener(new OnClickListener(){
 
+		@Override
+		public void onClick(View v) {
+			Intent intent =  new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse("content://com.android.calendar/time"));
+			startActivity(intent);
+		}
+		
+	});
+	expandableList_events.setOnChildClickListener(new OnChildClickListener(){
+
+		@Override
+		public boolean onChildClick(ExpandableListView parent, View v,
+				int groupPosition, int childPosition, long id) {
+			String[] selected_items=adapter.getChild(groupPosition, childPosition);
+			Intent intent=new Intent(EventsViewActivity.this,PlanEventActivity.class);
+			intent.putExtra("event_type", selected_items[0]);
+			intent.putExtra("event_description", selected_items[1]);
+			intent.putExtra("event_location", selected_items[2]);
+			intent.putExtra("event_id", selected_items[3]);
+			intent.putExtra("mode", "edit_mode");
+			startActivity(intent);
+			return true;
+		}
+		
+	});
 	}
 	
 	class eventsListAdapter extends BaseExpandableListAdapter {
@@ -107,6 +157,10 @@ public class EventsViewActivity extends Activity {
 		 public ArrayList<String> ChildItemEventTimeToday;
 		 public ArrayList<String> ChildItemEventTimeTomorrow;
 		 public ArrayList<String> ChildItemEventTimeFuture;
+		 
+		 private ArrayList<String> ChildItemEventIdToday;
+			private ArrayList<String> ChildItemEventIdTomorrow;
+			private ArrayList<String> ChildItemEventIdFuture;
 		 public ExpandableListView eventsList;
 		 public LayoutInflater minflater;
 		 private int count;
@@ -118,15 +172,22 @@ public class EventsViewActivity extends Activity {
 				 					ArrayList<String> ChildItemEventTypeToday,
 				 					ArrayList<String> ChildItemEventTypeTomorrow,
 				 					ArrayList<String> ChildItemEventTypeFuture,
+				 					
 				 					ArrayList<String> ChildItemEventDescriptionToday,
 				 					ArrayList<String> ChildItemEventDescriptionTomorrow,
-				 					ArrayList<String> ChildItemEventDescriptionFuture,		 
+				 					ArrayList<String> ChildItemEventDescriptionFuture,	
+				 					
 				 					ArrayList<String> ChildItemEventDetailToday,
 				 					ArrayList<String> ChildItemEventDetailTomorrow,
-				 					ArrayList<String> ChildItemEventDetailFuture,		 
+				 					ArrayList<String> ChildItemEventDetailFuture,	
+				 					
 				 					ArrayList<String> ChildItemEventTimeToday,
 				 					ArrayList<String> ChildItemEventTimeTomorrow,
 				 					ArrayList<String> ChildItemEventTimeFuture,
+				 					
+				 					ArrayList<String> ChildItemEventIdToday,
+				 					ArrayList<String> ChildItemEventIdTomorrow,
+				 					ArrayList<String> ChildItemEventIdFuture,
 				 					ExpandableListView eventsList) {
 		  groupItem = grList;
 		  this.mContext=mContext;
@@ -134,16 +195,22 @@ public class EventsViewActivity extends Activity {
 		  this.ChildItemEventTypeToday = ChildItemEventTypeToday;
 		  this.ChildItemEventTypeTomorrow=ChildItemEventTypeTomorrow;
 		  this.ChildItemEventTypeFuture=ChildItemEventTypeFuture;
+		  
 		  this.ChildItemEventDescriptionToday=ChildItemEventDescriptionToday;
 		  this.ChildItemEventDescriptionTomorrow=ChildItemEventDescriptionTomorrow;
 		  this.ChildItemEventDescriptionFuture=ChildItemEventDescriptionFuture;
+		  
 		  this.ChildItemEventDetailToday = ChildItemEventDetailToday;
-		  this.ChildItemEventDetailToday=ChildItemEventDetailToday;
 		  this.ChildItemEventDetailTomorrow=ChildItemEventDetailTomorrow;
 		  this.ChildItemEventDetailFuture=ChildItemEventDetailFuture;
+		  
 		  this.ChildItemEventTimeToday=ChildItemEventTimeToday;
 		  this.ChildItemEventTimeTomorrow=ChildItemEventTimeTomorrow;
 		  this.ChildItemEventTimeFuture=ChildItemEventTimeFuture;
+		  
+		  this.ChildItemEventIdToday=ChildItemEventIdToday;
+		  this.ChildItemEventIdTomorrow=ChildItemEventIdTomorrow;
+		  this.ChildItemEventIdFuture=ChildItemEventIdFuture;
 		  this.eventsList=eventsList;
 		 
 		 }
@@ -169,11 +236,19 @@ public class EventsViewActivity extends Activity {
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventDescription);
 		   TextView text3=(TextView) convertView.findViewById(R.id.textView_eventDetails);
 		   TextView text4=(TextView) convertView.findViewById(R.id.textView_eventTime);
+		   if(ChildItemEventTypeToday.size()>0){
 		   text.setText(ChildItemEventTypeToday.get(childPosition));
+		   }if(ChildItemEventDescriptionToday.size()>0){
 		   text2.setText(ChildItemEventDescriptionToday.get(childPosition));
+		   }if(ChildItemEventDetailToday.size()>0){
 		   text3.setText(ChildItemEventDetailToday.get(childPosition));
-		   convertView.setBackgroundColor(Color.WHITE);
+		   }
+		  
+		   if(ChildItemEventTimeToday.size()>0){
 		  text4.setText(ChildItemEventTimeToday.get(childPosition));
+		  
+		   }
+		 
 		   //text.setTypeface(custom_font);
 		   //text2.setTypeface(custom_font);
 		   //text3.setTypeface(custom_font);
@@ -183,11 +258,15 @@ public class EventsViewActivity extends Activity {
 			   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventDescription);
 			   TextView text3=(TextView) convertView.findViewById(R.id.textView_eventDetails);
 			   TextView text4=(TextView) convertView.findViewById(R.id.textView_eventTime);
+			   if(ChildItemEventTypeTomorrow.size()>0){
 			   text.setText(ChildItemEventTypeTomorrow.get(childPosition));
+			   }if(ChildItemEventDescriptionTomorrow.size()>0){
 			   text2.setText(ChildItemEventDescriptionTomorrow.get(childPosition));
+			   }if(ChildItemEventDetailTomorrow.size()>0){
 			   text3.setText(ChildItemEventDetailTomorrow.get(childPosition));
+			   }if(ChildItemEventTimeTomorrow.size()>0){
 			  text4.setText(ChildItemEventTimeTomorrow.get(childPosition));
-			   convertView.setBackgroundColor(Color.WHITE);
+			   }
 			   //text.setTypeface(custom_font);
 			   //text2.setTypeface(custom_font);
 			   //text3.setTypeface(custom_font);
@@ -197,17 +276,23 @@ public class EventsViewActivity extends Activity {
 			   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventDescription);
 			   TextView text3=(TextView) convertView.findViewById(R.id.textView_eventDetails);
 			   TextView text4=(TextView) convertView.findViewById(R.id.textView_eventTime);
+			   if(ChildItemEventTypeFuture.size()>0){
 			   text.setText(ChildItemEventTypeFuture.get(childPosition));
+			   }
+			   if(ChildItemEventDescriptionFuture.size()>0){
 			   text2.setText(ChildItemEventDescriptionFuture.get(childPosition));
+			   }
+			   if(ChildItemEventDetailFuture.size()>0){
 			   text3.setText(ChildItemEventDetailFuture.get(childPosition));
+			   }
+			   if(ChildItemEventTimeFuture.size()>0){
 			   text4.setText(ChildItemEventTimeFuture.get(childPosition));
-			   convertView.setBackgroundColor(Color.WHITE);
+			   }
 			   //text.setTypeface(custom_font);
 			   //text2.setTypeface(custom_font);
 			   //text3.setTypeface(custom_font);
 			   //text4.setTypeface(custom_font);
 		   }
-		  
 		  return convertView;
 		 }
 
@@ -264,7 +349,18 @@ public class EventsViewActivity extends Activity {
 		@Override
 		public String[] getChild(int groupPosition, int childPosition) {
 			String[] item = null;
-
+			if(groupPosition==0){
+				item=new String[]{ChildItemEventTypeToday.get(childPosition),
+						ChildItemEventDescriptionToday.get(childPosition)
+							,ChildItemEventDetailToday.get(childPosition),
+							ChildItemEventIdToday.get(childPosition)};
+				}else if (groupPosition==1){
+					item=new String[]{ChildItemEventTypeTomorrow.get(childPosition),ChildItemEventDescriptionTomorrow.get(childPosition)
+							,ChildItemEventDetailTomorrow.get(childPosition),ChildItemEventIdTomorrow.get(childPosition)};
+				}else if(groupPosition==2){
+					item=new String[]{ChildItemEventTypeFuture.get(childPosition),ChildItemEventDescriptionFuture.get(childPosition)
+							,ChildItemEventDetailFuture.get(childPosition),ChildItemEventIdFuture.get(childPosition)};
+				}
 			return item;
 				
 		}

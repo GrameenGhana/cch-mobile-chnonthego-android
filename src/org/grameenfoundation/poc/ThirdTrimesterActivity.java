@@ -10,7 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-public class ThirdTrimesterActivity extends Activity {
+public class ThirdTrimesterActivity extends BaseActivity {
 	private WebView myWebView;
 	private static final String URL = "file:///android_asset/www/cch/modules/poc/checktrimester3.html";
 	/** Called when the activity is first created. */

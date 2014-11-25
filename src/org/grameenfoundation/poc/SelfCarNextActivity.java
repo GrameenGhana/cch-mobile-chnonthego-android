@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class SelfCarNextActivity extends Activity {
+public class SelfCarNextActivity extends BaseActivity {
 	
 	private DbHelper dbh;
 	private Long start_time;

@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:background="@color/BackgroundGrey"
         android:gravity="center_vertical"
-        android:padding="10dp" >
+        android:padding="15dp" >
 
         <ImageView
             android:id="@+id/imageView_ancIcon"
@@ -39,7 +39,9 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/TextColorGreen" />
+                android:textColor="@color/TextColorGreen"
+                android:visibility="gone" />
+
         </LinearLayout>
 
         <ImageView

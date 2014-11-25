@@ -14,8 +14,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right" >
+
+            <Button
+                android:id="@+id/button_show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="28dip"
+                android:text="Show pending updates"
+                android:textColor="@color/Brown" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView_coverageStatus"
@@ -28,35 +42,18 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="302dp"
+        android:layout_height="386dp"
         android:orientation="vertical" >
 
         <ExpandableListView
             android:id="@+id/expandableListView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/activatedBackgroundIndicator"
+            android:background="@color/BackgroundGrey"
             android:dividerHeight="5dp"
             android:fontFamily="sans-serif-light" >
 
         </ExpandableListView>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical|center" >
-
-        <Button
-            android:id="@+id/button_addCoverage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_add"
-            android:fontFamily="sans-serif-light"
-            android:minHeight="28dip"
-            android:text="Add target"
-            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 

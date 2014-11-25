@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class ImmunisationScheduleActivity extends Activity {
+public class ImmunisationScheduleActivity extends BaseActivity {
 	
 	private DbHelper dbh;
 	private Long start_time;
@@ -14,6 +14,7 @@ public class ImmunisationScheduleActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext=ImmunisationScheduleActivity.this;
 	    setContentView(R.layout.activity_immunisation_schedule);
 	    dbh=new DbHelper(ImmunisationScheduleActivity.this);
 	    start_time=System.currentTimeMillis();

@@ -3,6 +3,10 @@ package org.digitalcampus.oppia.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+
+import org.grameenfoundation.cch.utils.CCHTimeUtil;
+import org.joda.time.DateTime;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -15,6 +19,7 @@ public class UpdateStartServiceReceiver extends BroadcastReceiver {
 		Time week;
 		Time end_of_month;
 		private Time week_day;
+		DateTime dt;
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		time_now=new Time();
@@ -23,9 +28,16 @@ public class UpdateStartServiceReceiver extends BroadcastReceiver {
 		week_day=new Time();
 		end_of_month=new Time();
 		time_now.setToNow();
+		dt=new DateTime();
+		
+
+		
 		compared_time.set(time_now.second, 0, 17, time_now.monthDay, time_now.month, time_now.year);
-		week.set(time_now.second, 0, 17, 5, time_now.month, time_now.year);
-		end_of_month.set(time_now.second, 0, 17, 31, time_now.month, time_now.year);
+//		week.set(time_now.second, 0, 17, 5, time_now.month, time_now.year);
+//		end_of_month.set(time_now.second, 0, 17, 31, time_now.month, time_now.year);
+		week  = CCHTimeUtil.getLastDayOfWeek(new Date());
+		end_of_month  = CCHTimeUtil.getLastFidayOfMonth(new Date());
+		
 		String today= String.valueOf(time_now.hour) +":"+String.valueOf(time_now.minute)+String.valueOf(time_now.second)
 					+","+String.valueOf(time_now.monthDay)+"/"+String.valueOf(time_now.month)+"/"+String.valueOf(time_now.year);
 		String compared_today= String.valueOf(compared_time.hour) +":"+String.valueOf(compared_time.minute)+String.valueOf(compared_time.second)
@@ -40,7 +52,8 @@ public class UpdateStartServiceReceiver extends BroadcastReceiver {
 		if(today.equals(compared_today)){
 		Intent service = new Intent(context, UpdateTargetsService.class);
 		context.startService(service);
-		}else if(today.equals(compared_week)){
+		}
+		else if(today.equals(compared_week)){
 			Intent service = new Intent(context, UpdateTargetsWeeklyService.class);
 			context.startService(service);	
 		}else if(today.equals(compared_endofmonth)){

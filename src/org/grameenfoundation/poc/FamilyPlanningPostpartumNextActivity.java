@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class FamilyPlanningPostpartumNextActivity extends Activity {
+public class FamilyPlanningPostpartumNextActivity extends BaseActivity {
 
 	private DbHelper dbh;
 	private Long start_time;
@@ -14,6 +14,7 @@ public class FamilyPlanningPostpartumNextActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext=FamilyPlanningPostpartumNextActivity.this; 
 	    setContentView(R.layout.activity_family_planning_postpartum_next);
 	    dbh=new DbHelper(FamilyPlanningPostpartumNextActivity.this);
 	    start_time=System.currentTimeMillis();

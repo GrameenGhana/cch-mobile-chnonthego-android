@@ -22,10 +22,10 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-public class BreastProblemsCounsellingNextActivity extends Activity {
+public class BreastProblemsCounsellingNextActivity extends BaseActivity {
 
 	private ExpandableListView expandableListView_breastProblems;
-	 private Context mContext;
+//	 private Context mContext;
 	 private DbHelper dbh;
 		private Long start_time;
 		private Long end_time;

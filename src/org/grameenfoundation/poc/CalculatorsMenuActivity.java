@@ -16,9 +16,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class CalculatorsMenuActivity extends Activity {
+public class CalculatorsMenuActivity extends BaseActivity {
 
-	Context mContext;
+//	Context mContext;
 	private ListView listView_calculators;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

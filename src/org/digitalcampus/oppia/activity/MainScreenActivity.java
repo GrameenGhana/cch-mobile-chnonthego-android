@@ -3,6 +3,7 @@ package org.digitalcampus.oppia.activity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.digitalcampus.mobile.learningGF.R;
@@ -34,6 +35,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.format.DateFormat;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -58,6 +60,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	Time compared_time;
 	Time week;
 	Time end_of_month;
+
 	SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
 	private static DbHelper dbh;
@@ -82,31 +85,6 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	    getActionBar().setSubtitle("Home Page");
 	    TypefaceUtil.overrideFont(mContext, "SERIF", "fonts/Roboto-Thin.ttf");
 	    main_menu_listview=(ListView) findViewById(R.id.listView_mainScreenMenu);
-	    time_now=new Time();
-		compared_time=new Time();
-		week=new Time();
-		end_of_month=new Time();
-		time_now.setToNow();
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy kk:mm");
-		compared_time.set(time_now.second, 0, 17, time_now.monthDay, time_now.month, time_now.year);
-		week.set(time_now.second, 0, 17, 5, time_now.month, time_now.year);
-		end_of_month.set(time_now.second, 0, 17, 31, time_now.month, time_now.year);
-		String today= String.valueOf(time_now.hour) +":"+String.valueOf(time_now.minute)+String.valueOf(time_now.second)
-					+","+String.valueOf(time_now.monthDay)+"/"+String.valueOf(time_now.month)+"/"+String.valueOf(time_now.year);
-		String compared_today= String.valueOf(compared_time.hour) +":"+String.valueOf(compared_time.minute)+String.valueOf(compared_time.second)
-				+","+String.valueOf(compared_time.monthDay)+"/"+String.valueOf(compared_time.month)+"/"+String.valueOf(compared_time.year);
-		
-		
-		String compared_week= String.valueOf(week.hour) +":"+String.valueOf(week.minute)+String.valueOf(week.second)
-			+","+String.valueOf(week.monthDay)+"/"+String.valueOf(week.month)+"/"+String.valueOf(week.year);
-		
-		String compared_endofmonth= String.valueOf(end_of_month.hour) +":"+String.valueOf(end_of_month.minute)+String.valueOf(end_of_month.second)
-				+","+String.valueOf(end_of_month.monthDay)+"/"+String.valueOf(end_of_month.month)+"/"+String.valueOf(end_of_month.year);
-		System.out.println(today);
-		System.out.println(compared_today);
-		System.out.println(compared_week);
-		System.out.println(compared_endofmonth);
 	    
 	    String[] categories={"Planner",
 	    		"Point of Care",
@@ -184,14 +162,19 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		 public ArrayList<String> EventTypeToday;
 		private SharedPreferences prefs;
 		private String current_month;
+		String due_date;
 		private HashMap<String, String> eventUpdateItemsDaily;
 		private HashMap<String, String> coverageUpdateItemsDaily;
 		private HashMap<String, String> otherUpdateItemsDaily;
+		private HashMap<String, String> learningUpdateItemsDaily;
 		private ArrayList<String> eventId;
 		private ArrayList<String> coverageId;
 		private ArrayList<String> otherId;
 		private TextView textView_eventTargetsNumber;
 		private TextView textView_clickHere;
+		private ArrayList<String> learningId;
+		private ArrayList<String> firstName;
+		private String user_first_name;
 		 public EventsSummary(){
 			 
 		 }
@@ -202,10 +185,12 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			 	//loginPref=getApplicationContext().getSharedPreferences("loginPrefs", MODE_WORLD_READABLE);
 			    name=prefs.getString("first_name", "name");
 			    dbh=new DbHelper(getActivity());
+			    firstName=dbh.getUserFirstName(name);
 			    status=(TextView) rootView.findViewById(R.id.textView_status);
 			    event_number=(TextView) rootView.findViewById(R.id.textView_eventsNumber);
 			    Time time = new Time();
 			    time.setToNow();
+			    String today= String.valueOf(time.monthDay)+"-"+String.valueOf(time.month+1)+"-"+String.valueOf(time.year);
 			    Calendar rightNow = Calendar.getInstance();
 			    java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("MMMM");
 			   // month= rightNow.get(Calendar.MONTH)+1;
@@ -213,27 +198,36 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			   // System.out.println(month_text);
 			    c= new CalendarEvents(mContext);
 			    EventTypeToday=c.getTodaysEventsType();
+			    if(firstName.size()>0){
+			    	user_first_name=firstName.get(0);
+			    }else if(firstName.size()==0){
+			    	user_first_name.equals(name);
+			    }
 			    if(time.hour<12)
 			    {
 			    	System.out.println("name");
-			    	  status.setText("Good morning, "+name+"!");
+			    	  status.setText("Good morning, "+user_first_name+"!");
 			    }else if(time.hour>12&& time.hour<17)
 			    {
-			    	 status.setText("Good afternoon, "+name+"!");
+			    	 status.setText("Good afternoon, "+user_first_name+"!");
 			    }else if(time.hour>17&& time.hour<20)
 			    {
-			    	 status.setText("Good evening, "+name+"!");
+			    	 status.setText("Good evening, "+user_first_name+"!");
 			    }else{
-			    	 status.setText("Good day, "+name+"!");
+			    	 status.setText("Good day, "+user_first_name+"!");
 			    }
 			 //eventsNumber=db.getAllEventsForMonth("September");
-			 if(EventTypeToday.get(0).equalsIgnoreCase("No planned events for today")){
+			 if(EventTypeToday.size()>0&&EventTypeToday.get(0).equalsIgnoreCase("No planned events for today")){
 				 event_number.setText("0"); 
 			 }else {
 				 event_number.setText(String.valueOf(EventTypeToday.size())); 
 			 }
 			 Calendar c = Calendar.getInstance();
 		        int month=c.get(Calendar.MONTH)+1;
+		        int day=c.get(Calendar.DAY_OF_WEEK);
+		        int year=c.get(Calendar.YEAR);
+		        due_date=day+"-"+month+"-"+year;
+		        System.out.println(today);
 		        switch(month){
 		        case 1:
 			        	current_month="January";
@@ -272,51 +266,67 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		        	current_month="December";
 		        	break;
 		        }
-		        eventUpdateItemsDaily=dbh.getAllDailyEvents(current_month);
-				coverageUpdateItemsDaily=dbh.getAllDailyCoverage(current_month);
-				otherUpdateItemsDaily=dbh.getAllDailyOther(current_month);
-				//Intent service2 = new Intent(this,UpdateTargetsService.class);
-				//this.startService(service2);
+		        eventUpdateItemsDaily=dbh.getAllEvents("Daily");
+				coverageUpdateItemsDaily=dbh.getAllCoverage("Daily");
+				otherUpdateItemsDaily=dbh.getAllOther("Daily");
+				learningUpdateItemsDaily=dbh.getAllLearning("Daily");
+				//Intent service2 = new Intent(getActivity(),UpdateMonthlyTargetService.class);
+				//getActivity().startService(service2);
 				
 				textView_eventTargetsNumber=(TextView) rootView.findViewById(R.id.textView_eventTargetsNumber);
 				textView_clickHere=(TextView) rootView.findViewById(R.id.textView_clickHere);
-				textView_clickHere.setOnClickListener(new OnClickListener(){
-
-					@Override
-					public void onClick(View v) {
-						Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
-						startActivity(intent);
-					}
-					
-				});
+				
 				 eventId=new ArrayList<String>();
-				 eventId.add(eventUpdateItemsDaily.get("event_id"));
+				 eventId=dbh.getAllForEventsId("Daily");
 				 coverageId=new ArrayList<String>();
-				 coverageId.add(coverageUpdateItemsDaily.get("coverage_id"));
+				 coverageId=dbh.getAllForCoverageId("Daily");
 				 otherId=new ArrayList<String>();
-				 otherId.add(otherUpdateItemsDaily.get("other_id"));
+				 otherId=dbh.getAllForOtherId("Daily");
+				 learningId=new ArrayList<String>();
+				 learningId=dbh.getAllForLearningId("Daily");
 				 int number=eventId.size();
 				 int number2=coverageId.size();
 				 int number3=otherId.size();
-				 int counter;
-				if(eventUpdateItemsDaily.isEmpty()){
+				 int number4=learningId.size();
+				 final int counter;
+				if(eventId.size()<0){
 					number=0;
 				}else{
 					number=eventId.size();
 				}
-				if(coverageUpdateItemsDaily.isEmpty()){
+				if(coverageId.size()<0){
 					number2=0;
 				}else {
 					number2=coverageId.size();
 				}
-				if(otherUpdateItemsDaily.isEmpty()){
+				if(otherId.size()<0){
 					number3=0;
 				}else{
 					number3=otherId.size();
 				}
-				counter=number+number2+number3;
+				
+				if(learningId.size()<0){
+					number4=0;
+				}else{
+					number4=learningId.size();
+				}
+				counter=number+number2+number3+number4;
 				System.out.println(counter);
 				textView_eventTargetsNumber.setText(String.valueOf(counter));
+				textView_clickHere.setOnClickListener(new OnClickListener(){
+
+					@Override
+					public void onClick(View v) {
+						if(counter>0){
+						Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
+						startActivity(intent);
+						}else if(counter==0){
+							 Toast.makeText(getActivity(), "You have no targets to update!",
+							         Toast.LENGTH_SHORT).show();
+						}
+					}
+					
+				});
 			 return rootView;
 		 }
 	 }
@@ -456,7 +466,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	
 	private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
 	private long mBackPressed;
-
+	
 	@Override
 	public void onBackPressed()
 	{

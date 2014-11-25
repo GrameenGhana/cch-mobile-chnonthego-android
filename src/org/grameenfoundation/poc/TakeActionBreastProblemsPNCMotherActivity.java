@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class TakeActionBreastProblemsPNCMotherActivity extends Activity {
+public class TakeActionBreastProblemsPNCMotherActivity extends BaseActivity {
 	private Context mContext;
 	private DbHelper dbh;
 	private Long start_time;

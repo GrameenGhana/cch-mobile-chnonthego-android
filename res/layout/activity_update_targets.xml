@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ScrollView1"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-<LinearLayout 
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -21,96 +19,17 @@
             android:paddingBottom="20dp"
             android:text="Click an item below to update"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
+            android:textColor="@color/Brown" />
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:text="Events targets: "
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold" />
-
-        <ListView
-            android:id="@+id/listView1"
+        <ExpandableListView
+            android:id="@+id/expandableListView_updates"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:background="@drawable/customborder" >
-
-        </ListView>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/LinearLayout_coverageUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="Coverage targets:"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold" />
+            android:background="@color/BackgroundGrey"
+            android:dividerHeight="5dp" >
 
-        <ListView
-            android:id="@+id/listView2"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@drawable/customborder" >
-        </ListView>
-    </LinearLayout>
+        </ExpandableListView>
 
-    <LinearLayout
-        android:id="@+id/LinearLayout_otherUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="Other targets:"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold" />
-
-        <ListView
-            android:id="@+id/listView3"
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:background="@drawable/customborder" >
-        </ListView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/LinearLayout_learningUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone" >
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Learning"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <ListView
-            android:id="@+id/listView4"
-            android:layout_width="match_parent"
-            android:layout_height="178dp"
-            android:background="@drawable/customborder" >
-        </ListView>
     </LinearLayout>
 
 </LinearLayout>
-</ScrollView>

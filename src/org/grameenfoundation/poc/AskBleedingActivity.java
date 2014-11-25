@@ -26,10 +26,10 @@ import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class AskBleedingActivity extends Activity {
+public class AskBleedingActivity extends BaseActivity {
 
 	private ListView listView_bleeding;
-	private Context mContext;
+//	private Context mContext;
 	String[] groupItems;
 	String[] ChildItemsOne;
 	String[] ChildItemsTwo;

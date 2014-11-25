@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class SoftUterusPNCMotherActivity extends Activity {
+public class SoftUterusPNCMotherActivity extends BaseActivity {
 
 	private Button button_no;
 	private Button button_yes;

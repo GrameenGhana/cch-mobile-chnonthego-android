@@ -23,7 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingBottom="30dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -112,19 +113,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical" >
-
-            <Button
-                android:id="@+id/forgotten_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:gravity="center"
-                android:minHeight="28dp"
-                android:onClick="onForgetClick"
-                android:text="Forgot password?"
-                android:textColor="@color/White"
-                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 

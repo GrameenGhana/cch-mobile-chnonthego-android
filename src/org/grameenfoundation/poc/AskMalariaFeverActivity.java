@@ -11,11 +11,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class AskMalariaFeverActivity extends Activity {
+public class AskMalariaFeverActivity extends BaseActivity {
 
 	private Button button_no;
 	private Button button_yes;
-	private Context mContext;
+//	private Context mContext;
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;

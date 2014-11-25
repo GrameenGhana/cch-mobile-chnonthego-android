@@ -32,6 +32,15 @@
             android:text="OR has yellow palms and soles at any age  "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Click here to take action"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/TextColorWine"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
 </LinearLayout>

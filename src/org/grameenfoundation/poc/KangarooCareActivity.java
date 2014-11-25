@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class KangarooCareActivity extends Activity {
+public class KangarooCareActivity extends BaseActivity {
 
 	private Button button_next;
 	private DbHelper dbh;
@@ -20,6 +20,7 @@ public class KangarooCareActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext=KangarooCareActivity.this;
 	    setContentView(R.layout.activity_kangaroo_care);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Counselling: Kangaroo Care");

@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class ExpressBreastmilkNextActivity extends Activity {
+public class ExpressBreastmilkNextActivity extends BaseActivity {
 
 	private Button button_next;
 	private DbHelper dbh;
@@ -20,6 +20,7 @@ public class ExpressBreastmilkNextActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext= ExpressBreastmilkNextActivity.this;
 	    setContentView(R.layout.activity_express_breastmilk_next);
 	    dbh=new DbHelper(ExpressBreastmilkNextActivity.this);
 	    start_time=System.currentTimeMillis();

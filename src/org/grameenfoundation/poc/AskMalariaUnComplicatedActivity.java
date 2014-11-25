@@ -17,8 +17,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class AskMalariaUnComplicatedActivity extends Activity {
-	private Context mContext;
+public class AskMalariaUnComplicatedActivity extends BaseActivity {
+//	private Context mContext;
 	private ListView listView_malaria;
 	private Button button_next;
 	 private DbHelper dbh;

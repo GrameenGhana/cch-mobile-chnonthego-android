@@ -19,12 +19,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class TakeActionActivity extends Activity{
+public class TakeActionActivity extends BaseActivity{
 
 	//private ListView listView_takeAction;
 	private String take_action_category;
 	//private TextView textView_takeAction;
-	private Context mContext;
+//	private Context mContext;
 	private Long start_time;
 	private Long end_time;
 	private DbHelper dbh;

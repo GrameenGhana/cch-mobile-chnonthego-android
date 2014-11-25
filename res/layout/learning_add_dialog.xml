@@ -1,16 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent" >
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/button_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show pending updates"
+            android:textColor="@color/Brown" />
+
+    </LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_border2"
+    android:orientation="vertical"
+    android:showDividers="middle" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="0dp"
         android:paddingTop="20dp" >
 
         <TextView
@@ -27,7 +53,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -35,7 +60,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="20dp" >
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
 
         <TextView
             android:id="@+id/textView2"
@@ -65,7 +91,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -87,10 +112,101 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start date:     "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/Brown"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView_startDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.61"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <ImageButton
+                android:id="@+id/imageButton_startDate"
+                android:layout_width="46dp"
+                android:layout_height="42dp"
+                android:src="@drawable/ic_calendar_button" />
         </LinearLayout>
 
+        <View
+            android:id="@+id/view2"
+            android:layout_width="wrap_content"
+            android:layout_height="14dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Due date:    "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/Brown"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView_dueDateValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.25"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <ImageButton
+                android:id="@+id/imageButton_dueDate"
+                android:layout_width="46dp"
+                android:layout_height="42dp"
+                android:src="@drawable/ic_calendar_button" />
+        </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remind me:"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/Brown"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinner_period"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -122,3 +238,4 @@
     </LinearLayout>
 
 </LinearLayout>
+</ScrollView>

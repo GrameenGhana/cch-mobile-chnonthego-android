@@ -11,12 +11,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class TakeActionAskHerActivity extends Activity {
+public class TakeActionAskHerActivity extends BaseActivity {
 
 	//private ListView listView_takeAction;
 	private TextView textView_takeAction;
 	private String take_action_category;
-	Context mContext;
+//	Context mContext;
 	private ImageView imageView;
 	private Long start_time;
 	private Long end_time;
@@ -67,7 +67,7 @@ public class TakeActionAskHerActivity extends Activity {
           	  imageView=(ImageView) findViewById(R.id.imageView1);
           	  textView_takeAction.setText(take_action_category);
           	  imageView.setImageResource(R.drawable.edema);
-    	    }else if(take_action_category.equals("BP  ≥  90mm Hg")){
+    	    }else if(take_action_category.equals("BP  =  90mm Hg")){
     	    	setContentView(R.layout.activity_danger_signs);
             	  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
             	  imageView=(ImageView) findViewById(R.id.imageView1);

@@ -20,7 +20,6 @@
                 android:id="@+id/textView_eventType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Medium Text"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/TextColorWine" />
 
@@ -28,7 +27,6 @@
                 android:id="@+id/textView_eventDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Small Text"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/TextColorGreen" />
 
@@ -36,7 +34,6 @@
                 android:id="@+id/textView_eventDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Small Text"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="italic" />
 
@@ -46,7 +43,6 @@
             android:id="@+id/textView_eventTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Small Text"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/TextColorGreen" />
 

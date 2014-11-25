@@ -9,6 +9,7 @@ import org.digitalcampus.oppia.activity.UpdateTargetActivity;
 import org.digitalcampus.oppia.activity.UpdateWeeklyTargetsActivity;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
+import org.digitalcampus.oppia.service.UpdateMonthlyTargetService.CoveragePeriods;
 import org.digitalcampus.oppia.service.UpdateTargetsService.MyBinder;
 
 import com.bugsense.trace.BugSenseHandler;
@@ -44,6 +45,7 @@ public class UpdateTargetsWeeklyService extends Service {
 	private ArrayList<String> eventId;
 	private ArrayList<String> coverageId;
 	private ArrayList<String> otherId;
+	private ArrayList<String> learningId;
 	
 	@Override
 	public void onCreate() {
@@ -96,22 +98,57 @@ public class UpdateTargetsWeeklyService extends Service {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Log.v(TAG, "Starting weekly target update Service");
 	
-		 eventUpdateItemsWeekly=db.getAllDailyEvents(current_month);
-		 coverageUpdateItemsWeekly=db.getAllDailyCoverage(current_month);
-		 otherUpdateItemsWeekly=db.getAllDailyOther(current_month);
-		 eventId=new ArrayList<String>();
-		 eventId.add(eventUpdateItemsWeekly.get("event_id"));
-		
-		 coverageId=new ArrayList<String>();
-		 coverageId.add(coverageUpdateItemsWeekly.get("coverage_id"));
-		 otherId=new ArrayList<String>();
-		 otherId.add(otherUpdateItemsWeekly.get("other_id"));
-		 int number=eventId.size();
+		// eventUpdateItemsWeekly=db.getAllDailyEvents(current_month);
+		// coverageUpdateItemsWeekly=db.getAllDailyCoverage(current_month);
+	// otherUpdateItemsWeekly=db.getAllDailyOther(current_month);
+//		 eventId=new ArrayList<String>();
+//		 eventId=db.getAllForEventsId("Weekly");
+//		 coverageId=new ArrayList<String>();
+//		 coverageId=db.getAllForCoverageId("Weekly");
+//		 otherId=new ArrayList<String>();
+//		 otherId=db.getAllForOtherId("Weekly");
+//		 learningId=new ArrayList<String>();
+//		 learningId=db.getAllForLearningId("Weekly");
+//		 int number=eventId.size();
+//		 int number2=coverageId.size();
+//		 int number3=otherId.size();
+//		 int number4=learningId.size();
+//		 int counter;
+//		 if(eventId.size()==0){
+//				number=0;
+//			}else{
+//				number=eventId.size();
+//			}
+//			if(coverageId.size()==0){
+//				number2=0;
+//			}else {
+//				number2=coverageId.size();
+//			}
+//			if(otherId.size()==0){
+//				number3=0;
+//			}else{
+//				number3=otherId.size();
+//			}
+//			
+//			if(learningId.size()==0){
+//				number4=0;
+//			}else{
+//				number4=learningId.size();
+//			}
+//		counter= number+number2+number3+number4;
+		 long numberOfEvents=0l;
+		 try {
+			 numberOfEvents =db.getCoverageCount(CoveragePeriods.Weekly.name())+db.getLearningCount(CoveragePeriods.Weekly.name())+db.getEventCount(CoveragePeriods.Weekly.name());
+		} catch (Exception e) {
+			
+		}
+	System.out.println(numberOfEvents);
+	if(numberOfEvents>0){
 		NotificationCompat.Builder mBuilder =
 		        new NotificationCompat.Builder(this)
 		        .setSmallIcon(R.drawable.app_icon)
 		        .setContentTitle("CHN on the go")
-		        .setContentText("You have "+String.valueOf(number)+" weekly targets to update.");
+		        .setContentText("You have "+String.valueOf(numberOfEvents)+" weekly targets to update.");
 		// Creates an explicit intent for an Activity in your app
 		Intent resultIntent = new Intent(this, UpdateWeeklyTargetsActivity.class);
 
@@ -135,7 +172,7 @@ public class UpdateTargetsWeeklyService extends Service {
 		mBuilder.setAutoCancel(true);
 		// mId allows you to update the notification later on.
 		mNotificationManager.notify(mId, mBuilder.build());
-		
+	}
 		return Service.START_NOT_STICKY;
 	}
 	@Override

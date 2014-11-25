@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class BreastAttachementActivity extends Activity {
+public class BreastAttachementActivity extends BaseActivity {
 
 	private Button button_next;
 	private DbHelper dbh;
@@ -21,6 +21,7 @@ public class BreastAttachementActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext= BreastAttachementActivity.this;
 	    setContentView(R.layout.activity_breast_attachement);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Counselling: Breast Attachment");

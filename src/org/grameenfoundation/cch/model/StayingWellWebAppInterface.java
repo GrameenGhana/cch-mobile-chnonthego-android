@@ -47,22 +47,18 @@ public class StayingWellWebAppInterface {
     @JavascriptInterface
     public String getRoutineInfo(String infoType) {
     	
+		return "Welcome to Staying Well";
+/*
     	// if no profile encourage client to sign up
-    	//if (getProfileStatus()=="") {
+    	if (getProfileStatus()=="" || getMonthlyPlan()=="") {
     		return "Welcome to Staying Well";
-    	//}
-    	
-    	// if no plan has been set...
-    /*	if (getMonthlyPlan()=="") {
-    		return "Please <a href=\"#\" class=\"navigation-view\" data-view=\"gliving/chooseplan.html\">select a plan</a> to get routine recommendations.";
     	}
-    	
+    	    	
     	Calendar c  = Calendar.getInstance();
     	int year = c.get(Calendar.YEAR);
     	int month = c.get(Calendar.MONTH);
     	int day = c.get(Calendar.DAY_OF_MONTH);
     	String timeofday = getTime();
-
     	int numactivities = 5;
     	    	
     	String title = "You have <span class=\"highlight\">"+numactivities+"</span> activities this "+timeofday;
@@ -79,7 +75,7 @@ public class StayingWellWebAppInterface {
     	} else {
     		return title + ((infoType.equals("label")) ? " <span class=\"charet\"></span>": "");
     	}
-    	*/
+  	*/
     }
     
     
@@ -126,7 +122,7 @@ public class StayingWellWebAppInterface {
      
     @JavascriptInterface
     public String getMonthlyPlan() {
-    	String plan = "strength";//dbh.getSWInfo(DbHelper.CCH_SW_MONTH_PLAN);
+    	String plan = dbh.getSWInfo(DbHelper.CCH_SW_MONTH_PLAN);
     	return (plan==null) ? "" : plan;
     }
     
@@ -202,4 +198,3 @@ public class StayingWellWebAppInterface {
 		 }
     }
 }
-

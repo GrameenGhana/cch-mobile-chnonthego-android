@@ -16,9 +16,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class BreastProblemsPNCMotherNextActivity extends Activity {
+public class BreastProblemsPNCMotherNextActivity extends BaseActivity {
 
-	private Context mContext;
+//	private Context mContext;
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;

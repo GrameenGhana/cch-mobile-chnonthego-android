@@ -11,10 +11,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class DiarrhoeaActivity extends Activity {
+public class DiarrhoeaActivity extends BaseActivity {
 
 	private Button button_next;
-	Context mContext;
+//	Context mContext;
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;
@@ -43,7 +43,7 @@ public class DiarrhoeaActivity extends Activity {
 	}
 	public void onBackPressed()
 	{
-	    
+	    end_time=System.currentTimeMillis();
 	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
 		dbh.insertCCHLog("Point of Care", "PNC Diagnostic Diarrhoea", start_time.toString(), end_time.toString());
 		finish();

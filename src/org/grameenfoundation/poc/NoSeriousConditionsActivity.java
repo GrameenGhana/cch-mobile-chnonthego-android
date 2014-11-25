@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class NoSeriousConditionsActivity extends Activity {
+public class NoSeriousConditionsActivity extends BaseActivity {
 
 	Context mContext;
 	private ListView listView_noConditions;

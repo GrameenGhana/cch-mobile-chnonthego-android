@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class ExclusiveBreastFeedingActivity extends Activity {
+public class ExclusiveBreastFeedingActivity extends BaseActivity {
 
 	private Button button_next;
 	private DbHelper dbh;
@@ -21,6 +21,7 @@ public class ExclusiveBreastFeedingActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext= ExclusiveBreastFeedingActivity.this;
 	    setContentView(R.layout.activity_exclusive_breastfeeding_counselling);
 	    dbh=new DbHelper(ExclusiveBreastFeedingActivity.this);
 	    start_time=System.currentTimeMillis();

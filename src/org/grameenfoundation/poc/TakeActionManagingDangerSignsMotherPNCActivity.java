@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class TakeActionManagingDangerSignsMotherPNCActivity extends Activity {
+public class TakeActionManagingDangerSignsMotherPNCActivity extends BaseActivity {
 
 	private Long start_time;
 	private Long end_time;

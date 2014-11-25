@@ -15,6 +15,8 @@
             android:id="@+id/textView_textSingle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingRight="0dp"
             android:text="Small Text"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/TextColorWine" />

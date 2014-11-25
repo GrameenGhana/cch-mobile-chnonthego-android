@@ -11,10 +11,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class RecordsAskActivity extends Activity {
+public class RecordsAskActivity extends BaseActivity {
 
 	private Button button_next;
-	private Context mContext;
+//	private Context mContext;
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;  

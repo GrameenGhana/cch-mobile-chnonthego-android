@@ -18,10 +18,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class BreastProblemsCounsellingActivity extends Activity {
+public class BreastProblemsCounsellingActivity extends BaseActivity {
 
 	private ListView listView_breastProblem;
-	Context mContext;
+//	Context mContext;
 	private Button button_next;
 	private DbHelper dbh;
 	private Long start_time;

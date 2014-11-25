@@ -40,7 +40,7 @@ public class EstimateTrimester extends FragmentActivity {
 	private static Calendar cal;
 	private WebView myWebView;
 	private ViewPager mPager;
-	private CalendarAdapter mAdapter;
+	//private CalendarAdapter mAdapter;
 	private static final String URL = "file:///android_asset/www/cch/modules/poc/trimcalculator.html";
 	
 	@SuppressLint("NewApi")
@@ -48,11 +48,11 @@ public class EstimateTrimester extends FragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    
-	    setContentView(R.layout.activity_estimate_trimester);
-	    mAdapter = new CalendarAdapter(getSupportFragmentManager());
+	    setContentView(R.layout.activity_estimate_trimester_web);
+	  //  mAdapter = new CalendarAdapter(getSupportFragmentManager());
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC Diagnostic");
-	    /*
+	    
 	    myWebView = (WebView) findViewById(R.id.webView_estimate);	
 	    myWebView.getSettings().setJavaScriptEnabled(true);
 		myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
@@ -67,9 +67,10 @@ public class EstimateTrimester extends FragmentActivity {
 			    
 			     
 	});
-	*/
+/*
 	    mPager = (ViewPager)findViewById(R.id.pager3);
 	    mPager.setAdapter(mAdapter);
+	    
 	    button_calculate=(Button) findViewById(R.id.button_calculate);
 	    button_calculate.setOnClickListener(new OnClickListener(){
 
@@ -79,11 +80,14 @@ public class EstimateTrimester extends FragmentActivity {
 			}
 	    	
 	    });
+	    
 	    button_proceed=(Button) findViewById(R.id.button_proceed);
 	    textView_estimatedWeeks=(TextView) findViewById(R.id.textView_estimatedWeeks);
 	    textView_estimatedTrimester=(TextView) findViewById(R.id.textView_estimatedTrimester);
+	    */
 	    
 	}
+	/*
 	public static class CalendarAdapter extends FragmentStatePagerAdapter {
 	    public CalendarAdapter(FragmentManager fm) {
 			super(fm);
@@ -200,6 +204,6 @@ public class EstimateTrimester extends FragmentActivity {
 			}
 		}
 	}
-	
+	*/
 	}
 

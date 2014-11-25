@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class ManagingDangerSignsMotherPNCActivity extends Activity {
+public class ManagingDangerSignsMotherPNCActivity extends BaseActivity {
 
 	private Button button_next;
 	private Long start_time;
@@ -20,6 +20,7 @@ public class ManagingDangerSignsMotherPNCActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext=ManagingDangerSignsMotherPNCActivity.this;
 	    setContentView(R.layout.activity_management_danger_signs);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Mother Diagnostic: Managing Danger Signs");

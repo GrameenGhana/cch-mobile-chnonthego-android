@@ -113,12 +113,13 @@
                 android:background="@color/White" />
 
             <LinearLayout
-                 android:id="@+id/linearLayout_quickReads"
+                android:id="@+id/linearLayout_quickReads"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/BackgroundGrey"
                 android:gravity="center_vertical"
-                android:padding="10dp" >
+                android:padding="10dp"
+                android:visibility="gone" >
 
                 <ImageView
                     android:id="@+id/imageView3"

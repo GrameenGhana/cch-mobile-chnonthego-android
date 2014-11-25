@@ -7,9 +7,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="386dp"
+        android:layout_height="match_parent"
         android:background="@color/White"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="10dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,8 +52,7 @@
                     android:id="@+id/spinner_eventPlanType"
                     style="@drawable/spinner_ab_focused_om"
                     android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/EventNames" />
+                    android:layout_height="wrap_content" />
 
             </TableRow>
 
@@ -110,20 +110,7 @@
         </TableLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <DatePicker
-                android:id="@+id/datePicker1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:calendarViewShown="false" />
-
-        </LinearLayout>
-
-        <LinearLayout
+            android:id="@+id/linearLayout_buttonsOne"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -146,18 +133,51 @@
 
                 <View
                     android:id="@+id/view1"
-                    android:layout_width="20dp"
+                    android:layout_width="10dp"
                     android:layout_height="10dp" />
 
                 <Button
                     android:id="@+id/button_eventViewCalendar"
-                    android:layout_width="wrap_content"
+                    android:layout_width="158dp"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_view_button"
                     android:text="View Calendar"
                     android:textColor="@color/TextBrown" />
             </LinearLayout>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/linearLayout_buttonsTwo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="gone" >
+
+                <Button
+                    android:id="@+id/button_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edit"
+                    android:textColor="@color/Brown" />
+				<View
+                    android:layout_width="20dp"
+                    android:layout_height="10dp" />
+                <Button
+                    android:id="@+id/button_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Delete"
+                    android:textColor="@color/Brown" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </ScrollView>

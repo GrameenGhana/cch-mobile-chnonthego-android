@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TreatingLocalInfectionNextActivity extends Activity {
+public class TreatingLocalInfectionNextActivity extends BaseActivity {
 	private Long start_time;
 	private Long end_time;
 	private DbHelper dbh;

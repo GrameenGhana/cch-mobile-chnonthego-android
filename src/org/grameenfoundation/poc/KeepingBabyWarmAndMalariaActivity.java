@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class KeepingBabyWarmAndMalariaActivity extends Activity {
+public class KeepingBabyWarmAndMalariaActivity extends BaseActivity {
 
 	private String category;
 	private DbHelper dbh;
@@ -16,7 +16,7 @@ public class KeepingBabyWarmAndMalariaActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	
+	mContext= KeepingBabyWarmAndMalariaActivity.this;
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Counselling");
 	    dbh=new DbHelper(KeepingBabyWarmAndMalariaActivity.this);

@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class HIVInfectionAskActivity extends Activity {
+public class HIVInfectionAskActivity extends BaseActivity {
 
 	private String category;
 	private Button button_no;
@@ -22,6 +22,7 @@ public class HIVInfectionAskActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext=HIVInfectionAskActivity.this;
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Diagnostic: HIV Infection");
 	    dbh=new DbHelper(HIVInfectionAskActivity.this);

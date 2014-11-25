@@ -46,7 +46,7 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/textView_vaginalBleeding"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vaginal bleeding "
@@ -68,7 +68,7 @@
                 android:src="@drawable/calf_pain" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/textView_painInCalf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pain in calf with or without swelling"

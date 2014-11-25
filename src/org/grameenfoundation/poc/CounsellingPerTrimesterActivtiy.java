@@ -15,10 +15,10 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class CounsellingPerTrimesterActivtiy extends Activity {
+public class CounsellingPerTrimesterActivtiy extends BaseActivity {
 
 	private ListView listView_counselling;
-	Context mContext;
+//	Context mContext;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

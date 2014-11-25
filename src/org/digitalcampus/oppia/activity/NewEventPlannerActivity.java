@@ -1,10 +1,15 @@
 package org.digitalcampus.oppia.activity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.activity.CoverageTargetsDetailActivity.DatePickerFragment;
+import org.digitalcampus.oppia.activity.CoverageTargetsDetailActivity.DatePickerFragment2;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.service.TrackerService;
 import org.grameenfoundation.adapters.CoverageListAdapter;
@@ -16,6 +21,7 @@ import org.grameenfoundation.cch.activity.HomeActivity;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.Activity;
 import android.content.Context;
@@ -27,12 +33,14 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
@@ -48,6 +56,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.EditText;
@@ -64,8 +73,6 @@ import android.view.ActionMode;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AbsListView.MultiChoiceModeListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -85,6 +92,36 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
      */
     ViewPager mViewPager;
 	private SharedPreferences prefs;
+	private DbHelper db;
+	private ArrayList<String> todayEventId;
+	private ArrayList<String> thisMonthEventId;
+	private ArrayList<String> thisWeekEventId;
+	private ArrayList<String> midYearEventId;
+	private ArrayList<String> thisQuarterEventId;
+	private ArrayList<String> thisYearEventId;
+	private ArrayList<String> todayCoverageId;
+	private ArrayList<String> thisWeekCoverageId;
+	private ArrayList<String> thisMonthCoverageId;
+	private ArrayList<String> midYearCoverageId;
+	private ArrayList<String> thisQuarterCoverageId;
+	private ArrayList<String> thisYearCoverageId;
+	private ArrayList<String> todayLearningId;
+	private ArrayList<String> thisWeekLearningId;
+	private ArrayList<String> thisMonthLearningId;
+	private ArrayList<String> midYearLearningId;
+	private ArrayList<String> thisQuarterLearningId;
+	private ArrayList<String> thisYearLearningId;
+	private ArrayList<String> todayOtherId;
+	private ArrayList<String> thisWeekOtherName;
+	private ArrayList<String> thisWeekOtherId;
+	private ArrayList<String> thisMonthOtherId;
+	private ArrayList<String> midYearOtherId;
+	private ArrayList<String> thisQuarterOtherId;
+	private ArrayList<String> thisYearOtherId;
+	 int counter3;
+	 int counter;
+	 int counter2;
+	 int counter4;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -97,7 +134,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
       
         final ActionBar actionBar =getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.setTitle("Event Planner");
+        actionBar.setTitle("Planner");
         actionBar.setSubtitle("Target Setting");
         actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setHomeButtonEnabled(true);
@@ -172,11 +209,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
         	current_month="December";
         	break;
         }
-        Bundle extras = getIntent().getExtras(); 
-        if (extras != null) {
-            month_passed = extras.getString("month");
-            // and get whatever type user account id is
-        }
+       
        
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		prefs.registerOnSharedPreferenceChangeListener(this);
@@ -189,7 +222,8 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 		this.startService(service);
         // Create the adapter that will return a fragment for each of the four
         // primary sections of the app.
-        
+		
+		 	
         
 }
 	 public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -221,37 +255,346 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
          @Override
          public CharSequence getPageTitle(int position) {
                  Locale l = Locale.getDefault();
+                 db=new DbHelper(NewEventPlannerActivity.this);
+                 todayEventId=new ArrayList<String>();
+     		    todayEventId=db.getAllForEventsId("Daily");
+     		    thisMonthEventId=new ArrayList<String>();
+     		    thisMonthEventId=db.getAllForEventsId("Monthly");
+     		    thisWeekEventId=new ArrayList<String>();
+     		    thisWeekEventId=db.getAllForEventsId("Weekly");
+     		    midYearEventId=new ArrayList<String>();
+     		    midYearEventId=db.getAllForEventsId("Mid-year");
+     		    thisQuarterEventId=new ArrayList<String>();
+     		    thisQuarterEventId=db.getAllForEventsId("Quarterly");
+     		    thisYearEventId=new ArrayList<String>();
+     		    thisYearEventId=db.getAllForEventsId("Annually");
+     		     int event_number1=todayEventId.size();
+     			 int event_number2=thisMonthEventId.size();
+     			 int event_number3=thisWeekEventId.size();
+     			 int event_number4=midYearEventId.size();
+     			 int event_number5=thisQuarterEventId.size();
+     			 int event_number6=thisYearEventId.size();
+     			 
+     			if(todayEventId.size()<0){
+     				event_number1=0;
+     			}else{
+     				event_number1=todayEventId.size();
+     			}
+     			if(thisMonthEventId.size()<0){
+     				event_number2=0;
+     			}else {
+     				event_number2=thisMonthEventId.size();
+     			}
+     			if(thisWeekEventId.size()<0){
+     				event_number3=0;
+     			}else{
+     				event_number3=thisWeekEventId.size();
+     			}
+     			
+     			if(midYearEventId.size()<0){
+     				event_number4=0;
+     			}else{
+     				event_number4=midYearEventId.size();
+     			}
+     			if(thisQuarterEventId.size()<0){
+     				event_number5=0;
+     			}else{
+     				event_number5=thisQuarterEventId.size();
+     			}
+     			if(thisYearEventId.size()<0){
+     				event_number6=0;
+     			}else{
+     				event_number6=thisYearEventId.size();
+     			}
+     			counter=event_number1+event_number2+event_number3+event_number4+event_number5+event_number6;
+     			
+     		    todayCoverageId=new ArrayList<String>();
+     			todayCoverageId=db.getAllForCoverageId("Daily");
+     			thisWeekCoverageId=new ArrayList<String>();
+     			thisWeekCoverageId=db.getAllForCoverageId("Weekly");
+     			thisMonthCoverageId=new ArrayList<String>();
+     			thisMonthCoverageId=db.getAllForCoverageId("Monthly");
+     			midYearCoverageId=new ArrayList<String>();
+     			midYearCoverageId=db.getAllForCoverageId("Mid-year");
+     			thisQuarterCoverageId=new ArrayList<String>();
+     			thisQuarterCoverageId=db.getAllForCoverageId("Quarterly");
+     			thisYearCoverageId=new ArrayList<String>();
+     			thisYearCoverageId=db.getAllForCoverageId("Annually");
+     			
+     			     int coverage_number1=todayCoverageId.size();
+     				 int coverage_number2=thisWeekCoverageId.size();
+     				 int coverage_number3=thisMonthCoverageId.size();
+     				 int coverage_number4=midYearCoverageId.size();
+     				 int coverage_number5=thisQuarterCoverageId.size();
+     				 int coverage_number6=thisYearCoverageId.size();
+     				 
+     				if(todayEventId.size()<0){
+     					coverage_number1=0;
+     				}else{
+     					coverage_number1=todayCoverageId.size();
+     				}
+     				if(thisWeekCoverageId.size()<0){
+     					coverage_number2=0;
+     				}else {
+     					coverage_number2=thisWeekCoverageId.size();
+     				}
+     				if(thisMonthCoverageId.size()<0){
+     					coverage_number3=0;
+     				}else{
+     					coverage_number3=thisMonthCoverageId.size();
+     				}
+     				
+     				if(midYearCoverageId.size()<0){
+     					coverage_number4=0;
+     				}else{
+     					coverage_number4=midYearCoverageId.size();
+     				}
+     				if(thisQuarterCoverageId.size()<0){
+     					coverage_number5=0;
+     				}else{
+     					coverage_number5=thisQuarterCoverageId.size();
+     				}
+     				if(thisYearCoverageId.size()<0){
+     					coverage_number6=0;
+     				}else{
+     					coverage_number6=thisYearCoverageId.size();
+     				}
+     				counter2=coverage_number1+coverage_number2+coverage_number3+coverage_number4+coverage_number5+coverage_number6;
+     			
+     			todayLearningId=new ArrayList<String>();
+     			todayLearningId=db.getAllForLearningId("Daily");
+     			thisWeekLearningId=new ArrayList<String>();
+     			thisWeekLearningId=db.getAllForLearningId("Weekly");
+     			thisMonthLearningId=new ArrayList<String>();
+     			thisMonthLearningId=db.getAllForLearningId("Monthly");
+     			midYearLearningId=new ArrayList<String>();
+     			midYearLearningId=db.getAllForLearningId("Mid-year");
+     			thisQuarterLearningId=new ArrayList<String>();
+     			thisQuarterLearningId=db.getAllForLearningId("Quarterly");
+     			thisYearLearningId=new ArrayList<String>();
+     			thisYearLearningId=db.getAllForLearningId("Annually");
+     			
+     			 int learning_number1=todayLearningId.size();
+     			 int learning_number2=thisWeekLearningId.size();
+     			 int learning_number3=thisMonthLearningId.size();
+     			 int learning_number4=midYearLearningId.size();
+     			 int learning_number5=thisQuarterLearningId.size();
+     			 int learning_number6=thisYearLearningId.size();
+     		
+     			if(todayLearningId.size()<0){
+     				learning_number1=0;
+     			}else{
+     				learning_number1=todayLearningId.size();
+     			}
+     			if(thisWeekLearningId.size()<0){
+     				learning_number2=0;
+     			}else {
+     				learning_number2=thisWeekLearningId.size();
+     			}
+     			if(thisMonthLearningId.size()<0){
+     				learning_number3=0;
+     			}else{
+     				learning_number3=thisMonthLearningId.size();
+     			}
+     			
+     			if(midYearLearningId.size()<0){
+     				learning_number4=0;
+     			}else{
+     				learning_number4=midYearLearningId.size();
+     			}
+     			if(thisQuarterLearningId.size()<0){
+     				learning_number5=0;
+     			}else{
+     				learning_number5=thisQuarterLearningId.size();
+     			}
+     			if(thisYearLearningId.size()<0){
+     				learning_number6=0;
+     			}else{
+     				learning_number6=thisYearLearningId.size();
+     			}
+     			counter3=learning_number1+
+     					learning_number2+
+     					learning_number3+
+     					learning_number4+
+     					learning_number5+
+     					learning_number6;
+     			 todayOtherId=new ArrayList<String>();
+     			 todayOtherId=db.getAllForOtherId("Daily");
+     			 thisWeekOtherId=new ArrayList<String>();
+     			 thisWeekOtherId=db.getAllForOtherId("Weekly");
+     			 thisMonthOtherId=new ArrayList<String>();
+     			 thisMonthOtherId=db.getAllForOtherId("Monthly");
+     			 midYearOtherId=new ArrayList<String>();
+     			 midYearOtherId=db.getAllForOtherId("Mid-year");
+     			 thisQuarterOtherId=new ArrayList<String>();
+     			 thisQuarterOtherId=db.getAllForOtherId("Quarterly");
+     			 thisYearOtherId=new ArrayList<String>();
+     			 thisYearOtherId=db.getAllForOtherId("Annually");
+     			 
+     			 int other_number1=todayOtherId.size();
+     			 int other_number2=thisWeekOtherId.size();
+     			 int other_number3=thisMonthOtherId.size();
+     			 int other_number4=midYearOtherId.size();
+     			 int other_number5=thisQuarterOtherId.size();
+     			 int other_number6=thisYearOtherId.size();
+     			
+     			if(todayOtherId.size()<0){
+     				other_number1=0;
+     			}else{
+     				other_number1=todayOtherId.size();
+     			}
+     			if(thisWeekOtherId.size()<0){
+     				other_number2=0;
+     			}else {
+     				other_number2=thisWeekOtherId.size();
+     			}
+     			if(thisMonthOtherId.size()<0){
+     				other_number3=0;
+     			}else{
+     				other_number3=thisMonthOtherId.size();
+     			}
+     			
+     			if(midYearOtherId.size()<0){
+     				other_number4=0;
+     			}else{
+     				other_number4=midYearOtherId.size();
+     			}
+     			if(thisQuarterOtherId.size()<0){
+     				other_number5=0;
+     			}else{
+     				other_number5=thisQuarterOtherId.size();
+     			}
+     			if(thisYearOtherId.size()<0){
+     				other_number6=0;
+     			}else{
+     				other_number6=thisYearOtherId.size();
+     			}
+     			counter4=other_number1+
+     					other_number2+
+     					other_number3+
+     					other_number4+
+     					other_number5+
+     					other_number6;
                  switch (position) {
                          case 0:
-                                 return "EVENTS";
+                                 return "EVENTS"+" ("+String.valueOf(counter)+")";
                          case 1:
-                                 return "COVERAGE";
+                                 return "COVERAGE"+" ("+String.valueOf(counter2)+")";
                          case 2: 
-                    	 		return "LEARNING";
+                    	 		return "LEARNING"+" ("+String.valueOf(counter3)+")";
                          case 3:
-                        		return "OTHER";
+                        		return "OTHER"+" ("+String.valueOf(counter4)+")";
                  
                  }
                  return null;
          }
  }
 		
-	 public static class EventsActivity extends Fragment implements OnItemClickListener{
+	 public static class EventsActivity extends Fragment implements OnChildClickListener{
 
 			private Context mContext;															
-			private TextView textview_status;
-			private ListView listView_events;
-			private ArrayList<String> eventName;
-			private ArrayList<String> eventNumber;
-			private ArrayList<String> eventPeriod;
-			private ArrayList<String> eventsId;
+			private ExpandableListView listView_events;
+			 private ArrayList<String> todayEventName;
+			 private ArrayList<String> todayEventNumber;
+			 private ArrayList<String> todayEventPeriod;
+			 private ArrayList<String> todayEventDueDate;
+			 private ArrayList<String> todayEventStartDate;
+			 private ArrayList<String> todayEventAchieved;
+			 private ArrayList<String> todayEventStatus;
+			 private ArrayList<String> todayEventId;
+			 private ArrayList<String> todayEventLastUpdated;
+			 private ArrayList<String> todayEventNumberRemaining;
+			 
+			 private ArrayList<String> tomorrowEventName;
+			 private ArrayList<String> tomorrowEventNumber;
+			 private ArrayList<String> tomorrowEventPeriod;
+			 private ArrayList<String> tomorrowEventDueDate;
+			 private ArrayList<String> tomorrowEventStartDate;
+			 private ArrayList<String> tomorrowEventAchieved;
+			 private ArrayList<String> tomorrowEventStatus;
+			 private ArrayList<String> tomorrowEventId;
+			 
+			 private ArrayList<String> thisWeekEventName;
+			 private ArrayList<String> thisWeekEventNumber;
+			 private ArrayList<String> thisWeekEventPeriod;
+			 private ArrayList<String> thisWeekEventDueDate;
+			 private ArrayList<String> thisWeekEventStartDate;
+			 private ArrayList<String> thisWeekEventAchieved;
+			 private ArrayList<String> thisWeekEventStatus;
+			 private ArrayList<String> thisWeekEventId;
+			 private ArrayList<String> thisWeekEventLastUpdated;
+			 private ArrayList<String> thisWeekEventNumberRemaining;
+			 
+			 private ArrayList<String> thisMonthEventName;
+			 private ArrayList<String> thisMonthEventNumber;
+			 private ArrayList<String> thisMonthEventPeriod;
+			 private ArrayList<String> thisMonthEventDueDate;
+			 private ArrayList<String>  thisMonthEventStartDate;
+			 private ArrayList<String>  thisMonthEventAchieved;
+			 private ArrayList<String> thisMonthEventStatus;
+			 private ArrayList<String> thisMonthEventId;
+			 private ArrayList<String> thisMonthEventLastUpdated;
+			 private ArrayList<String> thisMonthEventNumberRemaining;
+			 
+			 private ArrayList<String> thisQuarterEventName;
+			 private ArrayList<String> thisQuarterEventNumber;
+			 private ArrayList<String> thisQuarterEventPeriod;
+			 private ArrayList<String> thisQuarterEventDueDate;
+			 private ArrayList<String>  thisQuarterEventStartDate;
+			 private ArrayList<String>  thisQuarterEventAchieved;
+			 private ArrayList<String> thisQuarterEventStatus;
+			 private ArrayList<String> thisQuarterEventId;
+			 private ArrayList<String> thisQuarterEventLastUpdated;
+			 private ArrayList<String> thisQuarterEventNumberRemaining;
+			 
+			 private ArrayList<String> midYearEventName;
+			 private ArrayList<String> midYearEventNumber;
+			 private ArrayList<String> midYearEventPeriod;
+			 private ArrayList<String> midYearEventDueDate;
+			 private ArrayList<String>  midYearEventStartDate;
+			 private ArrayList<String>  midYearEventAchieved;
+			 private ArrayList<String> midYearEventStatus;
+			 private ArrayList<String> midYearEventId;
+			 private ArrayList<String> midYearEventLastUpdated;
+			 private ArrayList<String> midYearEventNumberRemaining;
+			 
+			 private ArrayList<String> thisYearEventName;
+			 private ArrayList<String> thisYearEventNumber;
+			 private ArrayList<String> thisYearEventPeriod;
+			 private ArrayList<String> thisYearEventDueDate;
+			 private ArrayList<String>  thisYearEventStartDate;
+			 private ArrayList<String> thisYearEventAchieved;
+			 private ArrayList<String> thisYearEventStatus;
+			 private ArrayList<String> thisYearEventId;
+			 private ArrayList<String> thisYearEventLastUpdated;
+			 private ArrayList<String> thisYearEventNumberRemaining;
+			 
+			 private HashMap<String,String> todayEventTargets;//Today
+			 private HashMap<String,String> tomorrowEventTargets;
+			 private HashMap<String,String> thisWeekEventTargets;
+			 private HashMap<String,String> thisMonthEventTargets;
+			 private HashMap<String,String> thisQuarterEventTargets;
+			 private HashMap<String,String> midYearEventTargets;
+			 private HashMap<String,String> thisYearEventTargets;
+			 
+			private String[] groupItems;
 			private DbHelper db;
-			 public static final String ARG_SECTION_NUMBER = "section_number";       
+			public static final String ARG_SECTION_NUMBER = "section_number";       
 			View rootView;
 			private EventBaseAdapter events_adapter;
 			private String[] selected_items;
 			int selected_position;
-
+			private long selected_id;
+			private Button button_show;
+			private ArrayList<String> eventId;
+			private ArrayList<String> coverageId;
+			private ArrayList<String> otherId;
+			private ArrayList<String> learningId;
+			static String due_date ;
+			static String start_date;
+			private static TextView dueDateValue;
+			private static TextView startDateValue;
+			static long due_date_to_compare;
 			 public EventsActivity(){
 
             }
@@ -260,202 +603,358 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			    mContext=getActivity().getApplicationContext();
 			    //TypefaceUtil.overrideFont(mContext, "SERIF", "fonts/Roboto-Thin.ttf");
 			    db=new DbHelper(getActivity());
-			    textview_status=(TextView) rootView.findViewById(R.id.textView_eventsStatus);
-			    listView_events=(ListView) rootView.findViewById(R.id.listView_events);
-			    listView_events.setOnItemClickListener(this);
-			    //registerForContextMenu(listView_events);
-			    eventName=db.getAllEventName(month_passed);
-			    eventNumber=db.getAllEventNumber(month_passed);
-			    eventsId=db.getAllEventID(month_passed);
-			    eventPeriod=db.getAllEventPeriod(month_passed);
-			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventPeriod,eventsId);
-			    events_adapter.notifyDataSetChanged();
-			    listView_events.setAdapter(events_adapter);	
-			    if(listView_events.getCount()>0){
-			    	textview_status.setText(" ");	
-			    }else if (listView_events.getCount()==0){
-			    	textview_status.setText("You have not entered any events!");
-			    }
-			    listView_events.setOnItemClickListener(this);
-			    listView_events.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-			    listView_events.setSelector(R.drawable.listchoice_selector);
-			    listView_events.setMultiChoiceModeListener(new MultiChoiceModeListener() {
-		              
-		            private int nr = 0;
-		              
-		            @Override
-		            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-		                
-		                return false;
-		            }
-		              
-		            @Override
-		            public void onDestroyActionMode(ActionMode mode) {
-		                
-		            	events_adapter.clearSelection();
-		            }
-		              
-		            @Override
-		            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-		            
-		                  
-		                nr = 0;
-		                MenuInflater inflater = getActivity().getMenuInflater();
-		                inflater.inflate(R.menu.context_menu, menu);
-		                return true;
-		            }
-		              
-		            @Override
-		            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-		                int itemId = item.getItemId();
-						if (itemId == R.id.option1) {
-							nr = 0;
-							System.out.println(selected_position);
-							AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-		            				getActivity());
-							// set title
-							alertDialogBuilder.setTitle("Delete event?");
-							// set dialog message
-							alertDialogBuilder
-								.setMessage("You are about to delete an event. Proceed?")
-								.setCancelable(false)
-								.setIcon(R.drawable.ic_error)
-								.setPositiveButton("No",new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,int id) {
-										// if this button is clicked, close
-										// current activity
-										dialog.cancel();
-									}
-								  })
-								.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,int id) {
-										// if this button is clicked, just close
-										// the dialog box and do nothing
-										if(db.deleteEventCategory(selected_position)==true){
-											getActivity().runOnUiThread(new Runnable() {
-									            @Override
-									            public void run() {
-									            	
-									            	 eventName=db.getAllEventName(month_passed);
-									 			    eventNumber=db.getAllEventNumber(month_passed);
-									 			    eventsId=db.getAllEventID(month_passed);
-									 			   eventPeriod=db.getAllEventPeriod(month_passed);
-									 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventPeriod,eventsId);
-									 			    events_adapter.notifyDataSetChanged();
-									 			    listView_events.setAdapter(events_adapter);	
-									            }
-									        });
-							    		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
-											         Toast.LENGTH_LONG).show();
-							        	}
-							        	
-										events_adapter.clearSelection();
-							          
-									}
-								});
-							// create alert dialog
-							AlertDialog alertDialog = alertDialogBuilder.create();
-							// show it
-							alertDialog.show();
-							mode.finish();
-						}
-		                return false;
-		            }
-		              
-		            @Override	
-		            public void onItemCheckedStateChanged(ActionMode mode, int position,
-		                    long id, boolean checked) {
-		                 if (checked) {
-		                        nr++;
-		                        selected_position=(int) id;
-		                        
-		                        events_adapter.setNewSelection(position, checked);                    
-		                    } else {
-		                        nr--;
-		                        events_adapter.removeSelection(position);                 
-		                    }
-		                    mode.setTitle(nr + " selected");
-		                    
-		            }
-		        });
-		          
-		      listView_events.setOnItemLongClickListener(new OnItemLongClickListener() {
-		  
-		            @Override
-		            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-		                    int position, long arg3) {
-		                // TODO Auto-generated method stub
-		                  
-		            	listView_events.setItemChecked(position, !events_adapter.isPositionChecked(position));
-		            	
-		                return false;
-		            }
-		        });
-		    
-			   Button b = (Button) rootView.findViewById(R.id.button_addEvent);
-			   /*if(!month_passed.equalsIgnoreCase(current_month)){
-				  b.setVisibility(View.GONE); 
-			   }
-			   */
-			    b.setOnClickListener(new OnClickListener() {
-			    	@Override
-				       public void onClick(View v) {
-			    		final Dialog dialog = new Dialog(getActivity());
-						dialog.setContentView(R.layout.event_set_dialog);
-						dialog.setTitle("Set Event Target");
-						String[] items={"Daily","Monthly","Weekly","Yearly"};
-						final Spinner spinner_event_period=(Spinner) dialog.findViewById(R.id.spinner_dialogEventPeriod);
-						final Spinner spinner_event_name=(Spinner) dialog.findViewById(R.id.spinner_eventName);
-						
-						ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
-						spinner_event_period.setAdapter(adapter);
-						String[] items_names={"ANC Static","ANC Outreach","CWC Static","CWC Outreach",
-												"PNC Clinic","Routine Home visit","Special Home visit",
-												"Family Planning","Health Talk","CMAM Clinic","School Health",
-												"Adolescent Health","Mop-up Activity/Event","Community Durbar",
-												"National Activity/Event","Staff meetings/durbars","Workshops","Leave/Excuse Duty",
-												"Personal","Other"};
-						//ArrayList<String> list=db.getAllEventCategory();
-						ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items_names);
-						spinner_event_name.setAdapter(adapter2);
-						
-						Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogSetEVent);
-						dialogButton.setText("Save");
-						dialogButton.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								dialog.dismiss();
-								
-								EditText editText_event_period=(EditText) dialog.findViewById(R.id.editText_dialogEventPeriodNumber);
-								String event_period=spinner_event_period.getSelectedItem().toString();
-								String event_name=spinner_event_name.getSelectedItem().toString();
-								String event_period_number=editText_event_period.getText().toString();
-							    if(db.insertEventSet(event_name, event_period, event_period_number, month_passed,"new_record") ==true){
-							    	getActivity().runOnUiThread(new Runnable() {
-							            @Override
-							            public void run() {
-							            	textview_status.setText(" ");
-							            	 eventName=db.getAllEventName(month_passed);
-							 			    eventNumber=db.getAllEventNumber(month_passed);
-							 			    eventsId=db.getAllEventID(month_passed);
-							 			   eventPeriod=db.getAllEventPeriod(month_passed);
-							 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventPeriod,eventsId);
-							 			    events_adapter.notifyDataSetChanged();
-							 			    listView_events.setAdapter(events_adapter);	
-							            }
-							        });
-							    
-							    	 Toast.makeText(getActivity().getApplicationContext(), "Event target set successfully!",
-									         Toast.LENGTH_LONG).show();
-							    }else{
-							    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
-									         Toast.LENGTH_LONG).show();
-							    }
-							}
-						});
-			 				dialog.show();
-					}
+			    listView_events=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
+			  
+			    todayEventTargets=db.getAllForEvents("Today");
+			    tomorrowEventTargets=db.getAllForEvents("Tomorrow");
+			    thisWeekEventTargets=db.getAllForEvents("This week");
+			    thisMonthEventTargets=db.getAllForEvents("This month");
+			    thisQuarterEventTargets=db.getAllForEvents("This quarter");
+			    midYearEventTargets=db.getAllForEvents("Mid-year");
+			    thisYearEventTargets=db.getAllForEvents("This year");
+			   
+			   todayEventName=new ArrayList<String>();
+			    todayEventName=db.getAllForEventsName("Daily");
+			   // todayEventName.add(todayEventTargets.get("event_name"));
+			   todayEventNumber=new ArrayList<String>();
+			    todayEventNumber=db.getAllForEventsNumber("Daily");
+			    
+			   // todayEventNumber.add(todayEventTargets.get("event_number"));
+			    todayEventPeriod=new ArrayList<String>();
+			    //todayEventPeriod.add(todayEventTargets.get("event_period"));
+			    todayEventPeriod=db.getAllForEventsPeriod("Daily");
+			    
+			    todayEventAchieved=new ArrayList<String>();
+			    todayEventAchieved=db.getAllForEventsNumberAchieved("Daily");
+			    
+			   // todayEventNumber.add(todayEventTargets.get("event_number"));
+			    todayEventStartDate=new ArrayList<String>();
+			    //todayEventPeriod.add(todayEventTargets.get("event_period"));
+			    todayEventStartDate=db.getAllForEventsStartDate("Daily");
+			    
+			    todayEventDueDate=new ArrayList<String>();
+			    todayEventDueDate=db.getAllForEventsDueDate("Daily");
+			   // todayEventDueDate.add(todayEventTargets.get("due_date"));
+			    
+			    todayEventStatus=new ArrayList<String>();
+			   // todayEventStatus.add(todayEventTargets.get("sync_status"));
+			    todayEventStatus=db.getAllForEventsSyncStatus("Daily");
+			    
+			    todayEventId=new ArrayList<String>();
+			  //  todayEventId.add(todayEventTargets.get("event_id"));
+			    todayEventId=db.getAllForEventsId("Daily");
+			    
+			    todayEventLastUpdated=new ArrayList<String>();
+				  //  todayEventId.add(todayEventTargets.get("event_id"));
+				    todayEventLastUpdated=db.getAllForEventsLastUpdated("Daily");
+			    
+			    
+			    tomorrowEventName=new ArrayList<String>();
+			    tomorrowEventName=db.getAllForEventsName("Weekly");
+			    //tomorrowEventName.add(tomorrowEventTargets.get("event_name"));
+			    
+			    /*
+			    tomorrowEventNumber=new ArrayList<String>();
+			    tomorrowEventNumber=db.getAllForEventsNumber("Weekly");
+			    //tomorrowEventNumber.add(tomorrowEventTargets.get("event_number"));
+			    tomorrowEventPeriod=new ArrayList<String>();
+			    tomorrowEventPeriod=db.getAllForEventsPeriod("Weekly");
+			    //tomorrowEventPeriod.add(tomorrowEventTargets.get("event_period"));
+			    tomorrowEventDueDate=new ArrayList<String>();
+			    tomorrowEventDueDate=db.getAllForEventsDueDate("Weekly");
+			    //tomorrowEventDueDate.add(tomorrowEventTargets.get("due_date"));
+			    tomorrowEventStatus=new ArrayList<String>();
+			    tomorrowEventStatus=db.getAllForEventsSyncStatus("Weekly");
+			    //tomorrowEventStatus.add(tomorrowEventTargets.get("sync_status"));
+			    tomorrowEventId=new ArrayList<String>();
+			    tomorrowEventId=db.getAllForEventsId("Weekly");
+			    //tomorrowEventId.add(tomorrowEventTargets.get("event_id"));
+			    */
+			    
+			    thisWeekEventName=new ArrayList<String>();
+			    thisWeekEventName=db.getAllForEventsName("Weekly");
+			    //thisWeekEventName.add(thisWeekEventTargets.get("event_name"));
+			    thisWeekEventNumber=new ArrayList<String>();
+			    thisWeekEventNumber=db.getAllForEventsNumber("Weekly");
+			   // thisWeekEventNumber.add(thisWeekEventTargets.get("event_number"));
+			    thisWeekEventPeriod=new ArrayList<String>();
+			    thisWeekEventPeriod=db.getAllForEventsPeriod("Weekly");
+			   // thisWeekEventPeriod.add(thisWeekEventTargets.get("event_period"));
+			    thisWeekEventAchieved=new ArrayList<String>();
+			    thisWeekEventAchieved=db.getAllForEventsNumberAchieved("Weekly");
+			   // thisWeekEventNumber.add(thisWeekEventTargets.get("event_number"));
+			    thisWeekEventStartDate=new ArrayList<String>();
+			    thisWeekEventStartDate=db.getAllForEventsStartDate("Weekly");
+			    
+			    thisWeekEventDueDate=new ArrayList<String>();
+			    thisWeekEventDueDate=db.getAllForEventsDueDate("Weekly");
+			    //thisWeekEventDueDate.add(thisWeekEventTargets.get("due_date"));
+			    thisWeekEventStatus=new ArrayList<String>();
+			    thisWeekEventStatus=db.getAllForEventsSyncStatus("Weekly");
+			    //thisWeekEventStatus.add(thisWeekEventTargets.get("sync_status"));
+			    thisWeekEventId=new ArrayList<String>();
+			    thisWeekEventId=db.getAllForEventsId("Weekly");
+			    //thisWeekEventId.add(thisWeekEventTargets.get("event_id"));
+			    thisWeekEventLastUpdated=new ArrayList<String>();
+			    thisWeekEventLastUpdated=db.getAllForEventsLastUpdated("Weekly");
+			    //thisWeekEventId.add(thisWeekEventTargets.get("event_id"));
+			    
+			    thisMonthEventName=new ArrayList<String>();
+			    thisMonthEventName=db.getAllForEventsName("Monthly");
+			   //thisMonthEventName.add(thisMonthEventTargets.get("event_name"));
+			    thisMonthEventNumber=new ArrayList<String>();
+			    thisMonthEventNumber=db.getAllForEventsNumber("Monthly");
+			    //thisMonthEventNumber.add(thisMonthEventTargets.get("event_number"));
+			    thisMonthEventPeriod=new ArrayList<String>();
+			    thisMonthEventPeriod=db.getAllForEventsPeriod("Monthly");
+			    
+			    thisMonthEventAchieved=new ArrayList<String>();
+			    thisMonthEventAchieved=db.getAllForEventsNumberAchieved("Monthly");
+			    //thisMonthEventNumber.add(thisMonthEventTargets.get("event_number"));
+			    thisMonthEventStartDate=new ArrayList<String>();
+			    thisMonthEventStartDate=db.getAllForEventsStartDate("Monthly");
+			    //thisMonthEventPeriod.add(thisMonthEventTargets.get("event_period"));
+			    thisMonthEventDueDate=new ArrayList<String>();
+			    thisMonthEventDueDate=db.getAllForEventsDueDate("Monthly");
+			    //thisMonthEventDueDate.add(thisMonthEventTargets.get("due_date"));
+			    thisMonthEventStatus=new ArrayList<String>();
+			    thisMonthEventStatus=db.getAllForEventsSyncStatus("Monthly");
+			    //thisMonthEventStatus.add(thisMonthEventTargets.get("sync_status"));
+			    thisMonthEventId=new ArrayList<String>();
+			    thisMonthEventId=db.getAllForEventsId("Monthly");
+			    //thisMonthEventId.add(thisMonthEventTargets.get("event_id"));
+			    
+			    thisMonthEventLastUpdated=new ArrayList<String>();
+			    thisMonthEventLastUpdated=db.getAllForEventsLastUpdated("Monthly");
+			    //thisMonthEventId.add(thisMonthEventTargets.get("event_id"));
+			    
+			    midYearEventName=new ArrayList<String>();
+			   // midYearEventName.add(midYearEventTargets.get("event_name"));
+			    midYearEventName=db.getAllForEventsName("Mid-year");
+			    midYearEventNumber=new ArrayList<String>();
+			    midYearEventNumber=db.getAllForEventsNumber("Mid-year");
+			   // midYearEventNumber.add(midYearEventTargets.get("event_number"));
+			    midYearEventPeriod=new ArrayList<String>();
+			    midYearEventPeriod=db.getAllForEventsPeriod("Mid-year");
+			    midYearEventAchieved=new ArrayList<String>();
+			    midYearEventAchieved=db.getAllForEventsNumberAchieved("Mid-year");
+			   // midYearEventNumber.add(midYearEventTargets.get("event_number"));
+			 
+			   // midYearEventNumber.add(midYearEventTargets.get("event_number"));
+			    midYearEventStartDate=new ArrayList<String>();
+			    midYearEventStartDate=db.getAllForEventsStartDate("Mid-year");
+			    
+			    midYearEventDueDate=new ArrayList<String>();
+			    midYearEventDueDate=db.getAllForEventsDueDate("Mid-year");
+			   // midYearEventDueDate.add(midYearEventTargets.get("due_date"));
+			    midYearEventStatus=new ArrayList<String>();
+			    midYearEventStatus=db.getAllForEventsSyncStatus("Mid-year");
+			    //midYearEventStatus.add(midYearEventTargets.get("sync_status"));
+			    midYearEventId=new ArrayList<String>();
+			    midYearEventId=db.getAllForEventsId("Mid-year");
+			   // midYearEventId.add(midYearEventTargets.get("event_id"));
+			    midYearEventLastUpdated=new ArrayList<String>();
+			    midYearEventLastUpdated=db.getAllForEventsLastUpdated("Mid-year");
+			   // midYearEventId.add(midYearEventTargets.get("event_id"));
+			    
+			    thisQuarterEventName=new ArrayList<String>();
+			    thisQuarterEventName=db.getAllForEventsName("Quarterly");
+			    //thisQuarterEventName.add(thisQuarterEventTargets.get("event_name"));
+			    thisQuarterEventNumber=new ArrayList<String>();
+			    thisQuarterEventNumber=db.getAllForEventsNumber("Quarterly");
+			    //thisQuarterEventNumber.add(thisQuarterEventTargets.get("event_number"));
+			    thisQuarterEventPeriod=new ArrayList<String>();
+			    thisQuarterEventPeriod=db.getAllForEventsPeriod("Quarterly");
+			    
+			    thisQuarterEventAchieved=new ArrayList<String>();
+			    thisQuarterEventAchieved=db.getAllForEventsNumberAchieved("Quarterly");
+			    //thisQuarterEventNumber.add(thisQuarterEventTargets.get("event_number"));
+			    thisQuarterEventStartDate=new ArrayList<String>();
+			    thisQuarterEventStartDate=db.getAllForEventsStartDate("Quarterly");
+			   // thisQuarterEventPeriod.add(thisQuarterEventTargets.get("event_period"));
+			    thisQuarterEventDueDate=new ArrayList<String>();
+			    thisQuarterEventDueDate=db.getAllForEventsDueDate("Quarterly");
+			   // thisQuarterEventDueDate.add(thisQuarterEventTargets.get("due_date"));
+			    thisQuarterEventStatus=new ArrayList<String>();
+			    thisQuarterEventStatus=db.getAllForEventsDueDate("Quarterly");
+			    //thisQuarterEventStatus.add(thisQuarterEventTargets.get("sync_status"));
+			    thisQuarterEventId=new ArrayList<String>();
+			    thisQuarterEventId=db.getAllForEventsId("Quarterly");
+			    //thisQuarterEventId.add(thisQuarterEventTargets.get("event_id"));
+			    
+			    thisQuarterEventLastUpdated=new ArrayList<String>();
+			    thisQuarterEventLastUpdated=db.getAllForEventsLastUpdated("Quarterly");
+			    //thisQuarterEventId.add(thisQuarterEventTargets.get("event_id"));
+			    
+			    thisYearEventName=new ArrayList<String>();
+			    thisYearEventName=db.getAllForEventsName("Annually");
+			    //thisYearEventName.add(thisYearEventTargets.get("event_name"));
+			    thisYearEventNumber=new ArrayList<String>();
+			    thisYearEventNumber=db.getAllForEventsNumber("Annually");
+			    //thisYearEventNumber.add(thisYearEventTargets.get("event_number"));
+			    thisYearEventPeriod=new ArrayList<String>();
+			    thisYearEventPeriod=db.getAllForEventsPeriod("Annually");
+			    
+			    thisYearEventStartDate=new ArrayList<String>();
+			    thisYearEventStartDate=db.getAllForEventsStartDate("Annually");
+			    //thisYearEventNumber.add(thisYearEventTargets.get("event_number"));
+			    thisYearEventPeriod=new ArrayList<String>();
+			    thisYearEventPeriod=db.getAllForEventsPeriod("Annually");
+			    //thisYearEventPeriod.add(thisYearEventTargets.get("event_period"));
+			    thisYearEventDueDate=new ArrayList<String>();
+			    thisYearEventDueDate=db.getAllForEventsDueDate("Annually");
+			    //thisYearEventDueDate.add(thisYearEventTargets.get("due_date"));
+			    thisYearEventStatus=new ArrayList<String>();
+			    thisYearEventStatus=db.getAllForEventsSyncStatus("Annually");
+			    //thisYearEventStatus.add(thisYearEventTargets.get("sync_status"));
+			    thisYearEventId=new ArrayList<String>();
+			    thisYearEventId=db.getAllForEventsId("Annually");
+			    //thisYearEventId.add(thisYearEventTargets.get("event_id"));
+			    
+			    thisYearEventLastUpdated=new ArrayList<String>();
+			    thisYearEventLastUpdated=db.getAllForEventsLastUpdated("Annually");
+			    
+			    thisYearEventAchieved=new ArrayList<String>();
+			    thisYearEventAchieved=db.getAllForEventsNumberAchieved("Annually");
+			    //thisYearEventId.add(thisYearEventTargets.get("event_id"));
+			    
+			    groupItems=new String[]{"To update today","To update this week","To update this month","To update this quarter","Half-year update","To update this year"};
+			    events_adapter=new EventBaseAdapter(mContext,todayEventName ,
+															todayEventNumber,
+																todayEventPeriod,
+																todayEventDueDate,
+																todayEventAchieved,
+																todayEventStartDate,
+																todayEventStatus,
+																todayEventId,
+																todayEventLastUpdated,
+																//todayEventNumberRemaining,
+							
+															/*	tomorrowEventName,
+																tomorrowEventNumber,
+																tomorrowEventPeriod,
+																tomorrowEventDueDate,
+																tomorrowEventAchieved,
+																tomorrowEventStartDate,
+																tomorrowEventStatus,
+																tomorrowEventId,
+																*/
+							
+																thisWeekEventName,
+																thisWeekEventNumber,
+																thisWeekEventPeriod,
+																thisWeekEventDueDate,
+																thisWeekEventAchieved,
+																thisWeekEventStartDate,
+																thisWeekEventStatus,
+																thisWeekEventId,
+																thisWeekEventLastUpdated,
+																//thisWeekEventNumberRemaining,
 
+																thisMonthEventName,
+																thisMonthEventNumber,
+																thisMonthEventPeriod,
+																thisMonthEventDueDate,
+																thisMonthEventAchieved,
+																thisMonthEventStartDate,
+																thisMonthEventStatus,
+																thisMonthEventId,
+																thisMonthEventLastUpdated,
+																//thisMonthEventNumberRemaining,
+						
+																thisQuarterEventName,
+																thisQuarterEventNumber,
+																thisQuarterEventPeriod,
+																thisQuarterEventDueDate,
+																thisQuarterEventAchieved,
+																thisQuarterEventStartDate,
+																thisQuarterEventStatus,
+																thisQuarterEventId,
+																thisQuarterEventLastUpdated,
+																//thisQuarterEventNumberRemaining,
+																
+																midYearEventName,
+																midYearEventNumber,
+																midYearEventPeriod,
+																midYearEventDueDate, 
+																midYearEventAchieved,
+																midYearEventStartDate,
+																midYearEventStatus,
+																midYearEventId,
+																midYearEventLastUpdated,
+																//midYearEventNumberRemaining,
+																
+																thisYearEventName,
+																thisYearEventNumber,
+																thisYearEventPeriod,
+																thisYearEventDueDate,
+																thisYearEventAchieved,
+																thisYearEventStartDate,
+																thisYearEventStatus,
+																thisYearEventId,
+																thisYearEventLastUpdated,
+																//thisYearEventNumberRemaining,
+																 groupItems,
+																listView_events);
+			  
+			   
+			    listView_events.setAdapter(events_adapter);	
+			    View empty_view=new View(getActivity());
+			    listView_events.setEmptyView(empty_view);
+			    events_adapter.notifyDataSetChanged();
+			   
+			    listView_events.setOnChildClickListener(this);
+			    button_show=(Button) rootView.findViewById(R.id.button_show);
+			 
+			    button_show.setOnClickListener(new OnClickListener(){
+
+					@Override
+					public void onClick(View v) {
+						   eventId=new ArrayList<String>();
+							 eventId=db.getAllForEventsId("Daily");
+							 coverageId=new ArrayList<String>();
+							 coverageId=db.getAllForCoverageId("Daily");
+							 otherId=new ArrayList<String>();
+							 otherId=db.getAllForOtherId("Daily");
+							 learningId=new ArrayList<String>();
+							 learningId=db.getAllForLearningId("Daily");
+							 int number=eventId.size();
+							 int number2=coverageId.size();
+							 int number3=otherId.size();
+							 int number4=learningId.size();
+							 final int counter;
+							if(eventId.size()<0){
+								number=0;
+							}else{
+								number=eventId.size();
+							}
+							if(coverageId.size()<0){
+								number2=0;
+							}else {
+								number2=coverageId.size();
+							}
+							if(otherId.size()<0){
+								number3=0;
+							}else{
+								number3=otherId.size();
+							}
+							
+							if(learningId.size()<0){
+								number4=0;
+							}else{
+								number4=learningId.size();
+							}
+							counter=number+number2+number3+number4;	
+						if(counter>0){
+						Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
+						startActivity(intent);
+						}else if(counter==0){
+							 Toast.makeText(getActivity(), "You have no targets to update!",
+							         Toast.LENGTH_SHORT).show();
+						}
+						
+					}
+			    	
 			    });
 			return rootView;
 				   
@@ -463,91 +962,143 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			 
 		
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					final long id) {
-				selected_items=events_adapter.getItem(position);
-				System.out.println(selected_items[0]+" "+selected_items[1]);
-				final Dialog dialog = new Dialog(getActivity());
-				dialog.setContentView(R.layout.event_set_dialog);
-				dialog.setTitle("Edit Event Target");
-				final EditText editText_eventNumber=(EditText) dialog.findViewById(R.id.editText_dialogEventPeriodNumber);
-				String[] items={"Daily","Monthly","Weekly","Yearly","Quarterly"};
-				ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
-				final Spinner spinner_event_name=(Spinner) dialog.findViewById(R.id.spinner_eventName);
-				final Spinner spinner_eventPeriod=(Spinner) dialog.findViewById(R.id.spinner_dialogEventPeriod);
-				spinner_eventPeriod.setAdapter(adapter);
-				int spinner_position_period=adapter.getPosition(selected_items[2]);
-				String[] items_names={"ANC Static","ANC Outreach","CWC Static","CWC Outreach",
-						"PNC Clinic","Routine Home visit","Special Home visit",
-						"Family Planning","Health Talk","CMAM Clinic","School Health",
-						"Adolescent Health","Mop-up Activity/Event","Community Durbar",
-						"National Activity/Event","Staff meetings/durbars","Workshops","Leave/Excuse Duty",
-						"Personal","Other"};
-				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items_names);
-				spinner_event_name.setAdapter(adapter2);
-				int spinner_position=adapter2.getPosition(selected_items[0]);
-				spinner_event_name.setSelection(spinner_position);
-				editText_eventNumber.setText(selected_items[1]);
-				Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogSetEVent);
-				dialogButton.setText("Save");
-				dialogButton.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						dialog.dismiss();
-						
-						String event_name=spinner_event_name.getSelectedItem().toString();
-						String event_number=editText_eventNumber.getText().toString();
-						String event_period=spinner_eventPeriod.getSelectedItem().toString();
-					    if(db.editEventCategory(event_name, event_number, event_period, id)==true){
-					    	getActivity().runOnUiThread(new Runnable() {
-					            @Override
-					            public void run() {
-					            	eventName=db.getAllEventName(month_passed);
-					 			    eventNumber=db.getAllEventNumber(month_passed);
-					 			    eventsId=db.getAllEventID(month_passed);
-					 			   eventPeriod=db.getAllEventPeriod(month_passed);
-					 			    events_adapter=new EventBaseAdapter(mContext,eventName,eventNumber,eventPeriod,eventsId);
-					 			    events_adapter.notifyDataSetChanged();
-					 			    listView_events.setAdapter(events_adapter);	
-					            }
-					        });	
-					    	 Toast.makeText(getActivity().getApplicationContext(), "Event target edited successfully!",
-							         Toast.LENGTH_LONG).show();
-					    }else{
-					    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
-							         Toast.LENGTH_LONG).show();
-					    }
-					}
-				});
-				
-	 				dialog.show();
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, final long id) {
+				selected_items=events_adapter.getChild(groupPosition, childPosition);
+				selected_id=Long.parseLong(selected_items[7]);
+				String event_name=selected_items[0];
+				String event_number=selected_items[1];
+				String event_period=selected_items[2];
+				String due_date=selected_items[3];
+				String start_date=selected_items[5];
+				String status=selected_items[6];
+				//String achieved=selected_items[4];
+				ArrayList<String> number_achieved_list=db.getForUpdateEventNumberAchieved(selected_id, event_period);
+				System.out.println(number_achieved_list.get(0));
+				System.out.println(event_number);
+				Intent intent=new Intent(getActivity(),EventTargetsDetailActivity.class);
+				intent.putExtra("event_id",selected_id);
+				intent.putExtra("event_name",event_name);
+				intent.putExtra("event_number",event_number);
+				intent.putExtra("event_period", event_period);
+				intent.putExtra("due_date", due_date);
+				intent.putExtra("start_date", start_date);
+				intent.putExtra("achieved", number_achieved_list.get(0));
+				intent.putExtra("status", status);
+				startActivity(intent);
+					return true;
 		}
-	 
+			
 	 }
 	 public static class CoverageActivity extends Fragment implements OnChildClickListener{
 
 			private Context mContext;															
-			private ArrayList<String> coveragePeopleTarget;
-			private ArrayList<String> coveragePeopleNumber;
-			private ArrayList<String> coveragePeoplePeriod;
-			private ArrayList<String> coverageImmunzationTarget;
-			private ArrayList<String> coverageImmunzationNumber;
-			private ArrayList<String> coverageImmunzationPeriod;
-			private ArrayList<String> coveragePeopleId;
-			private ArrayList<String> coverageImmunizationId;
+			private ExpandableListView listView_events;
+			private ArrayList<String> todayEventName;
+			 private ArrayList<String> todayEventNumber;
+			 private ArrayList<String> todayEventPeriod;
+			 private ArrayList<String> todayEventDueDate;
+			 private ArrayList<String> todayEventStartDate;
+			 private ArrayList<String> todayEventAchieved;
+			 private ArrayList<String> todayEventStatus;
+			 private ArrayList<String> todayEventId;
+			 private ArrayList<String> todayEventLastUpdated;
+			 private ArrayList<String> todayEventNumberRemaining;
+			 
+			 private ArrayList<String> tomorrowEventName;
+			 private ArrayList<String> tomorrowEventNumber;
+			 private ArrayList<String> tomorrowEventPeriod;
+			 private ArrayList<String> tomorrowEventDueDate;
+			 private ArrayList<String> tomorrowEventStartDate;
+			 private ArrayList<String> tomorrowEventAchieved;
+			 private ArrayList<String> tomorrowEventStatus;
+			 private ArrayList<String> tomorrowEventId;
+			 
+			 private ArrayList<String> thisWeekEventName;
+			 private ArrayList<String> thisWeekEventNumber;
+			 private ArrayList<String> thisWeekEventPeriod;
+			 private ArrayList<String> thisWeekEventDueDate;
+			 private ArrayList<String> thisWeekEventStartDate;
+			 private ArrayList<String> thisWeekEventAchieved;
+			 private ArrayList<String> thisWeekEventStatus;
+			 private ArrayList<String> thisWeekEventId;
+			 private ArrayList<String> thisWeekEventLastUpdated;
+			 private ArrayList<String> thisWeekEventNumberRemaining;
+			 
+			 private ArrayList<String> thisMonthEventName;
+			 private ArrayList<String> thisMonthEventNumber;
+			 private ArrayList<String> thisMonthEventPeriod;
+			 private ArrayList<String> thisMonthEventDueDate;
+			 private ArrayList<String>  thisMonthEventStartDate;
+			 private ArrayList<String>  thisMonthEventAchieved;
+			 private ArrayList<String> thisMonthEventStatus;
+			 private ArrayList<String> thisMonthEventId;
+			 private ArrayList<String> thisMonthEventLastUpdated;
+			 private ArrayList<String> thisMonthEventNumberRemaining;
+			 
+			 private ArrayList<String> thisQuarterEventName;
+			 private ArrayList<String> thisQuarterEventNumber;
+			 private ArrayList<String> thisQuarterEventPeriod;
+			 private ArrayList<String> thisQuarterEventDueDate;
+			 private ArrayList<String>  thisQuarterEventStartDate;
+			 private ArrayList<String>  thisQuarterEventAchieved;
+			 private ArrayList<String> thisQuarterEventStatus;
+			 private ArrayList<String> thisQuarterEventId;
+			 private ArrayList<String> thisQuarterEventLastUpdated;
+			 private ArrayList<String> thisQuarterEventNumberRemaining;
+			 
+			 private ArrayList<String> midYearEventName;
+			 private ArrayList<String> midYearEventNumber;
+			 private ArrayList<String> midYearEventPeriod;
+			 private ArrayList<String> midYearEventDueDate;
+			 private ArrayList<String>  midYearEventStartDate;
+			 private ArrayList<String>  midYearEventAchieved;
+			 private ArrayList<String> midYearEventStatus;
+			 private ArrayList<String> midYearEventId;
+			 private ArrayList<String> midYearEventLastUpdated;
+			 private ArrayList<String> midYearEventNumberRemaining;
+			 
+			 private ArrayList<String> thisYearEventName;
+			 private ArrayList<String> thisYearEventNumber;
+			 private ArrayList<String> thisYearEventPeriod;
+			 private ArrayList<String> thisYearEventDueDate;
+			 private ArrayList<String>  thisYearEventStartDate;
+			 private ArrayList<String> thisYearEventAchieved;
+			 private ArrayList<String> thisYearEventStatus;
+			 private ArrayList<String> thisYearEventId;
+			 private ArrayList<String> thisYearEventLastUpdated;
+			 private ArrayList<String> thisYearEventNumberRemaining;
+			 
+			 private HashMap<String,String> todayEventTargets;//Today
+			 private HashMap<String,String> tomorrowEventTargets;
+			 private HashMap<String,String> thisWeekEventTargets;
+			 private HashMap<String,String> thisMonthEventTargets;
+			 private HashMap<String,String> thisQuarterEventTargets;
+			 private HashMap<String,String> midYearEventTargets;
+			 private HashMap<String,String> thisYearEventTargets;
+			 private String[] groupItems;
 			private DbHelper db;
 			 public static final String ARG_SECTION_NUMBER = "section_number";       
 			View rootView;
 			private ExpandableListView listView_coverage;
-			private TextView textStatus;
-			private String[] group={"People","Immunizations"};
-			private int[] imageId={R.drawable.ic_people,R.drawable.ic_syringe};
-			private CoverageListAdapter coverage_adapter;
+			private EventBaseAdapter coverage_adapter;
 			private String[] selected_items;
 			private RadioGroup category_options;
 			private String[] items3;
 			int selected_position;
 			protected RadioButton category_people;
+			private long selected_id;
+			private Button button_show;
+			private ArrayList<String> eventId;
+			private ArrayList<String> coverageId;
+			private ArrayList<String> otherId;
+			private ArrayList<String> learningId;
+			static String due_date ;
+			private static TextView dueDateValue;
+			static String start_date ;
+			static long due_date_to_compare;
+			private static TextView startDateValue;
+			
 			 public CoverageActivity(){
 
          }
@@ -555,339 +1106,377 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				 rootView=inflater.inflate(R.layout.activity_coverage,null,false);
 			    mContext=getActivity().getApplicationContext();
 			    db=new DbHelper(getActivity());
-			    coveragePeopleTarget=db.getAllCoveragePeopleTarget(month_passed);
-			    coveragePeopleNumber=db.getAllCoveragePeopleNumber(month_passed);
-			    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod(month_passed);
-			    
-			    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget(month_passed);
-			    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber(month_passed);
-			    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod(month_passed);
-			    coveragePeopleId=db.getAllCoveragePeopleId(month_passed);
-			    coverageImmunizationId=db.getAllCoverageImmunizationsId(month_passed);
 			    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
 			    listView_coverage.setOnChildClickListener(this);
-			    //registerForContextMenu(listView_coverage);
-			    textStatus=(TextView) rootView.findViewById(R.id.textView_coverageStatus);
-			    coverage_adapter=new CoverageListAdapter(getActivity(),group,coveragePeopleTarget,coveragePeopleNumber,
-			    																		coveragePeoplePeriod,coverageImmunzationTarget,
-			    																		coverageImmunzationNumber,coverageImmunzationPeriod,
-			    																		coveragePeopleId,coverageImmunizationId,
-			    																		imageId,listView_coverage);
-			    coverage_adapter.notifyDataSetChanged();
-		    	listView_coverage.setAdapter(coverage_adapter);	
-			    if(listView_coverage.getChildCount()>0){
-			    	textStatus.setText(" ");
-			    	
-			    }else if (listView_coverage.getChildCount()==0){
-			    	textStatus.setText(" ");
-			    }
-			  
-			    Button b = (Button) rootView.findViewById(R.id.button_addCoverage);
-			   /* if(!month_passed.equalsIgnoreCase(current_month)){
-					  b.setVisibility(View.GONE); 
-				   }*/
-			    b.setOnClickListener(new OnClickListener() {
-			    	 String coverage_detail;
-			       @Override
-			       public void onClick(View v) {
-			    	   final Dialog dialog = new Dialog(getActivity());
-						dialog.setContentView(R.layout.coverage_add_dialog);
-						final Spinner spinner_coverageName=(Spinner) dialog.findViewById(R.id.spinner_dialogCoverageName);
-						 category_options=(RadioGroup) dialog.findViewById(R.id.radioGroup_category);
-						  category_options.check(R.id.radio_people);
-						  category_people=(RadioButton) dialog.findViewById(R.id.radio_people);
-						  category_people.setChecked(true);
-						  items3=new String[]{"0 - 11 months","12 - 23 months",
-									"24 -59 months","Women in fertile age",
-									"Expected pregnancy"};
-							ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
-							spinner_coverageName.setAdapter(adapter3);
-						dialog.setTitle("Add Coverage Target");
-						    category_options.setOnCheckedChangeListener(new OnCheckedChangeListener(){
-						    	
-								public void onCheckedChanged(
-										RadioGroup buttonView,
-										int isChecked) {
-									if (isChecked == R.id.radio_people) {
-										items3=new String[]{"0 - 11 months","12 - 23 months",
-												"24 -59 months","Women in fertile age",
-												"Expected pregnancy"};
-										ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
-										spinner_coverageName.setAdapter(adapter3);
-										coverage_detail="People";
-									} else if (isChecked == R.id.radio_immunization) {
-										items3=new String[]{"BCG",
-												"Penta 3","OPV 3","Rota 2",
-												"PCV 3","Measles Rubella","Yellow fever"};
-										ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
-										spinner_coverageName.setAdapter(adapter4);
-										coverage_detail="Immunization";
-									}
-									
-								}
+			    todayEventTargets=db.getAllForCoverage("Today");
+			    tomorrowEventTargets=db.getAllForCoverage("Tomorrow");
+			    thisWeekEventTargets=db.getAllForCoverage("This week");
+			    thisMonthEventTargets=db.getAllForCoverage("This month");
+			    thisQuarterEventTargets=db.getAllForCoverage("This quarter");
+			    midYearEventTargets=db.getAllForCoverage("Mid-year");
+			    thisYearEventTargets=db.getAllForCoverage("This year");
+			   
+			    todayEventName=new ArrayList<String>();
+			    todayEventName=db.getAllForCoverageName("Daily");
+			   // todayEventName.add(todayEventTargets.get("event_name"));
+			   todayEventNumber=new ArrayList<String>();
+			    todayEventNumber=db.getAllForCoverageNumber("Daily");
+			    
+			    todayEventAchieved=new ArrayList<String>();
+			    todayEventAchieved=db.getAllForCoverageNumberAchieved("Daily");
+			    
+			    todayEventStartDate=new ArrayList<String>();
+			    todayEventStartDate=db.getAllForCoverageStartDate("Daily");
+			    
+			   // todayEventNumber.add(todayEventTargets.get("event_number"));
+			    todayEventPeriod=new ArrayList<String>();
+			    //todayEventPeriod.add(todayEventTargets.get("event_period"));
+			    todayEventPeriod=db.getAllForCoveragePeriod("Daily");
+			    
+			    todayEventDueDate=new ArrayList<String>();
+			    todayEventDueDate=db.getAllForCoverageDueDate("Daily");
+			   // todayEventDueDate.add(todayEventTargets.get("due_date"));
+			    
+			    todayEventStatus=new ArrayList<String>();
+			   // todayEventStatus.add(todayEventTargets.get("sync_status"));
+			    todayEventStatus=db.getAllForCoverageSyncStatus("Daily");
+			    
+			    todayEventId=new ArrayList<String>();
+			  //  todayEventId.add(todayEventTargets.get("event_id"));
+			    todayEventId=db.getAllForCoverageId("Daily");
+			    
+			    todayEventLastUpdated=new ArrayList<String>();
+				  //  todayEventId.add(todayEventTargets.get("event_id"));
+				todayEventLastUpdated=db.getAllForCoverageLastUpdated("Daily");
+			    
+			    /*
+			    tomorrowEventName=new ArrayList<String>();
+			    tomorrowEventName=db.getAllForCoverageName("Weekly");
+			    //tomorrowEventName.add(tomorrowEventTargets.get("event_name"));
+			    
+			    /*
+			    tomorrowEventNumber=new ArrayList<String>();
+			    tomorrowEventNumber=db.getAllForCoverageNumber("Weekly");
+			    //tomorrowEventNumber.add(tomorrowEventTargets.get("event_number"));
+			    tomorrowEventPeriod=new ArrayList<String>();
+			    tomorrowEventPeriod=db.getAllForCoveragePeriod("Weekly");
+			    //tomorrowEventPeriod.add(tomorrowEventTargets.get("event_period"));
+			    tomorrowEventDueDate=new ArrayList<String>();
+			    tomorrowEventDueDate=db.getAllForCoverageDueDate("Weekly");
+			    //tomorrowEventDueDate.add(tomorrowEventTargets.get("due_date"));
+			    tomorrowEventStatus=new ArrayList<String>();
+			    tomorrowEventStatus=db.getAllForCoverageSyncStatus("Weekly");
+			    //tomorrowEventStatus.add(tomorrowEventTargets.get("sync_status"));
+			    tomorrowEventId=new ArrayList<String>();
+			    tomorrowEventId=db.getAllForCoverageId("Weekly");
+			    //tomorrowEventId.add(tomorrowEventTargets.get("event_id"));
+			    */
+			    
+			    thisWeekEventName=new ArrayList<String>();
+			    thisWeekEventName=db.getAllForCoverageName("Weekly");
+			    //thisWeekEventName.add(thisWeekEventTargets.get("event_name"));
+			    thisWeekEventNumber=new ArrayList<String>();
+			    thisWeekEventNumber=db.getAllForCoverageNumber("Weekly");
+			   // thisWeekEventNumber.add(thisWeekEventTargets.get("event_number"));
+			    thisWeekEventPeriod=new ArrayList<String>();
+			    thisWeekEventPeriod=db.getAllForCoveragePeriod("Weekly");
+			   // thisWeekEventPeriod.add(thisWeekEventTargets.get("event_period"));
+			    thisWeekEventDueDate=new ArrayList<String>();
+			    thisWeekEventDueDate=db.getAllForCoverageDueDate("Weekly");
+			    //thisWeekEventDueDate.add(thisWeekEventTargets.get("due_date"));
+			    thisWeekEventStatus=new ArrayList<String>();
+			    thisWeekEventStatus=db.getAllForCoverageSyncStatus("Weekly");
+			    //thisWeekEventStatus.add(thisWeekEventTargets.get("sync_status"));
+			    thisWeekEventId=new ArrayList<String>();
+			    thisWeekEventId=db.getAllForCoverageId("Weekly");
+			    //thisWeekEventId.add(thisWeekEventTargets.get("event_id"));
+			    
+			    thisWeekEventId=new ArrayList<String>();
+			    thisWeekEventId=db.getAllForCoverageId("Weekly");
+			    //thisWeekEventId.add(thisWeekEventTargets.get("event_id"));
+			    
+			    thisWeekEventLastUpdated=new ArrayList<String>();
+			    thisWeekEventLastUpdated=db.getAllForCoverageLastUpdated("Weekly");
+			    //thisWeekEventId.add(thisWeekEventTargets.get("event_id"));
+			    
+			    thisWeekEventAchieved=new ArrayList<String>();
+			    thisWeekEventAchieved=db.getAllForCoverageNumberAchieved("Weekly");
+			    
+			    thisWeekEventStartDate=new ArrayList<String>();
+			    thisWeekEventStartDate=db.getAllForCoverageStartDate("Weekly");
+			    
+			    thisMonthEventName=new ArrayList<String>();
+			    thisMonthEventName=db.getAllForCoverageName("Monthly");
+			   //thisMonthEventName.add(thisMonthEventTargets.get("event_name"));
+			    thisMonthEventNumber=new ArrayList<String>();
+			    thisMonthEventNumber=db.getAllForCoverageNumber("Monthly");
+			    //thisMonthEventNumber.add(thisMonthEventTargets.get("event_number"));
+			    thisMonthEventPeriod=new ArrayList<String>();
+			    thisMonthEventPeriod=db.getAllForCoveragePeriod("Monthly");
+			    //thisMonthEventPeriod.add(thisMonthEventTargets.get("event_period"));
+			    thisMonthEventDueDate=new ArrayList<String>();
+			    thisMonthEventDueDate=db.getAllForCoverageDueDate("Monthly");
+			    //thisMonthEventDueDate.add(thisMonthEventTargets.get("due_date"));
+			    thisMonthEventStatus=new ArrayList<String>();
+			    thisMonthEventStatus=db.getAllForCoverageSyncStatus("Monthly");
+			    //thisMonthEventStatus.add(thisMonthEventTargets.get("sync_status"));
+			    thisMonthEventId=new ArrayList<String>();
+			    thisMonthEventId=db.getAllForCoverageId("Monthly");
+			    //thisMonthEventId.add(thisMonthEventTargets.get("event_id"));
+			    
+			    thisMonthEventLastUpdated=new ArrayList<String>();
+			    thisMonthEventLastUpdated=db.getAllForCoverageLastUpdated("Monthly");
+			    //thisMonthEventId.add(thisMonthEventTargets.get("event_id"));
+			    thisMonthEventAchieved=new ArrayList<String>();
+			    thisMonthEventAchieved=db.getAllForCoverageNumberAchieved("Monthly");
+			    
+			    thisMonthEventStartDate=new ArrayList<String>();
+			    thisMonthEventStartDate=db.getAllForCoverageStartDate("Monthly");
+			    
+			    midYearEventName=new ArrayList<String>();
+			   // midYearEventName.add(midYearEventTargets.get("event_name"));
+			    midYearEventName=db.getAllForCoverageName("Mid-year");
+			    midYearEventNumber=new ArrayList<String>();
+			    midYearEventNumber=db.getAllForCoverageNumber("Mid-year");
+			   // midYearEventNumber.add(midYearEventTargets.get("event_number"));
+			    midYearEventPeriod=new ArrayList<String>();
+			    midYearEventPeriod=db.getAllForCoveragePeriod("Mid-year");
+			    //midYearEventPeriod.add(midYearEventTargets.get("event_period"));
+			    midYearEventDueDate=new ArrayList<String>();
+			    midYearEventDueDate=db.getAllForCoverageDueDate("Mid-year");
+			   // midYearEventDueDate.add(midYearEventTargets.get("due_date"));
+			    midYearEventStatus=new ArrayList<String>();
+			    midYearEventStatus=db.getAllForCoverageSyncStatus("Mid-year");
+			    //midYearEventStatus.add(midYearEventTargets.get("sync_status"));
+			    midYearEventId=new ArrayList<String>();
+			    midYearEventId=db.getAllForCoverageId("Mid-year");
+			   // midYearEventId.add(midYearEventTargets.get("event_id"));
+			    midYearEventAchieved=new ArrayList<String>();
+			    midYearEventAchieved=db.getAllForCoverageNumberAchieved("Mid-year");
+			    
+			    midYearEventStartDate=new ArrayList<String>();
+			    midYearEventStartDate=db.getAllForCoverageStartDate("Mid-year");
+			    
+			    midYearEventLastUpdated=new ArrayList<String>();
+			    midYearEventLastUpdated=db.getAllForCoverageLastUpdated("Mid-year");
+			    
+			    thisQuarterEventName=new ArrayList<String>();
+			    thisQuarterEventName=db.getAllForCoverageName("Quarterly");
+			    //thisQuarterEventName.add(thisQuarterEventTargets.get("event_name"));
+			    thisQuarterEventNumber=new ArrayList<String>();
+			    thisQuarterEventNumber=db.getAllForCoverageNumber("Quarterly");
+			    //thisQuarterEventNumber.add(thisQuarterEventTargets.get("event_number"));
+			    thisQuarterEventPeriod=new ArrayList<String>();
+			    thisQuarterEventPeriod=db.getAllForCoveragePeriod("Quarterly");
+			   // thisQuarterEventPeriod.add(thisQuarterEventTargets.get("event_period"));
+			    thisQuarterEventDueDate=new ArrayList<String>();
+			    thisQuarterEventDueDate=db.getAllForCoverageDueDate("Quarterly");
+			   // thisQuarterEventDueDate.add(thisQuarterEventTargets.get("due_date"));
+			    thisQuarterEventStatus=new ArrayList<String>();
+			    thisQuarterEventStatus=db.getAllForCoverageSyncStatus("Quarterly");
+			    //thisQuarterEventStatus.add(thisQuarterEventTargets.get("sync_status"));
+			    thisQuarterEventId=new ArrayList<String>();
+			    thisQuarterEventId=db.getAllForCoverageId("Quarterly");
+			    //thisQuarterEventId.add(thisQuarterEventTargets.get("event_id"));
+			    thisQuarterEventAchieved=new ArrayList<String>();
+			    thisQuarterEventAchieved=db.getAllForCoverageNumberAchieved("Quarterly");
+			    
+			    thisQuarterEventStartDate=new ArrayList<String>();
+			    thisQuarterEventStartDate=db.getAllForCoverageStartDate("Quarterly");
+			    
+			    thisQuarterEventLastUpdated=new ArrayList<String>();
+			    thisQuarterEventLastUpdated=db.getAllForCoverageLastUpdated("Quarterly");
+			    
+			    thisYearEventName=new ArrayList<String>();
+			    thisYearEventName=db.getAllForCoverageName("Annually");
+			    //thisYearEventName.add(thisYearEventTargets.get("event_name"));
+			    thisYearEventNumber=new ArrayList<String>();
+			    thisYearEventNumber=db.getAllForCoverageNumber("Annually");
+			    //thisYearEventNumber.add(thisYearEventTargets.get("event_number"));
+			    thisYearEventPeriod=new ArrayList<String>();
+			    thisYearEventPeriod=db.getAllForCoveragePeriod("Annually");
+			    //thisYearEventPeriod.add(thisYearEventTargets.get("event_period"));
+			    thisYearEventDueDate=new ArrayList<String>();
+			    thisYearEventDueDate=db.getAllForCoverageDueDate("Annually");
+			    //thisYearEventDueDate.add(thisYearEventTargets.get("due_date"));
+			    thisYearEventStatus=new ArrayList<String>();
+			    thisYearEventStatus=db.getAllForCoverageSyncStatus("Annually");
+			    //thisYearEventStatus.add(thisYearEventTargets.get("sync_status"));
+			    thisYearEventId=new ArrayList<String>();
+			    thisYearEventId=db.getAllForCoverageId("Annually");
+			    //thisYearEventId.add(thisYearEventTargets.get("event_id"));
+			    thisYearEventAchieved=new ArrayList<String>();
+			    thisYearEventAchieved=db.getAllForCoverageNumberAchieved("Annually");
+			    
+			    thisYearEventLastUpdated=new ArrayList<String>();
+			    thisYearEventLastUpdated=db.getAllForCoverageLastUpdated("Annually");
+			    
+			    
+			    thisYearEventStartDate=new ArrayList<String>();
+			    thisYearEventStartDate=db.getAllForCoverageStartDate("Annually");
+			    
+			    groupItems=new String[]{"To update today","To update this week","To update this month","To update this quarter","Half-year update","To update this year"};
+			    
+			    coverage_adapter=new EventBaseAdapter(mContext,todayEventName ,
+															todayEventNumber,
+															todayEventPeriod,
+															todayEventDueDate,
+															todayEventAchieved,
+															todayEventStartDate,
+															todayEventStatus,
+															todayEventId,
+															todayEventLastUpdated,
+															//todayEventNumberRemaining,
 
-						    });
-						String[] items2={"Daily","Monthly","Weekly","Yearly","Quarterly"};
-					
-						listView_coverage.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-						listView_coverage.setSelector(R.drawable.listchoice_selector);
-						listView_coverage.setMultiChoiceModeListener(new MultiChoiceModeListener() {
-							
-				            private int nr = 0;
-				              
-				            @Override
-				            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-				                
-				                return false;
-				            }
-				              
-				            @Override
-				            public void onDestroyActionMode(ActionMode mode) {
-				                
-				            	coverage_adapter.clearSelection();
-				            }
-				              
-				            @Override
-				            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-				            
-				                  
-				                nr = 0;
-				                MenuInflater inflater = getActivity().getMenuInflater();
-				                inflater.inflate(R.menu.context_menu, menu);
-				                return true;
-				            }
-				              
-				            @Override
-				            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-				                int itemId = item.getItemId();
-								if (itemId == R.id.option1) {
-									nr = 0;
-									System.out.println(selected_position);
-									AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				            				getActivity());
-									// set title
-									alertDialogBuilder.setTitle("Delete Coverage Target?");
-									// set dialog message
-									alertDialogBuilder
-										.setMessage("You are about to delete this coverage target. Proceed?")
-										.setCancelable(false)
-										.setIcon(R.drawable.ic_error)
-										.setPositiveButton("No",new DialogInterface.OnClickListener() {
-											public void onClick(DialogInterface dialog,int id) {
-												// if this button is clicked, close
-												// current activity
-												dialog.cancel();
-											}
-										  })
-										.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
-											public void onClick(DialogInterface dialog,int id) {
-												// if this button is clicked, just close
-												// the dialog box and do nothing
-												if(db.deleteCoverageCategory(selected_position)==true){
-													getActivity().runOnUiThread(new Runnable() {
-											            @Override
-											            public void run() {
-											            	
-											            	coveragePeopleTarget=db.getAllCoveragePeopleTarget(month_passed);
-														    coveragePeopleNumber=db.getAllCoveragePeopleNumber(month_passed);
-														    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod(month_passed);
-														    
-														    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget(month_passed);
-														    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber(month_passed);
-														    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod(month_passed);
-														    coveragePeopleId=db.getAllCoveragePeopleId(month_passed);
-														    coverageImmunizationId=db.getAllCoverageImmunizationsId(month_passed);
-														    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
-														    coverage_adapter=new CoverageListAdapter(getActivity(),group,coveragePeopleTarget,coveragePeopleNumber,
-																	coveragePeoplePeriod,coverageImmunzationTarget,
-																	coverageImmunzationNumber,coverageImmunzationPeriod,
-																	coveragePeopleId,coverageImmunizationId,
-																	imageId,listView_coverage);
-														    coverage_adapter.notifyDataSetChanged();
-														    listView_coverage.setAdapter(coverage_adapter);	
-											            }
-											        });	
-									    		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
-													         Toast.LENGTH_LONG).show();
-									        	}
-									        	
-												coverage_adapter.clearSelection();
-									          
-											}
-										});
-									// create alert dialog
-									AlertDialog alertDialog = alertDialogBuilder.create();
-									// show it
-									alertDialog.show();
-									
-									mode.finish();
-								}
-				                return false;
-				            }
-				              
-				            @Override	
-				            public void onItemCheckedStateChanged(ActionMode mode, int position,
-				                    long id, boolean checked) {
-				                // TODO Auto-generated method stub
-				                 if (checked) {
-				                        nr++;
-				                        selected_position=(int) id;
-				                        
-				                        coverage_adapter.setNewSelection(position, checked);                    
-				                    } else {
-				                        nr--;
-				                        coverage_adapter.removeSelection(position);                 
-				                    }
-				                    mode.setTitle(nr + " selected");
-				                    
-				            }
-				        });
+					/*	tomorrowEventName,
+						tomorrowEventNumber,
+						tomorrowEventPeriod,
+						tomorrowEventDueDate,
+						tomorrowEventAchieved,
+						tomorrowEventStartDate,
+						tomorrowEventStatus,
+						tomorrowEventId,
+						*/
+
+						thisWeekEventName,
+						thisWeekEventNumber,
+						thisWeekEventPeriod,
+						thisWeekEventDueDate,
+						thisWeekEventAchieved,
+						thisWeekEventStartDate,
+						thisWeekEventStatus,
+						thisWeekEventId,
+						thisWeekEventLastUpdated,
+						//thisWeekEventNumberRemaining,
+
+						thisMonthEventName,
+						thisMonthEventNumber,
+						thisMonthEventPeriod,
+						thisMonthEventDueDate,
+						thisMonthEventAchieved,
+						thisMonthEventStartDate,
+						thisMonthEventStatus,
+						thisMonthEventId,
+						thisMonthEventLastUpdated,
+						//thisMonthEventNumberRemaining,
+
+						thisQuarterEventName,
+						thisQuarterEventNumber,
+						thisQuarterEventPeriod,
+						thisQuarterEventDueDate,
+						thisQuarterEventAchieved,
+						thisQuarterEventStartDate,
+						thisQuarterEventStatus,
+						thisQuarterEventId,
+						thisQuarterEventLastUpdated,
+						//thisQuarterEventNumberRemaining,
 						
-						final Spinner spinner_coveragePeriod=(Spinner) dialog.findViewById(R.id.spinner_coveragePeriod);
-						ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items2);
-						spinner_coveragePeriod.setAdapter(adapter2);
-						Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddCoverage);
-						dialogButton.setText("Save");
-						dialogButton.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								dialog.dismiss();
-								
-								EditText editText_coverageNumber=(EditText) dialog.findViewById(R.id.editText_dialogCoverageNumber);
-								
-								String coverage_name=spinner_coverageName.getSelectedItem().toString();
-								String coverage_period=spinner_coveragePeriod.getSelectedItem().toString();
-								String coverage_number=editText_coverageNumber.getText().toString();
-							    if(db.insertCoverageSet(coverage_name, coverage_detail, coverage_period, coverage_number, month_passed,"new_record") ==true){
-							    	getActivity().runOnUiThread(new Runnable() {
-							            @Override
-							            public void run() {
-							            	coveragePeopleTarget=db.getAllCoveragePeopleTarget(month_passed);
-										    coveragePeopleNumber=db.getAllCoveragePeopleNumber(month_passed);
-										    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod(month_passed);
-										    
-										    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget(month_passed);
-										    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber(month_passed);
-										    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod(month_passed);
-										    coveragePeopleId=db.getAllCoveragePeopleId(month_passed);
-										    coverageImmunizationId=db.getAllCoverageImmunizationsId(month_passed);
-										    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
-										    coverage_adapter=new CoverageListAdapter(getActivity(),group,coveragePeopleTarget,coveragePeopleNumber,
-													coveragePeoplePeriod,coverageImmunzationTarget,
-													coverageImmunzationNumber,coverageImmunzationPeriod,
-													coveragePeopleId,coverageImmunizationId,
-													imageId,listView_coverage);
-										    coverage_adapter.notifyDataSetChanged();
-										    listView_coverage.setAdapter(coverage_adapter);	
-							            }
-							        });	
-							    	 Toast.makeText(getActivity().getApplicationContext(), "Coverage target added successfully!",
-									         Toast.LENGTH_LONG).show();
-							    }else{
-							    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
-									         Toast.LENGTH_LONG).show();
-							    }
+						midYearEventName,
+						midYearEventNumber,
+						midYearEventPeriod,
+						midYearEventDueDate, 
+						midYearEventAchieved,
+						midYearEventStartDate,
+						midYearEventStatus,
+						midYearEventId,
+						midYearEventLastUpdated,
+						//midYearEventNumberRemaining,
+						
+						thisYearEventName,
+						thisYearEventNumber,
+						thisYearEventPeriod,
+						thisYearEventDueDate,
+						thisYearEventAchieved,
+						thisYearEventStartDate,
+						thisYearEventStatus,
+						thisYearEventId,
+						thisYearEventLastUpdated,
+						//thisYearEventNumberRemaining,
+						 groupItems,
+						listView_coverage);
+			  
+			   
+			    listView_coverage.setAdapter(coverage_adapter);	
+			    button_show=(Button) rootView.findViewById(R.id.button_show);
+			  
+			    button_show.setOnClickListener(new OnClickListener(){
+
+					@Override
+					public void onClick(View v) {
+						  eventId=new ArrayList<String>();
+							 eventId=db.getAllForEventsId("Daily");
+							 coverageId=new ArrayList<String>();
+							 coverageId=db.getAllForCoverageId("Daily");
+							 otherId=new ArrayList<String>();
+							 otherId=db.getAllForOtherId("Daily");
+							 learningId=new ArrayList<String>();
+							 learningId=db.getAllForLearningId("Daily");
+							 int number=eventId.size();
+							 int number2=coverageId.size();
+							 int number3=otherId.size();
+							 int number4=learningId.size();
+							 final int counter;
+							if(eventId.size()<0){
+								number=0;
+							}else{
+								number=eventId.size();
 							}
-						});
-			 				dialog.show();
-			       }
+							if(coverageId.size()<0){
+								number2=0;
+							}else {
+								number2=coverageId.size();
+							}
+							if(otherId.size()<0){
+								number3=0;
+							}else{
+								number3=otherId.size();
+							}
+							
+							if(learningId.size()<0){
+								number4=0;
+							}else{
+								number4=learningId.size();
+							}
+							counter=number+number2+number3+number4;	
+						if(counter>0){
+						Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
+						startActivity(intent);
+						}else if(counter==0){
+							 Toast.makeText(getActivity(), "You have no targets to update!",
+							         Toast.LENGTH_SHORT).show();
+						}
+						
+					}
+			    	
 			    });
+		    	listView_coverage.setOnChildClickListener(this);
 			return rootView;
 				   
 			}
-			
-			
-
 			@Override
 			public boolean onChildClick(ExpandableListView parent, View v,
 					int groupPosition, int childPosition, final long id) {
-				final Dialog dialog = new Dialog(getActivity());
-				selected_items=coverage_adapter.getChild(groupPosition,childPosition);
-				dialog.setContentView(R.layout.coverage_add_dialog);
-				final Spinner spinner_coverageName=(Spinner) dialog.findViewById(R.id.spinner_dialogCoverageName);
-				dialog.setTitle("Edit Coverage Target");
-			
-				 category_options=(RadioGroup) dialog.findViewById(R.id.radioGroup_category);
-				  category_options.check(R.id.radio_people);
-				  items3=new String[]{"0 - 11 months","12 - 23 months",
-							"24 -59 months","Women in fertile age",
-							"Expected pregnancy"};
-					ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
-					spinner_coverageName.setAdapter(adapter3);
-				    category_options.setOnCheckedChangeListener(new OnCheckedChangeListener(){
-				    	
-						public void onCheckedChanged(
-								RadioGroup buttonView,
-								int isChecked) {
-							if (isChecked == R.id.radio_people) {
-								items3=new String[]{"0 - 11 months","12 - 23 months",
-										"24 -59 months","Women in fertile age",
-										"Expected pregnancy"};
-								ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
-								spinner_coverageName.setAdapter(adapter3);
-								int spinner_position=adapter3.getPosition(selected_items[0]);
-								spinner_coverageName.setSelection(spinner_position);
-							} else if (isChecked == R.id.radio_immunization) {
-								items3=new String[]{"BCG",
-										"Penta 3","OPV 3","Rota 2",
-										"PCV 3","Measles Rubella","Yellow fever"};
-								ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
-								spinner_coverageName.setAdapter(adapter4);
-								int spinner_position2=adapter4.getPosition(selected_items[0]);
-								spinner_coverageName.setSelection(spinner_position2);
-							}	
-						}
-				    });
-				String[] items2={"Daily","Monthly","Weekly","Yearly","Quarterly"};
-				final Spinner spinner_coveragePeriod=(Spinner) dialog.findViewById(R.id.spinner_coveragePeriod);
-				ArrayAdapter<String> spinner_adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items2);
-				spinner_coveragePeriod.setAdapter(spinner_adapter);
-				
-				final EditText editText_coverageNumber=(EditText) dialog.findViewById(R.id.editText_dialogCoverageNumber);
-				editText_coverageNumber.setText(selected_items[1]);
-				Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddCoverage);
-				dialogButton.setText("Save");
-				dialogButton.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						dialog.dismiss();
-						
-						String coverage_name=spinner_coverageName.getSelectedItem().toString();
-						String coverage_period=spinner_coveragePeriod.getSelectedItem().toString();
-						String coverage_number=editText_coverageNumber.getText().toString();
-					    if(db.editCoverage(coverage_name, coverage_number, coverage_period, id) ==true){
-					    	getActivity().runOnUiThread(new Runnable() {
-					            @Override
-					            public void run() {
-					            	
-					            	coveragePeopleTarget=db.getAllCoveragePeopleTarget(month_passed);
-								    coveragePeopleNumber=db.getAllCoveragePeopleNumber(month_passed);
-								    coveragePeoplePeriod=db.getAllCoveragePeoplePeriod(month_passed);
-								    
-								    coverageImmunzationTarget=db.getAllCoverageImmunizationsTarget(month_passed);
-								    coverageImmunzationNumber=db.getAllCoverageImmunizationsNumber(month_passed);
-								    coverageImmunzationPeriod=db.getAllCoverageImmunizationsPeriod(month_passed);
-								    coveragePeopleId=db.getAllCoveragePeopleId(month_passed);
-								    coverageImmunizationId=db.getAllCoverageImmunizationsId(month_passed);
-								    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
-								    coverage_adapter=new CoverageListAdapter(getActivity(),group,coveragePeopleTarget,coveragePeopleNumber,
-											coveragePeoplePeriod,coverageImmunzationTarget,
-											coverageImmunzationNumber,coverageImmunzationPeriod,
-											coveragePeopleId,coverageImmunizationId,
-											imageId,listView_coverage);
-								    coverage_adapter.notifyDataSetChanged();
-								    listView_coverage.setAdapter(coverage_adapter);	
-					            }
-					        });	
-					    	 Toast.makeText(getActivity().getApplicationContext(), "Coverage target edited successfully!",
-							         Toast.LENGTH_LONG).show();
-					    }else{
-					    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
-							         Toast.LENGTH_LONG).show();
-					    }
-					}
-				});
-	 				dialog.show();
+				selected_items=coverage_adapter.getChild(groupPosition, childPosition);
+				selected_id=Long.parseLong(selected_items[7]);
+				//System.out.println(selected_items[0]+" "+selected_items[1]);
+				String coverage_name=selected_items[0];
+				String coverage_number=selected_items[1];
+				String coverage_period=selected_items[2];
+				String due_date=selected_items[3];
+				String start_date=selected_items[5];
+				String status=selected_items[6];
+				String achieved=selected_items[4];
+				ArrayList<String> number_achieved_list=db.getForUpdateEventNumberAchieved(selected_id, coverage_period);
+				Intent intent=new Intent(getActivity(),CoverageTargetsDetailActivity.class);
+				intent.putExtra("coverage_id",selected_id);
+				intent.putExtra("coverage_name",coverage_name);
+				intent.putExtra("coverage_number",coverage_number);
+				intent.putExtra("coverage_period", coverage_period);
+				intent.putExtra("due_date", due_date);
+				intent.putExtra("start_date", start_date);
+				intent.putExtra("achieved", number_achieved_list.get(0));
+				intent.putExtra("status", status);
+				startActivity(intent);
 				return true;
 			}
 			
@@ -897,13 +1486,83 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 
 			private Context mContext;															
 			
-			 public ArrayList<String> AntenatalCare;
-			 public ArrayList<String> PostnatalCare;
-			 public ArrayList<String> FamilyPlanning;
-			 public ArrayList<String> ChildHealth;
-			 public ArrayList<String> General;
-			 public ArrayList<String> Other;
-			 public ExpandableListView learningList;
+			private ArrayList<String> todayCategory;
+			private  ArrayList<String> todayCourse;
+			 private  ArrayList<String> todayTopic;
+			 private  ArrayList<String> todayEventPeriod;
+			 private  ArrayList<String> todayEventDueDate;
+			 private  ArrayList<String> todayEventStartDate;
+			 private  ArrayList<String> todayEventStatus;
+			 private  ArrayList<String> todayEventId;
+			 private ArrayList<String> todayEventLastUpdated;
+			 
+			 /*
+			 private  ArrayList<String> tomorrowCategory;
+			 private  ArrayList<String> tomorrowCourse;
+			 private  ArrayList<String> tomorrowTopic;
+			 private  ArrayList<String> tomorrowEventPeriod;
+			 private  ArrayList<String> tomorrowEventDueDate;
+			 private  ArrayList<String> tomorrowEventStartDate;
+			 private  ArrayList<String> tomorrowEventStatus;
+			 private  ArrayList<String> tomorrowEventId;
+			 */
+			 private  ArrayList<String> thisWeekCategory;
+			 private  ArrayList<String> thisWeekCourse;
+			 private  ArrayList<String> thisWeekTopic;
+			 private  ArrayList<String> thisWeekEventPeriod;
+			 private  ArrayList<String> thisWeekEventDueDate;
+			 private  ArrayList<String> thisWeekEventStartDate;
+			 private  ArrayList<String> thisWeekEventStatus;
+			 private  ArrayList<String> thisWeekEventId; 
+			 private ArrayList<String>  thisWeekEventLastUpdated;
+			 
+			 private ArrayList<String> thisMonthCategory;
+			 private  ArrayList<String> thisMonthCourse;
+			 private  ArrayList<String> thisMonthTopic;
+			 private  ArrayList<String> thisMonthEventPeriod;
+			 private  ArrayList<String> thisMonthEventDueDate;
+			 private  ArrayList<String> thisMonthEventStartDate;
+			 private  ArrayList<String> thisMonthEventStatus;
+			 private  ArrayList<String> thisMonthEventId;
+			 private ArrayList<String>  thisMonthEventLastUpdated;
+			 
+			 private  ArrayList<String> thisQuarterCategory;
+			 private  ArrayList<String> thisQuarterCourse;
+			 private  ArrayList<String> thisQuarterTopic;
+			 private  ArrayList<String> thisQuarterEventPeriod;
+			 private  ArrayList<String> thisQuarterEventDueDate;
+			 private  ArrayList<String> thisQuarterEventStartDate;
+			 private  ArrayList<String> thisQuarterEventStatus;
+			 private  ArrayList<String> thisQuarterEventId;
+			 private ArrayList<String>  thisQuarterEventLastUpdated;
+			 
+			 private  ArrayList<String> midYearCategory;
+			 private  ArrayList<String> midYearCourse;
+			 private  ArrayList<String> midYearTopic;
+			 private  ArrayList<String> midYearEventPeriod;
+			 private  ArrayList<String> midYearEventDueDate;
+			 private  ArrayList<String> midYearEventStartDate;
+			 private  ArrayList<String> midYearEventStatus;
+			 private  ArrayList<String> midYearEventId;
+			 private ArrayList<String>  midYearEventLastUpdated;
+			 
+			 private  ArrayList<String> thisYearCategory;
+			 private  ArrayList<String> thisYearCourse;
+			 private  ArrayList<String> thisYearTopic;
+			 private  ArrayList<String> thisYearEventPeriod;
+			 private  ArrayList<String> thisYearEventDueDate;
+			 private  ArrayList<String> thisYearEventStartDate;
+			 private  ArrayList<String> thisYearEventStatus;
+			 private  ArrayList<String> thisYearEventId;
+			 private ArrayList<String>  thisYearEventLastUpdated;
+			 
+			 private HashMap<String,String> todayEventTargets;//Today
+			 private HashMap<String,String> tomorrowEventTargets;
+			 private HashMap<String,String> thisWeekEventTargets;
+			 private HashMap<String,String> thisMonthEventTargets;
+			 private HashMap<String,String> thisQuarterEventTargets;
+			 private HashMap<String,String> midYearEventTargets;
+			 private HashMap<String,String> thisYearEventTargets;
 			 private DbHelper db;
 			 private LearningBaseAdapter learning_adapter;
 			 public static final String ARG_SECTION_NUMBER = "section_number";       
@@ -915,7 +1574,29 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			private String[] groupItem;
 
 			private int[] imageId;
+			static long due_date_to_compare;
 			int selected_position;
+
+			private ExpandableListView learningList;
+
+			private String[] selected_items;
+			static String due_date ;
+			private static TextView dueDateValueLearning;
+			static String start_date ;
+			private static TextView startDateValue;
+			private long selected_id;
+
+			private String[] groupItems;
+
+			private Button button_show;
+
+			private ArrayList<String> eventId;
+
+			private ArrayList<String> coverageId;
+
+			private ArrayList<String> otherId;
+
+			private ArrayList<String> learningId;
 			 public LearningActivity(){
 
       }
@@ -923,414 +1604,465 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				rootView=inflater.inflate(R.layout.activity_learning,null,false);
 			    mContext=getActivity().getApplicationContext();
 			    db=new DbHelper(getActivity());
-			    learningList=(ExpandableListView) rootView.findViewById(R.id.expandableListView_learningCategory);
-			    AntenatalCare=db.getAllLearningAntenatalCare();
-			    PostnatalCare=db.getAllLearningPostnatalCare();
-			    FamilyPlanning=db.getAllLearningFamilyPlanning(month_passed);
-			    ChildHealth=db.getAllLearningChildHealth();
-			    General=db.getAllLearningGeneral();
-			    Other=db.getAllLearningOther();
-			    textStatus=(TextView) rootView.findViewById(R.id.textView_learningStatus);
-			   groupItem=new String[]{"Family Planning"};
-			   imageId=new int[]{R.drawable.ic_family};
-		   
-			   learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,//AntenatalCare,
-				   													//PostnatalCare,
-				   													FamilyPlanning,
-				   													//ChildHealth,
-				   													//General,
-				   													//Other,
-				   													imageId,learningList);
-			   learning_adapter.notifyDataSetChanged();
+			    learningList=(ExpandableListView) rootView.findViewById(R.id.listView_learningCategory);
+			    todayEventTargets=db.getAllForCoverage("Today");
+			    tomorrowEventTargets=db.getAllForCoverage("Tomorrow");
+			    thisWeekEventTargets=db.getAllForCoverage("This week");
+			    thisMonthEventTargets=db.getAllForCoverage("This month");
+			    thisQuarterEventTargets=db.getAllForCoverage("This quarter");
+			    midYearEventTargets=db.getAllForCoverage("Mid-year");
+			    thisYearEventTargets=db.getAllForCoverage("This year");
+			    
+			    todayCategory=new ArrayList<String>();
+			    todayCategory=db.getAllForLearningCategory("Daily");
+			    //todayCategory.add(todayEventTargets.get("learning_category"));
+			    todayCourse=new ArrayList<String>();
+			    todayCourse=db.getAllForLearningCourse("Daily");
+			    //todayCourse.add(todayEventTargets.get("learning_topic"));
+			    todayTopic=new ArrayList<String>();
+			    todayTopic=db.getAllForLearningTopic("Daily");
+			    //todayTopic.add(todayEventTargets.get("learning_description"));
+			    todayEventPeriod=new ArrayList<String>();
+			    todayEventPeriod=db.getAllForLearningPeriod("Daily");
+			   // todayEventPeriod.add(todayEventTargets.get("learning_period"));
+			    todayEventDueDate=new ArrayList<String>();
+			    todayEventDueDate=db.getAllForLearningDueDate("Daily");
+			    
+			    todayEventStartDate=new ArrayList<String>();
+			    todayEventStartDate=db.getAllForLearningStartDate("Daily");
+			    //todayEventDueDate.add(todayEventTargets.get("due_date"));
+			    todayEventStatus=new ArrayList<String>();
+			    todayEventStatus=db.getAllForLearningSyncStatus("Daily");
+			  //  todayEventStatus.add(todayEventTargets.get("sync_status"));
+			    todayEventId=new ArrayList<String>();
+			    todayEventId=db.getAllForLearningId("Daily");
+			    //todayEventId.add(todayEventTargets.get("learning_id"));
+			    todayEventLastUpdated=new ArrayList<String>();
+			    todayEventLastUpdated=db.getAllForLearningLastUpdated("Daily");
+			    //todayEventId.add(todayEventTargets.get("learning_id"));
+			    
+			    /*
+			    tomorrowCategory=new ArrayList<String>();
+			    tomorrowCategory.add(tomorrowEventTargets.get("learning_category"));
+			    tomorrowCourse=new ArrayList<String>();
+			    tomorrowCourse.add(tomorrowEventTargets.get("learning_description"));
+			    tomorrowTopic=new ArrayList<String>();
+			    tomorrowTopic.add(tomorrowEventTargets.get("learning_topic"));
+			    tomorrowEventPeriod=new ArrayList<String>();
+			    tomorrowEventPeriod.add(tomorrowEventTargets.get("learning_period"));
+			    tomorrowEventDueDate=new ArrayList<String>();
+			    tomorrowEventDueDate.add(tomorrowEventTargets.get("due_date"));
+			    tomorrowEventStatus=new ArrayList<String>();
+			    tomorrowEventStatus.add(tomorrowEventTargets.get("sync_status"));
+			    tomorrowEventId=new ArrayList<String>();
+			    tomorrowEventId.add(tomorrowEventTargets.get("learning_id"));
+			    */
+			    thisWeekCategory=new ArrayList<String>();
+			    thisWeekCategory=db.getAllForLearningCategory("Weekly");
+			    //thisWeekCategory.add(thisWeekEventTargets.get("learning_category"));
+			    thisWeekCourse=new ArrayList<String>();
+			    thisWeekCourse=db.getAllForLearningCourse("Weekly");
+			    //thisWeekCourse.add(thisWeekEventTargets.get("learning_description"));
+			    thisWeekTopic=new ArrayList<String>();
+			    thisWeekTopic=db.getAllForLearningTopic("Weekly");
+			    //thisWeekTopic.add(thisWeekEventTargets.get("learning_topic"));
+			    thisWeekEventPeriod=new ArrayList<String>();
+			    thisWeekEventPeriod=db.getAllForLearningPeriod("Weekly");
+			   // thisWeekEventPeriod.add(thisWeekEventTargets.get("learning_period"));
+			    thisWeekEventDueDate=new ArrayList<String>();
+			    thisWeekEventDueDate=db.getAllForLearningDueDate("Weekly");
+			    
+			    thisWeekEventStartDate=new ArrayList<String>();
+			    thisWeekEventStartDate=db.getAllForLearningStartDate("Weekly");
+			   // thisWeekEventDueDate.add(thisWeekEventTargets.get("due_date"));
+			    thisWeekEventStatus=new ArrayList<String>();
+			    thisWeekEventStatus=db.getAllForLearningSyncStatus("Weekly");
+			   // thisWeekEventStatus.add(thisWeekEventTargets.get("sync_status"));
+			    thisWeekEventId=new ArrayList<String>();
+			    thisWeekEventId=db.getAllForLearningId("Weekly");
+			   // thisWeekEventId.add(thisWeekEventTargets.get("learning_id"));
+			    thisWeekEventLastUpdated=new ArrayList<String>();
+			    thisWeekEventLastUpdated=db.getAllForLearningLastUpdated("Weekly");
+			   // thisWeekEventId.add(thisWeekEventTargets.get("learning_id"));
+			    
+			    thisMonthCategory=new ArrayList<String>();
+			    thisMonthCategory=db.getAllForLearningCategory("Monthly");
+			    //thisMonthCategory.add(thisMonthEventTargets.get("learning_category"));
+			    thisMonthCourse=new ArrayList<String>();
+			    thisMonthCourse=db.getAllForLearningCourse("Monthly");
+			    //thisMonthCourse.add(thisMonthEventTargets.get("learning_description"));
+			    thisMonthTopic=new ArrayList<String>();
+			    thisMonthTopic=db.getAllForLearningTopic("Monthly");
+			    //thisMonthTopic.add(thisMonthEventTargets.get("learning_topic"));
+			    thisMonthEventPeriod=new ArrayList<String>();
+			    thisMonthEventPeriod=db.getAllForLearningPeriod("Monthly");
+			    //thisMonthEventPeriod.add(thisMonthEventTargets.get("learning_period"));
+			    thisMonthEventDueDate=new ArrayList<String>();
+			    thisMonthEventDueDate=db.getAllForLearningDueDate("Monthly");
+			    
+			    thisMonthEventStartDate=new ArrayList<String>();
+			    thisMonthEventStartDate=db.getAllForLearningStartDate("Monthly");
+			    //thisMonthEventDueDate.add(thisMonthEventTargets.get("due_date"));
+			    thisMonthEventStatus=new ArrayList<String>();
+			    thisMonthEventStatus=db.getAllForLearningSyncStatus("Monthly");
+			    //thisMonthEventStatus.add(thisMonthEventTargets.get("sync_status"));
+			    thisMonthEventId=new ArrayList<String>();
+			    thisMonthEventId=db.getAllForLearningId("Monthly");
+			   // thisMonthEventId.add(thisMonthEventTargets.get("learning_id"));
+			    thisMonthEventLastUpdated=new ArrayList<String>();
+			    thisMonthEventLastUpdated=db.getAllForLearningLastUpdated("Monthly");
+			   // thisMonthEventId.add(thisMonthEventTargets.get("learning_id"));
+			    
+			    
+			    midYearCategory=new ArrayList<String>();
+			    midYearCategory=db.getAllForLearningCategory("Mid-year");
+			    //midYearCategory.add(midYearEventTargets.get("learning_category"));
+			    midYearCourse=new ArrayList<String>();
+			    midYearCourse=db.getAllForLearningCourse("Mid-year");
+			   // midYearCourse.add(midYearEventTargets.get("learning_description"));
+			    midYearTopic=new ArrayList<String>();
+			    midYearTopic=db.getAllForLearningTopic("Mid-year");
+			    //midYearTopic.add(midYearEventTargets.get("learning_topic"));
+			    midYearEventPeriod=new ArrayList<String>();
+			    midYearEventPeriod=db.getAllForLearningPeriod("Mid-year");
+			   // midYearEventPeriod.add(midYearEventTargets.get("learning_period"));
+			    midYearEventDueDate=new ArrayList<String>();
+			    midYearEventDueDate=db.getAllForLearningDueDate("Mid-year");
+			   // midYearEventDueDate.add(midYearEventTargets.get("due_date"));
+			    
+			    midYearEventStartDate=new ArrayList<String>();
+			    midYearEventStartDate=db.getAllForLearningStartDate("Mid-year");
+			    
+			    midYearEventStatus=new ArrayList<String>();
+			    midYearEventStatus=db.getAllForLearningSyncStatus("Mid-year");
+			    //midYearEventStatus.add(midYearEventTargets.get("sync_status"));
+			    midYearEventId=new ArrayList<String>();
+			    midYearEventId=db.getAllForLearningId("Mid-year");
+			    //midYearEventId.add(midYearEventTargets.get("learning_id"));
+			    midYearEventLastUpdated=new ArrayList<String>();
+			    midYearEventLastUpdated=db.getAllForLearningLastUpdated("Mid-year");
+			    //midYearEventId.add(midYearEventTargets.get("learning_id"));
+			    
+			    thisQuarterCategory=new ArrayList<String>();
+			    thisQuarterCategory=db.getAllForLearningCategory("Quarterly");
+			    //thisQuarterCategory.add(thisQuarterEventTargets.get("learning_category"));
+			    thisQuarterCourse=new ArrayList<String>();
+			    thisQuarterCourse=db.getAllForLearningCourse("Quarterly");
+			    //thisQuarterCourse.add(thisQuarterEventTargets.get("learning_description"));
+			    thisQuarterTopic=new ArrayList<String>();
+			    thisQuarterTopic=db.getAllForLearningTopic("Quarterly");
+			   // thisQuarterTopic.add(thisQuarterEventTargets.get("learning_topic"));
+			    thisQuarterEventPeriod=new ArrayList<String>();
+			    thisQuarterEventPeriod=db.getAllForLearningPeriod("Quarterly");
+			    //thisQuarterEventPeriod.add(thisQuarterEventTargets.get("learning_period"));
+			    thisQuarterEventDueDate=new ArrayList<String>();
+			    thisQuarterEventDueDate=db.getAllForLearningDueDate("Quarterly");
+			    
+			    thisQuarterEventStartDate=new ArrayList<String>();
+			    thisQuarterEventStartDate=db.getAllForLearningStartDate("Quarterly");
+			    //thisQuarterEventDueDate.add(thisQuarterEventTargets.get("due_date"));
+			    thisQuarterEventStatus=new ArrayList<String>();
+			    thisQuarterEventStatus=db.getAllForLearningSyncStatus("Quarterly");
+			   // thisQuarterEventStatus.add(thisQuarterEventTargets.get("sync_status"));
+			    thisQuarterEventId=new ArrayList<String>();
+			    thisQuarterEventId=db.getAllForLearningId("Quarterly");
+			   // thisQuarterEventId.add(thisQuarterEventTargets.get("learning_id"));
+			    thisQuarterEventLastUpdated=new ArrayList<String>();
+			    thisQuarterEventLastUpdated=db.getAllForLearningLastUpdated("Quarterly");
+			   // thisQuarterEventId.add(thisQuarterEventTargets.get("learning_id"));
+			    
+			    thisYearCategory=new ArrayList<String>();
+			    thisYearCategory=db.getAllForLearningCategory("Annually");
+			    //thisYearCategory.add(thisYearEventTargets.get("learning_category"));
+			    thisYearCourse=new ArrayList<String>();
+			    thisYearCourse=db.getAllForLearningCourse("Annually");
+			    //thisYearCourse.add(thisYearEventTargets.get("learning_description"));
+			    thisYearTopic=new ArrayList<String>();
+			    thisYearTopic=db.getAllForLearningTopic("Annually");
+			    //thisYearTopic.add(thisYearEventTargets.get("learning_topic"));
+			    thisYearEventPeriod=new ArrayList<String>();
+			    thisYearEventPeriod=db.getAllForLearningPeriod("Annually");
+			    //thisYearEventPeriod.add(thisYearEventTargets.get("learning_period"));
+			    thisYearEventStartDate=new ArrayList<String>();
+			    thisYearEventStartDate=db.getAllForLearningStartDate("Annually");
+			    
+			    thisYearEventDueDate=new ArrayList<String>();
+			    thisYearEventDueDate=db.getAllForLearningDueDate("Annually");
+			    //thisYearEventDueDate.add(thisYearEventTargets.get("due_date"));
+			    thisYearEventStatus=new ArrayList<String>();
+			    thisYearEventStatus=db.getAllForLearningSyncStatus("Annually");
+			    //thisYearEventStatus.add(thisYearEventTargets.get("sync_status"));
+			    thisYearEventId=new ArrayList<String>();
+			    thisYearEventId=db.getAllForLearningId("Annually");
+			    
+			    thisYearEventLastUpdated=new ArrayList<String>();
+			    thisYearEventLastUpdated=db.getAllForLearningLastUpdated("Annually");
+			    //thisYearEventId.add(thisYearEventTargets.get("learning_id"));
+			    
+			    groupItems=new String[]{"To update today","To update this week","To update this month","To update this quarter","Half-year update","To update this year"};
+			    learning_adapter=new LearningBaseAdapter(mContext, todayCategory,
+						 todayCourse,
+						 todayTopic,
+						 todayEventPeriod,
+						 todayEventDueDate,
+						 todayEventStartDate,
+						 todayEventStatus,
+						  todayEventId,
+						  todayEventLastUpdated,
+						  
+						  /*
+						 tomorrowCategory,
+						 tomorrowCourse,
+						 tomorrowTopic,
+						 tomorrowEventPeriod,
+						 tomorrowEventDueDate,
+						 tomorrowEventStatus,
+						 tomorrowEventId,
+*/
+						 thisWeekCategory,
+						 thisWeekCourse,
+						 thisWeekTopic,
+						 thisWeekEventPeriod,
+						 thisWeekEventDueDate,
+						 thisWeekEventStartDate,
+						 thisWeekEventStatus,
+						 thisWeekEventId,
+						 thisWeekEventLastUpdated,
+
+						 thisMonthCategory,
+						 thisMonthCourse,
+						 thisMonthTopic,
+						 thisMonthEventPeriod,
+						 thisMonthEventDueDate,
+						 thisMonthEventStartDate,
+						 thisMonthEventStatus,
+						 thisMonthEventId,
+						 thisMonthEventLastUpdated,
+
+						 thisQuarterCategory,
+						 thisQuarterCourse,
+						 thisQuarterTopic,
+						 thisQuarterEventPeriod,
+						 thisQuarterEventDueDate,
+						 thisQuarterEventStartDate,
+						 thisQuarterEventStatus,
+						 thisQuarterEventId,
+						 thisQuarterEventLastUpdated,
+
+						 midYearCategory,
+						 midYearCourse,
+						 midYearTopic,
+						 midYearEventPeriod,
+						 midYearEventDueDate,
+						 midYearEventStartDate,
+						 midYearEventStatus,
+						 midYearEventId,
+						 midYearEventLastUpdated,
+
+						 thisYearCategory,
+						 thisYearCourse,
+						 thisYearTopic,
+						 thisYearEventPeriod,
+						 thisYearEventDueDate,
+						 thisYearEventStartDate,
+						 thisYearEventStatus,
+						 thisYearEventId,
+						 thisYearEventLastUpdated,
+							
+																 groupItems,
+																learningList);
+			  
+			 learning_adapter.notifyDataSetChanged();
 	    	learningList.setAdapter(learning_adapter);	
 	    	learningList.setOnChildClickListener(this);
-		   	if(learningList.getChildCount()>0){
-		    	textStatus.setText(" ");
-		    }else if (learningList.getChildCount()==0){
-		    	textStatus.setText(" ");
-		    }
-			    //registerForContextMenu(learningList);
-			    
-			    textStatus=(TextView) rootView.findViewById(R.id.textView_learningStatus);
-			    learningList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-			    learningList.setSelector(R.drawable.listchoice_selector);
-			    learningList.setMultiChoiceModeListener(new MultiChoiceModeListener() {
-		              
-		            private int nr = 0;
-		              
-		            @Override
-		            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-		                
-		                return false;
-		            }
-		              
-		            @Override
-		            public void onDestroyActionMode(ActionMode mode) {
-		                
-		            	learning_adapter.clearSelection();
-		            }
-		              
-		            @Override
-		            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-		            
-		                  
-		                nr = 0;
-		                MenuInflater inflater = getActivity().getMenuInflater();
-		                inflater.inflate(R.menu.context_menu, menu);
-		                return true;
-		            }
-		              
-		            @Override
-		            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-		                int itemId = item.getItemId();
-						if (itemId == R.id.option1) {
-							nr = 0;
-							System.out.println(selected_position);
-							AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-		            				getActivity());
-							// set title
-							alertDialogBuilder.setTitle("Delete learning target?");
-							// set dialog message
-							alertDialogBuilder
-								.setMessage("You are about to delete this learning target. Proceed?")
-								.setCancelable(false)
-								.setIcon(R.drawable.ic_error)
-								.setPositiveButton("No",new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,int id) {
-										// if this button is clicked, close
-										// current activity
-										dialog.cancel();
-									}
-								  })
-								.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,int id) {
-										// if this button is clicked, just close
-										// the dialog box and do nothing
-										if(db.deleteLearningCategory(selected_position)==true){
-											getActivity().runOnUiThread(new Runnable() {
-												@Override
-									            public void run() {
-									            	
-									            	AntenatalCare=db.getAllLearningAntenatalCare();
-												    PostnatalCare=db.getAllLearningPostnatalCare();
-												    FamilyPlanning=db.getAllLearningFamilyPlanning(month_passed);
-												    ChildHealth=db.getAllLearningChildHealth();
-												    General=db.getAllLearningGeneral();
-												    Other=db.getAllLearningOther();
-												    learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,//AntenatalCare,
-															//PostnatalCare,
-															FamilyPlanning,
-															//ChildHealth,
-															//General,
-															//Other,
-															imageId,learningList);
-												    learning_adapter.notifyDataSetChanged();
-												    learningList.setAdapter(learning_adapter);	
-									            }
-									        });	
-							    		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
-											         Toast.LENGTH_LONG).show();
-							        	}
-							        	
-										learning_adapter.clearSelection();
-							          
-									}
-								});
-							// create alert dialog
-							AlertDialog alertDialog = alertDialogBuilder.create();
-							// show it
-							alertDialog.show();
-							mode.finish();
-						}
-		                return false;
-		            }
-		              
-		            @Override	
-		            public void onItemCheckedStateChanged(ActionMode mode, int position,
-		                    long id, boolean checked) {
-		                // TODO Auto-generated method stub
-		                 if (checked) {
-		                        nr++;
-		                        selected_position=(int) id;
-		                        
-		                        learning_adapter.setNewSelection(position, checked);                    
-		                    } else {
-		                        nr--;
-		                        learning_adapter.removeSelection(position);                 
-		                    }
-		                    mode.setTitle(nr + " selected");
-		                    
-		            }
-		        });
-			    Button b = (Button) rootView.findViewById(R.id.button_addLearning);
-			   /* if(!month_passed.equalsIgnoreCase(current_month)){
-					  b.setVisibility(View.GONE); 
-				   }*/
-			    b.setOnClickListener(new OnClickListener() {
+		   
+	    	button_show=(Button) rootView.findViewById(R.id.button_show);
+	  
+		    button_show.setOnClickListener(new OnClickListener(){
 
-			       @Override
-			       public void onClick(View v) {
-			    	   final Dialog dialog = new Dialog(getActivity());
-						dialog.setContentView(R.layout.learning_add_dialog);
-						dialog.setTitle("Add Learning Target");
-						final Spinner spinner_learningCatagory=(Spinner) dialog.findViewById(R.id.spinner_learningHeader);
-						String[] items={"Family Planning"};
-						ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
-						spinner_learningCatagory.setAdapter(adapter);
-						final Spinner spinner_learningCourse=(Spinner) dialog.findViewById(R.id.spinner_learningCourse);
-						String[] items2={"Family Planning 101","Family Planning Counselling",
-										"Family Planning for people living with HIV","Hormonal Contraceptives",
-										"Postpartum Family Planning"};
-						final Spinner spinner_learningDescription=(Spinner) dialog.findViewById(R.id.spinner_learningDescription);
-						ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items2);
-						spinner_learningCourse.setAdapter(adapter2);
-						
-						spinner_learningCourse.setOnItemSelectedListener(new OnItemSelectedListener(){
-							
-							@Override
-							public void onItemSelected(AdapterView<?> parent,
-									View view, int position, long id) {
-								switch (position){
-								case 0:
-									String[] items3={"Rationale for voluntary family planning",
-											"Family Planning method considerations",
-											"Short-acting contraceptive methods",
-											"Long-acting contraceptive methods",
-											"Special needs"};
-							ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
-							spinner_learningDescription.setAdapter(adapter3);
-									break;
-								case 1:
-									String[] items4={"Family planning counselling",
-											"Family planning counselling skills"};
-							ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items4);
-							spinner_learningDescription.setAdapter(adapter4);
-									break;
-								case 2:
-									String[] items5={"Family Planning/Reproductive Health",
-											"Family planning for people living with HIV",
-											"Reproductive Health",
-											"Helping Clients Make a Family Planning",
-											"Family Planning in PMTCT Services"};
-							ArrayAdapter<String> adapter5=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items5);
-							spinner_learningDescription.setAdapter(adapter5);
-									break;
-								case 3:
-									String[] items6={"Hormonal Contraceptives",
-											"Oral contraceptives",
-											"Emergency contraceptive pills",
-											"Injectable contraceptives",
-											"Implants",
-											"Benefits and risks of hormonal contraceptives"};
-							ArrayAdapter<String> adapter6=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items6);
-							spinner_learningDescription.setAdapter(adapter6);
-									break;
-								case 4:
-									String[] items7={"Rationale for postpartum family planning",
-											"Contraceptive method considerations",
-											"Service delivery:Clinical Considerations",
-											"Service delivery:Integration and linkage"};
-							ArrayAdapter<String> adapter7=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items7);
-							spinner_learningDescription.setAdapter(adapter7);
-									break;
-								}
-								
-							}
-
-							@Override
-							public void onNothingSelected(AdapterView<?> parent) {
-								// TODO Auto-generated method stub
-								
-							}
-							
-						});
-						
-						Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddLearning);
-						dialogButton.setText("Save");
-						dialogButton.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								dialog.dismiss();
-								
-								Spinner editText_learningDescription=(Spinner) dialog.findViewById(R.id.spinner_learningDescription);
-								String learning_category=spinner_learningCatagory.getSelectedItem().toString();
-								String learning_description=editText_learningDescription.getSelectedItem().toString();
-							    if(db.insertLearning(learning_category, learning_description,month_passed, "new_record") ==true){
-							    	getActivity().runOnUiThread(new Runnable() {
-										@Override
-							            public void run() {
-							            	
-							            	AntenatalCare=db.getAllLearningAntenatalCare();
-										    PostnatalCare=db.getAllLearningPostnatalCare();
-										    FamilyPlanning=db.getAllLearningFamilyPlanning(month_passed);
-										    ChildHealth=db.getAllLearningChildHealth();
-										    General=db.getAllLearningGeneral();
-										    Other=db.getAllLearningOther();
-										    learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,//AntenatalCare,
-   													//PostnatalCare,
-   													FamilyPlanning,
-   													//ChildHealth,
-   													//General,
-   													//Other,
-   													imageId,learningList);
-										    learning_adapter.notifyDataSetChanged();
-										    learningList.setAdapter(learning_adapter);	
-							            }
-							        });	
-							    	 Toast.makeText(getActivity().getApplicationContext(), "Learning target added successfully!",
-									         Toast.LENGTH_LONG).show();
-							    }else{
-							    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
-									         Toast.LENGTH_LONG).show();
-							    }
-							}
-						});
-			 				dialog.show();
-			       }
-			    });
+				@Override
+				public void onClick(View v) {
+				  	eventId=new ArrayList<String>();
+					 eventId=db.getAllForEventsId("Daily");
+					 coverageId=new ArrayList<String>();
+					 coverageId=db.getAllForCoverageId("Daily");
+					 otherId=new ArrayList<String>();
+					 otherId=db.getAllForOtherId("Daily");
+					 learningId=new ArrayList<String>();
+					 learningId=db.getAllForLearningId("Daily");
+					 int number=eventId.size();
+					 int number2=coverageId.size();
+					 int number3=otherId.size();
+					 int number4=learningId.size();
+					 final int counter;
+					if(eventId.size()<0){
+						number=0;
+					}else{
+						number=eventId.size();
+					}
+					if(coverageId.size()<0){
+						number2=0;
+					}else {
+						number2=coverageId.size();
+					}
+					if(otherId.size()<0){
+						number3=0;
+					}else{
+						number3=otherId.size();
+					}
+					
+					if(learningId.size()<0){
+						number4=0;
+					}else{
+						number4=learningId.size();
+					}
+					counter=number+number2+number3+number4;	
+					if(counter>0){
+					Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
+					startActivity(intent);
+					}else if(counter==0){
+						 Toast.makeText(getActivity(), "You have no targets to update!",
+						         Toast.LENGTH_SHORT).show();
+					}
+					
+				}
+		    	
+		    });											
 			return rootView;
 				   
 			 }			
-			@Override
-			public boolean onChildClick(ExpandableListView parent, View v,
-					int groupPosition, int childPosition, final long id) {
-					selected_item=learning_adapter.getChild(groupPosition, childPosition);
-				 	final Dialog dialog = new Dialog(getActivity());
-					dialog.setContentView(R.layout.learning_add_dialog);
-					dialog.setTitle("Edit Learning Target");
-					final Spinner spinner_learningCatagory=(Spinner) dialog.findViewById(R.id.spinner_learningHeader);
-					String[] items={"Family Planning"};
-					ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
-					spinner_learningCatagory.setAdapter(adapter);
-					final Spinner spinner_learningCourse=(Spinner) dialog.findViewById(R.id.spinner_learningCourse);
-					String[] items2={"Family Planning 101","Family Planning Counselling",
-									"Family Planning for people living with HIV","Hormonal Contraceptives",
-									"Postpartum Family Planning"};
-					final Spinner spinner_learningDescription=(Spinner) dialog.findViewById(R.id.spinner_learningDescription);
-					ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items2);
-					spinner_learningCourse.setAdapter(adapter2);
-					
-					spinner_learningCourse.setOnItemSelectedListener(new OnItemSelectedListener(){
-						
-						@Override
-						public void onItemSelected(AdapterView<?> parent,
-								View view, int position, long id) {
-							switch (position){
-							case 0:
-								String[] items3={"Rationale for voluntary family planning",
-										"Family Planning method considerations",
-										"Short-acting contraceptive methods",
-										"Long-acting contraceptive methods",
-										"Special needs"};
-						ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
-						spinner_learningDescription.setAdapter(adapter3);
-								break;
-							case 1:
-								String[] items4={"Family planning counselling",
-										"Family planning counselling skills"};
-						ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items4);
-						spinner_learningDescription.setAdapter(adapter4);
-								break;
-							case 2:
-								String[] items5={"Family Planning/Reproductive Health",
-										"Family planning for people living with HIV",
-										"Reproductive Health",
-										"Helping Clients Make a Family Planning",
-										"Family Planning in PMTCT Services"};
-						ArrayAdapter<String> adapter5=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items5);
-						spinner_learningDescription.setAdapter(adapter5);
-								break;
-							case 3:
-								String[] items6={"Hormonal Contraceptives",
-										"Oral contraceptives",
-										"Emergency contraceptive pills",
-										"Injectable contraceptives",
-										"Implants",
-										"Benefits and risks of hormonal contraceptives"};
-						ArrayAdapter<String> adapter6=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items6);
-						spinner_learningDescription.setAdapter(adapter6);
-								break;
-							case 4:
-								String[] items7={"Rationale for postpartum family planning",
-										"Contraceptive method considerations",
-										"Service delivery:Clinical Considerations",
-										"Service delivery:Integration and linkage"};
-						ArrayAdapter<String> adapter7=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items7);
-						spinner_learningDescription.setAdapter(adapter7);
-								break;
-							}
-							
-						}
+				@Override
+				public boolean onChildClick(ExpandableListView parent, View v,
+						int groupPosition, int childPosition, long id) {
+					selected_items=learning_adapter.getChild(groupPosition,childPosition);
+					selected_id=Long.parseLong(selected_items[7]);
+					//System.out.println(selected_items[0]+" "+selected_items[1]);
+					String learning_category=selected_items[0];
+					String learning_course=selected_items[1];
+					String learing_topic=selected_items[2];
+					String due_date=selected_items[4];
+					String status=selected_items[6];
+					String start_date=selected_items[5];
+					Intent intent=new Intent(getActivity(),LearningTargetsDetailActivity.class);
+					intent.putExtra("learning_id",selected_id);
+					intent.putExtra("learning_category",learning_category);
+					intent.putExtra("learning_course",learning_course);
+					intent.putExtra("learning_topic", learing_topic);
+					intent.putExtra("due_date", due_date);
+					intent.putExtra("start_date", start_date);
+					intent.putExtra("status", status);
+					startActivity(intent);
+					return true;
+				}
 
-						@Override
-						public void onNothingSelected(AdapterView<?> parent) {
-							// TODO Auto-generated method stub
-							
-						}
-						
-					});
-					
-					int spinner_position=adapter2.getPosition(selected_item);
-					spinner_learningDescription.setSelection(spinner_position);
-					Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddLearning);
-					dialogButton.setText("Save");
-					dialogButton.setOnClickListener(new OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							dialog.dismiss();
-							
-							String learning_category=spinner_learningCatagory.getSelectedItem().toString();
-							String learning_description=spinner_learningDescription.getSelectedItem().toString();
-						    if(db.editLearning(learning_category, learning_description, id) ==true){
-						    	getActivity().runOnUiThread(new Runnable() {
-									@Override
-						            public void run() {
-						            	
-						            	AntenatalCare=db.getAllLearningAntenatalCare();
-									    PostnatalCare=db.getAllLearningPostnatalCare();
-									    FamilyPlanning=db.getAllLearningFamilyPlanning(month_passed);
-									    ChildHealth=db.getAllLearningChildHealth();
-									    General=db.getAllLearningGeneral();
-									    Other=db.getAllLearningOther();
-									    learning_adapter=new LearningBaseAdapter(getActivity(),groupItem,//AntenatalCare,
-													//PostnatalCare,
-													FamilyPlanning,
-													//ChildHealth,
-													//General,
-													//Other,
-													imageId,learningList);
-									    learning_adapter.notifyDataSetChanged();
-									    learningList.setAdapter(learning_adapter);	
-						            }
-						        });	
-						    	 Toast.makeText(getActivity().getApplicationContext(), "Learning target edited successfully!",
-								         Toast.LENGTH_LONG).show();
-						    }else{
-						    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
-								         Toast.LENGTH_LONG).show();
-						    }
-						}
-					});
-		 				dialog.show();
-				return true;
-			}
-			
+		
 	 }
 	 
-	 public static class OtherActivity extends Fragment implements OnItemClickListener{
+	 public static class OtherActivity extends Fragment implements OnChildClickListener{
 
 			private Context mContext;															
-			private ArrayList<String> otherCategory;
-			 private ArrayList<String> otherNumber;
-			 private ArrayList<String> otherPeriod;
-			private ArrayList<String> otherId;
+			private ArrayList<String> todayEventName;
+			 private ArrayList<String> todayEventNumber;
+			 private ArrayList<String> todayEventPeriod;
+			 private ArrayList<String> todayEventDueDate;
+			 private ArrayList<String> todayEventStartDate;
+			 private ArrayList<String> todayEventAchieved;
+			 private ArrayList<String> todayEventStatus;
+			 private ArrayList<String> todayEventId;
+			 private ArrayList<String> todayEventLastUpdated;
+			 private ArrayList<String> todayEventNumberRemaining;
+			 
+			 private ArrayList<String> tomorrowEventName;
+			 private ArrayList<String> tomorrowEventNumber;
+			 private ArrayList<String> tomorrowEventPeriod;
+			 private ArrayList<String> tomorrowEventDueDate;
+			 private ArrayList<String> tomorrowEventStartDate;
+			 private ArrayList<String> tomorrowEventAchieved;
+			 private ArrayList<String> tomorrowEventStatus;
+			 private ArrayList<String> tomorrowEventId;
+			 
+			 private ArrayList<String> thisWeekEventName;
+			 private ArrayList<String> thisWeekEventNumber;
+			 private ArrayList<String> thisWeekEventPeriod;
+			 private ArrayList<String> thisWeekEventDueDate;
+			 private ArrayList<String> thisWeekEventStartDate;
+			 private ArrayList<String> thisWeekEventAchieved;
+			 private ArrayList<String> thisWeekEventStatus;
+			 private ArrayList<String> thisWeekEventId;
+			 private ArrayList<String> thisWeekEventLastUpdated;
+			 private ArrayList<String> thisWeekEventNumberRemaining;
+			 
+			 private ArrayList<String> thisMonthEventName;
+			 private ArrayList<String> thisMonthEventNumber;
+			 private ArrayList<String> thisMonthEventPeriod;
+			 private ArrayList<String> thisMonthEventDueDate;
+			 private ArrayList<String>  thisMonthEventStartDate;
+			 private ArrayList<String>  thisMonthEventAchieved;
+			 private ArrayList<String> thisMonthEventStatus;
+			 private ArrayList<String> thisMonthEventId;
+			 private ArrayList<String> thisMonthEventLastUpdated;
+			 private ArrayList<String> thisMonthEventNumberRemaining;
+			 
+			 private ArrayList<String> thisQuarterEventName;
+			 private ArrayList<String> thisQuarterEventNumber;
+			 private ArrayList<String> thisQuarterEventPeriod;
+			 private ArrayList<String> thisQuarterEventDueDate;
+			 private ArrayList<String>  thisQuarterEventStartDate;
+			 private ArrayList<String>  thisQuarterEventAchieved;
+			 private ArrayList<String> thisQuarterEventStatus;
+			 private ArrayList<String> thisQuarterEventId;
+			 private ArrayList<String> thisQuarterEventLastUpdated;
+			 private ArrayList<String> thisQuarterEventNumberRemaining;
+			 
+			 private ArrayList<String> midYearEventName;
+			 private ArrayList<String> midYearEventNumber;
+			 private ArrayList<String> midYearEventPeriod;
+			 private ArrayList<String> midYearEventDueDate;
+			 private ArrayList<String>  midYearEventStartDate;
+			 private ArrayList<String>  midYearEventAchieved;
+			 private ArrayList<String> midYearEventStatus;
+			 private ArrayList<String> midYearEventId;
+			 private ArrayList<String> midYearEventLastUpdated;
+			 private ArrayList<String> midYearEventNumberRemaining;
+			 
+			 private ArrayList<String> thisYearEventName;
+			 private ArrayList<String> thisYearEventNumber;
+			 private ArrayList<String> thisYearEventPeriod;
+			 private ArrayList<String> thisYearEventDueDate;
+			 private ArrayList<String>  thisYearEventStartDate;
+			 private ArrayList<String> thisYearEventAchieved;
+			 private ArrayList<String> thisYearEventStatus;
+			 private ArrayList<String> thisYearEventId;
+			 private ArrayList<String> thisYearEventLastUpdated;
+			 private ArrayList<String> thisYearEventNumberRemaining;
+			 
+			 private HashMap<String,String> todayEventTargets;//Today
+			 private HashMap<String,String> tomorrowEventTargets;
+			 private HashMap<String,String> thisWeekEventTargets;
+			 private HashMap<String,String> thisMonthEventTargets;
+			 private HashMap<String,String> thisQuarterEventTargets;
+			 private HashMap<String,String> midYearEventTargets;
+			 private HashMap<String,String> thisYearEventTargets;
+			 private String[] groupItems;
 			private DbHelper db;
 			 public static final String ARG_SECTION_NUMBER = "section_number";       
 			View rootView;
-			private ListView listView_other;
+			private ExpandableListView listView_other;
 			private TextView textStatus;
-			private OtherBaseAdapter other_adapter;
+			private EventBaseAdapter other_adapter;
 			int selected_position;
+			private long selected_id;
+			private Button button_show;
+			private ArrayList<String> eventId;
+			private ArrayList<String> coverageId;
+			private ArrayList<String> otherId;
+			private ArrayList<String> learningId;
+			static String due_date ;
+			private static TextView dueDateValue;
+			
+			static String start_date ;
+			private static TextView startDateValue;
+			static long due_date_to_compare;
 			 public OtherActivity(){
 
    }
@@ -1338,241 +2070,383 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				 rootView=inflater.inflate(R.layout.activity_other,null,false);
 			    mContext=getActivity().getApplicationContext();
 			    db=new DbHelper(getActivity());
-			    otherCategory=db.getAllOtherCategory(month_passed);
-			    otherNumber=db.getAllOtherNumber(month_passed);
-			    otherPeriod=db.getAllOtherPeriod(month_passed);
-			    otherId=db.getAllOthersId(month_passed);
-			    listView_other=(ListView) rootView.findViewById(R.id.listView_other);
-			    listView_other.setOnItemClickListener(this);
-			
-			   textStatus=(TextView) rootView.findViewById(R.id.textView_otherStatus);
-			   listViewPopulate();
-			   listView_other.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-			   listView_other.setSelector(R.drawable.listchoice_selector);
-		          
-			   listView_other.setMultiChoiceModeListener(new MultiChoiceModeListener() {
-		              
-		            private int nr = 0;
-		              
-		            @Override
-		            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-		                
-		                return false;
-		            }
-		              
-		            @Override
-		            public void onDestroyActionMode(ActionMode mode) {
-		                
-		            	other_adapter.clearSelection();
-		            }
-		              
-		            @Override
-		            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-		            
-		                  
-		                nr = 0;
-		                MenuInflater inflater = getActivity().getMenuInflater();
-		                inflater.inflate(R.menu.context_menu, menu);
-		                return true;
-		            }
-		              
-		            @Override
-		            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-		                int itemId = item.getItemId();
-						if (itemId == R.id.option1) {
-							nr = 0;
-							System.out.println(selected_position);
-							AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-		            				getActivity());
-							// set title
-							alertDialogBuilder.setTitle("Delete target?");
-							// set dialog message
-							alertDialogBuilder
-								.setMessage("You are about to delete this target. Proceed?")
-								.setCancelable(false)
-								.setIcon(R.drawable.ic_error)
-								.setPositiveButton("No",new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,int id) {
-										// if this button is clicked, close
-										// current activity
-										dialog.cancel();
-									}
-								  })
-								.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,int id) {
-										// if this button is clicked, just close
-										// the dialog box and do nothing
-										if(db.deleteOthereCategory(selected_position)==true){
-											getActivity().runOnUiThread(new Runnable() {
-												@Override
-									            public void run() {
-													otherCategory=db.getAllOtherCategory(month_passed);
-												    otherNumber=db.getAllOtherNumber(month_passed);
-												    otherPeriod=db.getAllOtherPeriod(month_passed);
-												    otherId=db.getAllOthersId(month_passed);
-												    other_adapter=new OtherBaseAdapter(getActivity(),otherCategory,otherNumber,otherPeriod,otherId);
-											    	other_adapter.notifyDataSetChanged();
-											    	listView_other.setAdapter(other_adapter);	
-									            }
-									        });	
-							    		 Toast.makeText(getActivity().getApplicationContext(), "Deleted!",
-											         Toast.LENGTH_LONG).show();
-							        	}
-							        	
-										other_adapter.clearSelection();
-							          
-									}
-								});
-							// create alert dialog
-							AlertDialog alertDialog = alertDialogBuilder.create();
-							// show it
-							alertDialog.show();
-							mode.finish();
-						}
-		                return false;
-		            }
-		              
-		            @Override	
-		            public void onItemCheckedStateChanged(ActionMode mode, int position,
-		                    long id, boolean checked) {
-		                // TODO Auto-generated method stub
-		                 if (checked) {
-		                        nr++;
-		                        selected_position=(int) id;
-		                        
-		                        other_adapter.setNewSelection(position, checked);                    
-		                    } else {
-		                        nr--;
-		                        other_adapter.removeSelection(position);                 
-		                    }
-		                    mode.setTitle(nr + " selected");
-		                    
-		            }
-		        });
-			    Button b = (Button) rootView.findViewById(R.id.button_addOther);
-			   /* if(!month_passed.equalsIgnoreCase(current_month)){
-					  b.setVisibility(View.GONE); 
-				   }*/
-			    b.setOnClickListener(new OnClickListener() {
+			    todayEventTargets=db.getAllForCoverage("Today");
+			    tomorrowEventTargets=db.getAllForCoverage("Tomorrow");
+			    thisWeekEventTargets=db.getAllForCoverage("This week");
+			    thisMonthEventTargets=db.getAllForCoverage("This month");
+			    thisQuarterEventTargets=db.getAllForCoverage("This quarter");
+			    midYearEventTargets=db.getAllForCoverage("Mid-year");
+			    thisYearEventTargets=db.getAllForCoverage("This year");
+			   
+			    todayEventName=new ArrayList<String>();
+			    todayEventName=db.getAllForOtherName("Daily");
+			   // todayEventName.add(todayEventTargets.get("event_name"));
+			   todayEventNumber=new ArrayList<String>();
+			    todayEventNumber=db.getAllForOtherNumber("Daily");
+			    
+			   // todayEventNumber.add(todayEventTargets.get("event_number"));
+			    todayEventAchieved=new ArrayList<String>();
+			    //todayEventPeriod.add(todayEventTargets.get("event_period"));
+			    todayEventAchieved=db.getAllForOtherNumberAchieved("Daily");
+			    
+			    todayEventStartDate=new ArrayList<String>();
+			    todayEventStartDate=db.getAllForOtherStartDate("Daily");
+			    
+			   // todayEventNumber.add(todayEventTargets.get("event_number"));
+			    todayEventPeriod=new ArrayList<String>();
+			    //todayEventPeriod.add(todayEventTargets.get("event_period"));
+			    todayEventPeriod=db.getAllForOtherPeriod("Daily");
+			    
+			    todayEventDueDate=new ArrayList<String>();
+			    todayEventDueDate=db.getAllForOtherDueDate("Daily");
+			   // todayEventDueDate.add(todayEventTargets.get("due_date"));
+			    
+			    todayEventStatus=new ArrayList<String>();
+			   // todayEventStatus.add(todayEventTargets.get("sync_status"));
+			    todayEventStatus=db.getAllForOtherSyncStatus("Daily");
+			    
+			    todayEventId=new ArrayList<String>();
+			  //  todayEventId.add(todayEventTargets.get("event_id"));
+			    todayEventId=db.getAllForOtherId("Daily");
+			    todayEventLastUpdated=new ArrayList<String>();
+				  //  todayEventId.add(todayEventTargets.get("event_id"));
+				    todayEventLastUpdated=db.getAllForOtherLastUpdated("Daily");
+			    
+			    
+			    //tomorrowEventName=new ArrayList<String>();
+			    //tomorrowEventName=db.getAllForOtherName("Weekly");
+			    //tomorrowEventName.add(tomorrowEventTargets.get("event_name"));
+			    
+			    /*
+			    tomorrowEventNumber=new ArrayList<String>();
+			    tomorrowEventNumber=db.getAllForOthersNumber("Weekly");
+			    //tomorrowEventNumber.add(tomorrowEventTargets.get("event_number"));
+			    tomorrowEventPeriod=new ArrayList<String>();
+			    tomorrowEventPeriod=db.getAllForOthersPeriod("Weekly");
+			    //tomorrowEventPeriod.add(tomorrowEventTargets.get("event_period"));
+			    tomorrowEventDueDate=new ArrayList<String>();
+			    tomorrowEventDueDate=db.getAllForOthersDueDate("Weekly");
+			    //tomorrowEventDueDate.add(tomorrowEventTargets.get("due_date"));
+			    tomorrowEventStatus=new ArrayList<String>();
+			    tomorrowEventStatus=db.getAllForOthersSyncStatus("Weekly");
+			    //tomorrowEventStatus.add(tomorrowEventTargets.get("sync_status"));
+			    tomorrowEventId=new ArrayList<String>();
+			    tomorrowEventId=db.getAllForOthersId("Weekly");
+			    //tomorrowEventId.add(tomorrowEventTargets.get("event_id"));
+			    */
+			    
+			    thisWeekEventName=new ArrayList<String>();
+			    thisWeekEventName=db.getAllForOtherName("Weekly");
+			    //thisWeekEventName.add(thisWeekEventTargets.get("event_name"));
+			    thisWeekEventNumber=new ArrayList<String>();
+			    thisWeekEventNumber=db.getAllForOtherNumber("Weekly");
+			   // thisWeekEventNumber.add(thisWeekEventTargets.get("event_number"));
+			    thisWeekEventPeriod=new ArrayList<String>();
+			    thisWeekEventPeriod=db.getAllForOtherPeriod("Weekly");
+			    
+			    thisWeekEventAchieved=new ArrayList<String>();
+			    thisWeekEventAchieved=db.getAllForOtherNumberAchieved("Weekly");
+			   // thisWeekEventNumber.add(thisWeekEventTargets.get("event_number"));
+			    thisWeekEventStartDate=new ArrayList<String>();
+			    thisWeekEventStartDate=db.getAllForOtherStartDate("Weekly");
+			   // thisWeekEventPeriod.add(thisWeekEventTargets.get("event_period"));
+			    thisWeekEventDueDate=new ArrayList<String>();
+			    thisWeekEventDueDate=db.getAllForOtherDueDate("Weekly");
+			    //thisWeekEventDueDate.add(thisWeekEventTargets.get("due_date"));
+			    thisWeekEventStatus=new ArrayList<String>();
+			    thisWeekEventStatus=db.getAllForOtherSyncStatus("Weekly");
+			    //thisWeekEventStatus.add(thisWeekEventTargets.get("sync_status"));
+			    thisWeekEventId=new ArrayList<String>();
+			    thisWeekEventId=db.getAllForOtherId("Weekly");
+			    //thisWeekEventId.add(thisWeekEventTargets.get("event_id"));
+			    thisWeekEventLastUpdated=new ArrayList<String>();
+			    thisWeekEventLastUpdated=db.getAllForOtherLastUpdated("Weekly");
+			    //thisWeekEventId.add(thisWeekEventTargets.get("event_id"));
+			    
+			    thisMonthEventName=new ArrayList<String>();
+			    thisMonthEventName=db.getAllForOtherName("Monthly");
+			   //thisMonthEventName.add(thisMonthEventTargets.get("event_name"));
+			    thisMonthEventNumber=new ArrayList<String>();
+			    thisMonthEventNumber=db.getAllForOtherNumber("Monthly");
+			    //thisMonthEventNumber.add(thisMonthEventTargets.get("event_number"));
+			    thisMonthEventPeriod=new ArrayList<String>();
+			    thisMonthEventPeriod=db.getAllForOtherPeriod("Monthly");
+			    
+			    thisMonthEventAchieved=new ArrayList<String>();
+			    thisMonthEventAchieved=db.getAllForOtherNumberAchieved("Monthly");
+			    //thisMonthEventNumber.add(thisMonthEventTargets.get("event_number"));
+			    thisMonthEventStartDate=new ArrayList<String>();
+			    thisMonthEventStartDate=db.getAllForOtherStartDate("Monthly");
+			    //thisMonthEventPeriod.add(thisMonthEventTargets.get("event_period"));
+			    thisMonthEventDueDate=new ArrayList<String>();
+			    thisMonthEventDueDate=db.getAllForOtherDueDate("Monthly");
+			    //thisMonthEventDueDate.add(thisMonthEventTargets.get("due_date"));
+			    thisMonthEventStatus=new ArrayList<String>();
+			    thisMonthEventStatus=db.getAllForOtherSyncStatus("Monthly");
+			    //thisMonthEventStatus.add(thisMonthEventTargets.get("sync_status"));
+			    thisMonthEventId=new ArrayList<String>();
+			    thisMonthEventId=db.getAllForOtherId("Monthly");
+			    //thisMonthEventId.add(thisMonthEventTargets.get("event_id"));
+			    
+			    thisMonthEventLastUpdated=new ArrayList<String>();
+			    thisMonthEventLastUpdated=db.getAllForOtherLastUpdated("Monthly");
+			    //thisMonthEventId.add(thisMonthEventTargets.get("event_id"));
+			    
+			    midYearEventName=new ArrayList<String>();
+			   // midYearEventName.add(midYearEventTargets.get("event_name"));
+			    midYearEventName=db.getAllForOtherName("Mid-year");
+			    midYearEventNumber=new ArrayList<String>();
+			    midYearEventNumber=db.getAllForOtherNumber("Mid-year");
+			   // midYearEventNumber.add(midYearEventTargets.get("event_number"));
+			    midYearEventPeriod=new ArrayList<String>();
+			    midYearEventPeriod=db.getAllForOtherPeriod("Mid-year");
+			    
+			    midYearEventAchieved=new ArrayList<String>();
+			    midYearEventAchieved=db.getAllForOtherNumberAchieved("Mid-year");
+			   // midYearEventNumber.add(midYearEventTargets.get("event_number"));
+			    midYearEventStartDate=new ArrayList<String>();
+			    midYearEventStartDate=db.getAllForOtherStartDate("Mid-year");
+			    //midYearEventPeriod.add(midYearEventTargets.get("event_period"));
+			    midYearEventDueDate=new ArrayList<String>();
+			    midYearEventDueDate=db.getAllForOtherDueDate("Mid-year");
+			   // midYearEventDueDate.add(midYearEventTargets.get("due_date"));
+			    midYearEventStatus=new ArrayList<String>();
+			    midYearEventStatus=db.getAllForOtherSyncStatus("Mid-year");
+			    //midYearEventStatus.add(midYearEventTargets.get("sync_status"));
+			    midYearEventId=new ArrayList<String>();
+			    midYearEventId=db.getAllForOtherId("Mid-year");
+			   // midYearEventId.add(midYearEventTargets.get("event_id"));
+			    midYearEventLastUpdated=new ArrayList<String>();
+			    midYearEventLastUpdated=db.getAllForOtherLastUpdated("Mid-year");
+			   // midYearEventId.add(midYearEventTargets.get("event_id"));
+			    
+			    thisQuarterEventName=new ArrayList<String>();
+			    thisQuarterEventName=db.getAllForOtherName("Quarterly");
+			    //thisQuarterEventName.add(thisQuarterEventTargets.get("event_name"));
+			    thisQuarterEventNumber=new ArrayList<String>();
+			    thisQuarterEventNumber=db.getAllForOtherNumber("Quarterly");
+			    //thisQuarterEventNumber.add(thisQuarterEventTargets.get("event_number"));
+			    thisQuarterEventPeriod=new ArrayList<String>();
+			    thisQuarterEventPeriod=db.getAllForOtherPeriod("Quarterly");
+			   // thisQuarterEventPeriod.add(thisQuarterEventTargets.get("event_period"));
+			    thisQuarterEventDueDate=new ArrayList<String>();
+			    thisQuarterEventDueDate=db.getAllForOtherDueDate("Quarterly");
+			   // thisQuarterEventDueDate.add(thisQuarterEventTargets.get("due_date"));
+			    thisQuarterEventStatus=new ArrayList<String>();
+			    thisQuarterEventStatus=db.getAllForOtherDueDate("Quarterly");
+			    //thisQuarterEventStatus.add(thisQuarterEventTargets.get("sync_status"));
+			    thisQuarterEventId=new ArrayList<String>();
+			    thisQuarterEventId=db.getAllForOtherId("Quarterly");
+			    //thisQuarterEventId.add(thisQuarterEventTargets.get("event_id"));
+			    
+			    thisQuarterEventAchieved=new ArrayList<String>();
+			    thisQuarterEventAchieved=db.getAllForOtherNumberAchieved("Quarterly");
+			    //thisQuarterEventId.add(thisQuarterEventTargets.get("event_id"));
+			    
+			    thisQuarterEventStartDate=new ArrayList<String>();
+			    thisQuarterEventStartDate=db.getAllForOtherStartDate("Quarterly");
+			    //thisQuarterEventId.add(thisQuarterEventTargets.get("event_id"));
+			    
+			    thisQuarterEventLastUpdated=new ArrayList<String>();
+			    thisQuarterEventLastUpdated=db.getAllForOtherLastUpdated("Quarterly");
+			    //thisQuarterEventId.add(thisQuarterEventTargets.get("event_id"));
+			    
+			    thisYearEventName=new ArrayList<String>();
+			    thisYearEventName=db.getAllForOtherName("Annually");
+			    //thisYearEventName.add(thisYearEventTargets.get("event_name"));
+			    thisYearEventNumber=new ArrayList<String>();
+			    thisYearEventNumber=db.getAllForOtherNumber("Annually");
+			    //thisYearEventNumber.add(thisYearEventTargets.get("event_number"));
+			    thisYearEventPeriod=new ArrayList<String>();
+			    thisYearEventPeriod=db.getAllForOtherPeriod("Annually");
+			    
+			    thisYearEventAchieved=new ArrayList<String>();
+			    thisYearEventAchieved=db.getAllForOtherNumberAchieved("Annually");
+			    //thisYearEventNumber.add(thisYearEventTargets.get("event_number"));
+			    thisYearEventStartDate=new ArrayList<String>();
+			    thisYearEventStartDate=db.getAllForOtherStartDate("Annually");
+			    //thisYearEventPeriod.add(thisYearEventTargets.get("event_period"));
+			    thisYearEventDueDate=new ArrayList<String>();
+			    thisYearEventDueDate=db.getAllForOtherDueDate("Annually");
+			    //thisYearEventDueDate.add(thisYearEventTargets.get("due_date"));
+			    thisYearEventStatus=new ArrayList<String>();
+			    thisYearEventStatus=db.getAllForOtherSyncStatus("Annually");
+			    //thisYearEventStatus.add(thisYearEventTargets.get("sync_status"));
+			    thisYearEventId=new ArrayList<String>();
+			    thisYearEventId=db.getAllForOtherId("Annually");
+			    //thisYearEventId.add(thisYearEventTargets.get("event_id"));
+			    
+			    thisYearEventLastUpdated=new ArrayList<String>();
+			    thisYearEventLastUpdated=db.getAllForOtherLastUpdated("Annually");
+			    //thisYearEventId.add(thisYearEventTargets.get("event_id"));
+			    
+			    groupItems=new String[]{"To update today","To update this week","To update this month","To update this quarter","Half-year update","To update this year"};
+			    other_adapter=new EventBaseAdapter(mContext,todayEventName ,
+						todayEventNumber,
+						todayEventPeriod,
+						todayEventDueDate,
+						todayEventAchieved,
+						todayEventStartDate,
+						todayEventStatus,
+						todayEventId,
+						todayEventLastUpdated,
+						//todayEventNumberRemaining,
 
-			       @Override
-			       public void onClick(View v) {
-			    	   final Dialog dialog = new Dialog(getActivity());
-						dialog.setContentView(R.layout.event_add_dialog);
-						dialog.setTitle("Add Other Target");
-						final EditText editText_otherCategory=(EditText) dialog.findViewById(R.id.editText_dialogOtherName);
-						final Spinner spinner_otherPeriod=(Spinner) dialog.findViewById(R.id.spinner_dialogOtherPeriod);
-						String[] items={"Daily","Monthly","Weekly","Yearly","Quarterly"};
-						ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
-						spinner_otherPeriod.setAdapter(adapter);
-						final EditText editText_otherNumber=(EditText) dialog.findViewById(R.id.editText_dialogOtherNumber);
-						Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddEvent);
-						dialogButton.setText("Save");
-						dialogButton.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								dialog.dismiss();
-								
-								String other_category=editText_otherCategory.getText().toString();
-								String other_number=editText_otherNumber.getText().toString();
-								String other_period=spinner_otherPeriod.getSelectedItem().toString();
-							    if(db.insertOther(other_category,other_number,other_period,month_passed, "new_record") ==true){
-							    	getActivity().runOnUiThread(new Runnable() {
-										@Override
-							            public void run() {
-											textStatus.setText(" ");
-											otherCategory=db.getAllOtherCategory(month_passed);
-										    otherNumber=db.getAllOtherNumber(month_passed);
-										    otherPeriod=db.getAllOtherPeriod(month_passed);
-										    otherId=db.getAllOthersId(month_passed);
-										    other_adapter=new OtherBaseAdapter(getActivity(),otherCategory,otherNumber,otherPeriod,otherId);
-									    	other_adapter.notifyDataSetChanged();
-									    	listView_other.setAdapter(other_adapter);	
-							            }
-							        });	
-							    	 Toast.makeText(getActivity().getApplicationContext(), "Added target successfully!",
-									         Toast.LENGTH_LONG).show();
-							    }else{
-							    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
-									         Toast.LENGTH_LONG).show();
-							    }
-							}
-						});
-			 				dialog.show();
-			       }
+					/*	tomorrowEventName,
+						tomorrowEventNumber,
+						tomorrowEventPeriod,
+						tomorrowEventDueDate,
+						tomorrowEventAchieved,
+						tomorrowEventStartDate,
+						tomorrowEventStatus,
+						tomorrowEventId,
+						*/
+
+						thisWeekEventName,
+						thisWeekEventNumber,
+						thisWeekEventPeriod,
+						thisWeekEventDueDate,
+						thisWeekEventAchieved,
+						thisWeekEventStartDate,
+						thisWeekEventStatus,
+						thisWeekEventId,
+						thisWeekEventLastUpdated,
+						//thisWeekEventNumberRemaining,
+
+						thisMonthEventName,
+						thisMonthEventNumber,
+						thisMonthEventPeriod,
+						thisMonthEventDueDate,
+						thisMonthEventAchieved,
+						thisMonthEventStartDate,
+						thisMonthEventStatus,
+						thisMonthEventId,
+						thisMonthEventLastUpdated,
+						//thisMonthEventNumberRemaining,
+
+						thisQuarterEventName,
+						thisQuarterEventNumber,
+						thisQuarterEventPeriod,
+						thisQuarterEventDueDate,
+						thisQuarterEventAchieved,
+						thisQuarterEventStartDate,
+						thisQuarterEventStatus,
+						thisQuarterEventId,
+						thisQuarterEventLastUpdated,
+						//thisQuarterEventNumberRemaining,
+						
+						midYearEventName,
+						midYearEventNumber,
+						midYearEventPeriod,
+						midYearEventDueDate, 
+						midYearEventAchieved,
+						midYearEventStartDate,
+						midYearEventStatus,
+						midYearEventId,
+						midYearEventLastUpdated,
+						//midYearEventNumberRemaining,
+						
+						thisYearEventName,
+						thisYearEventNumber,
+						thisYearEventPeriod,
+						thisYearEventDueDate,
+						thisYearEventAchieved,
+						thisYearEventStartDate,
+						thisYearEventStatus,
+						thisYearEventId,
+						thisYearEventLastUpdated,
+						//thisYearEventNumberRemaining,
+						 groupItems,
+						listView_other);
+			  
+			    listView_other=(ExpandableListView) rootView.findViewById(R.id.expandableListView_other);
+			    listView_other.setAdapter(other_adapter);
+			    listView_other.setOnChildClickListener(this);
+			   button_show=(Button) rootView.findViewById(R.id.button_show);
+			   
+			    button_show.setOnClickListener(new OnClickListener(){
+			    	
+					@Override
+					public void onClick(View v) {
+						eventId=new ArrayList<String>();
+						 eventId=db.getAllForEventsId("Daily");
+						 coverageId=new ArrayList<String>();
+						 coverageId=db.getAllForCoverageId("Daily");
+						 otherId=new ArrayList<String>();
+						 otherId=db.getAllForOtherId("Daily");
+						 learningId=new ArrayList<String>();
+						 learningId=db.getAllForLearningId("Daily");
+						 int number=eventId.size();
+						 int number2=coverageId.size();
+						 int number3=otherId.size();
+						 int number4=learningId.size();
+						 final int counter;
+						if(eventId.size()<0){
+							number=0;
+						}else{
+							number=eventId.size();
+						}
+						if(coverageId.size()<0){
+							number2=0;
+						}else {
+							number2=coverageId.size();
+						}
+						if(otherId.size()<0){
+							number3=0;
+						}else{
+							number3=otherId.size();
+						}
+						
+						if(learningId.size()<0){
+							number4=0;
+						}else{
+							number4=learningId.size();
+						}
+						counter=number+number2+number3+number4;	
+						if(counter>0){
+						Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
+						startActivity(intent);
+						}else if(counter==0){
+							 Toast.makeText(getActivity(), "You have no targets to update!",
+							         Toast.LENGTH_SHORT).show();
+						}
+						
+					}
+			    	
 			    });
+			   
 			return rootView;
 				   
 			}
-			
-			public boolean listViewPopulate(){
-				 if(otherCategory.size()>0){
-				    	textStatus.setText(" ");
-				    	other_adapter=new OtherBaseAdapter(getActivity(),otherCategory,otherNumber,otherPeriod,otherId);
-				    	other_adapter.notifyDataSetChanged();
-				    	listView_other.setAdapter(other_adapter);	
-				    }else if (otherCategory.size()==0){
-				    	textStatus.setText("No other targets found!");
-				    }
-				    
-				
+			@Override
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, long id) {
+				String[] selected_items=other_adapter.getChild(groupPosition, childPosition);
+				selected_id=Long.parseLong(selected_items[7]);
+				//System.out.println(selected_items[0]+" "+selected_items[1]);
+				String other_name=selected_items[0];
+				String other_number=selected_items[1];
+				String other_period=selected_items[2];
+				String due_date=selected_items[3];
+				String status=selected_items[6];
+				String startDate=selected_items[5];
+				String achieved=selected_items[4];
+				ArrayList<String> number_achieved_list=db.getForUpdateOtherNumberAchieved(selected_id, other_period);
+				Intent intent=new Intent(getActivity(),OtherTargetsDetailActivity.class);
+				intent.putExtra("other_id",selected_id);
+				intent.putExtra("other_name",other_name);
+				intent.putExtra("other_number",other_number);
+				intent.putExtra("other_period", other_period);
+				intent.putExtra("due_date", due_date);
+				intent.putExtra("start_date", startDate);
+				intent.putExtra("status", status);
+				intent.putExtra("achieved", number_achieved_list.get(0));
+				startActivity(intent);
 				return true;
 			}
-			
-			
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, final long id) {
-				String[] selected_items=other_adapter.getItem(position);
-				final Dialog dialog = new Dialog(getActivity());
-				dialog.setContentView(R.layout.event_add_dialog);
-				dialog.setTitle("Edit Other Target");
-				final EditText editText_otherCategory=(EditText) dialog.findViewById(R.id.editText_dialogOtherName);
-				editText_otherCategory.setText(selected_items[0]);
-				final Spinner spinner_otherPeriod=(Spinner) dialog.findViewById(R.id.spinner_dialogOtherPeriod);
-				String[] items={"Daily","Monthly","Weekly","Yearly","Quarterly"};
-				ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
-				spinner_otherPeriod.setAdapter(adapter);
-				int spinner_position=adapter.getPosition(selected_items[2]);
-				spinner_otherPeriod.setSelection(spinner_position);
-				final EditText editText_otherNumber=(EditText) dialog.findViewById(R.id.editText_dialogOtherNumber);
-				editText_otherNumber.setText(selected_items[1]);
-				Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddEvent);
-				dialogButton.setText("Save");
-				dialogButton.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						dialog.dismiss();
-						
-						String other_category=editText_otherCategory.getText().toString();
-						String other_number=editText_otherNumber.getText().toString();
-						String other_period=spinner_otherPeriod.getSelectedItem().toString();
-					    if(db.editOther(other_category, other_number, other_period, id) ==true){
-					    	getActivity().runOnUiThread(new Runnable() {
-								@Override
-					            public void run() {
-									otherCategory=db.getAllOtherCategory(month_passed);
-								    otherNumber=db.getAllOtherNumber(month_passed);
-								    otherPeriod=db.getAllOtherPeriod(month_passed);
-								    otherId=db.getAllOthersId(month_passed);
-								    other_adapter=new OtherBaseAdapter(getActivity(),otherCategory,otherNumber,otherPeriod,otherId);
-							    	other_adapter.notifyDataSetChanged();
-							    	listView_other.setAdapter(other_adapter);	
-					            }
-					        });	
-					    	 Toast.makeText(getActivity().getApplicationContext(), "Target edtied successfully!",
-							         Toast.LENGTH_LONG).show();
-					    }else{
-					    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
-							         Toast.LENGTH_LONG).show();
-					    }
-					}
-				});
-	 				dialog.show();
 				
 			}
-			
-	 }
+	 
 	 @Override
 		public boolean onKeyDown(int keyCode, KeyEvent event) {
 			if ((keyCode == KeyEvent.KEYCODE_BACK)) {

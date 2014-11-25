@@ -19,10 +19,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class SevereDiseasesNextActivity extends Activity {
+public class SevereDiseasesNextActivity extends BaseActivity {
 
 	private ListView listView_severDiseaseSymptoms;
-	private Context mContext;
+//	private Context mContext;
 	private Button button_no;
 	private DbHelper dbh;
 	private Long start_time;

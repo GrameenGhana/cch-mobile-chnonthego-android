@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class TakeActionDiarrhoeaNoDehydrationNextActivity extends Activity {
+public class TakeActionDiarrhoeaNoDehydrationNextActivity extends BaseActivity {
 
 	private Button button_next;
 	private Long start_time;

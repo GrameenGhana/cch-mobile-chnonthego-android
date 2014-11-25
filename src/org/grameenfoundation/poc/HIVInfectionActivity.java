@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class HIVInfectionActivity extends Activity {
+public class HIVInfectionActivity extends BaseActivity {
 
 	private Button button_next;
 	private DbHelper dbh;
@@ -21,6 +21,7 @@ public class HIVInfectionActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext=HIVInfectionActivity.this;
 	    setContentView(R.layout.activity_hiv_infection);
 	    dbh=new DbHelper(HIVInfectionActivity.this);
 	    start_time=System.currentTimeMillis();

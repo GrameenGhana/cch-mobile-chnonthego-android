@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class AnaemiaAskActivity extends Activity {
+public class AnaemiaAskActivity extends BaseActivity {
 
 	private Button button_next;
 	private DbHelper dbh;
@@ -21,6 +21,7 @@ public class AnaemiaAskActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = AnaemiaAskActivity.this;
 	    setContentView(R.layout.activity_anaemia_ask);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC Diagnostic: Anaemia");

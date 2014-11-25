@@ -6,7 +6,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TakeActionMaternalEmergenciesActivity extends Activity {
+public class TakeActionMaternalEmergenciesActivity extends BaseActivity {
 
 	private Long start_time;
 	private Long end_time;

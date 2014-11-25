@@ -31,7 +31,7 @@ public class UpdateTargetsScheduleReciever extends BroadcastReceiver {
 	    updateTime.set(Calendar.HOUR_OF_DAY, 17);
 	    updateTime.set(Calendar.MINUTE, 0);
 	    updateTime.set(Calendar.SECOND, 0);
-		service.setInexactRepeating(AlarmManager.RTC_WAKEUP, updateTime.getTimeInMillis(), REPEAT_TIME, pending);
+		service.setInexactRepeating(AlarmManager.RTC_WAKEUP, updateTime.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pending);
 	
 	}
 

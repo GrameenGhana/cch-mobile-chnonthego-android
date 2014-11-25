@@ -11,7 +11,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-public class SoftUterusPNCMotherYesNextActivity extends Activity {
+public class SoftUterusPNCMotherYesNextActivity extends BaseActivity {
 
 	private LinearLayout linearLayout_one;
 	private LinearLayout linearLayout_two;
@@ -28,6 +28,7 @@ public class SoftUterusPNCMotherYesNextActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    mContext = SoftUterusPNCMotherYesNextActivity.this;
 	    setContentView(R.layout.activity_mother_pnc_soft_uterus_yes_next);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Mother Diagnostic: Soft Uterus");

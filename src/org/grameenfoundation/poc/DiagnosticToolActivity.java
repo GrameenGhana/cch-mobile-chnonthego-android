@@ -17,9 +17,9 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class DiagnosticToolActivity extends Activity implements OnItemClickListener{
+public class DiagnosticToolActivity extends BaseActivity implements OnItemClickListener{
 
-	private Context mContext;
+//	private Context mContext;
 	private ListView listView_encounter;
 	private DbHelper dbh;
 	private Long start_time;
