@@ -19,6 +19,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Events;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -212,7 +214,33 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 			String eventName=spinner_eventName.getSelectedItem().toString();
 			String eventLocation=editText_event_location.getText().toString();
 			String eventDescription=editText_eventDescription.getText().toString();
-					c.addEvent(eventName, eventLocation, eventDescription);
+			Calendar cal = Calendar.getInstance();
+			Intent	intent = new Intent(Intent.ACTION_INSERT)
+			        .setData(Events.CONTENT_URI)
+			        .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTimeInMillis())
+			        .putExtra(CalendarContract.EXTRA_EVENT_END_TIME,  cal.getTimeInMillis()+60*60*1000)
+			        .putExtra(Events.TITLE, eventName)
+			        .putExtra(Events.DESCRIPTION, eventDescription)
+			        .putExtra(Events.EVENT_LOCATION, eventLocation)
+			        .putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY)
+			 		.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY , false);
+			
+			//long eventID = Long.parseLong(Events.CONTENT_URI.getLastPathSegment());
+			//System.out.println(String.valueOf(eventID));
+			
+			//String user_id = prefs.getString(mContext.getString(R.string.prefs_username), "noid"); 
+			//dbh.insertCalendarEvent(eventID,evt, user_id, desc, location, cal.getTimeInMillis(),  cal.getTimeInMillis()+60*60*1000);
+			//mContext.startActivity(intent);
+			startActivityForResult(intent, 1);
+			/*
+					if(c.addEvent(eventName, eventLocation, eventDescription)==true){
+					 Toast.makeText(PlanEventActivity.this, "Event added successfully!",
+					         Toast.LENGTH_LONG).show();
+					Intent intent2=new Intent(mContext,EventPlannerOptionsActivity.class);
+					mContext.startActivity(intent2);
+					finish();
+					}
+					
 					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 							PlanEventActivity.this);
 			 
@@ -248,7 +276,7 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 							// show it
 							alertDialog.show();
 					
-		
+		*/
 		}
 		else if (id == R.id.button_eventViewCalendar) {
 			Intent intent =  new Intent(Intent.ACTION_VIEW);
@@ -257,7 +285,45 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 		}
 		
 	}
-	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    if (requestCode == 1) {
+	    	AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					PlanEventActivity.this);
+	 
+				// set title
+				alertDialogBuilder.setTitle("Confirmation");
+	 
+				// set dialog message
+				alertDialogBuilder
+					.setMessage("You have successfully added an event. \n Do you want to add another one?")
+					.setCancelable(false)
+					.setIcon(R.drawable.ic_error)
+					.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							// if this button is clicked, close
+							// current activity
+							dialog.cancel();
+						  	editText_event_location.setText(" ");
+	                    	editText_eventDescription.setText(" ");
+						}
+					  })
+					.setNegativeButton("No",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							// if this button is clicked, just close
+							Intent intent=new Intent(PlanEventActivity.this,EventPlannerOptionsActivity.class);
+	                    	startActivity(intent);
+	                    	finish();
+						}
+					});
+	 
+					// create alert dialog
+					AlertDialog alertDialog = alertDialogBuilder.create();
+	 
+					// show it
+					alertDialog.show();
+	    }
+	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK)) {

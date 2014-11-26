@@ -131,8 +131,9 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
         String percentage_achieved=String.format("%.0f", percentage);
         progress_status=(int) percentage.doubleValue();
         progress_bar.setProgress(progress_status);
-        progress_bar.setText(percentage_achieved+"%");
-        progress_bar.setTextColor(color.TextColorWine);
+        progress_bar.setPrefixText(percentage_achieved+"%");
+        progress_bar.setPrefixText(" ");
+        //progress_bar.setTextColor(color.TextColorWine);
         textView_percentageAchieved.setText(percentage_achieved+"%");
         textView_name.setText(other_name);
         textView_period.setText(other_period);
@@ -236,8 +237,11 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 						String other_number=editText_otherNumber.getText().toString();
 						String other_period=spinner_otherPeriod.getSelectedItem().toString();
 					    if(db.editOther(other_category, other_number, other_period,duration,start_date,due_date, other_id) ==true){
-					    	editText_otherCategory.setText(" ");
-					    	editText_otherNumber.setText(" ");
+					    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
+				 	          intent2.setClass(OtherTargetsDetailActivity.this, NewEventPlannerActivity.class);
+				 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				 	          startActivity(intent2);
+				 	          finish();	
 					    	 Toast.makeText(OtherTargetsDetailActivity.this, "Target edtied successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{

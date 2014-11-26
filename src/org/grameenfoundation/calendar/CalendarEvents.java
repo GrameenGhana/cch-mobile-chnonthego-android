@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.activity.PlanEventActivity;
 import org.digitalcampus.oppia.application.DbHelper;
 
 import android.content.ContentResolver;
@@ -121,6 +122,7 @@ public class CalendarEvents {
 		//String user_id = prefs.getString(mContext.getString(R.string.prefs_username), "noid"); 
 		//dbh.insertCalendarEvent(eventID,evt, user_id, desc, location, cal.getTimeInMillis(),  cal.getTimeInMillis()+60*60*1000);
 		mContext.startActivity(intent);
+		
 		return true;
 		
 	

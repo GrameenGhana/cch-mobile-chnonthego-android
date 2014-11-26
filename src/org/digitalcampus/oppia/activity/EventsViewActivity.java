@@ -332,7 +332,7 @@ public class EventsViewActivity extends  BaseActivity {
 			}else if (groupPosition==1){
 			count=ChildItemEventDetailTomorrow.size();
 			}else if(groupPosition==2){
-				count=ChildItemEventDetailFuture.size();	
+				count=ChildItemEventIdFuture.size();	
 			}
 			return count;
 		}
@@ -355,11 +355,15 @@ public class EventsViewActivity extends  BaseActivity {
 							,ChildItemEventDetailToday.get(childPosition),
 							ChildItemEventIdToday.get(childPosition)};
 				}else if (groupPosition==1){
-					item=new String[]{ChildItemEventTypeTomorrow.get(childPosition),ChildItemEventDescriptionTomorrow.get(childPosition)
-							,ChildItemEventDetailTomorrow.get(childPosition),ChildItemEventIdTomorrow.get(childPosition)};
+					item=new String[]{ChildItemEventTypeTomorrow.get(childPosition),
+							ChildItemEventDescriptionTomorrow.get(childPosition)
+							,ChildItemEventDetailTomorrow.get(childPosition),
+							ChildItemEventIdTomorrow.get(childPosition)};
 				}else if(groupPosition==2){
-					item=new String[]{ChildItemEventTypeFuture.get(childPosition),ChildItemEventDescriptionFuture.get(childPosition)
-							,ChildItemEventDetailFuture.get(childPosition),ChildItemEventIdFuture.get(childPosition)};
+					item=new String[]{ChildItemEventTypeFuture.get(childPosition),
+							ChildItemEventDescriptionFuture.get(childPosition)
+							,ChildItemEventDetailFuture.get(childPosition),
+							ChildItemEventIdFuture.get(childPosition)};
 				}
 			return item;
 				

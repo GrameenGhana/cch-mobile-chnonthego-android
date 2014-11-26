@@ -336,7 +336,9 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				        int year=c.get(Calendar.YEAR);
 				      	String today=day+"-"+month+"-"+year;
 					    if(db.insertEventSet(event_name, event_period, event_period_number, duration,start_date,due_date,0,Integer.valueOf(event_period_number),"new_record") !=0){
-					    	editText_event_period.setText(" ");
+					    	Intent intent2=new Intent(getActivity(),EventPlannerOptionsActivity.class);
+							getActivity().startActivity(intent2);
+							getActivity().finish();
 					    	 Toast.makeText(getActivity().getApplicationContext(), "Event target set successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
@@ -782,7 +784,9 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				        int year=c.get(Calendar.YEAR);
 				      	String today=day+"-"+month+"-"+year;
 				    if(db.insertCoverageSet(coverage_name, coverage_detail, coverage_period, coverage_number, duration,start_date,due_date,0,Integer.valueOf(coverage_number),"new_record") !=0){
-				    	editText_coverageNumber.setText(" ");
+				    	Intent intent2=new Intent(getActivity(),EventPlannerOptionsActivity.class);
+						getActivity().startActivity(intent2);
+						getActivity().finish();
 					    	 Toast.makeText(getActivity().getApplicationContext(), "Coverage target added successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
@@ -1206,6 +1210,9 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				        int year=c.get(Calendar.YEAR);
 				      	String today=day+"-"+month+"-"+year;
 					    if(db.insertLearning(learning_category, learning_description,learning_course,duration,learning_period,start_date,due_date, "new_record")!=0){
+					    	Intent intent2=new Intent(getActivity(),EventPlannerOptionsActivity.class);
+							getActivity().startActivity(intent2);
+							getActivity().finish();
 					    	 Toast.makeText(getActivity().getApplicationContext(), "Learning target added successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
@@ -1480,8 +1487,9 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				        int year=c.get(Calendar.YEAR);
 				      	String today=day+"-"+month+"-"+year;
 					    if(db.insertOther(other_category,other_number,other_period,duration,start_date,due_date,0,Integer.valueOf(other_number),"new_record")!=0){
-					    	editText_otherNumber.setText(" ");
-					    	editText_otherCategory.setText(" ");
+					    	Intent intent2=new Intent(getActivity(),EventPlannerOptionsActivity.class);
+							getActivity().startActivity(intent2);
+							getActivity().finish();
 					    	 Toast.makeText(getActivity().getApplicationContext(), "Added target successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{

@@ -140,8 +140,9 @@ public class EventTargetsDetailActivity extends FragmentActivity {
         textView_percentageAchieved.setText(String.valueOf(percentage_achieved)+"%");
         progress_status=(int) percentage.doubleValue();
         progress_bar.setProgress(progress_status);
-        progress_bar.setText(percentage_achieved+"%");
-        progress_bar.setTextColor(color.TextColorWine);
+        progress_bar.setPrefixText(percentage_achieved+"%");
+        progress_bar.setPrefixText(" ");
+      //  progress_bar.setTextColor(color.TextColorWine);
         
         /*
         if(date_difference==4&&due_date_month==today_month&&due_date_year==today_year&&percentage<50){
@@ -250,7 +251,11 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 						String event_number=editText_eventNumber.getText().toString();
 						String event_period=spinner_eventPeriod.getSelectedItem().toString();
 					    if(db.editEventCategory(event_name, event_number, event_period,duration,start_date,due_date, event_id)==true){
-					    	editText_eventNumber.setText(" ");
+					    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
+				 	          intent2.setClass(EventTargetsDetailActivity.this, NewEventPlannerActivity.class);
+				 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				 	          startActivity(intent2);
+				 	          finish();	
 					    	 Toast.makeText(EventTargetsDetailActivity.this, "Event target edited successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{

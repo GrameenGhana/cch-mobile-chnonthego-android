@@ -42,17 +42,17 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="20dp"
-        android:visibility="gone" >
+        android:visibility="visible" >
 
         <org.grameenfoundation.cch.utils.TextProgressBar
             android:id="@+id/progressBar1"
-            android:layout_width="fill_parent"  
-			android:layout_height="wrap_content"  
-			android:max="100"  
-			android:progress="0"  
-			style="?android:attr/progressBarStyleHorizontal"  
-			android:maxHeight="20dip"  
-			android:minHeight="20dip"  />
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:max="100"
+            android:maxHeight="20dip"
+            android:minHeight="20dip"
+            android:progress="0" />
 
     </LinearLayout>
 
@@ -108,7 +108,8 @@
             android:id="@+id/tableRow5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp" >
+            android:padding="10dp"
+            android:visibility="gone" >
 
             <TextView
                 android:id="@+id/textView6"

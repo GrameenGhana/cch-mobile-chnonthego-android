@@ -140,8 +140,9 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
         textView_percentageAchieved.setText(percentage_achieved+"%");
         progress_status=(int) percentage.doubleValue();
         progress_bar.setProgress(progress_status);
-        progress_bar.setText(percentage_achieved+"%");
-        progress_bar.setTextColor(color.TextColorWine);
+        progress_bar.setPrefixText(percentage_achieved+"%");
+        progress_bar.setPrefixText(" ");
+       // progress_bar.setTextColor(color.TextColorWine);
         textView_name.setText(coverage_name);
         textView_period.setText(coverage_period);
         textView_dueDate.setText(due_date_extra);
@@ -463,7 +464,11 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 						String coverage_number=editText_coverageNumber.getText().toString();
 						coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 					    if(db.editCoverage(coverage_name, coverage_detail,coverage_number, coverage_period,duration,start_date,due_date, coverage_id) ==true){
-					    	editText_coverageNumber.setText(" ");
+					    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
+				 	          intent2.setClass(CoverageTargetsDetailActivity.this, NewEventPlannerActivity.class);
+				 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				 	          startActivity(intent2);
+				 	          finish();	
 					    	 Toast.makeText(CoverageTargetsDetailActivity.this.getApplicationContext(), "Coverage target edited successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{

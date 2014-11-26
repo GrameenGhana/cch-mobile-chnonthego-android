@@ -243,7 +243,11 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 						String learning_course=spinner_learningCourse.getSelectedItem().toString();
 						String learning_topic=spinner_learningDescription.getSelectedItem().toString();
 					    if(db.editLearning(learning_category, learning_course,learning_topic,duration,start_date,due_date, learning_id) ==true){
-					    	
+					    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
+				 	          intent2.setClass(LearningTargetsDetailActivity.this, NewEventPlannerActivity.class);
+				 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				 	          startActivity(intent2);
+				 	          finish();	
 					    	 Toast.makeText(LearningTargetsDetailActivity.this.getApplicationContext(), "Learning target edited successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
