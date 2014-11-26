@@ -1,4 +1,4 @@
-																																																															package org.digitalcampus.oppia.activity;
+package org.digitalcampus.oppia.activity;
 
 import java.util.ArrayList;
 import java.util.Calendar;

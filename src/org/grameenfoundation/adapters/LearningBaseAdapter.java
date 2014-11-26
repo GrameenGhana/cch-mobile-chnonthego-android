@@ -3,32 +3,6 @@ package org.grameenfoundation.adapters;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.mobile.learningGF.R.color;
 
