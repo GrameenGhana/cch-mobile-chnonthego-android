@@ -94,16 +94,18 @@ public class TrackerService extends Service implements APIRequestListener {
 				Editor editor = prefs.edit();
 				editor.putLong("lastCourseUpdateCheck", now);
 				editor.commit();
-			}
-			
-			/* CCH: Check to see if the CCH log needs any updating */
-			if(app.omUpdateCCHLogTask == null){
-				Log.v(TAG, "Updating CCH logs");
-				Payload mqp = db.getCCHUnsentLog();
-				app.omUpdateCCHLogTask = new UpdateCCHLogTask(this);
-				app.omUpdateCCHLogTask.execute(mqp);
-			}
 				
+				
+				/* CCH: Check to see if the CCH log needs any updating */
+				if(app.omUpdateCCHLogTask == null){
+					Log.v(TAG, "Updating CCH logs");
+					Payload mqp = db.getCCHUnsentLog();
+					app.omUpdateCCHLogTask = new UpdateCCHLogTask(this);
+					app.omUpdateCCHLogTask.execute(mqp);
+				}
+					
+			}
+		
 
 			// send activity trackers
 			if(app.omSubmitTrackerMultipleTask == null){
