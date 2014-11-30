@@ -81,6 +81,9 @@
     // the view stack index
     App.Z_INDEX = 0;
 
+    // start view time
+    App.startTime = new Date();
+
     //override underscore template tags
     _.templateSettings = {
         evaluate: /\{\{(.+?)\}\}/g,
@@ -323,9 +326,19 @@
         });
     };
 
+    App.logEntry = function (page) {
+        //log entry
+        var end = new Date();
+        var data = "{'type':'url', 'value':'"+ page +"'}";
+        cch.logger(data, App.startTime.getTime(), end.getTime());
+        App.startTime = end;
+    };
+
     App.navigateTo = function(_view) {
         var page = 'www/cch/modules/stayingwell/templates/'+_view;
         var template = cch.getFileTemplate(page);
+
+        App.logEntry(page);
 
         var temp_id = "view" + App.createHash();
         var _id = App.HASH_TAG + temp_id;
@@ -367,7 +380,7 @@
             var perc = (bb_page_height / device_height) * 100;
             perc = Math.floor(perc);
 
-            console.log('percentage ' + perc);
+            //console.log('percentage ' + perc);
             //if perc is less than value make it sticky
             //ps: play around with percentage to get the right value
             if (perc <= 80) {
@@ -460,6 +473,8 @@
                 //require(_template, function (template) {
                     var page = 'www/cch/modules/stayingwell/templates/'+_view;
                     var template = cch.getFileTemplate(page);
+        
+                    App.logEntry(page);
 
                     var _json = {
                         template: template

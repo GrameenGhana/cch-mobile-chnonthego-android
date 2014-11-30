@@ -150,8 +150,9 @@ public class StayingWellActivity extends AppActivity implements OnSharedPreferen
 		if (! url.isEmpty())
 		{
 			String module = STAYING_WELL_ID;
-			Long endtime = System.currentTimeMillis();			
-			dbh.insertCCHLog(module, url, starttime.toString(), endtime.toString());	
+			Long endtime = System.currentTimeMillis();	
+			String data = "{'type':'url', 'value':'"+url+"'}";
+			dbh.insertCCHLog(module,data, starttime.toString(), endtime.toString());	
 		}	
 	}
 

@@ -3,6 +3,10 @@ function CCH() {
         Android.showToast(stri);
     },
 
+    this.logger = function(data, start, end) {
+        Android.saveToCCHLog(data, start, end);
+    },
+
     this.getGreeting = function() {
     	return Android.getGreeting();
     },
@@ -11,6 +15,14 @@ function CCH() {
         return Android.getRoutineInfo(inclcharet);
     },
 
+    this.markActivityDone = function(cb, uuid) {
+        //Android.showToast(uuid);
+        Android.markRoutineDone(uuid);
+        // disable check box
+        cb.checked= true;
+        cb.disabled = true;
+    },
+    
     this.showLegal = function() {
         return (Android.getLegalStatus()=="") ? true : false;
     },
