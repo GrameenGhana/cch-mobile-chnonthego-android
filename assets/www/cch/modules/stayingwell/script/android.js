@@ -19,8 +19,7 @@ function CCH() {
         //Android.showToast(uuid);
         Android.markRoutineDone(uuid);
         // disable check box
-        cb.checked= true;
-        cb.disabled = true;
+        $('.routines_today').html(cch.getRoutineInfo('list'));  
     },
     
     this.showLegal = function() {

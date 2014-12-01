@@ -142,6 +142,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	private static final String CCH_SW_ROUTINE_PLAN = "plan";
 	private static final String CCH_SW_ROUTINE_ACTION = "action";
 	private static final String CCH_SW_ROUTINE_ORDER  = "doorder";
+    
     private static final String CCH_SW_ROUTINE_TODO_TABLE = "stayingwell_routinetodos";
 	private static final String CCH_SW_ROUTINE_TODO_ID = BaseColumns._ID;
 	private static final String CCH_SW_ROUTINE_TODO_STAFF_ID = "staff_id";
@@ -151,10 +152,8 @@ public class DbHelper extends SQLiteOpenHelper {
 	private static final String CCH_SW_ROUTINE_TODO_MONTH = "month";
 	private static final String CCH_SW_ROUTINE_TODO_DAY = "day";
 	private static final String CCH_SW_ROUTINE_TODO_TOD = "timeofday";
-	private static final String CCH_SW_ROUTINE_TODO_ACTION = "action";
 	private static final String CCH_SW_ROUTINE_TODO_ORDER  = "doorder";
-	public static final String CCH_SW_ROUTINE_TODO_TIMEDONE  = "timedone";
-	public static final String CCH_SW_ROUTINE_TODO_LOGGED  = "logged";
+	private static final String CCH_SW_ROUTINE_TODO_TIMEDONE  = "timedone";
 
 	
 	//CCH: Events Table
@@ -1187,7 +1186,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		Cursor c = db.query(QUIZRESULTS_TABLE, null, s, args, null, null, null);
 		c.moveToFirst();
 		int quiznum = 1;
-		HashMap qt = new HashMap();
+		HashMap<String, Integer> qt = new HashMap<String, Integer>();
 
 		while (c.isAfterLast() == false) {
 			String data = c.getString(c.getColumnIndex(QUIZRESULTS_C_DATA));
@@ -1257,7 +1256,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		values.put(CCH_TRACKER_DATA, data);
 		values.put(CCH_TRACKER_START_DATETIME, starttime);
 		values.put(CCH_TRACKER_END_DATETIME, endtime);
-		Log.v("insertCCHLOG", values.toString());
+		//Log.v("insertCCHLOG", values.toString());
 		db.insertOrThrow(CCH_TRACKER_TABLE, null, values);
 		db.close();
 	}
@@ -1362,7 +1361,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			            new String[] { String.valueOf(userid) }, null, null, null, null); 	        
 		
 		if (cursor == null || cursor.getCount()==0) {
-			Log.e("CCH DB","Value for "+field+" is null or no result");	
+			//Log.e("CCH DB","Value for "+field+" is null or no result");	
 			return null;	    	
 		}
 		
@@ -1372,7 +1371,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		
 		cursor.close();
 		
-		Log.e("CCH DB","Value for "+field+": "+info);	
+		//Log.e("CCH DB","Value for "+field+": "+info);	
 			    
 		// return value
 		return info;
@@ -1382,11 +1381,10 @@ public class DbHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase(); 
         ContentValues values = new ContentValues();
         values.put(field, value); 
-        Log.e("CCH","Updating "+field+" with "+value);
+        //Log.e("CCH","Updating "+field+" with "+value);
 		String userid = "David";//prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
         db.update(CCH_SW_TABLE, values, CCH_SW_STAFF_ID + "='"+userid+"'", null);
-        db.close(); 
-            
+        db.close();             
 	}
 	
 	public ArrayList<RoutineActivity> getSWRoutineActivities()
@@ -1486,7 +1484,6 @@ public class DbHelper extends SQLiteOpenHelper {
 	
 	public void insertSWRoutineDoneActivity(String uuid)
 	{
-		// TODO: add uuid to table and only save if its not there.
 		SQLiteDatabase db = this.getReadableDatabase();		 
 
 		String userid = "David"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      

@@ -2,6 +2,8 @@ package org.digitalcampus.oppia.activity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
@@ -115,10 +117,16 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
         mViewPager.setOffscreenPageLimit(3);
 	  
 	}
+	
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
                 super(fm);
+        }
+        
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
         }
 
         @Override
@@ -173,9 +181,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		 private ArrayList<String> firstName;
 		 public ArrayList<String> EventTypeToday;
 
-		 public EventsSummary(){
-			 
-		 }
+		 public EventsSummary() {}
 		 
 		 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			 	rootView=inflater.inflate(R.layout.events_pager_layout,null,false);
@@ -188,7 +194,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			    event_number=(TextView) rootView.findViewById(R.id.textView_eventsNumber);
 			    Time time = new Time();
 			    time.setToNow();
-			    String today= String.valueOf(time.monthDay)+"-"+String.valueOf(time.month+1)+"-"+String.valueOf(time.year);
+			    //String today= String.valueOf(time.monthDay)+"-"+String.valueOf(time.month+1)+"-"+String.valueOf(time.year);
 			   
 			    c= new CalendarEvents(mContext);
 			    
@@ -199,20 +205,11 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			    }else if(firstName.size()==0){
 			    	user_first_name.equals(name);
 			    }
-			    if(time.hour<12)
-			    {
-			    	System.out.println("name");
-			    	  status.setText("Good morning, "+user_first_name+"!");
-			    }else if(time.hour>12&& time.hour<17)
-			    {
-			    	 status.setText("Good afternoon, "+user_first_name+"!");
-			    }else if(time.hour>17&& time.hour<20)
-			    {
-			    	 status.setText("Good evening, "+user_first_name+"!");
-			    }else{
-			    	 status.setText("Good day, "+user_first_name+"!");
-			    }
-			 //eventsNumber=db.getAllEventsForMonth("September");
+			    
+		    	status.setText("Good "+dbh.getTime()+", "+user_first_name+"!");
+
+			 
+		    	//eventsNumber=db.getAllEventsForMonth("September");
 			 if(EventTypeToday.size()>0&&EventTypeToday.get(0).equalsIgnoreCase("No planned events for today")){
 				 event_number.setText("0"); 
 			 }else {
@@ -223,7 +220,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		        int day=c.get(Calendar.DAY_OF_WEEK);
 		        int year=c.get(Calendar.YEAR);
 		        due_date=day+"-"+month+"-"+year;
-		        System.out.println(today);
+		        //System.out.println(today);
 	
 				textView_eventTargetsNumber=(TextView) rootView.findViewById(R.id.textView_eventTargetsNumber);
 				textView_clickHere=(TextView) rootView.findViewById(R.id.textView_clickHere);
@@ -265,7 +262,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 					number4=learningId.size();
 				}
 				counter=number+number2+number3+number4;
-				System.out.println(counter);
+				//System.out.println(counter);
 				textView_eventTargetsNumber.setText(String.valueOf(counter));
 				textView_clickHere.setOnClickListener(new OnClickListener(){
 
@@ -357,6 +354,9 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		 private TextView title;
 		 private ListView listView_details;
 		 
+		 public static final String TAG = RoutineDetails.class.getSimpleName();
+
+		 
 		 public RoutineDetails() { }
 		 
 		 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -380,13 +380,31 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			    		   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			    		    // When clicked, show a toast with the TextView text
 			    		    RoutineActivity item =  (RoutineActivity) parent.getItemAtPosition(position);
-			    		    Toast.makeText(getActivity(), "Clicked on Row: " + item.getAction(), Toast.LENGTH_LONG).show();
-			    		   }
+			    		    
+			    		    Pattern p = Pattern.compile(".*?data\\-view=\"(.*?)\".*?");
+							Matcher m = p.matcher(item.getAction());
+							
+							if (m.matches())
+							{
+								String url = "file:///android_asset/www/cch/modules/stayingwell/templates/"+m.group(1);
+								//Toast.makeText(mContext, "Clicked on url: "+url,  Toast.LENGTH_LONG).show();
+								Intent intent = new Intent(mContext, StayingWellActivity.class);								
+								intent.putExtra("LOAD_URL", url);
+								startActivity(intent);
+							} 
+			    		  }
 			    	});
 			    }
 			    
 			    return rootView;
 		 }
+	 }
+	 
+	 @Override
+	 public void onResume()
+	 {
+		 super.onResume();
+	     mViewPager.getAdapter().notifyDataSetChanged();
 	 }
 	 	 
 	 
@@ -455,6 +473,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 				supportInvalidateOptionsMenu();
 			}
 		}
+		
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {

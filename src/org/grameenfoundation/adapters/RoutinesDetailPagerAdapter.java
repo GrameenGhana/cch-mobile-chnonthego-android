@@ -1,8 +1,6 @@
 package org.grameenfoundation.adapters;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
@@ -79,16 +77,7 @@ public class RoutinesDetailPagerAdapter extends ArrayAdapter<RoutineActivity> {
 			
 			holder.action.setOnClickListener( new View.OnClickListener() {  
 				public void onClick(View v) {  
-					TextView tv = (TextView) v; 
-					Pattern p = Pattern.compile(".*?data\\-view=\"(.*?)\".*?");
-					Matcher m = p.matcher(tv.getText());
 					
-					if (m.matches())
-					{
-						//Toast.makeText(mContext, "Clicked on url: "+m.group(1),  Toast.LENGTH_LONG).show();
-					} else {
-						//Toast.makeText(mContext, "No Url found",  Toast.LENGTH_LONG).show();
-					}
 				}  
 		    });  
 			

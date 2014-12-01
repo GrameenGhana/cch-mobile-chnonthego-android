@@ -26,7 +26,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnKeyListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
@@ -133,7 +132,6 @@ public class StayingWellActivity extends AppActivity implements OnSharedPreferen
 	    oldPageUrl = "";
 	    pageOpenTime = System.currentTimeMillis();
 	    
-		
 	    String url = HOME_URL;
 	    try 
 	    {
@@ -182,6 +180,7 @@ public class StayingWellActivity extends AppActivity implements OnSharedPreferen
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK) && (myWebView.getUrl()).equals(HOME_URL)) {
+			
 			finish();
 			
 		} else if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
