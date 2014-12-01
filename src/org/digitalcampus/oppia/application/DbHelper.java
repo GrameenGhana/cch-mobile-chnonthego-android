@@ -62,7 +62,6 @@ public class DbHelper extends SQLiteOpenHelper {
 	private Context ctx;
 	private SQLiteDatabase read=this.getReadableDatabase();
 
-	
 	private static final String COURSE_TABLE = "Module";
 	private static final String COURSE_C_ID = BaseColumns._ID;
 	private static final String COURSE_C_VERSIONID = "versionid";
@@ -1440,9 +1439,9 @@ public class DbHelper extends SQLiteOpenHelper {
 				   
 				   if (this.getSWRoutineDoneActivity(year, month, day, profile, plan, timeofday, order) == null)
 				   {
-						ra.setSelected(false);
+						ra.setDone(false);
 				   } else {
-					   ra.setSelected(true);
+					   ra.setDone(true);
 				   }
 				   list.add(ra);
 				   c.moveToNext();						

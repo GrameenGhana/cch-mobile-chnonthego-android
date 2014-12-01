@@ -70,7 +70,7 @@ public class RoutinesDetailPagerAdapter extends ArrayAdapter<RoutineActivity> {
 					String message = (cb.isChecked()) ? "Congratulations!" : ":( What happened?";
 					Toast.makeText(mContext, message,  Toast.LENGTH_LONG).show();
 					dbh.insertSWRoutineDoneActivity(ra.getUUID());
-					ra.setSelected(cb.isChecked());
+					ra.setDone(cb.isChecked());
 					cb.setEnabled(false);
 				}  
 		    });  
@@ -89,8 +89,8 @@ public class RoutinesDetailPagerAdapter extends ArrayAdapter<RoutineActivity> {
 		RoutineActivity ra = activities.get(position);
 		holder.action.setText(Html.fromHtml(ra.getAction()));
 		holder.uuid.setText("");
-		holder.uuid.setChecked(ra.isSelected());
-		if(ra.isSelected()) {
+		holder.uuid.setChecked(ra.isDone());
+		if(ra.isDone()) {
 			holder.uuid.setEnabled(false);
 		}
 		holder.uuid.setTag(ra);

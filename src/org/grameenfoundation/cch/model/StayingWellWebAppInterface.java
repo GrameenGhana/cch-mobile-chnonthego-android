@@ -65,7 +65,7 @@ public class StayingWellWebAppInterface {
         	{
         		String val = "<h3 id=\"routine_title\">This "+dbh.getTime()+"'s activities:</h3><br/>";
         		for(RoutineActivity todo: todos) {
-        			if (todo.isSelected()) {
+        			if (todo.isDone()) {
         				val += "<li><input type=\"checkbox\" disabled checked />&nbsp;&nbsp;"+todo.getAction()+"</li>";
         			} else {
             			val += "<li><input type=\"checkbox\" onclick=\"cch.markActivityDone(this, '"+todo.getUUID()+"');\" id=\""+todo.getUUID()+"\" value=\""+todo.getUUID()+"\" />&nbsp;&nbsp;"+todo.getAction()+"</li>";

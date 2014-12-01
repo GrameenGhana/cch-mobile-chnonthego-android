@@ -114,6 +114,14 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
         
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(3);
+        
+        try 
+	    {
+			if (!(getIntent().getStringExtra("FRAGMENT_IDX")).isEmpty()) {	
+				int page = Integer.parseInt(getIntent().getStringExtra("FRAGMENT_IDX"));
+				mViewPager.setCurrentItem(page, true);	
+			}				
+		} catch (NullPointerException e) { Log.e(TAG,"Trying to switch panes failed :("); }
 	  
 	}
 	

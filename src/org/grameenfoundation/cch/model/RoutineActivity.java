@@ -12,11 +12,11 @@ public class RoutineActivity {
 	private String plan;
 	private String order;
 	private String action;
-	private boolean isSelected;
+	private boolean isDone;
 	
 	public RoutineActivity()
 	{
-		this.isSelected = false;
+		this.isDone = false;
 	}
 	
 	public String getUUID()
@@ -78,12 +78,12 @@ public class RoutineActivity {
 	public void setAction(String action) {
 		this.action = action;
 	}
-	public void setSelected(boolean v)
+	public void setDone(boolean v)
 	{
-		this.isSelected = v;
+		this.isDone = v;
 	}
-	public boolean isSelected()
+	public boolean isDone()
 	{
-		return this.isSelected;
+		return this.isDone;
 	}
 }
