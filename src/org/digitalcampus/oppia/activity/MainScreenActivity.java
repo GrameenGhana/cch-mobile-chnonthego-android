@@ -2,19 +2,18 @@ package org.digitalcampus.oppia.activity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.service.TrackerService;
 import org.grameenfoundation.adapters.EventsDetailPagerAdapter;
 import org.grameenfoundation.adapters.MainScreenBaseAdapter;
-import org.grameenfoundation.adapters.RoutinesDetailPagerAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.cch.activity.StayingWellActivity;
 import org.grameenfoundation.poc.PointOfCareActivity;
 import org.grameenfoundation.cch.model.RoutineActivity;
+import org.grameenfoundation.cch.model.RoutineActivityDetails;
 import org.grameenfoundation.cch.utils.TypefaceUtil;
 
 import android.app.AlertDialog;
@@ -144,7 +143,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
                 }else if(position==1){
                 	 fragment= new EventsDetails();   
                 } else if (position==2) {
-                	 fragment = new RoutineDetails();
+                	 fragment = new RoutineActivityDetails();
                 }
                	
                 return fragment;
@@ -356,56 +355,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		 }
 	 }
 	 
-	 public static class RoutineDetails extends Fragment {
-		 View rootView;
-		 private TextView title;
-		 private ListView listView_details;
-		 
-		 public static final String TAG = RoutineDetails.class.getSimpleName();
-
-		 
-		 public RoutineDetails() { }
-		 
-		 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			 	dbh = new DbHelper(getActivity());
 	
-			 	rootView = inflater.inflate(R.layout.routines_detail_pager_layout,null,false);
-			    title = (TextView) rootView.findViewById(R.id.textView1);
-			    listView_details=(ListView) rootView.findViewById(R.id.listView_routineDetail);
-			   
-				ArrayList<RoutineActivity> todos = dbh.getSWRoutineActivities();
-			   			
-			    if (todos.size()==0) {
-			    	title.setText("No activites planned for this "+dbh.getTime()+"!"); 
-			    } else {
-					title.setText("  This " + dbh.getTime()+ "'s activities.");
-			    	RoutinesDetailPagerAdapter adapter = new RoutinesDetailPagerAdapter(getActivity(), R.layout.routines_detail_listview_single, todos);
-			    	adapter.notifyDataSetChanged();
-			    	listView_details.setAdapter(adapter);	
-			    	
-			    	listView_details.setOnItemClickListener(new OnItemClickListener() {
-			    		   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			    		    // When clicked, show a toast with the TextView text
-			    		    RoutineActivity item =  (RoutineActivity) parent.getItemAtPosition(position);
-			    		    
-			    		    Pattern p = Pattern.compile(".*?data\\-view=\"(.*?)\".*?");
-							Matcher m = p.matcher(item.getAction());
-							
-							if (m.matches())
-							{
-								String url = "file:///android_asset/www/cch/modules/stayingwell/templates/"+m.group(1);
-								//Toast.makeText(mContext, "Clicked on url: "+url,  Toast.LENGTH_LONG).show();
-								Intent intent = new Intent(mContext, StayingWellActivity.class);								
-								intent.putExtra("LOAD_URL", url);
-								startActivity(intent);
-							} 
-			    		  }
-			    	});
-			    }
-			    
-			    return rootView;
-		 }
-	 }
 	 
 	 @Override
 	 public void onResume()
