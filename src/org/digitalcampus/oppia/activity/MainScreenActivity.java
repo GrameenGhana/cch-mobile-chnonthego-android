@@ -12,7 +12,6 @@ import org.grameenfoundation.adapters.EventsDetailPagerAdapter;
 import org.grameenfoundation.adapters.MainScreenBaseAdapter;
 import org.grameenfoundation.adapters.RoutinesDetailPagerAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
-import org.grameenfoundation.cch.activity.HomeActivity;
 import org.grameenfoundation.cch.activity.StayingWellActivity;
 import org.grameenfoundation.poc.PointOfCareActivity;
 import org.grameenfoundation.cch.model.RoutineActivity;
@@ -51,7 +50,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	private ListView main_menu_listview;
 	private static Context mContext;
 	private static TextView status;
-	public static final String TAG = HomeActivity.class.getSimpleName();
+	public static final String TAG = MainScreenActivity.class.getSimpleName();
 	Time time_now;
 	Time compared_time;
 	Time week;

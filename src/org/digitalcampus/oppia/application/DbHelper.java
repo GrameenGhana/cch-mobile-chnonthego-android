@@ -1503,9 +1503,9 @@ public class DbHelper extends SQLiteOpenHelper {
 		db.insertOrThrow(CCH_SW_ROUTINE_TODO_TABLE, null, values);
 		
 		String v = values.toString();
-		v = v.replace("=", ":");
-		v = v.replace(" ",",");
-		v = "{'type':'activity', "+v+"}";
+		v = v.replace("=", "':'");
+		v = v.replace(" ","', '");
+		v = "{'type':'activity', '"+v+"'}";
 		this.insertCCHLog("Staying Well", v, endtime.toString(), endtime.toString());
 	}
 
