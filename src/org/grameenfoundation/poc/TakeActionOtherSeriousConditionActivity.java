@@ -4,7 +4,11 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
 
@@ -26,12 +30,88 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
         }
         if(take_action_category.equals("bleeding")){
 	    setContentView(R.layout.activity_bleeding_umbilical_cord);
+	    TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+		   click_here.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(TakeActionOtherSeriousConditionActivity.this,KeepingBabyWarmAndMalariaActivity.class);
+				intent.putExtra("value", "keeping_baby_warm");
+				startActivity(intent);
+			}
+			   
+		   });
         }else if(take_action_category.equals("soft swelling")){
         setContentView(R.layout.activity_soft_swelling);
+        TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+		   click_here.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(TakeActionOtherSeriousConditionActivity.this,KeepingBabyWarmAndMalariaActivity.class);
+				intent.putExtra("value", "keeping_baby_warm");
+				startActivity(intent);
+			}
+			   
+		   });
         }else if(take_action_category.equals("open tissue")){
         setContentView(R.layout.activity_open_tissue);
+        TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+		   click_here.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(TakeActionOtherSeriousConditionActivity.this,KeepingBabyWarmAndMalariaActivity.class);
+				intent.putExtra("value", "keeping_baby_warm");
+				startActivity(intent);
+			}
+			   
+		   });
         }else if(take_action_category.equals("no urine")){
             setContentView(R.layout.activity_no_urine);
+            TextView take_action=(TextView) findViewById(R.id.textView1);
+            take_action.setText("Take action: No urine or Meconium");
+            TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+ 		   click_here.setOnClickListener(new OnClickListener(){
+
+ 			@Override
+ 			public void onClick(View v) {
+ 				Intent intent=new Intent(TakeActionOtherSeriousConditionActivity.this,KeepingBabyWarmAndMalariaActivity.class);
+ 				intent.putExtra("value", "keeping_baby_warm");
+ 				startActivity(intent);
+ 			}
+ 			   
+ 		   });
+        }else if(take_action_category.equals("vomiting")){
+            setContentView(R.layout.activity_no_urine);
+            TextView take_action=(TextView) findViewById(R.id.textView1);
+            take_action.setText("Take action: Vomiting");
+            TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+ 		   click_here.setOnClickListener(new OnClickListener(){
+
+ 			@Override
+ 			public void onClick(View v) {
+ 				Intent intent=new Intent(TakeActionOtherSeriousConditionActivity.this,KeepingBabyWarmAndMalariaActivity.class);
+ 				intent.putExtra("value", "keeping_baby_warm");
+ 				startActivity(intent);
+ 			}
+ 			   
+ 		   });
+        }else if(take_action_category.equals("blood_in_stool")){
+            setContentView(R.layout.activity_no_urine);
+            TextView take_action=(TextView) findViewById(R.id.textView1);
+            take_action.setText("Take action: Blood in stool");
+            TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+ 		   click_here.setOnClickListener(new OnClickListener(){
+
+ 			@Override
+ 			public void onClick(View v) {
+ 				Intent intent=new Intent(TakeActionOtherSeriousConditionActivity.this,KeepingBabyWarmAndMalariaActivity.class);
+ 				intent.putExtra("value", "keeping_baby_warm");
+ 				startActivity(intent);
+ 			}
+ 			   
+ 		   });
         }
 	}
 	public void onBackPressed()

@@ -118,8 +118,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/BackgroundGrey"
                 android:gravity="center_vertical"
-                android:padding="10dp"
-                android:visibility="gone" >
+                android:padding="10dp" >
 
                 <ImageView
                     android:id="@+id/imageView3"
@@ -133,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:paddingRight="0dp"
-                    android:text="Quick Reads"
+                    android:text="Quick References"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/TextBrown" />
 

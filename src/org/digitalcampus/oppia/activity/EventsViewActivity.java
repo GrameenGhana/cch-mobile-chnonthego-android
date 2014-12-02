@@ -133,6 +133,7 @@ public class EventsViewActivity extends  BaseActivity {
 			intent.putExtra("event_id", selected_items[3]);
 			intent.putExtra("mode", "edit_mode");
 			startActivity(intent);
+			finish();
 			return true;
 		}
 		

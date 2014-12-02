@@ -93,31 +93,31 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
     ViewPager mViewPager;
 	private SharedPreferences prefs;
 	private DbHelper db;
-	private ArrayList<String> todayEventId;
-	private ArrayList<String> thisMonthEventId;
-	private ArrayList<String> thisWeekEventId;
-	private ArrayList<String> midYearEventId;
-	private ArrayList<String> thisQuarterEventId;
-	private ArrayList<String> thisYearEventId;
-	private ArrayList<String> todayCoverageId;
-	private ArrayList<String> thisWeekCoverageId;
-	private ArrayList<String> thisMonthCoverageId;
-	private ArrayList<String> midYearCoverageId;
-	private ArrayList<String> thisQuarterCoverageId;
-	private ArrayList<String> thisYearCoverageId;
-	private ArrayList<String> todayLearningId;
-	private ArrayList<String> thisWeekLearningId;
-	private ArrayList<String> thisMonthLearningId;
-	private ArrayList<String> midYearLearningId;
-	private ArrayList<String> thisQuarterLearningId;
-	private ArrayList<String> thisYearLearningId;
-	private ArrayList<String> todayOtherId;
-	private ArrayList<String> thisWeekOtherName;
-	private ArrayList<String> thisWeekOtherId;
-	private ArrayList<String> thisMonthOtherId;
-	private ArrayList<String> midYearOtherId;
-	private ArrayList<String> thisQuarterOtherId;
-	private ArrayList<String> thisYearOtherId;
+	private long todayEventId;
+	private long thisMonthEventId;
+	private long thisWeekEventId;
+	private long midYearEventId;
+	private long thisQuarterEventId;
+	private long thisYearEventId;
+	private long todayCoverageId;
+	private long thisWeekCoverageId;
+	private long thisMonthCoverageId;
+	private long midYearCoverageId;
+	private long thisQuarterCoverageId;
+	private long thisYearCoverageId;
+	private long todayLearningId;
+	private long thisWeekLearningId;
+	private long thisMonthLearningId;
+	private long midYearLearningId;
+	private long thisQuarterLearningId;
+	private long thisYearLearningId;
+	private long todayOtherId;
+	private long thisWeekOtherName;
+	private long thisWeekOtherId;
+	private long thisMonthOtherId;
+	private long midYearOtherId;
+	private long thisQuarterOtherId;
+	private long thisYearOtherId;
 	 int counter3;
 	 int counter;
 	 int counter2;
@@ -256,219 +256,70 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
          public CharSequence getPageTitle(int position) {
                  Locale l = Locale.getDefault();
                  db=new DbHelper(NewEventPlannerActivity.this);
-                 todayEventId=new ArrayList<String>();
-     		    todayEventId=db.getAllForEventsId("Daily");
-     		    thisMonthEventId=new ArrayList<String>();
-     		    thisMonthEventId=db.getAllForEventsId("Monthly");
-     		    thisWeekEventId=new ArrayList<String>();
-     		    thisWeekEventId=db.getAllForEventsId("Weekly");
-     		    midYearEventId=new ArrayList<String>();
-     		    midYearEventId=db.getAllForEventsId("Mid-year");
-     		    thisQuarterEventId=new ArrayList<String>();
-     		    thisQuarterEventId=db.getAllForEventsId("Quarterly");
-     		    thisYearEventId=new ArrayList<String>();
-     		    thisYearEventId=db.getAllForEventsId("Annually");
-     		     int event_number1=todayEventId.size();
-     			 int event_number2=thisMonthEventId.size();
-     			 int event_number3=thisWeekEventId.size();
-     			 int event_number4=midYearEventId.size();
-     			 int event_number5=thisQuarterEventId.size();
-     			 int event_number6=thisYearEventId.size();
-     			 
-     			if(todayEventId.size()<0){
-     				event_number1=0;
-     			}else{
-     				event_number1=todayEventId.size();
-     			}
-     			if(thisMonthEventId.size()<0){
-     				event_number2=0;
-     			}else {
-     				event_number2=thisMonthEventId.size();
-     			}
-     			if(thisWeekEventId.size()<0){
-     				event_number3=0;
-     			}else{
-     				event_number3=thisWeekEventId.size();
-     			}
-     			
-     			if(midYearEventId.size()<0){
-     				event_number4=0;
-     			}else{
-     				event_number4=midYearEventId.size();
-     			}
-     			if(thisQuarterEventId.size()<0){
-     				event_number5=0;
-     			}else{
-     				event_number5=thisQuarterEventId.size();
-     			}
-     			if(thisYearEventId.size()<0){
-     				event_number6=0;
-     			}else{
-     				event_number6=thisYearEventId.size();
-     			}
+     		    todayEventId=db.getEventIdCount("Daily");
+     		    thisMonthEventId=db.getEventIdCount("Monthly");
+     		    thisWeekEventId=db.getEventIdCount("Weekly");
+     		    midYearEventId=db.getEventIdCount("Mid-year");
+     		    thisQuarterEventId=db.getEventIdCount("Quarterly");
+     		    thisYearEventId=db.getEventIdCount("Annually");
+     		     int event_number1=(int)todayEventId;
+     			 int event_number2=(int)thisMonthEventId;
+     			 int event_number3=(int)thisWeekEventId;
+     			 int event_number4=(int)midYearEventId;
+     			 int event_number5=(int)thisQuarterEventId;
+     			 int event_number6=(int)thisYearEventId;
+     	
      			counter=event_number1+event_number2+event_number3+event_number4+event_number5+event_number6;
      			
-     		    todayCoverageId=new ArrayList<String>();
-     			todayCoverageId=db.getAllForCoverageId("Daily");
-     			thisWeekCoverageId=new ArrayList<String>();
-     			thisWeekCoverageId=db.getAllForCoverageId("Weekly");
-     			thisMonthCoverageId=new ArrayList<String>();
-     			thisMonthCoverageId=db.getAllForCoverageId("Monthly");
-     			midYearCoverageId=new ArrayList<String>();
-     			midYearCoverageId=db.getAllForCoverageId("Mid-year");
-     			thisQuarterCoverageId=new ArrayList<String>();
-     			thisQuarterCoverageId=db.getAllForCoverageId("Quarterly");
-     			thisYearCoverageId=new ArrayList<String>();
-     			thisYearCoverageId=db.getAllForCoverageId("Annually");
+     			todayCoverageId=db.getCoverageIdCount("Daily");
+     			thisWeekCoverageId=db.getCoverageIdCount("Weekly");
+     			thisMonthCoverageId=db.getCoverageIdCount("Monthly");
+     			midYearCoverageId=db.getCoverageIdCount("Mid-year");
+     			thisQuarterCoverageId=db.getCoverageIdCount("Quarterly");
+     			thisYearCoverageId=db.getCoverageIdCount("Annually");
      			
-     			     int coverage_number1=todayCoverageId.size();
-     				 int coverage_number2=thisWeekCoverageId.size();
-     				 int coverage_number3=thisMonthCoverageId.size();
-     				 int coverage_number4=midYearCoverageId.size();
-     				 int coverage_number5=thisQuarterCoverageId.size();
-     				 int coverage_number6=thisYearCoverageId.size();
-     				 
-     				if(todayEventId.size()<0){
-     					coverage_number1=0;
-     				}else{
-     					coverage_number1=todayCoverageId.size();
-     				}
-     				if(thisWeekCoverageId.size()<0){
-     					coverage_number2=0;
-     				}else {
-     					coverage_number2=thisWeekCoverageId.size();
-     				}
-     				if(thisMonthCoverageId.size()<0){
-     					coverage_number3=0;
-     				}else{
-     					coverage_number3=thisMonthCoverageId.size();
-     				}
+     			     int coverage_number1=(int)todayCoverageId;
+     				 int coverage_number2=(int)thisWeekCoverageId;
+     				 int coverage_number3=(int)thisMonthCoverageId;
+     				 int coverage_number4=(int)midYearCoverageId;
+     				 int coverage_number5=(int)thisQuarterCoverageId;
+     				 int coverage_number6=(int)thisYearCoverageId;
      				
-     				if(midYearCoverageId.size()<0){
-     					coverage_number4=0;
-     				}else{
-     					coverage_number4=midYearCoverageId.size();
-     				}
-     				if(thisQuarterCoverageId.size()<0){
-     					coverage_number5=0;
-     				}else{
-     					coverage_number5=thisQuarterCoverageId.size();
-     				}
-     				if(thisYearCoverageId.size()<0){
-     					coverage_number6=0;
-     				}else{
-     					coverage_number6=thisYearCoverageId.size();
-     				}
      				counter2=coverage_number1+coverage_number2+coverage_number3+coverage_number4+coverage_number5+coverage_number6;
      			
-     			todayLearningId=new ArrayList<String>();
-     			todayLearningId=db.getAllForLearningId("Daily");
-     			thisWeekLearningId=new ArrayList<String>();
-     			thisWeekLearningId=db.getAllForLearningId("Weekly");
-     			thisMonthLearningId=new ArrayList<String>();
-     			thisMonthLearningId=db.getAllForLearningId("Monthly");
-     			midYearLearningId=new ArrayList<String>();
-     			midYearLearningId=db.getAllForLearningId("Mid-year");
-     			thisQuarterLearningId=new ArrayList<String>();
-     			thisQuarterLearningId=db.getAllForLearningId("Quarterly");
-     			thisYearLearningId=new ArrayList<String>();
-     			thisYearLearningId=db.getAllForLearningId("Annually");
+     			todayLearningId=db.getLearningIdCount("Daily");
+     			thisWeekLearningId=db.getLearningIdCount("Weekly");
+     			thisMonthLearningId=db.getLearningIdCount("Monthly");
+     			midYearLearningId=db.getLearningIdCount("Mid-year");
+     			thisQuarterLearningId=db.getLearningIdCount("Quarterly");
+     			thisYearLearningId=db.getLearningIdCount("Annually");
      			
-     			 int learning_number1=todayLearningId.size();
-     			 int learning_number2=thisWeekLearningId.size();
-     			 int learning_number3=thisMonthLearningId.size();
-     			 int learning_number4=midYearLearningId.size();
-     			 int learning_number5=thisQuarterLearningId.size();
-     			 int learning_number6=thisYearLearningId.size();
-     		
-     			if(todayLearningId.size()<0){
-     				learning_number1=0;
-     			}else{
-     				learning_number1=todayLearningId.size();
-     			}
-     			if(thisWeekLearningId.size()<0){
-     				learning_number2=0;
-     			}else {
-     				learning_number2=thisWeekLearningId.size();
-     			}
-     			if(thisMonthLearningId.size()<0){
-     				learning_number3=0;
-     			}else{
-     				learning_number3=thisMonthLearningId.size();
-     			}
-     			
-     			if(midYearLearningId.size()<0){
-     				learning_number4=0;
-     			}else{
-     				learning_number4=midYearLearningId.size();
-     			}
-     			if(thisQuarterLearningId.size()<0){
-     				learning_number5=0;
-     			}else{
-     				learning_number5=thisQuarterLearningId.size();
-     			}
-     			if(thisYearLearningId.size()<0){
-     				learning_number6=0;
-     			}else{
-     				learning_number6=thisYearLearningId.size();
-     			}
+     			 int learning_number1=(int)todayLearningId;
+     			 int learning_number2=(int)thisWeekLearningId;
+     			 int learning_number3=(int)thisMonthLearningId;
+     			 int learning_number4=(int)midYearLearningId;
+     			 int learning_number5=(int)thisQuarterLearningId;
+     			 int learning_number6=(int)thisYearLearningId;
      			counter3=learning_number1+
      					learning_number2+
      					learning_number3+
      					learning_number4+
      					learning_number5+
      					learning_number6;
-     			 todayOtherId=new ArrayList<String>();
-     			 todayOtherId=db.getAllForOtherId("Daily");
-     			 thisWeekOtherId=new ArrayList<String>();
-     			 thisWeekOtherId=db.getAllForOtherId("Weekly");
-     			 thisMonthOtherId=new ArrayList<String>();
-     			 thisMonthOtherId=db.getAllForOtherId("Monthly");
-     			 midYearOtherId=new ArrayList<String>();
-     			 midYearOtherId=db.getAllForOtherId("Mid-year");
-     			 thisQuarterOtherId=new ArrayList<String>();
-     			 thisQuarterOtherId=db.getAllForOtherId("Quarterly");
-     			 thisYearOtherId=new ArrayList<String>();
-     			 thisYearOtherId=db.getAllForOtherId("Annually");
+     			 todayOtherId=db.getOtherIdCount("Daily");
+     			 thisWeekOtherId=db.getOtherIdCount("Weekly");
+     			 thisMonthOtherId=db.getOtherIdCount("Monthly");
+     			 midYearOtherId=db.getOtherIdCount("Mid-year");
+     			 thisQuarterOtherId=db.getOtherIdCount("Quarterly");
+     			 thisYearOtherId=db.getOtherIdCount("Annually");
      			 
-     			 int other_number1=todayOtherId.size();
-     			 int other_number2=thisWeekOtherId.size();
-     			 int other_number3=thisMonthOtherId.size();
-     			 int other_number4=midYearOtherId.size();
-     			 int other_number5=thisQuarterOtherId.size();
-     			 int other_number6=thisYearOtherId.size();
-     			
-     			if(todayOtherId.size()<0){
-     				other_number1=0;
-     			}else{
-     				other_number1=todayOtherId.size();
-     			}
-     			if(thisWeekOtherId.size()<0){
-     				other_number2=0;
-     			}else {
-     				other_number2=thisWeekOtherId.size();
-     			}
-     			if(thisMonthOtherId.size()<0){
-     				other_number3=0;
-     			}else{
-     				other_number3=thisMonthOtherId.size();
-     			}
-     			
-     			if(midYearOtherId.size()<0){
-     				other_number4=0;
-     			}else{
-     				other_number4=midYearOtherId.size();
-     			}
-     			if(thisQuarterOtherId.size()<0){
-     				other_number5=0;
-     			}else{
-     				other_number5=thisQuarterOtherId.size();
-     			}
-     			if(thisYearOtherId.size()<0){
-     				other_number6=0;
-     			}else{
-     				other_number6=thisYearOtherId.size();
-     			}
+     			 int other_number1=(int)todayOtherId;
+     			 int other_number2=(int)thisWeekOtherId;
+     			 int other_number3=(int)thisMonthOtherId;
+     			 int other_number4=(int)midYearOtherId;
+     			 int other_number5=(int)thisQuarterOtherId;
+     			 int other_number6=(int)thisYearOtherId;
+     		
      			counter4=other_number1+
      					other_number2+
      					other_number3+
@@ -605,13 +456,6 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			    db=new DbHelper(getActivity());
 			    listView_events=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
 			  
-			    todayEventTargets=db.getAllForEvents("Today");
-			    tomorrowEventTargets=db.getAllForEvents("Tomorrow");
-			    thisWeekEventTargets=db.getAllForEvents("This week");
-			    thisMonthEventTargets=db.getAllForEvents("This month");
-			    thisQuarterEventTargets=db.getAllForEvents("This quarter");
-			    midYearEventTargets=db.getAllForEvents("Mid-year");
-			    thisYearEventTargets=db.getAllForEvents("This year");
 			   
 			   todayEventName=new ArrayList<String>();
 			    todayEventName=db.getAllForEventsName("Daily");
@@ -972,6 +816,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				String due_date=selected_items[3];
 				String start_date=selected_items[5];
 				String status=selected_items[6];
+				String last_updated=selected_items[8];
 				//String achieved=selected_items[4];
 				ArrayList<String> number_achieved_list=db.getForUpdateEventNumberAchieved(selected_id, event_period);
 				System.out.println(number_achieved_list.get(0));
@@ -985,6 +830,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				intent.putExtra("start_date", start_date);
 				intent.putExtra("achieved", number_achieved_list.get(0));
 				intent.putExtra("status", status);
+				intent.putExtra("last_updated", last_updated);
 				startActivity(intent);
 					return true;
 		}
@@ -1108,13 +954,6 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			    db=new DbHelper(getActivity());
 			    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
 			    listView_coverage.setOnChildClickListener(this);
-			    todayEventTargets=db.getAllForCoverage("Today");
-			    tomorrowEventTargets=db.getAllForCoverage("Tomorrow");
-			    thisWeekEventTargets=db.getAllForCoverage("This week");
-			    thisMonthEventTargets=db.getAllForCoverage("This month");
-			    thisQuarterEventTargets=db.getAllForCoverage("This quarter");
-			    midYearEventTargets=db.getAllForCoverage("Mid-year");
-			    thisYearEventTargets=db.getAllForCoverage("This year");
 			   
 			    todayEventName=new ArrayList<String>();
 			    todayEventName=db.getAllForCoverageName("Daily");
@@ -1466,7 +1305,8 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				String start_date=selected_items[5];
 				String status=selected_items[6];
 				String achieved=selected_items[4];
-				ArrayList<String> number_achieved_list=db.getForUpdateEventNumberAchieved(selected_id, coverage_period);
+				String last_updated=selected_items[8];
+				ArrayList<String> number_achieved_list=db.getForUpdateCoverageNumberAchieved(selected_id, coverage_period);
 				Intent intent=new Intent(getActivity(),CoverageTargetsDetailActivity.class);
 				intent.putExtra("coverage_id",selected_id);
 				intent.putExtra("coverage_name",coverage_name);
@@ -1476,6 +1316,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				intent.putExtra("start_date", start_date);
 				intent.putExtra("achieved", number_achieved_list.get(0));
 				intent.putExtra("status", status);
+				intent.putExtra("last_updated", last_updated);
 				startActivity(intent);
 				return true;
 			}
@@ -1605,14 +1446,6 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			    mContext=getActivity().getApplicationContext();
 			    db=new DbHelper(getActivity());
 			    learningList=(ExpandableListView) rootView.findViewById(R.id.listView_learningCategory);
-			    todayEventTargets=db.getAllForCoverage("Today");
-			    tomorrowEventTargets=db.getAllForCoverage("Tomorrow");
-			    thisWeekEventTargets=db.getAllForCoverage("This week");
-			    thisMonthEventTargets=db.getAllForCoverage("This month");
-			    thisQuarterEventTargets=db.getAllForCoverage("This quarter");
-			    midYearEventTargets=db.getAllForCoverage("Mid-year");
-			    thisYearEventTargets=db.getAllForCoverage("This year");
-			    
 			    todayCategory=new ArrayList<String>();
 			    todayCategory=db.getAllForLearningCategory("Daily");
 			    //todayCategory.add(todayEventTargets.get("learning_category"));
@@ -1943,6 +1776,8 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 					String due_date=selected_items[4];
 					String status=selected_items[6];
 					String start_date=selected_items[5];
+					String last_updated=selected_items[8];
+					String period=selected_items[3];
 					Intent intent=new Intent(getActivity(),LearningTargetsDetailActivity.class);
 					intent.putExtra("learning_id",selected_id);
 					intent.putExtra("learning_category",learning_category);
@@ -1951,6 +1786,8 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 					intent.putExtra("due_date", due_date);
 					intent.putExtra("start_date", start_date);
 					intent.putExtra("status", status);
+					intent.putExtra("last_updated", last_updated);
+					intent.putExtra("period", period);
 					startActivity(intent);
 					return true;
 				}
@@ -2070,13 +1907,6 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				 rootView=inflater.inflate(R.layout.activity_other,null,false);
 			    mContext=getActivity().getApplicationContext();
 			    db=new DbHelper(getActivity());
-			    todayEventTargets=db.getAllForCoverage("Today");
-			    tomorrowEventTargets=db.getAllForCoverage("Tomorrow");
-			    thisWeekEventTargets=db.getAllForCoverage("This week");
-			    thisMonthEventTargets=db.getAllForCoverage("This month");
-			    thisQuarterEventTargets=db.getAllForCoverage("This quarter");
-			    midYearEventTargets=db.getAllForCoverage("Mid-year");
-			    thisYearEventTargets=db.getAllForCoverage("This year");
 			   
 			    todayEventName=new ArrayList<String>();
 			    todayEventName=db.getAllForOtherName("Daily");
@@ -2431,6 +2261,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				String status=selected_items[6];
 				String startDate=selected_items[5];
 				String achieved=selected_items[4];
+				String last_updated=selected_items[8];
 				ArrayList<String> number_achieved_list=db.getForUpdateOtherNumberAchieved(selected_id, other_period);
 				Intent intent=new Intent(getActivity(),OtherTargetsDetailActivity.class);
 				intent.putExtra("other_id",selected_id);
@@ -2440,6 +2271,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 				intent.putExtra("due_date", due_date);
 				intent.putExtra("start_date", startDate);
 				intent.putExtra("status", status);
+				intent.putExtra("last_updated", last_updated);
 				intent.putExtra("achieved", number_achieved_list.get(0));
 				startActivity(intent);
 				return true;

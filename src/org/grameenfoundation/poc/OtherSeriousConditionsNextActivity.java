@@ -86,12 +86,12 @@ public class OtherSeriousConditionsNextActivity extends BaseActivity {
 					break;
 				case 4:
 					intent=new Intent(mContext,TakeActionOtherSeriousConditionActivity.class);
-					intent.putExtra("category", "no urine");
+					intent.putExtra("category", "vomiting");
 					startActivity(intent);
 					break;
 				case 5:
 					intent=new Intent(mContext,TakeActionOtherSeriousConditionActivity.class);
-					intent.putExtra("category", "no urine");
+					intent.putExtra("category", "blood_in_stool");
 					startActivity(intent);
 					break;
 			

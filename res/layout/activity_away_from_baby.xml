@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.42"
-        android:background="@color/White"
+        android:background="@drawable/custom_border2"
         android:orientation="vertical"
         android:padding="10dp" >
 

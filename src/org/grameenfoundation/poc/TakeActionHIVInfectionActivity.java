@@ -4,7 +4,11 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 public class TakeActionHIVInfectionActivity extends BaseActivity {
 
@@ -29,8 +33,30 @@ public class TakeActionHIVInfectionActivity extends BaseActivity {
         	setContentView(R.layout.activity_hiv_negative_yes);
         }else if(category.equalsIgnoreCase("positive_no")){
         	setContentView(R.layout.activity_hiv_positive_no);
+        	TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+  		   click_here.setOnClickListener(new OnClickListener(){
+
+  			@Override
+  			public void onClick(View v) {
+  				Intent intent=new Intent(TakeActionHIVInfectionActivity.this,InfantFeedingNextActivity.class);
+  				intent.putExtra("value", "not_taking_arv");
+  				startActivity(intent);
+  			}
+  			   
+  		   });
         }else if(category.equalsIgnoreCase("positive_yes")){
         	setContentView(R.layout.activity_hiv_positive_yes);
+        	TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+ 		   click_here.setOnClickListener(new OnClickListener(){
+
+ 			@Override
+ 			public void onClick(View v) {
+ 				Intent intent=new Intent(TakeActionHIVInfectionActivity.this,InfantFeedingNextActivity.class);
+ 				intent.putExtra("value", "taking_arv");
+ 				startActivity(intent);
+ 			}
+ 			   
+ 		   });
         }
 	}
 	public void onBackPressed()

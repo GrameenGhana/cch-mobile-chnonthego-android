@@ -42,10 +42,10 @@ public class DiarrhoeaSectionActivity extends BaseActivity {
 	    getActionBar().setSubtitle("PNC Diagnostic: Diarrhoea");
     listView_diarrhoeaSections=(ExpandableListView) findViewById(R.id.expandableListView_diarrhoeaSections);
 	    String[] items={"Diarrhoea with Severe Dehydration ",
-	    				"Diarrhoea with Some Dehydration",
-	    				"Diarrhoea with No Dehydration",
 	    				"Severe persistent diarrhoea",
-	    				"Blood in stool"};
+	    				"Blood in stool",
+	    				"Diarrhoea with Some Dehydration",
+	    				"Diarrhoea with No Dehydration"};
 	    DiarrhoeaSectionsListAdapter adapter=new DiarrhoeaSectionsListAdapter(mContext,items,listView_diarrhoeaSections);
 	    listView_diarrhoeaSections.setAdapter(adapter);
 	    listView_diarrhoeaSections.setOnChildClickListener(new OnChildClickListener(){
@@ -61,21 +61,21 @@ public class DiarrhoeaSectionActivity extends BaseActivity {
 					startActivity(intent);
 					break;
 				case 1:
-					intent=new Intent(mContext,TakeActionSomeDehydration.class);
-					startActivity(intent);
-					break;
-				case 2:
-					intent=new Intent(mContext,TakeActionDiarrhoeaNoDehydrationActivity.class);
-					startActivity(intent);
-					break;
-				case 3:
 					intent=new Intent(mContext,TakeActionDiarrhoeaActivity.class);
 					intent.putExtra("value", "severe_diarrhoea");
 					startActivity(intent);
 					break;
-				case 4:
+				case 2:
 					intent=new Intent(mContext,TakeActionDiarrhoeaActivity.class);
 					intent.putExtra("value", "blood_stool");
+					startActivity(intent);
+					break;
+				case 3:
+					intent=new Intent(mContext,TakeActionSomeDehydration.class);
+					startActivity(intent);
+					break;
+				case 4:
+					intent=new Intent(mContext,TakeActionDiarrhoeaNoDehydrationActivity.class);
 					startActivity(intent);
 					break;
 				}

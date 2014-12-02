@@ -34,8 +34,8 @@
             android:layout_height="wrap_content"
             android:background="@color/BackgroundGrey"
             android:divider="@color/White"
-            android:dividerHeight="5dp" >
-
+            android:dividerHeight="5dp" 
+            android:fadeScrollbars="false">
         </ListView>
 
     </LinearLayout>
@@ -51,7 +51,7 @@
             android:layout_width="213dp"
             android:layout_height="wrap_content"
             android:background="@color/Green"
-            android:text="No"
+            android:text="No birth injuries"
             android:textColor="@color/White"
             android:textStyle="bold" />
     </LinearLayout>

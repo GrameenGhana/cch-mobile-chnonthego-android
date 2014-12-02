@@ -59,12 +59,12 @@
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 Do you get easily tired? "
+                android:text="Do you get easily tired? "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -96,18 +96,18 @@
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="\u2022 Check client’s hemoglobin, if possible"
+                android:text="Check client’s hemoglobin, if possible"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="\u2022 Look at conjunctiva, nail bed, tongue, palmar "
+                android:text="Look at conjunctiva, nail bed, tongue, palmar "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <LinearLayout
@@ -115,19 +115,19 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="\u2022 Assess if the client has pallor "
+                    android:text="Assess if the client has pallor "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="40dp"
-                    android:text="\u2022 Hb &lt; 7 g/dL "
+                    android:text="Hb &lt; 7 g/dL "
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textStyle="italic" />
 
@@ -138,19 +138,19 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="\u2022 Does the mother have anaemia? "
+                    android:text="Does the mother have anaemia? "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="40dp"
-                    android:text="\u2022  Hb 7-11 g/dL"
+                    android:text=" Hb 7-11 g/dL"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textStyle="italic" />
 

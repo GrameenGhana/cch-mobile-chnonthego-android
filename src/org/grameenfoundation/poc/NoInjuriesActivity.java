@@ -9,10 +9,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,6 +25,7 @@ public class NoInjuriesActivity extends BaseActivity {
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;
+	private Button button_no;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -33,7 +36,7 @@ public class NoInjuriesActivity extends BaseActivity {
 	    dbh=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
 	    listView_noInjuries=(ListView) findViewById(R.id.listView_noInjuries);
-	    String[] items={"Club Foot","Cleft palate","Unusual Appearance, other abnormalities","No Injuries (Check baby for diarrhoea) "};
+	    String[] items={"Club Foot","Cleft palate","Unusual Appearance, other abnormalities"};
 	    NoInjuriesListAdapter adapter=new NoInjuriesListAdapter(mContext,items);
 	    listView_noInjuries.setAdapter(adapter);
 	    listView_noInjuries.setOnItemClickListener(new OnItemClickListener(){
@@ -60,6 +63,18 @@ public class NoInjuriesActivity extends BaseActivity {
 					break;
 				}
 				
+			}
+	    	
+	    });
+	    
+	    button_no=(Button) findViewById(R.id.button_no);
+	    button_no.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(mContext,TakeActionNoInjuriesActivity.class);
+				intent.putExtra("category", "no_injuries");
+				startActivity(intent);
 			}
 	    	
 	    });

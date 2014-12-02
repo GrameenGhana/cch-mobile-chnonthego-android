@@ -4,7 +4,11 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 public class TakeActionNoConditionsActivity extends BaseActivity {
 
@@ -25,6 +29,17 @@ public class TakeActionNoConditionsActivity extends BaseActivity {
         }
         if(take_action_category.equals("asymmetrical")){
 	    setContentView(R.layout.activity_asymmetrical_limb);
+	    TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+		   click_here.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(TakeActionNoConditionsActivity.this,KeepingBabyWarmAndMalariaActivity.class);
+				intent.putExtra("value", "keeping_baby_warm");
+				startActivity(intent);
+			}
+			   
+		   });
         }else if(take_action_category.equals("firm swelling")){
         setContentView(R.layout.activity_swelling_on_head);
         }

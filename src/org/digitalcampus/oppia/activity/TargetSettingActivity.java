@@ -1,5 +1,6 @@
 package org.digitalcampus.oppia.activity;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -12,6 +13,8 @@ import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.service.TrackerService;
 import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.adapters.LearningBaseAdapter;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
@@ -48,7 +51,6 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.RadioGroup;
-import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -62,6 +64,9 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 	 private DbHelper dbh;
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	public static String current_month;
+	private Long start_time;
+	private Long end_time;
+	Context mContext;
 	
 	private static final String EVENT_PLANNER_ID = "Event Planner";
 	public static final String TAG = NewEventPlannerActivity.class.getSimpleName();
@@ -76,12 +81,12 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_new_event_planner);
-	    
+	    start_time=System.currentTimeMillis();
 	   // final PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_header);
        // pagerTabStrip.setDrawFullUnderline(true);
        // pagerTabStrip.setTabIndicatorColor(Color.rgb(83,171,32));
         dbh = new DbHelper(TargetSettingActivity.this);
-      
+        mContext=TargetSettingActivity.this;
         final ActionBar actionBar =getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setTitle("Planner");
@@ -230,14 +235,10 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			private String[] selected_items;
 			int selected_position;
 			private Button button_show;
-
-			private ArrayList<String> eventId;
-
-			private ArrayList<String> coverageId;
-
-			private ArrayList<String> otherId;
-
-			private ArrayList<String> learningId;
+			private long eventId;
+			private long coverageId;
+			private long otherId;
+			private long learningId;
 			static String due_date ;
 			static String start_date;
 			private static TextView dueDateValue;
@@ -303,7 +304,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				});
 				Button dialogButton = (Button) rootView.findViewById(R.id.button_dialogSetEVent);
 				dialogButton.setText("Save");
-				
 				dialogButton.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -335,7 +335,15 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				        int day=c.get(Calendar.DAY_OF_WEEK);
 				        int year=c.get(Calendar.YEAR);
 				      	String today=day+"-"+month+"-"+year;
+				      	if(isDateAfter(start_date,due_date)==true){
+				      		 startDateValue.requestFocus();
+				      		startDateValue.setError("Check this date!");
+				      	}else if(event_period_number.isEmpty()==true){
+				      		editText_event_period.requestFocus();
+				      		editText_event_period.setError("Please enter a number");
+				      	}else{
 					    if(db.insertEventSet(event_name, event_period, event_period_number, duration,start_date,due_date,0,Integer.valueOf(event_period_number),"new_record") !=0){
+					    	
 					    	Intent intent2=new Intent(getActivity(),EventPlannerOptionsActivity.class);
 							getActivity().startActivity(intent2);
 							getActivity().finish();
@@ -346,42 +354,19 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 							         Toast.LENGTH_LONG).show();
 					    }
 					}
+					}
 				});
 			    button_show=(Button) rootView.findViewById(R.id.button_show);
-			    eventId=new ArrayList<String>();
-				 eventId=db.getAllForEventsId("Daily");
-				 coverageId=new ArrayList<String>();
-				 coverageId=db.getAllForCoverageId("Daily");
-				 otherId=new ArrayList<String>();
-				 otherId=db.getAllForOtherId("Daily");
-				 learningId=new ArrayList<String>();
-				 learningId=db.getAllForLearningId("Daily");
-				 int number=eventId.size();
-				 int number2=coverageId.size();
-				 int number3=otherId.size();
-				 int number4=learningId.size();
+				 eventId=db.getEventIdCount("Daily");
+				 coverageId=db.getCoverageIdCount("Daily");
+				 otherId=db.getOtherIdCount("Daily");
+				 learningId=db.getLearningIdCount("Daily");
+				 int number=(int)eventId;
+				 int number2=(int)coverageId;
+				 int number3=(int)otherId;
+				 int number4=(int)learningId;
 				 final int counter;
-				if(eventId.size()<0){
-					number=0;
-				}else{
-					number=eventId.size();
-				}
-				if(coverageId.size()<0){
-					number2=0;
-				}else {
-					number2=coverageId.size();
-				}
-				if(otherId.size()<0){
-					number3=0;
-				}else{
-					number3=otherId.size();
-				}
 				
-				if(learningId.size()<0){
-					number4=0;
-				}else{
-					number4=learningId.size();
-				}
 				counter=number+number2+number3+number4;	
 			    button_show.setOnClickListener(new OnClickListener(){
 
@@ -518,10 +503,10 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			protected RadioButton category_people;
 			private Button button_show;
 			protected String coverage_detail;
-			private ArrayList<String> eventId;
-			private ArrayList<String> coverageId;
-			private ArrayList<String> otherId;
-			private ArrayList<String> learningId;
+			private long eventId;
+			private long coverageId;
+			private long otherId;
+			private long learningId;
 			static String due_date ;
 			private static TextView dueDateValue;
 			static String start_date ;
@@ -783,6 +768,13 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				        int day=c.get(Calendar.DAY_OF_WEEK);
 				        int year=c.get(Calendar.YEAR);
 				      	String today=day+"-"+month+"-"+year;
+				      	if(isDateAfter(start_date,due_date)==true){
+				      		 startDateValue.requestFocus();
+				      		startDateValue.setError("Check this date!");
+				      	}else if(coverage_number.isEmpty()==true){
+				      		editText_coverageNumber.requestFocus();
+				      		editText_coverageNumber.setError("Please enter a number");
+				      	}else{
 				    if(db.insertCoverageSet(coverage_name, coverage_detail, coverage_period, coverage_number, duration,start_date,due_date,0,Integer.valueOf(coverage_number),"new_record") !=0){
 				    	Intent intent2=new Intent(getActivity(),EventPlannerOptionsActivity.class);
 						getActivity().startActivity(intent2);
@@ -794,20 +786,22 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 							         Toast.LENGTH_LONG).show();
 					    }
 					}
+					}
 				});
-				 eventId=new ArrayList<String>();
-				 eventId=db.getAllForEventsId("Daily");
-				 coverageId=new ArrayList<String>();
-				 coverageId=db.getAllForCoverageId("Daily");
-				 otherId=new ArrayList<String>();
-				 otherId=db.getAllForOtherId("Daily");
-				 learningId=new ArrayList<String>();
-				 learningId=db.getAllForLearningId("Daily");
-				 int number=eventId.size();
-				 int number2=coverageId.size();
-				 int number3=otherId.size();
-				 int number4=learningId.size();
+				   // eventId=new ArrayList<String>();
+				 eventId=db.getEventIdCount("Daily");
+				 //coverageId=new ArrayList<String>();
+				 coverageId=db.getCoverageIdCount("Daily");
+				 //otherId=new ArrayList<String>();
+				 otherId=db.getOtherIdCount("Daily");
+				 //learningId=new ArrayList<String>();
+				 learningId=db.getLearningIdCount("Daily");
+				 int number=(int)eventId;
+				 int number2=(int)coverageId;
+				 int number3=(int)otherId;
+				 int number4=(int)learningId;
 				 final int counter;
+				 /*
 				if(eventId.size()<0){
 					number=0;
 				}else{
@@ -828,7 +822,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					number4=0;
 				}else{
 					number4=learningId.size();
-				}
+				}*/
 				counter=number+number2+number3+number4;	
 			    button_show.setOnClickListener(new OnClickListener(){
 
@@ -958,30 +952,17 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			 private DbHelper db;
 			 public static final String ARG_SECTION_NUMBER = "section_number";       
 			 View rootView;
-
 			static long due_date_to_compare;
 			int selected_position;
-
-			private ExpandableListView learningList;
-
-			private String[] selected_items;
 			static String due_date ;
 			private static TextView dueDateValueLearning;
 			static String start_date ;
 			private static TextView startDateValue;
-			private long selected_id;
-
-			private String[] groupItems;
-
 			private Button button_show;
-
-			private ArrayList<String> eventId;
-
-			private ArrayList<String> coverageId;
-
-			private ArrayList<String> otherId;
-
-			private ArrayList<String> learningId;
+			private long eventId;
+			private long coverageId;
+			private long otherId;
+			private long learningId;
 			 public LearningActivity(){
 
       }
@@ -1209,6 +1190,11 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				        int day=c.get(Calendar.DAY_OF_WEEK);
 				        int year=c.get(Calendar.YEAR);
 				      	String today=day+"-"+month+"-"+year;
+				      	
+				      	if(isDateAfter(start_date,due_date)==true){
+				      		 startDateValue.requestFocus();
+				      		startDateValue.setError("Check this date!");
+				      	}else{
 					    if(db.insertLearning(learning_category, learning_description,learning_course,duration,learning_period,start_date,due_date, "new_record")!=0){
 					    	Intent intent2=new Intent(getActivity(),EventPlannerOptionsActivity.class);
 							getActivity().startActivity(intent2);
@@ -1220,42 +1206,19 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 							         Toast.LENGTH_LONG).show();
 					    }
 					}
+					}
 				});
+				
 	    	button_show=(Button) rootView.findViewById(R.id.button_show);
-	    	 eventId=new ArrayList<String>();
-			 eventId=db.getAllForEventsId("Daily");
-			 coverageId=new ArrayList<String>();
-			 coverageId=db.getAllForCoverageId("Daily");
-			 otherId=new ArrayList<String>();
-			 otherId=db.getAllForOtherId("Daily");
-			 learningId=new ArrayList<String>();
-			 learningId=db.getAllForLearningId("Daily");
-			 int number=eventId.size();
-			 int number2=coverageId.size();
-			 int number3=otherId.size();
-			 int number4=learningId.size();
+			 eventId=db.getEventIdCount("Daily");
+			 coverageId=db.getCoverageIdCount("Daily");
+			 otherId=db.getOtherIdCount("Daily");
+			 learningId=db.getLearningIdCount("Daily");
+			 int number=(int)eventId;
+			 int number2=(int)coverageId;
+			 int number3=(int)otherId;
+			 int number4=(int)learningId;
 			 final int counter;
-			if(eventId.size()<0){
-				number=0;
-			}else{
-				number=eventId.size();
-			}
-			if(coverageId.size()<0){
-				number2=0;
-			}else {
-				number2=coverageId.size();
-			}
-			if(otherId.size()<0){
-				number3=0;
-			}else{
-				number3=otherId.size();
-			}
-			
-			if(learningId.size()<0){
-				number4=0;
-			}else{
-				number4=learningId.size();
-			}
 			counter=number+number2+number3+number4;	
 		    button_show.setOnClickListener(new OnClickListener(){
 
@@ -1403,10 +1366,10 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			 public static final String ARG_SECTION_NUMBER = "section_number";       
 			View rootView;
 			private Button button_show;
-			private ArrayList<String> eventId;
-			private ArrayList<String> coverageId;
-			private ArrayList<String> otherId;
-			private ArrayList<String> learningId;
+			private long eventId;
+			private long coverageId;
+			private long otherId;
+			private long learningId;
 			static String due_date ;
 			private static TextView dueDateValue;
 			
@@ -1486,6 +1449,16 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				        int day=c.get(Calendar.DAY_OF_WEEK);
 				        int year=c.get(Calendar.YEAR);
 				      	String today=day+"-"+month+"-"+year;
+				      	if(isDateAfter(start_date,due_date)==true){
+				      		 startDateValue.requestFocus();
+				      		startDateValue.setError("Check this date!");
+				      	}else if(other_number.isEmpty()==true){
+				      		editText_otherNumber.requestFocus();
+				      		editText_otherNumber.setError("Please enter a number");
+				      	}else if(other_category.isEmpty()==true){
+				      		editText_otherCategory.requestFocus();
+				      		editText_otherCategory.setError("Please enter a value");
+				      	}else{
 					    if(db.insertOther(other_category,other_number,other_period,duration,start_date,due_date,0,Integer.valueOf(other_number),"new_record")!=0){
 					    	Intent intent2=new Intent(getActivity(),EventPlannerOptionsActivity.class);
 							getActivity().startActivity(intent2);
@@ -1497,41 +1470,17 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 							         Toast.LENGTH_LONG).show();
 					    }
 					}
+					}
 				});
-				eventId=new ArrayList<String>();
-				 eventId=db.getAllForEventsId("Daily");
-				 coverageId=new ArrayList<String>();
-				 coverageId=db.getAllForCoverageId("Daily");
-				 otherId=new ArrayList<String>();
-				 otherId=db.getAllForOtherId("Daily");
-				 learningId=new ArrayList<String>();
-				 learningId=db.getAllForLearningId("Daily");
-				 int number=eventId.size();
-				 int number2=coverageId.size();
-				 int number3=otherId.size();
-				 int number4=learningId.size();
+				 eventId=db.getEventIdCount("Daily");
+				 coverageId=db.getCoverageIdCount("Daily");
+				 otherId=db.getOtherIdCount("Daily");
+				 learningId=db.getLearningIdCount("Daily");
+				 int number=(int)eventId;
+				 int number2=(int)coverageId;
+				 int number3=(int)otherId;
+				 int number4=(int)learningId;
 				 final int counter;
-				if(eventId.size()<0){
-					number=0;
-				}else{
-					number=eventId.size();
-				}
-				if(coverageId.size()<0){
-					number2=0;
-				}else {
-					number2=coverageId.size();
-				}
-				if(otherId.size()<0){
-					number3=0;
-				}else{
-					number3=otherId.size();
-				}
-				
-				if(learningId.size()<0){
-					number4=0;
-				}else{
-					number4=learningId.size();
-				}
 				counter=number+number2+number3+number4;	
 			    button_show.setOnClickListener(new OnClickListener(){
 
@@ -1625,6 +1574,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					 int month_value=month+1;
 					 due_date=day+"-"+month_value+"-"+year;
 					 dueDateValue.setText(due_date);
+					
 				 }
 			 }
 			 
@@ -1651,7 +1601,30 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 }
 				
 			}
-	 
+	 public static boolean isDateAfter(String startDate,String endDate)
+	    {
+		// String toDateAsString = "05/11/2010";
+		 Date start_date = null;
+		 Date end_date = null;
+		try {
+			start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+			end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 long starDateAsTimestamp = start_date.getTime();
+		 long endDateTimestamp = end_date.getTime();
+		 long getRidOfTime = 1000 * 60 * 60 * 24;
+		 long startDateAsTimestampWithoutTime = starDateAsTimestamp / getRidOfTime;
+		 long endDateTimestampWithoutTime = endDateTimestamp / getRidOfTime;
+
+		 if (startDateAsTimestampWithoutTime > endDateTimestampWithoutTime) {
+		    return true;
+		 } else {
+		    return false;
+		 }
+	    }
 	 @Override
 		public boolean onKeyDown(int keyCode, KeyEvent event) {
 			if ((keyCode == KeyEvent.KEYCODE_BACK)) {
@@ -1661,17 +1634,14 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			
 		    return true; 
 		}
-	  public void saveToLog(Long starttime) 
+	  
+	 public void onBackPressed()
 		{
-		  Long endtime = System.currentTimeMillis();  
-		  dbh.insertCCHLog(EVENT_PLANNER_ID, "Target Setting", starttime.toString(), endtime.toString());	
+		 // end_time = System.currentTimeMillis();  
+		   // System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+			//dbh.insertCCHLog("Target Setting", "PNC Mother Diagnostic: Malaria", start_time.toString(), end_time.toString());
+			finish();
 		}
-	 public void onDestroy(){
-		 super.onDestroy();
-		 Long starttime=System.currentTimeMillis();  
-		 saveToLog(starttime); 
-	 }
-
 
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 		Log.d(TAG, key + " changed");

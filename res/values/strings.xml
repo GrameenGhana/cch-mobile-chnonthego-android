@@ -181,7 +181,7 @@
 	<color name="ButtonBackgroundGrey">#E2E1D6</color> 
 	<color name="TextColorWine">#520000</color>
 	<color name="Blue">#08088A</color>
-	<color name="WhileWaitingForTransport">#99CCFF</color>
+	<color name="WhileWaitingForTransport">#006699</color>
 	<string-array name="EventNames">
 	   
 	         <item>ANC Static</item>
@@ -615,5 +615,5 @@ Treat client with Artesunate-Amodiaquine (see section 10.2).  If they cannot tol
 	              <string name="str_danger_signs_return_follow_up">Danger signs and to return for follow-up after treatment is completed or if her conditions worsens</string>
 	              <string name="str_report_adverse_reaction_to_drug_immediately">"Report any adverse reactions to the drugs immediately "</string>
 	              <string name="str_itpt_sp_must_be_followed_as_previously_started">Intermittent prevention treatment (IPTp) schedule with sulfa-doxine pyramethamine (SP) should be followed if it has previously been started, or should be started at next visit if not started previously</string>
-
+				  <string name="str_teaching_mother_how_keep_baby_warm">Teach mother how to keep the baby warm on the way to the health facility</string>
 </resources>

@@ -39,40 +39,40 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="\u2022 By exclusively breastfeeding you baby for the first 6 months you can prevent pregnancy ONLY if: "
+                android:text="By exclusively breastfeeding you baby for the first 6 months you can prevent pregnancy ONLY if: "
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:layout_marginLeft="40dp"
-                android:text="\u2022 You feed the baby only breast milk "
+                android:text="You feed the baby only breast milk "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:layout_marginLeft="40dp"
-                android:text="\u2022 Your menstrual period has not returned "
+                android:text="Your menstrual period has not returned "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:layout_marginLeft="40dp"
-                android:text="\u2022 Your baby is &lt; 6 months old "
+                android:text="Your baby is &lt; 6 months old "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -82,18 +82,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
-                android:text="\u2022 This family planning method is called :"
+                android:text="This family planning method is called :"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
                 android:paddingTop="5dp"
                 android:text="Lactational Amenorrhea Method (LAM)"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -101,22 +103,22 @@
 
         </LinearLayout>
 
-        <TextView
+        <org.grameenfoundation.cch.utils.TextViewBullets
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:text="\u2022 If any of these 3 conditions change, then you are no longer protected from becoming pregnant again "
+            android:text="If any of these 3 conditions change, then you are no longer protected from becoming pregnant again "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
+        <org.grameenfoundation.cch.utils.TextViewBullets
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:text="\u2022 It is important to get advice from the nearest clinic about what modern family planning methods are available, as well as when and how to use them "
+            android:text="It is important to get advice from the nearest clinic about what modern family planning methods are available, as well as when and how to use them "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>

@@ -34,8 +34,8 @@ public class PostnatalCareMotherDiagnosticToolActivity extends BaseActivity {
 	    dbh=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
 	    listView_postnatalSections=(ListView) findViewById(R.id.listView_postnatalCareSections);
-	    String[] items={"Maternal Emergencies ","Records & History","Management of Danger Signs",
-				"Malaria","Anaemia ","Soft Uterus, Perineal Tear","Breast Problems"};
+	    String[] items={"1. Maternal Emergencies ","2. Records & History","3. Management of Danger Signs",
+				"4. Malaria","Anaemia ","5. Soft Uterus, Perineal Tear","6. Breast Problems"};
 	    PostnatalSectionsListAdapter adapter=new PostnatalSectionsListAdapter(mContext,items);
 	    listView_postnatalSections.setAdapter(adapter);
 	    listView_postnatalSections.setOnItemClickListener(new OnItemClickListener(){

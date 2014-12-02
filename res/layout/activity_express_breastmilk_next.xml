@@ -52,31 +52,31 @@
                 android:orientation="vertical"
                 android:showDividers="middle" >
 
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
-                    android:text="\u2022 Get comfortable "
+                    android:text="Get comfortable "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
-                    android:text="\u2022  Gently stroke your breasts, a warm cloth may stimulate the flow of milk "
+                    android:text="Gently stroke your breasts, a warm cloth may stimulate the flow of milk "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
-                    android:text="\u2022  Place cooled, clean cup under breast"
+                    android:text="Place cooled, clean cup under breast"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
             </LinearLayout>
@@ -131,44 +131,44 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 With your thumb and first 2 fingers press a little bit in towards chest wall and then press gently towards areola"
+                android:text="With your thumb and first 2 fingers press a little bit in towards chest wall and then press gently towards areola"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Milk may start to flow in drops, or sometimes in fine streams. Collect the milk in the clean cup "
+                android:text="Milk may start to flow in drops, or sometimes in fine streams. Collect the milk in the clean cup "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Avoid rubbing skin, which can cause bruising, or squeezing the nipple which will stop the flow of milk "
+                android:text="Avoid rubbing skin, which can cause bruising, or squeezing the nipple which will stop the flow of milk "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Rotate the thumb and finger positions and press and release all around areola "
+                android:text="Rotate the thumb and finger positions and press and release all around areola "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>

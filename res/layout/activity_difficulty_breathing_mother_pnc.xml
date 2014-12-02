@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Take Action: : Difficulty Breathing or Cyanosis "
+            android:text="Take Action: Difficulty Breathing or Cyanosis "
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextColorWine" />
 
@@ -84,44 +84,44 @@
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 Remove tight clothing around client’s chest  "
+                android:text="Remove tight clothing around client’s chest  "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 Prop her up if she is conscious"
+                android:text="Prop her up if she is conscious"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 If she is unconscious, tilt her head back and lift her chin to open airway"
+                android:text="If she is unconscious, tilt her head back and lift her chin to open airway"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 Clear mouth of any secretions"
+                android:text="Clear mouth of any secretions"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 Open nearby windows to ensure adequate ventilation "
+                android:text="Open nearby windows to ensure adequate ventilation "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>

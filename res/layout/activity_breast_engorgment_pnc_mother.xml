@@ -42,20 +42,20 @@
             android:orientation="vertical"
             android:paddingBottom="20dp" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
-                android:text="\u2022 Both breasts swollen and shiny"
+                android:text="Both breasts swollen and shiny"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
-                android:text="\u2022 Temperature > 38C "
+                android:text="Temperature > 38C "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView

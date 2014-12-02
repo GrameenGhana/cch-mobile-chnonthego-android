@@ -167,12 +167,12 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		private HashMap<String, String> coverageUpdateItemsDaily;
 		private HashMap<String, String> otherUpdateItemsDaily;
 		private HashMap<String, String> learningUpdateItemsDaily;
-		private ArrayList<String> eventId;
-		private ArrayList<String> coverageId;
-		private ArrayList<String> otherId;
+		private long eventId;
+		private long coverageId;
+		private long otherId;
 		private TextView textView_eventTargetsNumber;
 		private TextView textView_clickHere;
-		private ArrayList<String> learningId;
+		private long learningId;
 		private ArrayList<String> firstName;
 		private String user_first_name;
 		 public EventsSummary(){
@@ -276,19 +276,20 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 				textView_eventTargetsNumber=(TextView) rootView.findViewById(R.id.textView_eventTargetsNumber);
 				textView_clickHere=(TextView) rootView.findViewById(R.id.textView_clickHere);
 				
-				 eventId=new ArrayList<String>();
-				 eventId=dbh.getAllForEventsId("Daily");
-				 coverageId=new ArrayList<String>();
-				 coverageId=dbh.getAllForCoverageId("Daily");
-				 otherId=new ArrayList<String>();
-				 otherId=dbh.getAllForOtherId("Daily");
-				 learningId=new ArrayList<String>();
-				 learningId=dbh.getAllForLearningId("Daily");
-				 int number=eventId.size();
-				 int number2=coverageId.size();
-				 int number3=otherId.size();
-				 int number4=learningId.size();
+				// eventId=new ArrayList<String>();
+				 eventId=dbh.getEventIdCount("Daily");
+				// coverageId=new ArrayList<String>();
+				 coverageId=dbh.getCoverageIdCount("Daily");
+				// otherId=new ArrayList<String>();
+				 otherId=dbh.getOtherIdCount("Daily");
+				//learningId=new ArrayList<String>();
+				 learningId=dbh.getLearningIdCount("Daily");
+				 int number=(int)eventId;
+				 int number2=(int)coverageId;
+				 int number3=(int)otherId;
+				 int number4=(int)learningId;
 				 final int counter;
+				 /*
 				if(eventId.size()<0){
 					number=0;
 				}else{
@@ -309,7 +310,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 					number4=0;
 				}else{
 					number4=learningId.size();
-				}
+				}*/
 				counter=number+number2+number3+number4;
 				System.out.println(counter);
 				textView_eventTargetsNumber.setText(String.valueOf(counter));

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+<LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/White"
@@ -47,52 +51,52 @@
         android:padding="10dp"
         android:showDividers="middle" >
 
-        <TextView
+        <org.grameenfoundation.cch.utils.TextViewBullets
             android:id="@+id/textView3"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="\u2022 How old is the baby? "
+            android:text="How old is the baby? "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
+        <org.grameenfoundation.cch.utils.TextViewBullets
             android:id="@+id/textView4"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="\u2022 Do you have any concerns?  "
+            android:text="Do you have any concerns?  "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
+        <org.grameenfoundation.cch.utils.TextViewBullets
             android:id="@+id/textView5"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="\u2022 Does the baby have any problems? "
+            android:text="Does the baby have any problems? "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
+        <org.grameenfoundation.cch.utils.TextViewBullets
             android:id="@+id/textView6"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="\u2022 How is the baby feeding?"
+            android:text="How is the baby feeding?"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
+        <org.grameenfoundation.cch.utils.TextViewBullets
             android:id="@+id/textView7"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="\u2022 Did you have any complications during pregnancy and delivery? "
+            android:text="Did you have any complications during pregnancy and delivery? "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
+        <org.grameenfoundation.cch.utils.TextViewBullets
             android:id="@+id/textView8"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="\u2022 Check antenatal details "
+            android:text="Check antenatal details "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
@@ -115,3 +119,4 @@
     </LinearLayout>
 
 </LinearLayout>
+</ScrollView>

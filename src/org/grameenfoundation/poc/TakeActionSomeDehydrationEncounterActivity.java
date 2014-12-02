@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class TakeActionSomeDehydrationEncounterActivity extends BaseActivity {
 
@@ -32,8 +33,42 @@ public class TakeActionSomeDehydrationEncounterActivity extends BaseActivity {
         }
         if(take_action_category.equalsIgnoreCase("home_visit")){
         	setContentView(R.layout.activity_diarrhoea_home_visit);
+        	TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+			   click_here.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					Intent intent=new Intent(TakeActionSomeDehydrationEncounterActivity.this,KeepingBabyWarmAndMalariaActivity.class);
+					intent.putExtra("value", "keeping_baby_warm");
+					startActivity(intent);
+				}
+				   
+			   });
+			   
+			   TextView click_here_too=(TextView) findViewById(R.id.textView_clickHereToo);
+			   click_here_too.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					Intent intent=new Intent(TakeActionSomeDehydrationEncounterActivity.this,TreatingDiarrhoeaActivity.class);
+					intent.putExtra("value", "keeping_baby_warm");
+					startActivity(intent);
+				}
+				   
+			   });
         } else if(take_action_category.equalsIgnoreCase("chps_one")){
         	setContentView(R.layout.activity_chps_one);
+        	   TextView click_here_too=(TextView) findViewById(R.id.textView_clickHereToo);
+			   click_here_too.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					Intent intent=new Intent(TakeActionSomeDehydrationEncounterActivity.this,TreatingDiarrhoeaActivity.class);
+					intent.putExtra("value", "keeping_baby_warm");
+					startActivity(intent);
+				}
+				   
+			   });
         	button_next=(Button) findViewById(R.id.button_next);
         	button_next.setOnClickListener(new OnClickListener(){
 
@@ -48,6 +83,17 @@ public class TakeActionSomeDehydrationEncounterActivity extends BaseActivity {
         	});
         }else if(take_action_category.equalsIgnoreCase("chps_two")){
         	setContentView(R.layout.activity_chps_two);
+        	   TextView click_here_too=(TextView) findViewById(R.id.textView_clickHereToo);
+			   click_here_too.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					Intent intent=new Intent(TakeActionSomeDehydrationEncounterActivity.this,TreatingDiarrhoeaActivity.class);
+					intent.putExtra("value", "keeping_baby_warm");
+					startActivity(intent);
+				}
+				   
+			   });
         	button_next=(Button) findViewById(R.id.button_next);
         	button_next.setOnClickListener(new OnClickListener(){
 

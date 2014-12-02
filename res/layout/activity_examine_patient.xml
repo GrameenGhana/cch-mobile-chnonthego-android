@@ -39,7 +39,8 @@
             android:id="@+id/listView_ask"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/custom_border2" >
+            android:background="@drawable/custom_border2" 
+            android:fadeScrollbars="false">
         </ListView>
     </LinearLayout>
 
@@ -62,7 +63,8 @@
             android:id="@+id/listView_look"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/custom_border2" >
+            android:background="@drawable/custom_border2" 
+            android:fadeScrollbars="false">
         </ListView>
     </LinearLayout>
 
@@ -85,7 +87,8 @@
             android:id="@+id/listView_check"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/custom_border2" >
+            android:background="@drawable/custom_border2" 
+            android:fadeScrollbars="false">
         </ListView>
     </LinearLayout>
 

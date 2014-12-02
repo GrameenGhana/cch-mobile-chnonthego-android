@@ -36,9 +36,8 @@
                 android:id="@+id/listView_breastfeeding"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:background="@drawable/custom_border2"
                 android:dividerHeight="2dp"
-                android:padding="10dp" >
+                android:fadeScrollbars="false" >
 
             </ListView>
         </LinearLayout>

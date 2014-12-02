@@ -13,8 +13,10 @@
 
         <TextView
             android:id="@+id/textView_listViewText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
             android:text="Small Text"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/TextBrown" />

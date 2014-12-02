@@ -53,28 +53,29 @@
         android:padding="20dp"
         android:showDividers="middle" >
 
-        <TextView
-            android:id="@+id/textView3"
+        <org.grameenfoundation.cch.utils.TextViewUtils
+            android:id="@+id/textView_clickHereToo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="\u2022 Determine amount of ORS to give during the first 4 hour period"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:text="Determine amount of ORS to give during the first 4 hour period"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/WhileWaitingForTransport" />
 
-        <TextView
+        <org.grameenfoundation.cch.utils.TextViewBullets
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="\u2022 Show her how to prepare ORS at home "
+            android:text="Show her how to prepare ORS at home "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
+        <org.grameenfoundation.cch.utils.TextViewBullets
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="\u2022 Show her how to give ORS in the first 4 hours: "
+            android:text="Show her how to give ORS in the first 4 hours: "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <LinearLayout
@@ -82,47 +83,47 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 Show the mother how to give ORS: "
+                android:text="Show the mother how to give ORS: "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="2dp"
                 android:layout_marginLeft="40dp"
-                android:text="\u2022 Give frequent small sips from a clean cup"
+                android:text="Give frequent small sips from a clean cup"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="2dp"
                 android:layout_marginLeft="40dp"
-                android:text="\u2022 If the child vomits, wait 10 minutes.  Then continue, but more slowly."
+                android:text="If the child vomits, wait 10 minutes.  Then continue, but more slowly."
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="2dp"
                 android:layout_marginLeft="40dp"
-                android:text="\u2022 Continue breastfeeding whenever child wants "
+                android:text="Continue breastfeeding whenever child wants "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                  android:layout_marginLeft="40dp"
-                android:text="\u2022 If the baby wants more ORS than recommended, give more "
+                android:text="If the baby wants more ORS than recommended, give more "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>

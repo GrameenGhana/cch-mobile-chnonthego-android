@@ -1,6 +1,9 @@
 package org.digitalcampus.oppia.activity;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
@@ -61,6 +64,7 @@ public class UpdateActivity extends Activity {
 	private RadioGroup question;
 	private LinearLayout linearLayout_learningJustification;
 
+	private String learning_achieved_number;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -80,7 +84,7 @@ public class UpdateActivity extends Activity {
 		 question=(RadioGroup) findViewById(R.id.radioGroup_learning);
 		start_time=System.currentTimeMillis();
 		
-		String[] items={" ","No transportation","Bad weather","No funds","No vaccines","Conflicting activity","Sick/Leave","No logistics","Other"};
+		String[] items={"No transportation","Bad weather","No funds","No vaccines","Conflicting activity","Sick/Leave","No logistics","Other"};
 		ArrayAdapter<String> adapter2=new ArrayAdapter<String>(UpdateActivity.this, android.R.layout.simple_list_item_1, items);
 		justification.setAdapter(adapter2);
 		achievedNumber=(EditText) findViewById(R.id.editText_achievedNumber);
@@ -114,13 +118,16 @@ public class UpdateActivity extends Activity {
 			linearLayout_achievedNumber.setVisibility(View.GONE);
 			question.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 
+
 				@Override
 				public void onCheckedChanged(RadioGroup group, int checkedId) {
 					if (checkedId==R.id.radio_no) {
 						linearLayout_learningJustification.setVisibility(View.VISIBLE);
+						learning_achieved_number="0";
 					}else if(checkedId==R.id.radio_yes){
 						linearLayout_learningJustification.setVisibility(View.GONE);
 						linearLayout_justification.setVisibility(View.GONE);
+						learning_achieved_number="1";
 					}
 					
 				}
@@ -199,14 +206,17 @@ public class UpdateActivity extends Activity {
 						    	JSONObject json = new JSONObject();
 								 try {
 									json.put("id", id);
-									 json.put("event_type", name);
-									 json.put("event_number", number);
+									 json.put("target_type", name);
+									 json.put("category", "event");
+									 json.put("target_number", number);
+									 json.put("start_date", startDate);
+									 json.put("due_date", dueDate);
 									 json.put("achieved_number", event_number_achieved_for_entry);
-									 json.put("last_updated", today);
+									 json.put("last_updated", getDateTime());
 									 if(event_justification_text.equals(" ")){
-									 json.put("justification", "did not justify");
+									 json.put("justification", " ");
 									 }else {
-									 json.put("justification", "justified"); 
+									 json.put("justification", event_justification_text); 
 									 }
 								} catch (JSONException e) {
 									e.printStackTrace();
@@ -247,12 +257,15 @@ public class UpdateActivity extends Activity {
 						    		JSONObject json = new JSONObject();
 									 try {
 										json.put("id", id);
-										 json.put("coverage_type", name);
-										 json.put("coverage_number", number);
+										 json.put("target_type", name);
+										 json.put("category", "coverage");
+										 json.put("start_date", startDate);
+										 json.put("due_date", dueDate);
+										 json.put("target_number", number);
 										 json.put("achieved_number", coverage_number_achieved_for_entry);
-										 json.put("last_updated", today);
+										 json.put("last_updated", getDateTime());
 										 if(coverage_justification_text.equals(" ")){
-										 json.put("justification", "did not justify");
+										 json.put("justification", " ");
 										 }else {
 										 json.put("justification", coverage_justification_text); 
 										 }
@@ -293,12 +306,15 @@ public class UpdateActivity extends Activity {
 						    		JSONObject json = new JSONObject();
 									 try {
 										json.put("id", id);
-										 json.put("other_type", name);
-										 json.put("other_number", number);
+										 json.put("target_type", name);
+										 json.put("category", "other");
+										 json.put("start_date", startDate);
+										 json.put("due_date", dueDate);
+										 json.put("target_number", number);
 										 json.put("achieved_number", other_number_achieved_for_entry);
-										 json.put("last_updated", today);
+										 json.put("last_updated", getDateTime());
 										 if(other_justification_text.equals(" ")){
-										 json.put("justification", "did not justify");
+										 json.put("justification", " ");
 										 }else {
 										 json.put("justification", other_justification_text); 
 										 }
@@ -341,12 +357,16 @@ public class UpdateActivity extends Activity {
 						    		JSONObject json = new JSONObject();
 									 try {
 										json.put("id", id);
-										 json.put("learning", name);
+										 json.put("target_type", name);
+										 json.put("category", "learning");
+										 json.put("start_date", startDate);
+										 json.put("target_number", 1);
+										 json.put("due_date", dueDate);
 										//json.put("other_number", number);
-										 //json.put("achieved_number", 0);
-										 json.put("last_updated", today);
+										 json.put("achieved_number", learning_achieved_number);
+										 json.put("last_updated", getDateTime());
 										 if(learning_justification_text.equals(" ")){
-										 json.put("justification", "did not justify");
+										 json.put("justification", " ");
 										 }else {
 										 json.put("justification", learning_justification_text); 
 										 }
@@ -387,5 +407,11 @@ public class UpdateActivity extends Activity {
 				
 			
 	}	
+	private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+}
 	
 }

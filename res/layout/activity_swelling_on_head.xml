@@ -35,23 +35,21 @@
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="1. Counsel mother not to massage swelling area or put warm compress on swelling on the side of the head "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="17sp" />
+                android:text="Counsel mother not to massage swelling area or put warm compress on swelling on the side of the head "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewUtils
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
-                android:text="2. Advise mother to go to the health center or hospital if swelling gets bigger "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="17sp" />
+                android:text="Advise mother to go to the health center or hospital if swelling gets bigger "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
 

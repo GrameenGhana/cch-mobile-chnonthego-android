@@ -3,11 +3,21 @@
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-<LinearLayout 
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/White"
     android:orientation="vertical"
-    android:padding="20dp" >
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do the following:"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/TextBrown" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,14 +25,6 @@
         android:gravity="center"
         android:orientation="vertical"
         android:paddingBottom="20dp" >
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Do the following:"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextBrown" />
 
         <ImageView
             android:id="@+id/imageView1"
@@ -55,11 +57,11 @@
         android:orientation="vertical"
         android:padding="10dp" >
 
-        <TextView
+        <org.grameenfoundation.cch.utils.TextViewBullets
             android:id="@+id/textView3"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="\u2022 When did the jaundice first appear? "
+            android:text="When did the jaundice first appear? "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
@@ -90,20 +92,20 @@
         android:padding="10dp"
         android:showDividers="middle" >
 
-        <TextView
+        <org.grameenfoundation.cch.utils.TextViewBullets
             android:id="@+id/textView5"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="\u2022  Look for jaundice (yellow eyes or skin) "
+            android:text="Look for jaundice (yellow eyes or skin) "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
+        <org.grameenfoundation.cch.utils.TextViewBullets
             android:id="@+id/textView6"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:bufferType="spannable"
-            android:text="\u2022  Look at the young infant’s palms and soles.  Are they yellow?  "
+            android:text="Look at the young infant’s palms and soles.  Are they yellow?  "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>

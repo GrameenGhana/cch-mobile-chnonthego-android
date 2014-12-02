@@ -4,7 +4,11 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 public class RecordsCheckActivity extends BaseActivity {
 
@@ -22,6 +26,17 @@ public class RecordsCheckActivity extends BaseActivity {
 	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Diagnostic: Records & History");
+	    TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+	 	   click_here.setOnClickListener(new OnClickListener(){
+
+	 		@Override
+	 		public void onClick(View v) {
+	 			Intent intent=new Intent(RecordsCheckActivity.this,SevereDiseasesActivity.class);
+	 			intent.putExtra("value", "keeping_baby_warm");
+	 			startActivity(intent);
+	 		}
+	 		   
+	 	   });
 	}
 	public void onBackPressed()
 	{

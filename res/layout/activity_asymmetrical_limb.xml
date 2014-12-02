@@ -85,107 +85,57 @@
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="20dp"
-                    
-                    android:src="@drawable/ic_bullet" />
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="Gently handle limb that is not moving "
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-			<ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="20dp"
-                    android:src="@drawable/ic_bullet" />
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                      android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="If baby can feed and not vomiting, help mother to breastfeed "
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-			<ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="20dp"
-                    android:src="@drawable/ic_bullet" />
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                       android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="If baby is not able to breastfeed, give small sips of expressed breast milk that has been collected in a clean container with a lid "
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-				<ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="20dp"
-                    android:src="@drawable/ic_bullet" />
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                       android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="Advise mother to gently handle baby and the limb that is not moving  "
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            </LinearLayout>
-			<LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="20dp"
-                    android:src="@drawable/ic_bullet" />
-            <TextView
-                android:id="@+id/textView9"
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                  android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                android:text="Teach mother how to keep the baby warm on the way to the health facility  "
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="Gently handle limb that is not moving "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
-  </LinearLayout>
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="If baby can feed and not vomiting, help mother to breastfeed "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="If baby is not able to breastfeed, give small sips of expressed breast milk that has been collected in a clean container with a lid "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="Advise mother to gently handle baby and the limb that is not moving  "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <org.grameenfoundation.cch.utils.TextViewUtils
+                android:id="@+id/textView_clickHere"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="Teach mother how to keep the baby warm on the way to the health facility  "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/WhileWaitingForTransport" />
+
         </LinearLayout>
 
     </LinearLayout>

@@ -41,28 +41,29 @@
         android:padding="10dp"
         android:showDividers="middle" >
 
-        <TextView
-            android:id="@+id/textView6"
+        <org.grameenfoundation.cch.utils.TextViewUtils
+            android:id="@+id/textView_clickHere"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="1. Educate mother on home care for the young infant "
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:text="Educate mother on home care for the young infant "
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/WhileWaitingForTransport" />
 
-        <TextView
+        <org.grameenfoundation.cch.utils.TextViewBullets
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="2. Advise mother to go to a health center or hospital immediately if palms and soles appear yellow"
+            android:text="Advise mother to go to a health center or hospital immediately if palms and soles appear yellow"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
+        <org.grameenfoundation.cch.utils.TextViewBullets
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="3. Follow up with client in 1 day, if jaundice is worse refer URGENTLY to a health center or hospital "
+            android:text="Follow up with client in 1 day, if jaundice is worse refer URGENTLY to a health center or hospital "
             android:textAppearance="?android:attr/textAppearanceSmall" />
     </LinearLayout>
 </LinearLayout>

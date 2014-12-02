@@ -1,13 +1,17 @@
 package org.digitalcampus.oppia.activity;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.mobile.learningGF.R.color;
 import org.digitalcampus.oppia.activity.CoverageTargetsDetailActivity.DatePickerFragment;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.adapters.EventBaseAdapter;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -56,11 +60,17 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 	private String start_date_extra;
 	private TextView textView_startDate;
 	private static TextView dueDateValue;
+	private static TextView learning_period;
 	private static String due_date;
 	private static String due_date_extra;
 	static String start_date ;
 	static long due_date_to_compare;
 	private static TextView startDateValue;
+	private long end_time;
+	private long start_time;
+	private String last_updated;
+	private String period;
+	private TextView day_difference;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -70,12 +80,15 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 	    db=new DbHelper(LearningTargetsDetailActivity.this);
 	    getActionBar().setTitle("Event Planner");
 	    getActionBar().setSubtitle("Target Details");
+	    start_time=System.currentTimeMillis();
 	    textView_category=(TextView) findViewById(R.id.textView_learningCategory);
 	    textView_course=(TextView) findViewById(R.id.textView_learningCourse);
 	    textView_topic=(TextView) findViewById(R.id.textView_learningTopic);
 	    textView_dueDate=(TextView) findViewById(R.id.textView_dueDate);
 	    textView_startDate=(TextView) findViewById(R.id.textView_startDate);
+	    learning_period=(TextView) findViewById(R.id.textView_period);
 	    imageView_status=(ImageView) findViewById(R.id.imageView_status);
+	    day_difference=(TextView) findViewById(R.id.textView_dayDifference);
 	    button_edit=(Button) findViewById(R.id.button_edit);
 	    button_delete=(Button) findViewById(R.id.button_delete);
 	    button_update=(Button) findViewById(R.id.button_update);
@@ -88,13 +101,26 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 			start_date_extra=extras.getString("start_date");
 			status=extras.getString("status");
 			learning_id=extras.getLong("learning_id");
+			last_updated=extras.getString("last_updated");
+			period=extras.getString("period");
         }
-        
+        learning_period.setText(period);
         textView_category.setText(learning_category);
         textView_course.setText(learning_course);
         textView_dueDate.setText(due_date_extra);
         textView_topic.setText(learning_topic);
         textView_startDate.setText(start_date_extra);
+        
+        long difference_in_days=differenceIndays(start_date_extra,due_date_extra);
+        if (difference_in_days==1){
+        	day_difference.setTextColor(color.Red);
+        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " day");
+        }else if(difference_in_days==0) {
+        	day_difference.setTextColor(color.Red);
+        	day_difference.setText("Due today!!!!");
+        }else {
+        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " days");
+        }
         if(status.equalsIgnoreCase("updated")){
         	imageView_status.setImageResource(R.drawable.ic_achieved_smile);
         }else if(status.equalsIgnoreCase("new_record")){
@@ -243,6 +269,23 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 						String learning_course=spinner_learningCourse.getSelectedItem().toString();
 						String learning_topic=spinner_learningDescription.getSelectedItem().toString();
 					    if(db.editLearning(learning_category, learning_course,learning_topic,duration,start_date,due_date, learning_id) ==true){
+					    	JSONObject json = new JSONObject();
+							 try {
+								json.put("id", learning_id);
+								 json.put("target_type", learning_topic);
+								 json.put("target_number", 1);
+								 json.put("achieved_number", 0);
+								 json.put("category", "learning");
+								 json.put("last_updated", last_updated);
+								 json.put("start_date", start_date_extra);
+								 json.put("due_date", due_date_extra);
+								 json.put("changed", 1);
+								 json.put("deleted", 0);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+							 end_time=System.currentTimeMillis();
+							 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
 					    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
 				 	          intent2.setClass(LearningTargetsDetailActivity.this, NewEventPlannerActivity.class);
 				 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -288,6 +331,23 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 							public void onClick(DialogInterface dialog,int id) {
 								// if this button is clicked, just close
 								if(db.deleteLearningCategory(learning_id)==true){
+									JSONObject json = new JSONObject();
+									 try {
+										json.put("id", learning_id);
+										 json.put("target_type", learning_topic);
+										 json.put("target_number", 1);
+										 json.put("achieved_number", 0);
+										 json.put("category", "learning");
+										 json.put("last_updated", last_updated);
+										 json.put("start_date", start_date_extra);
+										 json.put("due_date", due_date_extra);
+										 json.put("changed", 0);
+										 json.put("deleted", 1	);
+									} catch (JSONException e) {
+										e.printStackTrace();
+									}
+									 end_time=System.currentTimeMillis();
+									 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
 					        		Intent intent2 = new Intent(Intent.ACTION_MAIN);
 						 	          intent2.setClass(LearningTargetsDetailActivity.this, NewEventPlannerActivity.class);
 						 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -322,6 +382,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 				intent3.putExtra("type", "learning");
 				intent3.putExtra("due_date", due_date_extra);
 				intent3.putExtra("start_date", start_date_extra);
+				intent3.putExtra("last_updated", last_updated);
 	        	startActivity(intent3);
 				
 			}
@@ -456,4 +517,23 @@ start_date=day+"-"+month_value+"-"+year;
 startDateValue.setText(start_date);
 }
 }
+	 public static long differenceIndays(String startDate,String endDate)
+	    {
+		// String toDateAsString = "05/11/2010";
+		 Date start_date = null;
+		 Date end_date = null;
+		try {
+			start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+			end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 long starDateAsTimestamp = start_date.getTime();
+		 long endDateTimestamp = end_date.getTime();
+		 long diff = endDateTimestamp - starDateAsTimestamp;
+		  
+		  long diffDays = diff / (24 * 60 * 60 * 1000);
+		  return diffDays;
+	    }
 }

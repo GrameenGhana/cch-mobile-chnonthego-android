@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/stroke_bg_curry"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -34,7 +33,7 @@
             android:layout_width="222dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.46"
-            android:background="@color/Curry"
+            android:background="@color/Red"
             android:text="Yes"
             android:textColor="@color/White"
             android:textStyle="bold" />
