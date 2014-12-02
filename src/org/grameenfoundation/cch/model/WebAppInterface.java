@@ -7,13 +7,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.model.Course;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -25,10 +22,10 @@ import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
+@SuppressLint("SimpleDateFormat") 
 public class WebAppInterface {
     Context mContext;
     
@@ -419,7 +416,8 @@ public class WebAppInterface {
 	    	public String location;
 	    	public String description;
 	    	public Long startDate;
-	    	public Long endDate;
+	    	@SuppressWarnings("unused")
+			public Long endDate;
 	    	
 	    	public boolean isToday()
 	    	{
