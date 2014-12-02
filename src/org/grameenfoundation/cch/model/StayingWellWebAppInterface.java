@@ -141,6 +141,11 @@ public class StayingWellWebAppInterface {
 		time.setToNow();
     	dbh.updateSWInfo(DbHelper.CCH_SW_MONTH_PLAN, plan);
     	dbh.updateSWInfo(DbHelper.CCH_SW_MONTH_PLAN_LASTUPDATE, String.valueOf(time.toMillis(true)));
+    	
+    	// store results in plan
+		Long t = System.currentTimeMillis();
+		String data = "{'type':'plan', 'plan':'"+plan+"'}";
+		this.saveToCCHLog(data, t.toString(), t.toString());
     }
     
     @JavascriptInterface
