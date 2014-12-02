@@ -22,6 +22,7 @@ import java.io.File;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.task.SubmitQuizTask;
 import org.digitalcampus.oppia.task.SubmitTrackerMultipleTask;
+import org.grameenfoundation.cch.tasks.StayingWellNotifyTask;
 import org.grameenfoundation.cch.tasks.UpdateCCHLogTask;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -85,6 +86,9 @@ public class MobileLearning extends Application {
 	
 	// for tracking if UpdateCCHLogTask is already running
 	public UpdateCCHLogTask omUpdateCCHLogTask = null;
+	
+	// for tracking if notifier is already running
+	public StayingWellNotifyTask omStayingWellNotifyTask = null;
 	
 	public static boolean createDirs() {
 		String cardstatus = Environment.getExternalStorageState();

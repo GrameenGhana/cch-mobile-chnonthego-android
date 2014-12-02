@@ -6,17 +6,19 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.activity.CoverageTargetsDetailActivity.DatePickerFragment;
 import org.digitalcampus.oppia.activity.CoverageTargetsDetailActivity.DatePickerFragment2;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.service.TrackerService;
-import org.grameenfoundation.adapters.CoverageListAdapter;
 import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.adapters.LearningBaseAdapter;
-import org.grameenfoundation.adapters.OtherBaseAdapter;
-import org.grameenfoundation.cch.activity.HomeActivity;
+
+import org.grameenfoundation.cch.model.RoutineActivity;
+import org.grameenfoundation.cch.model.RoutineActivityDetails;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
@@ -81,7 +83,10 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 public class NewEventPlannerActivity extends SherlockFragmentActivity implements ActionBar.TabListener, OnSharedPreferenceChangeListener{
 	 private DbHelper dbh;
-	SectionsPagerAdapter mSectionsPagerAdapter;
+	 private static Context mContext;
+
+	 
+	 SectionsPagerAdapter mSectionsPagerAdapter;
 	public static String current_month;
 	
 	private static final String EVENT_PLANNER_ID = "Event Planner";
@@ -127,10 +132,12 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_new_event_planner);
 	    
+	    mContext = NewEventPlannerActivity.this;
+	    
 	   // final PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_header);
        // pagerTabStrip.setDrawFullUnderline(true);
        // pagerTabStrip.setTabIndicatorColor(Color.rgb(83,171,32));
-        dbh = new DbHelper(NewEventPlannerActivity.this);
+        dbh = new DbHelper(mContext);
       
         final ActionBar actionBar =getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -144,7 +151,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
         mViewPager = (ViewPager) findViewById(R.id.pager);
         
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setOffscreenPageLimit(4);
+        mViewPager.setOffscreenPageLimit(5);
         // When swiping between different sections, select the corresponding
         // tab. We can also use ActionBar.Tab#select() to do this if we have
         // a reference to the Tab.
@@ -223,7 +230,13 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
         // Create the adapter that will return a fragment for each of the four
         // primary sections of the app.
 		
-		 	
+		try 
+	    {
+			if (!(getIntent().getStringExtra("FRAGMENT_IDX")).isEmpty()) {	
+				int page = Integer.parseInt(getIntent().getStringExtra("FRAGMENT_IDX"));
+				mViewPager.setCurrentItem(page, true);	
+			}				
+		} catch (NullPointerException e) { Log.e(TAG,"Trying to switch panes failed :("); }	
         
 }
 	 public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -242,6 +255,8 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
                  }else if(position==2){
                 	 fragment= new LearningActivity();
                  }else if(position==3){
+                	 fragment= new RoutineActivityDetails();           
+                 }else if(position==4){
                 	 fragment= new OtherActivity();
                  }
                  return fragment;
@@ -249,7 +264,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 
          @Override
          public int getCount() {
-                 return 4;
+                 return 5;
          }
 
          @Override
@@ -326,6 +341,12 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
      					other_number4+
      					other_number5+
      					other_number6;
+     			
+     			
+     			 /* Get StayingWell todos */
+     			ArrayList<RoutineActivity> todos = dbh.getSWRoutineActivities();
+     			
+     			
                  switch (position) {
                          case 0:
                                  return "EVENTS"+" ("+String.valueOf(counter)+")";
@@ -333,14 +354,16 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
                                  return "COVERAGE"+" ("+String.valueOf(counter2)+")";
                          case 2: 
                     	 		return "LEARNING"+" ("+String.valueOf(counter3)+")";
-                         case 3:
+                         case 3: 
+                        	 	return "ROUTINES (" +  String.valueOf(todos.size()) + ")";
+                         case 4:
                         		return "OTHER"+" ("+String.valueOf(counter4)+")";
-                 
                  }
                  return null;
          }
  }
-		
+
+	
 	 public static class EventsActivity extends Fragment implements OnChildClickListener{
 
 			private Context mContext;															

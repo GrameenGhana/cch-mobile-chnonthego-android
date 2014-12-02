@@ -26,6 +26,7 @@ import org.digitalcampus.oppia.task.APIRequestTask;
 import org.digitalcampus.oppia.task.Payload;
 import org.digitalcampus.oppia.task.SubmitQuizTask;
 import org.digitalcampus.oppia.task.SubmitTrackerMultipleTask;
+import org.grameenfoundation.cch.tasks.StayingWellNotifyTask;
 import org.grameenfoundation.cch.tasks.UpdateCCHLogTask;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -94,17 +95,22 @@ public class TrackerService extends Service implements APIRequestListener {
 				Editor editor = prefs.edit();
 				editor.putLong("lastCourseUpdateCheck", now);
 				editor.commit();
+				
+				/* CCH: Check to see if the CCH log needs any updating */
+				if(app.omUpdateCCHLogTask == null){
+					Log.v(TAG, "Updating CCH logs");
+					Payload mqp = db.getCCHUnsentLog();
+					app.omUpdateCCHLogTask = new UpdateCCHLogTask(this);
+					app.omUpdateCCHLogTask.execute(mqp);
+				}				
 			}
 			
-			/* CCH: Check to see if the CCH log needs any updating */
-			if(app.omUpdateCCHLogTask == null){
-				Log.v(TAG, "Updating CCH logs");
-				Payload mqp = db.getCCHUnsentLog();
-				app.omUpdateCCHLogTask = new UpdateCCHLogTask(this);
-				app.omUpdateCCHLogTask.execute(mqp);
+			// notify user on routines
+			if (app.omStayingWellNotifyTask == null) {
+				app.omStayingWellNotifyTask = new StayingWellNotifyTask(this);
+				app.omStayingWellNotifyTask.execute();
 			}
-				
-
+			
 			// send activity trackers
 			if(app.omSubmitTrackerMultipleTask == null){
 				app.omSubmitTrackerMultipleTask = new SubmitTrackerMultipleTask(this);

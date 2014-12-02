@@ -1,10 +1,8 @@
 package org.grameenfoundation.cch.activity;
 
 
-import java.io.File;
 import java.util.Locale;
-import java.util.Observable;
-import java.util.Observer;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,7 +22,6 @@ import org.grameenfoundation.cch.activity.PDFActivity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;

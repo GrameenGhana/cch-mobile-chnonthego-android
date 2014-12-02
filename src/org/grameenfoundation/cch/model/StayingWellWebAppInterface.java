@@ -3,7 +3,8 @@ package org.grameenfoundation.cch.model;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Calendar;
+import java.util.ArrayList;
+
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
@@ -40,45 +41,48 @@ public class StayingWellWebAppInterface {
     public String getGreeting() {
     	String username = getUsername();
     	username = (username.isEmpty()) ? username : " "+username;
-    	String g = (getTime()=="") ? "Hello" : "Good " + getTime();
+    	String g = (dbh.getTime()=="") ? "Hello" : "Good " + dbh.getTime();
     	return g + username;
     }
     
     @JavascriptInterface
     public String getRoutineInfo(String infoType) {
+  
+       	// if no profile encourage client to sign up
+    	String profile = getProfileStatus();
+    	String plan = getMonthlyPlan();
     	
-		return "Welcome to Staying Well";
-/*
-    	// if no profile encourage client to sign up
-    	if (getProfileStatus()=="" || getMonthlyPlan()=="") {
+    	if (profile.isEmpty()|| plan.isEmpty()) {
     		return "Welcome to Staying Well";
-    	}
-    	    	
-    	Calendar c  = Calendar.getInstance();
-    	int year = c.get(Calendar.YEAR);
-    	int month = c.get(Calendar.MONTH);
-    	int day = c.get(Calendar.DAY_OF_MONTH);
-    	String timeofday = getTime();
-    	int numactivities = 5;
-    	    	
-    	String title = "You have <span class=\"highlight\">"+numactivities+"</span> activities this "+timeofday;
-    	
-    	// Get routine items
-    	if (infoType.equals("list"))
-    	{
-    		return "<h3 id=\"routine_title\">"+title+"</h3>"
-            		+ "<li>Sip on <a href=\"#\" class=\"navigation-view\" data-view=\"gliving/content/worksheets/diet/drink warm water.html\">warm water</a> when you wake up in the morning</li>"
-            		+ "<li>Brush your teeth, and <a href=\"#\" class=\"navigation-view\" data-view=\"gliving/content/worksheets/personalcare/tongue scraping.html\">scrape your tongue</a> to remove any coating</li>"
-            		+ "<li><a href=\"#\" class=\"navigation-view\" data-view=\"gliving/content/worksheets/personalcare/hair treatment.html\">Nourish hair</a> with coconut oil</li>"
-            		+ "<li>Once a week, <a href=\"#\" class=\"navigation-view\" data-view=\"gliving/content/worksheets/personalcare/massage body.html\">massage your body</a> with coconut oil </li>"
-            		+ "<li>Use <a href=\"#\" class=\"modal-view\" data-view=\"gliving/content/worksheets/personalcare/neem water.html\">neem water</a> to wash off the oil from your body and hair </li>";
     	} else {
-    		return title + ((infoType.equals("label")) ? " <span class=\"charet\"></span>": "");
+        	ArrayList<RoutineActivity> todos = dbh.getSWRoutineActivities();
+        	int numactivities = todos.size();    	
+    	    	
+        	String title = "You have <span class=\"highlight\">"+numactivities+"</span> activities this "+dbh.getTime();
+    	
+        	// Get routine items
+        	if (infoType.equals("list"))
+        	{
+        		String val = "<h3 id=\"routine_title\">This "+dbh.getTime()+"'s activities:</h3><br/>";
+        		for(RoutineActivity todo: todos) {
+        			if (todo.isDone()) {
+        				val += "<li><input type=\"checkbox\" disabled checked />&nbsp;&nbsp;"+todo.getAction()+"</li>";
+        			} else {
+            			val += "<li><input type=\"checkbox\" onclick=\"cch.markActivityDone(this, '"+todo.getUUID()+"');\" id=\""+todo.getUUID()+"\" value=\""+todo.getUUID()+"\" />&nbsp;&nbsp;"+todo.getAction()+"</li>";
+        			}
+        		}
+    		
+        		return val;
+        	} else {
+        		return title + ((infoType.equals("label")) ? " <span class=\"charet\"></span>": "");
+        	}
     	}
-  	*/
     }
     
-    
+    @JavascriptInterface
+    public void markRoutineDone(String uuid) {
+    	dbh.insertSWRoutineDoneActivity(uuid);
+    }
     
     @JavascriptInterface
     public String getLegalStatus() {
@@ -118,6 +122,11 @@ public class StayingWellWebAppInterface {
 
     	dbh.updateSWInfo(DbHelper.CCH_SW_PROFILE_STATUS, profile);
     	dbh.updateSWInfo(DbHelper.CCH_SW_PROFILE_RESPONSES, status);
+		
+		// store results in plan
+		Long time = System.currentTimeMillis();
+		String data = "{'type':'profile', 'profile':'"+profile+"', 'responses':'"+status+"'}";
+		this.saveToCCHLog(data, time.toString(), time.toString());
     }
      
     @JavascriptInterface
@@ -132,6 +141,11 @@ public class StayingWellWebAppInterface {
 		time.setToNow();
     	dbh.updateSWInfo(DbHelper.CCH_SW_MONTH_PLAN, plan);
     	dbh.updateSWInfo(DbHelper.CCH_SW_MONTH_PLAN_LASTUPDATE, String.valueOf(time.toMillis(true)));
+    	
+    	// store results in plan
+		Long t = System.currentTimeMillis();
+		String data = "{'type':'plan', 'plan':'"+plan+"'}";
+		this.saveToCCHLog(data, t.toString(), t.toString());
     }
     
     @JavascriptInterface
@@ -168,33 +182,15 @@ public class StayingWellWebAppInterface {
     	}
     }
     
+    @JavascriptInterface
+    public void saveToCCHLog(String data, String starttime, String endtime) {	
+		dbh.insertCCHLog("Staying Well", data, starttime, endtime);
+    }
+    
     
     /** Show a toast from the web page */
     @JavascriptInterface
     public void showToast(String toast) {
         Toast.makeText(mContext, toast, Toast.LENGTH_LONG).show();
     }  
-    
-    private String getTime()
-    {
-    	 Time time = new Time();
-		 time.setToNow();
-		    
-		 if (time.hour < 12)
-		 {
-			 return "morning";
-		 } 
-		 else if (time.hour >= 12 && time.hour <= 17)
-		 {
-		     return "afternoon";
-		 }
-		 else if (time.hour > 17 && time.hour < 23)
-		 {
-		     return "evening";
-		 } 
-		 else 
-		 {
-		      return "";
-		 }
-    }
 }

@@ -1,24 +1,19 @@
 package org.digitalcampus.oppia.activity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
+
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.service.TrackerService;
-import org.digitalcampus.oppia.service.UpdateMonthlyTargetService;
-import org.digitalcampus.oppia.service.UpdateTargetsService;
-import org.digitalcampus.oppia.service.UpdateTargetsWeeklyService;
 import org.grameenfoundation.adapters.EventsDetailPagerAdapter;
 import org.grameenfoundation.adapters.MainScreenBaseAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
-import org.grameenfoundation.cch.activity.HomeActivity;
 import org.grameenfoundation.cch.activity.StayingWellActivity;
-import org.grameenfoundation.database.CHNDatabaseHandler;
 import org.grameenfoundation.poc.PointOfCareActivity;
+import org.grameenfoundation.cch.model.RoutineActivity;
+import org.grameenfoundation.cch.model.RoutineActivityDetails;
 import org.grameenfoundation.cch.utils.TypefaceUtil;
 
 import android.app.AlertDialog;
@@ -35,7 +30,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.format.DateFormat;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,24 +49,24 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	private ListView main_menu_listview;
 	private static Context mContext;
 	private static TextView status;
-	public static final String TAG = HomeActivity.class.getSimpleName();
+	public static final String TAG = MainScreenActivity.class.getSimpleName();
 	Time time_now;
 	Time compared_time;
 	Time week;
 	Time end_of_month;
 
 	SectionsPagerAdapter mSectionsPagerAdapter;
-    ViewPager mViewPager;
+    static ViewPager mViewPager;
 	private static DbHelper dbh;
 	private SharedPreferences prefs;
 	
 	// MODULE IDs
-		private static final String EVENT_PLANNER_ID      = "Event Planner";
+	/*	private static final String EVENT_PLANNER_ID      = "Event Planner";
 		private static final String STAYING_WELL_ID       = "Staying Well";
 		private static final String POINT_OF_CARE_ID      = "Point of Care";
 		private static final String LEARNING_CENTER_ID    = "Learning Center";
 		private static final String ACHIEVEMENT_CENTER_ID = "Achievement Center";
-  
+    */
 
 	/** Called when the activity is first created. */
 	@Override
@@ -118,13 +112,27 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
         mViewPager = (ViewPager) findViewById(R.id.pager2);
         
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOffscreenPageLimit(3);
+        
+        try 
+	    {
+			if (!(getIntent().getStringExtra("FRAGMENT_IDX")).isEmpty()) {	
+				int page = Integer.parseInt(getIntent().getStringExtra("FRAGMENT_IDX"));
+				mViewPager.setCurrentItem(page, true);	
+			}				
+		} catch (NullPointerException e) { Log.e(TAG,"Trying to switch panes failed :("); }
 	  
 	}
+	
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
                 super(fm);
+        }
+        
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
         }
 
         @Override
@@ -134,6 +142,8 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
                 	 fragment= new EventsSummary();   
                 }else if(position==1){
                 	 fragment= new EventsDetails();   
+                } else if (position==2) {
+                	 fragment = new RoutineActivityDetails();
                 }
                	
                 return fragment;
@@ -141,7 +151,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 
         @Override
         public int getCount() {
-                return 2;
+                return 3;
         }
 
         @Override
@@ -152,32 +162,31 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	
 	 public static class EventsSummary extends Fragment {
 		 View rootView;
-		// private SharedPreferences loginPref;
-		 private String name;
-		 //private ArrayList<String> eventsNumber;
-		private TextView event_number;
-		int month;
-		String month_text;
+		 private TextView event_number;
+		 private TextView textView_eventsClickHere;
+		 private TextView textView_eventTargetsNumber;
+		 private TextView textView_clickHere;
+		 private TextView textView_routinesNumber;
+		 private TextView textView_routinesClickHere;
+		 private TextView tv8;
+		 int month;
+		 String month_text;
+		 String due_date;
 		 CalendarEvents c;
+		 private SharedPreferences prefs;
+		 private String name;
+		 private String user_first_name;
+			private long eventId;
+			private long coverageId;
+			private long otherId;
+			private long learningId;
+		 private ArrayList<String> firstName;
 		 public ArrayList<String> EventTypeToday;
-		private SharedPreferences prefs;
-		private String current_month;
-		String due_date;
-		private HashMap<String, String> eventUpdateItemsDaily;
-		private HashMap<String, String> coverageUpdateItemsDaily;
-		private HashMap<String, String> otherUpdateItemsDaily;
-		private HashMap<String, String> learningUpdateItemsDaily;
-		private long eventId;
-		private long coverageId;
-		private long otherId;
-		private TextView textView_eventTargetsNumber;
-		private TextView textView_clickHere;
-		private long learningId;
-		private ArrayList<String> firstName;
-		private String user_first_name;
+		private int numactivities;
 		 public EventsSummary(){
 			 
 		 }
+
 		 
 		 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			 	rootView=inflater.inflate(R.layout.events_pager_layout,null,false);
@@ -190,33 +199,22 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			    event_number=(TextView) rootView.findViewById(R.id.textView_eventsNumber);
 			    Time time = new Time();
 			    time.setToNow();
-			    String today= String.valueOf(time.monthDay)+"-"+String.valueOf(time.month+1)+"-"+String.valueOf(time.year);
-			    Calendar rightNow = Calendar.getInstance();
-			    java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("MMMM");
-			   // month= rightNow.get(Calendar.MONTH)+1;
-			   // month_text.equals("September");
-			   // System.out.println(month_text);
+			    //String today= String.valueOf(time.monthDay)+"-"+String.valueOf(time.month+1)+"-"+String.valueOf(time.year);
+			   
 			    c= new CalendarEvents(mContext);
+			    
 			    EventTypeToday=c.getTodaysEventsType();
+			    
 			    if(firstName.size()>0){
 			    	user_first_name=firstName.get(0);
 			    }else if(firstName.size()==0){
 			    	user_first_name.equals(name);
 			    }
-			    if(time.hour<12)
-			    {
-			    	System.out.println("name");
-			    	  status.setText("Good morning, "+user_first_name+"!");
-			    }else if(time.hour>12&& time.hour<17)
-			    {
-			    	 status.setText("Good afternoon, "+user_first_name+"!");
-			    }else if(time.hour>17&& time.hour<20)
-			    {
-			    	 status.setText("Good evening, "+user_first_name+"!");
-			    }else{
-			    	 status.setText("Good day, "+user_first_name+"!");
-			    }
-			 //eventsNumber=db.getAllEventsForMonth("September");
+			    
+		    	status.setText("Good "+dbh.getTime()+", "+user_first_name+"!");
+
+			 
+		    	//eventsNumber=db.getAllEventsForMonth("September");
 			 if(EventTypeToday.size()>0&&EventTypeToday.get(0).equalsIgnoreCase("No planned events for today")){
 				 event_number.setText("0"); 
 			 }else {
@@ -227,52 +225,8 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		        int day=c.get(Calendar.DAY_OF_WEEK);
 		        int year=c.get(Calendar.YEAR);
 		        due_date=day+"-"+month+"-"+year;
-		        System.out.println(today);
-		        switch(month){
-		        case 1:
-			        	current_month="January";
-			        	break;
-		        case 2:
-		        	current_month="February";
-		        	break;
-		        case 3:
-		        	current_month="March";
-		        	break;
-		        case 4:
-		        	current_month="April";
-		        	break;
-		        case 5:
-		        	current_month="May";
-		        	break;
-		        case 6:
-		        	current_month="June";
-		        	break;
-		        case 7:
-		        	current_month="July";
-		        	break;
-		        case 8:
-		        	current_month="August";
-		        	break;
-		        case 9:
-		        	current_month="September";
-		        	break;
-		        case 10:
-		        	current_month="October";
-		        	break;
-		        case 11:
-		        	current_month="November";
-		        	break;
-		        case 12:
-		        	current_month="December";
-		        	break;
-		        }
-		        eventUpdateItemsDaily=dbh.getAllEvents("Daily");
-				coverageUpdateItemsDaily=dbh.getAllCoverage("Daily");
-				otherUpdateItemsDaily=dbh.getAllOther("Daily");
-				learningUpdateItemsDaily=dbh.getAllLearning("Daily");
-				//Intent service2 = new Intent(getActivity(),UpdateMonthlyTargetService.class);
-				//getActivity().startService(service2);
-				
+		        //System.out.println(today);
+	
 				textView_eventTargetsNumber=(TextView) rootView.findViewById(R.id.textView_eventTargetsNumber);
 				textView_clickHere=(TextView) rootView.findViewById(R.id.textView_clickHere);
 				
@@ -289,30 +243,9 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 				 int number3=(int)otherId;
 				 int number4=(int)learningId;
 				 final int counter;
-				 /*
-				if(eventId.size()<0){
-					number=0;
-				}else{
-					number=eventId.size();
-				}
-				if(coverageId.size()<0){
-					number2=0;
-				}else {
-					number2=coverageId.size();
-				}
-				if(otherId.size()<0){
-					number3=0;
-				}else{
-					number3=otherId.size();
-				}
 				
-				if(learningId.size()<0){
-					number4=0;
-				}else{
-					number4=learningId.size();
-				}*/
 				counter=number+number2+number3+number4;
-				System.out.println(counter);
+				//System.out.println(counter);
 				textView_eventTargetsNumber.setText(String.valueOf(counter));
 				textView_clickHere.setOnClickListener(new OnClickListener(){
 
@@ -328,7 +261,37 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 					}
 					
 				});
-			 return rootView;
+				textView_eventsClickHere = (TextView) rootView.findViewById(R.id.textView_eventsClickHere);
+			    textView_eventsClickHere.setOnClickListener(new OnClickListener(){
+			    	@Override
+					public void onClick(View v) {
+							mViewPager.setCurrentItem(1, true);	
+					}
+				});
+			    
+				
+				/* Routine Info */
+				ArrayList<RoutineActivity> todos = dbh.getSWRoutineActivities();
+		    			    	
+			    textView_routinesNumber = (TextView) rootView.findViewById(R.id.textView_routinesNumber);
+				textView_routinesNumber.setText(String.valueOf(numactivities));
+			    tv8 = (TextView) rootView.findViewById(R.id.textView8);
+			    tv8.setText(" activities this "+dbh.getTime()+".");
+				
+			    textView_routinesClickHere = (TextView) rootView.findViewById(R.id.textView_routinesClickHere);
+			    textView_routinesClickHere.setOnClickListener(new OnClickListener(){
+
+			    	@Override
+					public void onClick(View v) {
+						if(numactivities > 0){
+							mViewPager.setCurrentItem(2, true);
+						} else {
+							 Toast.makeText(getActivity(), "You have no activities for this "+dbh.getTime(),Toast.LENGTH_SHORT).show();
+						}
+					}
+				});
+			    
+			    return rootView;
 		 }
 	 }
 	 
@@ -353,10 +316,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			    listView_details=(ListView) rootView.findViewById(R.id.listView_eventsDetail);
 			    Time time = new Time();
 			    time.setToNow();
-			    Calendar rightNow = Calendar.getInstance();
-			    java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("MMMM");
-			   // month= rightNow.get(Calendar.MONTH)+1;
-			    //month_text.equals(df.format(month));
+		
 			    c= new CalendarEvents(mContext);
 			    EventTypeToday=c.getTodaysEventsType();
 			    EventTypeTime=c.getTodaysEventsTime(false);
@@ -370,8 +330,19 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			 return rootView;
 		 }
 	 }
-		@Override
-		public boolean onCreateOptionsMenu(Menu menu) {
+	 
+	
+	 
+	 @Override
+	 public void onResume()
+	 {
+		 super.onResume();
+	     mViewPager.getAdapter().notifyDataSetChanged();
+	 }
+	 	 
+	 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
 			getMenuInflater().inflate(R.menu.activity_home, menu);
 			return true;
 		}
@@ -435,6 +406,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 				supportInvalidateOptionsMenu();
 			}
 		}
+		
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {

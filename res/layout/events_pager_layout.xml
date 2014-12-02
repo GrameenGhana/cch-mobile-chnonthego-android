@@ -42,6 +42,15 @@
                 android:layout_height="wrap_content"
                 android:text=" events planned for today."
                 android:typeface="serif" />
+            
+             <TextView
+                    android:id="@+id/textView_eventsClickHere"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" view >"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextColorWine" />
+           
 
         </LinearLayout>
 
@@ -51,6 +60,7 @@
             android:orientation="vertical"
             android:paddingTop="5dp" >
 
+            <!--  
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,7 +79,8 @@
                     android:layout_height="20dp"
                     android:src="@drawable/ic_action_previous_item" />
             </LinearLayout>
-
+            -->
+        
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,7 +124,52 @@
                     android:textColor="@color/TextColorWine" />
 
             </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp" >
 
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="You have  "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/background_dark"
+                    android:textStyle="bold"
+                    android:typeface="serif" />
+
+                <TextView
+                    android:id="@+id/textView_routinesNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextColorGreen"
+                    android:typeface="serif" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  activities."
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/background_dark"
+                    android:textStyle="bold"
+                    android:typeface="serif" />
+
+                <TextView
+                    android:id="@+id/textView_routinesClickHere"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" view >"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextColorWine" />
+
+            </LinearLayout>
+            
+           
         </LinearLayout>
 
 </LinearLayout>

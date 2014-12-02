@@ -40,7 +40,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 
 	private ListView main_menu_listview;
 	private Context mContext;
-	private TextView status;
+	private static TextView status;
 	
 	SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
@@ -109,7 +109,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
         }
 }
 	
-	 public class EventsSummary extends Fragment {
+	 public static class EventsSummary extends Fragment {
 		 View rootView;
 		 private SharedPreferences loginPref;
 		 private String name;
@@ -124,7 +124,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		 
 		 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			 	rootView=inflater.inflate(R.layout.events_pager_layout,null,false);
-			 	loginPref=getApplicationContext().getSharedPreferences("loginPrefs", MODE_WORLD_READABLE);
+			 	loginPref=getActivity().getApplicationContext().getSharedPreferences("loginPrefs", MODE_WORLD_READABLE);
 			    name=loginPref.getString("firstname", "name");
 			    db=new CHNDatabaseHandler(getActivity());
 			    status=(TextView) rootView.findViewById(R.id.textView_status);
@@ -159,7 +159,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		 }
 	 }
 	 
-	 public class EventsDetails extends Fragment {
+	 public static class  EventsDetails extends Fragment {
 		 View rootView;
 		 private ArrayList<String> eventsName;
 		 private ArrayList<String> eventsNumber;
