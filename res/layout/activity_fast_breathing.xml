@@ -81,43 +81,43 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/TakeAction"
             android:divider="@drawable/divider"
             android:dividerPadding="2dp"
             android:orientation="vertical"
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 If baby is able to feed, help mother to breastfeed "
+                android:text="If baby is able to feed, help mother to breastfeed "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 If baby is not able to breastfeed, give small sips of expressed breast milk that has been collected in a clean container with a lid "
+                android:text="If baby is not able to breastfeed, give small sips of expressed breast milk that has been collected in a clean container with a lid "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 Advise mother to not put the baby on her back "
+                android:text="Advise mother to not put the baby on her back "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:id="@+id/textView10"
+            <org.grameenfoundation.cch.utils.TextViewUtils
+                android:id="@+id/textView_clickHere"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="\u2022 Teach mother how to keep the baby warm on the way to the health facility"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:text="Teach mother how to keep the baby warm on the way to the health facility"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/WhileWaitingForTransport" />
 
         </LinearLayout>
 

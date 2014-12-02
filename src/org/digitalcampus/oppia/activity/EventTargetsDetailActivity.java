@@ -1,5 +1,6 @@
 package org.digitalcampus.oppia.activity;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,6 +14,8 @@ import org.digitalcampus.oppia.activity.TargetSettingActivity.EventsActivity.Dat
 import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.cch.utils.TextProgressBar;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -24,6 +27,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -82,7 +86,10 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 	private static ArrayList<String> number_achieved;
 	private static ArrayList<String> update_id;
 	int progress_status;
-
+	private long end_time;
+	private long start_time;
+	private String last_updated;
+	private TextView day_difference;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -96,6 +103,7 @@ public class EventTargetsDetailActivity extends FragmentActivity {
         today_month=c.get(Calendar.MONTH)+1;
         today_day=c.get(Calendar.DAY_OF_WEEK);
         today_year=c.get(Calendar.YEAR);
+        start_time=System.currentTimeMillis();
       	//today=day+"-"+month+"-"+year;
 	    textView_name=(TextView) findViewById(R.id.textView_name);
 	    textView_period=(TextView) findViewById(R.id.textView_period);
@@ -107,9 +115,11 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 	    textView_percentageAchieved=(TextView) findViewById(R.id.textView_percentageAchieved);
 	    progress_bar=(TextProgressBar) findViewById(R.id.progressBar1);
 	    imageView_status=(ImageView) findViewById(R.id.imageView_status);
+	    day_difference=(TextView) findViewById(R.id.textView_dayDifference);
 	    button_edit=(Button) findViewById(R.id.button_edit);
 	    button_delete=(Button) findViewById(R.id.button_delete);
 	    button_update=(Button) findViewById(R.id.button_update);
+	    
 	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
         	event_name=extras.getString("event_name");
@@ -120,17 +130,25 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 			achieved=extras.getString("achieved");
 			status=extras.getString("status");
 			event_id=extras.getLong("event_id");
+			last_updated=extras.getString("last_updated");
 			System.out.println(String.valueOf(event_id));
         }
-        String[] due_date_extra_split=due_date_extra.split("-");
-        due_date_day=Integer.valueOf(due_date_extra_split[0]);
-        due_date_month=Integer.valueOf(due_date_extra_split[1]);
-        due_date_year=Integer.valueOf(due_date_extra_split[2]);
-        date_difference=due_date_day-today_day;
+       
         int number_achieved_current=Integer.valueOf(achieved);
         int number_entered_current=Integer.valueOf(event_number);
         Double percentage=((double)number_achieved_current/number_entered_current)*100;
         String percentage_achieved=String.format("%.0f", percentage);
+        long difference_in_days=differenceIndays(start_date_extra,due_date_extra);
+        
+        if (difference_in_days==1){
+        	day_difference.setTextColor(color.Red);
+        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " day");
+        }else if(difference_in_days==0) {
+        	day_difference.setTextColor(color.Red);
+        	day_difference.setText("Due today!!!!");
+        }else {
+        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " days");
+        }
         textView_name.setText(event_name);
         textView_period.setText(event_period);
         textView_dueDate.setText(due_date_extra);
@@ -142,22 +160,8 @@ public class EventTargetsDetailActivity extends FragmentActivity {
         progress_bar.setProgress(progress_status);
         progress_bar.setPrefixText(percentage_achieved+"%");
         progress_bar.setPrefixText(" ");
-      //  progress_bar.setTextColor(color.TextColorWine);
-        
-        /*
-        if(date_difference==4&&due_date_month==today_month&&due_date_year==today_year&&percentage<50){
-    	textView_progressCheck.setText("You are behind. Please work hard to improve!");	
-    	imageView_status.setImageResource(R.drawable.sad);
-        }else {
-        	textView_progressCheck.setText("You are on track. Keep up the good work");	
-        	imageView_status.setImageResource(R.drawable.ic_achieved_smile);
-        }*/
-        if(achieved==event_number){
-        	button_edit.setClickable(false);
-        	button_delete.setClickable(false);
-        	button_update.setClickable(false);
-        }
-        
+      
+      
         if(status.equalsIgnoreCase("updated")){
         	imageView_status.setImageResource(R.drawable.ic_achieved_smile);
         }else if(status.equalsIgnoreCase("new_record")){
@@ -232,6 +236,8 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 				startDateValue=(TextView) dialog.findViewById(R.id.textView_startDate);
 				dialogButton.setOnClickListener(new OnClickListener() {
 				
+				
+
 					@Override
 					public void onClick(View v) {
 						dialog.dismiss();
@@ -251,6 +257,24 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 						String event_number=editText_eventNumber.getText().toString();
 						String event_period=spinner_eventPeriod.getSelectedItem().toString();
 					    if(db.editEventCategory(event_name, event_number, event_period,duration,start_date,due_date, event_id)==true){
+					    	number_achieved=db.getForUpdateEventNumberAchieved(event_id,event_period);
+							number_remaining=db.getAllForEventsNumberRemaining(event_period);
+					    	JSONObject json = new JSONObject();
+							 try {
+								json.put("id", event_id);
+								json.put("target_type", event_name);
+								 json.put("target_number", event_number);
+								 json.put("start_date", start_date_extra);
+								 json.put("due_date", due_date_extra);
+								 json.put("achieved_number", achieved);
+								 json.put("last_updated", last_updated);
+								 json.put("changed", 1);
+								 json.put("deleted", 0);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+							 end_time=System.currentTimeMillis();
+							 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
 					    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
 				 	          intent2.setClass(EventTargetsDetailActivity.this, NewEventPlannerActivity.class);
 				 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -297,6 +321,24 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 							public void onClick(DialogInterface dialog,int id) {
 								// if this button is clicked, just close
 								if(db.deleteEventCategory(event_id)==true){
+									number_achieved=db.getForUpdateEventNumberAchieved(event_id,event_period);
+									number_remaining=db.getAllForEventsNumberRemaining(event_period);
+									JSONObject json = new JSONObject();
+									 try {
+										json.put("id", event_id);
+										json.put("target_type", event_name);
+										 json.put("target_number", event_number);
+										 json.put("start_date", start_date_extra);
+										 json.put("due_date", due_date_extra);
+										 json.put("achieved_number", achieved);
+										 json.put("last_updated", last_updated);
+										 json.put("changed", 0);
+										 json.put("deleted", 1);
+									} catch (JSONException e) {
+										e.printStackTrace();
+									}
+									 end_time=System.currentTimeMillis();
+									 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
 					        		Intent intent2 = new Intent(Intent.ACTION_MAIN);
 						 	          intent2.setClass(EventTargetsDetailActivity.this, NewEventPlannerActivity.class);
 						 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -327,9 +369,9 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 				//number_achieved=new ArrayList<String>();
 				//number_remaining=new ArrayList<String>();
 				//update_id=new ArrayList<String>();
-				
-					number_achieved=db.getForUpdateEventNumberAchieved(event_id,event_period);
-					number_remaining=db.getAllForEventsNumberRemaining(event_period);
+				number_achieved=db.getForUpdateEventNumberAchieved(event_id,event_period);
+				number_remaining=db.getAllForEventsNumberRemaining(event_period);
+					
 					
 				System.out.println("Printing id: "+String.valueOf(event_id));
 				Intent intent3=new Intent(EventTargetsDetailActivity.this,UpdateActivity.class);
@@ -475,4 +517,24 @@ start_date=day+"-"+month_value+"-"+year;
 startDateValue.setText(start_date);
 }
 }
+	 public static long differenceIndays(String startDate,String endDate)
+	    {
+		// String toDateAsString = "05/11/2010";
+		 Date start_date = null;
+		 Date end_date = null;
+		try {
+			start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+			end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 long starDateAsTimestamp = start_date.getTime();
+		 long endDateTimestamp = end_date.getTime();
+		 long diff = endDateTimestamp - starDateAsTimestamp;
+		  
+		  long diffDays = diff / (24 * 60 * 60 * 1000);
+		  return diffDays;
+	    }
+	
 }

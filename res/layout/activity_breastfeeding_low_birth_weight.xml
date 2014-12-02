@@ -45,58 +45,58 @@
             android:padding="15dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 The best milk for a low birth weight infant, including babies born early, is the breast milk from the baby’s own mother"
+                android:text="The best milk for a low birth weight infant, including babies born early, is the breast milk from the baby’s own mother"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 The cross cradle and underarm positions are good positions for feeding a low birth weight baby"
+                android:text="The cross cradle and underarm positions are good positions for feeding a low birth weight baby"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Breastfeed often to get baby used to the breast and to keep the milk flowing "
+                android:text="Breastfeed often to get baby used to the breast and to keep the milk flowing "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Long, slow feeds are fine.  It is important to keep the baby at the breast "
+                android:text="Long, slow feeds are fine.  It is important to keep the baby at the breast "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 If the baby sleep for long periods of time, you may need to unwrap the baby or take off some of his or her clothes to help waken him or her for the feed"
+                android:text="If the baby sleep for long periods of time, you may need to unwrap the baby or take off some of his or her clothes to help waken him or her for the feed"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Breastfeed the baby before he or she starts to cry"
+                android:text="Breastfeed the baby before he or she starts to cry"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <LinearLayout
@@ -104,41 +104,41 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
-                    android:text="\u2022 Earlier signs of hunger include a COMBINATION of the following:"
+                    android:text="Earlier signs of hunger include a COMBINATION of the following:"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="\u2022 Being alert and restless "
+                    android:text="Being alert and restless "
                     android:layout_marginLeft="40dp"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="\u2022 Opening mouth and turning head"
+                    android:text="Opening mouth and turning head"
                     android:layout_marginLeft="40dp"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
-                 <TextView
+                 <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="\u2022 Putting tongue in and out"
+                    android:text="Putting tongue in and out"
                     android:layout_marginLeft="40dp"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
-                    <TextView
+                    <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="\u2022 Sucking on hand or fist "
+                    android:text="Sucking on hand or fist "
                     android:layout_marginLeft="40dp"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 

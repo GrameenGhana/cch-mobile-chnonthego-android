@@ -25,10 +25,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="304dp"
         android:background="@color/White"
         android:orientation="vertical"
-        android:padding="30dp" >
+        android:padding="20dp" >
 
         <ListView
             android:id="@+id/listView_noInjuries"
@@ -36,9 +36,27 @@
             android:layout_height="wrap_content"
             android:background="@color/BackgroundGrey"
             android:divider="@color/White"
-            android:dividerHeight="5dp" >
+            android:dividerHeight="5dp"
+            android:fadeScrollbars="false" >
 
         </ListView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/button_no"
+            android:layout_width="222dp"
+            android:layout_height="wrap_content"
+            android:background="@color/Green"
+            android:text="No birth abnormalities"
+            android:textColor="@color/White"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

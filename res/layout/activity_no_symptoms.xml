@@ -36,20 +36,22 @@
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <TextView
-                android:id="@+id/textView2"
+            <org.grameenfoundation.cch.utils.TextViewUtils
+                android:id="@+id/textView_clickHere"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 Advise mother to give home care for the baby "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:text="Advise mother to give home care for the baby "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/WhileWaitingForTransport" />
 
-            <TextView
-                android:id="@+id/textView3"
+            <org.grameenfoundation.cch.utils.TextViewUtils
+                android:id="@+id/textView_clickHereToo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="\u2022 Now examine baby for jaundice "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:text="Now examine baby for jaundice "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/WhileWaitingForTransport" />
 
         </LinearLayout>
 

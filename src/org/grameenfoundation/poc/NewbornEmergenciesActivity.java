@@ -9,10 +9,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,6 +25,7 @@ public class NewbornEmergenciesActivity extends BaseActivity {
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;
+	private Button button_no;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -36,9 +39,19 @@ public class NewbornEmergenciesActivity extends BaseActivity {
 	    getActionBar().setSubtitle("PNC Diagnostic: Newborn Emergencies");
 	    mContext=NewbornEmergenciesActivity.this;
 	    listView_newbornEmergency=(ListView) findViewById(R.id.listView_newbornEmergency);
-	    String[] items={"Not breathing or gasping Difficulty breathing: chest in-drawing, grunting",
+	    String[] items={"Not breathing or gasping ","Difficulty breathing: chest in-drawing, grunting",
 	    				"Cyanosis (blue skin) or pallor","Convulsion or abnormal movements"};
 	    NewbornEmergencyListAdapter adapter=new NewbornEmergencyListAdapter(mContext,items);
+	    button_no=(Button) findViewById(R.id.button_no);
+	    button_no.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(mContext,RecordsAskActivity.class);
+				startActivity(intent);
+			}
+	    	
+	    });
 	    listView_newbornEmergency.setAdapter(adapter);
 	    listView_newbornEmergency.setOnItemClickListener(new OnItemClickListener(){
 
@@ -54,10 +67,15 @@ public class NewbornEmergenciesActivity extends BaseActivity {
 					break;
 				case 1:
 					intent=new Intent(mContext,TakeActionNewbornEmergency.class);
-					intent.putExtra("take_action", "cyanosis");
+					intent.putExtra("take_action", "difficulty");
 					startActivity(intent);
 					break;
 				case 2:
+					intent=new Intent(mContext,TakeActionNewbornEmergency.class);
+					intent.putExtra("take_action", "cyanosis");
+					startActivity(intent);
+					break;
+				case 3:
 					intent=new Intent(mContext,TakeActionNewbornEmergency.class);
 					intent.putExtra("take_action", "convulsion");
 					startActivity(intent);

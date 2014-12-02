@@ -24,7 +24,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="292dp"
+        android:layout_height="300dp"
         android:background="@color/White"
         android:orientation="vertical"
         android:padding="20dp" >
@@ -35,7 +35,8 @@
             android:layout_height="wrap_content"
             android:background="@color/BackgroundGrey"
             android:divider="@color/White"
-            android:dividerHeight="5dp" >
+            android:dividerHeight="5dp"
+            android:fadeScrollbars="false" >
         </ExpandableListView>
     </LinearLayout>
 
@@ -47,10 +48,13 @@
 
         <Button
             android:id="@+id/button_no"
-            android:layout_width="174dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No"
-            android:textColor="@color/TextBrown" />
+            android:background="@color/Green"
+            android:padding="10dp"
+            android:text="No diarrhoea or dehydration"
+            android:textColor="@color/White"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

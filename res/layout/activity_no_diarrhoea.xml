@@ -33,14 +33,15 @@
                 android:layout_height="20dp"
                 android:src="@drawable/ic_bullet" />
 
-            <TextView
-                android:id="@+id/textView2"
+            <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
+                android:id="@+id/textView_clickHere"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
                 android:text="Advise mother to give home care for the young infant "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/WhileWaitingForTransport" />
 
         </LinearLayout>
 		<LinearLayout
@@ -53,13 +54,15 @@
                 android:layout_height="20dp"
                 android:src="@drawable/ic_bullet" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
+                android:id="@+id/textView_clickHereToo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
                 android:text="Now assess baby and mother for HIV infection "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/WhileWaitingForTransport" />
 
         </LinearLayout>
     </LinearLayout>

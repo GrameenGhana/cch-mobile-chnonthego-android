@@ -52,76 +52,76 @@
             android:padding="10dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Exclusive breastfeeding means feeding your baby ONLY breast milk for the 6 months "
+                android:text="Exclusive breastfeeding means feeding your baby ONLY breast milk for the 6 months "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Breast milk provides all the food and water your baby needs during the first 6 months "
+                android:text="Breast milk provides all the food and water your baby needs during the first 6 months "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Exclusive breastfeeding protects your baby from many illnesses, such as diarrhoea and respiratory diseases "
+                android:text="Exclusive breastfeeding protects your baby from many illnesses, such as diarrhoea and respiratory diseases "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 When you exclusively breastfeed your baby during the first 6 months and have no menses, you are protected from getting pregnant again "
+                android:text="When you exclusively breastfeed your baby during the first 6 months and have no menses, you are protected from getting pregnant again "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Mixed feeding means feeding your baby both breast milk and any other foods or liquids, including infant formula, animal milks, or water"
+                android:text="Mixed feeding means feeding your baby both breast milk and any other foods or liquids, including infant formula, animal milks, or water"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Mixed feeding your baby before 6 months can damage your baby’s stomach"
+                android:text="Mixed feeding your baby before 6 months can damage your baby’s stomach"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Mixed feeding increases the chances that your baby will suffer from diarrhoea, pneumonia, and from malnutrition "
+                android:text="Mixed feeding increases the chances that your baby will suffer from diarrhoea, pneumonia, and from malnutrition "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Mixed feeding reduces protection that exclusive breastfeeding gives, and all of the benefits that your baby gets from your breast milk  "
+                android:text="Mixed feeding reduces protection that exclusive breastfeeding gives, and all of the benefits that your baby gets from your breast milk  "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>

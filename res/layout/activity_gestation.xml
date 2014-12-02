@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/White"
     android:orientation="vertical"
-    android:padding="40dp" >
+    android:padding="20dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +37,8 @@
             android:layout_height="wrap_content"
             android:background="@color/BackgroundGrey"
             android:divider="@color/White"
-            android:dividerHeight="10dp" >
+            android:dividerHeight="10dp" 
+            android:fadeScrollbars="false">
 
         </ListView>
 

@@ -54,6 +54,20 @@
             android:minHeight="20dip"
             android:progress="0" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right" >
+
+            <TextView
+                android:id="@+id/textView_dayDifference"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/Green" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <TableLayout

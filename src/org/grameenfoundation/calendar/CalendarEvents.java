@@ -135,12 +135,15 @@ public class CalendarEvents {
 		// The new title for the event
 		values.put(Events.TITLE,evt); 
 		values.put(Events.DESCRIPTION,desc); 
-		values.put(Events.EVENT_LOCATION,desc); 
+		values.put(Events.EVENT_LOCATION,location); 
 		updateUri = ContentUris.withAppendedId(Events.CONTENT_URI, event_id);
 		int rows =  mContext.getContentResolver().update(updateUri, values, null, null);
 		Log.i("Calendar edit", "Rows updated: " + rows);  
-		
+		if(rows==1){
 		return true;
+		}else {
+			return false;
+		}
     }
 	
 	public boolean deleteEvent(long event_id)
@@ -151,7 +154,11 @@ public class CalendarEvents {
 		deleteUri = ContentUris.withAppendedId(Events.CONTENT_URI, event_id);
 		int rows = mContext.getContentResolver().delete(deleteUri, null, null);
 		Log.i("Calendar delete", "Rows deleted: " + rows);  
-		return true;
+		if(rows==1){
+			return true;
+			}else {
+				return false;
+			}
     }
 	public class MyEvent
     {

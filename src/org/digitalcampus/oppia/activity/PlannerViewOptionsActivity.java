@@ -5,6 +5,7 @@ import java.util.Calendar;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.mobile.learningGF.R.color;
 import org.grameenfoundation.adapters.PlannerBaseAdapter;
+import org.grameenfoundation.cch.activity.TargetViewActivity;
 
 import android.app.Activity;
 import android.content.Context;

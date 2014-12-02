@@ -1,61 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ScrollView1"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/White" >
-    
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/White"
-    android:orientation="vertical" >
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_height="match_parent"
+        android:background="@color/White"
+        android:orientation="vertical"
+         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right" >
+            android:orientation="vertical" >
 
-            <Button
-                android:id="@+id/button_show"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right" >
+
+                <Button
+                    android:id="@+id/button_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="28dip"
+                    android:text="Show pending updates"
+                    android:textColor="@color/Brown" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView_coverageStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minHeight="28dip"
-                android:text="Show pending updates"
-                android:textColor="@color/Brown" />
-
+                android:fontFamily="sans-serif-light"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView_coverageStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="386dp"
-        android:orientation="vertical" >
-
-        <ExpandableListView
-            android:id="@+id/expandableListView1"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/BackgroundGrey"
-            android:dividerHeight="5dp"
-            android:fontFamily="sans-serif-light" >
+            android:layout_height="386dp"
+            android:orientation="vertical" >
 
-        </ExpandableListView>
-
+            <ExpandableListView
+                android:id="@+id/expandableListView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/BackgroundGrey"
+                android:dividerHeight="5dp"
+                android:fontFamily="sans-serif-light" >
+            </ExpandableListView>
+        </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
-</ScrollView>

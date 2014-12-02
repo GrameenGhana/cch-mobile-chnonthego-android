@@ -52,33 +52,36 @@
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <TextView
-                android:id="@+id/textView5"
+            <org.grameenfoundation.cch.utils.TextViewUtils
+                android:id="@+id/textView_clickHere"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 Teach mother correct positioning and attachment"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:text="Teach mother correct positioning and attachment"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/WhileWaitingForTransport" />
 
-            <TextView
-                android:id="@+id/textView6"
+            <org.grameenfoundation.cch.utils.TextViewUtils
+                android:id="@+id/textView_clickHereToo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="\u2022 If baby is not able to attach well immediately, teach mother to express breast milk and feed by cup  "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:text="If baby is not able to attach well immediately, teach mother to express breast milk and feed by cup  "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/WhileWaitingForTransport" />
 
-            <TextView
-                android:id="@+id/textView7"
+            <org.grameenfoundation.cch.utils.TextViewUtils
+                android:id="@+id/textView_clickHereThree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="\u2022 Advise mother to give home care for baby "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:text="Advise mother to give home care for baby "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/WhileWaitingForTransport" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="\u2022 Follow up with mother and her baby in 2 days "
+                android:text="Follow up with mother and her baby in 2 days "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>

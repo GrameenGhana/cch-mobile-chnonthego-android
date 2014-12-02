@@ -169,25 +169,24 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		 private TextView textView_routinesNumber;
 		 private TextView textView_routinesClickHere;
 		 private TextView tv8;
-		 
 		 int month;
 		 String month_text;
 		 String due_date;
 		 CalendarEvents c;
-
 		 private SharedPreferences prefs;
-		 
 		 private String name;
 		 private String user_first_name;
-
-		 private ArrayList<String> eventId;
-		 private ArrayList<String> coverageId;
-		 private ArrayList<String> otherId;
-		 private ArrayList<String> learningId;
+			private long eventId;
+			private long coverageId;
+			private long otherId;
+			private long learningId;
 		 private ArrayList<String> firstName;
 		 public ArrayList<String> EventTypeToday;
+		private int numactivities;
+		 public EventsSummary(){
+			 
+		 }
 
-		 public EventsSummary() {}
 		 
 		 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			 	rootView=inflater.inflate(R.layout.events_pager_layout,null,false);
@@ -231,42 +230,20 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 				textView_eventTargetsNumber=(TextView) rootView.findViewById(R.id.textView_eventTargetsNumber);
 				textView_clickHere=(TextView) rootView.findViewById(R.id.textView_clickHere);
 				
-				 eventId=new ArrayList<String>();
-				 eventId=dbh.getAllForEventsId("Daily");
-				 coverageId=new ArrayList<String>();
-				 coverageId=dbh.getAllForCoverageId("Daily");
-				 otherId=new ArrayList<String>();
-				 otherId=dbh.getAllForOtherId("Daily");
-				 learningId=new ArrayList<String>();
-				 learningId=dbh.getAllForLearningId("Daily");
-				 int number=eventId.size();
-				 int number2=coverageId.size();
-				 int number3=otherId.size();
-				 int number4=learningId.size();
+				// eventId=new ArrayList<String>();
+				 eventId=dbh.getEventIdCount("Daily");
+				// coverageId=new ArrayList<String>();
+				 coverageId=dbh.getCoverageIdCount("Daily");
+				// otherId=new ArrayList<String>();
+				 otherId=dbh.getOtherIdCount("Daily");
+				//learningId=new ArrayList<String>();
+				 learningId=dbh.getLearningIdCount("Daily");
+				 int number=(int)eventId;
+				 int number2=(int)coverageId;
+				 int number3=(int)otherId;
+				 int number4=(int)learningId;
 				 final int counter;
-				 final int numactivities;
-				 
-				if(eventId.size()<0){
-					number=0;
-				}else{
-					number=eventId.size();
-				}
-				if(coverageId.size()<0){
-					number2=0;
-				}else {
-					number2=coverageId.size();
-				}
-				if(otherId.size()<0){
-					number3=0;
-				}else{
-					number3=otherId.size();
-				}
 				
-				if(learningId.size()<0){
-					number4=0;
-				}else{
-					number4=learningId.size();
-				}
 				counter=number+number2+number3+number4;
 				//System.out.println(counter);
 				textView_eventTargetsNumber.setText(String.valueOf(counter));
@@ -295,7 +272,6 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 				
 				/* Routine Info */
 				ArrayList<RoutineActivity> todos = dbh.getSWRoutineActivities();
-				numactivities = todos.size();
 		    			    	
 			    textView_routinesNumber = (TextView) rootView.findViewById(R.id.textView_routinesNumber);
 				textView_routinesNumber.setText(String.valueOf(numactivities));

@@ -112,6 +112,19 @@ public class PostnatalCareActivity extends BaseActivity implements AnimationList
 			}
 	    	
 	    });
+	    
+	    linearLayout_quickReads.setOnClickListener(new OnClickListener(){
+
+			private Intent intent;
+
+			@Override
+			public void onClick(View v) {
+				intent=new Intent(mContext,QuickReadsMenuActivity.class);
+				startActivity(intent);
+				
+			}
+	    	
+	    });
 	    /*
 	    listView_postnatal=(ListView) findViewById(R.id.listView_postnatalCare);
 	    String[] items={"Diagnostic Tool","Counselling","Quick Reads"};

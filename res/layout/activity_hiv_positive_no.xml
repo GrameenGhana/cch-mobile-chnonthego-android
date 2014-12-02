@@ -85,14 +85,16 @@
                     android:layout_height="15dp"
                     android:src="@drawable/ic_bullet" />
 
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
+                    android:id="@+id/textView_clickHere"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="0dp"
                     android:text="Counsel client to exclusively breastfeed her baby for 6 months, and explain the harms of mixed feeding"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/WhileWaitingForTransport" />
 
             </LinearLayout>
              <LinearLayout

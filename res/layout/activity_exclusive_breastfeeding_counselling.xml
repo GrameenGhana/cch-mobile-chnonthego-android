@@ -52,76 +52,76 @@
             android:padding="10dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Important to feed baby the first yellowish milk known as colostrum"
+                android:text="Important to feed baby the first yellowish milk known as colostrum"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Colostrum protects babies from many diseases"
+                android:text="Colostrum protects babies from many diseases"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Breast milk provides all the food and water your baby needs during the first 6 months "
+                android:text="Breast milk provides all the food and water your baby needs during the first 6 months "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Do not give anything else, not even water, including bottled water, sachet water, gripe water, and herbal concoctions, such as walga "
+                android:text="Do not give anything else, not even water, including bottled water, sachet water, gripe water, and herbal concoctions, such as walga "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Even during hot weather, breast milk will satisfy baby’s thirst"
+                android:text="Even during hot weather, breast milk will satisfy baby’s thirst"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Giving other liquids will cause your baby to suckle less and will reduce amount of breast milk you produce"
+                android:text="Giving other liquids will cause your baby to suckle less and will reduce amount of breast milk you produce"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Giving water, other liquids and foods in the first 6 months can make your baby sick "
+                android:text="Giving water, other liquids and foods in the first 6 months can make your baby sick "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 You can give medicines that your health provider recommends "
+                android:text="You can give medicines that your health provider recommends "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>

@@ -22,7 +22,7 @@
             android:padding="10dp"
             android:text="Do the following: "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/Blue" />
+            android:textColor="@color/Brown" />
 
     </LinearLayout>
 

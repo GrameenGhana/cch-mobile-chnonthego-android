@@ -50,7 +50,7 @@
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:background="@color/Green"
-            android:text="No"
+            android:text="No Jaundice"
             android:textColor="@color/White"
             android:textStyle="bold" />
     </LinearLayout>

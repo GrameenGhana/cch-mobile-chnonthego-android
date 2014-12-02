@@ -4,7 +4,11 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 public class TakeActionDiarrhoeaActivity extends BaseActivity {
 
@@ -25,10 +29,84 @@ public class TakeActionDiarrhoeaActivity extends BaseActivity {
         }
         if(take_action_category.equals("severe_diarrhoea")){
         	   setContentView(R.layout.activity_persistent_diarrhoea);
+        	   TextView click_here_too=(TextView) findViewById(R.id.textView_clickHereToo);
+    		   click_here_too.setOnClickListener(new OnClickListener(){
+
+    			@Override
+    			public void onClick(View v) {
+    				Intent intent=new Intent(TakeActionDiarrhoeaActivity.this,TreatingDiarrhoeaActivity.class);
+    				startActivity(intent);
+    			}
+    			   
+    		   });
+    		   TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+    		   click_here.setOnClickListener(new OnClickListener(){
+
+    			@Override
+    			public void onClick(View v) {
+    				Intent intent=new Intent(TakeActionDiarrhoeaActivity.this,KeepingBabyWarmAndMalariaActivity.class);
+    				intent.putExtra("value", "keeping_baby_warm");
+    				startActivity(intent);
+    			}
+    			   
+    		   });
         }else if(take_action_category.equals("blood_stool")){
      	   setContentView(R.layout.activity_blood_in_stool);
+     	  TextView click_here_too=(TextView) findViewById(R.id.textView_clickHereToo);
+		   click_here_too.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(TakeActionDiarrhoeaActivity.this,TreatingDiarrhoeaActivity.class);
+				startActivity(intent);
+			}
+			   
+		   });
+		   TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+		   click_here.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(TakeActionDiarrhoeaActivity.this,KeepingBabyWarmAndMalariaActivity.class);
+				intent.putExtra("value", "keeping_baby_warm");
+				startActivity(intent);
+			}
+			   
+		   });
+		   TextView click_here_three=(TextView) findViewById(R.id.textView_clickHereThree);
+		   click_here_three.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(TakeActionDiarrhoeaActivity.this,KeepingBabyWarmAndMalariaActivity.class);
+				intent.putExtra("value", "bloody_diarrhoea");
+				startActivity(intent);
+			}
+			   
+		   });
      }else if(take_action_category.equals("no_diarrhoea")){
    	   setContentView(R.layout.activity_no_diarrhoea);
+   	TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+	   click_here.setOnClickListener(new OnClickListener(){
+
+		@Override
+		public void onClick(View v) {
+			Intent intent=new Intent(TakeActionDiarrhoeaActivity.this,HomeCareForInfantActivity.class);
+			intent.putExtra("value", "keeping_baby_warm");
+			startActivity(intent);
+		}
+		   
+	   });
+	   TextView click_here_too=(TextView) findViewById(R.id.textView_clickHereToo);
+	   click_here_too.setOnClickListener(new OnClickListener(){
+
+		@Override
+		public void onClick(View v) {
+			Intent intent=new Intent(TakeActionDiarrhoeaActivity.this,HIVInfectionActivity.class);
+			startActivity(intent);
+		}
+		   
+	   });
    }
 	}
 	public void onBackPressed()

@@ -274,14 +274,15 @@ public class LearningBaseAdapter extends BaseExpandableListAdapter{
 	public String[] getChild(int groupPosition, int childPosition) {
 		String[] childDetails = null;
 		if(groupPosition==0){
-			childDetails=new String[]{todayCategory.get(childPosition),
-									  todayCourse.get(childPosition),
-									  todayTopic.get(childPosition),
-									  todayEventPeriod.get(childPosition),
-									  todayEventDueDate.get(childPosition),
-									  todayEventStartDate.get(childPosition),
-									  todayEventStatus.get(childPosition),
-									  todayEventId.get(childPosition)};
+			childDetails=new String[]{todayCategory.get(childPosition),//0
+									  todayCourse.get(childPosition),//1
+									  todayTopic.get(childPosition),//2
+									  todayEventPeriod.get(childPosition),//3
+									  todayEventDueDate.get(childPosition),//4
+									  todayEventStartDate.get(childPosition),//5
+									  todayEventStatus.get(childPosition),//6
+									  todayEventId.get(childPosition),//7
+									  todayEventLastUpdated.get(childPosition)};//8
 		}else if(groupPosition==1){
 			childDetails=new String[]{thisWeekCategory.get(childPosition),
 					  thisWeekCourse.get(childPosition),
@@ -290,7 +291,8 @@ public class LearningBaseAdapter extends BaseExpandableListAdapter{
 					  thisWeekEventDueDate.get(childPosition),
 					  thisWeekEventStartDate.get(childPosition),
 					  thisWeekEventStatus.get(childPosition),
-					  thisWeekEventId.get(childPosition)};
+					  thisWeekEventId.get(childPosition),
+					  thisWeekEventLastUpdated.get(childPosition)};
 			/*
 			childDetails=new String[]{tomorrowCategory.get(childPosition),
 									  tomorrowCourse.get(childPosition),
@@ -307,7 +309,8 @@ public class LearningBaseAdapter extends BaseExpandableListAdapter{
 					  thisMonthEventDueDate.get(childPosition),
 					  thisMonthEventStartDate.get(childPosition),
 					  thisMonthEventStatus.get(childPosition),
-					  thisMonthEventId.get(childPosition)};
+					  thisMonthEventId.get(childPosition),
+					  thisMonthEventLastUpdated.get(childPosition)};
 		}else if(groupPosition==3){
 			childDetails=new String[]{thisQuarterCategory.get(childPosition),
 					  thisQuarterCourse.get(childPosition),
@@ -316,7 +319,8 @@ public class LearningBaseAdapter extends BaseExpandableListAdapter{
 					  thisQuarterEventDueDate.get(childPosition),
 					  thisQuarterEventStartDate.get(childPosition),
 					  thisQuarterEventStatus.get(childPosition),
-					  thisQuarterEventId.get(childPosition)};
+					  thisQuarterEventId.get(childPosition),
+					  thisQuarterEventLastUpdated.get(childPosition)};
 		}else if(groupPosition==4){
 			childDetails=new String[]{midYearCategory.get(childPosition),
 					 midYearCourse.get(childPosition),
@@ -325,16 +329,18 @@ public class LearningBaseAdapter extends BaseExpandableListAdapter{
 					 midYearEventDueDate.get(childPosition),
 					 midYearEventStartDate.get(childPosition),
 					 midYearEventStatus.get(childPosition),
-					 midYearEventId.get(childPosition)};
+					 midYearEventId.get(childPosition),
+					 midYearEventLastUpdated.get(childPosition)};
 		}else if(groupPosition==5){
-			childDetails=new String[]{thisYearCategory.get(childPosition),
-					  thisYearCourse.get(childPosition),
-					  thisYearTopic.get(childPosition),
-					  thisYearEventPeriod.get(childPosition),
-					  thisYearEventDueDate.get(childPosition),
-					  thisYearEventStartDate.get(childPosition),
-					  thisYearEventStatus.get(childPosition),
-					  thisYearEventId.get(childPosition)};
+			childDetails=new String[]{thisYearCategory.get(childPosition),//0
+					  thisYearCourse.get(childPosition),//1
+					  thisYearTopic.get(childPosition),//2
+					  thisYearEventPeriod.get(childPosition),//3
+					  thisYearEventDueDate.get(childPosition),//4
+					  thisYearEventStartDate.get(childPosition),//5
+					  thisYearEventStatus.get(childPosition),//6
+					  thisYearEventId.get(childPosition),//7
+					  thisYearEventLastUpdated.get(childPosition)};//8
 		}
 		return childDetails;
 	}

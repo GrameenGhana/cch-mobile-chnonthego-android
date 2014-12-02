@@ -54,44 +54,44 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:layout_marginLeft="20dp"
-                android:text="\u2022 Touch baby’s lips to nipple"
+                android:text="Touch baby’s lips to nipple"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                  android:layout_marginLeft="20dp"
-                android:text="\u2022 Wait until baby’s mouth open wide"
+                android:text="Wait until baby’s mouth open wide"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                  android:layout_marginLeft="20dp"
-                android:text="\u2022 Quickly bring breast from below, aiming nipple up towards the roof of the baby’s mouth"
+                android:text="Quickly bring breast from below, aiming nipple up towards the roof of the baby’s mouth"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                  android:layout_marginLeft="20dp"
-                android:text="\u2022 Baby should now take a big mouthful of breast milk"
+                android:text="Baby should now take a big mouthful of breast milk"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -154,44 +154,44 @@
                     android:orientation="vertical"
                     android:showDividers="middle|end" >
 
-                    <TextView
+                    <org.grameenfoundation.cch.utils.TextViewBullets
                         android:id="@+id/textView10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="5dp"
                         android:paddingTop="5dp"
                         android:layout_marginLeft="20dp"
-                        android:text="\u2022 Baby’s mouth is wide open"
+                        android:text="Baby’s mouth is wide open"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                    <TextView
+                    <org.grameenfoundation.cch.utils.TextViewBullets
                         android:id="@+id/textView11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="5dp"
                         android:paddingTop="5dp"
                         android:layout_marginLeft="20dp"
-                        android:text="\u2022 Mother can see more of the darker skin (areola) above the baby’s mouth than below"
+                        android:text="Mother can see more of the darker skin (areola) above the baby’s mouth than below"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                    <TextView
+                    <org.grameenfoundation.cch.utils.TextViewBullets
                         android:id="@+id/textView12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="5dp"
                         android:paddingTop="5dp"
                         android:layout_marginLeft="20dp"
-                        android:text="\u2022 Baby’s lower lop is turned outwards"
+                        android:text="Baby’s lower lip is turned outwards"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                    <TextView
+                    <org.grameenfoundation.cch.utils.TextViewBullets
                         android:id="@+id/textView13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:paddingBottom="5dp"
                         android:paddingTop="5dp"
-                        android:text="\u2022 Baby’s chin is touching breast "
+                        android:text="Baby’s chin is touching breast "
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 </LinearLayout>
@@ -251,53 +251,53 @@
 
                 </LinearLayout>
 
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView17"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
                       android:layout_marginLeft="20dp"
-                    android:text="\u2022 Baby takes slow, deep suckles, sometimes pausing"
+                    android:text="Baby takes slow, deep suckles, sometimes pausing"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
                       android:layout_marginLeft="20dp"
-                    android:text="\u2022 You may be able to see or hear your baby swallowing after 1 or 2 suckles "
+                    android:text="You may be able to see or hear your baby swallowing after 1 or 2 suckles "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView19"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                      android:layout_marginLeft="20dp"
-                    android:text="\u2022 Suckling is comfortable and pain free for you"
+                    android:text="Suckling is comfortable and pain free for you"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                 <TextView
+                 <org.grameenfoundation.cch.utils.TextViewBullets
                      android:id="@+id/textView20"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                      android:layout_marginLeft="20dp"
                      android:paddingBottom="5dp"
                      android:paddingTop="5dp"
-                     android:text="\u2022 Your baby finishes the feed, releases the breast and looks contented and relaxed "
+                     android:text="Your baby finishes the feed, releases the breast and looks contented and relaxed "
                      android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                 <TextView
+                 <org.grameenfoundation.cch.utils.TextViewBullets
                      android:id="@+id/textView21"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                      android:paddingBottom="5dp"
                      android:paddingTop="5dp"
                       android:layout_marginLeft="20dp"
-                     android:text="\u2022 The breast is softer after the feed "
+                     android:text="The breast is softer after the feed "
                      android:textAppearance="?android:attr/textAppearanceSmall" />
 
             </LinearLayout>
@@ -312,14 +312,28 @@
         android:orientation="vertical"
         android:paddingTop="20dp" >
 
-        <TextView
-            android:id="@+id/textView22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="2dp"
-            android:text="4. After your baby releases one breast offer your baby the other breast. This will make sure that your baby stimulates your milk production in both breasts, and also gets the most nutritious and satisfying milk "
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4."
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="2dp"
+                android:text=" After your baby releases one breast offer your baby the other breast. This will make sure that your baby stimulates your milk production in both breasts, and also gets the most nutritious and satisfying milk "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

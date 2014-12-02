@@ -10,14 +10,43 @@
         android:orientation="vertical"
         android:padding="20dp" >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_not_achieved" />
+
+            <TextView
+                android:id="@+id/textView_learningCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="0dp"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/Green"
+                android:textSize="25sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:padding="10dp" >
+
         <TextView
-            android:id="@+id/textView_learningCategory"
+            android:id="@+id/textView_dayDifference"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/Green"
-            android:textSize="30sp" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/Green" />
 
     </LinearLayout>
 
@@ -40,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:text="Course:   "
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/Brown"
+                android:textColor="@color/TextColorWine"
                 android:textStyle="bold" />
 
             <TextView
@@ -63,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:text="Topic:  "
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/Brown"
+                android:textColor="@color/TextColorWine"
                 android:textStyle="bold" />
 
             <TextView
@@ -86,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:text="Start date:"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/Brown"
+                android:textColor="@color/TextColorWine"
                 android:textStyle="bold" />
 
             <TextView
@@ -109,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:text="Due date:  "
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/Brown"
+                android:textColor="@color/TextColorWine"
                 android:textStyle="bold" />
 
             <TextView
@@ -118,11 +147,26 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <ImageView
-                android:id="@+id/imageView_status"
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp" >
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_not_achieved" />
+                android:text="Remind me:  "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/TextColorWine"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView_period"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </TableRow>
     </TableLayout>

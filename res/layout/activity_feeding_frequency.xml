@@ -13,9 +13,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="20dp" >
+        android:padding="10dp" >
 
         <TextView
             android:id="@+id/textView1"
@@ -42,58 +43,58 @@
             android:padding="10dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Breastfeed your baby on demand, day and night, at least 8 – 12 times everyday "
+                android:text="Breastfeed your baby on demand, day and night, at least 8 – 12 times everyday "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Frequent feeding will help your body to produce breast milk"
+                android:text="Frequent feeding will help your body to produce breast milk"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Continue to feed until baby finishes the breast and comes off on his or her own. Offer the other breast and let baby decide if he or she wants more or not"
+                android:text="Continue to feed until baby finishes the breast and comes off on his or her own. Offer the other breast and let baby decide if he or she wants more or not"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Switching back and forth from one breast to the other prevents the baby from getting the nutritious “hind milk.” The “fore milk” has more water and satisfies the baby’s thirst.  The “hind milk” has more fat and satisfies your baby’s hunger"
+                android:text="Switching back and forth from one breast to the other prevents the baby from getting the nutritious “hind milk.” The “fore milk” has more water and satisfies the baby’s thirst.  The “hind milk” has more fat and satisfies your baby’s hunger"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 If your baby is ill or sleepy, wake him or her to offer breast often"
+                android:text="If your baby is ill or sleepy, wake him or her to offer breast often"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Do NOT use bottles, teats or sprouted cups.  They are difficult to clean and can cause your baby to become sick "
+                android:text="Do NOT use bottles, teats or sprouted cups.  They are difficult to clean and can cause your baby to become sick "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>

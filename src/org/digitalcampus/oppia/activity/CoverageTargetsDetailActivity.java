@@ -1,5 +1,6 @@
 package org.digitalcampus.oppia.activity;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,6 +14,8 @@ import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.adapters.CoverageListAdapter;
 import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.cch.utils.TextProgressBar;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -37,6 +40,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -61,6 +65,7 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 	private String coverage_number;
 	private String coverage_period;
 	private String due_date_extra;
+	private String last_updated;
 	private Button button_edit;
 	private Button button_delete;
 	private Button button_update;
@@ -89,6 +94,9 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 	private int progress_status;
 	static long due_date_to_compare;
 	private static String start_date;
+	private long end_time;
+	private long start_time;
+	private TextView day_difference;
 
 
 	/** Called when the activity is first created. */
@@ -103,6 +111,7 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
         today_month=c.get(Calendar.MONTH)+1;
         today_day=c.get(Calendar.DAY_OF_WEEK);
         today_year=c.get(Calendar.YEAR);
+        start_time=System.currentTimeMillis();
       	//today=day+"-"+month+"-"+year;
 	    textView_name=(TextView) findViewById(R.id.textView_name);
 	    textView_period=(TextView) findViewById(R.id.textView_period);
@@ -112,10 +121,12 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 	    textView_achieved=(TextView) findViewById(R.id.textView_achieved);
 	    textView_percentageAchieved=(TextView) findViewById(R.id.textView_percentageAchieved);
 	    textView_progressCheck=(TextView) findViewById(R.id.textView_progressCheck);
+	    day_difference=(TextView) findViewById(R.id.textView_dayDifference);
 	    progress_bar=(TextProgressBar) findViewById(R.id.progressBar1);
 	    imageView_status=(ImageView) findViewById(R.id.imageView_status);
 	    button_edit=(Button) findViewById(R.id.button_edit);
 	    button_delete=(Button) findViewById(R.id.button_delete);
+	  
 	    button_update=(Button) findViewById(R.id.button_update);
 	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
@@ -127,12 +138,9 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 			achieved=extras.getString("achieved");
 			status=extras.getString("status");
 			coverage_id=extras.getLong("coverage_id");
+			last_updated=extras.getString("last_updated");
         }
-        String[] due_date_extra_split=due_date_extra.split("-");
-        due_date_day=Integer.valueOf(due_date_extra_split[0]);
-        due_date_month=Integer.valueOf(due_date_extra_split[1]);
-        due_date_year=Integer.valueOf(due_date_extra_split[2]);
-        date_difference=due_date_day-today_day;
+       
         int number_achieved_current=Integer.valueOf(achieved);
         int number_entered_current=Integer.valueOf(coverage_number);
         Double percentage=((double)number_achieved_current/number_entered_current)*100;
@@ -142,7 +150,17 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
         progress_bar.setProgress(progress_status);
         progress_bar.setPrefixText(percentage_achieved+"%");
         progress_bar.setPrefixText(" ");
-       // progress_bar.setTextColor(color.TextColorWine);
+    
+        long difference_in_days=differenceIndays(start_date_extra,due_date_extra);
+        if (difference_in_days==1){
+        	day_difference.setTextColor(color.Red);
+        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " day");
+        }else if(difference_in_days==0) {
+        	day_difference.setTextColor(color.Red);
+        	day_difference.setText("Due today!!!!");
+        }else {
+        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " days");
+        }
         textView_name.setText(coverage_name);
         textView_period.setText(coverage_period);
         textView_dueDate.setText(due_date_extra);
@@ -180,8 +198,8 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 				//number_achieved=new ArrayList<String>();
 				//number_remaining=new ArrayList<String>();
 				//update_id=new ArrayList<String>();
-				number_achieved=db.getForUpdateCoverageNumberAchieved(coverage_id,coverage_period);
-				number_remaining=db.getAllForCoverageNumberRemaining(coverage_period);
+				  number_achieved=db.getForUpdateCoverageNumberAchieved(coverage_id,coverage_period);
+					number_remaining=db.getAllForCoverageNumberRemaining(coverage_period);
 					//number_remaining.add(updateItems.get("number_remaining"));
 					//update_id.add(updateItems.get("justification_id"));
 				Intent intent3=new Intent(CoverageTargetsDetailActivity.this,UpdateActivity.class);
@@ -192,6 +210,7 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 				intent3.putExtra("start_date", start_date_extra);
 				intent3.putExtra("due_date", due_date_extra);
 				intent3.putExtra("period", coverage_period);
+				intent3.putExtra("last_updated", last_updated);
 				intent3.putExtra("number_achieved", number_achieved.get(0));//0
 				intent3.putExtra("number_remaining", number_remaining.get(0));//number entered
 				//intent3.putExtra("update_id", update_id.get(0));
@@ -227,6 +246,25 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 							public void onClick(DialogInterface dialog,int id) {
 								// if this button is clicked, just close
 								if(db.deleteCoverageCategory(coverage_id)==true){
+									  number_achieved=db.getForUpdateCoverageNumberAchieved(coverage_id,coverage_period);
+										number_remaining=db.getAllForCoverageNumberRemaining(coverage_period);
+									JSONObject json = new JSONObject();
+									 try {
+										json.put("id", coverage_id);
+										json.put("category", "coverage");
+										json.put("target_type", coverage_name);
+										 json.put("target_number", coverage_number);
+										 json.put("start_date", start_date_extra);
+										 json.put("due_date", due_date_extra);
+										 json.put("achieved_number", achieved);
+										 json.put("last_updated", last_updated);
+										json.put("deleted", 1);
+										json.put("changed", 0);
+									} catch (JSONException e) {
+										e.printStackTrace();
+									}
+									 end_time=System.currentTimeMillis();
+									 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
 					        		Intent intent2 = new Intent(Intent.ACTION_MAIN);
 						 	          intent2.setClass(CoverageTargetsDetailActivity.this, NewEventPlannerActivity.class);
 						 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -250,6 +288,8 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
         });
         button_edit.setOnClickListener(new OnClickListener(){
 
+			private RadioButton category_people;
+
 			@Override
 			public void onClick(View v) {
 				final Dialog dialog = new Dialog(CoverageTargetsDetailActivity.this);
@@ -259,18 +299,55 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 				dialog.setTitle("Edit Coverage Target");
 				 category_options=(RadioGroup) dialog.findViewById(R.id.radioGroup_category);
 				  category_options.check(R.id.radio_people);
-				  items3=new String[]{"0 - 11 months","12 - 23 months",
-							"24 -59 months","Women in fertile age",
-							"Expected pregnancy"};
-					ArrayAdapter<String> adapter3=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
+				  category_people=(RadioButton) dialog.findViewById(R.id.radio_people);
+				  category_people.setChecked(true);
+				  items3=new String[]{"Family Planning","Age Groups","School Health"};
+				  spinner_coverageName.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+						@Override
+						public void onItemSelected(
+								AdapterView<?> parent, View view,
+								int position, long id) {
+						switch(position){
+						case 0:
+							String[] detail_items1={"New Acceptors","Continuing Acceptors"};
+							ArrayAdapter<String> details_adapter=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items1);
+							spinner_coverageDetails.setAdapter(details_adapter);
+							coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
+							break;
+						case 1:
+							String[] detail_items2={"0 to 11 months","12 to 23 months","24 to 59 months"};
+							ArrayAdapter<String> details_adapter2=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items2);
+							spinner_coverageDetails.setAdapter(details_adapter2);
+							coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
+							break;
+						case 2:
+							String[] detail_items3={"# of schools visited","# of schools with 3+ health talks","# examined ­ Pre­school","# examined - P1" ,"# examined - P3", "# examined - JHS 1"};
+							ArrayAdapter<String> details_adapter3=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items3);
+							spinner_coverageDetails.setAdapter(details_adapter3);
+							coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
+							break;
+						}
+							
+						}
+
+						@Override
+						public void onNothingSelected(
+								AdapterView<?> parent) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+					});
+					ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, items3);
 					spinner_coverageName.setAdapter(adapter3);
-					category_options.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+				    category_options.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 						public void onCheckedChanged(
 								RadioGroup buttonView,
 								int isChecked) {
 							if (isChecked == R.id.radio_people) {
 								items3=new String[]{"Family Planning","Age Groups","School Health"};
-								ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, items3);
+								ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, items3);
 								spinner_coverageName.setAdapter(adapter3);
 								spinner_coverageName.setOnItemSelectedListener(new OnItemSelectedListener(){
 
@@ -281,19 +358,19 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 									switch(position){
 									case 0:
 										String[] detail_items1={"New Acceptors","Continuing Acceptors"};
-										ArrayAdapter<String> details_adapter=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, detail_items1);
+										ArrayAdapter<String> details_adapter=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items1);
 										spinner_coverageDetails.setAdapter(details_adapter);
 										coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 										break;
 									case 1:
 										String[] detail_items2={"0 to 11 months","12 to 23 months","24 to 59 months"};
-										ArrayAdapter<String> details_adapter2=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, detail_items2);
+										ArrayAdapter<String> details_adapter2=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items2);
 										spinner_coverageDetails.setAdapter(details_adapter2);
 										coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 										break;
 									case 2:
 										String[] detail_items3={"Number of schools visited","Number of schools with 3+ health talks","Number examined ­ Pre­school, P1, P3, JHS 1"};
-										ArrayAdapter<String> details_adapter3=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, detail_items3);
+										ArrayAdapter<String> details_adapter3=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items3);
 										spinner_coverageDetails.setAdapter(details_adapter3);
 										coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 										break;
@@ -312,7 +389,7 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 								items3=new String[]{"BCG"," Penta",
 										"OPV","ROTA",
 										"PCV","Measles Rubella","Vitamin A","TT pregnant","TT non-pregnant","Yellow Fever"};
-								ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, items3);
+								ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, items3);
 								spinner_coverageName.setAdapter(adapter4);
 								spinner_coverageName.setOnItemSelectedListener(new OnItemSelectedListener(){
 
@@ -323,61 +400,61 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 										switch(position){
 										case 0:
 											String[] detail_items1={"BCG"};
-											ArrayAdapter<String> details_adapter=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, detail_items1);
+											ArrayAdapter<String> details_adapter=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items1);
 											spinner_coverageDetails.setAdapter(details_adapter);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 1:
 											String[] detail_items2={"Penta 1","Penta 2","Penta 3"};
-											ArrayAdapter<String> details_adapter2=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, detail_items2);
+											ArrayAdapter<String> details_adapter2=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items2);
 											spinner_coverageDetails.setAdapter(details_adapter2);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 2:
 											String[] detail_items3={"OPV 1","OPV 2","OPV 3"};
-											ArrayAdapter<String> details_adapter3=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, detail_items3);
+											ArrayAdapter<String> details_adapter3=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items3);
 											spinner_coverageDetails.setAdapter(details_adapter3);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 3:
 											String[] detail_items4={"ROTA 1","ROTA 2"};
-											ArrayAdapter<String> details_adapter4=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, detail_items4);
+											ArrayAdapter<String> details_adapter4=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items4);
 											spinner_coverageDetails.setAdapter(details_adapter4);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 4:
 											String[] detail_itemsPCV={"PCV 1","PCV 2","PCV 3"};
-											ArrayAdapter<String> details_adapterPCV=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, detail_itemsPCV);
+											ArrayAdapter<String> details_adapterPCV=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_itemsPCV);
 											spinner_coverageDetails.setAdapter(details_adapterPCV);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 5:
 											String[] detail_items5={"Measles Rubella @9mnths","Measles 2"};
-											ArrayAdapter<String> details_adapter5=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, detail_items5);
+											ArrayAdapter<String> details_adapter5=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items5);
 											spinner_coverageDetails.setAdapter(details_adapter5);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 6:
 											String[] detail_items6={"100,000 IU","200,000 IU","Postpartum"};
-											ArrayAdapter<String> details_adapter6=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, detail_items6);
+											ArrayAdapter<String> details_adapter6=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items6);
 											spinner_coverageDetails.setAdapter(details_adapter6);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 7:
 											String[] detail_items7={"TT 1","TT 2","TT 3","TT 4","TT 5"};
-											ArrayAdapter<String> details_adapter7=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, detail_items7);
+											ArrayAdapter<String> details_adapter7=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items7);
 											spinner_coverageDetails.setAdapter(details_adapter7);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 8:
 											String[] detail_items8={"TT 1","TT 2","TT 3","TT 4","TT 5"};
-											ArrayAdapter<String> details_adapter8=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, detail_items8);
+											ArrayAdapter<String> details_adapter8=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items8);
 											spinner_coverageDetails.setAdapter(details_adapter8);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 9:
 											String[] detail_items9={"Yellow Fever"};
-											ArrayAdapter<String> details_adapter9=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, detail_items9);
+											ArrayAdapter<String> details_adapter9=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items9);
 											spinner_coverageDetails.setAdapter(details_adapter9);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
@@ -464,6 +541,25 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 						String coverage_number=editText_coverageNumber.getText().toString();
 						coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 					    if(db.editCoverage(coverage_name, coverage_detail,coverage_number, coverage_period,duration,start_date,due_date, coverage_id) ==true){
+					    	  number_achieved=db.getForUpdateCoverageNumberAchieved(coverage_id,coverage_period);
+					  		number_remaining=db.getAllForCoverageNumberRemaining(coverage_period);
+					    	JSONObject json = new JSONObject();
+							 try {
+								json.put("id", coverage_id);
+								json.put("category", "coverage");
+								json.put("target_type", coverage_name);
+								 json.put("target_number", coverage_number);
+								 json.put("start_date", start_date_extra);
+								 json.put("due_date", due_date_extra);
+								 json.put("achieved_number", achieved);
+								 json.put("last_updated", last_updated);
+								 json.put("changed", 1);
+								 json.put("deleted", 0);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+							 end_time=System.currentTimeMillis();
+							 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
 					    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
 				 	          intent2.setClass(CoverageTargetsDetailActivity.this, NewEventPlannerActivity.class);
 				 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -617,5 +713,23 @@ start_date=day+"-"+month_value+"-"+year;
 startDateValue.setText(start_date);
 }
 }
-	 
+	 public static long differenceIndays(String startDate,String endDate)
+	    {
+		// String toDateAsString = "05/11/2010";
+		 Date start_date = null;
+		 Date end_date = null;
+		try {
+			start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+			end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 long starDateAsTimestamp = start_date.getTime();
+		 long endDateTimestamp = end_date.getTime();
+		 long diff = endDateTimestamp - starDateAsTimestamp;
+		  
+		  long diffDays = diff / (24 * 60 * 60 * 1000);
+		  return diffDays;
+	    }
 }

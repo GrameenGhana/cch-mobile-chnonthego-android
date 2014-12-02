@@ -26,7 +26,7 @@
         android:layout_height="300dp"
         android:background="@color/White"
         android:orientation="vertical"
-        android:padding="30dp" >
+        android:padding="20dp" >
 
         <ListView
             android:id="@+id/listView_askHer"
@@ -34,13 +34,15 @@
             android:layout_height="wrap_content"
             android:background="@color/BackgroundGrey"
             android:divider="@color/White"
-            android:dividerHeight="5dp" >
+            android:dividerHeight="5dp" 
+            android:fadeScrollbars="false">
         </ListView>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/White"
         android:gravity="center"
         android:orientation="vertical" >
 

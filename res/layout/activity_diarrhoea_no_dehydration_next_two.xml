@@ -327,11 +327,14 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textStyle="bold" />
 
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
+                     android:id="@+id/textView_clickHere"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="When to return to the health facility "
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/WhileWaitingForTransport" />
+
             </LinearLayout>
     </LinearLayout>
 

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -33,6 +34,29 @@ public class TakeActionSomeDehydrationNoActivity extends BaseActivity {
 		}
 		if (take_action_category.equals("yes")) {
 			setContentView(R.layout.activity_some_dehydration_yes);
+			TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+			   click_here.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					Intent intent=new Intent(TakeActionSomeDehydrationNoActivity.this,KeepingBabyWarmAndMalariaActivity.class);
+					intent.putExtra("value", "keeping_baby_warm");
+					startActivity(intent);
+				}
+				   
+			   });
+			   
+			   TextView click_here_too=(TextView) findViewById(R.id.textView_clickHereToo);
+			   click_here_too.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					Intent intent=new Intent(TakeActionSomeDehydrationNoActivity.this,TreatingDiarrhoeaActivity.class);
+					intent.putExtra("value", "keeping_baby_warm");
+					startActivity(intent);
+				}
+				   
+			   });
 		} else if (take_action_category.equals("no")) {
 			setContentView(R.layout.activity_some_dehydration_no);
 			listView_someDehydrationNo = (ListView) findViewById(R.id.listView_someDehydrationNo);

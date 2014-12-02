@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class TakeActionDiarrhoeaNoDehydrationActivity extends BaseActivity {
 
@@ -26,6 +27,16 @@ public class TakeActionDiarrhoeaNoDehydrationActivity extends BaseActivity {
 	    dbh=new DbHelper(TakeActionDiarrhoeaNoDehydrationActivity.this);
 	    start_time=System.currentTimeMillis();
 	    button_next=(Button) findViewById(R.id.button_next);
+	    TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+		   click_here.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(TakeActionDiarrhoeaNoDehydrationActivity.this,ReturningForCareActivity.class);
+				startActivity(intent);
+			}
+			   
+		   });
 	    button_next.setOnClickListener(new OnClickListener(){
 
 			@Override

@@ -94,26 +94,26 @@
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 Oral quinine: 600 mg 8 hourly for 7 days "
+                android:text="Oral quinine: 600 mg 8 hourly for 7 days "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="\u2022 OR oral quinine according to body weight [link to malaria dosage calculator] for 3 days + 300 mg of clindamycin 3 times daily for 3 days  "
+                android:text="OR oral quinine according to body weight [link to malaria dosage calculator] for 3 days + 300 mg of clindamycin 3 times daily for 3 days  "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="\u2022 Paracetamol 1000 mg (2 tablets) maybe given every 4-6 hr until fever returns to normal "
+                android:text="Paracetamol 1000 mg (2 tablets) maybe given every 4-6 hr until fever returns to normal "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -144,34 +144,34 @@
             android:paddingBottom="20dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="\u2022 Importance of taking malaria medicines for treatment "
+                android:text="Importance of taking malaria medicines for treatment "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="\u2022 Sleeping under an ITN every night "
+                android:text="Sleeping under an ITN every night "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="\u2022 Importance of taking SP to prevent future episodes of malaria "
+                android:text="Importance of taking SP to prevent future episodes of malaria "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="\u2022 Eating foods rich in iron, folate and vitamin C "
+                android:text="Eating foods rich in iron, folate and vitamin C "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>

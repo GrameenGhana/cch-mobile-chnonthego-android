@@ -9,6 +9,8 @@ import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.calendar.CalendarEvents.MyEvent;
 import org.grameenfoundation.poc.BaseActivity;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -66,6 +68,7 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 	private Button button_delete;
 	private ArrayAdapter<String> adapter;
 	private ArrayAdapter<String> adapter2;
+	private Long end_time;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -136,18 +139,58 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 
 				@Override
 				public void onClick(View v) {
-				c.editEvent(Long.parseLong(event_id), event_type, event_location, event_desc);		
-							
+				String edited_event_type=spinner_eventName.getSelectedItem().toString();
+				String edited_event_location=editText_event_location.getText().toString();
+				String edited_event_description=editText_eventDescription.getText().toString();
+				if(c.editEvent(Long.parseLong(event_id), edited_event_type, edited_event_location, edited_event_description)==true){		
+				JSONObject json = new JSONObject();
+				 try {
+					json.put("id", event_id);
+					 json.put("event_type", edited_event_type);
+					 json.put("event_location", edited_event_location);
+					 json.put("event_desc", edited_event_description);
+					 json.put("changed", 1);
+					 json.put("deleted", 0);
+					 
+				} catch (JSONException e) {
+					e.printStackTrace();
 				}
-	    		
+				 end_time=System.currentTimeMillis();
+				 dbh.insertCCHLog("Target Setting", json.toString(), String.valueOf(startTime), String.valueOf(end_time));
+				 Intent intent=new Intent(mContext, EventsViewActivity.class);
+				 startActivity(intent);
+				 finish();
+				 Toast.makeText(mContext, "Event edited successfully!",
+				         Toast.LENGTH_LONG).show();
+				}
+				}
 	    	});
 	    	button_delete.setOnClickListener(new OnClickListener(){
 
 				@Override
 				public void onClick(View v) {
-				c.deleteEvent(Long.parseLong(event_id));
+				if(c.deleteEvent(Long.parseLong(event_id))==true){
+				JSONObject json = new JSONObject();
+				 try {
+					json.put("id", event_id);
+					 json.put("event_type", event_type);
+					 json.put("event_location", event_location);
+					 json.put("event_desc", event_desc);
+					 json.put("changed", 0);
+					 json.put("deleted", 1);
+					 
+				} catch (JSONException e) {
+					e.printStackTrace();
 				}
-	    		
+				 end_time=System.currentTimeMillis();
+				 dbh.insertCCHLog("Target Setting", json.toString(), String.valueOf(startTime), String.valueOf(end_time));
+				 Intent intent=new Intent(mContext, EventsViewActivity.class);
+				 startActivity(intent);
+				 finish();
+				 Toast.makeText(mContext, "Event deleted successfully!",
+				         Toast.LENGTH_LONG).show();
+				}
+				}
 	    	});
 	    	
 	    }
@@ -288,6 +331,10 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    if (requestCode == 1) {
+	    	Intent intent=new Intent(PlanEventActivity.this,EventPlannerOptionsActivity.class);
+	    	startActivity(intent);
+	    	finish();
+	    	/*
 	    	AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 					PlanEventActivity.this);
 	 
@@ -322,6 +369,7 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 	 
 					// show it
 					alertDialog.show();
+					*/
 	    }
 	}
 	@Override

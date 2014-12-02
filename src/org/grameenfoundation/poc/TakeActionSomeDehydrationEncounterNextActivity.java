@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -37,8 +38,40 @@ public class TakeActionSomeDehydrationEncounterNextActivity extends BaseActivity
         }
         if(take_action_category.equals("chps_one_next")){
 	    setContentView(R.layout.activity_chps_one_next);
+	    
+		   TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+		   click_here.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(TakeActionSomeDehydrationEncounterNextActivity.this,ReturningForCareActivity.class);
+				startActivity(intent);
+			}
+			   
+		   });
         }else if(take_action_category.equals("chps_two_next")){
         setContentView(R.layout.activity_chps_two_next);
+        TextView click_here_too=(TextView) findViewById(R.id.textView_clickHereToo);
+		   click_here_too.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(TakeActionSomeDehydrationEncounterNextActivity.this,BreastProblemsCounsellingActivity.class);
+				intent.putExtra("value", "keeping_baby_warm");
+				startActivity(intent);
+			}
+			   
+		   });
+		   TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+		   click_here.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(TakeActionSomeDehydrationEncounterNextActivity.this,ReturningForCareActivity.class);
+				startActivity(intent);
+			}
+			   
+		   });
         }
 	}
 	public void onBackPressed()

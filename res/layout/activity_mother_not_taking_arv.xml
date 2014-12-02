@@ -43,68 +43,68 @@
         android:padding="10dp"
         android:showDividers="middle" >
 
-        <TextView
+        <org.grameenfoundation.cch.utils.TextViewBullets
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="\u2022 Exclusively breastfeeding (giving only breast milk) for the first 6 months will greatly help reduce chances of HIV passing from yourself to your baby"
+            android:text="Exclusively breastfeeding (giving only breast milk) for the first 6 months will greatly help reduce chances of HIV passing from yourself to your baby"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-          <TextView
+          <org.grameenfoundation.cch.utils.TextViewBullets
               android:id="@+id/textView3"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:padding="5dp"
-              android:text="\u2022 By only giving breast milk, your baby also receives all the benefits of breastfeeding including protection from diarrhoea and other illnesses  "
+              android:text="By only giving breast milk, your baby also receives all the benefits of breastfeeding including protection from diarrhoea and other illnesses  "
               android:textAppearance="?android:attr/textAppearanceSmall" />
           
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="\u2022 It is very important to avoid mixed feeding. Mixed feeding means feeding your baby both breast milk and any other foods or liquids, including infant formula, animal milks, or water "
+                android:text="It is very important to avoid mixed feeding. Mixed feeding means feeding your baby both breast milk and any other foods or liquids, including infant formula, animal milks, or water "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
             
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="\u2022 Mixed feeding before 6 months greatly increases the chances that you can pass HIV to your baby  "
+                android:text="Mixed feeding before 6 months greatly increases the chances that you can pass HIV to your baby  "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
               
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="\u2022 Mixed feeding can cause damage to your baby’s stomach.  This makes it easier for HIV and diseases to pass into the baby  "
+                android:text="Mixed feeding can cause damage to your baby’s stomach.  This makes it easier for HIV and diseases to pass into the baby  "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
             
-              <TextView
+              <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="\u2022 Mixed feeding also increases the chance of the baby drying from other illnesses such as diarrhoea and pneumonia because baby is not fully protected through breast milk and the water and other milks can be contaminated   "
+                android:text="Mixed feeding also increases the chance of the baby drying from other illnesses such as diarrhoea and pneumonia because baby is not fully protected through breast milk and the water and other milks can be contaminated   "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
               
-              <TextView
+              <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="\u2022 If you develop any breast problems, go to the health facility immediately.  You could express breast milk and heat it if you need to feed the baby while you are recovering "
+                android:text="If you develop any breast problems, go to the health facility immediately.  You could express breast milk and heat it if you need to feed the baby while you are recovering "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
               
-               <TextView
+               <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="\u2022 Take your baby to ART centre to be tested for HIV when he/she is 6 weeks old  "
+                android:text="Take your baby to ART centre to be tested for HIV when he/she is 6 weeks old  "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>

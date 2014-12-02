@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp" >
+        android:padding="10dp" >
 
         <TextView
             android:id="@+id/textView1"
@@ -33,22 +33,22 @@
             android:padding="10dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Encourage mother and build her confidence by reviewing how to attach and position the baby to her breast "
+                android:text="Encourage mother and build her confidence by reviewing how to attach and position the baby to her breast "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Reassure her that her baby is getting enough milk when her baby is: "
+                android:text="Reassure her that her baby is getting enough milk when her baby is: "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <LinearLayout
@@ -56,44 +56,44 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
-                    android:text="\u2022 Not visibly thin (or is getting fatter/putting on weight if he or she was thin earlier) "
+                    android:text="Not visibly thin (or is getting fatter/putting on weight if he or she was thin earlier) "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
-                    android:text="\u2022 Responsive and active "
+                    android:text="Responsive and active "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
-                    android:text="\u2022 Gaining weight (refer to the baby’s health card).  IF you are not sure weight gain is appropriate, then refer mother and child to nearest health facility"
+                    android:text="Gaining weight (refer to the baby’s health card).  IF you are not sure weight gain is appropriate, then refer mother and child to nearest health facility"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <TextView
+                <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
-                    android:text="\u2022 When baby passes light-coloured urine at least 6 times a day while being exclusively breastfed "
+                    android:text="When baby passes light-coloured urine at least 6 times a day while being exclusively breastfed "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
             </LinearLayout>

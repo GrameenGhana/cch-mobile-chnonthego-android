@@ -179,6 +179,7 @@
         <receiver android:name="org.digitalcampus.oppia.service.UpdateStartServiceReceiver"></receiver>
         <service android:name="org.digitalcampus.oppia.service.UpdateMonthlyTargetService"></service>
         <activity android:name="org.digitalcampus.oppia.activity.AchievementCenterActivity"></activity>
+        
         <activity android:name="org.grameenfoundation.poc.AcuteEmergenciesActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.TakeActionActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.AskBleedingActivity"></activity>
@@ -324,6 +325,9 @@
         <receiver android:name="org.digitalcampus.oppia.service.UpdateStartWeeklyServiceReceiver"></receiver>
         <receiver android:name="org.digitalcampus.oppia.service.UpdateTargetsWeeklyScheduleReceiver"></receiver>
         <activity android:name="org.digitalcampus.oppia.activity.TargetSettingActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.QuickReadsMenuActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.SevereDiseasesNextTwoActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.TargetViewActivity"></activity>
     </application>
 
 </manifest>

@@ -4,7 +4,12 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 public class TakeActionNoInjuriesActivity extends BaseActivity {
 
@@ -28,9 +33,46 @@ public class TakeActionNoInjuriesActivity extends BaseActivity {
 	    setContentView(R.layout.activity_club_foot);
         }else if(take_action_category.equals("cleft palate")){
         setContentView(R.layout.activity_cleft_palate);
+        TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+		   click_here.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(TakeActionNoInjuriesActivity.this,KeepingBabyWarmAndMalariaActivity.class);
+				intent.putExtra("value", "keeping_baby_warm");
+				startActivity(intent);
+			}
+			   
+		   });
         }else if(take_action_category.equals("unusual appearance")){
         setContentView(R.layout.activity_unusual_appearance);
-        }
+        TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+		   click_here.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(TakeActionNoInjuriesActivity.this,KeepingBabyWarmAndMalariaActivity.class);
+				intent.putExtra("value", "keeping_baby_warm");
+				startActivity(intent);
+			}
+			   
+		   });
+        }else if(take_action_category.equals("no_injuries")){
+            setContentView(R.layout.activity_no_birth_abnormalities);
+            TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+        String text = "<a href='#'> diarrhoea </a>";
+           	click_here.setText("Continue examination, and check baby for "+Html.fromHtml(text));
+    		   click_here.setOnClickListener(new OnClickListener(){
+
+    			@Override
+    			public void onClick(View v) {
+    				Intent intent=new Intent(TakeActionNoInjuriesActivity.this,DiarrhoeaActivity.class);
+    				intent.putExtra("value", "keeping_baby_warm");
+    				startActivity(intent);
+    			}
+    			   
+    		   });
+            }
 	}
 	public void onBackPressed()
 	{
