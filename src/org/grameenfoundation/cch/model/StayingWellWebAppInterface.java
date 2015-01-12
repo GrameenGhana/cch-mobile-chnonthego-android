@@ -144,7 +144,8 @@ public class StayingWellWebAppInterface {
     	
     	// store results in plan
 		Long t = System.currentTimeMillis();
-		String data = "{'type':'plan', 'plan':'"+plan+"'}";
+    	String profile = getProfileStatus();
+		String data = "{'type':'plan', 'plan':'"+plan+"', 'profile':'"+profile+"'}";
 		this.saveToCCHLog(data, t.toString(), t.toString());
     }
     
