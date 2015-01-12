@@ -11,21 +11,22 @@
     android:orientation="vertical"
     android:padding="10dp" >
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.00"
+        android:padding="10dp"
+        android:text="Take Action: Mild Hypothermia "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/Curry" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.00"
         android:gravity="center"
         android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Take Action: Mild Hypothermia "
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/Curry" />
 
         <ImageView
             android:id="@+id/imageView1"

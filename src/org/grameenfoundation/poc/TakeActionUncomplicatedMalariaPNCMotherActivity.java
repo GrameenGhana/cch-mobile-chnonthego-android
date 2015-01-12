@@ -5,8 +5,14 @@ import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class TakeActionUncomplicatedMalariaPNCMotherActivity extends BaseActivity {
 
@@ -24,11 +30,43 @@ public class TakeActionUncomplicatedMalariaPNCMotherActivity extends BaseActivit
 	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Mother Diagnostic: Malaria");
+	    TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+	    click_here.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
+				intent.putExtra("value", "malaria");
+				startActivity(intent);
+			}
+	    	
+	    });
+	    
+	    TextView click_here_too=(TextView) findViewById(R.id.textView_clickHereToo);
+	    click_here_too.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(mContext,NutritionCounsellingActivity.class);
+				startActivity(intent);
+			}
+	    	
+	    });
+	    
+	    TextView click_here_three=(TextView) findViewById(R.id.textView_clickHereThree);
+	    click_here_three.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(mContext,ReturningForCareActivity.class);
+				startActivity(intent);
+			}
+	    	
+	    });
 	}
 	public void onBackPressed()
 	{
 	    end_time=System.currentTimeMillis();
-	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
 		dbh.insertCCHLog("Point of Care", "PNC Mother Diagnostic: Malaria", start_time.toString(), end_time.toString());
 		finish();
 	}

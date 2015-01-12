@@ -14,151 +14,157 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="10dp" >
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="wrap_content"
+            android:layout_width="302dp"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:layout_weight="0.51"
+            android:padding="8dp"
             android:text="Take Action: No breast problems "
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/Green" />
 
- <LinearLayout
-     android:layout_width="wrap_content"
-     android:layout_height="400dp"
-     android:divider="@drawable/divider"
-     android:orientation="vertical"
-     android:padding="20dp"
-     android:showDividers="middle" >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="400dp"
+            android:background="@drawable/customborder"
+            android:divider="@drawable/divider"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:showDividers="middle" >
 
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-          >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-         <ImageView
-             android:layout_width="wrap_content"
-             android:layout_height="15dp"
-             android:src="@drawable/ic_bullet" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
 
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:paddingBottom="5dp"
-        		 android:paddingLeft="10dp"
-        	 android:paddingRight="0dp"
-             android:text="Check if mother has received Vitamin A.  If not and Vitamin A is available, provide one dose to the mother and record care given in maternal health or “Red” book.  "
-             android:textAppearance="?android:attr/textAppearanceSmall" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Check if mother has received Vitamin A.  If not and Vitamin A is available, provide one dose to the mother and record care given in maternal health or “Red” book.  "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
 
-     </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:orientation="vertical" >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
 
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content" >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_bullet" />
 
-             <ImageView
-                 android:layout_width="wrap_content"
-                 android:layout_height="15dp"
-                 android:src="@drawable/ic_bullet" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="0dp"
+                        android:text="Counsel mother on: "
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
 
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:paddingBottom="5dp"
-                 android:paddingLeft="10dp"
-                 android:paddingRight="0dp"
-                 android:text="Counsel mother on: "
-                 android:textAppearance="?android:attr/textAppearanceSmall" />
-         </LinearLayout>
-<LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content" >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
 
-             <ImageView
-                 android:layout_width="wrap_content"
-                 android:layout_height="15dp"
-                 android:layout_marginLeft="40dp"
-                 android:src="@drawable/ic_bullet" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:layout_marginLeft="40dp"
+                        android:src="@drawable/ic_bullet" />
 
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:paddingBottom="5dp"
-                 android:paddingLeft="10dp"
-                 android:paddingRight="0dp"
-                 android:text="Nutrition, rest, personal/environmental hygiene "
-                 android:textAppearance="?android:attr/textAppearanceSmall" />
-         </LinearLayout>
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="0dp"
+                        android:text="Nutrition, rest, personal/environmental hygiene "
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
 
-             <ImageView
-                 android:layout_width="wrap_content"
-                 android:layout_height="15dp"
-                 android:layout_marginLeft="40dp"
-                 android:src="@drawable/ic_bullet" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
 
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:paddingBottom="5dp"
-                 android:paddingLeft="10dp"
-                 android:paddingRight="0dp"
-                 android:text="For mother and baby to sleep under ITN every night "
-                 android:textAppearance="?android:attr/textAppearanceSmall" />
-         </LinearLayout>
-          <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content" >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:layout_marginLeft="40dp"
+                        android:src="@drawable/ic_bullet" />
 
-             <ImageView
-                 android:layout_width="wrap_content"
-                 android:layout_height="15dp"
-                 android:layout_marginLeft="40dp"
-                 android:src="@drawable/ic_bullet" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="0dp"
+                        android:text="For mother and baby to sleep under ITN every night "
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
 
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:paddingBottom="5dp"
-                 android:paddingLeft="10dp"
-                 android:paddingRight="0dp"
-                 android:text="Family planning, STI prevention, exclusive breastfeeding, recognizing danger signs "
-                 android:textAppearance="?android:attr/textAppearanceSmall" />
-         </LinearLayout>
-     </LinearLayout>
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-          >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
 
-         <ImageView
-             android:layout_width="wrap_content"
-             android:layout_height="15dp"
-             android:src="@drawable/ic_bullet" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:layout_marginLeft="40dp"
+                        android:src="@drawable/ic_bullet" />
 
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:paddingBottom="5dp"
-        		 android:paddingLeft="10dp"
-        	 android:paddingRight="0dp"
-             android:text="For list of counseling topics see PNC counseling"
-             android:textAppearance="?android:attr/textAppearanceSmall" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="0dp"
+                        android:text="Family planning, STI prevention, exclusive breastfeeding, recognizing danger signs "
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+            </LinearLayout>
 
-     </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="For list of counseling topics see:"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
+                    android:id="@+id/textView_clickHere"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="0dp"
+                    android:text="PNC counseling"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/WhileWaitingForTransport" />
+            </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
+
     </LinearLayout>
 
 

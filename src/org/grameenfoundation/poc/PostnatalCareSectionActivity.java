@@ -35,9 +35,9 @@ public class PostnatalCareSectionActivity extends BaseActivity {
 	    dbh=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
 	    listView_postnatalSections=(ListView) findViewById(R.id.listView_postnatalCareSections);
-	    String[] items={"1. Newborn Emergency","2. Records & History","3. Very Severe Disease & Local Bacterial Infections",
-				"4. Jaundice","5. Other Serious Conditions, Birth Injury & Abnormalities",
-				"6. Diarrhoea","HIV Infection ","7. Feeding Problems, Low Weight for Age"};
+	    String[] items={"Newborn Emergency","Records & History","Very Severe Disease & Local Bacterial Infections",
+						"Jaundice","Other Serious Conditions, Birth Injury & Abnormalities",
+						"Diarrhoea","HIV Infection ","Feeding Problems, Low Weight for Age"};
 	    PostnatalSectionsListAdapter adapter=new PostnatalSectionsListAdapter(mContext,items);
 	    listView_postnatalSections.setAdapter(adapter);
 	    listView_postnatalSections.setOnItemClickListener(new OnItemClickListener(){

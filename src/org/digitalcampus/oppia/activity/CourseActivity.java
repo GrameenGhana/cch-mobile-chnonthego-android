@@ -128,7 +128,7 @@ public class CourseActivity extends SherlockFragmentActivity implements ActionBa
 				f = PageWidget.newInstance(activities.get(i), course, isBaseline);
 				fragments.add(f);
 			} else if (activities.get(i).getActType().equalsIgnoreCase("quiz")) {
-				f = QuizWidget.newInstance(activities.get(i), course, isBaseline);
+				f = QuizWidget.newInstance(activities.get(i), course,section, isBaseline);
 				fragments.add(f);
 			} else if (activities.get(i).getActType().equalsIgnoreCase("resource")) {
 				f = ResourceWidget.newInstance(activities.get(i), course, isBaseline);

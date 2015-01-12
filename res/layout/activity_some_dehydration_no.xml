@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:background="@color/White"
         android:orientation="vertical"
-        android:padding="30dp" >
+        android:padding="10dp" >
 
         <ListView
             android:id="@+id/listView_someDehydrationNo"

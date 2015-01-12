@@ -11,9 +11,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="left"
         android:orientation="vertical"
-        android:padding="20dp" >
+        android:padding="10dp" >
 
         <TextView
             android:id="@+id/textView1"
@@ -130,5 +130,83 @@
 
     </LinearLayout>
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="left"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="Other danger signs "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/TextBrown" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_border2"
+            android:divider="@drawable/divider"
+            android:dividerPadding="5dp"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:showDividers="middle" >
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="Breathing difficulty"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="Convulsions/loss of consciousness"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="Foul smelling discharge of vagina"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="Painful and tender wound"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.16"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="Breast that are red hot and feel painful"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text=" Abnormal behaviour/threats may harm herself or her baby; has hallucinations"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>
+
 </ScrollView>

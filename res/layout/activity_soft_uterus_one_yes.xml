@@ -36,47 +36,39 @@
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <LinearLayout
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_bullet" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="Massage client’s uterus "
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="Massage client’s uterus "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_bullet" />
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="If possible, provide:"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
+                    android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="0dp"
-                    android:text="If possible, provide misoprostol: \n\ 800 micrograms (or 4 tablets) inserted rectally "
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:text="misoprostol: 800 micrograms (or 4 tablets) inserted rectally "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/WhileWaitingForTransport" />
+
             </LinearLayout>
 
             <TextView
                 android:id="@+id/TextView77"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_refer"
                 android:paddingBottom="5dp"
@@ -85,7 +77,7 @@
 
             <TextView
                 android:id="@+id/TextView01"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_phone"
                 android:paddingBottom="5dp"
@@ -94,7 +86,7 @@
 
             <TextView
                 android:id="@+id/textView12"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_record"
                 android:paddingBottom="10dp"
@@ -102,7 +94,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_drink"
                 android:paddingBottom="10dp"
@@ -111,7 +103,7 @@
 
             <TextView
                 android:id="@+id/textView13"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_accompany"
                 android:paddingBottom="10dp"
@@ -120,7 +112,7 @@
 
             <TextView
                 android:id="@+id/textView14"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_follow_up"
                 android:text="Follow up with client after discharge from health center or hospital "

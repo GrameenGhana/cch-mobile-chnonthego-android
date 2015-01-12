@@ -44,7 +44,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="327dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <ExpandableListView
@@ -56,13 +56,6 @@
             android:dividerHeight="10dp" >
         </ExpandableListView>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical" >
     </LinearLayout>
 
 </LinearLayout>

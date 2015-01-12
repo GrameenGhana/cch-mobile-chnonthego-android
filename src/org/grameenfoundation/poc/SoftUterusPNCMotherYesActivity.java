@@ -12,10 +12,11 @@ import android.widget.Button;
 
 public class SoftUterusPNCMotherYesActivity extends BaseActivity {
 
-	private Button button_next;
 	private DbHelper dbh;
 	private Long start_time;
-	private Long end_time; 
+	private Long end_time;
+	private Button button_yes;
+	private Button button_no; 
 
 	/** Called when the activity is first created. */
 	@Override
@@ -27,12 +28,25 @@ public class SoftUterusPNCMotherYesActivity extends BaseActivity {
 	    getActionBar().setSubtitle("PNC Mother Diagnostic: Soft Uterus");
 	    dbh=new DbHelper(SoftUterusPNCMotherYesActivity.this);
 	    start_time=System.currentTimeMillis();
-	    button_next=(Button) findViewById(R.id.button_next);
-	    button_next.setOnClickListener(new OnClickListener(){
+	    button_yes=(Button) findViewById(R.id.button_yes);
+	    button_yes.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
 				Intent intent=new Intent(SoftUterusPNCMotherYesActivity.this,SoftUterusPNCMotherYesNextActivity.class);
+				intent.putExtra("value", "yes");
+				startActivity(intent);
+			}
+	    	
+	    });
+	    
+	    button_no=(Button) findViewById(R.id.button_no);
+	    button_no.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(SoftUterusPNCMotherYesActivity.this,SoftUterusPNCMotherYesNextActivity.class);
+				intent.putExtra("value", "no");
 				startActivity(intent);
 			}
 	    	

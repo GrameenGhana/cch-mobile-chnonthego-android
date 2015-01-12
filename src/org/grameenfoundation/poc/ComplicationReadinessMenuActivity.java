@@ -37,7 +37,7 @@ public class ComplicationReadinessMenuActivity extends BaseActivity {
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Counselling: Complication Readiness");
 	    listView_complication=(ListView) findViewById(R.id.listView_complicationReadinessMenu);
-	    String[] items={"Danger Signs in the Mother ","Newborn danger signs","Other maternal danger signs","Other newborn danger signs"};
+	    String[] items={"Maternal danger signs ","Newborn danger signs","Complication readiness plan"};
 	    ListAdapter adapter=new ListAdapter(mContext,items);
 	    listView_complication.setAdapter(adapter);
 	    listView_complication.setOnItemClickListener(new OnItemClickListener(){
@@ -59,30 +59,16 @@ public class ComplicationReadinessMenuActivity extends BaseActivity {
 					break;
 				case 2:
 					intent=new Intent(mContext,ComplicationReadinessActionActivity.class);
-					intent.putExtra("value", "other_maternal");
+					intent.putExtra("value", "readiness_plan");
 					startActivity(intent);
 					break;
-				case 3:
-					intent=new Intent(mContext,ComplicationReadinessActionActivity.class);
-					intent.putExtra("value", "other_newborn");
-					startActivity(intent);
-					break;
+				
 				}
 				
 			}
 	    	
 	    });
-	    button_next=(Button) findViewById(R.id.button_next);
-	    button_next.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				Intent intent=new Intent(mContext,ComplicationReadinessActionActivity.class);
-				intent.putExtra("value", "readiness_plan");
-				startActivity(intent);
-			}
-	    	
-	    });
+	   
 	}
 	class ListAdapter extends BaseAdapter{
 		Context mContext;

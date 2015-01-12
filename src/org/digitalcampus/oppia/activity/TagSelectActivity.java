@@ -71,7 +71,7 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getActionBar().setDisplayShowHomeEnabled(false);
-	    getActionBar().setTitle("Learning");
+	    getActionBar().setTitle("Learning Center");
 	   
 	}
 	 public void populateImages(){

@@ -39,7 +39,7 @@ public class MaternalEmergenciesActivity extends BaseActivity {
 	    String[] items={"Difficulty breathing or central cyanosis ",
 	    				"Shock ",
 	    				"Heavy bleeding",
-	    				"Convulsion, Unconscious","No symptoms"};
+	    				"Convulsion, Unconscious"};
 	    ListAdapter adapter=new ListAdapter(MaternalEmergenciesActivity.this,items);
 	    listView.setAdapter(adapter);
 	    listView.setOnItemClickListener(new OnItemClickListener(){

@@ -78,7 +78,8 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 		prefs.registerOnSharedPreferenceChangeListener(this);
 		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
 		getActionBar().setDisplayShowHomeEnabled(false);
-	    getActionBar().setTitle("Learning");
+	    getActionBar().setTitle("Learning Center");
+	    getActionBar().setSubtitle("Learning Modules");
 		// set preferred lang to the default lang
 		if (prefs.getString(getString(R.string.prefs_language), "").equals("")) {
 			Editor editor = prefs.edit();

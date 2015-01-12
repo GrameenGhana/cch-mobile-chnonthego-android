@@ -74,27 +74,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/TakeAction"
             android:divider="@drawable/divider"
             android:dividerPadding="2dp"
             android:orientation="vertical"
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 Encourage fluid intake   "
+                android:text="Encourage fluid intake   "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 Give 2 tablets of paracetamol if client can tolerate it"
+                android:text="Give 2 tablets of paracetamol if client can tolerate it"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>

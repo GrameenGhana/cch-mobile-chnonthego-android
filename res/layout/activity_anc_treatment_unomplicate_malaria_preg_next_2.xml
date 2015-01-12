@@ -2,8 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/stroke_bg_curry" >
+    android:layout_height="match_parent" >
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -15,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.00"
-        android:background="@color/White"
         android:orientation="vertical"
         android:paddingBottom="20dp" >
 
@@ -26,48 +24,47 @@
             android:padding="5dp"
             android:paddingBottom="5dp"
             android:text="@string/str_administartion_management_vomiting_other_support_treate"
-            android:textAppearance="@style/NormalBlueText" />
+            android:textAppearance="@style/NormalBlueText"
+            android:textColor="@color/Brown" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/TakeActionCurry"
+            android:background="@drawable/custom_border2"
             android:divider="@drawable/divider"
             android:orientation="vertical"
-            android:paddingBottom="2dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="5dp"
+            android:padding="10dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView26"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_preferable_client_1st_dose_with_nurse"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView27"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_preferable_administer_medicine_fater_meal"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_if_vomit_after_30_min_retake_dosage"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_ask_client_health_center"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -75,66 +72,68 @@
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.12"
+            android:src="@drawable/uncomplicated_malaria5" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/TakeActionCurry"
+            android:background="@drawable/custom_border2"
             android:divider="@drawable/divider"
             android:orientation="vertical"
-            android:padding="20dp"
-            android:paddingBottom="2dp"
-            android:paddingTop="5dp"
+            android:padding="10dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_additional_advise_client"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingRight="1dp"
+                android:layout_marginLeft="40dp"
                 android:text="@string/str_take_iron_supplements"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingRight="1dp"
+                android:layout_marginLeft="40dp"
                 android:text="@string/str_eat_well"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingRight="1dp"
+                 android:layout_marginLeft="40dp"
                 android:text="@string/str_use_itn_other_preventive_measures"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView21"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingRight="1dp"
+                 android:layout_marginLeft="40dp"
                 android:text="@string/str_take_analgesics_prescribed"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/button_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/next" />
+            android:text="@string/next"
+            android:textColor="@color/Brown" />
 
     </LinearLayout>
 

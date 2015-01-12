@@ -2,8 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/stroke_bg_curry" >
+    android:layout_height="match_parent" >
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -15,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.00"
-        android:background="@color/White"
         android:orientation="vertical"
         android:paddingBottom="20dp" >
 
@@ -26,7 +24,7 @@
             android:padding="10dp"
             android:text="@string/str_treatement_uncomplicated_malaria_preg_women"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/Curry" />
+            android:textColor="@color/Brown" />
 
         <TextView
             android:id="@+id/TextView04"
@@ -48,43 +46,43 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/TakeActionCurry"
+            android:background="@drawable/custom_border2"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView05"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/str_headache"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView13"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/str_lassitube"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView11"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/str_fatigue"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView12"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/str_abdominal_discomfort"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView19"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/str_muscle_joint_aches"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -92,7 +90,7 @@
 
         <TextView
             android:id="@+id/TextView01"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:paddingBottom="5dp"
@@ -101,7 +99,7 @@
 
         <TextView
             android:id="@+id/TextView07"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:paddingBottom="5dp"
@@ -110,18 +108,20 @@
 
         <TextView
             android:id="@+id/TextView02"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:paddingBottom="5dp"
             android:text="@string/str_note_pregnant_women_symptoms"
-            android:textAppearance="@style/ItalicsTextSmallerDark" />
+            android:textAppearance="@style/ItalicsTextSmallerDark"
+            android:textColor="@color/TextColorWine" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/button_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/next" />
+            android:text="@string/next"
+            android:textColor="@color/Brown" />
 
     </LinearLayout>
 

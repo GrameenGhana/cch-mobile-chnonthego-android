@@ -21,15 +21,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center|left"
-            android:padding="20dp"
             android:text="Counsel mother on benefits of postpartum family planning, and importance of birth spacing before having other children"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextBrown" />
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="200dp"
+            android:layout_height="180dp"
             android:src="@drawable/family_planning" />
 
         <LinearLayout
@@ -69,8 +68,8 @@
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
                     android:layout_marginLeft="40dp"
+                    android:paddingBottom="5dp"
                     android:text="More time to breastfeed and care for each child "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -78,8 +77,8 @@
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
                     android:layout_marginLeft="40dp"
+                    android:paddingBottom="5dp"
                     android:text="More time for your body to recover between pregnancies"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -87,11 +86,10 @@
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
                     android:layout_marginLeft="40dp"
+                    android:paddingBottom="5dp"
                     android:text="More money because you have fewer children, and thus fewer expenses for school fees, clothing, food, etc. "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
-
             </LinearLayout>
 
             <org.grameenfoundation.cch.utils.TextViewBullets
@@ -103,9 +101,7 @@
                 android:text="Feeding your baby only breast milk for the first 6 months helps to space births in a way that is healthy for both you and your baby "
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
-
         </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout

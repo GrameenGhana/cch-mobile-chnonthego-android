@@ -9,25 +9,24 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="661dp"
-    android:background="@color/White"
     android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.00"
+        android:padding="10dp"
+        android:text="Take Action: Heavy Bleeding  "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/TextColorWine" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.00"
-        android:background="@color/White"
         android:gravity="center"
         android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Take Action: Heavy Bleeding  "
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/TextColorWine" />
 
         <ImageView
             android:id="@+id/imageView1"
@@ -92,43 +91,42 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/White"
             android:divider="@drawable/divider"
             android:dividerPadding="2dp"
             android:orientation="vertical"
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 Place client in a lying-down position   "
+                android:text="Place client in a lying-down position   "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 DO NOT perform vaginal exam"
+                android:text="DO NOT perform vaginal exam"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 Give 2 tablets of paracetamol for pain"
+                android:text="Give 2 tablets of paracetamol for pain"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 Encourage fluid intake "
+                android:text="Encourage fluid intake "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -138,7 +136,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/White"
         android:orientation="vertical" >
 
         <TextView

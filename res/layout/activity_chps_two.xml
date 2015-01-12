@@ -21,7 +21,6 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:text=" Home Care for Diarrhoea with Some Dehydration "
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextBrown" />

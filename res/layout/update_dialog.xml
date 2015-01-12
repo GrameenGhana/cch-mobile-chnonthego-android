@@ -7,7 +7,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical" 
+  android:descendantFocusability="beforeDescendants"
+android:focusableInTouchMode="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,7 +36,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
-                android:text="Small Text"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/TextBrown"
                 android:textStyle="italic" />
@@ -136,9 +137,48 @@
                     android:id="@+id/editText_achievedNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10" />
+                    android:ems="10"
+                    android:inputType="number" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:text="Would you like to enter a justification?"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
             </LinearLayout>
 
+			<LinearLayout
+                 android:id="@+id/linearLayout_question2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <RadioGroup
+                    android:id="@+id/radioGroup_justify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/radio_yes2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/apptheme_btn_radio_holo_light"
+                        android:checked="true"
+                        android:text="Yes" />
+
+                    <RadioButton
+                        android:id="@+id/radio_no2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/apptheme_btn_radio_holo_light"
+                        android:text="No" />
+                </RadioGroup>
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/LinearLayout_justification"
                 android:layout_width="match_parent"

@@ -3,18 +3,17 @@
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-<LinearLayout
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/White"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="426dp"
         android:background="@color/White"
         android:orientation="vertical"
-        android:padding="20dp" >
+        android:padding="10dp" >
 
         <TextView
             android:id="@+id/textView2"
@@ -47,7 +46,7 @@
 
                 <TextView
                     android:id="@+id/textView1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
@@ -65,11 +64,12 @@
                     android:layout_height="15dp"
                     android:layout_marginLeft="20dp"
                     android:src="@drawable/ic_bullet" />
+
                 <TextView
                     android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="249dp"
                     android:layout_height="wrap_content"
-                     android:paddingBottom="5dp"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="0dp"
                     android:text="Do you have andy pains? Do you have any concerns?"
@@ -86,7 +86,7 @@
                     android:src="@drawable/ic_bullet" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
@@ -105,7 +105,7 @@
                     android:src="@drawable/ic_bullet" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
@@ -124,7 +124,7 @@
                     android:src="@drawable/ic_bullet" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"

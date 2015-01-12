@@ -3,7 +3,7 @@
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/stroke_bg_curry" >
+    android:background="@drawable/stroke_bg" >
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -24,14 +24,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Take Action: Severe or Moderate Anaemia  "
+            android:text="Take Action: Severe Anaemia  "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/Curry" />
+            android:textColor="@color/Red" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/TakeActionCurry"
+            android:background="@color/TakeAction"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"

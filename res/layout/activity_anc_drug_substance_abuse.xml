@@ -5,72 +5,86 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:background="@color/Curry"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/White"
             android:orientation="vertical"
             android:showDividers="end" >
 
             <TextView
                 android:id="@+id/TextView01"
                 android:layout_width="match_parent"
-                android:layout_height="37dp"
-                android:text="@string/str_counsel_client"
+                android:layout_height="wrap_content"
+                android:text="Counsel client on:"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/Curry" />
+                android:textColor="@color/Brown" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="5dp" >
+                android:gravity="center"
+                android:padding="20dp" >
 
-                <LinearLayout
-                    android:layout_width="286dp"
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/TakeActionCurry"
-                    android:divider="@drawable/divider"
-                    android:orientation="vertical"
-                    android:showDividers="middle" >
+                    android:src="@drawable/drug1" />
 
-                    <TextView
-                        android:id="@+id/TextView0790"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:text="@string/str_importance_of_drugs_that_health_workers_give"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/drug3" />
 
-                    <TextView
-                        android:id="@+id/TextView06"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:text="@string/str_avoid_abuse_drug_herbs"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/TextView05"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:text="@string/str_avoid_alcohol_during_pregnancy"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_border2"
+                android:divider="@drawable/divider"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:showDividers="middle" >
 
-                    <TextView
-                        android:id="@+id/TextView09"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:text="@string/str_harmful_consequence_of_smoking"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-                </LinearLayout>
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="@string/str_importance_of_drugs_that_health_workers_give"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="@string/str_avoid_abuse_drug_herbs"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="@string/str_avoid_alcohol_during_pregnancy"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="@string/str_harmful_consequence_of_smoking"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                 <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="Harmful consequences of skin bleaching"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </LinearLayout>
         </LinearLayout>
 

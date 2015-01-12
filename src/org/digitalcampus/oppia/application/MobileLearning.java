@@ -40,6 +40,8 @@ public class MobileLearning extends Application {
 	// local storage vars
 	public static final String OPPIAMOBILE_ROOT = Environment
 			.getExternalStorageDirectory() + "/digitalcampus/";
+	public static final String REFERENCES_ROOT = Environment
+			.getExternalStorageDirectory() + "/references/";
 	public static final String COURSES_PATH = OPPIAMOBILE_ROOT + "modules/";
 	public static final String MEDIA_PATH = OPPIAMOBILE_ROOT + "media/";
 	public static final String DOWNLOAD_PATH = OPPIAMOBILE_ROOT + "download/";
@@ -48,6 +50,7 @@ public class MobileLearning extends Application {
 	public static final String COURSE_TRACKER_XML = "tracker.xml";
 	public static final String PRE_INSTALL_COURSES_DIR = "www/preload/courses"; // don't include leading or trailing slash
 	public static final String PRE_INSTALL_MEDIA_DIR = "www/preload/media"; // don't include leading or trailing slash
+
 	
 	// server path vars - new version
 	public static final String OPPIAMOBILE_API = "api/v1/";

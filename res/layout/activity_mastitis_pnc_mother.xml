@@ -14,7 +14,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/White"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:padding="10dp" >
@@ -33,7 +32,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/White"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -42,29 +40,29 @@
             android:orientation="vertical"
             android:paddingBottom="20dp" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
-                android:text="\u2022 Part of the breast is painful, swollen and red "
+                android:text="Part of the breast is painful, swollen and red "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView3"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
-                android:text="\u2022 Temperature > 38C "
+                android:text="Temperature > 38C "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView8"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
                 android:paddingBottom="10dp"
-                android:text="\u2022 Feels generally ill "
+                android:text=" Feels generally ill "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -143,7 +141,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/White"
             android:divider="@drawable/divider"
             android:dividerPadding="2dp"
             android:orientation="vertical"
@@ -168,13 +165,14 @@
                 android:text="Encourage fluid intake "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:id="@+id/textView7"
+            <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
+                android:id="@+id/textView_clickHere"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_counsel"
                 android:text="Counsel mother on how to manage mastitis "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/WhileWaitingForTransport" />
 
         </LinearLayout>
 

@@ -2,8 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/stroke_bg_curry" >
+    android:layout_height="match_parent" >
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -15,18 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.00"
-        android:background="@color/White"
         android:orientation="vertical"
         android:paddingBottom="20dp" >
-
-        <TextView
-            android:id="@+id/TextView03"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/str_when_return_anc"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/Curry" />
 
         <TextView
             android:id="@+id/TextView09"
@@ -34,53 +23,86 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:paddingBottom="5dp"
-            android:text="@string/str_inform_client_health_center_hosp_chps"
+            android:text="Inform client when to return to a health center, hospital, or CHPS facility:"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/Blue" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Advise her that a midwife will check for a number of issues as part of focused ANC visits.  The client should ideally consult a midwife during the following times during pregnancy: "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/TakeActionCurry"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/nurse_inspect_pregnancy" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_border2"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView05"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/str_anc_when1"
+                android:text="1st Focused ANC visit between 8-16 weeks of gestation, ideally between 8-12 weeks of gestation"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:id="@+id/TextView13"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/str_anc_when2"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:orientation="vertical" >
 
-            <TextView
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/TextView13"
+                    android:layout_width="278dp"
+                    android:layout_height="wrap_content"
+                    android:text="2nd focused ANC visit between 24-26 weeks of gestation:  "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="this is the next scheduled visit "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/Blue"
+                    android:textStyle="italic" />
+
+            </LinearLayout>
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView11"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/str_anc_when3"
+                android:text="3rd focused ANC visit at 32 weeks of gestation "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView12"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/str_anc_when_4"
+                android:text="4th focused ANC visit at 36 weeks of gestation "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.15"
-            android:src="@drawable/nurse_inspect_pregnancy" />
 
         <TextView
             android:id="@+id/TextView02"
@@ -88,30 +110,31 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:paddingBottom="5dp"
-            android:text="@string/str_counsel_visit_hosp_when"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:text="In addition client should be counseled to return to a health facility if she has:"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/Blue" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/TakeActionCurry"
+            android:background="@drawable/custom_border2"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView08"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/str_as_soon_as_danger_signs"
+                android:text="As soon as she has any danger signs "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/TextView06"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/str_question_concent_abt_preg_baby"
+                android:text="Questions or concerns about her pregnancy or the baby"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
     </LinearLayout>

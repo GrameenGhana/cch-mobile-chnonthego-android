@@ -39,15 +39,15 @@ public class CounsellingPerTrimesterActivtiy extends BaseActivity {
 				Intent intent;
 				switch(position){
 				case 0:
-					intent=new Intent(mContext,FirstTrimesterCounsellingActivity.class);
+					intent=new Intent(mContext,ANCCounsellingTopicsMenuActivity.class);
 					startActivity(intent);
 					break;
 				case 1:
-					intent=new Intent(mContext,SecondTrimesterCounsellingActivity.class);
+					intent=new Intent(mContext,ANCCounsellingTopicsMenuActivity.class);
 					startActivity(intent);
 					break;
 				case 2:
-					intent=new Intent(mContext,ThirdTrimesterActivity.class);
+					intent=new Intent(mContext,ANCCounsellingTopicsMenuActivity.class);
 					startActivity(intent);					
 					break;
 				}

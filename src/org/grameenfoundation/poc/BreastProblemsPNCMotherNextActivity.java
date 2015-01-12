@@ -33,7 +33,7 @@ public class BreastProblemsPNCMotherNextActivity extends BaseActivity {
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Mother Diagnostic: Breast Problems");
 	    listView_breastProblems=(ListView) findViewById(R.id.listView_breastProblems);
-	    String[] items={"\t Mastitis \n (Click for definition)","Breast engorgement \n (Click for definition)",
+	    String[] items={"Mastitis \n (Click for definition)","Breast engorgement \n (Click for definition)",
 	    				"Cracked/sore nipples","No Problems"};
 	    
 	    ListAdapter adapter=new ListAdapter(mContext,items);

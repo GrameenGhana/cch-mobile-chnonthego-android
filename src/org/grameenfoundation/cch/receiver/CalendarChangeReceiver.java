@@ -34,7 +34,7 @@ public class CalendarChangeReceiver extends BroadcastReceiver {
 	
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		// Log.d(TAG, "Noting change in calendar");
+		 Log.d(TAG, "Noting change in calendar");
 		
 		DbHelper dbh = new DbHelper(context);
 		

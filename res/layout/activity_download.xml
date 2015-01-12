@@ -22,15 +22,6 @@
             android:orientation="vertical"
             android:padding="5dp" >
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="Learning Center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/TextColorGreen" />
-
         </LinearLayout>
 
         <View

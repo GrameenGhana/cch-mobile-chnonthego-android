@@ -47,98 +47,107 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="Preferable that client takes the first dose of the drug in front of the nurse or health worker "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="normal" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="Preferable to administer medicine after the client has eaten a meal "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="normal" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp" >
+            android:background="@drawable/custom_border2"
+            android:divider="@drawable/divider"
+            android:orientation="vertical"
+            android:showDividers="middle" >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="If vomiting occurs within 30 minutes, the dosage of medicine should be repeated.  If vomiting stops, give client the 2nd and 3rd doses to take at home if you are sure that your instructions will be followed.  "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="normal" />
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Preferable that client takes the first dose of the drug in front of the nurse or health worker "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="normal" />
+            </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="Ask client to go to the health center or hospital if vomiting persists.  "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="normal" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp" >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Preferable to administer medicine after the client has eaten a meal "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="normal" />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="Treatment of fever with Paracetamolis a recommended part of supportive care for malaria.  Paracetamol in tablet form may be given every 4-6 hours until the temperature is normal.  "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="normal" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="If vomiting occurs within 30 minutes, the dosage of medicine should be repeated.  If vomiting stops, give client the 2nd and 3rd doses to take at home if you are sure that your instructions will be followed.  "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Ask client to go to the health center or hospital if vomiting persists.  "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Treatment of fever with Paracetamolis a recommended part of supportive care for malaria.  Paracetamol in tablet form may be given every 4-6 hours until the temperature is normal.  "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
         </LinearLayout>
         <org.grameenfoundation.cch.utils.PinchZoom
             android:id="@+id/imageView1"

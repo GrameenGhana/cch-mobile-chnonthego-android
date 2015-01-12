@@ -6,7 +6,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="10dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,255 +20,169 @@
                 android:layout_height="39dp"
                 android:text="@string/str_breastfeed_breast_care"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/Blue" />
+                android:textColor="@color/Brown" />
 
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/str_need_to_know_breast_feeding" />
+                android:text="How often should a client breastfeed:"
+                android:textColor="@color/Blue" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.85" >
+                android:background="@drawable/custom_border2" >
 
                 <ImageView
                     android:id="@+id/ImageView05"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/breast_feeding_family_planning" />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/good_attachment3" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/text_light"
+                    android:divider="@drawable/divider"
                     android:orientation="vertical"
-                    android:padding="5dp" >
+                    android:padding="5dp"
+                    android:showDividers="middle" >
 
-                    <TextView
+                    <org.grameenfoundation.cch.utils.TextViewBullets
                         android:id="@+id/TextView04"
-                        android:layout_width="234dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="5dp"
-                        android:text="@string/str_breast_milk_provides_all_food_baby_6_months"
+                        android:text="Breastfeed baby on demand, both day and night, at least 8 – 12 times each day "
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                    <TextView
+                    <org.grameenfoundation.cch.utils.TextViewBullets
                         android:id="@+id/TextView03"
-                        android:layout_width="232dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="5dp"
-                        android:text="@string/str_important_feed_baby_yellowish_milk"
+                        android:text="Frequent feeding will help your body to produce breast milk"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                    <TextView
+                    <org.grameenfoundation.cch.utils.TextViewBullets
                         android:id="@+id/TextView02"
-                        android:layout_width="236dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="5dp"
-                        android:text="@string/str_breast_milk_provides_all_food_baby_6_months"
+                        android:text="Continue to feed until baby finishes the breast and comes off on his or her own. Offer the other breast and let baby decide if he or she wants more or not"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                    <TextView
+                    <org.grameenfoundation.cch.utils.TextViewBullets
                         android:id="@+id/TextView0790"
-                        android:layout_width="232dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="5dp"
-                        android:text="@string/str_importance_exclusive_breast_feeding"
+                        android:text="You will know if baby is taking enough breast milk if he or she passes light-coloured urine at least 6 times a day and is gaining weight "
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                 </LinearLayout>
             </LinearLayout>
 
             <TextView
                 android:id="@+id/TextView14"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:text="@string/str_need_to_know_breast_feeding" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Counsel client on how to prevent common breastfeeding problems: "
+                android:textColor="@color/Blue" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.85" >
+                android:layout_weight="0.85"
+                android:gravity="center" >
 
                 <ImageView
-                    android:id="@+id/ImageView02740"
+                    android:id="@+id/imageView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/baby_attach_to_breast" />
+                    android:src="@drawable/breast_care" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/text_light"
-                    android:orientation="vertical"
-                    android:padding="5dp" >
-
-                    <TextView
-                        android:id="@+id/TextView11"
-                        android:layout_width="234dp"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:text="@string/str_baby_should_put_breast_1st"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                    <TextView
-                        android:id="@+id/TextView10"
-                        android:layout_width="232dp"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:text="@string/str_good_attachment_baby_suckles_well"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/text_light"
-                android:orientation="vertical"
-                android:padding="5dp"
-                android:paddingTop="0dp" >
-
-                <TextView
-                    android:id="@+id/TextView18"
-                    android:layout_width="298dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.61"
-                    android:paddingBottom="5dp"
-                    android:text="@string/str_attach_help_mother_supply_good_breast_milk"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                <TextView
-                    android:id="@+id/TextView17"
-                    android:layout_width="299dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.61"
-                    android:paddingBottom="5dp"
-                    android:text="@string/str_make_sure_baby_attached_well"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                <TextView
-                    android:id="@+id/TextView16"
-                    android:layout_width="287dp"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="@string/str_touch_babys_lip_to_nipple"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                <TextView
-                    android:id="@+id/TextView12"
-                    android:layout_width="274dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.76"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="@string/str_wait_till_baby_month_opens"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                <TextView
-                    android:id="@+id/TextView13"
-                    android:layout_width="274dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.76"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="@string/str_quickly_bring_breast_below"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                <TextView
-                    android:id="@+id/TextView15"
-                    android:layout_width="276dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.76"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="1dp"
-                    android:text="@string/str_baby_should_now_take_big_mouthful_breast_milk"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                <TextView
-                    android:id="@+id/TextView22"
-                    android:layout_width="299dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.61"
-                    android:paddingBottom="5dp"
-                    android:text="@string/str_make_sure_baby_attached_well"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                <TextView
-                    android:id="@+id/TextView19"
-                    android:layout_width="276dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.76"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="1dp"
-                    android:text="@string/str_baby_month_wide_open"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                <TextView
-                    android:id="@+id/TextView21"
-                    android:layout_width="274dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.76"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="@string/str_mother_can_see_more_darker_skin"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                <TextView
-                    android:id="@+id/TextView20"
-                    android:layout_width="274dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.76"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="@string/str_babys_lower_lip_turned_outward"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                <TextView
-                    android:id="@+id/TextView23"
-                    android:layout_width="287dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.76"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="@string/str_baby_chin_touch_breast"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <GridLayout
+                <ImageView
+                    android:id="@+id/imageView3"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:columnCount="1" >
+                    android:src="@drawable/breast_care2" />
 
-                    <ImageView
-                        android:id="@+id/imageView1"
-                        android:layout_width="134dp"
-                        android:layout_height="73dp"
-                        android:layout_gravity="left"
-                        android:src="@drawable/good_attachement1" />
-                </GridLayout>
+            </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/ImageView03"
-                    android:layout_width="134dp"
-                    android:layout_height="73dp"
-                    android:src="@drawable/good_attachement1" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_border2"
+                android:divider="@drawable/divider"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:paddingTop="0dp"
+                android:showDividers="middle" >
 
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/TextView18"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="Position and attach baby correctly on the breast.  Breastfeeding should not hurt"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/TextView17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="If you develop cracked nipples, put some breast milk on them.  Do not use any types of creams or ointments except when prescribed by a health care provider"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/TextView16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="Feed frequently to prevent breasts from becoming swollen"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/TextView12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="If baby misses a feed you should express some milk to breast soft"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/TextView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="Keep expressed breast milk in a cool place, but not longer than 6-8 hours "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/TextView15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="If one or both breasts become painful or hot to the touch, you should contact a health care provider"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/TextView22"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="Mixed feeding (combining breast milk with anything else) is not healthy for the baby before 6 months of age.  Mixed feeding reduces the amount of milk that you can produce and also can make the baby sick"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/TextView19"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="If you has any trouble practicing exclusive breastfeeding, discuss with a trained counselor"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </LinearLayout>
 
             <Button

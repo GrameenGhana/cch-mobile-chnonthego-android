@@ -5,10 +5,12 @@ import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -32,12 +34,78 @@ public class TakeActionBreastProblemsPNCMotherActivity extends BaseActivity {
 	        }
 	        if(take_action_category.equals("mastitis")){
 	        	   setContentView(R.layout.activity_mastitis_pnc_mother);
+	        	   TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+	               click_here.setOnClickListener(new OnClickListener(){
+
+	   				@Override
+	   				public void onClick(View v) {
+	   					Intent intent=new Intent(mContext,BreastProblemsCounsellingActivity.class);
+	   					startActivity(intent);
+	   					
+	   				}
+	               	
+	               });
 	        }else if(take_action_category.equals("breast_engorgment")){
 	        	 setContentView(R.layout.activity_breast_engorgment_pnc_mother);
+	        	 TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+	             click_here.setOnClickListener(new OnClickListener(){
+
+	     			@Override
+	     			public void onClick(View v) {
+	     				Intent intent=new Intent(mContext,BreastProblemsCounsellingActivity.class);
+	     				startActivity(intent);
+	     				
+	     			}
+	             	
+	             });
+	             TextView click_here_too=(TextView) findViewById(R.id.textView_clickHereToo);
+	             click_here_too.setOnClickListener(new OnClickListener(){
+
+	     			@Override
+	     			public void onClick(View v) {
+	     				Intent intent=new Intent(mContext,InfantFeedingMenuActivity.class);
+	     				startActivity(intent);
+	     				
+	     			}
+	             	
+	             });
 	        }else if(take_action_category.equals("cracked_nipples")){
 	        	 setContentView(R.layout.activity_cracked_nipples_pnc_mother);
+	        	 TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+	             click_here.setOnClickListener(new OnClickListener(){
+
+	     			@Override
+	     			public void onClick(View v) {
+	     				Intent intent=new Intent(mContext,BreastProblemsCounsellingActivity.class);
+	     				startActivity(intent);
+	     				
+	     			}
+	             	
+	             });
+	             TextView click_here_too=(TextView) findViewById(R.id.textView_clickHereToo);
+	             click_here_too.setOnClickListener(new OnClickListener(){
+
+	     			@Override
+	     			public void onClick(View v) {
+	     				Intent intent=new Intent(mContext,InfantFeedingMenuActivity.class);
+	     				startActivity(intent);
+	     				
+	     			}
+	             	
+	             });
 	        }else if(take_action_category.equals("no_problems")){
 	        	 setContentView(R.layout.activity_no_breast_problems_pnc_mother);
+	        	 TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+	             click_here.setOnClickListener(new OnClickListener(){
+
+	     			@Override
+	     			public void onClick(View v) {
+	     				Intent intent=new Intent(mContext,PostnatalCareCounsellingTopicsActivity.class);
+	     				startActivity(intent);
+	     				
+	     			}
+	             	
+	             });
 	        }
 	    
 	}

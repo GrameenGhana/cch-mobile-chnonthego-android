@@ -47,59 +47,70 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_border2"
+            android:divider="@drawable/divider"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:showDividers="middle" >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="This is reserved for clients who do not tolerate Artesunate-Amodiaquine"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="normal" />
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="This is reserved for clients who do not tolerate Artesunate-Amodiaquine"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="normal" />
+            </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="The drug should be taken twice per day in divided doses, and after eating meals"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="normal" />
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="The drug should be taken twice per day in divided doses, and after eating meals"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="normal" />
+            </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="Standard 3-day treatment with a total of six doses according to body weight is recommended as below: "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="normal" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Standard 3-day treatment with a total of six doses according to body weight is recommended as below: "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <org.grameenfoundation.cch.utils.PinchZoom

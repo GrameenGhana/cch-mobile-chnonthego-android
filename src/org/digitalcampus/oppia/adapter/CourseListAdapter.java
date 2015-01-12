@@ -63,13 +63,13 @@ public class CourseListAdapter extends ArrayAdapter<Course> {
 	    TextView courseTitle = (TextView) rowView.findViewById(R.id.module_title);
 	    courseTitle.setText(c.getTitle(prefs.getString(ctx.getString(R.string.prefs_language), Locale.getDefault().getLanguage())));
 	    
-	    ProgressBar pb = (ProgressBar) rowView.findViewById(R.id.course_progress_bar);
+	    ProgressBar  pb = (ProgressBar ) rowView.findViewById(R.id.course_progress_bar);
 	    pb.setProgress((int) c.getProgress());
 	    
 		// set image
 		if(c.getImageFile() != null){
 			ImageView iv = (ImageView) rowView.findViewById(R.id.course_image);
-			BitmapDrawable bm = ImageUtils.LoadBMPsdcard(c.getImageFile(), ctx.getResources(), R.drawable.app_icon);
+			BitmapDrawable bm = ImageUtils.LoadBMPsdcard(c.getImageFile(), ctx.getResources(), R.drawable.ic_books);
 			iv.setImageDrawable(bm);
 		}
 	    return rowView;

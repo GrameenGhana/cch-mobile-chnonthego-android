@@ -26,19 +26,11 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <org.grameenfoundation.cch.utils.PinchZoom
+        android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical" >
-
-        <org.grameenfoundation.cch.utils.PinchZoom
-            android:id="@+id/imageView2"
-            android:layout_width="300dp"
-            android:layout_height="279dp"
-            android:src="@drawable/returning_for_care4" />
-
-    </LinearLayout>
+        android:layout_height="279dp"
+        android:src="@drawable/returning_for_care4" />
 
 </LinearLayout>
 </ScrollView>

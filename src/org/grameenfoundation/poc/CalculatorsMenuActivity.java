@@ -28,7 +28,7 @@ public class CalculatorsMenuActivity extends BaseActivity {
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC Calculators");
 	    listView_calculators=(ListView) findViewById(R.id.listView_postnatalCareSections);
-	    String[] items={"Trimester Calculator","Dosage Calculator"};
+	    String[] items={"Trimester Calculator","Dosage Calculator","Estimated Due Date Calculator"};
 	    CalculatorsSectionsListAdapter adapter=new CalculatorsSectionsListAdapter(mContext,items);
 	    listView_calculators.setAdapter(adapter);
 	    listView_calculators.setOnItemClickListener(new OnItemClickListener(){
@@ -40,15 +40,22 @@ public class CalculatorsMenuActivity extends BaseActivity {
 				String url;
 				switch(position){
 				case 0:
-					intent=new Intent(mContext,CalculatorsActivity.class);
-					url="file:///android_asset/www/cch/modules/poc/trimcalculator.html";
-					intent.putExtra("url", url);
+					intent=new Intent(mContext,EstimateTrimester.class);
+				//	url="file:///android_asset/www/cch/modules/poc/trimcalculator.html";
+					//intent.putExtra("url", url);
 					startActivity(intent);
 					break;
 				case 1:
-					intent=new Intent(mContext,CalculatorsActivity.class);
-					url="file:///android_asset/www/cch/modules/poc/dosagecalculator.html";
-					intent.putExtra("url", url);
+					intent=new Intent(mContext,DosageCalculatorActivity.class);
+					//url="file:///android_asset/www/cch/modules/poc/dosagecalculator.html";
+					//intent.putExtra("url", url);
+					startActivity(intent);
+					break;
+					
+				case 2:
+					intent=new Intent(mContext,EstimateDueDateCalculator.class);
+					//url="file:///android_asset/www/cch/modules/poc/dosagecalculator.html";
+					//intent.putExtra("url", url);
 					startActivity(intent);
 					break;
 				

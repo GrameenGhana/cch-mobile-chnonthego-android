@@ -148,10 +148,10 @@ public class HomeActivity extends AppActivity implements OnSharedPreferenceChang
 			                startActivity(intent);	
 			            
 						} else if (pdfMatcher.find()) {
-												           
-					         Intent intent = new Intent(getApplicationContext(), PDFActivity.class);
-					         intent.putExtra(PDFActivity.EXTRA_PDFFILENAME, url);
-					         startActivity(intent);
+								System.out.println(url);				           
+					        // Intent intent = new Intent(getApplicationContext(), PDFActivity.class);
+					        // intent.putExtra(PDFActivity.EXTRA_PDFFILENAME, url);
+					         //startActivity(intent);
 					         
 						} else {
 							view.loadUrl(url);

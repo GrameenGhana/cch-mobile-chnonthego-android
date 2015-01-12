@@ -40,196 +40,175 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="Counsel client to comply with treatment to avoid development of resistance of antimalarial drugs.  "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="normal" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="Educate her on the importance of taking full dose of drugs in order to clear the parasites from the blood, and thus prevent progression of disease to complications like anemia"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="normal" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="Also educate client on:"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="normal" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/custom_border2"
+            android:divider="@drawable/divider"
             android:orientation="vertical"
-            android:paddingLeft="30dp"
-            android:paddingRight="0dp" >
+            android:showDividers="middle" >
 
             <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="Danger signs and to return for follow-up after treatment is completed or if her conditions worsens"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="normal" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="Report any adverse reactions to the drugs immediately "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="normal" />
-        </LinearLayout>
-        </LinearLayout>
-<LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="In addition to the above clients should be advised to: "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="normal" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="30dp"
-            android:paddingRight="0dp" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Counsel client to comply with treatment to avoid development of resistance of antimalarial drugs.  "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="normal" />
+            </LinearLayout>
 
             <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
 
-            <TextView
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Educate her on the importance of taking full dose of drugs in order to clear the parasites from the blood, and thus prevent progression of disease to complications like anemia"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Also educate client on:"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="Take iron supplements"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="normal" />
+                android:orientation="vertical"
+                android:paddingLeft="30dp"
+                android:paddingRight="0dp" >
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_bullet" />
 
-            <TextView
-                android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="0dp"
+                        android:text="Danger signs and to return for follow-up after treatment is completed or if her conditions worsens"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textStyle="normal" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_bullet" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="0dp"
+                        android:text="Report any adverse reactions to the drugs immediately "
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textStyle="normal" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_bullet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="In addition to the above clients should be advised to: "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="Eat well "
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="normal" />
-        </LinearLayout>
-             <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+                android:orientation="vertical"
+                android:paddingLeft="30dp"
+                android:paddingRight="0dp" >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Take iron supplements"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="normal" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="Use ITNs and other preventive measures"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="normal" />
-        </LinearLayout>
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Eat well "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="normal" />
+
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="0dp"
+                    android:text="Use ITNs and other preventive measures"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

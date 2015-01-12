@@ -23,7 +23,8 @@ public class SoftUterusPNCMotherYesNextActivity extends BaseActivity {
 	private Button button_twoYes;
 	private DbHelper dbh;
 	private Long start_time;
-	private Long end_time; 
+	private Long end_time;
+	private String take_action_category; 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,11 @@ public class SoftUterusPNCMotherYesNextActivity extends BaseActivity {
 	    getActionBar().setSubtitle("PNC Mother Diagnostic: Soft Uterus");
 	    dbh=new DbHelper(SoftUterusPNCMotherYesNextActivity.this);
 	    start_time=System.currentTimeMillis();
-
+	    Bundle extras = getIntent().getExtras(); 
+        if (extras != null) {
+          take_action_category= extras.getString("value");
+        }
+        if(take_action_category.equals("yes")){
 	    linearLayout_oneButtons=(LinearLayout) findViewById(R.id.LinearLayout_oneButtons);
 	    linearLayout_twoButtons=(LinearLayout) findViewById(R.id.LinearLayout_twoButtons);
 	    
@@ -43,11 +48,9 @@ public class SoftUterusPNCMotherYesNextActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				if(linearLayout_oneButtons.getVisibility()==View.VISIBLE){
-					linearLayout_oneButtons.setVisibility(View.GONE);
-				}else if(linearLayout_oneButtons.getVisibility()==View.GONE){
-				linearLayout_oneButtons.setVisibility(View.VISIBLE);
-				}
+				Intent intent=new Intent(SoftUterusPNCMotherYesNextActivity.this,TakeActionSoftUterusPNCMotherActivity.class);
+				intent.putExtra("value", "one_yes");	
+				startActivity(intent);
 			}
 	    	
 	    });	
@@ -57,15 +60,41 @@ public class SoftUterusPNCMotherYesNextActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				if(linearLayout_twoButtons.getVisibility()==View.VISIBLE){
-					linearLayout_twoButtons.setVisibility(View.GONE);
-				}else if(linearLayout_twoButtons.getVisibility()==View.GONE){
-					linearLayout_twoButtons.setVisibility(View.VISIBLE);
-				}
+				Intent intent=new Intent(SoftUterusPNCMotherYesNextActivity.this,TakeActionSoftUterusPNCMotherActivity.class);
+				intent.putExtra("value", "two_yes");
+				startActivity(intent);
 			}
 	    	
 	    });
-	    
+        }else if(take_action_category.equals("no")){
+        	linearLayout_oneButtons=(LinearLayout) findViewById(R.id.LinearLayout_oneButtons);
+    	    linearLayout_twoButtons=(LinearLayout) findViewById(R.id.LinearLayout_twoButtons);
+    	    
+    	    linearLayout_one=(LinearLayout) findViewById(R.id.LinearLayout_one);
+    	    linearLayout_one.setOnClickListener(new OnClickListener(){
+
+    			@Override
+    			public void onClick(View v) {
+    				Intent intent=new Intent(SoftUterusPNCMotherYesNextActivity.this,TakeActionSoftUterusPNCMotherActivity.class);
+    				intent.putExtra("value", "one_no");	
+    				startActivity(intent);
+    			}
+    	    	
+    	    });	
+    	    
+    	    linearLayout_two=(LinearLayout) findViewById(R.id.LinearLayout_two);
+    	    linearLayout_two.setOnClickListener(new OnClickListener(){
+
+    			@Override
+    			public void onClick(View v) {
+    				Intent intent=new Intent(SoftUterusPNCMotherYesNextActivity.this,TakeActionSoftUterusPNCMotherActivity.class);
+    				intent.putExtra("value", "two_no");
+    				startActivity(intent);
+    			}
+    	    	
+    	    });
+        }
+	    /*
 	    button_oneYes=(Button) findViewById(R.id.button_oneYes);
 	    button_oneYes.setOnClickListener(new OnClickListener(){
 
@@ -111,6 +140,7 @@ public class SoftUterusPNCMotherYesNextActivity extends BaseActivity {
 			}
 	    	
 	    });
+	    */
 	}
 	public void onBackPressed()
 	{

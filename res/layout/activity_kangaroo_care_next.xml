@@ -17,7 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp" >
+            android:padding="10dp" >
 
             <ImageView
                 android:id="@+id/imageView1"
@@ -71,68 +71,33 @@
             android:orientation="vertical"
             android:showDividers="middle" >
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="Dress baby in a warm shirt open at the front, a nappy, hat and socks"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="50dp"
-                    android:src="@drawable/ic_bullet" />
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="Hold baby in skin to skin contact on your chest between breasts.  Keep baby’s head turned to one side"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="Dress baby in a warm shirt open at the front, a nappy, hat and socks"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            </LinearLayout>
-<LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="50dp"
-                    android:src="@drawable/ic_bullet" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="Hold baby in skin to skin contact on your chest between breasts.  Keep baby’s head turned to one side"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="50dp"
-                    android:src="@drawable/ic_bullet" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="Cover baby with a cloth (and an additional blanket in cold weather) "
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            </LinearLayout>
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="Cover baby with a cloth (and an additional blanket in cold weather) "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
 
         <LinearLayout

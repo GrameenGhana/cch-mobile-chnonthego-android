@@ -40,6 +40,7 @@ import org.digitalcampus.oppia.application.Tracker;
 import org.digitalcampus.oppia.model.Activity;
 import org.digitalcampus.oppia.model.Course;
 import org.digitalcampus.oppia.model.QuizFeedback;
+import org.digitalcampus.oppia.model.Section;
 import org.digitalcampus.oppia.utils.MetaDataUtils;
 import org.digitalcampus.oppia.widgets.quiz.DescriptionWidget;
 import org.digitalcampus.oppia.widgets.quiz.MatchingWidget;
@@ -90,12 +91,13 @@ public class QuizWidget extends WidgetFactory {
 	private boolean isOnResultsPage = false;
 	private ViewGroup container;
 
-	public static QuizWidget newInstance(Activity activity, Course course, boolean isBaseline) {
+	public static QuizWidget newInstance(Activity activity, Course course,Section section, boolean isBaseline) {
 		QuizWidget myFragment = new QuizWidget();
 
 		Bundle args = new Bundle();
 		args.putSerializable(Activity.TAG, activity);
 		args.putSerializable(Course.TAG, course);
+		args.putSerializable(Section.TAG, section);
 		args.putBoolean(CourseActivity.BASELINE_TAG, isBaseline);
 		myFragment.setArguments(args);
 
@@ -103,7 +105,7 @@ public class QuizWidget extends WidgetFactory {
 	}
 
 	public QuizWidget() {
-
+		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -114,6 +116,7 @@ public class QuizWidget extends WidgetFactory {
 		this.container = container;
 		course = (Course) getArguments().getSerializable(Course.TAG);
 		activity = ((Activity) getArguments().getSerializable(Activity.TAG));
+		section = ((Section) getArguments().getSerializable(Section.TAG));
 		this.setIsBaseline(getArguments().getBoolean(CourseActivity.BASELINE_TAG));
 		quizContent = ((Activity) getArguments().getSerializable(Activity.TAG)).getContents(prefs.getString(
 				super.getActivity().getString(R.string.prefs_language), Locale.getDefault().getLanguage()));
@@ -319,7 +322,21 @@ public class QuizWidget extends WidgetFactory {
 		// save results ready to send back to the quiz server
 		String data = quiz.getResultObject().toString();
 		DbHelper db = new DbHelper(super.getActivity());
-		db.insertQuizResult(data, course.getModId());
+		JSONObject json=new JSONObject();
+		Course c=db.getCourse(course.getModId());
+		try {
+			json.put("title", activity.getTitle(prefs.getString(getString(R.string.prefs_language), Locale
+					.getDefault().getLanguage())));
+			json.put("section", section.getTitle(prefs.getString(getString(R.string.prefs_language), Locale
+					.getDefault().getLanguage())));
+			json.put("course", c.getTitle(prefs.getString(getString(R.string.prefs_language), Locale
+					.getDefault().getLanguage())));
+			System.out.println(json.toString());
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		db.insertQuizResult(data, json.toString(),course.getModId());
 		db.close();
 		Log.d(TAG, data);
 		
@@ -354,6 +371,7 @@ public class QuizWidget extends WidgetFactory {
 				qf.setUserResponse(q.getUserResponses());
 				qf.setFeedbackText(q.getFeedback());
 				quizFeedback.add(qf);
+				
 			}
 		}
 		QuizFeedbackAdapter qfa = new QuizFeedbackAdapter(super.getActivity(), quizFeedback);

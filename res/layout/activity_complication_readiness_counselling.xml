@@ -14,7 +14,7 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="left"
             android:padding="10dp"
             android:text="Counsel Clients on Maternal &amp; Newborn Danger Signs &amp; Complication Readiness"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -31,28 +31,13 @@
         <ListView
             android:id="@+id/listView_complicationReadinessMenu"
             android:layout_width="match_parent"
-            android:layout_height="247dp"
+            android:layout_height="wrap_content"
             android:background="@color/BackgroundGrey"
             android:divider="@color/White"
             android:dividerHeight="5dp"
              android:fadeScrollbars="false" >
 
         </ListView>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical" >
-
-        <Button
-            android:id="@+id/button_next"
-            android:layout_width="262dp"
-            android:layout_height="wrap_content"
-            android:text="Next"
-            android:textColor="@color/TextBrown" />
 
     </LinearLayout>
 

@@ -33,7 +33,6 @@ import com.actionbarsherlock.view.MenuItem;
 public class PrefsActivity extends SherlockPreferenceActivity {
 	
 	public static final String TAG = PrefsActivity.class.getSimpleName();
-	
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) { 

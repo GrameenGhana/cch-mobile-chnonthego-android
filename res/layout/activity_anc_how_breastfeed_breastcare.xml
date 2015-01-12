@@ -6,7 +6,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="10dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,19 +20,20 @@
                 android:layout_height="39dp"
                 android:text="@string/str_how_often_client_breastfeed"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/Blue" />
+                android:textColor="@color/Brown" />
 
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/str_need_to_know_breast_feeding" />
+                android:text="@string/str_need_to_know_breast_feeding"
+                android:textColor="@color/Blue" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.85"
-                android:background="@color/TakeAction" >
+                android:background="@drawable/custom_border2" >
 
                 <ImageView
                     android:id="@+id/ImageView05"
@@ -42,40 +44,41 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/TakeAction"
+                    android:divider="@drawable/divider"
                     android:orientation="vertical"
-                    android:padding="5dp" >
+                    android:padding="5dp"
+                    android:showDividers="middle" >
 
-                    <TextView
+                    <org.grameenfoundation.cch.utils.TextViewBullets
                         android:id="@+id/TextView04"
-                        android:layout_width="234dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="5dp"
-                        android:text="@string/str_breast_milk_provides_all_food_baby_6_months"
+                        android:text="Breast milk provides all the food and water a baby needs for the first 6 months of life "
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                    <TextView
+                    <org.grameenfoundation.cch.utils.TextViewBullets
                         android:id="@+id/TextView03"
-                        android:layout_width="232dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="5dp"
-                        android:text="@string/str_important_feed_baby_yellowish_milk"
+                        android:text="Important to feed baby the first yellowish milk known as colostrum"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                    <TextView
+                    <org.grameenfoundation.cch.utils.TextViewBullets
                         android:id="@+id/TextView02"
-                        android:layout_width="236dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="5dp"
-                        android:text="@string/str_breast_milk_provides_all_food_baby_6_months"
+                        android:text="Colostrum protects babies from many diseases"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                    <TextView
+                    <org.grameenfoundation.cch.utils.TextViewBullets
                         android:id="@+id/TextView0790"
-                        android:layout_width="232dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="5dp"
-                        android:text="@string/str_importance_exclusive_breast_feeding"
+                        android:text="Exclusive breastfeeding means giving only breast milk, and nothing else (no other milks, foods or liquids, not even sips of water), except for medicines prescribed by a doctor or nurse. "
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                 </LinearLayout>
             </LinearLayout>
@@ -84,167 +87,184 @@
                 android:id="@+id/TextView14"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
-                android:text="@string/str_need_to_know_breast_feeding" />
+                android:paddingTop="10dp"
+                android:text="Help clients know how to attach baby to her breast "
+                android:textColor="@color/Blue" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.85"
-                android:background="@color/TakeAction" >
-
-                <ImageView
-                    android:id="@+id/ImageView02740"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/baby_attach_to_breast" />
+                android:background="@drawable/custom_border2"
+                android:orientation="vertical" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/TakeAction"
-                    android:orientation="vertical"
-                    android:padding="5dp" >
+                    android:layout_weight="0.85" >
 
-                    <TextView
-                        android:id="@+id/TextView11"
-                        android:layout_width="234dp"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:text="@string/str_baby_should_put_breast_1st"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                    <ImageView
+                        android:id="@+id/ImageView02740"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/baby_attach_to_breast" />
 
-                    <TextView
-                        android:id="@+id/TextView10"
-                        android:layout_width="232dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:text="@string/str_good_attachment_baby_suckles_well"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                        android:divider="@drawable/divider"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:showDividers="middle" >
+
+                        <org.grameenfoundation.cch.utils.TextViewBullets
+                            android:id="@+id/TextView11"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="5dp"
+                            android:text="Baby should be put to the breast within the 1st hour of birth"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <org.grameenfoundation.cch.utils.TextViewBullets
+                            android:id="@+id/TextView10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="5dp"
+                            android:text="Good attachment helps to ensure that baby suckles well"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <org.grameenfoundation.cch.utils.TextViewBullets
+                            android:id="@+id/TextView18"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="5dp"
+                            android:text="Good attachment helps mother to produce a good supply of breast milk"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <org.grameenfoundation.cch.utils.TextViewBullets
+                            android:id="@+id/TextView17"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="5dp"
+                            android:text="Good attachment helps prevent sore and cracked nipples"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/TakeAction"
-                android:orientation="vertical"
-                android:padding="5dp"
-                android:paddingTop="0dp" >
-
-                <TextView
-                    android:id="@+id/TextView18"
-                    android:layout_width="298dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.61"
-                    android:paddingBottom="5dp"
-                    android:text="@string/str_attach_help_mother_supply_good_breast_milk"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:layout_weight="0.85"
+                    android:divider="@drawable/divider"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:paddingTop="0dp"
+                    android:showDividers="middle|beginning" >
 
-                <TextView
-                    android:id="@+id/TextView17"
-                    android:layout_width="299dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.61"
-                    android:paddingBottom="5dp"
-                    android:text="@string/str_make_sure_baby_attached_well"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/TextView16"
-                    android:layout_width="287dp"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="@string/str_touch_babys_lip_to_nipple"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                        <org.grameenfoundation.cch.utils.TextViewBullets
+                            android:id="@+id/TextView16"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="5dp"
+                            android:text="To make sure baby is attached well:"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <TextView
-                    android:id="@+id/TextView12"
-                    android:layout_width="274dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.76"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="@string/str_wait_till_baby_month_opens"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                        <org.grameenfoundation.cch.utils.TextViewBullets
+                            android:id="@+id/TextView12"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:paddingBottom="5dp"
+                            android:text="Touch baby’s lips to nipple"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <TextView
-                    android:id="@+id/TextView13"
-                    android:layout_width="274dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.76"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="@string/str_quickly_bring_breast_below"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                        <org.grameenfoundation.cch.utils.TextViewBullets
+                            android:id="@+id/TextView13"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:paddingBottom="5dp"
+                            android:text="Wait until baby’s mouth open wide"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <TextView
-                    android:id="@+id/TextView15"
-                    android:layout_width="276dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.76"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="1dp"
-                    android:text="@string/str_baby_should_now_take_big_mouthful_breast_milk"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                        <org.grameenfoundation.cch.utils.TextViewBullets
+                            android:id="@+id/TextView15"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:text="Quickly bring breast from below, aiming nipple up towards the roof of the baby’s mouth"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <TextView
-                    android:id="@+id/TextView22"
-                    android:layout_width="299dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.61"
-                    android:paddingBottom="5dp"
-                    android:text="@string/str_make_sure_baby_attached_well"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                        <org.grameenfoundation.cch.utils.TextViewBullets
+                            android:id="@+id/TextView22"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:paddingBottom="5dp"
+                            android:text="Baby should now take a big mouthful of breast milk"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <TextView
-                    android:id="@+id/TextView19"
-                    android:layout_width="276dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.76"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="1dp"
-                    android:text="@string/str_baby_month_wide_open"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/TextView21"
-                    android:layout_width="274dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.76"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="@string/str_mother_can_see_more_darker_skin"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/TextView20"
-                    android:layout_width="274dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.76"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="@string/str_babys_lower_lip_turned_outward"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                        <org.grameenfoundation.cch.utils.TextViewBullets
+                            android:id="@+id/TextView19"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="1dp"
+                            android:text="The 4 signs of good attachment are:"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <TextView
-                    android:id="@+id/TextView23"
-                    android:layout_width="287dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.76"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="@string/str_baby_chin_touch_breast"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                        <org.grameenfoundation.cch.utils.TextViewBullets
+                            android:id="@+id/TextView21"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:paddingBottom="5dp"
+                            android:text="Baby’s mouth is wide open"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <org.grameenfoundation.cch.utils.TextViewBullets
+                            android:id="@+id/TextView20"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:paddingBottom="5dp"
+                            android:text="Mother can see more of the darker skin (areola) above the baby’s mouth than below"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <org.grameenfoundation.cch.utils.TextViewBullets
+                            android:id="@+id/TextView23"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:paddingBottom="5dp"
+                            android:text="Baby’s lower lip is turned outwards"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <org.grameenfoundation.cch.utils.TextViewBullets
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:paddingBottom="5dp"
+                            android:text="Baby’s chin is touching breast "
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout

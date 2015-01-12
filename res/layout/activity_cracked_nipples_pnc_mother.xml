@@ -34,26 +34,28 @@
      android:padding="20dp"
      android:showDividers="middle" >
 
-           <TextView
-               android:id="@+id/textView33"
-               android:layout_width="wrap_content"
+           <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
+               android:id="@+id/textView_clickHere"
+               android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:drawableLeft="@drawable/ic_counsel"
                android:paddingBottom="5dp"
                android:text="Counsel mother on how to manage cracked nipples"
-               android:textAppearance="?android:attr/textAppearanceSmall" />
+               android:textAppearance="?android:attr/textAppearanceSmall"
+               android:textColor="@color/WhileWaitingForTransport" />
 
-            <TextView
-                android:id="@+id/textView23"
-                android:layout_width="wrap_content"
+            <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
+                android:id="@+id/textView_clickHereToo"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_counsel"
                 android:text="Counsel mother on good breastfeeding practices "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/WhileWaitingForTransport" />
 
             <TextView
                 android:id="@+id/textView19"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_record"
                 android:paddingBottom="10dp"
@@ -62,7 +64,7 @@
 
             <TextView
                 android:id="@+id/textView14"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_follow_up"
                 android:text=" Follow up with client after discharge from health center or hospital "

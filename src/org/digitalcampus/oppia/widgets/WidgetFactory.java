@@ -21,6 +21,7 @@ import java.util.HashMap;
 
 import org.digitalcampus.oppia.model.Activity;
 import org.digitalcampus.oppia.model.Course;
+import org.digitalcampus.oppia.model.Section;
 
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,7 @@ public abstract class WidgetFactory extends Fragment {
 	public final static String TAG = WidgetFactory.class.getSimpleName();
 	protected Activity activity = null;
 	protected Course course = null;
+	protected Section section = null;
 	protected SharedPreferences prefs;
 	protected boolean isBaseline = false;
 	protected long startTime = System.currentTimeMillis()/1000;

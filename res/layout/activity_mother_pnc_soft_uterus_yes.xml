@@ -122,16 +122,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical"
-        android:paddingTop="30dp" >
+        android:paddingTop="20dp" >
 
-        <Button
-            android:id="@+id/button_next"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:text="Next"
-            android:textColor="@color/Brown" />
+            <Button
+                android:id="@+id/button_yes"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@color/Red"
+                android:text="Yes"
+                android:textColor="@color/White" />
+ 		<View
+        android:layout_width="10dp"
+        android:layout_height="20dp" />
+            <Button
+                android:id="@+id/button_no"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@color/Green"
+                android:text="No"
+                android:textColor="@color/White" />
 
-    </LinearLayout>
+        </LinearLayout>
 
 </LinearLayout>

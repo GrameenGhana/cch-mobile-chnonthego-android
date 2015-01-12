@@ -37,62 +37,30 @@
         android:padding="10dp"
         android:showDividers="middle" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:text="Keep room warm (at least 25 C), and make sure there is no draft or windows open during cold weather "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:text="Avoid bathing the low weight baby.  When washing or bathing, do it in a very warm room with water.  Dry thoroughly, and clothe the young infant immediately"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="Keep room warm (at least 25 C), and make sure there is no draft or windows open during cold weather "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        </LinearLayout>
-	<LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="Avoid bathing the low weight baby.  When washing or bathing, do it in a very warm room with water.  Dry thoroughly, and clothe the young infant immediately"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_bullet" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
-                android:text="Change clothes (e.g. nappies) whenever baby is wet "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        </LinearLayout>
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:text="Change clothes (e.g. nappies) whenever baby is wet "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
     </LinearLayout>
 
     <LinearLayout

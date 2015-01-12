@@ -3,15 +3,20 @@ package org.digitalcampus.oppia.activity;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.service.TrackerService;
 import org.grameenfoundation.adapters.EventsDetailPagerAdapter;
 import org.grameenfoundation.adapters.MainScreenBaseAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
+import org.grameenfoundation.cch.activity.AchievementCenterActivity;
+import org.grameenfoundation.cch.activity.AchievementSummaryActivity;
+import org.grameenfoundation.cch.activity.EventPlannerOptionsActivity;
+import org.grameenfoundation.cch.activity.LearningCenterMenuActivity;
 import org.grameenfoundation.cch.activity.StayingWellActivity;
+import org.grameenfoundation.cch.activity.UpdateTargetActivity;
 import org.grameenfoundation.poc.PointOfCareActivity;
+import org.grameenfoundation.cch.model.MyCalendarEvents;
 import org.grameenfoundation.cch.model.RoutineActivity;
 import org.grameenfoundation.cch.model.RoutineActivityDetails;
 import org.grameenfoundation.cch.utils.TypefaceUtil;
@@ -79,7 +84,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	    getActionBar().setSubtitle("Home Page");
 	    TypefaceUtil.overrideFont(mContext, "SERIF", "fonts/Roboto-Thin.ttf");
 	    main_menu_listview=(ListView) findViewById(R.id.listView_mainScreenMenu);
-	    
+	  
 	    String[] categories={"Planner",
 	    		"Point of Care",
 	    		"Learning Center",
@@ -96,6 +101,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	    main_menu_listview.setAdapter(adapter);				
 	    main_menu_listview.setOnItemClickListener(this);
 		dbh = new DbHelper(getApplicationContext());
+		 // dbh.alterTables();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		prefs.registerOnSharedPreferenceChangeListener(this);
 		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
@@ -181,7 +187,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			private long otherId;
 			private long learningId;
 		 private ArrayList<String> firstName;
-		 public ArrayList<String> EventTypeToday;
+		 public ArrayList<MyCalendarEvents> EventTypeToday;
 		private int numactivities;
 		 public EventsSummary(){
 			 
@@ -203,7 +209,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			   
 			    c= new CalendarEvents(mContext);
 			    
-			    EventTypeToday=c.getTodaysEventsType();
+			    EventTypeToday=c.getTodaysEvents(false);
 			    
 			    if(firstName.size()>0){
 			    	user_first_name=firstName.get(0);
@@ -212,10 +218,8 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			    }
 			    
 		    	status.setText("Good "+dbh.getTime()+", "+user_first_name+"!");
-
-			 
 		    	//eventsNumber=db.getAllEventsForMonth("September");
-			 if(EventTypeToday.size()>0&&EventTypeToday.get(0).equalsIgnoreCase("No planned events for today")){
+			 if(EventTypeToday.size()==0){
 				 event_number.setText("0"); 
 			 }else {
 				 event_number.setText(String.valueOf(EventTypeToday.size())); 
@@ -230,13 +234,9 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 				textView_eventTargetsNumber=(TextView) rootView.findViewById(R.id.textView_eventTargetsNumber);
 				textView_clickHere=(TextView) rootView.findViewById(R.id.textView_clickHere);
 				
-				// eventId=new ArrayList<String>();
 				 eventId=dbh.getEventIdCount("Daily");
-				// coverageId=new ArrayList<String>();
 				 coverageId=dbh.getCoverageIdCount("Daily");
-				// otherId=new ArrayList<String>();
 				 otherId=dbh.getOtherIdCount("Daily");
-				//learningId=new ArrayList<String>();
 				 learningId=dbh.getLearningIdCount("Daily");
 				 int number=(int)eventId;
 				 int number2=(int)coverageId;
@@ -298,12 +298,11 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	 public static class EventsDetails extends Fragment {
 		 View rootView;
 		 CalendarEvents c;
-		 public ArrayList<String> EventTypeToday;
-		 public ArrayList<String> EventTypeTime;
 		private TextView eventStatus;
 		int month;
 		String month_text;
 		private ListView listView_details;
+		private ArrayList<MyCalendarEvents> TodayCalendarEvents;
 		 public EventsDetails(){
 			 
 		 }
@@ -316,14 +315,12 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			    listView_details=(ListView) rootView.findViewById(R.id.listView_eventsDetail);
 			    Time time = new Time();
 			    time.setToNow();
-		
 			    c= new CalendarEvents(mContext);
-			    EventTypeToday=c.getTodaysEventsType();
-			    EventTypeTime=c.getTodaysEventsTime(false);
-			 if(EventTypeToday.size()==0){
+			    TodayCalendarEvents=c.getTodaysEvents(false);
+			 if(TodayCalendarEvents.size()==0){
 				 eventStatus.setText("No events planned for today!"); 
-			 }else if(EventTypeToday.size()>0){
-				 EventsDetailPagerAdapter adapter=new EventsDetailPagerAdapter(getActivity(),EventTypeToday,EventTypeTime);
+			 }else if(TodayCalendarEvents.size()>0){
+				 EventsDetailPagerAdapter adapter=new EventsDetailPagerAdapter(getActivity(),TodayCalendarEvents);
 			    	adapter.notifyDataSetChanged();
 			    	listView_details.setAdapter(adapter);	 
 			 }
@@ -422,7 +419,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			break;
 			
 		case 2:
-			intent = new Intent(getApplicationContext(), OppiaMobileActivity.class);
+			intent = new Intent(getApplicationContext(), LearningCenterMenuActivity.class);
             startActivity(intent);	
 			break;
 		case 3:

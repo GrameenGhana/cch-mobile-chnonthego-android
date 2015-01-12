@@ -43,7 +43,7 @@ public class AntenatalCareActivity extends BaseActivity implements OnItemClickLi
 	    String[] category={"Diagnostic Tool","Counselling per Trimester","Calculators","References"};
 	    String [] categoryDetail={"All ANC","First Trimester, Second Trimester, Third Trimester","Malaria Treatment Drug Dosage, Estimating Trimester"
     							,"Tetanus Toxoid Immunisation, Infant Immunisation Schedule, IPTP Treatment"};
-	    AntenatalCareBaseAdapter adapter=new AntenatalCareBaseAdapter(mContext,images,category,categoryDetail);
+	    AntenatalCareBaseAdapter adapter=new AntenatalCareBaseAdapter(mContext,images,category);
 	    listView_ancMenu.setAdapter(adapter);
 	}
 

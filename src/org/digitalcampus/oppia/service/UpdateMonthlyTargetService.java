@@ -5,11 +5,11 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import org.digitalcampus.mobile.learningGF.R;
-import org.digitalcampus.oppia.activity.UpdateMonthlyTargetsActivity;
-import org.digitalcampus.oppia.activity.UpdateWeeklyTargetsActivity;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.service.UpdateTargetsWeeklyService.MyBinder;
+import org.grameenfoundation.cch.activity.UpdateMonthlyTargetsActivity;
+import org.grameenfoundation.cch.activity.UpdateWeeklyTargetsActivity;
 
 import com.bugsense.trace.BugSenseHandler;
 

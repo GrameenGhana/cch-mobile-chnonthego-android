@@ -30,12 +30,6 @@ public class ComplicationReadinessActionActivity extends BaseActivity {
           }else  if(take_action_category.equalsIgnoreCase("danger_signs_newborn")){
         	  setContentView(R.layout.activity_newborn_danger_signs);
         	  end_time=System.currentTimeMillis();
-          }else if(take_action_category.equalsIgnoreCase("other_maternal")){
-        	  setContentView(R.layout.activity_other_maternal_danger_signs);
-        	  end_time=System.currentTimeMillis();
-          }else if(take_action_category.equalsIgnoreCase("other_newborn")){
-        	  setContentView(R.layout.activity_other_newborn_danger_signs);
-        	  end_time=System.currentTimeMillis();
           }else if(take_action_category.equalsIgnoreCase("readiness_plan")){
         	  setContentView(R.layout.activity_readiness_plan);
         	  end_time=System.currentTimeMillis();

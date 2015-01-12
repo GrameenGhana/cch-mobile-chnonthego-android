@@ -18,7 +18,7 @@ public class AntenatalCareBaseAdapter extends BaseAdapter{
 	String[] category;
 	String[] categoryDetail;
 	
-	public AntenatalCareBaseAdapter(Context mContext,int[] imageIds,String[] category,String[] categoryDetail){
+	public AntenatalCareBaseAdapter(Context mContext,int[] imageIds,String[] category){
 		
 		this.mContext=mContext;
 		this.imageIds=imageIds;
@@ -62,8 +62,8 @@ public class AntenatalCareBaseAdapter extends BaseAdapter{
 		 TextView category_text= (TextView) list.findViewById(R.id.textView_ancCategory);
 		 category_text.setText(category[position]);
 		 
-		 TextView category_detail_text= (TextView) list.findViewById(R.id.textView_ancDescription);
-		 category_detail_text.setText(categoryDetail[position]);
+		 //TextView category_detail_text= (TextView) list.findViewById(R.id.textView_ancDescription);
+		 //category_detail_text.setText(categoryDetail[position]);
 		 
 		 ImageView icon=(ImageView) list.findViewById(R.id.imageView_ancIcon);
 		 icon.setImageResource(imageIds[position]);

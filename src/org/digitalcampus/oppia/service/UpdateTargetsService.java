@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import org.digitalcampus.mobile.learningGF.R;
-import org.digitalcampus.oppia.activity.UpdateTargetActivity;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.service.TrackerService.MyBinder;
@@ -13,6 +12,7 @@ import org.digitalcampus.oppia.task.APIRequestTask;
 import org.digitalcampus.oppia.task.Payload;
 import org.digitalcampus.oppia.task.SubmitQuizTask;
 import org.digitalcampus.oppia.task.SubmitTrackerMultipleTask;
+import org.grameenfoundation.cch.activity.UpdateTargetActivity;
 import org.grameenfoundation.cch.tasks.UpdateCCHLogTask;
 
 import com.bugsense.trace.BugSenseHandler;
@@ -47,64 +47,17 @@ public class UpdateTargetsService extends Service {
 	Time compared_time;
 	Time week;
 	Time end_of_month;
-	private String current_month;
 	private DbHelper db;
-	private HashMap<String, String> eventUpdateItemsDaily;
-	private HashMap<String, String> coverageUpdateItemsDaily;
-	private HashMap<String, String> otherUpdateItemsDaily;
-	private ArrayList<String> eventId;
-	private ArrayList<String> coverageId;
-	private ArrayList<String> otherId;
-	private HashMap<String, String> learningUpdateItemsDaily;
-	private ArrayList<String> learningId;
+	private long eventId;
+	private long coverageId;
+	private long otherId;
+	private long learningId;
 	
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		BugSenseHandler.initAndStartSession(this,MobileLearning.BUGSENSE_API_KEY);
 		 db=new DbHelper(this);
-		    Calendar c = Calendar.getInstance();
-	        int month=c.get(Calendar.MONTH)+1;
-	        switch(month){
-	        case 1:
-		        	current_month="January";
-		        	break;
-	        case 2:
-	        	current_month="February";
-	        	break;
-	        case 3:
-	        	current_month="March";
-	        	break;
-	        case 4:
-	        	current_month="April";
-	        	break;
-	        case 5:
-	        	current_month="May";
-	        	break;
-	        case 6:
-	        	current_month="June";
-	        	break;
-	        case 7:
-	        	current_month="July";
-	        	break;
-	        case 8:
-	        	current_month="August";
-	        	break;
-	        case 9:
-	        	current_month="September";
-	        	break;
-	        case 10:
-	        	current_month="October";
-	        	break;
-	        case 11:
-	        	current_month="November";
-	        	break;
-	        case 12:
-	        	current_month="December";
-	        	break;
-	        }
-	        
-	       
 	}
 
 	@Override
@@ -112,46 +65,16 @@ public class UpdateTargetsService extends Service {
 		Log.v(TAG, "Starting target update Service");
 		 Time time = new Time();
 		    time.setToNow();
-		    String today= String.valueOf(time.monthDay)+"-"+String.valueOf(time.month+1)+"-"+String.valueOf(time.year);
-		//if(time_now.equals(compared_time)){
-		    eventUpdateItemsDaily=db.getAllEvents(today);
-			coverageUpdateItemsDaily=db.getAllCoverage(today);
-			otherUpdateItemsDaily=db.getAllOther(today);
-			learningUpdateItemsDaily=db.getAllLearning(today);
-			 eventId=new ArrayList<String>();
-			 eventId=db.getAllForEventsId("Daily");
-			 coverageId=new ArrayList<String>();
-			 coverageId=db.getAllForCoverageId("Daily");
-			 otherId=new ArrayList<String>();
-			 otherId=db.getAllForOtherId("Daily");
-			 learningId=new ArrayList<String>();
-			 learningId=db.getAllForLearningId("Daily");
-			 int number=eventId.size();
-			 int number2=coverageId.size();
-			 int number3=otherId.size();
-			 int number4=learningId.size();
-			 int counter;
-			if(eventId.size()==0){
-				number=0;
-			}else{
-				number=eventId.size();
-			}
-			if(coverageId.size()==0){
-				number2=0;
-			}else {
-				number2=coverageId.size();
-			}
-			if(otherId.size()==0){
-				number3=0;
-			}else{
-				number3=otherId.size();
-			}
+		    eventId=db.getEventIdCount("Daily");
+			 coverageId=db.getCoverageIdCount("Daily");
+			 otherId=db.getOtherIdCount("Daily");
+			 learningId=db.getLearningIdCount("Daily");
+			 int number=(int)eventId;
+			 int number2=(int)coverageId;
+			 int number3=(int)otherId;
+			 int number4=(int)learningId;
+			 final int counter;
 			
-			if(learningId.size()==0){
-				number4=0;
-			}else{
-				number4=learningId.size();
-			}
 			counter=number+number2+number3+number4;
 		System.out.println(counter);
 		if(counter>0){

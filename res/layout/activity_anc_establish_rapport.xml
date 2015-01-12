@@ -12,69 +12,116 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:paddingBottom="10dp" >
 
             <TextView
                 android:id="@+id/TextView14"
                 android:layout_width="wrap_content"
                 android:layout_height="38dp"
-                android:layout_weight="0.27"
                 android:text="@string/str_when_speaking_to_client_keep_in_mind"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/Blue" />
+                android:textColor="@color/Brown" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/TakeAction"
-            android:orientation="vertical" >
+            android:background="@drawable/custom_border2"
+            android:divider="@drawable/divider"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:showDividers="middle" >
 
-            <TextView
-                android:id="@+id/TextView04"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.20"
-                android:paddingLeft="10dp"
-                android:paddingRight="1dp"
-                android:text="@string/str_courtesy_and_kind"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/TextBrown" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/TextView03"
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/TextView04"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Courteous and kind: "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/Blue" />
+
+                <TextView
+                    android:id="@+id/TextView03"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:text="Treat her and (her family member) with respect and sympathy"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.36"
-                android:paddingLeft="10dp"
-                android:paddingRight="1dp"
-                android:text="@string/str_listern_ask_client"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/TextBrown" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/TextView02"
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/TextView02"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Listen and ask: "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/Blue" />
+
+                <TextView
+                    android:id="@+id/TextView01"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:text="Ask client first what she knows about pregnancy and childbirth, before telling them what she should do.  "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextBrown" />
+
+            </LinearLayout>
+<LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.56"
-                android:paddingLeft="10dp"
-                android:paddingRight="1dp"
-                android:text="@string/str_health_education_shd_individualised"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/TextBrown" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/TextView01"
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Health education should be individualised: "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/Blue" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:text="Provide the client appropriate counseling specific to her gestational age and specific problems identified"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextBrown" />
+
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.26"
-                android:paddingLeft="10dp"
-                android:paddingRight="1dp"
-                android:text="@string/str_answer_question_ask_client"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/TextBrown" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Answer questions: "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/Blue" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:text="Ask clients if they have any questions or concerns"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextBrown" />
+
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

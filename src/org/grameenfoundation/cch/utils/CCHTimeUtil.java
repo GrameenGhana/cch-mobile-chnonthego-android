@@ -19,7 +19,7 @@ public class CCHTimeUtil {
 					Calendar.FRIDAY - cal.get(Calendar.DAY_OF_WEEK));
 		}
 		 cal.set(Calendar.HOUR_OF_DAY, 17);
-		 cal.set(Calendar.MINUTE, 00);
+		 cal.set(Calendar.MINUTE, 30);
 		 cal.set(Calendar.SECOND, 00);
 		return calendarToTime(cal);
 
@@ -38,7 +38,7 @@ public class CCHTimeUtil {
 						-(7 + cal.get(Calendar.DAY_OF_WEEK) - Calendar.FRIDAY));
 			}
 
-		 cal.set(Calendar.HOUR_OF_DAY, 17);
+		 cal.set(Calendar.HOUR_OF_DAY, 16);
 		 cal.set(Calendar.MINUTE, 00);
 		 cal.set(Calendar.SECOND, 00);
 		

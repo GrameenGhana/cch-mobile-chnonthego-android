@@ -20,67 +20,19 @@
                 android:layout_height="39dp"
                 android:text="@string/str_things_to_remember"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/Blue" />
+                android:textColor="@color/Brown" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.85" >
+                android:layout_weight="0.85"
+                android:gravity="center" >
 
                 <ImageView
                     android:id="@+id/ImageView02740"
-                    android:layout_width="46dp"
+                    android:layout_width="100dp"
                     android:layout_height="102dp"
                     android:src="@drawable/mother_health" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/text_light"
-                    android:orientation="vertical"
-                    android:padding="5dp" >
-
-                    <TextView
-                        android:id="@+id/TextView04"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.89"
-                        android:paddingBottom="5dp"
-                        android:text="@string/str_exclusive_breastfeeding_during_1sr_6_mnths"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/TextView03"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="@string/str_when_baby_6month_continue"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/TextView02"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.13"
-                android:paddingBottom="5dp"
-                android:text="@string/str_watch_sgins_diarrhoea_fever_etc"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/TextView0790"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2.02"
-                android:paddingBottom="5dp"
-                android:text="@string/str_if_mother_hiv_infected_from_nipple_cracked"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
 
                 <ImageView
                     android:id="@+id/ImageView01"
@@ -89,52 +41,61 @@
                     android:layout_weight="3.46"
                     android:src="@drawable/condom" />
 
-                <TextView
-                    android:id="@+id/TextView14"
-                    android:layout_width="236dp"
-                    android:layout_height="109dp"
-                    android:text="@string/str_reinfection_practice_safe_price" />
-
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/TextView05"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:text="@string/str_protect_mother_baby_from_hiv" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.85" >
+                android:background="@drawable/custom_border2"
+                android:divider="@drawable/divider"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:showDividers="middle" >
 
-                <LinearLayout
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/TextView04"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/text_light"
-                    android:orientation="vertical"
-                    android:padding="5dp" >
-                </LinearLayout>
-            </LinearLayout>
+                    android:paddingBottom="5dp"
+                    android:text="@string/str_exclusive_breastfeeding_during_1sr_6_mnths"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/text_light"
-                android:orientation="vertical"
-                android:padding="5dp"
-                android:paddingTop="0dp" >
-            </LinearLayout>
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/TextView03"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="@string/str_when_baby_6month_continue"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/TextView02"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="@string/str_watch_sgins_diarrhoea_fever_etc"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <GridLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:columnCount="1" >
-                </GridLayout>
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/TextView0790"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="@string/str_if_mother_hiv_infected_from_nipple_cracked"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/TextView14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_reinfection_practice_safe_price" />
+
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/TextView05"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_protect_mother_baby_from_hiv" />
+
             </LinearLayout>
         </LinearLayout>
 

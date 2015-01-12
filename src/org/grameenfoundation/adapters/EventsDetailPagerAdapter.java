@@ -3,6 +3,7 @@ package org.grameenfoundation.adapters;
 import java.util.ArrayList;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.grameenfoundation.cch.model.MyCalendarEvents;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -13,19 +14,21 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 public class EventsDetailPagerAdapter extends BaseAdapter{
-	 private Context mContext;
-	 private final ArrayList<String> eventName;
-	 private final ArrayList<String> eventNumber;
-	
-	 public EventsDetailPagerAdapter(Context c,ArrayList<String> eventName ,ArrayList<String> eventNumber) {
+	public Context mContext;
+	 public ArrayList<MyCalendarEvents> TodayCalendarEvents;
+	 public ArrayList<MyCalendarEvents> todayEvents;
+	 MyCalendarEvents calendarEvents=new MyCalendarEvents();
+
+	 public EventsDetailPagerAdapter(Context c,
+			 						 ArrayList<MyCalendarEvents> TodayCalendarEvents) {
       mContext = c;
-      this.eventName = eventName;
-      this.eventNumber=eventNumber;
+      todayEvents = new ArrayList<MyCalendarEvents>();
+      todayEvents.addAll(TodayCalendarEvents);
   }
 	@Override
 	public int getCount() {
 	
-		return eventName.size();
+		return todayEvents.size();
 	}
 
 	@Override
@@ -54,8 +57,8 @@ public class EventsDetailPagerAdapter extends BaseAdapter{
 	          }
 	          TextView textView2 = (TextView) list.findViewById(R.id.textView_pagerEventName);
 	          TextView textView3 = (TextView) list.findViewById(R.id.textView_pagerEventNumber);
-	        	  textView2.setText(eventName.get(position));
-	        	  textView3.setText(eventNumber.get(position));
+	        	  textView2.setText(todayEvents.get(position).getEventType());
+	        	  textView3.setText(todayEvents.get(position).getEventTime());
 	          
 	            Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
 		          	      "fonts/Roboto-Thin.ttf");

@@ -1,46 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/White"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="10dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/White"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="20dp" >
 
         <TextView
             android:id="@+id/textView1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Counsel client on:"
+            android:text="How to prevent common breastfeeding difficulties "
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/TextBrown" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/breast_feeding" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/White"
+        android:background="@drawable/custom_border2"
+        android:divider="@drawable/divider"
         android:orientation="vertical"
-        android:padding="10dp" >
+        android:padding="10dp"
+        android:showDividers="middle" >
 
-        <ExpandableListView
-            android:id="@+id/expandableListView_breastProblems"
-            android:layout_width="match_parent"
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/BackgroundGrey"
-            android:childDivider="@color/BackgroundGrey"
-            android:divider="@color/White"
-            android:dividerHeight="5dp" 
-             android:fadeScrollbars="false">
+            android:paddingBottom="10dp"
+            android:text="Position and attach baby correctly on the breast.  Breastfeeding should not hurt"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        </ExpandableListView>
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="If you develop cracked nipples, put some breast milk on them.  Do not use any types of creams or ointments except when prescribed by a health care provider "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="Feed frequently to prevent breasts from becoming swollen"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="If baby misses a feed you should express some milk to breast soft"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="If one or both breasts become painful or hot to the touch, mother should contact a health care provider"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="If you have any trouble practicing exclusive breastfeeding, discuss with a trained counselor"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
 
 </LinearLayout>
+</ScrollView>

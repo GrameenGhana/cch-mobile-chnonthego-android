@@ -33,6 +33,7 @@ import org.digitalcampus.oppia.model.Activity;
 import org.digitalcampus.oppia.model.Lang;
 import org.digitalcampus.oppia.model.Media;
 import org.digitalcampus.oppia.model.CourseMetaPage;
+import org.digitalcampus.oppia.model.Scores;
 import org.digitalcampus.oppia.model.Section;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -329,6 +330,51 @@ public class CourseXMLReader {
 				a.setDescriptions(actDescriptions);
 				
 				acts.add(a);
+			}
+		}
+		return acts;
+	}
+	
+	
+	public ArrayList<Scores> getScores(){
+		ArrayList<Scores>  acts = new ArrayList<Scores>();
+		Node struct = document.getFirstChild().getFirstChild().getNextSibling();
+		NodeList s = struct.getChildNodes();
+		for (int i=0; i<s.getLength(); i++) {
+			// get the id and acts
+			NamedNodeMap sectionAttrs = s.item(i).getAttributes();
+			int sectionId = Integer.parseInt(sectionAttrs.getNamedItem("order").getTextContent());
+			NodeList activities = s.item(i).getLastChild().getChildNodes();
+			for (int j=0; j<activities.getLength(); j++) {
+				NamedNodeMap activityAttrs = activities.item(j).getAttributes();
+				String actType = activityAttrs.getNamedItem("type").getTextContent();
+				int actId = Integer.parseInt(activityAttrs.getNamedItem("order").getTextContent());
+				String digest = activityAttrs.getNamedItem("digest").getTextContent();
+				Scores score = new Scores();				
+			//	score.setScore(activityAttrs.getNamedItem("content").getTextContent());
+				ArrayList<Lang> actTitles = new ArrayList<Lang>();
+				ArrayList<Lang> actDescriptions = new ArrayList<Lang>();
+				ArrayList<Scores> actScores = new ArrayList<Scores>();
+				NodeList act = activities.item(j).getChildNodes();
+				for (int k=0; k<act.getLength(); k++) {
+					NamedNodeMap attrs = act.item(k).getAttributes();
+					if(act.item(k).getNodeName().equals("title")){
+						String lang = attrs.getNamedItem("lang").getTextContent();
+						actTitles.add(new Lang(lang, act.item(k).getTextContent()));
+						score.setTitle(act.item(k).getTextContent());
+					}
+					if(act.item(k).getNodeName().equals("description")){
+						String lang = attrs.getNamedItem("lang").getTextContent();
+						actDescriptions.add(new Lang(lang, act.item(k).getTextContent()));
+					}
+					if(act.item(k).getNodeName().equals("content")){
+						String lang = attrs.getNamedItem("lang").getTextContent();
+						score.setScore(act.item(k).getTextContent());
+						
+						//actScores.add(new Lang(lang, act.item(k).getTextContent()));
+					}
+				}
+				acts.add(score);
 			}
 		}
 		return acts;

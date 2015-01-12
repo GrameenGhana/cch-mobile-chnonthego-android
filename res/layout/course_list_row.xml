@@ -12,15 +12,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" 
         android:gravity="center_vertical">
-
-        <ImageView
-            android:id="@+id/course_image"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="4dp"
-            android:contentDescription="@string/app_logo_alt"
-            android:gravity="center_vertical"
-            android:src="@drawable/app_icon" />
+        <ImageView android:id="@+id/course_image"
+             android:layout_width="48dp" 
+             android:layout_height="48dp"
+              android:layout_margin="4dp"
+              android:contentDescription="@string/app_logo_alt"
+               android:gravity="center_vertical" 
+               android:src="@drawable/app_icon"/>
 
         <TextView
             android:id="@+id/module_title"

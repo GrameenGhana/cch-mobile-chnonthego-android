@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -37,21 +39,47 @@ public class BreastProblemsCounsellingActivity extends BaseActivity {
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Counselling: Breast Problems");
 	   listView_breastProblem=(ListView) findViewById(R.id.listView_breastfeeding);
+	   /*
 	   String[] items={"Position and attach baby correctly on the breast.  Breastfeeding should not hurt",
 			   			"If you develop cracked nipples, put some breast milk on them.  Do not use any types of creams or ointments except when prescribed by a health care provider ",
 			   			"Feed frequently to prevent breasts from becoming swollen",
 			   			"If baby misses a feed you should express some milk to breast soft",
 			   			"If one or both breasts become painful or hot to the touch, mother should contact a health care provider",
 			   			"If you have any trouble practicing exclusive breastfeeding, discuss with a trained counselor"};
+			   			*/
+	   String[] items={"Common breastfeeding difficulties","Breast engorgment","Cracked/sore nipples",
+			   			"Mastitis"};
 	   ListAdapter adapter=new ListAdapter(mContext,items);  
 	   listView_breastProblem.setAdapter(adapter);
-	   button_next=(Button) findViewById(R.id.button_next);
-	   button_next.setOnClickListener(new OnClickListener(){
+	   listView_breastProblem.setOnItemClickListener(new OnItemClickListener(){
 
 		@Override
-		public void onClick(View v) {
-			Intent intent=new Intent(mContext,BreastProblemsCounsellingNextActivity.class);
-			startActivity(intent);
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			Intent intent;
+			switch(position){
+			case 0:
+				intent=new Intent(mContext,BreastProblemsCounsellingNextActivity.class);
+				intent.putExtra("value", "common_problems");
+				startActivity(intent);
+				break;
+				
+			case 1:
+				intent=new Intent(mContext,BreastProblemsCounsellingNextActivity.class);
+				intent.putExtra("value", "breast_engorgment");
+				startActivity(intent);
+				break;
+			case 2:
+				intent=new Intent(mContext,BreastProblemsCounsellingNextActivity.class);
+				intent.putExtra("value", "cracked_nipples");
+				startActivity(intent);
+				break;
+			case 3:
+				intent=new Intent(mContext,BreastProblemsCounsellingNextActivity.class);
+				intent.putExtra("value", "mastitis");
+				startActivity(intent);
+				break;
+			}
 		}
 		   
 	   });
@@ -88,19 +116,12 @@ public class BreastProblemsCounsellingActivity extends BaseActivity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if( convertView == null ){
 			      
-				  convertView = minflater.inflate(R.layout.listview_single,parent, false);
+				  convertView = minflater.inflate(R.layout.listview_text_single,parent, false);
 			    }
-			 TextView text=(TextView) convertView.findViewById(R.id.textView_textSingle);
-			 CharSequence t1 = items[position];
-			   SpannableString s1 = new SpannableString(t1);
-			   s1.setSpan(new BulletSpan(15), 0, t1.length(), 0);
-			 text.setText(s1);
+			 TextView text=(TextView) convertView.findViewById(R.id.textView_listViewText);
+			
+			 text.setText(items[position]);
 			 text.setPadding(10, 0, 0, 0);
-			 if(position%2==0){
-				 convertView.setBackgroundColor(getResources().getColor(R.color.BackgroundGrey));
-			 }else{
-				 convertView.setBackgroundColor(getResources().getColor(R.color.White));
-			 }
 			    return convertView;
 		}
 		

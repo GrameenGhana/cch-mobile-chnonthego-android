@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.digitalcampus.mobile.learningGF"
-    android:versionCode="108"
-    android:versionName="3.0.29" 
+    android:versionCode="109"
+    android:versionName="3.0.30" 
     android:screenOrientation="portrait">
 
     <uses-sdk
@@ -126,9 +126,7 @@
             android:name="org.digitalcampus.oppia.activity.AppActivity"
             android:label="@string/app_name" />
 		<activity android:name="org.digitalcampus.oppia.activity.MainScreenActivity"></activity>
-        <activity android:name="org.grameenfoundation.chngonthego.LoginActivity"></activity>
-        <activity android:name="org.grameenfoundation.chngonthego.EventsActivity"></activity>
-        <activity android:name="org.digitalcampus.oppia.activity.NewEventPlannerActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.NewEventPlannerActivity"></activity>
         <service
             android:name="org.digitalcampus.oppia.service.TrackerService"
             android:icon="@drawable/app_icon"
@@ -162,11 +160,11 @@
         <activity android:name="org.grameenfoundation.poc.FirstTrimesterCounsellingQuestionActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.FirstTrimesterCounsellingExaminePatientActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.FirstTrimesterCousellingNext"></activity>
-        <activity android:name="org.digitalcampus.oppia.activity.EventPlannerOptionsActivity"></activity>
-        <activity android:name="org.digitalcampus.oppia.activity.PlanEventActivity"></activity>
-        <activity android:name="org.digitalcampus.oppia.activity.EventsViewActivity"></activity>
-        <activity android:name="org.digitalcampus.oppia.activity.UpdateTargetActivity"></activity>
-        <activity android:name="org.digitalcampus.oppia.activity.PlannerViewOptionsActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.EventPlannerOptionsActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.PlanEventActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.EventsViewActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.UpdateTargetActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.PlannerViewOptionsActivity"></activity>
         <service android:name="org.digitalcampus.oppia.service.UpdateTargetsService"></service>
         <receiver android:name="org.digitalcampus.oppia.service.UpdateTargetsScheduleReciever">
             <intent-filter>
@@ -174,11 +172,11 @@
             </intent-filter>
         </receiver>
         <service android:name="org.digitalcampus.oppia.service.UpdateTargetsWeeklyService"></service>
-        <activity android:name="org.digitalcampus.oppia.activity.UpdateWeeklyTargetsActivity"></activity>
-        <activity android:name="org.digitalcampus.oppia.activity.UpdateMonthlyTargetsActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.UpdateWeeklyTargetsActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.UpdateMonthlyTargetsActivity"></activity>
         <receiver android:name="org.digitalcampus.oppia.service.UpdateStartServiceReceiver"></receiver>
         <service android:name="org.digitalcampus.oppia.service.UpdateMonthlyTargetService"></service>
-        <activity android:name="org.digitalcampus.oppia.activity.AchievementCenterActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.AchievementCenterActivity"></activity>
         
         <activity android:name="org.grameenfoundation.poc.AcuteEmergenciesActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.TakeActionActivity"></activity>
@@ -214,7 +212,7 @@
         <activity android:name="org.grameenfoundation.poc.TakeActionSomeDehydration"></activity>
         <activity android:name="org.grameenfoundation.poc.TakeActionSevereDehydrationActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.TakeActionSomeDehydrationNoActivity"></activity>
-        <activity android:name="org.digitalcampus.oppia.activity.UpdateActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.UpdateActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.CounsellingPerTrimesterActivtiy"></activity>
         <activity android:name="org.grameenfoundation.poc.SecondTrimesterCounsellingActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.ThirdTrimesterActivity"></activity>
@@ -317,17 +315,41 @@
         <activity android:name="org.grameenfoundation.poc.BreastProblemsPNCMotherActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.TakeActionBreastProblemsPNCMotherActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.BreastProblemsPNCMotherNextActivity"></activity>
-        <activity android:name="org.digitalcampus.oppia.activity.EventTargetsDetailActivity"></activity>
-        <activity android:name="org.digitalcampus.oppia.activity.CoverageTargetsDetailActivity"></activity>
-        <activity android:name="org.digitalcampus.oppia.activity.LearningTargetsDetailActivity"></activity>
-        <activity android:name="org.digitalcampus.oppia.activity.OtherTargetsDetailActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.EventTargetsDetailActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.CoverageTargetsDetailActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.LearningTargetsDetailActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.OtherTargetsDetailActivity"></activity>
         <activity android:name="org.digitalcampus.oppia.activity.CoverageActivity"></activity>
         <receiver android:name="org.digitalcampus.oppia.service.UpdateStartWeeklyServiceReceiver"></receiver>
         <receiver android:name="org.digitalcampus.oppia.service.UpdateTargetsWeeklyScheduleReceiver"></receiver>
-        <activity android:name="org.digitalcampus.oppia.activity.TargetSettingActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.TargetSettingActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.QuickReadsMenuActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.SevereDiseasesNextTwoActivity"></activity>
         <activity android:name="org.grameenfoundation.cch.activity.TargetViewActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.DosageCalculatorActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.EstimateDueDateCalculator"></activity>
+        <activity android:name="org.grameenfoundation.poc.ANCCounsellingTopicsGenerlActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ANCCounsellingTopicsMenuActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.EncouragingPNCMenuActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.EncouragingPNCActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.BreastCareANCNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.BreastCareANCNextTwoActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.NutritionANCNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.MalariaWithSPForPregnantWomenActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.MalariaWithSPForPregnantWomenNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TreatingUncomplicatedMalariaANCActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TreatingUncomplicatedMalariaANCNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TreatingUncomplicatedMalariaANCNextTwoActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.TreatingUncomplicatedMalariaANCNextThreeActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.AchievementSummaryActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.EventsAchievementsActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.TargetAchievementDetailActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.CourseDetailActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.CourseAchievementActivity"></activity>
+ 		<activity android:name="org.grameenfoundation.cch.activity.LearningCenterMenuActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.LearningReferencesActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.TargetAchievementsActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.model.EventTargetAchievementActivity"></activity>
     </application>
 
 </manifest>

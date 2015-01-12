@@ -35,97 +35,55 @@
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <LinearLayout
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="Advise client to go to a health center or hospital for her first PNC visit with a midwife "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_bullet" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="Advise client to go to a health center or hospital for her first PNC visit with a midwife "
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-            </LinearLayout>
-
-            <LinearLayout
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="Encourage client to pass urine regularly "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_bullet" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="Encourage client to pass urine regularly "
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-            </LinearLayout>
-			<LinearLayout
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="Encourage client to eat and drink regularly "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_bullet" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="Encourage client to eat and drink regularly "
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-            </LinearLayout>
-            <LinearLayout
+            <org.grameenfoundation.cch.utils.TextViewUtils
+                android:id="@+id/textView_clickHere"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="Keep mother and baby together, and advise mother on home care of the infant"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/WhileWaitingForTransport" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_bullet" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="Keep mother and baby together, and advise mother on home care of the infant"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-            </LinearLayout>
-            <LinearLayout
+            <org.grameenfoundation.cch.utils.TextViewUtils
+                android:id="@+id/textView_clickHereToo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="Now examine client for any breast problems "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/WhileWaitingForTransport" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_bullet" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="0dp"
-                    android:text="Now examine client for any breast problems "
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

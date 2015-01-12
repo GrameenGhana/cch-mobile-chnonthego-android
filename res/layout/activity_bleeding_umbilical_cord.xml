@@ -9,7 +9,6 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="661dp"
-    android:background="@color/White"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -64,7 +63,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/White"
         android:orientation="vertical" >
 
         <TextView
@@ -80,7 +78,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/White"
             android:divider="@drawable/divider"
             android:dividerPadding="2dp"
             android:orientation="vertical"
@@ -171,7 +168,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="268dp"
-        android:background="@color/White"
         android:orientation="vertical" >
 
         <TextView

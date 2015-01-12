@@ -30,7 +30,7 @@
             android:id="@+id/imageView1"
             android:layout_width="154dp"
             android:layout_height="140dp"
-            android:src="@drawable/jaundice1" />
+            android:src="@drawable/jaundice" />
     </LinearLayout>
 
     <LinearLayout

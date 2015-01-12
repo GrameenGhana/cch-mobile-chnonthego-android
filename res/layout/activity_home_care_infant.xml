@@ -35,30 +35,30 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Counsel Mother to Exclusively Breastfeed the Young Infant "
+                android:text="Counsel Mother to Exclusively Breastfeed the Young Infant "
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
-                android:text="\u2022 Give only breastfeeds to the baby for the first 6 months "
+                android:text="Give only breastfeeds to the baby for the first 6 months "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
-                android:text="\u2022 Breastfeed frequently, as often and for as long as the infant wants "
+                android:text="Breastfeed frequently, as often and for as long as the infant wants "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
 
@@ -67,30 +67,30 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="\u2022 Advise Mother to Keep Young Infant Warm at All Times "
+                android:text="Advise Mother to Keep Young Infant Warm at All Times "
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                  android:layout_marginLeft="40dp"
-                android:text="\u2022 In cool weather cover the baby’s head and feet "
+                android:text="In cool weather cover the baby’s head and feet "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
-                android:text="\u2022 Dress the baby with extra clothing "
+                android:text="Dress the baby with extra clothing "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -100,12 +100,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
-                android:text="\u2022 Advise Mother When to Return to the Health Facility"
+                android:text="Advise Mother When to Return to the Health Facility"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
 
@@ -121,12 +121,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
-                android:text="\u2022 Advise Mother When to Return to the Health Facility IMMEDIATELY "
+                android:text="Advise Mother When to Return to the Health Facility IMMEDIATELY "
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
 

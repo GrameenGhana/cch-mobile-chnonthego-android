@@ -7,9 +7,17 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/White"
     android:orientation="vertical"
     android:padding="20dp" >
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Lactational Amenorrhea Method (LAM)"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/Brown" />
 
     <LinearLayout
         android:layout_width="match_parent"

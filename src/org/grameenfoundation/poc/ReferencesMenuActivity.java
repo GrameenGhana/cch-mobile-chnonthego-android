@@ -29,7 +29,7 @@ public class ReferencesMenuActivity extends BaseActivity {
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC References");
 	    listView_calculators=(ListView) findViewById(R.id.listView_postnatalCareSections);
-	    String[] items={"Tetanus Toxoid Immunisation","Baby Immunisation Schedule","IPTP Treatment"};
+	    String[] items={"Tetanus Toxoid Immunisation","Baby Immunisation Schedule","Malaria Prophylaxis with SP for Pregnant Women","Treatment for Uncomplicated Malaria in Pregnant Women"};
 	    CalculatorsSectionsListAdapter adapter=new CalculatorsSectionsListAdapter(mContext,items);
 	    listView_calculators.setAdapter(adapter);
 	    listView_calculators.setOnItemClickListener(new OnItemClickListener(){
@@ -41,21 +41,20 @@ public class ReferencesMenuActivity extends BaseActivity {
 				String url;
 				switch(position){
 				case 0:
-					intent=new Intent(mContext,ReferencesActivity.class);
-					url="file:///android_asset/www/cch/modules/poc/tetanustoxoidimmunisation.html";
-					intent.putExtra("url", url);
+					intent=new Intent(mContext,ANCCounsellingTopicsGenerlActivity.class);
+					intent.putExtra("value", "tt_immunisation");
 					startActivity(intent);
 					break;
 				case 1:
-					intent=new Intent(mContext,ReferencesActivity.class);
-					url="file:///android_asset/www/cch/modules/poc/immunisation.html";
-					intent.putExtra("url", url);
+					intent=new Intent(mContext,ImmunisationScheduleActivity.class);
 					startActivity(intent);
 					break;
 				case 2:
-					intent=new Intent(mContext,ReferencesActivity.class);
-					url="file:///android_asset/www/cch/modules/poc/iptptreatment.html";
-					intent.putExtra("url", url);
+					intent=new Intent(mContext,MalariaWithSPForPregnantWomenActivity.class);
+					startActivity(intent);
+					break;
+				case 3:
+					intent=new Intent(mContext,TreatingUncomplicatedMalariaANCActivity.class);
 					startActivity(intent);
 					break;
 				

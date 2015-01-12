@@ -150,20 +150,20 @@
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 Put client on her left side with her legs high above the chest   "
+                android:text="Put client on her left side with her legs high above the chest   "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
+            <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView90"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="\u2022 Cover the mother for warmth"
+                android:text="Cover the mother for warmth"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>

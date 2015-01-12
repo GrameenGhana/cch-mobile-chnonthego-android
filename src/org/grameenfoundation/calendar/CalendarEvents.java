@@ -1,5 +1,6 @@
 package org.grameenfoundation.calendar;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,8 +10,9 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.digitalcampus.mobile.learningGF.R;
-import org.digitalcampus.oppia.activity.PlanEventActivity;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.grameenfoundation.cch.activity.PlanEventActivity;
+import org.grameenfoundation.cch.model.MyCalendarEvents;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -230,468 +232,124 @@ public class CalendarEvents {
         
     }
 	
-	public String getNumEventsToday() {	
-    	return String.valueOf(todaysEventsNum) ;
-    }
-	public HashMap<String, String> getTodaysCalendarEvents(){
-		HashMap<String,String> list=new HashMap<String,String>();
-		
-		
-		return list;
-		
-	}
-	public ArrayList<String> getTodaysEventsType() {
-			ArrayList<String> events =new ArrayList<String>(); 
-	       int evNum = 0;
-	       
-	       //if (todaysEventsNum==0) {
-	    	//  System.out.println("No events");	
-	    	 // events.add("No planned events for today"); 
-	       //} else {
-	    	   for(MyEvent ev: calEvents){
-	    		
-	        	   if (ev.isToday())
-	        	   {
-	        		   events.add(ev.eventType);
-	        		  // events.add(ev.description);
-	        		  //events.add(ev.eventType+" at "+ev.location);
-	        		  // events.add(d);
-	        		   evNum++;
-	        	   }
-	    	   }
-	       //}
-	       
-	       //Log.v("CCH",evHtml);
-	       
-	       return events;
-	   	}
-	public ArrayList<String> getTodaysEventsId() {
-		ArrayList<String> events =new ArrayList<String>(); 
-       int evNum = 0;
-       
-     //  if (todaysEventsNum==0) {
-    	//  System.out.println("No events");	
-    	  //events.add("No planned events for today"); 
-    //   } else {
-    	   for(MyEvent ev: calEvents){
-    		
-        	   if (ev.isToday())
-        	   {
-        		   events.add(String.valueOf(ev.eventId));
-        		  // events.add(ev.description);
-        		  //events.add(ev.eventType+" at "+ev.location);
-        		  // events.add(d);
-        		   evNum++;
-        	   }
-    	   }
-      // }
-       
-       //Log.v("CCH",evHtml);
-       
-       return events;
-   	}
-	
-	public ArrayList<String> getTodaysEventsDetail() {
-		ArrayList<String> events =new ArrayList<String>(); 
-       int evNum = 0;
-       
-      // if (todaysEventsNum==0) {
-    	//   events.add(" "); 			  
-       //} else {
-    	   for(MyEvent ev: calEvents){
-    		
-        	   if (ev.isToday())
-        	   {
-        		  // events.add(ev.eventType);
-        		  // events.add(ev.description);
-        		  events.add(ev.location);
-        		  // events.add(d);
-        		   evNum++;
-        	   }
-    	   }
-       //}
-       
-       //Log.v("CCH",evHtml);
-       
-       return events;
-   	}
-	
-	public ArrayList<String> getTodaysEventsDestcription() {
-		ArrayList<String> events =new ArrayList<String>(); 
-       int evNum = 0;
-       
-      
-      // if (todaysEventsNum==0) {
-    	//   events.add(" "); 			  
-       //} else {
-    	   for(MyEvent ev: calEvents){
-    		
-        	   if (ev.isToday())
-        	   {
-        		  // events.add(ev.eventType);
-        		   events.add(ev.description);
-        		  //events.add(ev.eventType+" at "+ev.location);
-        		  // events.add(d);
-        		   evNum++;
-        	   }
-    	 //  }
-       }
-       
-       //Log.v("CCH",evHtml);
-       
-       return events;
-   	}
-	public ArrayList<String> getTodaysEventsTime(Boolean showDay) {
-		ArrayList<String> events =new ArrayList<String>(); 
-		Long startDate;
-       int evNum = 0;
-      
-       
-     
-    //   if (todaysEventsNum==0) {
-    	//   events.add(" "); 			  
-       //} else {
-    	   for(MyEvent ev: calEvents){
-    		   long milliSeconds = ev.startDate;
+
+	       public ArrayList<MyCalendarEvents> getTodaysEvents(Boolean showDay) {
+				ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
+		       int evNum = 0;
+		      
+		       //if (todaysEventsNum==0) {
+		    	//  System.out.println("No events");	
+		    	 // events.add("No planned events for today"); 
+		       //} else  long milliSeconds = ev.startDate;
     	       String dformat =(showDay)? "MMM dd" : "hh:mm a";
     	       SimpleDateFormat formatter = new SimpleDateFormat(dformat);
     	       Calendar calendar = Calendar.getInstance();
+    	       long milliSeconds = 0;
     	       calendar.setTimeInMillis(milliSeconds);
     	    	String d =formatter.format(calendar.getTime());
-        	   if (ev.isToday())
-        	   {
-        		  // events.add(ev.eventType);
-        		  // events.add(ev.description);
-        		 // events.add(ev.eventType+" at "+ev.location);
-        		  events.add(d);
-        		   evNum++;
-        	   }
-    	   }
-       //}
-       
-       //Log.v("CCH",evHtml);
-       
-       return events;
-   	}
+		    	   for(MyEvent ev: calEvents){
+		    		   MyCalendarEvents calendarEvents=new MyCalendarEvents();
+		        	   if (ev.isToday())
+		        	   {
+		        		   calendarEvents.setEventType(ev.eventType);
+		        		   calendarEvents.setEventDescription(ev.description);
+		        		   calendarEvents.setEventLocation(ev.location);
+		        		   calendarEvents.setEventTime(ev.getDate(dformat));
+		        		   calendarEvents.setEventId(String.valueOf(ev.eventId));
+		        		  
+		        		   evNum++;
+		        		   list.add(calendarEvents);
+		        	   }
+		        	   
+		    	   }
+		       //}
+		       
+		       //Log.v("CCH",evHtml);
+		       
+		       return list;
+		   	}
+	       
+	       public ArrayList<MyCalendarEvents> getTomorrowsEvents(Boolean showDay) {
+				ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
+		       int evNum = 0;
+		      
+		       //if (todaysEventsNum==0) {
+		    	//  System.out.println("No events");	
+		    	 // events.add("No planned events for today"); 
+		       //} else  long milliSeconds = ev.startDate;
+   	       String dformat =(showDay)? "MMM dd" : "hh:mm a";
+   	       SimpleDateFormat formatter = new SimpleDateFormat(dformat);
+   	       Calendar calendar = Calendar.getInstance();
+   	       long milliSeconds = 0;
+   	       calendar.setTimeInMillis(milliSeconds);
+   	    	String d =formatter.format(calendar.getTime());
+		    	   for(MyEvent ev: calEvents){
+		    		   MyCalendarEvents calendarEvents=new MyCalendarEvents();
+		        	   if (ev.isTomorrow())
+		        	   {
+		        		   calendarEvents.setEventType(ev.eventType);
+		        		   calendarEvents.setEventDescription(ev.description);
+		        		   calendarEvents.setEventLocation(ev.location);
+		        		   calendarEvents.setEventTime(ev.getDate(dformat));
+		        		   calendarEvents.setEventId(String.valueOf(ev.eventId));
+		        		  
+		        		   evNum++;
+		        		   list.add(calendarEvents);
+		        	   }
+		        	   
+		    	   }
+		       //}
+		       
+		       //Log.v("CCH",evHtml);
+		       
+		       return list;
+		   	}
+	       
+	       public ArrayList<MyCalendarEvents> getFutureEvents(Boolean showDay) {
+				ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
+		       int evNum = 0;
+		      
+		       //if (todaysEventsNum==0) {
+		    	//  System.out.println("No events");	
+		    	 // events.add("No planned events for today"); 
+		       //} else  long milliSeconds = ev.startDate;
+  	       String dformat =(showDay)? "MMM dd" : "hh:mm a";
+  	       SimpleDateFormat formatter = new SimpleDateFormat(dformat);
+  	       Calendar calendar = Calendar.getInstance();
+  	       long milliSeconds = 0;
+  	       calendar.setTimeInMillis(milliSeconds);
+  	    	String d =formatter.format(calendar.getTime());
+		    	   for(MyEvent ev: calEvents){
+		    		   MyCalendarEvents calendarEvents=new MyCalendarEvents();
+		        	   if (ev.isFuture())
+		        	   {
+		        		   calendarEvents.setEventType(ev.eventType);
+		        		   calendarEvents.setEventDescription(ev.description);
+		        		   calendarEvents.setEventLocation(ev.location);
+		        		   calendarEvents.setEventTime(ev.getDate(dformat));
+		        		   calendarEvents.setEventId(String.valueOf(ev.eventId));
+		        		  
+		        		   evNum++;
+		        		   list.add(calendarEvents);
+		        	   }
+		        	   
+		    	   }
+		       //}
+		       
+		       //Log.v("CCH",evHtml);
+		       
+		       return list;
+		   	}
 	
 	
 	
-
-	public ArrayList<String> getTomorrowEventsType() {
-			ArrayList<String> events =new ArrayList<String>(); 
-	       int evNum = 0;
-	     
-	       //if (tomorrowsEventsNum==0) {
-	    	 //  events.add("No planned events for tomorrow"); 			  
-	       //} else {
-	    	   for(MyEvent ev: calEvents){
-	    		
-	        	   if (ev.isTomorrow())
-	        	   {
-	        		   events.add(ev.eventType);
-	        		  // events.add(ev.description);
-	        		  //events.add(ev.eventType+" at "+ev.location);
-	        		  // events.add(d);
-	        		   evNum++;
-	        	   }
-	    	 //  }
-	       }
-	       
-	       //Log.v("CCH",evHtml);
-	       
-	       return events;
-	   	}
-	public ArrayList<String> getTomorrowEventsId() {
-		ArrayList<String> events =new ArrayList<String>(); 
-       int evNum = 0;
-     
-       //if (tomorrowsEventsNum==0) {
-    	  // events.add("No planned events for tomorrow"); 			  
-       //} else {
-    	   for(MyEvent ev: calEvents){
-    		
-        	   if (ev.isTomorrow())
-        	   {
-        		   events.add(String.valueOf(ev.eventId));
-        		  // events.add(ev.description);
-        		  //events.add(ev.eventType+" at "+ev.location);
-        		  // events.add(d);
-        		   evNum++;
-        	   }
-    	 //  }
-       }
-       
-       //Log.v("CCH",evHtml);
-       
-       return events;
-   	}
-	
-	public ArrayList<String> getTommorowEventsDetail() {
-		ArrayList<String> events =new ArrayList<String>(); 
-       int evNum = 0;
-      
-      // if (tomorrowsEventsNum==0) {
-    	//   events.add(" "); 			  
-       //} else {
-    	   for(MyEvent ev: calEvents){
-    		
-        	   if (ev.isTomorrow())
-        	   {
-        		  // events.add(ev.eventType);
-        		  // events.add(ev.description);
-        		  events.add(" at "+ev.location);
-        		  // events.add(d);
-        		   evNum++;
-        	   }
-    	   }
-       //}
-       
-       //Log.v("CCH",evHtml);
-       
-       return events;
-   	}
-	
-	public ArrayList<String> getTommorowEventsDestcription() {
-		ArrayList<String> events =new ArrayList<String>(); 
-       int evNum = 0;
-      
-       //if (tomorrowsEventsNum==0) {
-    	  // events.add(" "); 			  
-       //} else {
-    	   for(MyEvent ev: calEvents){
-    		
-        	   if (ev.isTomorrow())
-        	   {
-        		  // events.add(ev.eventType);
-        		   events.add(ev.description);
-        		  //events.add(ev.eventType+" at "+ev.location);
-        		  // events.add(d);
-        		   evNum++;
-        	   }
-    	   }
-       //}
-       
-       //Log.v("CCH",evHtml);
-       
-       return events;
-   	}
-	public ArrayList<String> getTommorowEventsTime(Boolean showDay) {
-		ArrayList<String> events =new ArrayList<String>(); 
-		//Long startDate = null;
-	       int evNum = 0;
-	      // if (tomorrowsEventsNum==0) {
-	    	//   events.add(" "); 			  
-	       //} else {
-	    	   for(MyEvent ev: calEvents){
-	    		   long milliSeconds = ev.startDate;
-	    	       String dformat =(showDay)? "MMM dd" : "hh:mm a";
-	    	       SimpleDateFormat formatter = new SimpleDateFormat(dformat);
-	    	       Calendar calendar = Calendar.getInstance();
-	    	       calendar.setTimeInMillis(milliSeconds);
-	    	    	String d =formatter.format(calendar.getTime());
-	        	   if (ev.isTomorrow())
-	        	   {
-	        		  // events.add(ev.eventType);
-	        		  // events.add(ev.description);
-	        		 // events.add(ev.eventType+" at "+ev.location);
-	        		  events.add(d);
-	        		   evNum++;
-	        	   }
-	    	   }
-	       //}
-	       
-	       //Log.v("CCH",evHtml);
-       
-       return events;
-   	}
-	
-	
-	public ArrayList<String> getFutureEventsType() {
-			ArrayList<String> events =new ArrayList<String>(); 
-	       int evNum = 0;
-	       
-	      // if (futureEventsNum==0) {
-	    	//   events.add("No planned future events"); 			  
-	       //} else {
-	    	   for(MyEvent ev: calEvents){
-	    		
-	        	   if (ev.isFuture())
-	        	   {
-	        		   events.add(ev.eventType);
-	        		  // events.add(ev.description);
-	        		  //events.add(ev.eventType+" at "+ev.location);
-	        		  // events.add(d);
-	        		   evNum++;
-	        	   }
-	    	   }
-	       //}
-	       
-	       //Log.v("CCH",evHtml);
-	       
-	       return events;
-	   	}
-	public ArrayList<String> getFutureEventsId() {
-		ArrayList<String> events =new ArrayList<String>(); 
-       int evNum = 0;
-     
-      // if (tomorrowsEventsNum==0) {
-    	//   events.add("No planned events for tomorrow"); 			  
-    //   } else {
-    	   for(MyEvent ev: calEvents){
-    		
-        	   if (ev.isFuture())
-        	   {
-        		   events.add(String.valueOf(ev.eventId));
-        		  // events.add(ev.description);
-        		  //events.add(ev.eventType+" at "+ev.location);
-        		  // events.add(d);
-        		   evNum++;
-        	   }
-    	   }
-      // }
-       
-       //Log.v("CCH",evHtml);
-       
-       return events;
-   	}	
-	public ArrayList<String> getFutureEventsDetail() {
-		ArrayList<String> events =new ArrayList<String>(); 
-       int evNum = 0;
-      
-     //  if (futureEventsNum==0) {
-    	   events.add(" "); 			  
-       //} else {
-    	   for(MyEvent ev: calEvents){
-    		
-        	   if (ev.isFuture())
-        	   {
-        		  // events.add(ev.eventType);
-        		  // events.add(ev.description);
-        		  events.add(" at "+ev.location);
-        		  // events.add(d);
-        		   evNum++;
-        	   }
-    	   }
-       //}
-       
-       //Log.v("CCH",evHtml);
-       
-       return events;
-   	}
-	
-	public ArrayList<String> getFutureEventsDestcription() {
-		ArrayList<String> events =new ArrayList<String>(); 
-       int evNum = 0;
-       
-     ///  if (futureEventsNum==0) {
-    	//   events.add(" "); 			  
-       //} else {
-    	   for(MyEvent ev: calEvents){
-    		
-        	   if (ev.isFuture())
-        	   {
-        		  // events.add(ev.eventType);
-        		   events.add(ev.description);
-        		  //events.add(ev.eventType+" at "+ev.location);
-        		  // events.add(d);
-        		   evNum++;
-        	   }
-    	 //  }
-       }
-       
-       //Log.v("CCH",evHtml);
-       
-       return events;
-   	}
-	public ArrayList<String> getFutureEventsTime(Boolean showDay) {
-		ArrayList<String> events =new ArrayList<String>(); 
-		//Long startDate = null;
-	       int evNum = 0;
-	       
-	      // if (futureEventsNum==0) {
-	    	//   events.add(" "); 			  
-	       //} else {
-	    	   for(MyEvent ev: calEvents){
-	    		   long milliSeconds = ev.startDate;
-	    	       String dformat =(showDay)? "MMM dd" : "hh:mm a";
-	    	       SimpleDateFormat formatter = new SimpleDateFormat(dformat);
-	    	       Calendar calendar = Calendar.getInstance();
-	    	       calendar.setTimeInMillis(milliSeconds);
-	    	    	String d =formatter.format(calendar.getTime());
-	        	   if (ev.isFuture())
-	        	   {
-	        		  // events.add(ev.eventType);
-	        		  // events.add(ev.description);
-	        		 // events.add(ev.eventType+" at "+ev.location);
-	        		  events.add(d);
-	        		   evNum++;
-	        	   }
-	    	   }
-	       //}
-	       
-	       //Log.v("CCH",evHtml);
-       
-       return events;
-   	}
     public void readCalendarEvent(Context context){
     	{
-    		/*
-    		ArrayList<String> event_Id;
-    		ArrayList<String> event_type;
-    		ArrayList<String> event_description;
-    		ArrayList<String> dtstart;
-    		ArrayList<String> dtend;
-    		ArrayList<String> event_location;
-    		HashMap<String,String> list=new HashMap<String,String>();
-    		String user_id = prefs.getString(mContext.getString(R.string.prefs_username), "noid"); 
-    		list=dbh.getCalendarEvents(user_id);
-    		event_Id=new ArrayList<String>();
-    		event_Id.add(list.get("event_id"));
-    		event_type=new ArrayList<String>();
-    		event_type.add(list.get("event_type"));
-    		event_description=new ArrayList<String>();
-    		event_description.add(list.get("event_description"));
-    		dtstart=new ArrayList<String>();
-    		dtstart.add(list.get("event_dtstart"));
-    		dtend=new ArrayList<String>();
-    		dtend.add(list.get("event_dtend"));
-    		event_location=new ArrayList<String>();
-    		event_location.add(list.get("event_location"));
     		
-    		 calEvents.clear();
-             todaysEventsNum = 0;
-             tomorrowsEventsNum = 0;
-             futureEventsNum = 0;
-             thismonthEventsNum = 0;
-             thismonthEventsDone = 0;
-             previousLocations = "";
-             for(int i = 0; i<=list.size();i++){
-    		  MyEvent payload = new MyEvent();
-         	   payload.eventId = Long.valueOf(event_Id.get(i));
-         	   payload.eventType = event_type.get(i);
-         	   payload.description = event_description.get(i);
-         	   payload.startDate =Long.valueOf(dtstart.get(i));
-         	   payload.endDate = Long.valueOf(dtend.get(i));
-         	   payload.location = event_location.get(i);
-         	   
-         	   calEvents.add(payload);
-        	   
-         	   if (payload.isToday())              { todaysEventsNum++;    } 
-         	   else if (payload.isTomorrow())      { tomorrowsEventsNum++; } 
-         	   else if (payload.isFuture())        { futureEventsNum++;    }
-         	   
-         	   if (payload.isThisMonth())     { thismonthEventsNum++; }
-         	   if (payload.isThisMonth(true)) { thismonthEventsDone++; }
-             }
-         	  */ 
     		Uri uri = CalendarContract.Calendars.CONTENT_URI;
     		 long calID = 0;
     		String[] projection = new String[] {
     		       CalendarContract.Calendars._ID
-    		       //CalendarContract.Calendars.ACCOUNT_NAME,
-    		       //CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,
-    		       //CalendarContract.Calendars.NAME,
-    		       //CalendarContract.Calendars.CALENDAR_COLOR
     		};
 
     		Cursor calendarCursor =  context.getContentResolver()
@@ -699,7 +357,7 @@ public class CalendarEvents {
     		while(calendarCursor.moveToNext()){
     			
     			 calID=calendarCursor.getLong(0);
-    			 System.out.println("Calendar Ids: "+String.valueOf(calID));
+    			// System.out.println("Calendar Ids: "+String.valueOf(calID));
     		}
     		
             Cursor cursor = context.getContentResolver()
@@ -756,6 +414,135 @@ public class CalendarEvents {
      }
     	
     }
+   //Read past events for a particular month 
+public ArrayList<MyCalendarEvents> readPastCalendarEvents(Context context, int month,int year){
+    	{
+    		ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
+    		 long today_date = new Date().getTime();
+    		 String[] projection = new String[] { CalendarContract.Events.CALENDAR_ID, //0
+    				 							  CalendarContract.Events.TITLE,       //1
+    				 							  CalendarContract.Events.DESCRIPTION, //2
+    				 							  CalendarContract.Events.DTSTART,     //3
+    				 							  CalendarContract.Events.DTEND,       //4
+    				 							  CalendarContract.Events.ALL_DAY,     //5
+    				 							  CalendarContract.Events.EVENT_LOCATION };//6
+
+    		// 0 = January, 1 = February, ...
+
+   		
+    		Calendar first_day_of_month = Calendar.getInstance();
+    		first_day_of_month.set(year, month, 1);
+    		
+    		Calendar last_day_of_month = Calendar.getInstance();
+    		last_day_of_month.set(year, month, 30);
+
+    		String selection = "(( " + CalendarContract.Events.DTSTART + " >= " + first_day_of_month.getTimeInMillis() + " ) AND ( " + CalendarContract.Events.DTSTART + " <= " + last_day_of_month.getTimeInMillis() + " ) AND ("+ CalendarContract.Events.DTSTART+" < "+today_date+" ))";
+
+    		Cursor cursor = context.getContentResolver().query(Uri.parse("content://com.android.calendar/events"), projection, selection, null, null );
+    	
+    		 cursor.moveToFirst();
+    		 
+    		     while ( cursor.isAfterLast()==false){
+    		    	 MyCalendarEvents calendarEvents=new MyCalendarEvents();
+    		    	 calendarEvents.setEventStartDate(cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DTSTART)));
+    		    	 calendarEvents.setEventEndDate(cursor.getString(cursor.getColumnIndex("dtend")));
+    		    	 calendarEvents.setEventDescription(cursor.getString(cursor.getColumnIndex("description")));
+    		    	 calendarEvents.setEventLocation(cursor.getString(cursor.getColumnIndex("eventLocation")));
+    		    	 calendarEvents.setEventType(cursor.getString(cursor.getColumnIndex("title")));
+    		    	 calendarEvents.setEventNumberCompleted(String.valueOf(cursor.getCount()));
+    		    	 list.add(calendarEvents);
+    		    	 cursor.moveToNext();		
+    		    }
+    		     
+            cursor.close();
+        	return list;    
+     }
+	
+    	
+    }
+
+//Count total number of events for a particular month
+public ArrayList<MyCalendarEvents> readCalendarEventsTotal(Context context, int month,int year){
+	{
+		ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
+		 String[] projection = new String[] { CalendarContract.Events.CALENDAR_ID, //0
+				 							  CalendarContract.Events.TITLE,       //1
+				 							  CalendarContract.Events.DESCRIPTION, //2
+				 							  CalendarContract.Events.DTSTART,     //3
+				 							  CalendarContract.Events.DTEND,       //4
+				 							  CalendarContract.Events.ALL_DAY,     //5
+				 							  CalendarContract.Events.EVENT_LOCATION };//6
+
+		Calendar first_day_of_month = Calendar.getInstance();
+		first_day_of_month.set(year, month, 1);
+		
+		Calendar last_day_of_month = Calendar.getInstance();
+		last_day_of_month.set(year, month, 30);
+
+		String selection2 = "(( " + CalendarContract.Events.DTSTART + " >= " + first_day_of_month.getTimeInMillis() + " ) AND ( " + CalendarContract.Events.DTSTART + " <= " + last_day_of_month.getTimeInMillis() +" ))";
+		  Cursor cursor2 = context.getContentResolver()
+                  .query(Uri.parse("content://com.android.calendar/events"),projection, selection2, null, null);
+		// output the events 
+		
+		 cursor2.moveToFirst();
+		
+		     while (cursor2.isAfterLast()==false){
+		    	 MyCalendarEvents calendarEvents=new MyCalendarEvents();
+		    	 calendarEvents.setEventTotalNumber(String.valueOf(cursor2.getCount()));
+		    	 list.add(calendarEvents);
+		    	 cursor2.moveToNext();		
+		    }
+		     
+        cursor2.close();
+    	return list;    
+ }
+
+	
+}
+
+//Read future events within a particular month
+public ArrayList<MyCalendarEvents> readFutureCalendarEvents(Context context, int month,int year){
+	{
+		ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
+		long today_date = new Date().getTime();
+		 String[] projection = new String[] { CalendarContract.Events.CALENDAR_ID, //0
+				 							  CalendarContract.Events.TITLE,       //1
+				 							  CalendarContract.Events.DESCRIPTION, //2
+				 							  CalendarContract.Events.DTSTART,     //3
+				 							  CalendarContract.Events.DTEND,       //4
+				 							  CalendarContract.Events.ALL_DAY,     //5
+				 							  CalendarContract.Events.EVENT_LOCATION };//6
+
+		// 0 = January, 1 = February, ...
+
+		Calendar first_day_of_month = Calendar.getInstance();
+		first_day_of_month.set(year, month, 1);
+		
+		Calendar last_day_of_month = Calendar.getInstance();
+		last_day_of_month.set(year, month, 30);
+
+		String selection = "(( " + CalendarContract.Events.DTSTART + " >= " + first_day_of_month.getTimeInMillis() + " ) AND ( " + CalendarContract.Events.DTSTART + " <= " + last_day_of_month.getTimeInMillis() + " ) AND ("+ CalendarContract.Events.DTSTART+" >= "+today_date+" ))";
+
+		Cursor cursor = context.getContentResolver().query( CalendarContract.Events.CONTENT_URI, projection, selection, null, null );
+		 
+		 cursor.moveToFirst();
+		     while ( cursor.isAfterLast()==false){
+		    	 MyCalendarEvents calendarEvents=new MyCalendarEvents();
+		    	 calendarEvents.setEventStartDate(cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DTSTART)));
+		    	 calendarEvents.setEventEndDate(cursor.getString(cursor.getColumnIndex("dtend")));
+		    	 calendarEvents.setEventDescription(cursor.getString(cursor.getColumnIndex("description")));
+		    	 calendarEvents.setEventLocation(cursor.getString(cursor.getColumnIndex("eventLocation")));
+		    	 calendarEvents.setEventType(cursor.getString(cursor.getColumnIndex("title")));
+		    	 calendarEvents.setEventNumberCompleted(String.valueOf(cursor.getCount()));
+		    	 list.add(calendarEvents);
+		    	 cursor.moveToNext();		
+		    }
+        cursor.close();
+    	return list;    
+ }
+
+	
+}
     private void addToPreviousLocations(String s)
     {
     	try {
@@ -773,6 +560,12 @@ public class CalendarEvents {
     }
 
    
-    
+    private String getDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "dd-MM-yyyy", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+}
+	
 
 }
