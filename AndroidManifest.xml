@@ -57,7 +57,10 @@
              android:screenOrientation="portrait"
   			 android:configChanges="orientation|keyboardHidden">
         </activity>
-              <activity
+        
+        <activity android:name="org.grameenfoundation.cch.activity.MagicAppRestart"/>
+        
+        <activity
             android:name="org.grameenfoundation.cch.activity.PDFActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.Example" 

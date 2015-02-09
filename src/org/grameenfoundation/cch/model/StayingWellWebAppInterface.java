@@ -8,9 +8,16 @@ import java.util.ArrayList;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.grameenfoundation.cch.activity.MagicAppRestart;
+import org.grameenfoundation.cch.activity.StayingWellActivity;
 
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.text.format.Time;
 import android.util.Log;
@@ -194,4 +201,10 @@ public class StayingWellWebAppInterface {
     public void showToast(String toast) {
         Toast.makeText(mContext, toast, Toast.LENGTH_LONG).show();
     }  
+    
+    @JavascriptInterface
+    public void restartApp()
+    {
+         MagicAppRestart.doRestart((Activity) mContext);
+    }
 }

@@ -272,7 +272,8 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 				
 				/* Routine Info */
 				ArrayList<RoutineActivity> todos = dbh.getSWRoutineActivities();
-		    			    	
+		    	numactivities = todos.size();
+		    	
 			    textView_routinesNumber = (TextView) rootView.findViewById(R.id.textView_routinesNumber);
 				textView_routinesNumber.setText(String.valueOf(numactivities));
 			    tv8 = (TextView) rootView.findViewById(R.id.textView8);
