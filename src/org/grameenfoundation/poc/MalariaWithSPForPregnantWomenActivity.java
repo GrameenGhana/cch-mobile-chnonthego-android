@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class MalariaWithSPForPregnantWomenActivity extends Activity {
+public class MalariaWithSPForPregnantWomenActivity extends BaseActivity {
 
 	private DbHelper dbh;
 	private Long start_time;
@@ -34,6 +34,7 @@ public class MalariaWithSPForPregnantWomenActivity extends Activity {
 			public void onClick(View v) {
 			Intent intent=new Intent(mContext,MalariaWithSPForPregnantWomenNextActivity.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

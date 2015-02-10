@@ -50,34 +50,42 @@ public class PostnatalCareSectionActivity extends BaseActivity {
 				case 0:
 					intent=new Intent(mContext,NewbornEmergenciesActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,RecordsAskActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(mContext,SevereDiseasesActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 3:
 					intent=new Intent(mContext,JaundiceActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 4:
 					intent=new Intent(mContext,OtherSeriousConditionsActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 5:
 					intent=new Intent(mContext,DiarrhoeaActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 6:
 					intent=new Intent(mContext,HIVInfectionStatusActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 7:
 					intent=new Intent(mContext,LowBirthWeightActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				}
 				

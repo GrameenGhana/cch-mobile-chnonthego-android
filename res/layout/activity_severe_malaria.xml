@@ -82,7 +82,7 @@
 
             <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="Encourage fluid intake   "
@@ -90,7 +90,7 @@
 
             <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView9"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="Give 2 tablets of paracetamol if client can tolerate it"

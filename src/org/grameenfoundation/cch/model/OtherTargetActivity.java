@@ -7,11 +7,13 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.adapters.EventTargetAdapter;
+import org.grameenfoundation.adapters.LearningTargetAdapter;
 import org.grameenfoundation.cch.activity.OtherTargetsDetailActivity;
 import org.grameenfoundation.cch.activity.UpdateTargetActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -63,22 +65,9 @@ public class OtherTargetActivity extends Fragment implements OnChildClickListene
 	    listView_other=(ExpandableListView) rootView.findViewById(R.id.expandableListView_other);
 	    listView_other.setAdapter(other_adapter);
 	    listView_other.setOnChildClickListener(this);
-	    DailyOtherTargets=db.getAllOtherTargets("Daily");
-	    WeeklyOtherTargets=db.getAllOtherTargets("Weekly");
-	    MonthlyOtherTargets=db.getAllOtherTargets("Monthly");
-	    QuarterlyOtherTargets=db.getAllOtherTargets("Quarterly");
-	    MidyearOtherTargets=db.getAllOtherTargets("Mid-year");
-	    AnnualOtherTargets=db.getAllOtherTargets("Annually");
-		groupItems=new String[]{"To update today","To update this week","To update this month","To update this quarter","Half-year update","To update this year"};
-		other_adapter=new EventTargetAdapter(mContext,groupItems,DailyOtherTargets,
-																 WeeklyOtherTargets,
-																 MonthlyOtherTargets,
-																 QuarterlyOtherTargets,
-																 MidyearOtherTargets,
-																 AnnualOtherTargets,
-																	listView_other);
-		listView_other.setAdapter(other_adapter);
-	    
+	    groupItems=new String[]{};
+	    groupItems=getResources().getStringArray(R.array.UpdateFrequencies);
+	    new GetData().execute();
 	   button_show=(Button) rootView.findViewById(R.id.button_show);
 	   
 	    button_show.setOnClickListener(new OnClickListener(){
@@ -99,6 +88,7 @@ public class OtherTargetActivity extends Fragment implements OnChildClickListene
 				if(counter>0){
 				Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
 				startActivity(intent);
+				getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}else if(counter==0){
 					 Toast.makeText(getActivity(), "You have no targets to update!",
 					         Toast.LENGTH_SHORT).show();
@@ -136,7 +126,36 @@ public class OtherTargetActivity extends Fragment implements OnChildClickListene
 		intent.putExtra("last_updated", last_updated);
 		intent.putExtra("achieved", number_achieved_list.get(0));
 		startActivity(intent);
+		getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		return true;
 	}
-		
+
+	private class GetData extends AsyncTask<Object, Void, Object> {
+		 DbHelper db=new DbHelper(mContext);
+
+	    @Override
+	    protected Object doInBackground(Object... params) {
+	    	DailyOtherTargets=db.getAllOtherTargets("Daily");
+	 	    WeeklyOtherTargets=db.getAllOtherTargets("Weekly");
+	 	    MonthlyOtherTargets=db.getAllOtherTargets("Monthly");
+	 	    QuarterlyOtherTargets=db.getAllOtherTargets("Quarterly");
+	 	    MidyearOtherTargets=db.getAllOtherTargets("Mid-year");
+	 	    AnnualOtherTargets=db.getAllOtherTargets("Annually");
+				return null;
+	        
+	    }
+
+	    @Override
+	    protected void onPostExecute(Object result) {
+	    	other_adapter=new EventTargetAdapter(mContext,groupItems,DailyOtherTargets,
+					 WeeklyOtherTargets,
+					 MonthlyOtherTargets,
+					 QuarterlyOtherTargets,
+					 MidyearOtherTargets,
+					 AnnualOtherTargets,
+					listView_other);
+	    	listView_other.setAdapter(other_adapter);
+	        
+	    }
+	}
 	}

@@ -12,6 +12,7 @@ import org.grameenfoundation.cch.activity.UpdateTargetActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -67,47 +68,31 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 	    mContext=getActivity().getApplicationContext();
 	    db=new DbHelper(getActivity());
 	    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
+	    groupItems=new String[]{};
+	    groupItems=getResources().getStringArray(R.array.UpdateFrequencies);
 	    listView_coverage.setOnChildClickListener(this);
-	    DailyCoverageTargets=db.getAllCoverageTargets("Daily");
-	    WeeklyCoverageTargets=db.getAllCoverageTargets("Weekly");
-	    MonthlyCoverageTargets=db.getAllCoverageTargets("Monthly");
-	    QuarterlyCoverageTargets=db.getAllCoverageTargets("Quarterly");
-	    MidyearCoverageTargets=db.getAllCoverageTargets("Mid-year");
-	    AnnualCoverageTargets=db.getAllCoverageTargets("Annually");
-		groupItems=new String[]{"To update today","To update this week","To update this month","To update this quarter","Half-year update","To update this year"};
-		coverage_adapter=new EventTargetAdapter(mContext,groupItems,DailyCoverageTargets,
-																	WeeklyCoverageTargets,
-																	MonthlyCoverageTargets,
-																	QuarterlyCoverageTargets,
-																	MidyearCoverageTargets,
-																	AnnualCoverageTargets,
-																	listView_coverage);
-		listView_coverage.setAdapter(coverage_adapter);
-	   
+	    
+		 new GetData().execute();
 	    button_show=(Button) rootView.findViewById(R.id.button_show);
 	  
 	    button_show.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				//eventId=new ArrayList<String>();
 				 eventId=db.getEventIdCount("Daily");
-				 //coverageId=new ArrayList<String>();
 				 coverageId=db.getCoverageIdCount("Daily");
-				 //otherId=new ArrayList<String>();
 				 otherId=db.getOtherIdCount("Daily");
-				// learningId=new ArrayList<String>();
 				 learningId=db.getLearningIdCount("Daily");
 				 int number=(int)eventId;
 				 int number2=(int)coverageId;
 				 int number3=(int)otherId;
 				 int number4=(int)learningId;
 				 final int counter;
-				
 				counter=number+number2+number3+number4;	
 				if(counter>0){
 				Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
 				startActivity(intent);
+				getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}else if(counter==0){
 					 Toast.makeText(getActivity(), "You have no targets to update!",
 					         Toast.LENGTH_SHORT).show();
@@ -125,7 +110,6 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 			int groupPosition, int childPosition, final long id) {
 		selected_items=coverage_adapter.getChild(groupPosition, childPosition);
 		selected_id=Long.parseLong(selected_items[7]);
-		//System.out.println(selected_items[0]+" "+selected_items[1]);
 		String coverage_name=selected_items[0];
 		String coverage_number=selected_items[1];
 		String coverage_period=selected_items[2];
@@ -146,7 +130,35 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 		intent.putExtra("status", status);
 		intent.putExtra("last_updated", last_updated);
 		startActivity(intent);
+		getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		return true;
 	}
-	
+	private class GetData extends AsyncTask<Object, Void, Object> {
+		 DbHelper db=new DbHelper(mContext);
+
+	    @Override
+	    protected Object doInBackground(Object... params) {
+	    	DailyCoverageTargets=db.getAllCoverageTargets("Daily");
+		    WeeklyCoverageTargets=db.getAllCoverageTargets("Weekly");
+		    MonthlyCoverageTargets=db.getAllCoverageTargets("Monthly");
+		    QuarterlyCoverageTargets=db.getAllCoverageTargets("Quarterly");
+		    MidyearCoverageTargets=db.getAllCoverageTargets("Mid-year");
+		    AnnualCoverageTargets=db.getAllCoverageTargets("Annually");
+				return null;
+	        
+	    }
+
+	    @Override
+	    protected void onPostExecute(Object result) {
+	    	coverage_adapter=new EventTargetAdapter(mContext,groupItems,DailyCoverageTargets,
+					WeeklyCoverageTargets,
+					MonthlyCoverageTargets,
+					QuarterlyCoverageTargets,
+					MidyearCoverageTargets,
+					AnnualCoverageTargets,
+					listView_coverage);
+	    	listView_coverage.setAdapter(coverage_adapter);
+	        
+	    }
+	}
 }

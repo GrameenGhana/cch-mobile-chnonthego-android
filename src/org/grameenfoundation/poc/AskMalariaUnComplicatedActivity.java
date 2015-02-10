@@ -49,6 +49,7 @@ public class AskMalariaUnComplicatedActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(mContext,AskMalariaTrimesterActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

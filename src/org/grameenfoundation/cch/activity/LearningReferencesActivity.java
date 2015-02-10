@@ -14,7 +14,10 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.digitalcampus.mobile.learningGF.R;
+import org.grameenfoundation.poc.BaseActivity;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -37,7 +40,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class LearningReferencesActivity extends Activity {
+public class LearningReferencesActivity extends BaseActivity {
 
 	private ListView listView_menu;
 	private String[] list;
@@ -82,18 +85,26 @@ public class LearningReferencesActivity extends Activity {
 	}
 	private void openPdfIntent(String path) 
 	{
-	    try
-	    {
-	    	
+		
+	    	 File file=new File(path);
+	    	 if(file.exists()){
+	    	 Uri uri  = Uri.fromFile(file);
+	    	 Intent intentUrl = new Intent(Intent.ACTION_VIEW);
+	    	 intentUrl.setDataAndType(uri, "application/pdf");
+	    	 intentUrl.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-	     final Intent intent = new Intent(LearningReferencesActivity.this, PDFActivity.class);
-	     intent.putExtra(PdfViewerActivity.EXTRA_PDFFILENAME, path);
-	     startActivity(intent);
-	    }																				
-	    catch (Exception e) 
+	 	    try {
+	    	 startActivity(intentUrl);
+	 	    }
+	     //final Intent intent = new Intent(LearningReferencesActivity.this, PDFActivity.class);
+	     //intent.putExtra(PdfViewerActivity.EXTRA_PDFFILENAME, path);
+	     //startActivity(intent);																				
+	    catch (ActivityNotFoundException e) 
 	    {
 	      e.printStackTrace();
+	      Crouton.makeText(LearningReferencesActivity.this, "No application available to view PDF", Style.ALERT).show();
 	    }
+	    	 }
 	}
 	
 	private void copyAssets() {

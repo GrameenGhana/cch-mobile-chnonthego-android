@@ -45,16 +45,19 @@ public class EventPlannerOptionsActivity extends BaseActivity implements OnItemC
 			intent=new Intent(mContext,PlanEventActivity.class);
 			intent.putExtra("mode","plan_mode");
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 			
 		case 1:
 			intent=new Intent(mContext,TargetSettingActivity.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 			
 		case 2:
 			intent=new Intent(mContext,PlannerViewOptionsActivity.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		}
 		

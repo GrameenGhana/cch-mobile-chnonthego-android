@@ -49,21 +49,25 @@ public class BreastProblemsPNCMotherNextActivity extends BaseActivity {
 					intent=new Intent(mContext,TakeActionBreastProblemsPNCMotherActivity.class);
 					intent.putExtra("value", "mastitis");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,TakeActionBreastProblemsPNCMotherActivity.class);
 					intent.putExtra("value", "breast_engorgment");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(mContext,TakeActionBreastProblemsPNCMotherActivity.class);
 					intent.putExtra("value", "cracked_nipples");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 3:
 					intent=new Intent(mContext,TakeActionBreastProblemsPNCMotherActivity.class);
 					intent.putExtra("value", "no_problems");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				}
 				

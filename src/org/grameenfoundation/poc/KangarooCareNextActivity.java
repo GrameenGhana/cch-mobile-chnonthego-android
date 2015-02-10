@@ -32,6 +32,7 @@ public class KangarooCareNextActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(KangarooCareNextActivity.this, KangarooCareNextTwoActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

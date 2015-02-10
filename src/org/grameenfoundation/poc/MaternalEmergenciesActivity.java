@@ -53,21 +53,25 @@ public class MaternalEmergenciesActivity extends BaseActivity {
 						intent=new Intent(MaternalEmergenciesActivity.this,TakeActionMaternalEmergenciesActivity.class);
 						intent.putExtra("value","difficulty_breathing");
 						startActivity(intent);
+						overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 						break;
 					case 1:
 						intent=new Intent(MaternalEmergenciesActivity.this,TakeActionMaternalEmergenciesActivity.class);
 						intent.putExtra("value","shock");
 						startActivity(intent);
+						overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 						break;
 					case 2:
 						intent=new Intent(MaternalEmergenciesActivity.this,TakeActionMaternalEmergenciesActivity.class);
 						intent.putExtra("value","heavy_bleeding");
 						startActivity(intent);
+						overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 						break;
 					case 3:
 						intent=new Intent(MaternalEmergenciesActivity.this,TakeActionMaternalEmergenciesActivity.class);
 						intent.putExtra("value","convulsion");
 						startActivity(intent);
+						overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 						break;
 					}
 				
@@ -81,6 +85,7 @@ public class MaternalEmergenciesActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(MaternalEmergenciesActivity.this,RecordsAskActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

@@ -36,6 +36,7 @@ public class TakeActionDiarrhoeaActivity extends BaseActivity {
     			public void onClick(View v) {
     				Intent intent=new Intent(TakeActionDiarrhoeaActivity.this,TreatingDiarrhoeaActivity.class);
     				startActivity(intent);
+    				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
     			}
     			   
     		   });
@@ -47,6 +48,7 @@ public class TakeActionDiarrhoeaActivity extends BaseActivity {
     				Intent intent=new Intent(TakeActionDiarrhoeaActivity.this,KeepingBabyWarmAndMalariaActivity.class);
     				intent.putExtra("value", "keeping_baby_warm");
     				startActivity(intent);
+    				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
     			}
     			   
     		   });
@@ -59,6 +61,7 @@ public class TakeActionDiarrhoeaActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(TakeActionDiarrhoeaActivity.this,TreatingDiarrhoeaActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -70,6 +73,7 @@ public class TakeActionDiarrhoeaActivity extends BaseActivity {
 				Intent intent=new Intent(TakeActionDiarrhoeaActivity.this,KeepingBabyWarmAndMalariaActivity.class);
 				intent.putExtra("value", "keeping_baby_warm");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -81,6 +85,7 @@ public class TakeActionDiarrhoeaActivity extends BaseActivity {
 				Intent intent=new Intent(TakeActionDiarrhoeaActivity.this,KeepingBabyWarmAndMalariaActivity.class);
 				intent.putExtra("value", "bloody_diarrhoea");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -94,6 +99,7 @@ public class TakeActionDiarrhoeaActivity extends BaseActivity {
 			Intent intent=new Intent(TakeActionDiarrhoeaActivity.this,HomeCareForInfantActivity.class);
 			intent.putExtra("value", "keeping_baby_warm");
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		}
 		   
 	   });
@@ -104,6 +110,7 @@ public class TakeActionDiarrhoeaActivity extends BaseActivity {
 		public void onClick(View v) {
 			Intent intent=new Intent(TakeActionDiarrhoeaActivity.this,HIVInfectionActivity.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		}
 		   
 	   });

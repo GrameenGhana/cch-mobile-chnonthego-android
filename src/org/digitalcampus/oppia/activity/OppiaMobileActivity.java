@@ -77,7 +77,7 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		prefs.registerOnSharedPreferenceChangeListener(this);
 		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
-		getActionBar().setDisplayShowHomeEnabled(false);
+		getActionBar().setDisplayShowHomeEnabled(true);
 	    getActionBar().setTitle("Learning Center");
 	    getActionBar().setSubtitle("Learning Modules");
 		// set preferred lang to the default lang
@@ -142,6 +142,7 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 			manageBtn.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					startActivity(new Intent(OppiaMobileActivity.this, TagSelectActivity.class));
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
 			});
 		}
@@ -160,6 +161,7 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 				tb.putSerializable(Course.TAG, m);
 				i.putExtras(tb);
 				startActivity(i);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 		});
 
@@ -212,9 +214,11 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 		int itemId = item.getItemId();
 		if (itemId == R.id.menu_about) {
 			startActivity(new Intent(this, AboutActivity.class));
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			return true;
 		} else if (itemId == R.id.menu_download) {
 			startActivity(new Intent(this, TagSelectActivity.class));
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			return true;
 		} else if (itemId == R.id.menu_settings) {
 			Intent i = new Intent(this, PrefsActivity.class);
@@ -226,9 +230,11 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 			tb.putSerializable("langs", langs);
 			i.putExtras(tb);
 			startActivity(i);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			return true;
 		} else if (itemId == R.id.menu_help) {
 			startActivity(new Intent(this, HelpActivity.class));
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			return true;
 		} else if (itemId == R.id.menu_logout) {
 			logout();
@@ -252,6 +258,7 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 	        	i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	        	startActivity(i);
 	    		finish();
+	    		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 	            return false;
 	        }
 	        else {
@@ -290,6 +297,7 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 				// restart the app
 				OppiaMobileActivity.this.startActivity(new Intent(OppiaMobileActivity.this, StartUpActivity.class));
 				OppiaMobileActivity.this.finish();
+				overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 
 			}
 		});
@@ -420,6 +428,7 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 					tb.putSerializable(DownloadMediaActivity.TAG, m);
 					i.putExtras(tb);
 					startActivity(i);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
 			});
 			e.putLong(getString(R.string.prefs_last_media_scan), 0);

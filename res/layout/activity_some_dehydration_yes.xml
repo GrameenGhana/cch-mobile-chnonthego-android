@@ -84,7 +84,7 @@
 
         <org.grameenfoundation.cch.utils.TextViewUtils
             android:id="@+id/textView_clickHereToo"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
             android:text="Prepare ORS "
@@ -93,7 +93,7 @@
 
         <org.grameenfoundation.cch.utils.TextViewBullets
             android:id="@+id/textView10"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
             android:text="Advise mother to give frequent sips of ORS to the baby on the way to the health facility, if baby can suckle or take sips"
@@ -101,9 +101,8 @@
 
         <org.grameenfoundation.cch.utils.TextViewBullets
             android:id="@+id/textView11"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.10"
             android:paddingBottom="5dp"
             android:text="Advise mother to continue breastfeeding  "
             android:textAppearance="?android:attr/textAppearanceSmall" />

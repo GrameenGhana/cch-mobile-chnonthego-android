@@ -41,6 +41,7 @@ public class TakeActionHIVInfectionActivity extends BaseActivity {
   				Intent intent=new Intent(TakeActionHIVInfectionActivity.this,InfantFeedingNextActivity.class);
   				intent.putExtra("value", "not_taking_arv");
   				startActivity(intent);
+  				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
   			}
   			   
   		   });
@@ -54,6 +55,7 @@ public class TakeActionHIVInfectionActivity extends BaseActivity {
  				Intent intent=new Intent(TakeActionHIVInfectionActivity.this,InfantFeedingNextActivity.class);
  				intent.putExtra("value", "taking_arv");
  				startActivity(intent);
+ 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
  			}
  			   
  		   });

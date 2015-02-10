@@ -61,11 +61,13 @@ public class AskBleedingActivity extends BaseActivity {
 					intent=new Intent(mContext,TakeActionBleedingActivity.class);
 					intent.putExtra("category", "heavy");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,TakeActionBleedingActivity.class);
 					intent.putExtra("category", "light");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				}
 				

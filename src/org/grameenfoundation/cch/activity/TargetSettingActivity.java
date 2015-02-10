@@ -48,6 +48,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.EditText;
@@ -60,6 +61,9 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 
 public class TargetSettingActivity extends SherlockFragmentActivity implements ActionBar.TabListener, OnSharedPreferenceChangeListener{
@@ -87,9 +91,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_new_event_planner);
 	    start_time=System.currentTimeMillis();
-	   // final PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_header);
-       // pagerTabStrip.setDrawFullUnderline(true);
-       // pagerTabStrip.setTabIndicatorColor(Color.rgb(83,171,32));
         dbh = new DbHelper(TargetSettingActivity.this);
         mContext=TargetSettingActivity.this;
         final ActionBar actionBar =getSupportActionBar();
@@ -99,16 +100,10 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
         actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setHomeButtonEnabled(true);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(4);
-        // When swiping between different sections, select the corresponding
-        // tab. We can also use ActionBar.Tab#select() to do this if we have
-        // a reference to the Tab.
-        
         mViewPager
         .setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
                 @Override
@@ -116,15 +111,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
                         actionBar.setSelectedNavigationItem(position);
                 }
         });
-
-        // For each of the sections in the app, add a tab to the action bar.
-        
         for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-                // Create a tab with text corresponding to the page title defined by
-                // the adapter. Also specify this Activity object, which implements
-                // the TabListener interface, as the callback (listener) for when
-                // this tab is selected.
-        	
                 actionBar.addTab(actionBar.newTab()
                                 .setText(mSectionsPagerAdapter.getPageTitle(i))
                                 .setTabListener(this));
@@ -144,10 +131,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 		tb.putBoolean("backgroundData", true);
 		service.putExtras(tb);
 		this.startService(service);
-        // Create the adapter that will return a fragment for each of the four
-        // primary sections of the app.
-        
-        
 }
 	 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -216,22 +199,16 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 
             }
 			 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-				 rootView=inflater.inflate(R.layout.event_set_dialog,null,false);
+				rootView=inflater.inflate(R.layout.event_set_dialog,null,false);
 			    mContext=getActivity().getApplicationContext();
-			    //TypefaceUtil.overrideFont(mContext, "SERIF", "fonts/Roboto-Thin.ttf");
-			    db=new DbHelper(getActivity());	String[] items={"Daily","Weekly","Monthly","Quarterly","Mid-year","Annually"};
+			    db=new DbHelper(getActivity());
+			    String[] items=getResources().getStringArray(R.array.ReminderFrequency);
 				final Spinner spinner_event_period=(Spinner) rootView.findViewById(R.id.spinner_dialogEventPeriod);
 				final Spinner spinner_event_name=(Spinner) rootView.findViewById(R.id.spinner_eventName);
 				
 				ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
 				spinner_event_period.setAdapter(adapter);
-				String[] items_names={"ANC Static","ANC Outreach","CWC Static","CWC Outreach",
-										"PNC Clinic","Routine Home visit","Special Home visit",
-										"Family Planning","Health Talk","CMAM Clinic","School Health",
-										"Adolescent Health","Mop-up Activity/Event","Community Durbar",
-										"National Activity/Event","Staff meetings/durbars","Workshops","Leave/Excuse Duty",
-										"Personal","Other"};
-				//ArrayList<String> list=db.getAllEventCategory();
+				String[] items_names=getResources().getStringArray(R.array.EventNames);
 				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items_names);
 				spinner_event_name.setAdapter(adapter2);
 				final EditText editText_event_period=(EditText) rootView.findViewById(R.id.editText_dialogEventPeriodNumber);
@@ -244,7 +221,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					public void onClick(View v) {
 						final CaldroidFragment dialogCaldroidFragment = CaldroidFragment.newInstance("Select a date", this_month, this_year);
 						dialogCaldroidFragment.show(getFragmentManager(),"TAG");
-						//dialogCaldroidFragment.setEnableSwipe(true);
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 						    @Override
@@ -256,12 +232,10 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						                Toast.LENGTH_SHORT).show();
 						    }
 						};
-
 						dialogCaldroidFragment.setCaldroidListener(listener);
-						
 					}
-					
 				});
+				
 				ImageButton datepickerDialog2=(ImageButton) rootView.findViewById(R.id.imageButton_startDate);
 				datepickerDialog2.setOnClickListener(new OnClickListener(){
 
@@ -269,7 +243,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					public void onClick(View v) {
 						final CaldroidFragment dialogCaldroidFragment = CaldroidFragment.newInstance("Select a date", this_month, this_year);
 						dialogCaldroidFragment.show(getFragmentManager(),"TAG");
-						//dialogCaldroidFragment.setEnableSwipe(true);
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 						    @Override
@@ -281,10 +254,8 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						                Toast.LENGTH_SHORT).show();
 						    }
 						};
-
 						dialogCaldroidFragment.setCaldroidListener(listener);
 					}
-					
 				});
 				Button cancel=(Button) rootView.findViewById(R.id.button_cancel);
 				cancel.setOnClickListener(new OnClickListener(){
@@ -302,47 +273,32 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				dialogButton.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						
-					
-						
 						String event_period=spinner_event_period.getSelectedItem().toString();
 						String event_name=spinner_event_name.getSelectedItem().toString();
 						String event_period_number=editText_event_period.getText().toString();
-						String duration = null;
-						if(isToday(due_date_to_compare)){
-							duration="Today";
-							System.out.println(duration);
-						}else if(isTomorrow(due_date_to_compare)){
-							duration="Tomorrow";
-							System.out.println(duration);
-						}else if(isThisWeek(due_date_to_compare)){
-							duration="This week";
-							System.out.println(duration);
-						}else if(isThisMonth(due_date_to_compare)){
-							duration="This month";
-							System.out.println(duration);
-						}else if(isThisQuarter(due_date_to_compare)){
-							duration="This quarter";
-							System.out.println(duration);
-						}
-						Calendar c = Calendar.getInstance();
-				        int month=c.get(Calendar.MONTH)+1;
-				        int day=c.get(Calendar.DAY_OF_WEEK);
-				        int year=c.get(Calendar.YEAR);
-				      	String today=day+"-"+month+"-"+year;
+						String duration = " ";
+						
 				      	if(isDateAfter(start_date,due_date)==true){
 				      		startDateValue.requestFocus();
 				      		startDateValue.setError("Check this date!");
 				      	}else if(event_period_number.isEmpty()==true){
 				      		editText_event_period.requestFocus();
 				      		editText_event_period.setError("Please enter a number");
+				      	}else if(start_date==null){
+				      		startDateValue.requestFocus();
+				      		startDateValue.setError("Select a start date");
+				      	}else if(due_date==null){
+				      		dueDateValue.requestFocus();
+				      		dueDateValue.setError("Select an end date");
 				      	}else{
+				     
 					    if(db.insertEventSet(event_name, event_period, event_period_number, duration,start_date,due_date,0,Integer.valueOf(event_period_number),"new_record") !=0){
 					    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
 				 	          intent2.setClass(getActivity(), EventPlannerOptionsActivity.class);
 				 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				 	          startActivity(intent2);
 				 	          getActivity().finish();	
+				 	        getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 					    	 Toast.makeText(getActivity().getApplicationContext(), "Event target set successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
@@ -352,7 +308,8 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					}
 					}
 				});
-			    button_show=(Button) rootView.findViewById(R.id.button_show);
+				
+				 button_show=(Button) rootView.findViewById(R.id.button_show);
 				 eventId=db.getEventIdCount("Daily");
 				 coverageId=db.getCoverageIdCount("Daily");
 				 otherId=db.getOtherIdCount("Daily");
@@ -371,6 +328,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						if(counter>0){
 						Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
 						startActivity(intent);
+						getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 						}else if(counter==0){
 							 Toast.makeText(getActivity(), "You have no targets to update!",
 							         Toast.LENGTH_SHORT).show();
@@ -383,112 +341,11 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			return rootView;
 				   
 			}
-			 
-			 public boolean isToday(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	String today = new SimpleDateFormat("MM/dd/yyyy").format(new Date(System.currentTimeMillis()));
-		    	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
-		    	       				.toString().equals(today)) ? true : false;
-		    	}
-		    	
-		    	public boolean isTomorrow(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	Calendar c = Calendar.getInstance();
-		    	    	c.add(Calendar.DATE, 1);
-		    	    	String tomorrow = new SimpleDateFormat("MM/dd/yyyy").format(new Date(c.getTimeInMillis()));
-		    	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
-		    	       				.toString().equals(tomorrow)) ? true : false;
-		    	}
-		    	    
-		    	public boolean isThisWeek(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	Calendar c = Calendar.getInstance();
-		    	    	c.add(Calendar.DATE, 7);
-		    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-		    	}
-		    	public boolean isThisMonth(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	Calendar c = Calendar.getInstance();
-		    	    	c.add(Calendar.DATE, 30);
-		    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-		    	}
-		    	public boolean isThisQuarter(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	Calendar c = Calendar.getInstance();
-		    	    	c.add(Calendar.DATE, 90);
-		    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-		    	}
-		    	
-		    	public boolean isMidYear(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	Calendar c = Calendar.getInstance();
-		    	    	c.add(Calendar.DATE, 120);
-		    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-		    	}
-		    	public boolean isThisYear(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	Calendar c = Calendar.getInstance();
-		    	    	c.add(Calendar.DATE, 365);
-		    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-		    	}
-			 public static class DatePickerFragment extends DialogFragment
-			 				implements DatePickerDialog.OnDateSetListener {
-
-				 @Override
-				 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-					 // Use the current date as the default date in the picker
-					 final Calendar c = Calendar.getInstance();
-					 	int year = c.get(Calendar.YEAR);
-					 	int month = c.get(Calendar.MONTH);
-					 	int day = c.get(Calendar.DAY_OF_MONTH);
-
-					 	// Create a new instance of DatePickerDialog and return it
-					 	return new DatePickerDialog(getActivity(), this, year, month, day);
-				 }
-
-				 public void onDateSet(DatePicker view, int year, int month, int day) {
-					 int month_value=month+1;
-					 		due_date=day+"-"+month_value+"-"+year;
-					 		dueDateValue.setText(due_date);
-							Calendar calendar = Calendar.getInstance();
-							calendar.set(view.getYear(), view.getMonth(), view.getDayOfMonth());
-							 due_date_to_compare= calendar.getTimeInMillis();
-				 }
-			 }
-			 
-			 public static class DatePickerFragment2 extends DialogFragment
-				implements DatePickerDialog.OnDateSetListener {
-
-	 @Override
-	 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		 // Use the current date as the default date in the picker
-		 final Calendar c = Calendar.getInstance();
-		 	int year = c.get(Calendar.YEAR);
-		 	int month = c.get(Calendar.MONTH);
-		 	int day = c.get(Calendar.DAY_OF_MONTH);
-
-		 	// Create a new instance of DatePickerDialog and return it
-		 	return new DatePickerDialog(getActivity(), this, year, month, day);
-	 }
-
-	 public void onDateSet(DatePicker view, int year, int month, int day) {
-		 int month_value=month+1;
-		 start_date=day+"-"+month_value+"-"+year;
-		 startDateValue.setText(start_date);
-	 }
-}
 		
+			
 			
 	 }
 	 public static class CoverageActivity extends Fragment{
-
 			private Context mContext;															
 			private DbHelper db;
 			 public static final String ARG_SECTION_NUMBER = "section_number";       
@@ -513,7 +370,8 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 
          }
 			 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-				 rootView=inflater.inflate(R.layout.coverage_add_dialog,null,false);
+				 
+				rootView=inflater.inflate(R.layout.coverage_add_dialog,null,false);
 			    mContext=getActivity().getApplicationContext();
 			    db=new DbHelper(getActivity());
 			    final EditText editText_coverageNumber=(EditText) rootView.findViewById(R.id.editText_dialogCoverageNumber);
@@ -525,7 +383,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					public void onClick(View v) {
 						final CaldroidFragment dialogCaldroidFragment = CaldroidFragment.newInstance("Select a date", this_month, this_year);
 						dialogCaldroidFragment.show(getFragmentManager(),"TAG");
-						//dialogCaldroidFragment.setEnableSwipe(true);
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 						    @Override
@@ -550,7 +407,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					public void onClick(View v) {
 						final CaldroidFragment dialogCaldroidFragment = CaldroidFragment.newInstance("Select a date", this_month, this_year);
 						dialogCaldroidFragment.show(getFragmentManager(),"TAG");
-						//dialogCaldroidFragment.setEnableSwipe(true);
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 						    @Override
@@ -589,7 +445,8 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				  category_options.check(R.id.radio_people);
 				  category_people=(RadioButton) rootView.findViewById(R.id.radio_people);
 				  category_people.setChecked(true);
-				  items3=new String[]{"Family Planning","Age Groups","School Health"};
+				  items3=new String[]{};
+				  items3=getResources().getStringArray(R.array.CoverageIndicatorsName);
 				  spinner_coverageName.setOnItemSelectedListener(new OnItemSelectedListener(){
 
 						@Override
@@ -598,19 +455,19 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 								int position, long id) {
 						switch(position){
 						case 0:
-							String[] detail_items1={"New Acceptors","Continuing Acceptors"};
+							String[] detail_items1=getResources().getStringArray(R.array.CoverageIndicatorsDetailFamilyPlanning);
 							ArrayAdapter<String> details_adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, detail_items1);
 							spinner_coverageDetails.setAdapter(details_adapter);
 							coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 							break;
 						case 1:
-							String[] detail_items2={"0 to 11 months","12 to 23 months","24 to 59 months"};
+							String[] detail_items2=getResources().getStringArray(R.array.CoverageIndicatorsDetailAgeGroups);
 							ArrayAdapter<String> details_adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, detail_items2);
 							spinner_coverageDetails.setAdapter(details_adapter2);
 							coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 							break;
 						case 2:
-							String[] detail_items3={"# of schools visited","# of schools with 3+ health talks","# examined ­ Pre­school","# examined - P1" ,"# examined - P3", "# examined - JHS 1"};
+							String[] detail_items3=getResources().getStringArray(R.array.CoverageIndicatorsSchoolHealth);
 							ArrayAdapter<String> details_adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, detail_items3);
 							spinner_coverageDetails.setAdapter(details_adapter3);
 							coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
@@ -622,7 +479,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						@Override
 						public void onNothingSelected(
 								AdapterView<?> parent) {
-							// TODO Auto-generated method stub
 							
 						}
 						
@@ -634,7 +490,8 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 								RadioGroup buttonView,
 								int isChecked) {
 							if (isChecked == R.id.radio_people) {
-								items3=new String[]{"Family Planning","Age Groups","School Health"};
+								 items3=new String[]{};
+								 items3=getResources().getStringArray(R.array.CoverageIndicatorsName);
 								ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
 								spinner_coverageName.setAdapter(adapter3);
 								spinner_coverageName.setOnItemSelectedListener(new OnItemSelectedListener(){
@@ -645,19 +502,19 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 											int position, long id) {
 									switch(position){
 									case 0:
-										String[] detail_items1={"New Acceptors","Continuing Acceptors"};
+										String[] detail_items1=getResources().getStringArray(R.array.CoverageIndicatorsDetailFamilyPlanning);
 										ArrayAdapter<String> details_adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, detail_items1);
 										spinner_coverageDetails.setAdapter(details_adapter);
 										coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 										break;
 									case 1:
-										String[] detail_items2={"0 to 11 months","12 to 23 months","24 to 59 months"};
+										String[] detail_items2=getResources().getStringArray(R.array.CoverageIndicatorsDetailAgeGroups);
 										ArrayAdapter<String> details_adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, detail_items2);
 										spinner_coverageDetails.setAdapter(details_adapter2);
 										coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 										break;
 									case 2:
-										String[] detail_items3={"Number of schools visited","Number of schools with 3+ health talks","Number examined ­ Pre­school, P1, P3, JHS 1"};
+										String[] detail_items3=getResources().getStringArray(R.array.CoverageIndicatorsSchoolHealth);
 										ArrayAdapter<String> details_adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, detail_items3);
 										spinner_coverageDetails.setAdapter(details_adapter3);
 										coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
@@ -674,9 +531,8 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 								});
 								
 							} else if (isChecked == R.id.radio_immunization) {
-								items3=new String[]{"BCG"," Penta",
-										"OPV","ROTA",
-										"PCV","Measles Rubella","Vitamin A","TT pregnant","TT non-pregnant","Yellow Fever"};
+								items3=new String[]{};
+								items3=getResources().getStringArray(R.array.CoverageImmunizationTypes);
 								ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
 								spinner_coverageName.setAdapter(adapter4);
 								spinner_coverageName.setOnItemSelectedListener(new OnItemSelectedListener(){
@@ -687,61 +543,61 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 											int position, long id) {
 										switch(position){
 										case 0:
-											String[] detail_items1={"BCG"};
+											String[] detail_items1=getResources().getStringArray(R.array.CoverageImmunizationTypeBCG);
 											ArrayAdapter<String> details_adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, detail_items1);
 											spinner_coverageDetails.setAdapter(details_adapter);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 1:
-											String[] detail_items2={"Penta 1","Penta 2","Penta 3"};
+											String[] detail_items2=getResources().getStringArray(R.array.CoverageImmunizationPenta);
 											ArrayAdapter<String> details_adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, detail_items2);
 											spinner_coverageDetails.setAdapter(details_adapter2);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 2:
-											String[] detail_items3={"OPV 1","OPV 2","OPV 3"};
+											String[] detail_items3=getResources().getStringArray(R.array.CoverageImmunizationOPV);
 											ArrayAdapter<String> details_adapter3=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, detail_items3);
 											spinner_coverageDetails.setAdapter(details_adapter3);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 3:
-											String[] detail_items4={"ROTA 1","ROTA 2"};
+											String[] detail_items4=getResources().getStringArray(R.array.CoverageImmunizationROTA);
 											ArrayAdapter<String> details_adapter4=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, detail_items4);
 											spinner_coverageDetails.setAdapter(details_adapter4);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 4:
-											String[] detail_itemsPCV={"PCV 1","PCV 2","PCV 3"};
+											String[] detail_itemsPCV=getResources().getStringArray(R.array.CoverageImmunizationPCV);
 											ArrayAdapter<String> details_adapterPCV=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, detail_itemsPCV);
 											spinner_coverageDetails.setAdapter(details_adapterPCV);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 5:
-											String[] detail_items5={"Measles Rubella @9mnths","Measles 2"};
+											String[] detail_items5=getResources().getStringArray(R.array.CoverageImmunizationMeaslesRubella);
 											ArrayAdapter<String> details_adapter5=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, detail_items5);
 											spinner_coverageDetails.setAdapter(details_adapter5);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 6:
-											String[] detail_items6={"100,000 IU","200,000 IU","Postpartum"};
+											String[] detail_items6=getResources().getStringArray(R.array.CoverageImmunizationVitaminA);
 											ArrayAdapter<String> details_adapter6=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, detail_items6);
 											spinner_coverageDetails.setAdapter(details_adapter6);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 7:
-											String[] detail_items7={"TT 1","TT 2","TT 3","TT 4","TT 5"};
+											String[] detail_items7=getResources().getStringArray(R.array.CoverageImmunizationTT);
 											ArrayAdapter<String> details_adapter7=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, detail_items7);
 											spinner_coverageDetails.setAdapter(details_adapter7);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 8:
-											String[] detail_items8={"TT 1","TT 2","TT 3","TT 4","TT 5"};
+											String[] detail_items8=getResources().getStringArray(R.array.CoverageImmunizationTT);
 											ArrayAdapter<String> details_adapter8=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, detail_items8);
 											spinner_coverageDetails.setAdapter(details_adapter8);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 9:
-											String[] detail_items9={"Yellow Fever"};
+											String[] detail_items9=getResources().getStringArray(R.array.CoverageImmunizationYellowFever);
 											ArrayAdapter<String> details_adapter9=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, detail_items9);
 											spinner_coverageDetails.setAdapter(details_adapter9);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
@@ -753,7 +609,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 									@Override
 									public void onNothingSelected(
 											AdapterView<?> parent) {
-										// TODO Auto-generated method stub
 										
 									}
 									
@@ -762,7 +617,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 							}
 						}
 				    });
-				    String[] items2={"Daily","Weekly","Monthly","Quarterly","Mid-year","Annually"};
+				    String[] items2=getResources().getStringArray(R.array.ReminderFrequency);
 				final Spinner spinner_coveragePeriod=(Spinner) rootView.findViewById(R.id.spinner_coveragePeriod);
 				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items2);
 				spinner_coveragePeriod.setAdapter(adapter2);
@@ -775,36 +630,27 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						String coverage_period=spinner_coveragePeriod.getSelectedItem().toString();
 						String coverage_number=editText_coverageNumber.getText().toString();
 						coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
-						String duration = null;
-						if(isToday(due_date_to_compare)){
-							duration="Today";
-						}else if(isTomorrow(due_date_to_compare)){
-							duration="Tomorrow";
-						}else if(isThisWeek(due_date_to_compare)){
-							duration="This week";
-						}else if(isThisMonth(due_date_to_compare)){
-							duration="This month";
-						}else if(isThisQuarter(due_date_to_compare)){
-							duration="This quarter";
-						}
-						Calendar c = Calendar.getInstance();
-				        int month=c.get(Calendar.MONTH)+1;
-				        int day=c.get(Calendar.DAY_OF_WEEK);
-				        int year=c.get(Calendar.YEAR);
-				      	String today=day+"-"+month+"-"+year;
+						String duration = " ";
 				      	if(isDateAfter(start_date,due_date)==true){
 				      		 startDateValue.requestFocus();
 				      		startDateValue.setError("Check this date!");
 				      	}else if(coverage_number.isEmpty()==true){
 				      		editText_coverageNumber.requestFocus();
 				      		editText_coverageNumber.setError("Please enter a number");
-				      	}else{
+				      	}else if(start_date==null){
+					      		startDateValue.requestFocus();
+					      		startDateValue.setError("Select a start date");
+					      	}else if(due_date==null){
+					      		dueDateValue.requestFocus();
+					      		dueDateValue.setError("Select an end date");
+					      	}	else{
 				    if(db.insertCoverageSet(coverage_name, coverage_detail, coverage_period, coverage_number, duration,start_date,due_date,0,Integer.valueOf(coverage_number),"new_record") !=0){
 				    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
 			 	          intent2.setClass(getActivity(), EventPlannerOptionsActivity.class);
 			 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			 	          startActivity(intent2);
 			 	          getActivity().finish();	
+			 	         getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 					    	 Toast.makeText(getActivity().getApplicationContext(), "Coverage target added successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
@@ -823,7 +669,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				 int number3=(int)otherId;
 				 int number4=(int)learningId;
 				 final int counter;
-				
 				counter=number+number2+number3+number4;	
 			    button_show.setOnClickListener(new OnClickListener(){
 
@@ -832,124 +677,21 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						if(counter>0){
 						Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
 						startActivity(intent);
+						getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 						}else if(counter==0){
 							 Toast.makeText(getActivity(), "You have no targets to update!",
 							         Toast.LENGTH_SHORT).show();
 						}
-						
 					}
-			    	
 			    });
-		    	
 			return rootView;
 				   
 			}
-			 public boolean isToday(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	String today = new SimpleDateFormat("MM/dd/yyyy").format(new Date(System.currentTimeMillis()));
-		    	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
-		    	       				.toString().equals(today)) ? true : false;
-		    	}
-		    	
-		    	public boolean isTomorrow(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	Calendar c = Calendar.getInstance();
-		    	    	c.add(Calendar.DATE, 1);
-		    	    	String tomorrow = new SimpleDateFormat("MM/dd/yyyy").format(new Date(c.getTimeInMillis()));
-		    	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
-		    	       				.toString().equals(tomorrow)) ? true : false;
-		    	}
-		    	    
-		    	public boolean isThisWeek(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	Calendar c = Calendar.getInstance();
-		    	    	c.add(Calendar.DATE, 7);
-		    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-		    	}
-		    	public boolean isThisMonth(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	Calendar c = Calendar.getInstance();
-		    	    	c.add(Calendar.DATE, 30);
-		    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-		    	}
-		    	public boolean isThisQuarter(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	Calendar c = Calendar.getInstance();
-		    	    	c.add(Calendar.DATE, 90);
-		    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-		    	}
-		    	
-		    	public boolean isMidYear(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	Calendar c = Calendar.getInstance();
-		    	    	c.add(Calendar.DATE, 120);
-		    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-		    	}
-		    	public boolean isThisYear(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	Calendar c = Calendar.getInstance();
-		    	    	c.add(Calendar.DATE, 365);
-		    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-		    	}
-		    	public static class DatePickerFragment extends DialogFragment
-		    	implements DatePickerDialog.OnDateSetListener {
-
-		    @Override
-		    public Dialog onCreateDialog(Bundle savedInstanceState) {
-		    //Use the current date as the default date in the picker
-		    final Calendar c = Calendar.getInstance();
-		    int year = c.get(Calendar.YEAR);
-		    int month = c.get(Calendar.MONTH);
-		    int day = c.get(Calendar.DAY_OF_MONTH);
-
-		    //Create a new instance of DatePickerDialog and return it
-		    return new DatePickerDialog(getActivity(), this, year, month, day);
-		    }
-
-		    public void onDateSet(DatePicker view, int year, int month, int day) {
-		    int month_value=month+1;
-		    due_date=day+"-"+month_value+"-"+year;
-		    dueDateValue.setText(due_date);
-		    }
-		    }
-		    	 public static class DatePickerFragment2 extends DialogFragment
-		    		implements DatePickerDialog.OnDateSetListener {
-
-
-
-		    @Override
-		    public Dialog onCreateDialog(Bundle savedInstanceState) {
-		    // Use the current date as the default date in the picker
-		    final Calendar c = Calendar.getInstance();
-		    	int year = c.get(Calendar.YEAR);
-		    	int month = c.get(Calendar.MONTH);
-		    	int day = c.get(Calendar.DAY_OF_MONTH);
-
-		    	// Create a new instance of DatePickerDialog and return it
-		    	return new DatePickerDialog(getActivity(), this, year, month, day);
-		    }
-
-		    public void onDateSet(DatePicker view, int year, int month, int day) {
-		    int month_value=month+1;
-		    start_date=day+"-"+month_value+"-"+year;
-		    startDateValue.setText(start_date);
-		    }
-		    }
-
 			
 	 }
 	 
 	 public static class LearningActivity extends Fragment {
-
 			private Context mContext;															
-			
 			 private DbHelper db;
 			 public static final String ARG_SECTION_NUMBER = "section_number";       
 			 View rootView;
@@ -978,17 +720,15 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
 				spinner_learningCatagory.setAdapter(adapter);
 				final Spinner spinner_learningCourse=(Spinner) rootView.findViewById(R.id.spinner_learningCourse);
-				
 				spinner_learningCatagory.setOnItemSelectedListener(new OnItemSelectedListener(){
-					
 					@Override
 					public void onItemSelected(AdapterView<?> parent,
 							View view, int position, long id) {
 						switch(position){
 						case 0:
 							String[] items2={"Family Planning 101","Family Planning Counselling",
-									"Family Planning for people living with HIV","Hormonal Contraceptives",
-									"Postpartum Family Planning"};
+											"Family Planning for people living with HIV","Hormonal Contraceptives",
+											"Postpartum Family Planning"};
 							ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items2);
 							spinner_learningCourse.setAdapter(adapter2);
 							break;
@@ -1004,7 +744,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						}
 						
 					}
-
 					@Override
 					public void onNothingSelected(AdapterView<?> parent) {
 						// TODO Auto-generated method stub
@@ -1014,12 +753,9 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					
 				});
 				final Spinner spinner_period=(Spinner) rootView.findViewById(R.id.spinner_period);
-				final String[] items_period={"Daily","Weekly",
-						"Monthly","Quarterly",
-						"Mid-year","Annually"};
+				final String[] items_period=getResources().getStringArray(R.array.ReminderFrequency);
 				ArrayAdapter<String> adapter_period=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items_period);
 				spinner_period.setAdapter(adapter_period);
-				
 				spinner_learningCourse.setOnItemSelectedListener(new OnItemSelectedListener(){
 					
 					@Override
@@ -1068,15 +804,15 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 							String[] items5;
 							if(spinner_learningCourse.getSelectedItem().equals("Diarrhoeal Disease")){
 								items5=new String[]{"Etiology and Epidemiology",
-										"Clinical Assessment and Classification",
-										"Treatment",
-										"Prevention"};
+													"Clinical Assessment and Classification",
+													"Treatment",
+													"Prevention"};
 							}else {
 							items5= new String[]{"Family Planning/Reproductive Health",
-									"Family planning for people living with HIV",
-									"Reproductive Health",
-									"Helping Clients Make a Family Planning",
-									"Family Planning in PMTCT Services"};
+												"Family planning for people living with HIV",
+												"Reproductive Health",
+												"Helping Clients Make a Family Planning",
+												"Family Planning in PMTCT Services"};
 							}
 					ArrayAdapter<String> adapter5=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items5);
 					spinner_learningDescription.setAdapter(adapter5);
@@ -1085,15 +821,15 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 							String[] items6;
 							if(spinner_learningCourse.getSelectedItem().equals("Emergency obstetrics")){
 								items6=new String[]{"Background and Definitions",
-										"Basic and Comprehensive EmONC",
-										"Implementation of EmONC Services"};
+													"Basic and Comprehensive EmONC",
+													"Implementation of EmONC Services"};
 							}else {
 							items6=new String[]{"Hormonal Contraceptives",
-									"Oral contraceptives",
-									"Emergency contraceptive pills",
-									"Injectable contraceptives",
-									"Implants",
-									"Benefits and risks of hormonal contraceptives"};
+												"Oral contraceptives",
+												"Emergency contraceptive pills",
+												"Injectable contraceptives",
+												"Implants",
+												"Benefits and risks of hormonal contraceptives"};
 							}
 					ArrayAdapter<String> adapter6=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items6);
 					spinner_learningDescription.setAdapter(adapter6);
@@ -1102,33 +838,33 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 							String[] items7;
 							 if(spinner_learningCourse.getSelectedItem().equals("Malaria in Pregnancy")){
 									items7=new String[]{"Why Is Malaria in Pregnancy (MIP) Important?",
-											"MIP: Strategic Framework, Main Interventions",
-											"Insecticide-treated Nets, Case Management",
-											"Partnerships for MIP, MIP Readiness",
-											"Case Study: Frequent Problems/Practical Solutions"};
+														"MIP: Strategic Framework, Main Interventions",
+														"Insecticide-treated Nets, Case Management",
+														"Partnerships for MIP, MIP Readiness",
+														"Case Study: Frequent Problems/Practical Solutions"};
 							 }else{
 							items7=new String[]{"Rationale for postpartum family planning",
-									"Contraceptive method considerations",
-									"Service delivery:Clinical Considerations",
-									"Service delivery:Integration and linkage"};
+												"Contraceptive method considerations",
+												"Service delivery:Clinical Considerations",
+												"Service delivery:Integration and linkage"};
 							 }
 					ArrayAdapter<String> adapter7=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items7);
 					spinner_learningDescription.setAdapter(adapter7);
 							break;
 						case 5:
 							items=new String[]{"Postpartum Care: Overview",
-									"Field Realities",
-									"Preventing Postpartum Mortality and Morbidity One",
-									"Preventing Postpartum Mortality and Morbidity Two",
-									"Case Study: Frequent Problems/Practical Solutions"};
+												"Field Realities",
+												"Preventing Postpartum Mortality and Morbidity One",
+												"Preventing Postpartum Mortality and Morbidity Two",
+												"Case Study: Frequent Problems/Practical Solutions"};
 							ArrayAdapter<String> adapter8=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
 							spinner_learningDescription.setAdapter(adapter8);
 							break;
 						case 6:
 							items=new String[]{"Postpartum Hemorrhage and Maternal Mortality",
-									"Causes of Postpartum Hemorrhage",
-									"Prevention of Postpartum Hemorrhage One",
-									"Prevention of Postpartum Hemorrhage Two: AMTSL"};	
+												"Causes of Postpartum Hemorrhage",
+												"Prevention of Postpartum Hemorrhage One",
+												"Prevention of Postpartum Hemorrhage Two: AMTSL"};	
 							ArrayAdapter<String> adapter9=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
 							spinner_learningDescription.setAdapter(adapter9);
 							break;
@@ -1152,7 +888,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					public void onClick(View v) {
 						final CaldroidFragment dialogCaldroidFragment = CaldroidFragment.newInstance("Select a date", this_month, this_year);
 						dialogCaldroidFragment.show(getFragmentManager(),"TAG");
-						//dialogCaldroidFragment.setEnableSwipe(true);
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 						    @Override
@@ -1177,7 +912,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					public void onClick(View v) {
 						final CaldroidFragment dialogCaldroidFragment = CaldroidFragment.newInstance("Select a date", this_month, this_year);
 						dialogCaldroidFragment.show(getFragmentManager(),"TAG");
-						//dialogCaldroidFragment.setEnableSwipe(true);
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 						    @Override
@@ -1216,34 +950,25 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						String learning_course=spinner_learningCourse.getSelectedItem().toString();
 						String learning_period=spinner_period.getSelectedItem().toString();
 						String learning_description=editText_learningDescription.getSelectedItem().toString();
-						String duration=null;
-						if(isToday(due_date_to_compare)){
-							duration="Today";
-						}else if(isTomorrow(due_date_to_compare)){
-							duration="Tomorrow";
-						}else if(isThisWeek(due_date_to_compare)){
-							duration="This week";
-						}else if(isThisMonth(due_date_to_compare)){
-							duration="This month";
-						}else if(isThisQuarter(due_date_to_compare)){
-							duration="This quarter";
-						}
-						Calendar c = Calendar.getInstance();
-				        int month=c.get(Calendar.MONTH)+1;
-				        int day=c.get(Calendar.DAY_OF_WEEK);
-				        int year=c.get(Calendar.YEAR);
-				      	String today=day+"-"+month+"-"+year;
+						String duration=" ";
 				      	
 				      	if(isDateAfter(start_date,due_date)==true){
-				      		 startDateValue.requestFocus();
+				      		startDateValue.requestFocus();
 				      		startDateValue.setError("Check this date!");
-				      	}else{
+				      	}else if(start_date==null){
+				      		startDateValue.requestFocus();
+				      		startDateValue.setError("Select a start date");
+				      	}else if(due_date==null){
+				      		dueDateValueLearning.requestFocus();
+				      		dueDateValueLearning.setError("Select an end date");
+				      	}	else{
 					    if(db.insertLearning(learning_category, learning_description,learning_course,duration,learning_period,start_date,due_date, "new_record")!=0){
 					    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
 				 	          intent2.setClass(getActivity(), EventPlannerOptionsActivity.class);
 				 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				 	          startActivity(intent2);
 				 	          getActivity().finish();	
+				 	         getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 					    	 Toast.makeText(getActivity().getApplicationContext(), "Learning target added successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
@@ -1272,6 +997,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					if(counter>0){
 					Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
 					startActivity(intent);
+					getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					}else if(counter==0){
 						 Toast.makeText(getActivity(), "You have no targets to update!",
 						         Toast.LENGTH_SHORT).show();
@@ -1283,125 +1009,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			return rootView;
 				   
 			 }			
-				
-				 public boolean isToday(long dueDate)
-			    	{
-			    			long milliSeconds = dueDate;
-			    	    	String today = new SimpleDateFormat("MM/dd/yyyy").format(new Date(System.currentTimeMillis()));
-			    	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
-			    	       				.toString().equals(today)) ? true : false;
-			    	}
-			    	
-			    	public boolean isTomorrow(long dueDate)
-			    	{
-			    			long milliSeconds = dueDate;
-			    	    	Calendar c = Calendar.getInstance();
-			    	    	c.add(Calendar.DATE, 1);
-			    	    	String tomorrow = new SimpleDateFormat("MM/dd/yyyy").format(new Date(c.getTimeInMillis()));
-			    	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
-			    	       				.toString().equals(tomorrow)) ? true : false;
-			    	}
-			    	    
-			    	public boolean isThisWeek(long dueDate)
-			    	{
-			    			long milliSeconds = dueDate;
-			    	    	Calendar c = Calendar.getInstance();
-			    	    	c.add(Calendar.DATE, 7);
-			    	    	String thisWeek = new SimpleDateFormat("MM/dd/yyyy").format(new Date(c.getTimeInMillis()));
-			    	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
-			    	       				.toString().equals(thisWeek)) ? true : false;
-			    	    	
-			    	       // return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-			    	}
-			    	public boolean isThisMonth(long dueDate)
-			    	{
-			    			long milliSeconds = dueDate;
-			    	    	Calendar c = Calendar.getInstance();
-			    	    	c.add(Calendar.DATE, 30);
-			    	    	String thisMonth = new SimpleDateFormat("MM/dd/yyyy").format(new Date(c.getTimeInMillis()));
-			    	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
-			    	       				.toString().equals(thisMonth)) ? true : false;
-			    	       // return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-			    	}
-			    	public boolean isThisQuarter(long dueDate)
-			    	{
-			    			long milliSeconds = dueDate;
-			    	    	Calendar c = Calendar.getInstance();
-			    	    	c.add(Calendar.DATE, 90);
-			    	    	String thisQuarter = new SimpleDateFormat("MM/dd/yyyy").format(new Date(c.getTimeInMillis()));
-			    	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
-			    	       				.toString().equals(thisQuarter)) ? true : false;
-			    	        //return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-			    	}
-			    	
-			    	public boolean isMidYear(long dueDate)
-			    	{
-			    			long milliSeconds = dueDate;
-			    	    	Calendar c = Calendar.getInstance();
-			    	    	c.add(Calendar.DATE, 120);
-			    	    	String midYear = new SimpleDateFormat("MM/dd/yyyy").format(new Date(c.getTimeInMillis()));
-			    	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
-			    	       				.toString().equals(midYear)) ? true : false;
-			    	        //return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-			    	}
-			    	public boolean isThisYear(long dueDate)
-			    	{
-			    			long milliSeconds = dueDate;
-			    	    	Calendar c = Calendar.getInstance();
-			    	    	c.add(Calendar.DATE, 365);
-			    	    	String thisYear = new SimpleDateFormat("MM/dd/yyyy").format(new Date(c.getTimeInMillis()));
-			    	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
-			    	       				.toString().equals(thisYear)) ? true : false;
-			    	        //return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-			    	}
-			public static class DatePickerFragment extends DialogFragment
-				implements DatePickerDialog.OnDateSetListener {
-
-				@Override
-				public Dialog onCreateDialog(Bundle savedInstanceState) {
-					//Use the current date as the default date in the picker
-					final Calendar c = Calendar.getInstance();
-					int year = c.get(Calendar.YEAR);
-					int month = c.get(Calendar.MONTH);
-					int day = c.get(Calendar.DAY_OF_MONTH);
-
-					//Create a new instance of DatePickerDialog and return it
-					return new DatePickerDialog(getActivity(), this, year, month, day);
-				}
-
-				public void onDateSet(DatePicker view, int year, int month, int day) {
-					int month_value=month+1;
-					due_date=day+"-"+month_value+"-"+year;
-					dueDateValueLearning.setText(due_date);
-					Calendar calendar = Calendar.getInstance();
-					calendar.set(view.getYear(), view.getMonth(), view.getDayOfMonth());
-					 due_date_to_compare= calendar.getTimeInMillis();
-				}
-			}
-			
-			public static class DatePickerFragment2 extends DialogFragment
-			implements DatePickerDialog.OnDateSetListener {
-
-					@Override
-					public Dialog onCreateDialog(Bundle savedInstanceState) {
-						//Use the current date as the default date in the picker
-						final Calendar c = Calendar.getInstance();
-						int year = c.get(Calendar.YEAR);
-						int month = c.get(Calendar.MONTH);
-						int day = c.get(Calendar.DAY_OF_MONTH);
-
-						//Create a new instance of DatePickerDialog and return it
-						return new DatePickerDialog(getActivity(), this, year, month, day);
-					}
-
-					public void onDateSet(DatePicker view, int year, int month, int day) {
-						int month_value=month+1;
-						start_date=day+"-"+month_value+"-"+year;
-						startDateValue.setText(start_date);
-					}
-			}
-
-		
 	 }
 	 
 	 public static class OtherActivity extends Fragment{
@@ -1417,7 +1024,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			private long learningId;
 			static String due_date ;
 			private static TextView dueDateValue;
-			
 			static String start_date ;
 			private static TextView startDateValue;
 			static long due_date_to_compare;
@@ -1431,7 +1037,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			   button_show=(Button) rootView.findViewById(R.id.button_show);
 			   final EditText editText_otherCategory=(EditText) rootView.findViewById(R.id.editText_dialogOtherName);
 				final Spinner spinner_otherPeriod=(Spinner) rootView.findViewById(R.id.spinner_dialogOtherPeriod);
-				String[] items={"Daily","Weekly","Monthly","Quarterly","Mid-year","Annually"};
+				String[] items=getResources().getStringArray(R.array.ReminderFrequency);
 				ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
 				spinner_otherPeriod.setAdapter(adapter);
 				final EditText editText_otherNumber=(EditText) rootView.findViewById(R.id.editText_dialogOtherNumber);
@@ -1439,6 +1045,25 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				dialogButton.setText("Save");
 				dueDateValue=(TextView) rootView.findViewById(R.id.textView_dueDateValue);
 				startDateValue=(TextView) rootView.findViewById(R.id.textView_startDate);
+				final LinearLayout number_layout=(LinearLayout) rootView.findViewById(R.id.LinearLayout_number);
+				number_layout.setVisibility(View.GONE);
+				RadioGroup enter_number=(RadioGroup) rootView.findViewById(R.id.radioGroup1);
+				final RadioButton yesRadioButton;
+				final RadioButton noRadioButton;
+				yesRadioButton = (RadioButton) rootView.findViewById(R.id.radio_yes);
+				noRadioButton = (RadioButton) rootView.findViewById(R.id.radio_no);
+				enter_number.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+					@Override
+					public void onCheckedChanged(RadioGroup group, int checkedId) {
+						if (checkedId==R.id.radio_no) {
+							number_layout.setVisibility(View.GONE);
+							//other_number="0";
+						}else if(checkedId==R.id.radio_yes){
+							number_layout.setVisibility(View.VISIBLE);
+						}
+						
+					}
+				});
 				ImageButton datepickerDialog=(ImageButton) rootView.findViewById(R.id.imageButton_dueDate);
 				datepickerDialog.setOnClickListener(new OnClickListener(){
 
@@ -1446,7 +1071,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					public void onClick(View v) {
 						final CaldroidFragment dialogCaldroidFragment = CaldroidFragment.newInstance("Select a date", this_month, this_year);
 						dialogCaldroidFragment.show(getFragmentManager(),"TAG");
-						//dialogCaldroidFragment.setEnableSwipe(true);
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 						    @Override
@@ -1471,7 +1095,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					public void onClick(View v) {
 						final CaldroidFragment dialogCaldroidFragment = CaldroidFragment.newInstance("Select a date", this_month, this_year);
 						dialogCaldroidFragment.show(getFragmentManager(),"TAG");
-						//dialogCaldroidFragment.setEnableSwipe(true);
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 						    @Override
@@ -1500,44 +1123,45 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					
 				});
 				dialogButton.setOnClickListener(new OnClickListener() {
+				
+
 					@Override
 					public void onClick(View v) {
 						String other_category=editText_otherCategory.getText().toString();
-						String other_number=editText_otherNumber.getText().toString();
+						String other_number = null;
+						if(noRadioButton.isChecked()){
+			      			other_number="0";
+			      		}else if (yesRadioButton.isChecked()){
+			      			other_number=editText_otherNumber.getText().toString();
+			      		}
+						//other_number=editText_otherNumber.getText().toString();
 						String other_period=spinner_otherPeriod.getSelectedItem().toString();
-						String duration=null;
-						if(isToday(due_date_to_compare)){
-							duration="Today";
-						}else if(isTomorrow(due_date_to_compare)){
-							duration="Tomorrow";
-						}else if(isThisWeek(due_date_to_compare)){
-							duration="This week";
-						}else if(isThisMonth(due_date_to_compare)){
-							duration="This month";
-						}else if(isThisQuarter(due_date_to_compare)){
-							duration="This quarter";
-						}
-						Calendar c = Calendar.getInstance();
-				        int month=c.get(Calendar.MONTH)+1;
-				        int day=c.get(Calendar.DAY_OF_WEEK);
-				        int year=c.get(Calendar.YEAR);
-				      	String today=day+"-"+month+"-"+year;
+						String duration=" ";
+						
 				      	if(isDateAfter(start_date,due_date)==true){
 				      		 startDateValue.requestFocus();
 				      		startDateValue.setError("Check this date!");
-				      	}else if(other_number.isEmpty()==true){
+				      	}else if(other_number.isEmpty()==true&&yesRadioButton.isChecked()){
 				      		editText_otherNumber.requestFocus();
 				      		editText_otherNumber.setError("Please enter a number");
 				      	}else if(other_category.isEmpty()==true){
 				      		editText_otherCategory.requestFocus();
 				      		editText_otherCategory.setError("Please enter a value");
-				      	}else{
+				      	}else if(start_date==null){
+				      		startDateValue.requestFocus();
+				      		startDateValue.setError("Please enter a start date");
+				      	}else if(due_date==null){
+				      		dueDateValue.requestFocus();
+				      		dueDateValue.setError("Please enter an end date");
+				      	}
+				      	else{
 					    if(db.insertOther(other_category,other_number,other_period,duration,start_date,due_date,0,Integer.valueOf(other_number),"new_record")!=0){
 					    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
 				 	          intent2.setClass(getActivity(), EventPlannerOptionsActivity.class);
 				 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				 	          startActivity(intent2);
 				 	          getActivity().finish();	
+				 	         getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 					    	 Toast.makeText(getActivity().getApplicationContext(), "Added target successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
@@ -1564,6 +1188,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						if(counter>0){
 						Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
 						startActivity(intent);
+						getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 						}else if(counter==0){
 							 Toast.makeText(getActivity(), "You have no targets to update!",
 							         Toast.LENGTH_SHORT).show();
@@ -1576,120 +1201,31 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			return rootView;
 				   
 			}
-			 public boolean isToday(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	String today = new SimpleDateFormat("MM/dd/yyyy").format(new Date(System.currentTimeMillis()));
-		    	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
-		    	       				.toString().equals(today)) ? true : false;
-		    	}
-		    	
-		    	public boolean isTomorrow(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	Calendar c = Calendar.getInstance();
-		    	    	c.add(Calendar.DATE, 1);
-		    	    	String tomorrow = new SimpleDateFormat("MM/dd/yyyy").format(new Date(c.getTimeInMillis()));
-		    	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
-		    	       				.toString().equals(tomorrow)) ? true : false;
-		    	}
-		    	    
-		    	public boolean isThisWeek(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	Calendar c = Calendar.getInstance();
-		    	    	c.add(Calendar.DATE, 7);
-		    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-		    	}
-		    	public boolean isThisMonth(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	Calendar c = Calendar.getInstance();
-		    	    	c.add(Calendar.DATE, 30);
-		    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-		    	}
-		    	public boolean isThisQuarter(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	Calendar c = Calendar.getInstance();
-		    	    	c.add(Calendar.DATE, 90);
-		    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-		    	}
-		    	
-		    	public boolean isMidYear(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	Calendar c = Calendar.getInstance();
-		    	    	c.add(Calendar.DATE, 120);
-		    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-		    	}
-		    	public boolean isThisYear(long dueDate)
-		    	{
-		    			long milliSeconds = dueDate;
-		    	    	Calendar c = Calendar.getInstance();
-		    	    	c.add(Calendar.DATE, 365);
-		    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
-		    	}
-			 public static class DatePickerFragment extends DialogFragment
-				implements DatePickerDialog.OnDateSetListener {
-
-				 @Override
-				 public Dialog onCreateDialog(Bundle savedInstanceState) {
-					 //Use the current date as the default date in the picker
-					 final Calendar c = Calendar.getInstance();
-					 int year = c.get(Calendar.YEAR);
-					 int month = c.get(Calendar.MONTH);
-					 int day = c.get(Calendar.DAY_OF_MONTH);
-
-					 //Create a new instance of DatePickerDialog and return it
-					 return new DatePickerDialog(getActivity(), this, year, month, day);
-				 }
-
-				 public void onDateSet(DatePicker view, int year, int month, int day) {
-					 int month_value=month+1;
-					 due_date=day+"-"+month_value+"-"+year;
-					 dueDateValue.setText(due_date);
-					
-				 }
-			 }
-			 
-			 public static class DatePickerFragment2 extends DialogFragment
-				implements DatePickerDialog.OnDateSetListener {
-
-				 @Override
-				 public Dialog onCreateDialog(Bundle savedInstanceState) {
-					 //Use the current date as the default date in the picker
-					 final Calendar c = Calendar.getInstance();
-					 int year = c.get(Calendar.YEAR);
-					 int month = c.get(Calendar.MONTH);
-					 int day = c.get(Calendar.DAY_OF_MONTH);
-
-					 //Create a new instance of DatePickerDialog and return it
-					 return new DatePickerDialog(getActivity(), this, year, month, day);
-				 }
-
-				 public void onDateSet(DatePicker view, int year, int month, int day) {
-					 int month_value=month+1;
-					 start_date=day+"-"+month_value+"-"+year;
-					 startDateValue.setText(start_date);
-				 }
-}
-				
 			}
 	 public static boolean isDateAfter(String startDate,String endDate)
 	    {
-		// String toDateAsString = "05/11/2010";
 		 Date start_date = null;
 		 Date end_date = null;
+		long starDateAsTimestamp = 0;
+		long endDateTimestamp = 0;
 		try {
+			if(startDate==null){
+			System.out.println("Enter a valid date!");
+			}else{
 			start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+			 starDateAsTimestamp = start_date.getTime();
+			}
+			if(endDate==null){
+				System.out.println("Enter a valid date!");
+			}else{
 			end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+			endDateTimestamp = end_date.getTime();
+			}
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 long starDateAsTimestamp = start_date.getTime();
-		 long endDateTimestamp = end_date.getTime();
+		
+		
 		 long getRidOfTime = 1000 * 60 * 60 * 24;
 		 long startDateAsTimestampWithoutTime = starDateAsTimestamp / getRidOfTime;
 		 long endDateTimestampWithoutTime = endDateTimestamp / getRidOfTime;
@@ -1700,6 +1236,8 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 		    return false;
 		 }
 	    }
+	 
+	 
 	 @Override
 		public boolean onKeyDown(int keyCode, KeyEvent event) {
 			if ((keyCode == KeyEvent.KEYCODE_BACK)) {
@@ -1712,9 +1250,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 	  
 	 public void onBackPressed()
 		{
-		 // end_time = System.currentTimeMillis();  
-		   // System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
-			//dbh.insertCCHLog("Target Setting", "PNC Mother Diagnostic: Malaria", start_time.toString(), end_time.toString());
 			finish();
 		}
 

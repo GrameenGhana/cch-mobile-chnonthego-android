@@ -34,6 +34,7 @@ public class RecordsCheckActivity extends BaseActivity {
 	 			Intent intent=new Intent(RecordsCheckActivity.this,SevereDiseasesActivity.class);
 	 			intent.putExtra("value", "keeping_baby_warm");
 	 			startActivity(intent);
+	 			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 	 		}
 	 		   
 	 	   });

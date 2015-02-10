@@ -48,6 +48,7 @@ public class PostnatalCareMaternalEmergenciesActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(PostnatalCareMaternalEmergenciesActivity.this,AskMotherRecordsPNCActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });
@@ -62,21 +63,25 @@ public class PostnatalCareMaternalEmergenciesActivity extends BaseActivity {
 					intent=new Intent(PostnatalCareMaternalEmergenciesActivity.this,TakeActionMaternalEmergenciesActivity.class);
 					intent.putExtra("value", "difficulty_breathing");
 						startActivity(intent);
+						overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(PostnatalCareMaternalEmergenciesActivity.this,TakeActionMaternalEmergenciesActivity.class);
 					intent.putExtra("value", "shock");
 						startActivity(intent);
+						overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(PostnatalCareMaternalEmergenciesActivity.this,TakeActionMaternalEmergenciesActivity.class);
 					intent.putExtra("value", "heavy_bleeding");
 						startActivity(intent);
+						overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 3:
 					intent=new Intent(PostnatalCareMaternalEmergenciesActivity.this,TakeActionMaternalEmergenciesActivity.class);
 					intent.putExtra("value", "convulsion");
 						startActivity(intent);
+						overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				
 				}

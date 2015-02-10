@@ -2,6 +2,7 @@
 <resources>
     
     <string name="prefServerDefault">http://188.226.189.149/cch/oppia/</string>
+    <string name="prefServerDefaultValue">http://188.226.189.149/chn/courseActions.php?</string>
     <string name="prefServerTimeoutConnectionDefault">10000</string>
     <string name="prefServerTimeoutResponseDefault">20000</string>
     

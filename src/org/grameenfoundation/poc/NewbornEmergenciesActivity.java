@@ -49,6 +49,7 @@ public class NewbornEmergenciesActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(mContext,RecordsAskActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });
@@ -64,21 +65,25 @@ public class NewbornEmergenciesActivity extends BaseActivity {
 					intent=new Intent(mContext,TakeActionNewbornEmergency.class);
 					intent.putExtra("take_action", "difficulty");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,TakeActionNewbornEmergency.class);
 					intent.putExtra("take_action", "difficulty");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(mContext,TakeActionNewbornEmergency.class);
 					intent.putExtra("take_action", "cyanosis");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 3:
 					intent=new Intent(mContext,TakeActionNewbornEmergency.class);
 					intent.putExtra("take_action", "convulsion");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				}
 			}

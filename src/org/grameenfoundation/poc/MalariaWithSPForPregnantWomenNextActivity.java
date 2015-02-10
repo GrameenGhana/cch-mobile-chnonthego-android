@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class MalariaWithSPForPregnantWomenNextActivity extends Activity {
+public class MalariaWithSPForPregnantWomenNextActivity extends BaseActivity {
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time; 

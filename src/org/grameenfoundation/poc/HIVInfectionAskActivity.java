@@ -41,6 +41,7 @@ public class HIVInfectionAskActivity extends BaseActivity {
 					Intent intent=new Intent(HIVInfectionAskActivity.this,TakeActionHIVInfectionActivity.class);
 					intent.putExtra("value", "negative_no");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
         		   
         	   });
@@ -52,6 +53,7 @@ public class HIVInfectionAskActivity extends BaseActivity {
    					Intent intent=new Intent(HIVInfectionAskActivity.this,TakeActionHIVInfectionActivity.class);
    					intent.putExtra("value", "negative_yes");
    					startActivity(intent);
+   					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
    				}
            		   
            	   });
@@ -65,6 +67,7 @@ public class HIVInfectionAskActivity extends BaseActivity {
 					Intent intent=new Intent(HIVInfectionAskActivity.this,TakeActionHIVInfectionActivity.class);
 					intent.putExtra("value", "positive_no");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
      		   
      	   });
@@ -76,6 +79,7 @@ public class HIVInfectionAskActivity extends BaseActivity {
 					Intent intent=new Intent(HIVInfectionAskActivity.this,TakeActionHIVInfectionActivity.class);
 					intent.putExtra("value", "positive_yes");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
         		   
         	   });

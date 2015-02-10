@@ -53,48 +53,58 @@ public class InfantFeedingMenuActivity extends BaseActivity {
 				case 0:
 					intent=new Intent(InfantFeedingMenuActivity.this,ExclusiveBreastFeedingActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(InfantFeedingMenuActivity.this,BreastAttachementActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(InfantFeedingMenuActivity.this,FeedingFrequencyActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 3:
 					intent=new Intent(InfantFeedingMenuActivity.this,InfantFeedingNextActivity.class);
 					intent.putExtra("value", "low_birth_weight");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 4:
 					intent=new Intent(InfantFeedingMenuActivity.this,ExpressBreastmilkActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 5:
 					intent=new Intent(InfantFeedingMenuActivity.this,InfantFeedingNextActivity.class);
 					intent.putExtra("value", "separated_from_baby");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 6:
 					intent=new Intent(InfantFeedingMenuActivity.this,InfantFeedingNextActivity.class);
 					intent.putExtra("value", "feeding_sick_baby");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 7:
 					intent=new Intent(InfantFeedingMenuActivity.this,InfantFeedingNextActivity.class);
 					intent.putExtra("value", "taking_arv");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 8:
 					intent=new Intent(InfantFeedingMenuActivity.this,InfantFeedingNextActivity.class);
 					intent.putExtra("value", "not_taking_arv");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 9:
 					intent=new Intent(InfantFeedingMenuActivity.this,InfantFeedingNextActivity.class);
 					intent.putExtra("value", "mother_remember");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				}
 			}

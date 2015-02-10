@@ -41,22 +41,19 @@ public class CalculatorsMenuActivity extends BaseActivity {
 				switch(position){
 				case 0:
 					intent=new Intent(mContext,EstimateTrimester.class);
-				//	url="file:///android_asset/www/cch/modules/poc/trimcalculator.html";
-					//intent.putExtra("url", url);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,DosageCalculatorActivity.class);
-					//url="file:///android_asset/www/cch/modules/poc/dosagecalculator.html";
-					//intent.putExtra("url", url);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 					
 				case 2:
 					intent=new Intent(mContext,EstimateDueDateCalculator.class);
-					//url="file:///android_asset/www/cch/modules/poc/dosagecalculator.html";
-					//intent.putExtra("url", url);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				
 				

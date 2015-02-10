@@ -64,8 +64,6 @@ public class DbHelper extends SQLiteOpenHelper {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "dd-MM-yyyy", Locale.getDefault());
-       
-	
 	private SharedPreferences prefs;
 	private Context ctx;
 
@@ -78,6 +76,8 @@ public class DbHelper extends SQLiteOpenHelper {
 	private static final String COURSE_C_SCHEDULE = "schedule";
 	private static final String COURSE_C_IMAGE = "imagelink";
 	private static final String COURSE_C_LANGS = "langs";
+	private static final String COURSE_C_DATE = "date";
+	
 	
 	private static final String ACTIVITY_TABLE = "Activity";
 	private static final String ACTIVITY_C_ID = BaseColumns._ID;
@@ -214,13 +214,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		public static final String COL_COMMENT="comment";
 		
 		public static final String CALENDAR_EVENTS_TABLE="calendar_events";
-		public static final String COL_USERID="user_id";
-		public static final String COL_EVENTTYPE="event_type";
-		public static final String COL_DESCRIPTION="description";
-		public static final String COL_LOCATION="location";
-		public static final String COL_DTSTART="dtstart";
-		public static final String COL_DTEND="dtend";
-		public static final String COL_EVENTID="event_id";
+		
 		
 		//CCH 
 	public static final String COL_LAST_UPDATED="last_updated";
@@ -250,7 +244,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		createLearningTable(db);
 		createOtherTable(db);
 		createJustificationTable(db);
-		createCalendarEventsTable(db);
+		
 	}
 
 	public void createCourseTable(SQLiteDatabase db){
@@ -258,7 +252,8 @@ public class DbHelper extends SQLiteOpenHelper {
 				+ COURSE_C_VERSIONID + " int, " + COURSE_C_TITLE + " text, " + COURSE_C_LOCATION + " text, "
 				+ COURSE_C_SHORTNAME + " text," + COURSE_C_SCHEDULE + " int,"
 				+ COURSE_C_IMAGE + " text,"
-				+ COURSE_C_LANGS + " text)";
+				+ COURSE_C_LANGS + " text,"
+				+ COURSE_C_DATE + " text)";
 		db.execSQL(m_sql);
 	}
 	
@@ -301,21 +296,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 
-	public void createCalendarEventsTable(SQLiteDatabase db){
-		//	table create statement for events set table 
-			final String CALENDAR_EVENTS_CREATE_TABLE =
-				    "CREATE TABLE " + CALENDAR_EVENTS_TABLE + " (" +
-				    		BaseColumns._ID + " INTEGER PRIMARY KEY," +
-				    		COL_EVENTTYPE + TEXT_TYPE + COMMA_SEP +
-				    		COL_EVENTID + TEXT_TYPE + COMMA_SEP +
-				    		COL_USERID + TEXT_TYPE + COMMA_SEP +
-				    		COL_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
-				    		COL_LOCATION + TEXT_TYPE + COMMA_SEP +
-				    		COL_DTSTART + TEXT_TYPE + COMMA_SEP +
-				    		COL_DTEND+TEXT_TYPE+
-				    " )";
-			db.execSQL(CALENDAR_EVENTS_CREATE_TABLE);
-		}
+	
 	public void createEventsSetTable(SQLiteDatabase db){
 	//	table create statement for events set table 
 		final String EVENT_SET_CREATE_TABLE =
@@ -438,7 +419,6 @@ public class DbHelper extends SQLiteOpenHelper {
 			createLearningTable(db);
 			createOtherTable(db);
 			createJustificationTable(db);
-			createCalendarEventsTable(db);
 			createStayingWellTable(db);
 			return;
 		}
@@ -559,6 +539,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		values.put(COURSE_C_SHORTNAME, course.getShortname());
 		values.put(COURSE_C_LANGS, course.getLangsJSONString());
 		values.put(COURSE_C_IMAGE, course.getImageFile());
+		values.put(COURSE_C_DATE, getDate());
 
 		if (!this.isInstalled(course.getShortname())) {
 			Log.v(TAG, "Record added");
@@ -574,33 +555,63 @@ public class DbHelper extends SQLiteOpenHelper {
 				return toUpdate;
 			}
 		} 
+		db.close();
 		return -1;
+		
 	}
 	
 	public boolean alterTables(){
 		SQLiteDatabase db = this.getWritableDatabase();
-		String sql = "ALTER TABLE " + QUIZRESULTS_TABLE + " ADD COLUMN " + QUIZRESULTS_C_TITLE  + " TEXT NULL;";
-		db.execSQL(sql);
+		Cursor c = db.rawQuery("PRAGMA table_info("+QUIZRESULTS_TABLE+")",null);
+		c.moveToFirst();
+		if(c.getCount()==6){
+			System.out.println("Columns up to date!");
+			
+		}else{
+			String sql = "ALTER TABLE " + QUIZRESULTS_TABLE + " ADD COLUMN " + QUIZRESULTS_C_TITLE  + " TEXT NULL;";
+			db.execSQL(sql);
+		}
+		c.close();
+		db.close();
 		
 		return true;
+		
+	}
+	public boolean alterCourseTable(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor c = db.rawQuery("PRAGMA table_info("+COURSE_TABLE+")",null);
+		c.moveToFirst();
+		if(c.getCount()==9){
+			System.out.println("Course Columns up to date!");
+			
+		}else{
+			String sql = "ALTER TABLE " + COURSE_TABLE + " ADD COLUMN " + COURSE_C_DATE  + " TEXT NULL;";
+			db.execSQL(sql);
+		}
+		c.close();
+		db.close();
+		
+		return true;
+		
+	}
+	public boolean deleteTables(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		String strQuery = "Drop table if exists "+CALENDAR_EVENTS_TABLE;
+		db.execSQL(strQuery);
+		db.close();
+		
+		return true;
+		
 	}
 	
-	
-	public boolean insertCalendarEvent(long event_id, String event_type, String user_id, String description, String location,long dtstart,long dtend){
+	public boolean updateDateDefault(){
 		SQLiteDatabase db = this.getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put(COL_EVENTID,event_id);
-		values.put(COL_EVENTTYPE,event_type);
-		values.put(COL_USERID,user_id);
-		values.put(COL_DESCRIPTION,description);
-		values.put(COL_LOCATION,location);
-		values.put(COL_DTSTART,dtstart);
-		values.put(COL_DTEND,dtend);
-		
-		db.insert(
-				CALENDAR_EVENTS_TABLE, null, values);
+		String strQuery = "Update "+COURSE_TABLE+" set "+COURSE_C_DATE+" = 12-02-2015 where "+ COURSE_C_DATE+ " IS NULL";
+		db.execSQL(strQuery);
+		db.close();
 		
 		return true;
+		
 	}
 	
 	public long insertEventSet(String event_name, String event_period, String event_number, String duration, String start_date, String due_date,int number_achieved,int number_remaining,String sync_status){
@@ -620,6 +631,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		long newRowId;
 		newRowId = db.insert(
 				EVENTS_SET_TABLE, null, values);
+		db.close();
 		return newRowId;
 	}
 	public long insertCoverageSet(String category_name, String category_detail,String coverage_period, String coverage_number,String duration, String start_date,String due_date,int number_achieved,int number_remaining, String sync_status){
@@ -640,6 +652,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		long newRowId;
 		newRowId = db.insert(
 				COVERAGE_SET_TABLE, null, values);
+		db.close();
 		return newRowId;
 	}
 	
@@ -659,6 +672,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		long newRowId;
 		newRowId = db.insert(
 				LEARNING_TABLE, null, values);
+		db.close();
 		return newRowId;
 	}
 	
@@ -679,6 +693,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		long newRowId;
 		newRowId = db.insert(
 				OTHER_TABLE, null, values);
+		db.close();
 		return newRowId;
 	}
 	
@@ -699,6 +714,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		long newRowId;
 		newRowId = db.insert(
 				JUSTIFICATION_TABLE, null, values);
+		db.close();
 		return newRowId;
 	}
 	public long refreshCourse(Course course){
@@ -716,6 +732,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		String s = ACTIVITY_C_COURSEID + "=?";
 		String[] args = new String[] { String.valueOf(modId) };
 		db.delete(ACTIVITY_TABLE, s, args);
+		db.close();
 		return modId;
 	}
 	
@@ -732,6 +749,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			c.moveToFirst();
 			int modId = c.getInt(c.getColumnIndex(COURSE_C_ID));
 			c.close();
+			db.close();
 			return modId;
 		}
 	}
@@ -743,6 +761,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put(COURSE_C_SCHEDULE, scheduleVersion);
 		db.update(COURSE_TABLE, values, COURSE_C_ID + "=" + modId, null);
+		db.close();
 	}
 	
 	public void insertActivities(ArrayList<Activity> acts) {
@@ -757,6 +776,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			values.put(ACTIVITY_C_TITLE, a.getTitleJSONString());
 			db.insertOrThrow(ACTIVITY_TABLE, null, values);
 		}
+		db.close();
 	}
 
 	public void insertSchedule(ArrayList<ActivitySchedule> actsched) {
@@ -768,6 +788,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			values.put(ACTIVITY_C_ENDDATE, as.getEndTimeString());
 			db.update(ACTIVITY_TABLE, values, ACTIVITY_C_ACTIVITYDIGEST + "='" + as.getDigest() + "'", null);
 		}
+		db.close();
 	}
 	
 	public void insertTrackers(ArrayList<TrackerLog> trackers, long modId) {
@@ -782,6 +803,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			values.put(TRACKER_LOG_C_COMPLETED, true);
 			db.insertOrThrow(TRACKER_LOG_TABLE, null, values);
 		}
+		db.close();
 	}
 	
 	public void resetSchedule(int modId){
@@ -790,6 +812,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		values.put(ACTIVITY_C_STARTDATE,"");
 		values.put(ACTIVITY_C_ENDDATE,"");
 		db.update(ACTIVITY_TABLE, values, ACTIVITY_C_COURSEID + "=" + modId, null);
+		db.close();
 	}
 	
 	public ArrayList<Course> getCourses() {
@@ -812,6 +835,39 @@ public class DbHelper extends SQLiteOpenHelper {
 			c.moveToNext();
 		}
 		c.close();
+		db.close();
+		return courses;
+	}
+	
+	public ArrayList<Course> getCoursesForAchievements(int month,int year) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		ArrayList<Course> courses = new ArrayList<Course>();
+		String order = COURSE_C_TITLE + " ASC";
+		Cursor c = db.query(COURSE_TABLE, null, null, null, null, null, order);
+		c.moveToFirst();
+		
+		while (c.isAfterLast() == false) {
+			Course course = new Course();
+		
+			String due_date=c.getString(c.getColumnIndex(COURSE_C_DATE));
+			String[] due_date_split=due_date.split("-");
+			int due_date_month=Integer.parseInt(due_date_split[1]);
+			int due_date_year=Integer.parseInt(due_date_split[2]);
+			if(month==due_date_month&&year==due_date_year){
+			course.setModId(c.getInt(c.getColumnIndex(COURSE_C_ID)));
+			course.setLocation(c.getString(c.getColumnIndex(COURSE_C_LOCATION)));
+			course.setProgress(this.getCourseProgress(course.getModId()));
+			course.setVersionId(c.getDouble(c.getColumnIndex(COURSE_C_VERSIONID)));
+			course.setTitlesFromJSONString(c.getString(c.getColumnIndex(COURSE_C_TITLE)));
+			course.setImageFile(c.getString(c.getColumnIndex(COURSE_C_IMAGE)));
+			course.setLangsFromJSONString(c.getString(c.getColumnIndex(COURSE_C_LANGS)));
+			course.setShortname(c.getString(c.getColumnIndex(COURSE_C_SHORTNAME)));
+			courses.add(course);
+			}
+			c.moveToNext();
+		}
+		c.close();
+		db.close();
 		return courses;
 	}
 	
@@ -835,6 +891,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			c.moveToNext();
 		}
 		c.close();
+		db.close();
 		return m;
 	}
 	
@@ -846,10 +903,11 @@ public class DbHelper extends SQLiteOpenHelper {
 		values.put(TRACKER_LOG_C_DATA, data);
 		values.put(TRACKER_LOG_C_COMPLETED, completed);
 		db.insertOrThrow(TRACKER_LOG_TABLE, null, values);
+		db.close();
 	}
 	
 	public float getCourseProgress(int modId){
-		SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = this.getReadableDatabase();
 		String sql = "SELECT a."+ ACTIVITY_C_ID + ", " +
 				"l."+ TRACKER_LOG_C_ACTIVITYDIGEST + 
 				" as d FROM "+ACTIVITY_TABLE + " a " +
@@ -868,34 +926,85 @@ public class DbHelper extends SQLiteOpenHelper {
 			c.moveToNext();
 		}
 		c.close();
+		db.close();
 		return noComplete*100/noActs;
 	}
 	
-	public String getCourseProgressCompleted(){
-		SQLiteDatabase db = this.getWritableDatabase();
+	public String getCourseProgressCompleted(int month,int year){
+		SQLiteDatabase db = this.getReadableDatabase();
+		Double percentage_completed;
+		String percentage = null;
 		String sql = "SELECT a."+ ACTIVITY_C_ID + ", " +
+				" a."+ACTIVITY_C_COURSEID+", "+
+				" m."+COURSE_C_DATE+", "+
 				"l."+ TRACKER_LOG_C_ACTIVITYDIGEST + 
 				" as d FROM "+ACTIVITY_TABLE + " a " +
+				", "+COURSE_TABLE+" m "+
 				" LEFT OUTER JOIN (SELECT DISTINCT " +TRACKER_LOG_C_ACTIVITYDIGEST +" FROM " + TRACKER_LOG_TABLE + 
 									" WHERE " + TRACKER_LOG_C_COMPLETED + "=1 ) l " +
-									" ON a."+ ACTIVITY_C_ACTIVITYDIGEST +" = l."+TRACKER_LOG_C_ACTIVITYDIGEST;
+									" ON a."+ ACTIVITY_C_ACTIVITYDIGEST +" = l."+TRACKER_LOG_C_ACTIVITYDIGEST+
+									" WHERE a."+ACTIVITY_C_COURSEID+" = m."+
+										COURSE_C_ID;
+		System.out.println(sql);
 		Cursor c = db.rawQuery(sql,null);
 		int noActs = c.getCount();
 		int noComplete = 0;
 		c.moveToFirst();
+		if(c.getCount()>0){
+		String due_date=c.getString(c.getColumnIndex(COURSE_C_DATE));
+		String[] due_date_split=due_date.split("-");
+		int due_date_month=Integer.parseInt(due_date_split[1]);
+		int due_date_year=Integer.parseInt(due_date_split[2]);
+		
+		while (c.isAfterLast() == false) {
+			if(c.getString(c.getColumnIndex("d")) != null&&month==due_date_month&&year==due_date_year){
+				noComplete++;
+			}
+			c.moveToNext();
+		}
+		if(noActs==0){
+			percentage= "0";
+		}else{
+		percentage_completed=((double)noComplete/noActs)*100;
+		percentage=String.format("%.0f", percentage_completed);
+		}
+		}else{
+			percentage ="0";
+		}
+		c.close();
+		db.close();
+		return percentage;
+	}
+	public String getCourseProgressCompletedAchievements(){
+		SQLiteDatabase db = this.getReadableDatabase();
+		Double percentage_completed;
+		String percentage = null;
+		String sql = "Select module.title, activity.modid,trackerlog.modid from module,activity,trackerlog where trackerlog.completed=1 and activity.modid=trackerlog.modid ";
+		System.out.println(sql);
+		Cursor c = db.rawQuery(sql,null);
+		//int noActs = c.getCount();
+		int noComplete = c.getCount();
+		c.moveToFirst();
+		/*
 		while (c.isAfterLast() == false) {
 			if(c.getString(c.getColumnIndex("d")) != null){
 				noComplete++;
 			}
 			c.moveToNext();
+		}*/
+		if(noComplete==0){
+			percentage= "0";
+		}else{
+		//percentage_completed=((double)noComplete/noActs)*100;
+		//percentage=String.format("%.0f", percentage_completed);
+			percentage=String.valueOf(noComplete);
 		}
-		Double  percentage_completed=((double)noComplete/noActs)*100;
-		String percentage=String.format("%.0f", percentage_completed);
+		c.close();
+		db.close();
 		return percentage;
 	}
-
 	public String getCourseProgressUnCompleted(){
-		SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = this.getReadableDatabase();
 		String sql = "SELECT a."+ ACTIVITY_C_ID + ", " +
 				"l."+ TRACKER_LOG_C_ACTIVITYDIGEST + 
 				" as d FROM "+ACTIVITY_TABLE + " a " +
@@ -915,12 +1024,14 @@ public class DbHelper extends SQLiteOpenHelper {
 		c.close();
 		Double  percentage_completed=((double)noUncomplete/noActs)*100;
 		String percentage=String.format("%.0f", percentage_completed);
+		c.close();
+		db.close();
 		return percentage;
 	}
 	
 	
 	public float getSectionProgress(int modId, int sectionId){
-		SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = this.getReadableDatabase();
 		String sql = "SELECT a."+ ACTIVITY_C_ID + ", " +
 						"l."+ TRACKER_LOG_C_ACTIVITYDIGEST + 
 						" as d FROM "+ACTIVITY_TABLE + " a " +
@@ -940,11 +1051,13 @@ public class DbHelper extends SQLiteOpenHelper {
 			c.moveToNext();
 		}
 		c.close();
+		db.close();
 		if(noActs == 0){
 			return 0;
 		} else {
 			return noComplete*100/noActs;
 		}
+		
 		
 	}
 	
@@ -955,7 +1068,9 @@ public class DbHelper extends SQLiteOpenHelper {
 		
 		String s = TRACKER_LOG_C_COURSEID + "=?";
 		String[] args = new String[] { String.valueOf(modId) };
+		
 		return db.delete(TRACKER_LOG_TABLE, s, args);
+		
 	}
 	
 	public void deleteCourse(int modId){
@@ -975,10 +1090,11 @@ public class DbHelper extends SQLiteOpenHelper {
 		
 		// delete any quiz attempts
 		this.deleteQuizResults(modId);
+		db.close();
 	}
 	
 	public boolean isInstalled(String shortname){
-		SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = this.getReadableDatabase();
 		String s = COURSE_C_SHORTNAME + "=?";
 		String[] args = new String[] { shortname };
 		Cursor c = db.query(COURSE_TABLE, null, s, args, null, null, null);
@@ -987,6 +1103,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			return false;
 		} else {
 			c.close();
+			db.close();
 			return true;
 		}
 	}
@@ -1001,6 +1118,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			return false;
 		} else {
 			c.close();
+			db.close();
 			return true;
 		}
 	}
@@ -1015,12 +1133,13 @@ public class DbHelper extends SQLiteOpenHelper {
 			return false;
 		} else {
 			c.close();
+			db.close();
 			return true;
 		}
 	}
 	
 	public Payload getUnsentLog(){
-		SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = this.getReadableDatabase();
 		String s = TRACKER_LOG_C_SUBMITTED + "=? ";
 		String[] args = new String[] { "0" };
 		Cursor c = db.query(TRACKER_LOG_TABLE, null, s, args, null, null, null);
@@ -1057,7 +1176,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		}
 		Payload p = new Payload(sl);
 		c.close();
-		
+		db.close();
 		return p;
 	}
 	
@@ -1094,7 +1213,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		}
 		Payload p = new Payload(sl);
 		c.close();
-		
+		db.close();
 		return p;
 	}
 	
@@ -1112,6 +1231,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		String s = QUIZRESULTS_C_COURSEID + "=?";
 		String[] args = new String[] { String.valueOf(modId) };
 		db.delete(QUIZRESULTS_TABLE, s, args);
+		db.close();
 	}
 	
 	public boolean activityAttempted(long modId, String digest){
@@ -1124,6 +1244,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			return false;
 		} else {
 			c.close();
+			db.close();
 			return true;
 		}
 	}
@@ -1138,6 +1259,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			return false;
 		} else {
 			c.close();
+			db.close();
 			return true;
 		}
 	}
@@ -1145,7 +1267,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	public ArrayList<Activity> getActivitiesDue(int max){
 		
 		ArrayList<Activity> activities = new ArrayList<Activity>();
-		SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = this.getReadableDatabase();
 		DateTime now = new DateTime();
 		String nowDateString = MobileLearning.DATETIME_FORMAT.print(now);
 		String sql = "SELECT a.* FROM "+ ACTIVITY_TABLE + " a " +
@@ -1196,13 +1318,14 @@ public class DbHelper extends SQLiteOpenHelper {
 			c2.close();
 		}
 		c.close();
+		db.close();
 		return activities;
 	}
 
 	/*** CCH: Additions ********************************************************************************/
 	public ArrayList<String> getQuizResults(int courseid)
 	{
-		SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = this.getReadableDatabase();
 		ArrayList<String> quizzes = new ArrayList<String>();
 		String s = QUIZRESULTS_C_COURSEID + "=? ";
 		String[] args = new String[] { String.valueOf(courseid) };
@@ -1231,7 +1354,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			c.moveToNext();
 		}
 		c.close();
-		
+		db.close();
 		return quizzes;
 	}
 	
@@ -1259,7 +1382,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	
 	public ArrayList<CourseAchievments> getQuizResultsForAchievements(int courseid)
 	{
-		SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = this.getReadableDatabase();
 		ArrayList<CourseAchievments> quizzes = new ArrayList<CourseAchievments>();
 		String s = QUIZRESULTS_C_COURSEID + "=? ";
 		String[] args = new String[] { String.valueOf(courseid) };
@@ -1298,7 +1421,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			c.moveToNext();
 		}
 		c.close();
-		
+		db.close();
 		return quizzes;
 	}
 	
@@ -1331,7 +1454,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 	public Payload getCCHUnsentLog(){
-		SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = this.getReadableDatabase();
 		String s = CCH_TRACKER_SUBMITTED + "=? ";
 		String[] args = new String[] { "0" };
 		Cursor c = db.query(CCH_TRACKER_TABLE, null, s, args, null, null, null);
@@ -1363,7 +1486,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		
 		Payload p = new Payload(sl);
 		c.close();
-		
+		db.close();
 		return p;
 	}
 	
@@ -1479,7 +1602,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	
 	private ArrayList<RoutineActivity> getSWRoutineActivities(String year, String month, String day, String profile, String plan, String timeofday) 
 	{			
-		    SQLiteDatabase db = this.getWritableDatabase(); 
+		    SQLiteDatabase db = this.getReadableDatabase(); 
 
 			String userid = "David"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
 			ArrayList<RoutineActivity> list = new ArrayList<RoutineActivity>();
@@ -1519,13 +1642,13 @@ public class DbHelper extends SQLiteOpenHelper {
 				   c.moveToNext();						
 			}
 			c.close();
-			
+			db.close();
 			return list;	
 	}
 	
 	public String getSWRoutineDoneActivity(String year, String month, String day, String profile, String plan, String timeofday, String order) 
 	{	
-	        SQLiteDatabase db = this.getWritableDatabase(); 
+	        SQLiteDatabase db = this.getReadableDatabase(); 
 
 			String userid = "David"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
 
@@ -1550,12 +1673,13 @@ public class DbHelper extends SQLiteOpenHelper {
 			c.moveToFirst();
 			String i = c.getString(0);
 			c.close();
+			db.close();
 			return i;
 	}
 	
 	public void insertSWRoutineDoneActivity(String uuid)
 	{
-		SQLiteDatabase db = this.getReadableDatabase();		 
+		SQLiteDatabase db = this.getWritableDatabase();		 
 
 		String userid = "David"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
     	String[] data = uuid.split("-");
@@ -1578,6 +1702,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		v = v.replace(" ","', '");
 		v = "{'type':'activity', '"+v+"'}";
 		this.insertCCHLog("Staying Well", v, endtime.toString(), endtime.toString());
+		db.close();
 	}
 
 	
@@ -1634,7 +1759,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(CCH_USER_SCORING, (u.isScoringEnabled() ? 1:0));
            
         // Inserting Row        
-        db.update(CCH_USER_TABLE, values, CCH_STAFF_ID + "="+u.getUsername()+"'", null);
+        db.update(CCH_USER_TABLE, values, CCH_STAFF_ID + "= '"+u.getUsername()+"'", null);
        db.close(); // Closing database connection        
     }
 	
@@ -1650,7 +1775,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(CCH_USER_SCORING, scoring);
            
         // Inserting Row        
-        db.update(CCH_USER_TABLE, values, CCH_STAFF_ID + "=" + staff_id, null);
+        db.update(CCH_USER_TABLE, values, CCH_STAFF_ID + "= '" + staff_id+"'", null);
        db.close(); // Closing database connection        
     }
 	
@@ -1675,7 +1800,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		   if (!(u.getPassword().equals(cursor.getString(2)))) {
 			   u.setPasswordRight(false);	   
 		   } 
-		   
+		   db.close();
 		   return u;
    }
 	
@@ -1700,6 +1825,7 @@ public class DbHelper extends SQLiteOpenHelper {
         					","+COL_LAST_UPDATED+" = '"+ getDateTime() +"'"+
         					" where "+BaseColumns._ID+" = "+id;
         db.execSQL(updateQuery2);
+        
 	return true;
 }
 	
@@ -2123,59 +2249,7 @@ public long findItemCount(String table, String searchedBy,
 
 		db.execSQL(insertQuery);
 	}
-	/*
-	public ArrayList<CourseAchievments> getAllQuizResults(long modId) 
-	{	
-		SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<CourseAchievments> list=new ArrayList<CourseAchievments>();	 
-	String strQuery="select * from "+QUIZRESULTS_TABLE
-				+" where "+QUIZRESULTS_C_COURSEID
-					+ " = "+modId	;	
-			Cursor c = db.rawQuery(strQuery, null);
-			c.moveToFirst();
-			
-			while (c.isAfterLast()==false) {
-				CourseAchievments results = new CourseAchievments();
-				JSONObject resultsValue;
-				JSONObject resultDetails;
-				String main_score = null;
-				String max_score=null;
-				String course=null;
-				String section=null;
-				String title=null;
-				try {
-					resultsValue=new JSONObject(c.getString(c.getColumnIndex(QUIZRESULTS_C_DATA)));
-					resultDetails = new JSONObject(c.getString(c.getColumnIndex(QUIZRESULTS_C_TITLE)));
-					 main_score=resultsValue.getString("score");
-					 max_score=resultsValue.getString("maxscore");
-					 course=resultDetails.getString("course");
-					 section=resultDetails.getString("section");
-					 title=resultDetails.getString("title");
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				Double percentage=((double)Integer.valueOf(main_score)/Integer.valueOf(max_score))*100;
-				String percentage_value=String.format("%.0f", percentage);
-				if(title.startsWith("Pre")){
-					results.setPretestScore(percentage_value);
-					results.setType(title);
-				}else if (title.startsWith("Post")){
-					results.setPosttestScore(percentage_value);
-					results.setType(title);
-				}
-				results.setCourseName(course);
-				results.setCourseSection(section);
-				
-				   list.add(results);
-				   c.moveToNext();						
-			}
-			c.close();
-			
-			return list;	
-	}
-	*/
+	
 	public ArrayList<EventTargets> getAllEventTargets(String period) 
 	{	
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -2203,7 +2277,7 @@ public long findItemCount(String table, String searchedBy,
 				   c.moveToNext();						
 			}
 			c.close();
-			
+			db.close();
 			return list;	
 	}
 	
@@ -2235,7 +2309,7 @@ public long findItemCount(String table, String searchedBy,
 				   c.moveToNext();						
 			}
 			c.close();
-			
+			db.close();
 			return list;	
 	}
 	
@@ -2265,7 +2339,7 @@ public long findItemCount(String table, String searchedBy,
 				   c.moveToNext();						
 			}
 			c.close();
-			
+			db.close();
 			return list;	
 	}
 	
@@ -2295,14 +2369,14 @@ public long findItemCount(String table, String searchedBy,
 				   c.moveToNext();						
 			}
 			c.close();
-			
+			db.close();
 			return list;	
 	}
 	
 	/* For Achievement Center*/
-	public ArrayList<TargetsForAchievements> getAllEventTargetsCompletedForAchievements(String status,int month,int year)
+	public ArrayList<EventTargets> getAllEventTargetsCompletedForAchievements(String status,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<TargetsForAchievements> list=new ArrayList<TargetsForAchievements>();	 
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
 		String strQuery="select * from "+EVENTS_SET_TABLE
 							+" where "+COL_SYNC_STATUS
 							+ " = '"+status+"'";	
@@ -2310,7 +2384,7 @@ public long findItemCount(String table, String searchedBy,
 			c.moveToFirst();
 			while (c.isAfterLast()==false) {
 				  
-				TargetsForAchievements event_targets = new TargetsForAchievements();
+				EventTargets event_targets = new EventTargets();
 				event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE)));
 				String due_date=c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE));
 				
@@ -2332,6 +2406,7 @@ public long findItemCount(String table, String searchedBy,
 				   c.moveToNext();		  				
 			}
 			c.close();
+			db.close();
 			return list;	
 	}
 	
@@ -2355,6 +2430,32 @@ public long findItemCount(String table, String searchedBy,
 				   c.moveToNext();		  				
 			}
 			c.close();
+			db.close();
+			return total_event_targets;	
+	}
+	public int getAllEventTargetsCompleted(String status,int month,int year)
+	{	SQLiteDatabase db = this.getReadableDatabase();
+	String strQuery="select * from "+EVENTS_SET_TABLE
+			+" where "+COL_SYNC_STATUS
+			+ " = '"+status+"'";	
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();	
+			int total_event_targets = 0;
+			
+			while (c.isAfterLast()==false) {
+				  
+				String due_date=c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE));
+				
+				String[] due_date_split=due_date.split("-");
+				int due_date_month=Integer.parseInt(due_date_split[1]);
+				int due_date_year=Integer.parseInt(due_date_split[2]);
+				if(month==due_date_month&&year==due_date_year){
+					total_event_targets=c.getCount();
+				}
+				   c.moveToNext();		  				
+			}
+			c.close();
+			db.close();
 			return total_event_targets;	
 	}
 	
@@ -2379,9 +2480,34 @@ public long findItemCount(String table, String searchedBy,
 				   c.moveToNext();		  				
 			}
 			c.close();
+			db.close();
 			return total_coverage_targets;	
 	}
-	
+	public int getAllCoverageTargetsCompleted(String status,int month,int year)
+	{	SQLiteDatabase db = this.getReadableDatabase();
+	String strQuery="select * from "+COVERAGE_SET_TABLE
+			+" where "+COL_SYNC_STATUS
+			+ " = '"+status+"'";	
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();	
+			int total_event_targets = 0;
+			
+			while (c.isAfterLast()==false) {
+				  
+			String due_date=c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE));
+				
+				String[] due_date_split=due_date.split("-");
+				int due_date_month=Integer.parseInt(due_date_split[1]);
+				int due_date_year=Integer.parseInt(due_date_split[2]);
+				if(month==due_date_month&&year==due_date_year){
+					total_event_targets=c.getCount();
+				}
+				   c.moveToNext();		  				
+			}
+			c.close();
+			db.close();
+			return total_event_targets;	
+	}
 	public int getAllLearningTargetsForAchievements(int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
 		String strQuery="select * from "+LEARNING_TABLE;	
@@ -2403,9 +2529,34 @@ public long findItemCount(String table, String searchedBy,
 				   c.moveToNext();		  				
 			}
 			c.close();
+			db.close();
 			return total_learning_targets;	
 	}
-	
+	public int getAllLearningTargetsCompleted(String status,int month,int year)
+	{	SQLiteDatabase db = this.getReadableDatabase();
+	String strQuery="select * from "+LEARNING_TABLE
+			+" where "+COL_SYNC_STATUS
+			+ " = '"+status+"'";	
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();	
+			int total_event_targets = 0;
+			
+			while (c.isAfterLast()==false) {
+				  
+			String due_date=c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE));
+				
+				String[] due_date_split=due_date.split("-");
+				int due_date_month=Integer.parseInt(due_date_split[1]);
+				int due_date_year=Integer.parseInt(due_date_split[2]);
+				if(month==due_date_month&&year==due_date_year){
+					total_event_targets=c.getCount();
+				}
+				   c.moveToNext();		  				
+			}
+			c.close();
+			db.close();
+			return total_event_targets;	
+	}
 	public int getAllOtherTargetsForAchievements(int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
 		String strQuery="select * from "+OTHER_TABLE;	
@@ -2427,11 +2578,38 @@ public long findItemCount(String table, String searchedBy,
 				   c.moveToNext();		  				
 			}
 			c.close();
+			db.close();
 			return total_other_targets;	
 	}
-	public ArrayList<TargetsForAchievements> getAllCoverageTargetsCompletedForAchievements(String status,int month,int year)
+	
+	public int getAllOtherTargetsCompleted(String status,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<TargetsForAchievements> list=new ArrayList<TargetsForAchievements>();	 
+	String strQuery="select * from "+OTHER_TABLE
+			+" where "+COL_SYNC_STATUS
+			+ " = '"+status+"'";	
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();	
+			int total_event_targets = 0;
+			
+			while (c.isAfterLast()==false) {
+				  
+			String due_date=c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE));
+				
+				String[] due_date_split=due_date.split("-");
+				int due_date_month=Integer.parseInt(due_date_split[1]);
+				int due_date_year=Integer.parseInt(due_date_split[2]);
+				if(month==due_date_month&&year==due_date_year){
+					total_event_targets=c.getCount();
+				}
+				   c.moveToNext();		  				
+			}
+			c.close();
+			db.close();
+			return total_event_targets;	
+	}
+	public ArrayList<EventTargets> getAllCoverageTargetsCompletedForAchievements(String status,int month,int year)
+	{	SQLiteDatabase db = this.getReadableDatabase();
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
 		String strQuery="select * from "+COVERAGE_SET_TABLE
 							+" where "+COL_SYNC_STATUS
 							+ " = '"+status+"'";	
@@ -2439,8 +2617,8 @@ public long findItemCount(String table, String searchedBy,
 			c.moveToFirst();
 			
 			while (c.isAfterLast()==false) {
-				TargetsForAchievements coverage_targets = new TargetsForAchievements();
-				coverage_targets.setCoverageTargetEndDate(c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE)));
+				EventTargets coverage_targets = new EventTargets();
+				coverage_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE)));
 				String due_date=c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE));
 				
 				String[] due_date_split=due_date.split("-");
@@ -2461,13 +2639,13 @@ public long findItemCount(String table, String searchedBy,
 									
 			}
 			c.close();
-			
+			db.close();
 			return list;	
 	}
 	
-	public ArrayList<TargetsForAchievements> getAllOtherTargetsCompletedForAchievements(String status,int month,int year)
+	public ArrayList<EventTargets> getAllOtherTargetsCompletedForAchievements(String status,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<TargetsForAchievements> list=new ArrayList<TargetsForAchievements>();	 
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
 		String strQuery="select * from "+OTHER_TABLE
 							+" where "+COL_SYNC_STATUS
 							+ " = '"+status+"'";
@@ -2476,8 +2654,8 @@ public long findItemCount(String table, String searchedBy,
 			
 			while (c.isAfterLast()==false) {
 				   
-				TargetsForAchievements other_targets = new TargetsForAchievements();
-				other_targets.setOtherTargetEndDate(c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE)));
+				EventTargets other_targets = new EventTargets();
+				other_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE)));
 				String due_date=c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE));
 				
 				String[] due_date_split=due_date.split("-");
@@ -2499,13 +2677,13 @@ public long findItemCount(String table, String searchedBy,
 				 		
 			}
 			c.close();
-			
+			db.close();
 			return list;	
 	}
 	
-	public ArrayList<TargetsForAchievements> getAllLearningTargetsCompletedForAchievements(String status,int month,int year)
+	public ArrayList<LearningTargets> getAllLearningTargetsCompletedForAchievements(String status,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<TargetsForAchievements> list=new ArrayList<TargetsForAchievements>();	 
+		ArrayList<LearningTargets> list=new ArrayList<LearningTargets>();	 
 		String strQuery="select * from "+LEARNING_TABLE
 							+" where "+COL_SYNC_STATUS
 							+ " = '"+status+"'";	
@@ -2513,7 +2691,7 @@ public long findItemCount(String table, String searchedBy,
 			c.moveToFirst();
 			
 			while (c.isAfterLast()==false) {
-				TargetsForAchievements learning_targets = new TargetsForAchievements();
+				LearningTargets learning_targets = new LearningTargets();
 				learning_targets.setLearningTargetEndDate(c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE)));
 				String due_date=c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE));
 				
@@ -2536,12 +2714,15 @@ public long findItemCount(String table, String searchedBy,
 									
 			}
 			c.close();
+			db.close();
 			return list;	
 	}
-	public ArrayList<TargetsForAchievements> getAllEventForAchievements(int month,int year)
+	public ArrayList<TargetsForAchievements> getAllEventForAchievements(String status,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
 		ArrayList<TargetsForAchievements> list=new ArrayList<TargetsForAchievements>();	 
-		String strQuery="select * from "+EVENTS_SET_TABLE;	
+		String strQuery="select * from "+EVENTS_SET_TABLE
+						+" where "+COL_SYNC_STATUS
+						+ " = '"+status+"'";
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
 			while (c.isAfterLast()==false) {
@@ -2563,18 +2744,21 @@ public long findItemCount(String table, String searchedBy,
 				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_EVENT_PERIOD)));
 				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
 				   list.add(event_targets);
-				
+				System.out.println("The size is: "+list.size());
 				}
 				   c.moveToNext();		  				
 			}
 			c.close();
+			db.close();
 			return list;	
 	}
 	
-	public ArrayList<TargetsForAchievements> getAllCoverageForAchievements(int month,int year)
+	public ArrayList<TargetsForAchievements> getAllCoverageForAchievements(String status,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
 		ArrayList<TargetsForAchievements> list=new ArrayList<TargetsForAchievements>();	 
-		String strQuery="select * from "+COVERAGE_SET_TABLE;	
+		String strQuery="select * from "+COVERAGE_SET_TABLE
+							+" where "+COL_SYNC_STATUS
+							+ " = '"+status+"'";
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
 			
@@ -2601,14 +2785,16 @@ public long findItemCount(String table, String searchedBy,
 									
 			}
 			c.close();
-			
+			db.close();
 			return list;	
 	}
 	
-	public ArrayList<TargetsForAchievements> getAllOtherForAchievements(int month,int year)
+	public ArrayList<TargetsForAchievements> getAllOtherForAchievements(String status,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
 		ArrayList<TargetsForAchievements> list=new ArrayList<TargetsForAchievements>();	 
-		String strQuery="select * from "+OTHER_TABLE;
+		String strQuery="select * from "+OTHER_TABLE
+						+" where "+COL_SYNC_STATUS
+						+ " = '"+status+"'";
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
 			
@@ -2637,7 +2823,7 @@ public long findItemCount(String table, String searchedBy,
 				 		
 			}
 			c.close();
-			
+			db.close();
 			return list;	
 	}
 	
@@ -2672,6 +2858,7 @@ public long findItemCount(String table, String searchedBy,
 									
 			}
 			c.close();
+			db.close();
 			return list;	
 	}
 	/* For Achievement Center*/
@@ -2702,44 +2889,14 @@ public long findItemCount(String table, String searchedBy,
 					targets.setEventTargetNumberAchieved(c.getString(2));
 					targets.setEventTargetStartDate(c.getString(3));
 					targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-				//	targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-				//	targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_EVENT_PERIOD)));
-				//	targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
-					/*
-					targets.setCoverageTargetName(c.getString(c.getColumnIndex(COL_COVERAGE_SET_CATEGORY_DETAIL)));
-					targets.setCoverageTargetNumber(c.getString(c.getColumnIndex(COL_COVERAGE_NUMBER)));
-					targets.setCoverageTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
-					targets.setCoverageTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
-					targets.setCoverageTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-					targets.setCoverageTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-					targets.setCoverageTargetPeriod(c.getString(c.getColumnIndex(COL_COVERAGE_SET_PERIOD)));
-					targets.setCoverageTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
-					
-					targets.setOtherTargetName(c.getString(c.getColumnIndex(COL_OTHER_CATEGORY)));
-					targets.setOtherTargetNumber(c.getString(c.getColumnIndex(COL_OTHER_NUMBER)));
-					targets.setOtherTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
-					targets.setOtherTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
-					targets.setOtherTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-					targets.setOtherTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-					targets.setOtherTargetPeriod(c.getString(c.getColumnIndex(COL_OTHER_PERIOD)));
-					targets.setOtherTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
-
-					targets.setLearningTargetName(c.getString(c.getColumnIndex(COL_LEARNING_CATEGORY)));
-					targets.setLearningTargetCourse(c.getString(c.getColumnIndex(COL_LEARNING_DESCRIPTION)));
-					targets.setLearningTargetTopic(c.getString(c.getColumnIndex(COL_LEARNING_TOPIC)));
-					targets.setLearningTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
-					targets.setLearningTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-					targets.setLearningTargetEndDate(c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE)));
-					targets.setLearningTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-					targets.setLearningTargetPeriod(c.getString(c.getColumnIndex(COL_LEARNING_PERIOD)));
-					targets.setLearningTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
-					*/
+				
 				   list.add(targets);
 				   c.moveToNext();		  
 				}
 								
 			}
 			c.close();
+			db.close();
 			return list;	
 	}
 	public ArrayList<String> getForUpdateOtherNumberAchieved(long id,String duration){
@@ -2759,6 +2916,7 @@ public long findItemCount(String table, String searchedBy,
 			c.moveToNext();						
 		}
 		c.close();
+		db.close();
 		return list;
 	}
 	
@@ -2779,6 +2937,7 @@ public long findItemCount(String table, String searchedBy,
 			c.moveToNext();						
 		}
 		c.close();
+		db.close();
 		return list;
 	}
 	
@@ -2799,6 +2958,7 @@ public long findItemCount(String table, String searchedBy,
 			c.moveToNext();						
 		}
 		c.close();
+		db.close();
 		return list;
 	}
 	
@@ -2815,6 +2975,7 @@ public long findItemCount(String table, String searchedBy,
 			c.moveToNext();						
 		}
 		c.close();
+		db.close();
 		return list;
 	}
 		
@@ -2830,7 +2991,7 @@ public long findItemCount(String table, String searchedBy,
 	                "dd-MM-yyyy", Locale.getDefault());
 	        Date date = new Date();
 	        return dateFormat.format(date);
-	}
+		}
 		
 		
 		   public String getTime()

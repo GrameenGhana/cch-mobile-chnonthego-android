@@ -4,6 +4,7 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,7 @@ public class AnaemiaAskActivity extends BaseActivity {
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;
+	private Context mContext;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -34,6 +36,7 @@ public class AnaemiaAskActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(AnaemiaAskActivity.this,SeverAnaemiaAskActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

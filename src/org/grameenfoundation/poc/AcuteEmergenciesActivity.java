@@ -60,6 +60,7 @@ public class AcuteEmergenciesActivity extends BaseActivity implements OnClickLis
 		intent.putExtra("take_action", extra_info);
 		intent.putExtra("start_time", System.currentTimeMillis());
 		startActivity(intent);
+		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		break;
 		case 1:
 		extra_info="Edema";
@@ -67,14 +68,14 @@ public class AcuteEmergenciesActivity extends BaseActivity implements OnClickLis
 		intent.putExtra("take_action", extra_info);
 		intent.putExtra("start_time", System.currentTimeMillis());
 		startActivity(intent);
+		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 			
 		case 2:
-		//extra_info="Refer patient now";
 		intent=new Intent(mContext, AskBleedingActivity.class);
-		//intent.putExtra("take_action", extra_info);
 		intent.putExtra("start_time", System.currentTimeMillis());
 		startActivity(intent);
+		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		case 3:
 			extra_info="Shock";
@@ -82,6 +83,7 @@ public class AcuteEmergenciesActivity extends BaseActivity implements OnClickLis
 			intent.putExtra("take_action", extra_info);
 			intent.putExtra("start_time", System.currentTimeMillis());
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				break;	
 		}
 	}
@@ -93,6 +95,7 @@ public class AcuteEmergenciesActivity extends BaseActivity implements OnClickLis
 		if (id == R.id.button_acuteEmergenciesNo) {
 			intent=new Intent(mContext,PreviousVisitActivity.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		}
 		
 	}
@@ -112,20 +115,17 @@ public class AcuteEmergenciesActivity extends BaseActivity implements OnClickLis
 
 		@Override
 		public Object getItem(int position) {
-			// TODO Auto-generated method stub
 			return null;
 		}
 
 		@Override
 		public long getItemId(int position) {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if( convertView == null ){
-			      
 				  convertView = minflater.inflate(R.layout.listview_text_single,parent, false);
 			    }
 			 TextView text=(TextView) convertView.findViewById(R.id.textView_listViewText);
@@ -141,6 +141,7 @@ public class AcuteEmergenciesActivity extends BaseActivity implements OnClickLis
 	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
 		dbh.insertCCHLog("Point of Care", "ANC Acute Emergencies", start_time.toString(), end_time.toString());
 		finish();
+		
 	}
 	
 

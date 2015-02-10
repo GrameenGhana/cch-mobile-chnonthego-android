@@ -34,6 +34,7 @@ public class TakeActionDiarrhoeaNoDehydrationActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(TakeActionDiarrhoeaNoDehydrationActivity.this,ReturningForCareActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -43,6 +44,7 @@ public class TakeActionDiarrhoeaNoDehydrationActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(TakeActionDiarrhoeaNoDehydrationActivity.this,TakeActionDiarrhoeaNoDehydrationNextActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

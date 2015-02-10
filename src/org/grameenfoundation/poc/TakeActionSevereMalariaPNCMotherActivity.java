@@ -60,7 +60,7 @@ public class TakeActionSevereMalariaPNCMotherActivity extends BaseActivity {
 					Intent intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
 					intent.putExtra("value", "malaria");
 					startActivity(intent);
-					
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
             	
             });
@@ -77,7 +77,7 @@ public class TakeActionSevereMalariaPNCMotherActivity extends BaseActivity {
 					Intent intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
 					intent.putExtra("value", "malaria");
 					startActivity(intent);
-					
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
             	
             });
@@ -98,7 +98,7 @@ public class TakeActionSevereMalariaPNCMotherActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(mContext,NutritionCounsellingActivity.class);
 				startActivity(intent);
-				
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
         	
         });
@@ -114,7 +114,7 @@ public class TakeActionSevereMalariaPNCMotherActivity extends BaseActivity {
     			public void onClick(View v) {
     				Intent intent=new Intent(mContext,NutritionCounsellingActivity.class);
     				startActivity(intent);
-    				
+    				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
     			}
             	
             });
@@ -125,7 +125,7 @@ public class TakeActionSevereMalariaPNCMotherActivity extends BaseActivity {
     			public void onClick(View v) {
     				Intent intent=new Intent(mContext,SoftUterusPNCMotherActivity.class);
     				startActivity(intent);
-    				
+    				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
     			}
             	
             });
@@ -136,7 +136,7 @@ public class TakeActionSevereMalariaPNCMotherActivity extends BaseActivity {
     			public void onClick(View v) {
     				Intent intent=new Intent(mContext,BreastProblemsCounsellingActivity.class);
     				startActivity(intent);
-    				
+    				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
     			}
             	
             });

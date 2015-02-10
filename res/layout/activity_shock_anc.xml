@@ -14,7 +14,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/White"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:padding="10dp" >
@@ -33,7 +32,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/White"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -143,7 +141,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/White"
             android:divider="@drawable/divider"
             android:dividerPadding="2dp"
             android:orientation="vertical"
@@ -152,7 +149,7 @@
 
             <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="Put client on her left side with her legs high above the chest   "
@@ -160,7 +157,7 @@
 
             <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView90"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="Cover the mother for warmth"

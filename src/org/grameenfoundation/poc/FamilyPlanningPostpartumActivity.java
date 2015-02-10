@@ -33,6 +33,7 @@ public class FamilyPlanningPostpartumActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(FamilyPlanningPostpartumActivity.this,FamilyPlanningPostpartumNextActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

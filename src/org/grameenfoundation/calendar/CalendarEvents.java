@@ -415,10 +415,13 @@ public class CalendarEvents {
     	
     }
    //Read past events for a particular month 
-public ArrayList<MyCalendarEvents> readPastCalendarEvents(Context context, int month,int year){
+public ArrayList<MyCalendarEvents> readPastCalendarEvents(Context context, int month,int year,Boolean showDay){
     	{
     		ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
     		 long today_date = new Date().getTime();
+    		 String dformat =(showDay)? "MMM dd" : "hh:mm a";
+    	       SimpleDateFormat formatter = new SimpleDateFormat(dformat);
+    	       
     		 String[] projection = new String[] { CalendarContract.Events.CALENDAR_ID, //0
     				 							  CalendarContract.Events.TITLE,       //1
     				 							  CalendarContract.Events.DESCRIPTION, //2
@@ -432,9 +435,12 @@ public ArrayList<MyCalendarEvents> readPastCalendarEvents(Context context, int m
    		
     		Calendar first_day_of_month = Calendar.getInstance();
     		first_day_of_month.set(year, month, 1);
-    		
     		Calendar last_day_of_month = Calendar.getInstance();
-    		last_day_of_month.set(year, month, 30);
+    		if(month==2){
+    			last_day_of_month.set(year, month	, 28);
+    		}else{
+    			last_day_of_month.set(year, month, 30);
+    		}
 
     		String selection = "(( " + CalendarContract.Events.DTSTART + " >= " + first_day_of_month.getTimeInMillis() + " ) AND ( " + CalendarContract.Events.DTSTART + " <= " + last_day_of_month.getTimeInMillis() + " ) AND ("+ CalendarContract.Events.DTSTART+" < "+today_date+" ))";
 
@@ -443,6 +449,7 @@ public ArrayList<MyCalendarEvents> readPastCalendarEvents(Context context, int m
     		 cursor.moveToFirst();
     		 
     		     while ( cursor.isAfterLast()==false){
+    		    	 Long startDate=Long.valueOf(cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DTSTART)));
     		    	 MyCalendarEvents calendarEvents=new MyCalendarEvents();
     		    	 calendarEvents.setEventStartDate(cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DTSTART)));
     		    	 calendarEvents.setEventEndDate(cursor.getString(cursor.getColumnIndex("dtend")));
@@ -450,6 +457,7 @@ public ArrayList<MyCalendarEvents> readPastCalendarEvents(Context context, int m
     		    	 calendarEvents.setEventLocation(cursor.getString(cursor.getColumnIndex("eventLocation")));
     		    	 calendarEvents.setEventType(cursor.getString(cursor.getColumnIndex("title")));
     		    	 calendarEvents.setEventNumberCompleted(String.valueOf(cursor.getCount()));
+    		    	 calendarEvents.setEventTime(formatter.format(startDate));
     		    	 list.add(calendarEvents);
     		    	 cursor.moveToNext();		
     		    }
@@ -477,7 +485,11 @@ public ArrayList<MyCalendarEvents> readCalendarEventsTotal(Context context, int 
 		first_day_of_month.set(year, month, 1);
 		
 		Calendar last_day_of_month = Calendar.getInstance();
+		if(month==2){
+			last_day_of_month.set(year, month, 28);
+		}else{
 		last_day_of_month.set(year, month, 30);
+		}
 
 		String selection2 = "(( " + CalendarContract.Events.DTSTART + " >= " + first_day_of_month.getTimeInMillis() + " ) AND ( " + CalendarContract.Events.DTSTART + " <= " + last_day_of_month.getTimeInMillis() +" ))";
 		  Cursor cursor2 = context.getContentResolver()
@@ -501,10 +513,12 @@ public ArrayList<MyCalendarEvents> readCalendarEventsTotal(Context context, int 
 }
 
 //Read future events within a particular month
-public ArrayList<MyCalendarEvents> readFutureCalendarEvents(Context context, int month,int year){
+public ArrayList<MyCalendarEvents> readFutureCalendarEvents(Context context, int month,int year,Boolean showDay){
 	{
 		ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
 		long today_date = new Date().getTime();
+		 String dformat =(showDay)? "MMM dd" : "hh:mm a";
+	       SimpleDateFormat formatter = new SimpleDateFormat(dformat);
 		 String[] projection = new String[] { CalendarContract.Events.CALENDAR_ID, //0
 				 							  CalendarContract.Events.TITLE,       //1
 				 							  CalendarContract.Events.DESCRIPTION, //2
@@ -519,7 +533,11 @@ public ArrayList<MyCalendarEvents> readFutureCalendarEvents(Context context, int
 		first_day_of_month.set(year, month, 1);
 		
 		Calendar last_day_of_month = Calendar.getInstance();
+		if(month==2){
+			last_day_of_month.set(year, month, 28);
+		}else{
 		last_day_of_month.set(year, month, 30);
+		}
 
 		String selection = "(( " + CalendarContract.Events.DTSTART + " >= " + first_day_of_month.getTimeInMillis() + " ) AND ( " + CalendarContract.Events.DTSTART + " <= " + last_day_of_month.getTimeInMillis() + " ) AND ("+ CalendarContract.Events.DTSTART+" >= "+today_date+" ))";
 
@@ -527,6 +545,7 @@ public ArrayList<MyCalendarEvents> readFutureCalendarEvents(Context context, int
 		 
 		 cursor.moveToFirst();
 		     while ( cursor.isAfterLast()==false){
+		    	 Long startDate=Long.valueOf(cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DTSTART)));
 		    	 MyCalendarEvents calendarEvents=new MyCalendarEvents();
 		    	 calendarEvents.setEventStartDate(cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DTSTART)));
 		    	 calendarEvents.setEventEndDate(cursor.getString(cursor.getColumnIndex("dtend")));
@@ -534,6 +553,7 @@ public ArrayList<MyCalendarEvents> readFutureCalendarEvents(Context context, int
 		    	 calendarEvents.setEventLocation(cursor.getString(cursor.getColumnIndex("eventLocation")));
 		    	 calendarEvents.setEventType(cursor.getString(cursor.getColumnIndex("title")));
 		    	 calendarEvents.setEventNumberCompleted(String.valueOf(cursor.getCount()));
+		    	 calendarEvents.setEventTime(formatter.format(startDate));
 		    	 list.add(calendarEvents);
 		    	 cursor.moveToNext();		
 		    }
@@ -565,6 +585,13 @@ public ArrayList<MyCalendarEvents> readFutureCalendarEvents(Context context, int
                 "dd-MM-yyyy", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
+}
+    
+    private String getDateTime(Long startDate,Boolean showDay) {
+    	 String dformat =(showDay)? "MMM dd" : "hh:mm a";
+	      SimpleDateFormat formatter = new SimpleDateFormat(dformat,Locale.getDefault());
+        Date date = new Date();
+        return formatter.format(date);
 }
 	
 

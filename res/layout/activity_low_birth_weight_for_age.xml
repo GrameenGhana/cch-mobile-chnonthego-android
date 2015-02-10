@@ -54,7 +54,7 @@
 
             <org.grameenfoundation.cch.utils.TextViewUtils
                 android:id="@+id/textView_clickHere"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="Advise mother how to feed "
@@ -63,7 +63,7 @@
 
             <org.grameenfoundation.cch.utils.TextViewUtils
                 android:id="@+id/textView_clickHereToo"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Teach mother how to express breast milk and feed using a cup"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -71,7 +71,7 @@
 
             <org.grameenfoundation.cch.utils.TextViewUtils
                 android:id="@+id/textView_clickHereThree"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Teach mother to keep low weight baby warm at home "
                 android:textAppearance="?android:attr/textAppearanceSmall"

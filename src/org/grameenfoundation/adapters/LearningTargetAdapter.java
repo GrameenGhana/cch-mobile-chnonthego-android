@@ -94,8 +94,8 @@ public class LearningTargetAdapter extends BaseExpandableListAdapter{
 		   TextView text7=(TextView) convertView.findViewById(R.id.textView_lastUpdated);
 		   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
 		   text.setText(dailyLearningTarget.get(childPosition).getLearningTargetName());
-		   text2.setText(dailyLearningTarget.get(childPosition).getLearningTargetCourse());
-		   text3.setText(dailyLearningTarget.get(childPosition).getLearningTargetTopic());
+		   text2.setText(dailyLearningTarget.get(childPosition).getLearningTargetTopic());
+		   text3.setText(dailyLearningTarget.get(childPosition).getLearningTargetCourse());
 		   text4.setText(dailyLearningTarget.get(childPosition).getLearningTargetEndDate());
 		   text5.setText(dailyLearningTarget.get(childPosition).getLearningTargetStartDate());
 		   text6.setText(dailyLearningTarget.get(childPosition).getLearningTargetPeriod());
@@ -112,8 +112,8 @@ public class LearningTargetAdapter extends BaseExpandableListAdapter{
 		   TextView text7=(TextView) convertView.findViewById(R.id.textView_lastUpdated);
 		   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
 		   text.setText(weeklyLearningTargets.get(childPosition).getLearningTargetName());
-		   text2.setText(weeklyLearningTargets.get(childPosition).getLearningTargetCourse());
-		   text3.setText(weeklyLearningTargets.get(childPosition).getLearningTargetTopic());
+		   text2.setText(weeklyLearningTargets.get(childPosition).getLearningTargetTopic());
+		   text3.setText(weeklyLearningTargets.get(childPosition).getLearningTargetCourse());
 		   text4.setText(weeklyLearningTargets.get(childPosition).getLearningTargetEndDate());
 		   text5.setText(weeklyLearningTargets.get(childPosition).getLearningTargetStartDate());
 		   text6.setText(weeklyLearningTargets.get(childPosition).getLearningTargetPeriod());
@@ -129,8 +129,8 @@ public class LearningTargetAdapter extends BaseExpandableListAdapter{
 		   TextView text7=(TextView) convertView.findViewById(R.id.textView_lastUpdated);
 		   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
 		   text.setText(monthlyLearningTargets.get(childPosition).getLearningTargetName());
-		   text2.setText(monthlyLearningTargets.get(childPosition).getLearningTargetCourse());
-		   text3.setText(monthlyLearningTargets.get(childPosition).getLearningTargetTopic());
+		   text2.setText(monthlyLearningTargets.get(childPosition).getLearningTargetTopic());
+		   text3.setText(monthlyLearningTargets.get(childPosition).getLearningTargetCourse());
 		   text4.setText(monthlyLearningTargets.get(childPosition).getLearningTargetEndDate());
 		   text5.setText(monthlyLearningTargets.get(childPosition).getLearningTargetStartDate());
 		   text6.setText(monthlyLearningTargets.get(childPosition).getLearningTargetPeriod());
@@ -146,8 +146,8 @@ public class LearningTargetAdapter extends BaseExpandableListAdapter{
 		   TextView text7=(TextView) convertView.findViewById(R.id.textView_lastUpdated);
 		   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
 		   text.setText(quarterlyLearningTargets.get(childPosition).getLearningTargetName());
-		   text2.setText(quarterlyLearningTargets.get(childPosition).getLearningTargetCourse());
-		   text3.setText(quarterlyLearningTargets.get(childPosition).getLearningTargetTopic());
+		   text2.setText(quarterlyLearningTargets.get(childPosition).getLearningTargetTopic());
+		   text3.setText(quarterlyLearningTargets.get(childPosition).getLearningTargetCourse());
 		   text4.setText(quarterlyLearningTargets.get(childPosition).getLearningTargetEndDate());
 		   text5.setText(quarterlyLearningTargets.get(childPosition).getLearningTargetStartDate());
 		   text6.setText(quarterlyLearningTargets.get(childPosition).getLearningTargetPeriod());
@@ -163,8 +163,8 @@ public class LearningTargetAdapter extends BaseExpandableListAdapter{
 		   TextView text7=(TextView) convertView.findViewById(R.id.textView_lastUpdated);
 		   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
 		   text.setText(midYearLearningTargets.get(childPosition).getLearningTargetName());
-		   text2.setText(midYearLearningTargets.get(childPosition).getLearningTargetCourse());
-		   text3.setText(midYearLearningTargets.get(childPosition).getLearningTargetTopic());
+		   text2.setText(midYearLearningTargets.get(childPosition).getLearningTargetTopic());
+		   text3.setText(midYearLearningTargets.get(childPosition).getLearningTargetCourse());
 		   text4.setText(midYearLearningTargets.get(childPosition).getLearningTargetEndDate());
 		   text5.setText(midYearLearningTargets.get(childPosition).getLearningTargetStartDate());
 		   text6.setText(midYearLearningTargets.get(childPosition).getLearningTargetPeriod());
@@ -180,8 +180,8 @@ public class LearningTargetAdapter extends BaseExpandableListAdapter{
 		   TextView text7=(TextView) convertView.findViewById(R.id.textView_lastUpdated);
 		   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
 		   text.setText(annualLearningTargets.get(childPosition).getLearningTargetName());
-		   text2.setText(annualLearningTargets.get(childPosition).getLearningTargetCourse());
-		   text3.setText(annualLearningTargets.get(childPosition).getLearningTargetTopic());
+		   text2.setText(annualLearningTargets.get(childPosition).getLearningTargetTopic());
+		   text3.setText(annualLearningTargets.get(childPosition).getLearningTargetCourse());
 		   text4.setText(annualLearningTargets.get(childPosition).getLearningTargetEndDate());
 		   text5.setText(annualLearningTargets.get(childPosition).getLearningTargetStartDate());
 		   text6.setText(annualLearningTargets.get(childPosition).getLearningTargetPeriod());

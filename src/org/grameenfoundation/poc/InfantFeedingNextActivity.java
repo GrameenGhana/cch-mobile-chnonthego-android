@@ -46,6 +46,7 @@ public class InfantFeedingNextActivity extends BaseActivity {
 					Intent intent=new Intent(InfantFeedingNextActivity.this,GoodAttachementActivity.class);
 					intent.putExtra("value", "good_attachement");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
         	});
         }else if(take_action_category.equals("feeding_frequency")){
@@ -63,6 +64,7 @@ public class InfantFeedingNextActivity extends BaseActivity {
 					Intent intent=new Intent(InfantFeedingNextActivity.this,GoodAttachementActivity.class);
 					intent.putExtra("value", "low_birth_weight_next");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
         		
         	});

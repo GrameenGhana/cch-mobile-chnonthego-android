@@ -26,6 +26,8 @@ public class EventsAchievementsActivity extends BaseActivity {
 	private AchievementDetailsAdapter adapter;
 	private TextView textView_label;
 	private TextView textView_number;
+	private int month;
+	private int year;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -39,13 +41,18 @@ public class EventsAchievementsActivity extends BaseActivity {
 	    getActionBar().setDisplayShowHomeEnabled(false);
 	    getActionBar().setTitle("Achievement Center");
 	    getActionBar().setSubtitle("Achievement Details");
+	    Bundle extras = getIntent().getExtras(); 
+        if (extras != null) {
+          month= extras.getInt("month");
+          year=extras.getInt("year");
+        }
 	    textView_label=(TextView) findViewById(R.id.textView_label);
 	    textView_label.setText("Events");
 	    textView_number=(TextView) findViewById(R.id.textView_number);
 	   
 		//new addition
-		completed=c.readPastCalendarEvents(mContext,11,2014);
-		unCompleted=c.readFutureCalendarEvents(mContext, 11, 2014);
+		completed=c.readPastCalendarEvents(mContext,month,year,true);
+		unCompleted=c.readFutureCalendarEvents(mContext, month, year,true);
 		 textView_number.setText("("+String.valueOf(completed.size()+unCompleted.size())+" this month)");
 	    adapter=new AchievementDetailsAdapter(mContext,groupItems,completed,unCompleted,expandableListview);
 	    expandableListview.setAdapter(adapter);

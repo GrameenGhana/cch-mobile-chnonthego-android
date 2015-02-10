@@ -39,6 +39,7 @@ public class TakeActionSeverDiseasesActivity extends BaseActivity {
 				Intent intent=new Intent(TakeActionSeverDiseasesActivity.this,KeepingBabyWarmAndMalariaActivity.class);
 				intent.putExtra("value", "keeping_baby_warm");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -52,6 +53,7 @@ public class TakeActionSeverDiseasesActivity extends BaseActivity {
 				Intent intent=new Intent(TakeActionSeverDiseasesActivity.this,KeepingBabyWarmAndMalariaActivity.class);
 				intent.putExtra("value", "keeping_baby_warm");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -65,6 +67,7 @@ public class TakeActionSeverDiseasesActivity extends BaseActivity {
 				Intent intent=new Intent(TakeActionSeverDiseasesActivity.this,KeepingBabyWarmAndMalariaActivity.class);
 				intent.putExtra("value", "keeping_baby_warm");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -78,6 +81,7 @@ public class TakeActionSeverDiseasesActivity extends BaseActivity {
   				Intent intent=new Intent(TakeActionSeverDiseasesActivity.this,KeepingBabyWarmAndMalariaActivity.class);
   				intent.putExtra("value", "keeping_baby_warm");
   				startActivity(intent);
+  				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
   			}
   			   
   		   });
@@ -91,6 +95,7 @@ public class TakeActionSeverDiseasesActivity extends BaseActivity {
     				Intent intent=new Intent(TakeActionSeverDiseasesActivity.this,KeepingBabyWarmAndMalariaActivity.class);
     				intent.putExtra("value", "keeping_baby_warm");
     				startActivity(intent);
+    				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
     			}
     			   
     		   });
@@ -104,6 +109,7 @@ public class TakeActionSeverDiseasesActivity extends BaseActivity {
   				Intent intent=new Intent(TakeActionSeverDiseasesActivity.this,KeepingBabyWarmAndMalariaActivity.class);
   				intent.putExtra("value", "keeping_baby_warm");
   				startActivity(intent);
+  				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
   			}
   			   
   		   });
@@ -115,6 +121,7 @@ public class TakeActionSeverDiseasesActivity extends BaseActivity {
 				Intent intent=new Intent(TakeActionSeverDiseasesActivity.this,ReturningForCareActivity.class);
 				intent.putExtra("value", "keeping_baby_warm");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -128,6 +135,7 @@ public class TakeActionSeverDiseasesActivity extends BaseActivity {
 				Intent intent=new Intent(TakeActionSeverDiseasesActivity.this,KeepingBabyWarmAndMalariaActivity.class);
 				intent.putExtra("value", "keeping_baby_warm");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -141,6 +149,7 @@ public class TakeActionSeverDiseasesActivity extends BaseActivity {
  				Intent intent=new Intent(TakeActionSeverDiseasesActivity.this,HomeCareForInfantActivity.class);
  				intent.putExtra("value", "keeping_baby_warm");
  				startActivity(intent);
+ 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
  			}
  			   
  		   });
@@ -152,6 +161,7 @@ public class TakeActionSeverDiseasesActivity extends BaseActivity {
     				Intent intent=new Intent(TakeActionSeverDiseasesActivity.this,JaundiceActivity.class);
     				intent.putExtra("value", "keeping_baby_warm");
     				startActivity(intent);
+    				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
     			}
     			   
     		   });
@@ -165,6 +175,7 @@ public class TakeActionSeverDiseasesActivity extends BaseActivity {
     				Intent intent=new Intent(TakeActionSeverDiseasesActivity.this,HomeCareForInfantActivity.class);
     				intent.putExtra("value", "keeping_baby_warm");
     				startActivity(intent);
+    				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
     			}
     			   
     		   });
@@ -178,6 +189,7 @@ public class TakeActionSeverDiseasesActivity extends BaseActivity {
   				Intent intent=new Intent(TakeActionSeverDiseasesActivity.this,KeepingBabyWarmAndMalariaActivity.class);
   				intent.putExtra("value", "keeping_baby_warm");
   				startActivity(intent);
+  				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
   			}
   			   
   		   });
@@ -191,6 +203,7 @@ public class TakeActionSeverDiseasesActivity extends BaseActivity {
  				Intent intent=new Intent(TakeActionSeverDiseasesActivity.this,KeepingBabyWarmAndMalariaActivity.class);
  				intent.putExtra("value", "keeping_baby_warm");
  				startActivity(intent);
+ 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
  			}
  			   
  		   });
@@ -204,6 +217,7 @@ public class TakeActionSeverDiseasesActivity extends BaseActivity {
   				Intent intent=new Intent(TakeActionSeverDiseasesActivity.this,KeepingBabyWarmAndMalariaActivity.class);
   				intent.putExtra("value", "keeping_baby_warm");
   				startActivity(intent);
+  				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
   			}
   			   
   		   });

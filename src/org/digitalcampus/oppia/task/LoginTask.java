@@ -67,6 +67,7 @@ public class LoginTask extends AsyncTask<Payload, Object, Payload> {
 		HTTPConnectionUtils client = new HTTPConnectionUtils(ctx);
 
 		String url = prefs.getString("prefServer", ctx.getString(R.string.prefServerDefault)) + MobileLearning.LOGIN_PATH;
+		
 		JSONObject json = new JSONObject();
 		
 		HttpPost httpPost = new HttpPost(url);

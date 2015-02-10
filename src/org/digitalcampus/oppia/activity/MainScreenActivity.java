@@ -79,7 +79,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_main_screen);
 	    mContext=MainScreenActivity.this;
-	    getActionBar().setDisplayShowHomeEnabled(false);
+	    getActionBar().setDisplayShowHomeEnabled(true);
 	    getActionBar().setTitle("Welcome");
 	    getActionBar().setSubtitle("Home Page");
 	    TypefaceUtil.overrideFont(mContext, "SERIF", "fonts/Roboto-Thin.ttf");
@@ -101,7 +101,10 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	    main_menu_listview.setAdapter(adapter);				
 	    main_menu_listview.setOnItemClickListener(this);
 		dbh = new DbHelper(getApplicationContext());
-		 // dbh.alterTables();
+		dbh.alterTables();
+		dbh.deleteTables();
+		dbh.alterCourseTable();
+		dbh.updateDateDefault();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		prefs.registerOnSharedPreferenceChangeListener(this);
 		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
@@ -197,16 +200,11 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			 	rootView=inflater.inflate(R.layout.events_pager_layout,null,false);
 			 	prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-			 	//loginPref=getApplicationContext().getSharedPreferences("loginPrefs", MODE_WORLD_READABLE);
 			    name=prefs.getString("first_name", "name");
 			    dbh=new DbHelper(getActivity());
 			    firstName=dbh.getUserFirstName(name);
 			    status=(TextView) rootView.findViewById(R.id.textView_status);
 			    event_number=(TextView) rootView.findViewById(R.id.textView_eventsNumber);
-			    Time time = new Time();
-			    time.setToNow();
-			    //String today= String.valueOf(time.monthDay)+"-"+String.valueOf(time.month+1)+"-"+String.valueOf(time.year);
-			   
 			    c= new CalendarEvents(mContext);
 			    
 			    EventTypeToday=c.getTodaysEvents(false);
@@ -218,7 +216,6 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			    }
 			    
 		    	status.setText("Good "+dbh.getTime()+", "+user_first_name+"!");
-		    	//eventsNumber=db.getAllEventsForMonth("September");
 			 if(EventTypeToday.size()==0){
 				 event_number.setText("0"); 
 			 }else {
@@ -229,7 +226,6 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		        int day=c.get(Calendar.DAY_OF_WEEK);
 		        int year=c.get(Calendar.YEAR);
 		        due_date=day+"-"+month+"-"+year;
-		        //System.out.println(today);
 	
 				textView_eventTargetsNumber=(TextView) rootView.findViewById(R.id.textView_eventTargetsNumber);
 				textView_clickHere=(TextView) rootView.findViewById(R.id.textView_clickHere);
@@ -245,7 +241,6 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 				 final int counter;
 				
 				counter=number+number2+number3+number4;
-				//System.out.println(counter);
 				textView_eventTargetsNumber.setText(String.valueOf(counter));
 				textView_clickHere.setOnClickListener(new OnClickListener(){
 
@@ -274,6 +269,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 				ArrayList<RoutineActivity> todos = dbh.getSWRoutineActivities();
 		    			    	
 			    textView_routinesNumber = (TextView) rootView.findViewById(R.id.textView_routinesNumber);
+			    numactivities=todos.size();
 				textView_routinesNumber.setText(String.valueOf(numactivities));
 			    tv8 = (TextView) rootView.findViewById(R.id.textView8);
 			    tv8.setText(" activities this "+dbh.getTime()+".");
@@ -412,23 +408,28 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		case 0:
 			intent=new Intent(mContext, EventPlannerOptionsActivity.class);
 			startActivity(intent);
+			 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		case 1:
 			intent=new Intent(mContext, PointOfCareActivity.class);
 			startActivity(intent);
+			 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 			
 		case 2:
 			intent = new Intent(getApplicationContext(), LearningCenterMenuActivity.class);
             startActivity(intent);	
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		case 3:
 			intent = new Intent(getApplicationContext(), AchievementCenterActivity.class);
             startActivity(intent);	
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		case 4:
 			intent = new Intent(getApplicationContext(), StayingWellActivity.class);
 			startActivity(intent);
+			 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		}
 		

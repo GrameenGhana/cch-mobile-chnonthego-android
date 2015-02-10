@@ -96,7 +96,7 @@
 
             <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="Keep baby warm "
@@ -104,7 +104,7 @@
 
             <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView9"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="If baby can feed and not vomiting, help mother to breastfeed"
@@ -112,7 +112,7 @@
 
             <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView10"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="If baby is not able to breastfeed, give small sips of expressed breast milk that has been collected in a clean container with a lid "
@@ -120,7 +120,7 @@
 
             <org.grameenfoundation.cch.utils.TextViewUtils
                 android:id="@+id/textView_clickHere"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="Teach mother how to keep the baby warm on the way to the health facility"

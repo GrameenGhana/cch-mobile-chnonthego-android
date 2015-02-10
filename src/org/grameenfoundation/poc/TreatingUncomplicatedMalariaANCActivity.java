@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class TreatingUncomplicatedMalariaANCActivity extends Activity {
+public class TreatingUncomplicatedMalariaANCActivity extends BaseActivity {
 	private Button button_next;
 	private Long start_time;
 	private Long end_time;
@@ -31,6 +31,7 @@ public class TreatingUncomplicatedMalariaANCActivity extends Activity {
 			public void onClick(View v) {
 			Intent intent=new Intent(TreatingUncomplicatedMalariaANCActivity.this,TreatingUncomplicatedMalariaANCNextActivity.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

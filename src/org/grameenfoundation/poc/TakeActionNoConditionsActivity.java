@@ -37,6 +37,7 @@ public class TakeActionNoConditionsActivity extends BaseActivity {
 				Intent intent=new Intent(TakeActionNoConditionsActivity.this,KeepingBabyWarmAndMalariaActivity.class);
 				intent.putExtra("value", "keeping_baby_warm");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });

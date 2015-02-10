@@ -36,6 +36,7 @@ public class SoftUterusPNCMotherYesActivity extends BaseActivity {
 				Intent intent=new Intent(SoftUterusPNCMotherYesActivity.this,SoftUterusPNCMotherYesNextActivity.class);
 				intent.putExtra("value", "yes");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });
@@ -48,6 +49,7 @@ public class SoftUterusPNCMotherYesActivity extends BaseActivity {
 				Intent intent=new Intent(SoftUterusPNCMotherYesActivity.this,SoftUterusPNCMotherYesNextActivity.class);
 				intent.putExtra("value", "no");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

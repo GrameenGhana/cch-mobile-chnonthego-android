@@ -33,6 +33,7 @@ public class ManagingDangerSignsMotherPNCActivity extends BaseActivity {
 			public void onClick(View v) {
 			Intent intent=new Intent(ManagingDangerSignsMotherPNCActivity.this,ManagingDangerSignsMotherPNCNextActivity.class);
 			startActivity(intent);	
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

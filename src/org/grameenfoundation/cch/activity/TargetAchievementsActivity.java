@@ -73,10 +73,6 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 		    setContentView(R.layout.activity_new_event_planner);
 		    
 		    mContext = TargetAchievementsActivity.this;
-		    
-		   // final PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_header);
-	       // pagerTabStrip.setDrawFullUnderline(true);
-	       // pagerTabStrip.setTabIndicatorColor(Color.rgb(83,171,32));
 	        dbh = new DbHelper(mContext);
 	      
 	        final ActionBar actionBar =getSupportActionBar();
@@ -87,14 +83,10 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 			actionBar.setHomeButtonEnabled(true);
 	        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-	        // Set up the ViewPager with the sections adapter.
 	        mViewPager = (ViewPager) findViewById(R.id.pager);
 	        
 	        mViewPager.setAdapter(mSectionsPagerAdapter);
 	        mViewPager.setOffscreenPageLimit(4);
-	        // When swiping between different sections, select the corresponding
-	        // tab. We can also use ActionBar.Tab#select() to do this if we have
-	        // a reference to the Tab.
 	        
 	        mViewPager
 	        .setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -104,14 +96,7 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 	                }
 	        });
 
-	        // For each of the sections in the app, add a tab to the action bar.
-	        
 	        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-	                // Create a tab with text corresponding to the page title defined by
-	                // the adapter. Also specify this Activity object, which implements
-	                // the TabListener interface, as the callback (listener) for when
-	                // this tab is selected.
-	        	
 	                actionBar.addTab(actionBar.newTab()
 	                                .setText(mSectionsPagerAdapter.getPageTitle(i))
 	                                .setTabListener(this));
@@ -126,9 +111,6 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 			tb.putBoolean("backgroundData", true);
 			service.putExtras(tb);
 			this.startService(service);
-	        // Create the adapter that will return a fragment for each of the four
-	        // primary sections of the app.
-			
 			try 
 		    {
 				if (!(getIntent().getStringExtra("FRAGMENT_IDX")).isEmpty()) {	
@@ -167,8 +149,7 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 	         @Override
 	         public CharSequence getPageTitle(int position) {
 	                 Locale l = Locale.getDefault();
-	                 db=new DbHelper(TargetAchievementsActivity.this);
-	     			ArrayList<RoutineActivity> todos = dbh.getSWRoutineActivities();
+	                 
 	     			
 	     			
 	                 switch (position) {
@@ -185,12 +166,6 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 	         }
 	 }
 
-		
-		 
-		
-		
-		 
-		 
 		 @Override
 			public boolean onKeyDown(int keyCode, KeyEvent event) {
 				if ((keyCode == KeyEvent.KEYCODE_BACK)) {
@@ -225,13 +200,11 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 
 		@Override
 		public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void onTabReselected(Tab tab, FragmentTransaction ft) {
-			// TODO Auto-generated method stub
 			
 		}
 

@@ -9,7 +9,11 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.cch.caldroid.CaldroidFragment;
 import org.grameenfoundation.cch.caldroid.CaldroidListener;
+import org.grameenfoundation.cch.utils.CalendarViewScrollable;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,9 +22,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.TextView;
+import android.widget.CalendarView.OnDateChangeListener;
 
-public class EstimateDueDateCalculator extends FragmentActivity {
+public class EstimateDueDateCalculator extends BaseActivity {
 
 	private Button button_calculate;
 	private TextView textView_selectedDate;
@@ -30,7 +36,9 @@ public class EstimateDueDateCalculator extends FragmentActivity {
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;
+	private CalendarViewScrollable calendar;
 	/** Called when the activity is first created. */
+	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -41,6 +49,20 @@ public class EstimateDueDateCalculator extends FragmentActivity {
 	    dbh=new DbHelper(EstimateDueDateCalculator.this);
 	    textView_selectedDate=(TextView) findViewById(R.id.textView_selectedDate);
 	    textView_estimatedDueDate=(TextView) findViewById(R.id.textView_estimatedDueDate);
+	    calendar=(CalendarViewScrollable) findViewById(R.id.calendarView1);
+	    calendar.setSelectedWeekBackgroundColor(Color.rgb(82,0,0));
+	    calendar.setOnDateChangeListener(new OnDateChangeListener(){
+
+			@Override
+			public void onSelectedDayChange(CalendarView view, int year,
+					int month, int dayOfMonth) {
+				newDate=String.valueOf(dayOfMonth)+"/"+String.valueOf(month+1)+"/"+String.valueOf(year);
+				textView_selectedDate.setText("You selected: "+newDate);
+				System.out.println(newDate);
+			}
+	    	
+	    });
+	    /*
 	    final CaldroidFragment caldroidFragment  = new CaldroidFragment();
 	    Bundle args = new Bundle();
 	    Calendar cal = Calendar.getInstance();
@@ -67,31 +89,18 @@ public class EstimateDueDateCalculator extends FragmentActivity {
 	    };
 
 	    caldroidFragment.setCaldroidListener(listener);
-	    /*
-	    myWebView = (WebView) findViewById(R.id.webView_estimate);	
-	    myWebView.getSettings().setJavaScriptEnabled(true);
-		myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
-		myWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);	 
-		myWebView.loadUrl(URL);
-		myWebView.setWebViewClient(new WebViewClient(){
-				
-			@Override
-			     public void onReceivedError(WebView view, int errorCod,String description, String failingUrl) {
-		            Toast.makeText(view.getContext(), description , Toast.LENGTH_LONG).show();
-		         }
-			    
-			     
-	});
-
-	    mPager = (ViewPager)findViewById(R.id.pager3);
-	    mPager.setAdapter(mAdapter);
 	    */
+	   
 	    button_calculate=(Button) findViewById(R.id.button_calculate);
 	    button_calculate.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				calculateDueDate();			
+				if(newDate!=null){
+				calculateDueDate();		
+				}else{
+					Crouton.makeText(EstimateDueDateCalculator.this, "Please select a date", Style.ALERT).show();	
+				}
 			}
 	    	
 	    });

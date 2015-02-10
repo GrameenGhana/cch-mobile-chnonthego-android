@@ -42,6 +42,7 @@ public class TakeActionSomeDehydrationNoActivity extends BaseActivity {
 					Intent intent=new Intent(TakeActionSomeDehydrationNoActivity.this,KeepingBabyWarmAndMalariaActivity.class);
 					intent.putExtra("value", "keeping_baby_warm");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
 				   
 			   });
@@ -54,6 +55,7 @@ public class TakeActionSomeDehydrationNoActivity extends BaseActivity {
 					Intent intent=new Intent(TakeActionSomeDehydrationNoActivity.this,TreatingDiarrhoeaActivity.class);
 					intent.putExtra("value", "keeping_baby_warm");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
 				   
 			   });
@@ -79,21 +81,25 @@ public class TakeActionSomeDehydrationNoActivity extends BaseActivity {
 						intent=new Intent(mContext,TakeActionSomeDehydrationEncounterActivity.class);
 						intent.putExtra("category", "home_visit");
 						startActivity(intent);
+						overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 						break;
 					case 1:
 						intent=new Intent(mContext,TakeActionSomeDehydrationEncounterActivity.class);
 						intent.putExtra("category", "chps_one");
 						startActivity(intent);
+						overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 						break;
 					case 2:
 						intent=new Intent(mContext,TakeActionSomeDehydrationEncounterActivity.class);
 						intent.putExtra("category", "chps_two");
 						startActivity(intent);
+						overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 						break;
 					case 3:
 						intent=new Intent(mContext,TakeActionDiarrhoeaNoDehydrationActivity.class);
 						intent.putExtra("category", "chps_two");
 						startActivity(intent);
+						overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 						break;
 					}
 					

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:showDividers="middle" >
 
     <TextView
         android:id="@+id/textView1"
@@ -17,7 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingBottom="40dp" >
 
         <Spinner
             android:id="@+id/spinner_categories"
@@ -32,5 +34,23 @@
             android:textColor="@color/Brown" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:text="Overall Achievements"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/TextColorWine" />
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/BackgroundGrey"
+        android:dividerHeight="5dp" >
+
+    </ListView>
 
 </LinearLayout>

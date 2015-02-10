@@ -59,24 +59,29 @@ public class DiarrhoeaSectionActivity extends BaseActivity {
 				case 0:
 					intent=new Intent(mContext,TakeActionSevereDehydrationActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,TakeActionDiarrhoeaActivity.class);
 					intent.putExtra("value", "severe_diarrhoea");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(mContext,TakeActionDiarrhoeaActivity.class);
 					intent.putExtra("value", "blood_stool");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 3:
 					intent=new Intent(mContext,TakeActionSomeDehydration.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 4:
 					intent=new Intent(mContext,TakeActionDiarrhoeaNoDehydrationActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				}
 			
@@ -94,6 +99,7 @@ public class DiarrhoeaSectionActivity extends BaseActivity {
 				intent=new Intent(mContext,TakeActionDiarrhoeaActivity.class);
 				intent.putExtra("value", "no_diarrhoea");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	 
 	     });

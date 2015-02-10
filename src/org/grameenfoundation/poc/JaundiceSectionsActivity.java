@@ -62,6 +62,7 @@ public class JaundiceSectionsActivity extends BaseActivity {
 				intent=new Intent(mContext,TakeActionJaundiceActivity.class); 
 				intent.putExtra("category", "no jaundice");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });
@@ -77,11 +78,13 @@ public class JaundiceSectionsActivity extends BaseActivity {
 					intent=new Intent(mContext,TakeActionJaundiceActivity.class); 
 					intent.putExtra("category", "severe");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,TakeActionJaundiceActivity.class); 
 					intent.putExtra("category", "jaundice");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				
 				}

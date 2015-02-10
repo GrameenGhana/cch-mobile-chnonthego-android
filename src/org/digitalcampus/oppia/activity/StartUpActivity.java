@@ -135,9 +135,11 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
 		if (!MobileLearning.isLoggedIn(this)) {
 			startActivity(new Intent(StartUpActivity.this, LoginActivity.class));
 			finish();
+			 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		} else {
 			startActivity(new Intent(StartUpActivity.this, MainScreenActivity.class));
 			finish();
+			 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		}
     }
 
@@ -202,21 +204,18 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
 
 	@Override
 	public void onAnimationStart(Animation animation) {
-		// TODO Auto-generated method stub
 		
 	}
 
 
 	@Override
 	public void onAnimationEnd(Animation animation) {
-		// TODO Auto-generated method stub
 		
 	}
 
 
 	@Override
 	public void onAnimationRepeat(Animation animation) {
-		// TODO Auto-generated method stub
 		
 	}
 }

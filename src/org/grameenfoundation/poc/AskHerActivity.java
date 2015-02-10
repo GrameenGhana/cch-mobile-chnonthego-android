@@ -55,50 +55,60 @@ public class AskHerActivity extends BaseActivity {
 					intent=new Intent(mContext,TakeActionAskHerActivity.class);
 					intent.putExtra("take_action", "Excessive Vomiting");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1	:
 					intent=new Intent(mContext,TakeActionAskHerActivity.class);
 					intent.putExtra("take_action", "Offensive/discolored vaginal discharge");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(mContext,TakeActionAskHerActivity.class);
 					intent.putExtra("take_action", "Sever abdominal pain");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 3:
 					intent=new Intent(mContext,TakeActionAskHerActivity.class);
 					intent.putExtra("take_action", "Epigastric Pain");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 4:
 					intent=new Intent(mContext,AskBleedingActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 5:
 					intent=new Intent(mContext,TakeActionAskHerActivity.class);
 					intent.putExtra("take_action", "Edema of the feet, face or ankles");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 6:
 					intent=new Intent(mContext,TakeActionAskHerActivity.class);
 					intent.putExtra("take_action", "BP  ≥  90mm Hg");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 7:
 					intent=new Intent(mContext,TakeActionAskHerActivity.class);
 					intent.putExtra("take_action", "Severe headache/blurred vision");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 8:
 					intent=new Intent(mContext,TakeActionAskHerActivity.class);
 					intent.putExtra("take_action", "Difficulty Breathing");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 9:
 					intent=new Intent(mContext,TakeActionAskHerActivity.class);
 					intent.putExtra("take_action", "Shock");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				}
 				
@@ -112,6 +122,7 @@ public class AskHerActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(mContext, AskMalariaFeverActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

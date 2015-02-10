@@ -42,10 +42,12 @@ public class PlannerViewOptionsActivity extends Activity implements OnItemClickL
 		case 0:
 			intent=new Intent(PlannerViewOptionsActivity.this,EventsViewActivity.class);
         	startActivity(intent);
+        	overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
         	break;
         case 1:
         	intent=new Intent(PlannerViewOptionsActivity.this,NewEventPlannerActivity.class);
         	startActivity(intent);
+        	overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
         	break;
        
 		

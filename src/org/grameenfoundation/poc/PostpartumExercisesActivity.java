@@ -38,6 +38,7 @@ public class PostpartumExercisesActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent =new Intent(PostpartumExercisesActivity.this,PostpartumExerciseNextActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			
 		});

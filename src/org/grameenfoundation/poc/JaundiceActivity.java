@@ -36,6 +36,7 @@ public class JaundiceActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(mContext,JaundiceSectionsActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

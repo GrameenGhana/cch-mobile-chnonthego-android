@@ -37,6 +37,7 @@ public class AskMalariaFeverActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(mContext,AskMalariaFeverYesActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });
@@ -47,6 +48,7 @@ public class AskMalariaFeverActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(mContext,AnaemiaAskActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

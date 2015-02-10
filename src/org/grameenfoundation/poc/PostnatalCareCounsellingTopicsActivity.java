@@ -56,93 +56,114 @@ public class PostnatalCareCounsellingTopicsActivity extends BaseActivity {
 				case 0:
 					intent=new Intent(mContext,BreastProblemsCounsellingActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,ComplicationReadinessMenuActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(mContext,FamilyPlanningPostpartumActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 3:
 					intent=new Intent(mContext,HomeCareForInfantActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 4:
 					intent=new Intent(mContext,ImmunisationScheduleActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 5:
 					intent=new Intent(mContext,InfantFeedingMenuActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 6:
 					intent=new Intent(mContext,KangarooCareActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 7:
 					intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
 					intent.putExtra("value", "keeping_baby_warm");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 8:
 					intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
 					intent.putExtra("value", "malaria");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 9:
 					intent=new Intent(mContext,NutritionCounsellingActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 10:
 					intent=new Intent(mContext,PostpartumExercisesActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 11	:
 					intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
 					intent.putExtra("value", "psychosocial_support");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 12	:
 					intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
 					intent.putExtra("value", "rest_activity");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 13:
 					intent=new Intent(mContext,SelfCareActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 14:
 					intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
 					intent.putExtra("value", "sexual_relations");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 15:
 					intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
 					intent.putExtra("value", "tt_immunization");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 16:
 					intent=new Intent(mContext,TreatingLocationInfectionActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 17:
 					intent=new Intent(mContext,ReturningForCareActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 18:
 					intent=new Intent(mContext,TreatingDiarrhoeaActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 19:
 					intent=new Intent(mContext,TreatingUnComplicatedMalariaActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 20:
 					intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
 					intent.putExtra("value", "bloody_diarrhoea");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				}
 			}

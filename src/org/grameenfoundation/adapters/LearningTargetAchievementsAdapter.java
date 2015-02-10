@@ -6,8 +6,7 @@ package org.grameenfoundation.adapters;
 	import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.cch.model.EventTargets;
-import org.grameenfoundation.cch.model.TargetChild;
-import org.grameenfoundation.cch.model.TargetGroups;
+import org.grameenfoundation.cch.model.LearningTargets;
 import org.grameenfoundation.cch.model.TargetsForAchievements;
 
 	import android.content.Context;
@@ -25,26 +24,26 @@ import android.widget.TextView;
 
 		
 		 public String[] groupItem;
-		 public ArrayList<TargetsForAchievements> CompletedTargets;
-		 public ArrayList<TargetsForAchievements> UnCompletedTargets;
+		 public ArrayList<LearningTargets> CompletedTargets;
+		 public ArrayList<LearningTargets> UnCompletedTargets;
 		 public ExpandableListView eventsList;
 		 public LayoutInflater minflater;
 		 private int count;
 		 public int lastExpandedGroupPosition;    
 		 private Context mContext;
 		private DbHelper dbh;
-		private ArrayList<TargetsForAchievements> completedTargets;
-		private ArrayList<TargetsForAchievements> unCompletedTargets;
+		private ArrayList<LearningTargets> completedTargets;
+		private ArrayList<LearningTargets> unCompletedTargets;
 		EventTargets calendarEvents=new EventTargets();
 
 		 public LearningTargetAchievementsAdapter(Context mContext,String[] grList,
-				 					ArrayList<TargetsForAchievements> CompletedTargets,
-				 					ArrayList<TargetsForAchievements> UnCompletedTargets,
+				 					ArrayList<LearningTargets> CompletedTargets,
+				 					ArrayList<LearningTargets> UnCompletedTargets,
 				 					ExpandableListView eventsList) {
 			 dbh = new DbHelper(mContext);
 			 
-			 completedTargets = new ArrayList<TargetsForAchievements>();
-			 unCompletedTargets = new ArrayList<TargetsForAchievements>();
+			 completedTargets = new ArrayList<LearningTargets>();
+			 unCompletedTargets = new ArrayList<LearningTargets>();
 			 
 			 completedTargets.addAll(CompletedTargets);
 			 unCompletedTargets.addAll(UnCompletedTargets);

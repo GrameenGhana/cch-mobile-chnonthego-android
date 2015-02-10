@@ -56,16 +56,12 @@ public class UpdateMonthlyTargetsActivity extends Activity implements OnChildCli
 	    setContentView(R.layout.activity_update_targets);
 	    mContext=UpdateMonthlyTargetsActivity.this;
 	    db=new DbHelper(mContext);
-	    Calendar c = Calendar.getInstance();
-        int month=c.get(Calendar.MONTH)+1;
-        Time time = new Time();
-	    time.setToNow();
-	    String today= String.valueOf(time.monthDay)+"-"+String.valueOf(time.month+1)+"-"+String.valueOf(time.year);
+	    getActionBar().setTitle("Planner");
+		getActionBar().setSubtitle("Update Targets");
 	    eventTargets=db.getAllEventTargets("Monthly");
  	   	coverageTargets=db.getAllCoverageTargets("Monthly");
  	   	learningTargets=db.getAllLearningTargets("Monthly");
  	   	otherTargets=db.getAllOtherTargets("Monthly");
- 	   
  	    groupItems=new String[]{"Events","Coverage","Learning","Other"};
  	    expandableListView_updates=(ExpandableListView) findViewById(R.id.expandableListView_updates);
  	    updates_adapter=new UpdateTargetsAdapter(mContext,eventTargets,
@@ -83,31 +79,29 @@ public class UpdateMonthlyTargetsActivity extends Activity implements OnChildCli
 			int groupPosition, int childPosition, long id) {
 		String[] selected_items=updates_adapter.getChild(groupPosition, childPosition);
 		if(groupPosition==0){
-		
-		selected_id=Long.parseLong(selected_items[7]);
-		//System.out.println(selected_items[0]+" "+selected_items[1]);
-		String name=selected_items[0];
-		String number=selected_items[1];
-		String period=selected_items[2];
-		String due_date=selected_items[3];
-		String status=selected_items[6];
-		String startDate=selected_items[5];
-		String achieved=selected_items[4];
-		ArrayList<String> number_achieved=db.getForUpdateEventNumberAchieved(selected_id,period);
-		Intent intent=new Intent(mContext,UpdateActivity.class);
-		intent.putExtra("id",selected_id);
-		intent.putExtra("name",name);
-		intent.putExtra("number",number);
-		intent.putExtra("period", period);
-		intent.putExtra("type", "event");
-		intent.putExtra("due_date", due_date);
-		intent.putExtra("start_date", startDate);
-		intent.putExtra("status", status);
-		intent.putExtra("number_achieved", number_achieved.get(0));
-		startActivity(intent);
+			selected_id=Long.parseLong(selected_items[7]);
+			String name=selected_items[0];
+			String number=selected_items[1];
+			String period=selected_items[2];
+			String due_date=selected_items[3];
+			String status=selected_items[6];
+			String startDate=selected_items[5];
+			String achieved=selected_items[4];
+			ArrayList<String> number_achieved=db.getForUpdateEventNumberAchieved(selected_id,period);
+			Intent intent=new Intent(mContext,UpdateActivity.class);
+			intent.putExtra("id",selected_id);
+			intent.putExtra("name",name);
+			intent.putExtra("number",number);
+			intent.putExtra("period", period);
+			intent.putExtra("type", "event");
+			intent.putExtra("due_date", due_date);
+			intent.putExtra("start_date", startDate);
+			intent.putExtra("status", status);
+			intent.putExtra("number_achieved", number_achieved.get(0));
+			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		}else if(groupPosition==1){
 			selected_id=Long.parseLong(selected_items[7]);
-			//System.out.println(selected_items[0]+" "+selected_items[1]);
 			String name=selected_items[0];
 			String number=selected_items[1];
 			String period=selected_items[2];
@@ -127,30 +121,26 @@ public class UpdateMonthlyTargetsActivity extends Activity implements OnChildCli
 			intent.putExtra("status", status);
 			intent.putExtra("number_achieved", number_achieved.get(0));
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		}else if(groupPosition==2){
 			selected_id=Long.parseLong(selected_items[5]);
-			//System.out.println(selected_items[0]+" "+selected_items[1]);
 			String name=selected_items[0];
-			//String number=selected_items[1];
 			String period=selected_items[1];
 			String due_date=selected_items[2];
 			String status=selected_items[4];
 			String startDate=selected_items[3];
-			//String achieved=selected_items[4];
 			Intent intent=new Intent(mContext,UpdateActivity.class);
 			intent.putExtra("id",selected_id);
 			intent.putExtra("learning_topic",name);
-			//intent.putExtra("number",number);
 			intent.putExtra("period", period);
 			intent.putExtra("type", "learning");
 			intent.putExtra("due_date", due_date);
 			intent.putExtra("start_date", startDate);
 			intent.putExtra("status", status);
-			//intent.putExtra("achieved", achieved);
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		}else if(groupPosition==3){
 			selected_id=Long.parseLong(selected_items[7]);
-			//System.out.println(selected_items[0]+" "+selected_items[1]);
 			String name=selected_items[0];
 			String number=selected_items[1];
 			String period=selected_items[2];
@@ -170,6 +160,7 @@ public class UpdateMonthlyTargetsActivity extends Activity implements OnChildCli
 			intent.putExtra("status", status);
 			intent.putExtra("number_achieved", number_achieved.get(0));
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		}
 		return true;
 	}	

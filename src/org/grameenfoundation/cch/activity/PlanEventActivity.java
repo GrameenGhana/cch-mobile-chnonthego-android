@@ -84,37 +84,21 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
         if (extras != null) {
           mode= extras.getString("mode");
         }
-		String[] items_names={"ANC Static","ANC Outreach","CWC Static","CWC Outreach",
-								"PNC Clinic","Routine Home visit","Special Home visit",
-								"Family Planning","Health Talk","CMAM Clinic","School Health",
-								"Adolescent Health","Mop-up Activity/Event","Community Durbar",
-								"National Activity/Event","Staff meetings/durbars","Workshops","Leave/Excuse Duty",
-								"Personal","Other"};
-		//ArrayList<String> list=db.getAllEventCategory();
+		String[] items_names=new String[]{};
+		items_names=getResources().getStringArray(R.array.EventNames);
 		 adapter2=new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, items_names);
 		 spinner_eventName=(Spinner) findViewById(R.id.spinner_eventPlanType);
 		 spinner_eventName.setAdapter(adapter2);
 	   
 	    editText_eventDescription=(EditText) findViewById(R.id.editText_eventPlanDescription);
 	    editText_event_location=(AutoCompleteTextView) findViewById(R.id.AutoCompleteTextView_location);
-	   String[] locations = new String[] {
-	         "Ada", "Adedetsekope", "Adutor", "Agbakope", "Agordome","Agorkpo","Agorta",
-	         "Anyaman","Asidowui","Asigbekope","Azizanyah","Bonikope","Comboni","Dabala",
-	         "District","Dogo","Dordoekope-Angorto","Dorkploame","Gamenu","Hlevi","Kasseh",
-	         "Koni","Kpotame","Larve","Lolonya","Luhuor","Madavuno","Matsekope","Pediatorkope",
-	         "Pute","Sasekope","Sege","Sogakope","Sokutime","Tamatoku","Tefle","Teyekpitikope",
-	         "Abui-Tsita","Adzokoe","Afienya","Agbadzakope","Agbate","Agbeve","Ahwiam","Ayertepa",
-	         "Dawa","Dawhenya","Dikato","Duga","Dzake","Dzebetato","Dzetorkoe","Dzorgborve",
-	         "Kpeve-Adzokoe","Kua","Lekpongunor","NewNingo","Nyigbenya","OldNingo","Peki",
-	         "Tsanakpe","Tsatee","Tsiyinu","Wegbe","Prampram"
-	     };
+	    String[] locations = new String[] {};
+	    locations=getResources().getStringArray(R.array.Locations);
 	     adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, locations);
 	    editText_event_location.setAdapter(adapter);
 	    button_addEvent=(Button) findViewById(R.id.button_eventPlanAdd);
 	    button_addEvent.setOnClickListener(this);
-	   // repeatingLayout=(TableRow) findViewById(R.id.tableRow_Repeating);
-	   // repeatingLayout.setVisibility(View.GONE);
 	    button_viewCalendar=(Button) findViewById(R.id.button_eventViewCalendar);
 	    button_viewCalendar.setOnClickListener(this);
 	    linearLayout_buttonsOne=(LinearLayout) findViewById(R.id.linearLayout_buttonsOne);
@@ -156,10 +140,11 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 					e.printStackTrace();
 				}
 				 end_time=System.currentTimeMillis();
-				 dbh.insertCCHLog("Event Planner", json.toString(), String.valueOf(startTime), String.valueOf(end_time));
+				 dbh.insertCCHLog("Calendar", json.toString(), String.valueOf(startTime), String.valueOf(end_time));
 				 Intent intent=new Intent(mContext, EventsViewActivity.class);
 				 startActivity(intent);
 				 finish();
+				 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 				 Toast.makeText(mContext, "Event edited successfully!",
 				         Toast.LENGTH_LONG).show();
 				}
@@ -183,10 +168,11 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 					e.printStackTrace();
 				}
 				 end_time=System.currentTimeMillis();
-				 dbh.insertCCHLog("Event Planner", json.toString(), String.valueOf(startTime), String.valueOf(end_time));
+				 dbh.insertCCHLog("Calendar", json.toString(), String.valueOf(startTime), String.valueOf(end_time));
 				 Intent intent=new Intent(mContext, EventsViewActivity.class);
 				 startActivity(intent);
 				 finish();
+				 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 				 Toast.makeText(mContext, "Event deleted successfully!",
 				         Toast.LENGTH_LONG).show();
 				}
@@ -272,15 +258,19 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 			Intent intent =  new Intent(Intent.ACTION_VIEW);
 			intent.setData(Uri.parse("content://com.android.calendar/time"));
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		}
 		
 	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    if (requestCode == 1) {
-	    	Intent intent=new Intent(PlanEventActivity.this,EventPlannerOptionsActivity.class);
+	    	Intent intent=new Intent(Intent.ACTION_MAIN);
+	    	intent.setClass(PlanEventActivity.this, EventPlannerOptionsActivity.class);
+	    	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	    	startActivity(intent);
-	    	finish();
+	    	PlanEventActivity.this.finish();
+	    	overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 	    	/*
 	    	AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 					PlanEventActivity.this);

@@ -35,6 +35,7 @@ public class SoftUterusPNCMotherActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(SoftUterusPNCMotherActivity.this,SoftUterusPNCMotherYesActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });
@@ -44,6 +45,7 @@ public class SoftUterusPNCMotherActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(SoftUterusPNCMotherActivity.this,BreastProblemsPNCMotherActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

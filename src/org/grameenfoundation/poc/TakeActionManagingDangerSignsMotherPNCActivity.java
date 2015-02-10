@@ -38,7 +38,6 @@ public class TakeActionManagingDangerSignsMotherPNCActivity extends BaseActivity
         	 TextView text=(TextView) findViewById(R.id.textView_takeActionCategory);
         	 text.setText("Convulsing (now or recently), Unconscious ");
         	 ImageView image=(ImageView) findViewById(R.id.imageView1);
-        	// image.setImageResource(R.drawable.ic_image_placeholder);
         	 image.setVisibility(View.GONE);
          }else if(take_action_category.equalsIgnoreCase("severe_headache")){
         	 setContentView(R.layout.activity_mng_danger_sign_gen_takeaction);
@@ -46,20 +45,17 @@ public class TakeActionManagingDangerSignsMotherPNCActivity extends BaseActivity
         	 text.setText("Severe headache/blurred vision ");
         	 ImageView image=(ImageView) findViewById(R.id.imageView1);
         	image.setImageResource(R.drawable.severe_headache);
-        	// image.setVisibility(View.GONE);
          }else if(take_action_category.equalsIgnoreCase("diastolic")){
         	 setContentView(R.layout.activity_mng_danger_sign_gen_takeaction);
         	 TextView text=(TextView) findViewById(R.id.textView_takeActionCategory);
         	 text.setText("Diastolic BP ≥ 90 mmHg");
         	 ImageView image=(ImageView) findViewById(R.id.imageView1);
-        	//image.setImageResource(R.drawable.severe_headache);
         	 image.setVisibility(View.GONE);
          }else if(take_action_category.equalsIgnoreCase("severe_abdominal")){
         	 setContentView(R.layout.activity_mng_danger_sign_gen_takeaction);
         	 TextView text=(TextView) findViewById(R.id.textView_takeActionCategory);
         	 text.setText("Severe abdominal pain ");
         	 ImageView image=(ImageView) findViewById(R.id.imageView1);
-        	//image.setImageResource(R.drawable.severe_headache);
         	 image.setVisibility(View.GONE);
          }else if(take_action_category.equalsIgnoreCase("persistent_vomiting")){
         	 setContentView(R.layout.activity_mng_danger_sign_gen_takeaction);
@@ -67,13 +63,11 @@ public class TakeActionManagingDangerSignsMotherPNCActivity extends BaseActivity
         	 text.setText("Persistent vomiting");
         	 ImageView image=(ImageView) findViewById(R.id.imageView1);
         	image.setImageResource(R.drawable.persistent_vomiting);
-        	// image.setVisibility(View.GONE);
          }else if(take_action_category.equalsIgnoreCase("persistent_vomiting")){
         	 setContentView(R.layout.activity_mng_danger_sign_gen_takeaction);
         	 TextView text=(TextView) findViewById(R.id.textView_takeActionCategory);
         	 text.setText("Persistent vomiting");
         	 ImageView image=(ImageView) findViewById(R.id.imageView1);
-        	//image.setImageResource(R.drawable.persistent_vomiting);
         	image.setVisibility(View.GONE);
          }else if(take_action_category.equalsIgnoreCase("pain_in_calf")){
         	 setContentView(R.layout.activity_mng_danger_sign_gen_takeaction);
@@ -81,20 +75,17 @@ public class TakeActionManagingDangerSignsMotherPNCActivity extends BaseActivity
         	 text.setText("Pain in calf with or without swelling ");
         	 ImageView image=(ImageView) findViewById(R.id.imageView1);
         	image.setImageResource(R.drawable.edema);
-        	// image.setVisibility(View.GONE);
          }else if(take_action_category.equalsIgnoreCase("painful_or_tender_wound")){
         	 setContentView(R.layout.activity_mng_danger_sign_gen_takeaction);
         	 TextView text=(TextView) findViewById(R.id.textView_takeActionCategory);
         	 text.setText("Painful or tender wound");
         	 ImageView image=(ImageView) findViewById(R.id.imageView1);
-        	//image.setImageResource(R.drawable.edema);
         	image.setVisibility(View.GONE);
          }else if(take_action_category.equalsIgnoreCase("pain_on_urination")){
         	 setContentView(R.layout.activity_mng_danger_sign_gen_takeaction);
         	 TextView text=(TextView) findViewById(R.id.textView_takeActionCategory);
         	 text.setText("Pain on urination/dribbling urine");
         	 ImageView image=(ImageView) findViewById(R.id.imageView1);
-        	//image.setImageResource(R.drawable.edema);
         	image.setVisibility(View.GONE);
          }else if(take_action_category.equalsIgnoreCase("pallor")){
         	 setContentView(R.layout.activity_mng_danger_sign_gen_takeaction);
@@ -102,13 +93,11 @@ public class TakeActionManagingDangerSignsMotherPNCActivity extends BaseActivity
         	 text.setText("Pallor");
         	 ImageView image=(ImageView) findViewById(R.id.imageView1);
         	image.setImageResource(R.drawable.pallor);
-        	//image.setVisibility(View.GONE);
          }else if(take_action_category.equalsIgnoreCase("abnormal_behaviour")){
         	 setContentView(R.layout.activity_mng_danger_sign_gen_takeaction);
         	 TextView text=(TextView) findViewById(R.id.textView_takeActionCategory);
         	 text.setText("Abnormal behaviour/depression  ");
         	 ImageView image=(ImageView) findViewById(R.id.imageView1);
-        	//image.setImageResource(R.drawable.pallor);
         	image.setVisibility(View.GONE);
          }
 	}

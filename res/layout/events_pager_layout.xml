@@ -40,7 +40,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" events planned for today."
+                android:text=" event(s) planned for today."
                 android:typeface="serif" />
             
              <TextView
@@ -153,7 +153,7 @@
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="  activities."
+                    android:text="  activity(ies)."
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/background_dark"
                     android:textStyle="bold"

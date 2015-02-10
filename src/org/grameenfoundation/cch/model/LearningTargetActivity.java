@@ -13,6 +13,7 @@ import org.grameenfoundation.cch.activity.UpdateTargetActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -76,39 +77,20 @@ public class LearningTargetActivity extends Fragment implements OnChildClickList
 		    mContext=getActivity().getApplicationContext();
 		    db=new DbHelper(getActivity());
 		    learningList=(ExpandableListView) rootView.findViewById(R.id.listView_learningCategory);
-		    DailyLearningTargets=db.getAllLearningTargets("Daily");
-		    WeeklyLearningTargets=db.getAllLearningTargets("Weekly");
-			MonthlyLearningTargets=db.getAllLearningTargets("Monthly");
-			QuarterlyLearningTargets=db.getAllLearningTargets("Quarterly");
-			MidyearLearningTargets=db.getAllLearningTargets("Mid-year");
-			AnnualLearningTargets=db.getAllLearningTargets("Annually");
-			groupItems=new String[]{"To update today","To update this week","To update this month","To update this quarter","Half-year update","To update this year"};
-			learning_adapter=new LearningTargetAdapter(mContext,groupItems,DailyLearningTargets,
-																		WeeklyLearningTargets,
-																		MonthlyLearningTargets,
-																		QuarterlyLearningTargets,
-																		MidyearLearningTargets,
-																		AnnualLearningTargets,
-																		  learningList);
-			learningList.setAdapter(learning_adapter);
-		  
-		 learning_adapter.notifyDataSetChanged();
-   	learningList.setAdapter(learning_adapter);	
-   	learningList.setOnChildClickListener(this);
+		    groupItems=new String[]{};
+		    groupItems=getResources().getStringArray(R.array.UpdateFrequencies);
+			new GetData().execute();
+			learningList.setOnChildClickListener(this);
 	   
-   	button_show=(Button) rootView.findViewById(R.id.button_show);
+  		button_show=(Button) rootView.findViewById(R.id.button_show);
  
 	    button_show.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				//eventId=new ArrayList<String>();
 				 eventId=db.getEventIdCount("Daily");
-				 //coverageId=new ArrayList<String>();
 				 coverageId=db.getCoverageIdCount("Daily");
-				 //otherId=new ArrayList<String>();
 				 otherId=db.getOtherIdCount("Daily");
-				// learningId=new ArrayList<String>();
 				 learningId=db.getLearningIdCount("Daily");
 				 int number=(int)eventId;
 				 int number2=(int)coverageId;
@@ -120,6 +102,7 @@ public class LearningTargetActivity extends Fragment implements OnChildClickList
 				if(counter>0){
 				Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
 				startActivity(intent);
+				getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}else if(counter==0){
 					 Toast.makeText(getActivity(), "You have no targets to update!",
 					         Toast.LENGTH_SHORT).show();
@@ -136,7 +119,6 @@ public class LearningTargetActivity extends Fragment implements OnChildClickList
 					int groupPosition, int childPosition, long id) {
 				selected_items=learning_adapter.getChild(groupPosition,childPosition);
 				selected_id=Long.parseLong(selected_items[7]);
-				//System.out.println(selected_items[0]+" "+selected_items[1]);
 				String learning_category=selected_items[0];
 				String learning_course=selected_items[1];
 				String learing_topic=selected_items[4];
@@ -156,8 +138,38 @@ public class LearningTargetActivity extends Fragment implements OnChildClickList
 				intent.putExtra("last_updated", last_updated);
 				intent.putExtra("period", period);
 				startActivity(intent);
+				getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				return true;
 			}
 
-	
+			private class GetData extends AsyncTask<Object, Void, Object> {
+				 DbHelper db=new DbHelper(mContext);
+
+			    @Override
+			    protected Object doInBackground(Object... params) {
+			        //db.open();
+			    
+			    	DailyLearningTargets=db.getAllLearningTargets("Daily");
+				    WeeklyLearningTargets=db.getAllLearningTargets("Weekly");
+					MonthlyLearningTargets=db.getAllLearningTargets("Monthly");
+					QuarterlyLearningTargets=db.getAllLearningTargets("Quarterly");
+					MidyearLearningTargets=db.getAllLearningTargets("Mid-year");
+					AnnualLearningTargets=db.getAllLearningTargets("Annually");
+						return null;
+			        
+			    }
+
+			    @Override
+			    protected void onPostExecute(Object result) {
+			    	learning_adapter=new LearningTargetAdapter(mContext,groupItems,DailyLearningTargets,
+							WeeklyLearningTargets,
+							MonthlyLearningTargets,
+							QuarterlyLearningTargets,
+							MidyearLearningTargets,
+							AnnualLearningTargets,
+							  learningList);
+			    	learningList.setAdapter(learning_adapter);
+			        
+			    }
+			}
 }

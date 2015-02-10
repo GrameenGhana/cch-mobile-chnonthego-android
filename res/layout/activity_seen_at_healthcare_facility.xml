@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Client seen at Health Care Facility"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/Brown" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do the following:"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_border2"
+        android:divider="@drawable/divider"
+        android:dividerPadding="5dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:showDividers="middle" >
+
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:text="Assist midwife or other health personnel with registering new clients, if needed"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:text="Assist midwife or other health personnel with care of clients, if needed"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp" >
+
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.17"
+                    android:text="Provide "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
+                    android:id="@+id/textView_clickHere"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TT "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/WhileWaitingForTransport" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="immunization for the pregnant"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="     client, if indicated"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="Assist midwife with counseling clients on issues related to their trimester, if needed:"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:paddingBottom="5dp" >
+
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Counseling a client in her  "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
+                    android:id="@+id/textView_clickHereToo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1st trimester"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/WhileWaitingForTransport" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:paddingBottom="5dp" >
+
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Counseling a client in her  "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
+                    android:id="@+id/textView_clickHereThree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2nd trimester"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/WhileWaitingForTransport" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:paddingBottom="5dp" >
+
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Counseling a client in her  "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
+                    android:id="@+id/textView_clickHereFour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3rd trimester"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/WhileWaitingForTransport" />
+
+            </TableRow>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

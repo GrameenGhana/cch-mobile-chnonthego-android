@@ -41,10 +41,12 @@ public class LearningCenterMenuActivity extends BaseActivity {
 				case 0:
 					intent=new Intent(mContext,OppiaMobileActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,LearningReferencesActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
 			}
 	    	

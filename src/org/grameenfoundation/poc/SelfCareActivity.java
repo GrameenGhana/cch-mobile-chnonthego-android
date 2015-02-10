@@ -33,6 +33,7 @@ public class SelfCareActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(SelfCareActivity.this, SelfCarNextActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

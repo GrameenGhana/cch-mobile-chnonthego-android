@@ -35,6 +35,7 @@ public class BreastAttachementActivity extends BaseActivity {
 			Intent intent=new Intent(BreastAttachementActivity.this,InfantFeedingNextActivity.class);
 			intent.putExtra("value", "breast_attachement");
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

@@ -171,18 +171,16 @@
             android:showDividers="middle" >
 
             <org.grameenfoundation.cch.utils.TextViewBullets
-
                 android:id="@+id/textView5"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="Encourage fluid intake "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <org.grameenfoundation.cch.utils.TextViewBullets
-
                 android:id="@+id/textView6"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="Counsel client to sleep under an insecticide treated net every night "

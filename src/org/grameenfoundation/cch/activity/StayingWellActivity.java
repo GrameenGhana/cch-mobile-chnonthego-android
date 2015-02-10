@@ -105,6 +105,7 @@ public class StayingWellActivity extends AppActivity implements OnSharedPreferen
 		    				if (url.equals("file:///android_asset/www/cch/modules/stayingwell/done")) {				
 		    					Intent intent = new Intent(getApplicationContext(), MainScreenActivity.class);
 				                startActivity(intent);
+				                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 		    				} else  {
 		    					view.loadUrl(url);
 		    				}

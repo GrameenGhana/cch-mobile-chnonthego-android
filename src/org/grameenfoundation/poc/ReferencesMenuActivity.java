@@ -44,18 +44,22 @@ public class ReferencesMenuActivity extends BaseActivity {
 					intent=new Intent(mContext,ANCCounsellingTopicsGenerlActivity.class);
 					intent.putExtra("value", "tt_immunisation");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,ImmunisationScheduleActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(mContext,MalariaWithSPForPregnantWomenActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 3:
 					intent=new Intent(mContext,TreatingUncomplicatedMalariaANCActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				
 			}

@@ -32,6 +32,7 @@ public class NutritionCounsellingNextTwoActivity extends BaseActivity {
 			public void onClick(View v) {
 			Intent intent=new Intent(NutritionCounsellingNextTwoActivity.this,NutritionCounsellingNextThreeActivity.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

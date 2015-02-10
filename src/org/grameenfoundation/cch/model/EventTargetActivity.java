@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.adapters.EventTargetAdapter;
+import org.grameenfoundation.adapters.NumericalTargetAchievementsAdapter;
 import org.grameenfoundation.cch.activity.EventTargetsDetailActivity;
 import org.grameenfoundation.cch.activity.UpdateTargetActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -60,26 +62,12 @@ public class EventTargetActivity extends Fragment implements OnChildClickListene
 	    mContext=getActivity().getApplicationContext();
 	   
 	    db=new DbHelper(getActivity());
+	    groupItems=new String[]{};
+	    groupItems=getResources().getStringArray(R.array.UpdateFrequencies);
 	    listView_events=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
-	    DailyEventTargets=db.getAllEventTargets("Daily");
-	    WeeklyEventTargets=db.getAllEventTargets("Weekly");
-		MonthlyEventTargets=db.getAllEventTargets("Monthly");
-		QuarterlyEventTargets=db.getAllEventTargets("Quarterly");
-		MidyearEventTargets=db.getAllEventTargets("Mid-year");
-		AnnualEventTargets=db.getAllEventTargets("Annually");
-		groupItems=new String[]{"To update today","To update this week","To update this month","To update this quarter","Half-year update","To update this year"};
-		events_adapter=new EventTargetAdapter(mContext,groupItems,DailyEventTargets,
-																	  WeeklyEventTargets,
-																	  MonthlyEventTargets,
-																	  QuarterlyEventTargets,
-																	  MidyearEventTargets,
-																	  AnnualEventTargets,
-																	  listView_events);
-		listView_events.setAdapter(events_adapter);
+	  
+	    new GetData().execute();
 	   
-	    View empty_view=new View(getActivity());
-	    listView_events.setEmptyView(empty_view);
-	    events_adapter.notifyDataSetChanged();
 	   
 	    listView_events.setOnChildClickListener(this);
 	    button_show=(Button) rootView.findViewById(R.id.button_show);
@@ -88,13 +76,9 @@ public class EventTargetActivity extends Fragment implements OnChildClickListene
 
 			@Override
 			public void onClick(View v) {
-				//eventId=new ArrayList<String>();
 				 eventId=db.getEventIdCount("Daily");
-				 //coverageId=new ArrayList<String>();
 				 coverageId=db.getCoverageIdCount("Daily");
-				 //otherId=new ArrayList<String>();
 				 otherId=db.getOtherIdCount("Daily");
-				// learningId=new ArrayList<String>();
 				 learningId=db.getLearningIdCount("Daily");
 				 int number=(int)eventId;
 				 int number2=(int)coverageId;
@@ -106,6 +90,7 @@ public class EventTargetActivity extends Fragment implements OnChildClickListene
 				if(counter>0){
 				Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
 				startActivity(intent);
+				getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}else if(counter==0){
 					 Toast.makeText(getActivity(), "You have no targets to update!",
 					         Toast.LENGTH_SHORT).show();
@@ -146,7 +131,32 @@ public class EventTargetActivity extends Fragment implements OnChildClickListene
 		intent.putExtra("status", status);
 		intent.putExtra("last_updated", last_updated);
 		startActivity(intent);
+		getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			return true;
 }
-	
+	private class GetData extends AsyncTask<Object, Void, Object> {
+		 DbHelper db=new DbHelper(mContext);
+
+	    @Override
+	    protected Object doInBackground(Object... params) {
+	           	DailyEventTargets=db.getAllEventTargets("Daily");
+	           	WeeklyEventTargets=db.getAllEventTargets("Weekly");
+	   			MonthlyEventTargets=db.getAllEventTargets("Monthly");
+	   			QuarterlyEventTargets=db.getAllEventTargets("Quarterly");
+	   			MidyearEventTargets=db.getAllEventTargets("Mid-year");
+	   			AnnualEventTargets=db.getAllEventTargets("Annually");
+				return null;
+	    }
+	    @Override
+	    protected void onPostExecute(Object result) {
+	    	events_adapter=new EventTargetAdapter(mContext,groupItems,DailyEventTargets,
+					  WeeklyEventTargets,
+					  MonthlyEventTargets,
+					  QuarterlyEventTargets,
+					  MidyearEventTargets,
+					  AnnualEventTargets,
+					  listView_events);
+	    	listView_events.setAdapter(events_adapter);
+	    }
+	}
 }

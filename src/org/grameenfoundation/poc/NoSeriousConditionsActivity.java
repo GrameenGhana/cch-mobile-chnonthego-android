@@ -49,7 +49,7 @@ public class NoSeriousConditionsActivity extends BaseActivity {
 			public void onClick(View v) {
 				intent=new Intent(mContext,NoInjuriesActivity.class);
 				startActivity(intent);
-				
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });
@@ -65,16 +65,19 @@ public class NoSeriousConditionsActivity extends BaseActivity {
 					intent=new Intent(mContext,TakeActionNoConditionsActivity.class);
 					intent.putExtra("category","asymmetrical");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,TakeActionNoConditionsActivity.class);
 					intent.putExtra("category","firm swelling");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(mContext,TakeActionNoConditionsActivity.class);
 					intent.putExtra("category","firm swelling");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				
 				}

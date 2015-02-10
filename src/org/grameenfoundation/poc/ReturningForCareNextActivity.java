@@ -33,6 +33,7 @@ public class ReturningForCareNextActivity extends BaseActivity {
 			public void onClick(View v) {
 			Intent intent=new Intent (ReturningForCareNextActivity.this,ReturningForCareNextTwoActivity.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

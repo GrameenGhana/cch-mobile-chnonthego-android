@@ -51,16 +51,19 @@ public class ComplicationReadinessMenuActivity extends BaseActivity {
 					intent=new Intent(mContext,ComplicationReadinessActionActivity.class);
 					intent.putExtra("value", "danger_signs_mother");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,ComplicationReadinessActionActivity.class);
 					intent.putExtra("value", "danger_signs_newborn");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(mContext,ComplicationReadinessActionActivity.class);
 					intent.putExtra("value", "readiness_plan");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				
 				}

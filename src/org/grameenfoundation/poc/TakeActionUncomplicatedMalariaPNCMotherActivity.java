@@ -38,6 +38,7 @@ public class TakeActionUncomplicatedMalariaPNCMotherActivity extends BaseActivit
 				Intent intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
 				intent.putExtra("value", "malaria");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });
@@ -49,6 +50,7 @@ public class TakeActionUncomplicatedMalariaPNCMotherActivity extends BaseActivit
 			public void onClick(View v) {
 				Intent intent=new Intent(mContext,NutritionCounsellingActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });
@@ -60,6 +62,7 @@ public class TakeActionUncomplicatedMalariaPNCMotherActivity extends BaseActivit
 			public void onClick(View v) {
 				Intent intent=new Intent(mContext,ReturningForCareActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

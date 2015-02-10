@@ -5,11 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 
 import org.digitalcampus.mobile.learningGF.R;
-import org.digitalcampus.mobile.learningGF.R.color;
 import org.digitalcampus.oppia.activity.MainScreenActivity;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.cch.caldroid.CaldroidFragment;
@@ -19,15 +17,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -35,13 +31,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 
 public class OtherTargetsDetailActivity extends FragmentActivity {
 
@@ -87,6 +87,7 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 	private long start_time;
 	private String last_updated;
 	private TextView day_difference;
+	private TableRow goal_layout;
 
 
 	/** Called when the activity is first created. */
@@ -113,48 +114,11 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 	    textView_progressCheck=(TextView) findViewById(R.id.textView_progressCheck);
 	    progress_bar=(TextProgressBar) findViewById(R.id.progressBar1);
 	    day_difference=(TextView) findViewById(R.id.textView_dayDifference);
+	    goal_layout=(TableRow) findViewById(R.id.tableRow_goal);
 	    button_edit=(Button) findViewById(R.id.button_edit);
 	    button_delete=(Button) findViewById(R.id.button_delete);
 	    button_update=(Button) findViewById(R.id.button_update);
-	    Bundle extras = getIntent().getExtras(); 
-        if (extras != null) {
-        	other_name=extras.getString("other_name");
-        	other_number=extras.getString("other_number");
-        	other_period=extras.getString("other_period");
-			due_date_extra=extras.getString("due_date");
-			achieved=extras.getString("achieved");
-			start_date_extra=extras.getString("start_date");
-			status=extras.getString("status");
-			other_id=extras.getLong("other_id");
-			last_updated=extras.getString("last_updated");
-        }
-       
-        int number_achieved_current=Integer.valueOf(achieved);
-        int number_entered_current=Integer.valueOf(other_number);
-        Double percentage=((double)number_achieved_current/number_entered_current)*100;
-        String percentage_achieved=String.format("%.0f", percentage);
-        progress_status=(int) percentage.doubleValue();
-        progress_bar.setProgress(progress_status);
-        progress_bar.setPrefixText(percentage_achieved+"%");
-        progress_bar.setPrefixText(" ");
-      
-        long difference_in_days=differenceIndays(start_date_extra,due_date_extra,getDateTime());
-        if (difference_in_days==1){
-        	day_difference.setTextColor(Color.rgb(225,170,7));
-        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " day");
-        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-        }else if(difference_in_days==0) {
-        	day_difference.setTextColor(Color.RED);
-        	day_difference.setText("Due today!!!!");
-        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-        }else if(difference_in_days==-1) {
-        	day_difference.setTextColor(Color.RED);
-        	day_difference.setText("Due date is past");
-        	imageView_status.setImageResource(R.drawable.sad);
-        }else {
-        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " days");
-        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-        }
+	    new GetData().execute();
         button_edit.setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -165,7 +129,7 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 				final EditText editText_otherCategory=(EditText) dialog.findViewById(R.id.editText_dialogOtherName);
 				editText_otherCategory.setText(other_name);
 				final Spinner spinner_otherPeriod=(Spinner) dialog.findViewById(R.id.spinner_dialogOtherPeriod);
-				String[] items={"Daily","Weekly","Monthly","Annually","Quarterly","Mid-year"};
+				String[] items=getResources().getStringArray(R.array.ReminderFrequency);
 				ArrayAdapter<String> adapter=new ArrayAdapter<String>(OtherTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 				spinner_otherPeriod.setAdapter(adapter);
 				int spinner_position=adapter.getPosition(other_period);
@@ -176,6 +140,24 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 				dialogButton.setText("Save");
 				dueDateValue=(TextView) dialog.findViewById(R.id.textView_dueDateValue);
 				startDateValue=(TextView) dialog.findViewById(R.id.textView_startDate);
+				final LinearLayout number_layout=(LinearLayout) dialog.findViewById(R.id.LinearLayout_number);
+				number_layout.setVisibility(View.GONE);
+				RadioGroup enter_number=(RadioGroup) dialog.findViewById(R.id.radioGroup1);
+				final RadioButton yesRadioButton;
+				final RadioButton noRadioButton;
+				yesRadioButton = (RadioButton) dialog.findViewById(R.id.radio_yes);
+				noRadioButton = (RadioButton) dialog.findViewById(R.id.radio_no);
+				enter_number.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+					@Override
+					public void onCheckedChanged(RadioGroup group, int checkedId) {
+						if (checkedId==R.id.radio_no) {
+							number_layout.setVisibility(View.GONE);
+							//other_number="0";
+						}else if(checkedId==R.id.radio_yes){
+							number_layout.setVisibility(View.VISIBLE);
+						}
+					}
+				});
 				ImageButton datepickerDialog=(ImageButton) dialog.findViewById(R.id.imageButton_dueDate);
 				datepickerDialog.setOnClickListener(new OnClickListener(){
 
@@ -183,7 +165,6 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 					public void onClick(View v) {
 						final CaldroidFragment dialogCaldroidFragment = CaldroidFragment.newInstance("Select a date", today_month, today_year);
 						dialogCaldroidFragment.show(getSupportFragmentManager(),"TAG");
-						//dialogCaldroidFragment.setEnableSwipe(true);
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 						    @Override
@@ -208,7 +189,6 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 					public void onClick(View v) {
 						final CaldroidFragment dialogCaldroidFragment = CaldroidFragment.newInstance("Select a date", today_month, today_year);
 						dialogCaldroidFragment.show(getSupportFragmentManager(),"TAG");
-						//dialogCaldroidFragment.setEnableSwipe(true);
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 						    @Override
@@ -220,13 +200,9 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 						                Toast.LENGTH_SHORT).show();
 						    }
 						};
-
 						dialogCaldroidFragment.setCaldroidListener(listener);
-						
 					}
-					
 				});
-				
 				Button cancel=(Button) dialog.findViewById(R.id.button_cancel);
 				cancel.setOnClickListener(new OnClickListener(){
 
@@ -240,26 +216,33 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 				dialogButton.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						
-						String duration=null;
-						if(isToday(due_date_to_compare)){
-							duration="Today";
-						}else if(isTomorrow(due_date_to_compare)){
-							duration="Tomorrow";
-						}else if(isThisWeek(due_date_to_compare)){
-							duration="This week";
-						}else if(isThisMonth(due_date_to_compare)){
-							duration="This month";
-						}else if(isThisQuarter(due_date_to_compare)){
-							duration="This quarter";
-						}
 						String other_category=editText_otherCategory.getText().toString();
-						String other_number=editText_otherNumber.getText().toString();
+						String other_number = null;
+						if(noRadioButton.isChecked()){
+			      			other_number="0";
+			      		}else if (yesRadioButton.isChecked()){
+			      			other_number=editText_otherNumber.getText().toString();
+			      		}
 						String other_period=spinner_otherPeriod.getSelectedItem().toString();
-						if(isDateAfter(start_date,due_date)==true){
+						String duration=" ";
+						
+				      	if(isDateAfter(start_date,due_date)==true){
 				      		 startDateValue.requestFocus();
 				      		startDateValue.setError("Check this date!");
-				      	}else{
+				      	}else if(other_number.isEmpty()==true&&yesRadioButton.isChecked()){
+				      		editText_otherNumber.requestFocus();
+				      		editText_otherNumber.setError("Please enter a number");
+				      	}else if(other_category.isEmpty()==true){
+				      		editText_otherCategory.requestFocus();
+				      		editText_otherCategory.setError("Please enter a value");
+				      	}else if(start_date==null){
+				      		startDateValue.requestFocus();
+				      		startDateValue.setError("Please enter a start date");
+				      	}else if(due_date==null){
+				      		dueDateValue.requestFocus();
+				      		dueDateValue.setError("Please enter an end date");
+				      	}
+				      	else{
 					    if(db.editOther(other_category, other_number, other_period,duration,start_date,due_date, other_id) ==true){
 					    	number_achieved=db.getForUpdateOtherNumberAchieved(other_id,other_period);
 					    	JSONObject json = new JSONObject();
@@ -284,6 +267,7 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 				 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				 	          startActivity(intent2);
 				 	          finish();	
+				 	         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 					    	 Toast.makeText(OtherTargetsDetailActivity.this, "Target edtied successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
@@ -348,6 +332,7 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 						 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 						 	          startActivity(intent2);
 						 	          finish();	
+						 	         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 						 	         Toast.makeText(getApplicationContext().getApplicationContext(), "Deleted successfully!",
 									         Toast.LENGTH_LONG).show();
 					        	}
@@ -366,8 +351,10 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 
 			@Override
 			public void onClick(View v) {
-					number_achieved=db.getForUpdateOtherNumberAchieved(other_id,other_period);
-				Intent intent3=new Intent(OtherTargetsDetailActivity.this,UpdateActivity.class);
+				number_achieved=db.getForUpdateOtherNumberAchieved(other_id,other_period);
+				Intent intent3=new Intent(Intent.ACTION_MAIN);
+				intent3.setClass(OtherTargetsDetailActivity.this,UpdateActivity.class);
+				intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	        	intent3.putExtra("id", other_id);
 				intent3.putExtra("number",other_number);
 				intent3.putExtra("name", other_name);
@@ -377,7 +364,8 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 				intent3.putExtra("period", other_period);
 				intent3.putExtra("number_achieved", number_achieved.get(0));//0
 	        	startActivity(intent3);
-				
+				finish();
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
         	
         });
@@ -399,7 +387,7 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 	 	          goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	 	          startActivity(goHome);
 	 	          finish();
-	 	         
+	 	         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 	            return true;
 	        case R.id.action_edit:
 	        		 	         
@@ -414,118 +402,34 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
-	public boolean isToday(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	String today = new SimpleDateFormat("MM/dd/yyyy").format(new Date(System.currentTimeMillis()));
- 	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
- 	       				.toString().equals(today)) ? true : false;
- 	}
- 	
- 	public boolean isTomorrow(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 1);
- 	    	String tomorrow = new SimpleDateFormat("MM/dd/yyyy").format(new Date(c.getTimeInMillis()));
- 	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
- 	       				.toString().equals(tomorrow)) ? true : false;
- 	}
- 	    
- 	public boolean isThisWeek(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 7);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
- 	public boolean isThisMonth(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 30);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
- 	public boolean isThisQuarter(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 90);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
- 	
- 	public boolean isMidYear(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 120);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
- 	public boolean isThisYear(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 365);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
-	public static class DatePickerFragment extends DialogFragment
-		implements DatePickerDialog.OnDateSetListener {
 
-@Override
-public Dialog onCreateDialog(Bundle savedInstanceState) {
-//Use the current date as the default date in the picker
-final Calendar c = Calendar.getInstance();
-int year = c.get(Calendar.YEAR);
-int month = c.get(Calendar.MONTH);
-int day = c.get(Calendar.DAY_OF_MONTH);
-
-//Create a new instance of DatePickerDialog and return it
-return new DatePickerDialog(getActivity(), this, year, month, day);
-}
-
-public void onDateSet(DatePicker view, int year, int month, int day) {
-int month_value=month+1;
-due_date=day+"-"+month_value+"-"+year;
-dueDateValue.setText(due_date);
-}
-}
-	 public static class DatePickerFragment2 extends DialogFragment
-		implements DatePickerDialog.OnDateSetListener {
-
-@Override
-public Dialog onCreateDialog(Bundle savedInstanceState) {
-// Use the current date as the default date in the picker
-final Calendar c = Calendar.getInstance();
-	int year = c.get(Calendar.YEAR);
-	int month = c.get(Calendar.MONTH);
-	int day = c.get(Calendar.DAY_OF_MONTH);
-
-	// Create a new instance of DatePickerDialog and return it
-	return new DatePickerDialog(getActivity(), this, year, month, day);
-}
-
-public void onDateSet(DatePicker view, int year, int month, int day) {
-int month_value=month+1;
-start_date=day+"-"+month_value+"-"+year;
-startDateValue.setText(start_date);
-}
-}
 	 public static long differenceIndays(String startDate,String endDate,String today)
 	 {
 			// String toDateAsString = "05/11/2010";
 			 Date start_date = null;
 			 Date end_date = null;
 			 Date today_date=null;
+			 long starDateAsTimestamp=0;
+			long endDateTimestamp=0;
 			try {
-				start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
-				end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+				if(startDate==null){
+				System.out.println("Enter a valid date!");
+				}else{
+					start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+					 starDateAsTimestamp = start_date.getTime();
+				}
+				if(endDate==null){
+					System.out.println("Enter a valid date!");	
+				}else {
+					end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+					  endDateTimestamp = end_date.getTime();
+				}
+				
 				today_date= new SimpleDateFormat("dd-MM-yyyy").parse(today);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			 long starDateAsTimestamp = start_date.getTime();
-			 long endDateTimestamp = end_date.getTime();
 			 long todayDateTimestamp = today_date.getTime();
 			 long diff = endDateTimestamp - todayDateTimestamp;
 			  
@@ -549,15 +453,25 @@ startDateValue.setText(start_date);
 		// String toDateAsString = "05/11/2010";
 		 Date start_date = null;
 		 Date end_date = null;
+		long starDateAsTimestamp = 0;
+		long endDateTimestamp = 0;
 		try {
-			start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
-			end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+			if(startDate==null){
+				System.out.println("Enter a valid date!");
+			}else{
+				start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+				starDateAsTimestamp = start_date.getTime();
+			}
+			if(endDate==null){
+				System.out.println("Enter a valid date!");
+			}else{
+				end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+				endDateTimestamp = end_date.getTime();
+			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 long starDateAsTimestamp = start_date.getTime();
-		 long endDateTimestamp = end_date.getTime();
 		 long getRidOfTime = 1000 * 60 * 60 * 24;
 		 long startDateAsTimestampWithoutTime = starDateAsTimestamp / getRidOfTime;
 		 long endDateTimestampWithoutTime = endDateTimestamp / getRidOfTime;
@@ -568,4 +482,75 @@ startDateValue.setText(start_date);
 		    return false;
 		 }
 	    }
+	 private class GetData extends AsyncTask<Object, Void, Object> {
+		 DbHelper db=new DbHelper(OtherTargetsDetailActivity.this);
+		private Double percentage;
+		private String percentage_achieved;
+
+	    @Override
+	    protected Object doInBackground(Object... params) {
+	    	 Bundle extras = getIntent().getExtras(); 
+	         if (extras != null) {
+	         	other_name=extras.getString("other_name");
+	         	other_number=extras.getString("other_number");
+	         	other_period=extras.getString("other_period");
+	 			due_date_extra=extras.getString("due_date");
+	 			achieved=extras.getString("achieved");
+	 			start_date_extra=extras.getString("start_date");
+	 			status=extras.getString("status");
+	 			other_id=extras.getLong("other_id");
+	 			last_updated=extras.getString("last_updated");
+	         }
+	         long difference_in_days=differenceIndays(start_date_extra,due_date_extra,getDateTime());
+	         
+	         if (difference_in_days==1){
+	         	day_difference.setTextColor(Color.rgb(225,170,7));
+	         	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " day");
+	         	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
+	         }else if(difference_in_days==0) {
+	         	day_difference.setTextColor(Color.RED);
+	         	day_difference.setText("Due today!!!!");
+	         	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
+	         }else if(difference_in_days==-1) {
+	         	day_difference.setTextColor(Color.RED);
+	         	day_difference.setText("Due date is past");
+	         	imageView_status.setImageResource(R.drawable.sad);
+	         }else {
+	         	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " days");
+	         	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
+	         }
+	         
+				return null;
+	    }
+
+	    @Override
+	    protected void onPostExecute(Object result) {
+	    	 if(!other_number.equals("0")){
+	    	        int number_achieved_current=Integer.valueOf(achieved);
+	    	        int number_entered_current=Integer.valueOf(other_number);
+	    	        Double percentage=((double)number_achieved_current/number_entered_current)*100;
+	    	        String percentage_achieved=String.format("%.0f", percentage);
+	    	        progress_status=(int) percentage.doubleValue();
+	    	        progress_bar.setProgress(progress_status);
+	    	        progress_bar.setPrefixText(percentage_achieved+"%");
+	    	        progress_bar.setPrefixText(" ");
+	    	        textView_dueDate.setText(due_date_extra);
+	    	        textView_startDate.setText(start_date_extra);
+	    	        textView_name.setText(other_name);
+	    	        textView_period.setText(other_period);
+	    	        textView_achieved.setText(achieved);
+	    	        textView_percentageAchieved.setText(percentage_achieved+"%");
+	    	        textView_number.setText(other_number);
+	    	       }else{
+	    	    	   textView_dueDate.setText(due_date_extra);
+	    	           textView_startDate.setText(start_date_extra);
+	    	    	   textView_name.setText(other_name);
+	    	           textView_period.setText(other_period);
+	    	    	   goal_layout.setVisibility(View.GONE);
+	    	    	   progress_bar.setVisibility(View.GONE);
+
+	    	       }
+	        
+	    }
+	}
 }

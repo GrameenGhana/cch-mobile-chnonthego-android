@@ -190,32 +190,218 @@
 	  <color name="green_500">#4CAF50</color>
     <color name="green_200">#A5D6A7</color>
 	<color name="WhileWaitingForTransport">#006699</color>
-	<string-array name="EventNames">
-	   
-	         <item>ANC Static</item>
-	          <item>ANC Outreach</item>
-	           <item>CWC Static</item>
-	            <item>CWC Outreach</item>
-	             <item>PNC Clinic</item>
-	              <item>Routine Home visit</item>
-	               <item>Special Home visit</item>
-	                <item>Family Planning</item>
-	                 <item>Health Talk</item>
-	                  <item>CMAM Clinic</item>
-	                   <item>School Health</item>
-	                    <item>Adolescent Health</item>
-	                     <item>Mop-up Activity/Event</item>
-	                      <item>Community Durbar</item>
-	                       <item>National Activity/Event</item>
-	                 
-	      
-	           <item>Staff meetings/durbars</item>
-         	<item>Workshops</item>
-	           <item>Leave/Excuse Duty</item>
-	            <item>Personal</item> 
-	              <item>Other</item> 
-	     
+	<string-array name="Justification">
+	         <item>No transportation</item>
+	         <item>Bad weather</item>
+	         <item>No funds</item>
+	         <item>No vaccines</item>
+	         <item>Conflicting activity</item>
+	         <item>Sick/Leave</item>
+	         <item>No logistics</item>
+	         <item>Other</item>
 	</string-array>
+	
+	<string-array name="UpdateFrequencies">
+	         <item>To update daily</item>
+	         <item>To update weekly</item>
+	         <item>To update monthly</item>
+	         <item>To update quarterly</item>
+	         <item>To update mid-yearly</item>
+	         <item>To update annualy</item>
+	</string-array>
+	<string-array name="EventNames">
+	         <item>ANC Static</item>
+	         <item>ANC Outreach</item>
+	         <item>CWC Static</item>
+	         <item>CWC Outreach</item>
+	         <item>PNC Clinic</item>
+	         <item>Routine Home visit</item>
+	         <item>Special Home visit</item>
+	         <item>Family Planning</item>
+	         <item>Health Talk</item>
+	         <item>CMAM Clinic</item>
+	         <item>School Health</item>
+	         <item>Adolescent Health</item>
+	         <item>Mop-up Activity/Event</item>
+	         <item>Community Durbar</item>
+	         <item>National Activity/Event</item>
+	         <item>Staff meetings/durbars</item>
+         	 <item>Workshops</item>
+	         <item>Leave/Excuse Duty</item>
+	         <item>Personal</item> 
+	         <item>Other</item> 
+	</string-array>
+	<string-array name="Locations">
+	         <item>Ada</item>
+	         <item>Adedetsekope</item>
+	         <item>Adutor</item>
+	         <item>Agbakope</item>
+	         <item>Agordome</item>
+	         <item>Agorkpo</item>
+	         <item>Agorta</item>
+	         <item>Anyaman</item>
+	         <item>Health Talk</item>
+	         <item>Asidowui</item>
+	         <item>Asigbekope</item>
+	         <item>Azizanyah</item>
+	         <item>Bonikope</item>
+	         <item>Comboni</item>
+	         <item>Dabala</item>
+	         <item>District</item>
+         	 <item>Dogo</item>
+	         <item>Dordoekope-Angorto</item>
+	         <item>Dorkploame</item> 
+	         <item>Gamenu</item> 
+	         <item>Hlevi</item>
+	         <item>Kasseh</item>
+	         <item>Koni</item>
+	         <item>Kpotame</item>
+	         <item>Larve</item>
+	         <item>Lolonya</item>
+	         <item>Luhuor</item>
+	         <item>Madavuno</item>
+	         <item>Matsekope</item>
+	         <item>Pediatorkope</item>
+	         <item>Pute</item>
+	         <item>Sasekope</item>
+	         <item>Sege</item>
+	         <item>Sogakope</item>
+	         <item>Sokutime</item>
+	         <item>Tamatoku</item>
+	         <item>Tefle</item>
+	         <item>Teyekpitikope</item>
+	         <item>Abui-Tsita</item>
+	         <item>Adzokoe</item>
+	         <item>Afienya</item>
+	         <item>Agbadzakope</item>
+	         <item>Agbeve</item>
+	         <item>Ahwiam</item>
+	         <item>Ayertepa</item>
+	         <item>Dawa</item>
+	         <item>Dawhenya</item>
+	         <item>Dikato</item>
+	         <item>Duga</item>
+	         <item>Dzake</item>
+	         <item>Dzebetato</item>
+	         <item>Dzetorkoe</item>
+	         <item>Dzorgborve</item>
+	         <item>Kpeve-Adzokoe</item>
+	         <item>Kua</item>
+	         <item>Lekpongunor</item>
+	         <item>NewNingo</item>
+	         <item>Nyigbenya</item>
+	         <item>OldNingo</item>
+	         <item>Peki</item>
+	         <item>Tsanakpe</item>
+	         <item>Tsatee</item>
+	         <item>Tsiyinu</item>
+	         <item>Wegbe</item>
+	         <item>Prampram</item>
+	         
+	         
+	         
+	</string-array>
+	<string-array name="ReminderFrequency">
+	    	 <item>Daily</item>
+	         <item>Weekly</item>
+	         <item>Monthly</item>
+	         <item>Quarterly</item>
+	         <item>Mid-year</item>
+	         <item>Annually</item>
+	</string-array>
+	
+	<string-array name="CoverageIndicatorsName">
+	    	 <item>Family Planning</item>
+	         <item>Age Groups</item>
+	         <item>School Health</item>
+	</string-array>
+	
+	<string-array name="CoverageIndicatorsDetailFamilyPlanning">
+	    	 <item>New Acceptors</item>
+	         <item>Continuing Acceptors</item>
+	</string-array>
+	
+	<string-array name="CoverageIndicatorsDetailAgeGroups">
+	    	 <item>0 to 11 months</item>
+	         <item>12 to 23 months</item>
+	         <item>24 to 59 months</item>
+	</string-array>
+	
+	<string-array name="CoverageIndicatorsSchoolHealth">
+	    	 <item># of schools visited</item>
+	         <item># of schools with 3+ health talks</item>
+	         <item># examined ­ Pre­school</item>
+	         <item># examined - P3</item>
+	         <item># examined - JHS 1</item>
+	</string-array>
+	
+	<string-array name="CoverageImmunizationTypes">
+	    	 <item>BCG</item>
+	         <item>Penta</item>
+	         <item>OPV</item>
+	         <item>ROTA</item>
+	         <item>PCV</item>
+	         <item>Measles Rubella</item>
+	         <item>Vitamin A</item>
+	         <item>TT pregnant</item>
+	         <item>TT non-pregnant</item>
+	         <item>Yellow Fever</item>
+	</string-array>
+	
+	<string-array name="CoverageImmunizationTypeBCG">
+	    	 <item>BCG</item>
+	</string-array>
+	<string-array name="CoverageImmunizationPenta">
+	    	 <item>Penta 1</item>
+	         <item>Penta 2</item>
+	         <item>Penta 3</item>
+	</string-array>
+	
+	<string-array name="CoverageImmunizationOPV">
+	    	 <item>OPV 1</item>
+	         <item>OPV 2</item>
+	         <item>OPV 3</item>
+	</string-array>
+	
+	<string-array name="CoverageImmunizationROTA">
+	    	 <item>ROTA 1</item>
+	         <item>ROTA 2</item>
+	</string-array>
+	
+	<string-array name="CoverageImmunizationPCV">
+	    	 <item>PCV 1</item>
+	         <item>PCV 2</item>
+	         <item>PCV 3</item>
+	</string-array>
+	
+	<string-array name="CoverageImmunizationMeaslesRubella">
+	    	 <item>Measles Rubella @9mnths</item>
+	         <item>Measles 2</item>
+	</string-array>
+	
+	<string-array name="CoverageImmunizationVitaminA">
+	    	 <item>100,000 IU</item>
+	         <item>200,000 IU</item>
+	         <item>Postpartum</item>
+	</string-array>
+	
+	<string-array name="CoverageImmunizationTT">
+	    	 <item>TT 1</item>
+	         <item>TT 2</item>
+	         <item>TT 3</item>
+	         <item>TT 4</item>
+	         <item>TT 5</item>
+	</string-array>
+	
+	<string-array name="CoverageImmunizationYellowFever">
+	    	 <item>Yellow Fever</item>
+	</string-array>
+	<string name="daily">Daily</string>
+	<string name="weekly">Weekly</string>
+	<string name="monthly">Monthly</string>
+	<string name="quarterly">Quarterly</string>
+	<string name="mid_year">Mid-year</string>
+	<string name="annually">Annually</string>
          <string name="str_difficulty_breathing_cyanosis">Difficulty Breathing or Cyanosis</string> 
 	              <string name="str_put_client_on_left_leg_above_chest">Put client on her left side with her legs high above the chest</string> 
 	              <string name="str_cover_mother_with_warmth">Cover the mother for warmth</string> 
@@ -623,5 +809,12 @@ Treat client with Artesunate-Amodiaquine (see section 10.2).  If they cannot tol
 	              <string name="str_report_adverse_reaction_to_drug_immediately">Report any adverse reactions to the drugs immediately</string>
 	              <string name="str_itpt_sp_must_be_followed_as_previously_started">Intermittent prevention treatment (IPTp) schedule with sulfa-doxine pyramethamine (SP) should be followed if it has previously been started, or should be started at next visit if not started previously</string>
 				  <string name="str_teaching_mother_how_keep_baby_warm">Teach mother how to keep the baby warm on the way to the health facility</string>
-				  
+				  <string name="crash_toast_text">Ooooops ! CHN on the go has crashed but a report has been sent to the developer to fix this problem</string>
+
+				  <string name="crash_dialog_title">CHN on the go has crashed</string>
+				<string name="crash_dialog_text">An unexpected error occurred forcing the
+    application to stop. Please help us fix this by sending us error data,
+    all you have to do is click OK.</string>
+<string name="crash_dialog_comment_prompt">You might add your comments about the problem below:</string>
+<string name="crash_dialog_ok_toast">Thank you !</string>
 </resources>

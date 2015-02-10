@@ -50,15 +50,18 @@ public class QuickReadsMenuActivity extends BaseActivity {
 				case 0:
 					intent=new Intent(mContext,TreatingDiarrhoeaActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,TreatingUnComplicatedMalariaActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
 					intent.putExtra("value", "bloody_diarrhoea");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				
 				}

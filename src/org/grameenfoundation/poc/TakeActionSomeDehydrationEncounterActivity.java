@@ -41,6 +41,7 @@ public class TakeActionSomeDehydrationEncounterActivity extends BaseActivity {
 					Intent intent=new Intent(TakeActionSomeDehydrationEncounterActivity.this,KeepingBabyWarmAndMalariaActivity.class);
 					intent.putExtra("value", "keeping_baby_warm");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
 				   
 			   });
@@ -53,6 +54,7 @@ public class TakeActionSomeDehydrationEncounterActivity extends BaseActivity {
 					Intent intent=new Intent(TakeActionSomeDehydrationEncounterActivity.this,TreatingDiarrhoeaActivity.class);
 					intent.putExtra("value", "keeping_baby_warm");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
 				   
 			   });
@@ -66,6 +68,7 @@ public class TakeActionSomeDehydrationEncounterActivity extends BaseActivity {
 					Intent intent=new Intent(TakeActionSomeDehydrationEncounterActivity.this,TreatingDiarrhoeaActivity.class);
 					intent.putExtra("value", "keeping_baby_warm");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
 				   
 			   });
@@ -77,7 +80,7 @@ public class TakeActionSomeDehydrationEncounterActivity extends BaseActivity {
 					Intent intent =new Intent(TakeActionSomeDehydrationEncounterActivity.this,TakeActionSomeDehydrationEncounterNextActivity.class);
 					intent.putExtra("category","chps_one_next");
 					startActivity(intent);
-					
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
         		
         	});
@@ -91,6 +94,7 @@ public class TakeActionSomeDehydrationEncounterActivity extends BaseActivity {
 					Intent intent=new Intent(TakeActionSomeDehydrationEncounterActivity.this,TreatingDiarrhoeaActivity.class);
 					intent.putExtra("value", "keeping_baby_warm");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
 				   
 			   });
@@ -102,7 +106,7 @@ public class TakeActionSomeDehydrationEncounterActivity extends BaseActivity {
 					Intent intent =new Intent(TakeActionSomeDehydrationEncounterActivity.this,TakeActionSomeDehydrationEncounterNextActivity.class);
 					intent.putExtra("category","chps_two_next");
 					startActivity(intent);
-					
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
         		
         	});

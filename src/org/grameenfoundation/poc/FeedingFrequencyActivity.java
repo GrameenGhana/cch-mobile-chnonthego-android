@@ -34,6 +34,7 @@ public class FeedingFrequencyActivity extends BaseActivity {
 			Intent intent=new Intent(FeedingFrequencyActivity.this,InfantFeedingNextActivity.class);
 			intent.putExtra("value", "feeding_frequency");
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

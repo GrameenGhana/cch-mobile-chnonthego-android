@@ -36,7 +36,7 @@ public class DiarrhoeaActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(mContext,DiarrhoeaSectionActivity.class);
 				startActivity(intent);
-				
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

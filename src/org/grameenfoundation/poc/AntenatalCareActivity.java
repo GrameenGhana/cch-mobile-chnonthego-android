@@ -56,18 +56,22 @@ public class AntenatalCareActivity extends BaseActivity implements OnItemClickLi
 		case 0:
 			intent=new Intent(mContext, DiagnosticToolActivity.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		case 1:
 			intent=new Intent(mContext, CounsellingPerTrimesterActivtiy.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		case 2:
 			intent=new Intent(mContext, CalculatorsMenuActivity.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		case 3:
 			intent=new Intent(mContext, ReferencesMenuActivity.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		}
 		

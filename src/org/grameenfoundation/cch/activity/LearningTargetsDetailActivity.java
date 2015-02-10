@@ -7,16 +7,12 @@ import java.util.Date;
 import java.util.Locale;
 
 import org.digitalcampus.mobile.learningGF.R;
-import org.digitalcampus.mobile.learningGF.R.color;
 import org.digitalcampus.oppia.activity.MainScreenActivity;
 import org.digitalcampus.oppia.application.DbHelper;
-import org.grameenfoundation.adapters.EventBaseAdapter;
-import org.grameenfoundation.cch.activity.CoverageTargetsDetailActivity.DatePickerFragment;
 import org.grameenfoundation.cch.caldroid.CaldroidFragment;
 import org.grameenfoundation.cch.caldroid.CaldroidListener;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -24,6 +20,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -86,7 +83,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_learning_target_detail);
 	    db=new DbHelper(LearningTargetsDetailActivity.this);
-	    getActionBar().setTitle("Event Planner");
+	    getActionBar().setTitle("Planner");
 	    getActionBar().setSubtitle("Target Details");
 	    Calendar c = Calendar.getInstance();
         today_month=c.get(Calendar.MONTH)+1;
@@ -104,50 +101,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 	    button_edit=(Button) findViewById(R.id.button_edit);
 	    button_delete=(Button) findViewById(R.id.button_delete);
 	    button_update=(Button) findViewById(R.id.button_update);
-	    Bundle extras = getIntent().getExtras(); 
-        if (extras != null) {
-        	learning_category=extras.getString("learning_category");
-        	learning_course=extras.getString("learning_course");
-        	learning_topic=extras.getString("learning_topic");
-			due_date_extra=extras.getString("due_date");
-			start_date_extra=extras.getString("start_date");
-			status=extras.getString("status");
-			learning_id=extras.getLong("learning_id");
-			last_updated=extras.getString("last_updated");
-			period=extras.getString("period");
-        }
-        learning_period.setText(period);
-        textView_category.setText(learning_category);
-        textView_course.setText(learning_course);
-        textView_dueDate.setText(due_date_extra);
-        textView_topic.setText(learning_topic);
-        textView_startDate.setText(start_date_extra);
-        
-        long difference_in_days=differenceIndays(start_date_extra,due_date_extra,getDateTime());
-        if (difference_in_days==1){
-        	day_difference.setTextColor(Color.rgb(225,170,7));
-        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " day");
-        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-        }else if(difference_in_days==0) {
-        	day_difference.setTextColor(Color.RED);
-        	day_difference.setText("Due today!!!!");
-        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-        }else if(difference_in_days==-1) {
-        	day_difference.setTextColor(Color.RED);
-        	day_difference.setText("Due date is past");
-        	imageView_status.setImageResource(R.drawable.sad);
-        }else {
-        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " days");
-        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-        }
-        /*
-        if(status.equalsIgnoreCase("updated")){
-        	imageView_status.setImageResource(R.drawable.ic_achieved_smile);
-        }else if(status.equalsIgnoreCase("new_record")){
-        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-        }else if(status.equalsIgnoreCase("not_achieved")){
-        	imageView_status.setImageResource(R.drawable.ic_not_achieved);
-        }*/
+	    new GetData().execute();
         button_edit.setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -183,24 +137,16 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 												"Preventing Postpartum Hemorrhage"};
 							ArrayAdapter<String> adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items2_1);
 							spinner_learningCourse.setAdapter(adapter3);
-						
 							break;
 						}
-						
 					}
 
 					@Override
 					public void onNothingSelected(AdapterView<?> parent) {
-						// TODO Auto-generated method stub
-						
 					}
-					
-					
 				});
 				final Spinner spinner_period=(Spinner) dialog.findViewById(R.id.spinner_period);
-				final String[] items_period={"Daily","Weekly",
-						"Monthly","Quarterly",
-						"Mid-year","Annually"};
+				final String[] items_period=getResources().getStringArray(R.array.ReminderFrequency);
 				ArrayAdapter<String> adapter_period=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items_period);
 				spinner_period.setAdapter(adapter_period);
 				
@@ -322,11 +268,8 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 
 					@Override
 					public void onNothingSelected(AdapterView<?> parent) {
-						
 					}
-					
 				});
-				
 				
 				Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddLearning);
 				dialogButton.setText("Save");
@@ -398,24 +341,19 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 					@Override
 					public void onClick(View v) {
 						//dialog.dismiss();
-						String duration=null;
-						if(isToday(due_date_to_compare)){
-							duration="Today";
-						}else if(isTomorrow(due_date_to_compare)){
-							duration="Tomorrow";
-						}else if(isThisWeek(due_date_to_compare)){
-							duration="This week";
-						}else if(isThisMonth(due_date_to_compare)){
-							duration="This month";
-						}else if(isThisQuarter(due_date_to_compare)){
-							duration="This quarter";
-						}
+						String duration=" ";
+						
 						String learning_category=spinner_learningCatagory.getSelectedItem().toString();
 						String learning_course=spinner_learningCourse.getSelectedItem().toString();
 						String learning_topic=spinner_learningDescription.getSelectedItem().toString();
 						if(isDateAfter(start_date,due_date)==true){
 				      		 startDateValue.requestFocus();
 				      		startDateValue.setError("Check this date!");
+				      	}else if(start_date==null){
+				      		startDateValue.setError("Select a date");
+				      	}
+				      	else if(due_date==null){
+				      		dueDateValue.setError("Select a date");
 				      	}else{
 					    if(db.editLearning(learning_category, learning_course,learning_topic,duration,start_date,due_date, learning_id) ==true){
 					    	JSONObject json = new JSONObject();
@@ -440,6 +378,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 				 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				 	          startActivity(intent2);
 				 	          finish();	
+				 	         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 					    	 Toast.makeText(LearningTargetsDetailActivity.this.getApplicationContext(), "Learning target edited successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
@@ -450,10 +389,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 					}
 				});
 	 				dialog.show();
-	 	         
-				
 			}
-        	
         });
         button_delete.setOnClickListener(new OnClickListener(){
 
@@ -461,25 +397,18 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 			public void onClick(View v) {
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 						LearningTargetsDetailActivity.this);
-		 
-					// set title
 					alertDialogBuilder.setTitle("Delete Confirmation");
-		 
-					// set dialog message
 					alertDialogBuilder
 						.setMessage("You are about to delete this target. Proceed?")
 						.setCancelable(false)
 						.setIcon(R.drawable.ic_error)
 						.setPositiveButton("No",new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,int id) {
-								// if this button is clicked, close
-								// current activity
 								dialog.cancel();
 							}
 						  })
 						.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,int id) {
-								// if this button is clicked, just close
 								if(db.deleteLearningCategory(learning_id)==true){
 									JSONObject json = new JSONObject();
 									 try {
@@ -503,17 +432,14 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 						 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 						 	          startActivity(intent2);
 						 	          finish();	
+						 	         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 					        	}
 						 	         Toast.makeText(getApplicationContext().getApplicationContext(), "Deleted successfully!",
 									         Toast.LENGTH_LONG).show();
 					        	}
 							
 						});
-		 
-						// create alert dialog
 						AlertDialog alertDialog = alertDialogBuilder.create();
-		 
-						// show it
 						alertDialog.show();
 				
 			
@@ -525,7 +451,9 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent3=new Intent(LearningTargetsDetailActivity.this,UpdateActivity.class);
+				Intent intent3=new Intent(Intent.ACTION_MAIN);
+				intent3.setClass(LearningTargetsDetailActivity.this,UpdateActivity.class);
+				intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	        	intent3.putExtra("id", learning_id);
 				//intent3.putExtra("number",event_number);
 				intent3.putExtra("learning_topic", learning_topic);
@@ -534,14 +462,14 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 				intent3.putExtra("start_date", start_date_extra);
 				intent3.putExtra("last_updated", last_updated);
 	        	startActivity(intent3);
-				
+				finish();
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
         	
         });
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    // Inflate the menu items for use in the action bar
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.update_menu_icons, menu);
 	    return super.onCreateOptionsMenu(menu);
@@ -556,7 +484,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 	 	          goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	 	          startActivity(goHome);
 	 	          finish();
-	 	         
+	 	         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 	            return true;
 	        case R.id.action_edit:
 	        	
@@ -571,118 +499,36 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
-	public boolean isToday(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	String today = new SimpleDateFormat("MM/dd/yyyy").format(new Date(System.currentTimeMillis()));
- 	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
- 	       				.toString().equals(today)) ? true : false;
- 	}
- 	
- 	public boolean isTomorrow(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 1);
- 	    	String tomorrow = new SimpleDateFormat("MM/dd/yyyy").format(new Date(c.getTimeInMillis()));
- 	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
- 	       				.toString().equals(tomorrow)) ? true : false;
- 	}
- 	    
- 	public boolean isThisWeek(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 7);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
- 	public boolean isThisMonth(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 30);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
- 	public boolean isThisQuarter(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 90);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
- 	
- 	public boolean isMidYear(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 120);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
- 	public boolean isThisYear(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 365);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
-	public static class DatePickerFragment extends DialogFragment
-		implements DatePickerDialog.OnDateSetListener {
 
-@Override
-public Dialog onCreateDialog(Bundle savedInstanceState) {
-//Use the current date as the default date in the picker
-final Calendar c = Calendar.getInstance();
-int year = c.get(Calendar.YEAR);
-int month = c.get(Calendar.MONTH);
-int day = c.get(Calendar.DAY_OF_MONTH);
-
-//Create a new instance of DatePickerDialog and return it
-return new DatePickerDialog(getActivity(), this, year, month, day);
-}
-
-public void onDateSet(DatePicker view, int year, int month, int day) {
-int month_value=month+1;
-due_date=day+"-"+month_value+"-"+year;
-dueDateValue.setText(due_date);
-}
-}
-	 public static class DatePickerFragment2 extends DialogFragment
-		implements DatePickerDialog.OnDateSetListener {
-
-@Override
-public Dialog onCreateDialog(Bundle savedInstanceState) {
-// Use the current date as the default date in the picker
-final Calendar c = Calendar.getInstance();
-	int year = c.get(Calendar.YEAR);
-	int month = c.get(Calendar.MONTH);
-	int day = c.get(Calendar.DAY_OF_MONTH);
-
-	// Create a new instance of DatePickerDialog and return it
-	return new DatePickerDialog(getActivity(), this, year, month, day);
-}
-
-public void onDateSet(DatePicker view, int year, int month, int day) {
-int month_value=month+1;
-start_date=day+"-"+month_value+"-"+year;
-startDateValue.setText(start_date);
-}
-}
 	 public static long differenceIndays(String startDate,String endDate,String today)
 	 {
-			// String toDateAsString = "05/11/2010";
 			 Date start_date = null;
 			 Date end_date = null;
 			 Date today_date=null;
+			 long starDateAsTimestamp=0;
+			long endDateTimestamp=0;
 			try {
-				start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
-				end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+				if(startDate==null){
+				System.out.println("Enter a valid date!");
+				}else{
+					start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+					 starDateAsTimestamp = start_date.getTime();
+				}
+				
+				if(endDate==null){
+					System.out.println("Enter a valid date!");	
+				}else {
+					end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+					  endDateTimestamp = end_date.getTime();
+				}
+				
 				today_date= new SimpleDateFormat("dd-MM-yyyy").parse(today);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			 long starDateAsTimestamp = start_date.getTime();
-			 long endDateTimestamp = end_date.getTime();
+			
+			
 			 long todayDateTimestamp = today_date.getTime();
 			 long diff = endDateTimestamp - todayDateTimestamp;
 			  
@@ -706,15 +552,27 @@ startDateValue.setText(start_date);
 		// String toDateAsString = "05/11/2010";
 		 Date start_date = null;
 		 Date end_date = null;
+		long starDateAsTimestamp = 0;
+		long endDateTimestamp = 0;
 		try {
-			start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
-			end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+			if(startDate==null){
+				System.out.println("Enter a valid date!");
+			}else{
+				start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+				starDateAsTimestamp = start_date.getTime();
+			}
+			if(endDate==null){
+				System.out.println("Enter a valid date!");
+			}else{
+				end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+				endDateTimestamp = end_date.getTime();
+			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 long starDateAsTimestamp = start_date.getTime();
-		 long endDateTimestamp = end_date.getTime();
+		
+		
 		 long getRidOfTime = 1000 * 60 * 60 * 24;
 		 long startDateAsTimestampWithoutTime = starDateAsTimestamp / getRidOfTime;
 		 long endDateTimestampWithoutTime = endDateTimestamp / getRidOfTime;
@@ -725,4 +583,57 @@ startDateValue.setText(start_date);
 		    return false;
 		 }
 	    }
+	 
+	 private class GetData extends AsyncTask<Object, Void, Object> {
+		 DbHelper db=new DbHelper(LearningTargetsDetailActivity.this);
+		private Double percentage;
+		private String percentage_achieved;
+
+	    @Override
+	    protected Object doInBackground(Object... params) {
+	    	Bundle extras = getIntent().getExtras(); 
+	        if (extras != null) {
+	        	learning_category=extras.getString("learning_category");
+	        	learning_course=extras.getString("learning_course");
+	        	learning_topic=extras.getString("learning_topic");
+				due_date_extra=extras.getString("due_date");
+				start_date_extra=extras.getString("start_date");
+				status=extras.getString("status");
+				learning_id=extras.getLong("learning_id");
+				last_updated=extras.getString("last_updated");
+				period=extras.getString("period");
+	        }
+	        long difference_in_days=differenceIndays(start_date_extra,due_date_extra,getDateTime());
+	        if (difference_in_days==1){
+	        	day_difference.setTextColor(Color.rgb(225,170,7));
+	        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " day");
+	        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
+	        }else if(difference_in_days==0) {
+	        	day_difference.setTextColor(Color.RED);
+	        	day_difference.setText("Due today!!!!");
+	        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
+	        }else if(difference_in_days==-1) {
+	        	day_difference.setTextColor(Color.RED);
+	        	day_difference.setText("Due date is past");
+	        	imageView_status.setImageResource(R.drawable.sad);
+	        }else {
+	        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " days");
+	        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
+	        }
+	       
+				return null;
+	        
+	    }
+
+	    @Override
+	    protected void onPostExecute(Object result) {
+	    	  learning_period.setText(period);
+	          textView_category.setText(learning_category);
+	          textView_course.setText(learning_topic);
+	          textView_dueDate.setText(due_date_extra);
+	          textView_topic.setText(learning_course);
+	          textView_startDate.setText(start_date_extra);
+	        
+	    }
+	}
 }

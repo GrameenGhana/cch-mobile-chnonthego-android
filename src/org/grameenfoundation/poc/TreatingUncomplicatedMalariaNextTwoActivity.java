@@ -29,8 +29,9 @@ public class TreatingUncomplicatedMalariaNextTwoActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-			Intent intent=new Intent(TreatingUncomplicatedMalariaNextTwoActivity.this,TreatingUncomplicatedMalariaNextThreeActivity.class);
-			startActivity(intent);
+				Intent intent=new Intent(TreatingUncomplicatedMalariaNextTwoActivity.this,TreatingUncomplicatedMalariaNextThreeActivity.class);
+				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

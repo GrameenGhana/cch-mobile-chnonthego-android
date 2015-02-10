@@ -35,6 +35,7 @@ public class ExclusiveBreastFeedingActivity extends BaseActivity {
 			Intent intent=new Intent(ExclusiveBreastFeedingActivity.this,InfantFeedingNextActivity.class);
 			intent.putExtra("value", "exclusive_breastfeeding");
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

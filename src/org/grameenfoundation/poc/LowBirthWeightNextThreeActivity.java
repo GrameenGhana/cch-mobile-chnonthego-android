@@ -54,36 +54,43 @@ public class LowBirthWeightNextThreeActivity extends BaseActivity {
 				intent=new Intent(LowBirthWeightNextThreeActivity.this,TakeActionFeedingProblemsActivity.class);
 				intent.putExtra("value", "not_attached");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				break;
 			case 1:
 				intent=new Intent(LowBirthWeightNextThreeActivity.this,TakeActionFeedingProblemsActivity.class);
 				intent.putExtra("value", "not_suckling");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				break;
 			case 2:
 				intent=new Intent(LowBirthWeightNextThreeActivity.this,TakeActionFeedingProblemsActivity.class);
 				intent.putExtra("value", "breastfeeding");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				break;
 			case 3:
 				intent=new Intent(LowBirthWeightNextThreeActivity.this,TakeActionFeedingProblemsActivity.class);
 				intent.putExtra("value", "receive_food");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				break;
 			case 4:
 				intent=new Intent(LowBirthWeightNextThreeActivity.this,TakeActionFeedingProblemsActivity.class);
 				intent.putExtra("value", "not_breastfeeding");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				break;
 			case 5:
 				intent=new Intent(LowBirthWeightNextThreeActivity.this,TakeActionFeedingProblemsActivity.class);
 				intent.putExtra("value", "low_weight_for_age");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				break;
 			case 6:
 				intent=new Intent(LowBirthWeightNextThreeActivity.this,TakeActionFeedingProblemsActivity.class);
 				intent.putExtra("value", "thrush");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				break;
 			}
 		}
@@ -97,6 +104,7 @@ public class LowBirthWeightNextThreeActivity extends BaseActivity {
 		Intent intent=new Intent(LowBirthWeightNextThreeActivity.this,TakeActionFeedingProblemsActivity.class);
 		intent.putExtra("value", "no_feeding_problems");
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		}
 		   
 	   });

@@ -41,7 +41,7 @@ public class BreastProblemsPNCMotherActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(mContext,BreastProblemsPNCMotherNextActivity.class);
 				startActivity(intent);
-				
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    });
 	   

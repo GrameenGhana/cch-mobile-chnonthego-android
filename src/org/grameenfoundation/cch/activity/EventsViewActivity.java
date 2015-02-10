@@ -53,7 +53,7 @@ public class EventsViewActivity extends  BaseActivity {
 	    dbh = new DbHelper(mContext);
 	    String[] groupItems={"Today","Tomorrow","Future"};
 	    getActionBar().setDisplayShowHomeEnabled(false);
-	    getActionBar().setTitle("Event Planner");
+	    getActionBar().setTitle("Planner");
 	    getActionBar().setSubtitle("Planned Events");
 		//new addition
 		TodayCalendarEvents=c.getTodaysEvents(false);
@@ -72,6 +72,7 @@ public class EventsViewActivity extends  BaseActivity {
 			Intent intent =  new Intent(Intent.ACTION_VIEW);
 			intent.setData(Uri.parse("content://com.android.calendar/time"));
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		}
 		
 	});
@@ -89,6 +90,7 @@ public class EventsViewActivity extends  BaseActivity {
 			intent.putExtra("mode", "edit_mode");
 			startActivity(intent);
 			finish();
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			return true;
 		}
 		

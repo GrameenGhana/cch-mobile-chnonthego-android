@@ -35,6 +35,7 @@ public class PerformMalariaTestActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(PerformMalariaTestActivity.this,AskMalariaComplicatedActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });
@@ -46,6 +47,7 @@ public class PerformMalariaTestActivity extends BaseActivity {
 				Intent intent=new Intent(PerformMalariaTestActivity.this,TakeActionSevereMalariaActivity.class);
 				intent.putExtra("category", "negative");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });
@@ -57,6 +59,7 @@ public class PerformMalariaTestActivity extends BaseActivity {
 				Intent intent=new Intent(PerformMalariaTestActivity.this,TakeActionSevereMalariaActivity.class);
 				intent.putExtra("category", "not done");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

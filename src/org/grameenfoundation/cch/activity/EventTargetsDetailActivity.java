@@ -9,30 +9,22 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import org.digitalcampus.mobile.learningGF.R;
-import org.digitalcampus.mobile.learningGF.R.color;
 import org.digitalcampus.oppia.activity.MainScreenActivity;
 import org.digitalcampus.oppia.application.DbHelper;
-import org.grameenfoundation.adapters.EventBaseAdapter;
-import org.grameenfoundation.cch.activity.TargetSettingActivity.EventsActivity.DatePickerFragment;
-import org.grameenfoundation.cch.activity.TargetSettingActivity.EventsActivity.DatePickerFragment2;
 import org.grameenfoundation.cch.caldroid.CaldroidFragment;
 import org.grameenfoundation.cch.caldroid.CaldroidListener;
 import org.grameenfoundation.cch.utils.TextProgressBar;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.text.format.DateFormat;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,7 +32,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -71,7 +62,6 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 	private String achieved;
 	private TextView textView_achieved;
 	private TextView textView_percentageAchieved;
-	private String today;
 	private int today_year;
 	private int today_day;
 	private int today_month;
@@ -102,14 +92,13 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_event_target_detail);
 	    db=new DbHelper(EventTargetsDetailActivity.this);
-	    getActionBar().setTitle("Event Planner");
+	    getActionBar().setTitle("Planner");
 	    getActionBar().setSubtitle("Event Target Details");
 	    Calendar c = Calendar.getInstance();
         today_month=c.get(Calendar.MONTH)+1;
         today_day=c.get(Calendar.DAY_OF_WEEK);
         today_year=c.get(Calendar.YEAR);
         start_time=System.currentTimeMillis();
-      	//today=day+"-"+month+"-"+year;
 	    textView_name=(TextView) findViewById(R.id.textView_name);
 	    textView_period=(TextView) findViewById(R.id.textView_period);
 	    textView_number=(TextView) findViewById(R.id.textView_number);
@@ -124,64 +113,7 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 	    button_edit=(Button) findViewById(R.id.button_edit);
 	    button_delete=(Button) findViewById(R.id.button_delete);
 	    button_update=(Button) findViewById(R.id.button_update);
-	    
-	    Bundle extras = getIntent().getExtras(); 
-        if (extras != null) {
-        	event_name=extras.getString("event_name");
-			event_number=extras.getString("event_number");
-			event_period=extras.getString("event_period");
-			due_date_extra=extras.getString("due_date");
-			start_date_extra=extras.getString("start_date");
-			achieved=extras.getString("achieved");
-			status=extras.getString("status");
-			event_id=extras.getLong("event_id");
-			last_updated=extras.getString("last_updated");
-			System.out.println(String.valueOf(event_id));
-        }
-       
-        int number_achieved_current=Integer.valueOf(achieved);
-        int number_entered_current=Integer.valueOf(event_number);
-        Double percentage=((double)number_achieved_current/number_entered_current)*100;
-        String percentage_achieved=String.format("%.0f", percentage);
-        long difference_in_days=differenceIndays(start_date_extra,due_date_extra,getDateTime());
-        
-        if (difference_in_days==1){
-        	day_difference.setTextColor(Color.rgb(225,170,7));
-        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " day");
-        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-        }else if(difference_in_days==0) {
-        	day_difference.setTextColor(Color.RED);
-        	day_difference.setText("Due today!!!!");
-        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-        }else if(difference_in_days==-1) {
-        	day_difference.setTextColor(Color.RED);
-        	day_difference.setText("Due date is past");
-        	imageView_status.setImageResource(R.drawable.sad);
-        }else {
-        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " days");
-        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-        }
-        textView_name.setText(event_name);
-        textView_period.setText(event_period);
-        textView_dueDate.setText(due_date_extra);
-        textView_number.setText(event_number);
-        textView_startDate.setText(start_date_extra);
-        textView_achieved.setText(achieved);
-        textView_percentageAchieved.setText(String.valueOf(percentage_achieved)+"%");
-        progress_status=(int) percentage.doubleValue();
-        progress_bar.setProgress(progress_status);
-        progress_bar.setPrefixText(percentage_achieved+"%");
-        progress_bar.setPrefixText(" ");
-      
-      /*
-        if(status.equalsIgnoreCase("updated")){
-        	imageView_status.setImageResource(R.drawable.ic_achieved_smile);
-        }else if(status.equalsIgnoreCase("new_record")){
-        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-        }else if(status.equalsIgnoreCase("not_achieved")){
-        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-        }
-        */
+	    new GetData().execute();
         button_edit.setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -190,19 +122,14 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 				dialog.setContentView(R.layout.event_set_dialog);
 				dialog.setTitle("Edit Event Target");
 				final EditText editText_eventNumber=(EditText) dialog.findViewById(R.id.editText_dialogEventPeriodNumber);
-				String[] items={"Daily","Weekly","Monthly","Mid-year","Quarterly","Annually"};
+				String[] items=getResources().getStringArray(R.array.ReminderFrequency);
 				ArrayAdapter<String> adapter=new ArrayAdapter<String>(EventTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 				final Spinner spinner_event_name=(Spinner) dialog.findViewById(R.id.spinner_eventName);
 				final Spinner spinner_eventPeriod=(Spinner) dialog.findViewById(R.id.spinner_dialogEventPeriod);
 				spinner_eventPeriod.setAdapter(adapter);
 				int spinner_position_period=adapter.getPosition(event_period);
 				spinner_eventPeriod.setSelection(spinner_position_period);
-				String[] items_names={"ANC Static","ANC Outreach","CWC Static","CWC Outreach",
-						"PNC Clinic","Routine Home visit","Special Home visit",
-						"Family Planning","Health Talk","CMAM Clinic","School Health",
-						"Adolescent Health","Mop-up Activity/Event","Community Durbar",
-						"National Activity/Event","Staff meetings/durbars","Workshops","Leave/Excuse Duty",
-						"Personal","Other"};
+				String[] items_names=getResources().getStringArray(R.array.EventNames);
 				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(EventTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items_names);
 				spinner_event_name.setAdapter(adapter2);
 				int spinner_position=adapter2.getPosition(event_name);
@@ -219,7 +146,6 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 					public void onClick(View v) {
 						final CaldroidFragment dialogCaldroidFragment = CaldroidFragment.newInstance("Select a date", today_month, today_year);
 						dialogCaldroidFragment.show(getSupportFragmentManager(),"TAG");
-						//dialogCaldroidFragment.setEnableSwipe(true);
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 						    @Override
@@ -231,11 +157,8 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 						                Toast.LENGTH_SHORT).show();
 						    }
 						};
-
 						dialogCaldroidFragment.setCaldroidListener(listener);
-						
 					}
-					
 				});
 				ImageButton datepickerDialog2=(ImageButton) dialog.findViewById(R.id.imageButton_startDate);
 				datepickerDialog2.setOnClickListener(new OnClickListener(){
@@ -244,7 +167,6 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 					public void onClick(View v) {
 						final CaldroidFragment dialogCaldroidFragment = CaldroidFragment.newInstance("Select a date", today_month, today_year);
 						dialogCaldroidFragment.show(getSupportFragmentManager(),"TAG");
-						//dialogCaldroidFragment.setEnableSwipe(true);
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 						    @Override
@@ -274,34 +196,24 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 				});
 			
 				dialogButton.setOnClickListener(new OnClickListener() {
-				
-				
-
 					@Override
 					public void onClick(View v) {
-						//dialog.dismiss();
-						String duration = null;
-						if(isToday(due_date_to_compare)){
-							duration="Today";
-						}else if(isTomorrow(due_date_to_compare)){
-							duration="Tomorrow";
-						}else if(isThisWeek(due_date_to_compare)){
-							duration="This week";
-						}else if(isThisMonth(due_date_to_compare)){
-							duration="This month";
-						}else if(isThisQuarter(due_date_to_compare)){
-							duration="This quarter";
-						}
+						String duration = " ";
 						String event_name=spinner_event_name.getSelectedItem().toString();
 						String event_number=editText_eventNumber.getText().toString();
 						String event_period=spinner_eventPeriod.getSelectedItem().toString();
 						if(isDateAfter(start_date,due_date)==true){
 				      		 startDateValue.requestFocus();
-				      		startDateValue.setError("Check this date!");
+				      		 startDateValue.setError("Check this date!");
+				      	}else if(start_date==null){
+				      		startDateValue.requestFocus();
+				      		startDateValue.setError("Select a start date");
+				      	}else if(due_date==null){
+				      		dueDateValue.requestFocus();
+				      		dueDateValue.setError("Select an end date");
 				      	}else{
 					    if(db.editEventCategory(event_name, event_number, event_period,duration,start_date,due_date, event_id)==true){
 					    	number_achieved=db.getForUpdateEventNumberAchieved(event_id,event_period);
-							//number_remaining=db.getAllForEventsNumberRemaining(event_period);
 					    	JSONObject json = new JSONObject();
 							 try {
 								json.put("id", event_id);
@@ -323,6 +235,7 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 				 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				 	          startActivity(intent2);
 				 	          finish();	
+				 	         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 					    	 Toast.makeText(EventTargetsDetailActivity.this, "Event target edited successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
@@ -334,8 +247,6 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 				});
 				
 	 				dialog.show();
-	 	         
-				
 			}
         	
         });
@@ -345,28 +256,20 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 			public void onClick(View v) {
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 						EventTargetsDetailActivity.this);
-		 
-					// set title
 					alertDialogBuilder.setTitle("Delete Confirmation");
-		 
-					// set dialog message
 					alertDialogBuilder
 						.setMessage("You are about to delete this target. Proceed?")
 						.setCancelable(false)
 						.setIcon(R.drawable.ic_error)
 						.setPositiveButton("No",new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,int id) {
-								// if this button is clicked, close
-								// current activity
 								dialog.cancel();
 							}
 						  })
 						.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,int id) {
-								// if this button is clicked, just close
 								if(db.deleteEventCategory(event_id)==true){
 									number_achieved=db.getForUpdateEventNumberAchieved(event_id,event_period);
-									//number_remaining=db.getAllForEventsNumberRemaining(event_period);
 									JSONObject json = new JSONObject();
 									 try {
 										json.put("id", event_id);
@@ -394,11 +297,7 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 					        	}
 							
 						});
-		 
-						// create alert dialog
 						AlertDialog alertDialog = alertDialogBuilder.create();
-		 
-						// show it
 						alertDialog.show();
 				
 			}
@@ -410,7 +309,9 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 			public void onClick(View v) {
 				number_achieved=db.getForUpdateEventNumberAchieved(event_id,event_period);
 				System.out.println("Printing id: "+String.valueOf(event_id));
-				Intent intent3=new Intent(EventTargetsDetailActivity.this,UpdateActivity.class);
+				Intent intent3 = new Intent(Intent.ACTION_MAIN);
+				intent3.setClass(EventTargetsDetailActivity.this,UpdateActivity.class);
+				intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	        	intent3.putExtra("id", event_id);
 				intent3.putExtra("number",event_number);
 				intent3.putExtra("name", event_name);
@@ -420,13 +321,13 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 				intent3.putExtra("period", event_period);
 				intent3.putExtra("number_achieved", number_achieved.get(0));//0
 	        	startActivity(intent3);
+	        	finish();
 			}
 			
         });
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    // Inflate the menu items for use in the action bar
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.update_menu_icons, menu);
 	    return super.onCreateOptionsMenu(menu);
@@ -441,7 +342,6 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 	 	          goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	 	          startActivity(goHome);
 	 	          finish();
-	 	         
 	            return true;
 	        case R.id.action_edit:
 	        	
@@ -456,127 +356,43 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
-	public boolean isToday(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	String today = new SimpleDateFormat("MM/dd/yyyy").format(new Date(System.currentTimeMillis()));
- 	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
- 	       				.toString().equals(today)) ? true : false;
- 	}
- 	
- 	public boolean isTomorrow(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 1);
- 	    	String tomorrow = new SimpleDateFormat("MM/dd/yyyy").format(new Date(c.getTimeInMillis()));
- 	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
- 	       				.toString().equals(tomorrow)) ? true : false;
- 	}
- 	    
- 	public boolean isThisWeek(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 7);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
- 	public boolean isThisMonth(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 30);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
- 	public boolean isThisQuarter(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 90);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
- 	
- 	public boolean isMidYear(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 120);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
- 	public boolean isThisYear(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 365);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
-	public static class DatePickerFragment extends DialogFragment
-		implements DatePickerDialog.OnDateSetListener {
 
-@Override
-public Dialog onCreateDialog(Bundle savedInstanceState) {
-//Use the current date as the default date in the picker
-final Calendar c = Calendar.getInstance();
-int year = c.get(Calendar.YEAR);
-int month = c.get(Calendar.MONTH);
-int day = c.get(Calendar.DAY_OF_MONTH);
-
-//Create a new instance of DatePickerDialog and return it
-return new DatePickerDialog(getActivity(), this, year, month, day);
-}
-
-public void onDateSet(DatePicker view, int year, int month, int day) {
-int month_value=month+1;
-due_date=day+"-"+month_value+"-"+year;
-dueDateValue.setText(due_date);
-}
-}
-	 public static class DatePickerFragment2 extends DialogFragment
-		implements DatePickerDialog.OnDateSetListener {
-
-@Override
-public Dialog onCreateDialog(Bundle savedInstanceState) {
-// Use the current date as the default date in the picker
-final Calendar c = Calendar.getInstance();
-	int year = c.get(Calendar.YEAR);
-	int month = c.get(Calendar.MONTH);
-	int day = c.get(Calendar.DAY_OF_MONTH);
-
-	// Create a new instance of DatePickerDialog and return it
-	return new DatePickerDialog(getActivity(), this, year, month, day);
-}
-
-public void onDateSet(DatePicker view, int year, int month, int day) {
-int month_value=month+1;
-start_date=day+"-"+month_value+"-"+year;
-startDateValue.setText(start_date);
-}
-}
 	 public static long differenceIndays(String startDate,String endDate,String today)
-	    {
-		// String toDateAsString = "05/11/2010";
-		 Date start_date = null;
-		 Date end_date = null;
-		 Date today_date=null;
-		try {
-			start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
-			end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
-			today_date= new SimpleDateFormat("dd-MM-yyyy").parse(today);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 long starDateAsTimestamp = start_date.getTime();
-		 long endDateTimestamp = end_date.getTime();
-		 long todayDateTimestamp = today_date.getTime();
-		 long diff = endDateTimestamp - todayDateTimestamp;
-		  
-		  long diffDays = diff / (24 * 60 * 60 * 1000);
-		  if(todayDateTimestamp>endDateTimestamp){
-		  return -1;
-		  }else{
-			return diffDays;
-		  }
+	 {
+			// String toDateAsString = "05/11/2010";
+			 Date start_date = null;
+			 Date end_date = null;
+			 Date today_date=null;
+			 long starDateAsTimestamp=0;
+			long endDateTimestamp=0;
+			try {
+				if(startDate==null){
+				System.out.println("Enter a valid date!");
+				}else{
+					start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+					 starDateAsTimestamp = start_date.getTime();
+				}
+				if(endDate==null){
+					System.out.println("Enter a valid date!");	
+				}else {
+					end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+					  endDateTimestamp = end_date.getTime();
+				}
+				
+				today_date= new SimpleDateFormat("dd-MM-yyyy").parse(today);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 long todayDateTimestamp = today_date.getTime();
+			 long diff = endDateTimestamp - todayDateTimestamp;
+			  
+			  long diffDays = diff / (24 * 60 * 60 * 1000);
+			  if(todayDateTimestamp>endDateTimestamp){
+			  return -1;
+			  }else{
+				return diffDays;
+			  }
 	    }
 	 private String getDateTime() {
 	        SimpleDateFormat dateFormat = new SimpleDateFormat(
@@ -590,15 +406,25 @@ startDateValue.setText(start_date);
 		// String toDateAsString = "05/11/2010";
 		 Date start_date = null;
 		 Date end_date = null;
+		long starDateAsTimestamp = 0;
+		long endDateTimestamp = 0;
 		try {
-			start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
-			end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+			if(startDate==null){
+				System.out.println("Enter a valid date!");
+			}else{
+				start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+				starDateAsTimestamp = start_date.getTime();
+			}
+			if(endDate==null){
+				System.out.println("Enter a valid date!");
+			}else{
+				end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+				endDateTimestamp = end_date.getTime();
+			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 long starDateAsTimestamp = start_date.getTime();
-		 long endDateTimestamp = end_date.getTime();
 		 long getRidOfTime = 1000 * 60 * 60 * 24;
 		 long startDateAsTimestampWithoutTime = starDateAsTimestamp / getRidOfTime;
 		 long endDateTimestampWithoutTime = endDateTimestamp / getRidOfTime;
@@ -609,4 +435,68 @@ startDateValue.setText(start_date);
 		    return false;
 		 }
 	    }
+	 private class GetData extends AsyncTask<Object, Void, Object> {
+		 DbHelper db=new DbHelper(EventTargetsDetailActivity.this);
+		private Double percentage;
+		private String percentage_achieved;
+
+	    @Override
+	    protected Object doInBackground(Object... params) {
+	    	Bundle extras = getIntent().getExtras(); 
+	        if (extras != null) {
+	        	event_name=extras.getString("event_name");
+				event_number=extras.getString("event_number");
+				event_period=extras.getString("event_period");
+				due_date_extra=extras.getString("due_date");
+				start_date_extra=extras.getString("start_date");
+				achieved=extras.getString("achieved");
+				status=extras.getString("status");
+				event_id=extras.getLong("event_id");
+				last_updated=extras.getString("last_updated");
+				System.out.println(String.valueOf(event_id));
+	        }
+	       
+	        int number_achieved_current=Integer.valueOf(achieved);
+	        int number_entered_current=Integer.valueOf(event_number);
+	        percentage=((double)number_achieved_current/number_entered_current)*100;
+	        percentage_achieved=String.format("%.0f", percentage);
+	        long difference_in_days=differenceIndays(start_date_extra,due_date_extra,getDateTime());
+	        
+	        if (difference_in_days==1){
+	        	day_difference.setTextColor(Color.rgb(225,170,7));
+	        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " day");
+	        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
+	        }else if(difference_in_days==0) {
+	        	day_difference.setTextColor(Color.RED);
+	        	day_difference.setText("Due today!!!!");
+	        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
+	        }else if(difference_in_days==-1) {
+	        	day_difference.setTextColor(Color.RED);
+	        	day_difference.setText("Due date is past");
+	        	imageView_status.setImageResource(R.drawable.sad);
+	        }else {
+	        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " days");
+	        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
+	        }
+				return null;
+	        
+	    }
+
+	    @Override
+	    protected void onPostExecute(Object result) {
+	      
+	    	 textView_name.setText(event_name);
+	         textView_period.setText(event_period);
+	         textView_dueDate.setText(due_date_extra);
+	         textView_number.setText(event_number);
+	         textView_startDate.setText(start_date_extra);
+	         textView_achieved.setText(achieved);
+	         textView_percentageAchieved.setText(String.valueOf(percentage_achieved)+"%");
+	         progress_status=(int) percentage.doubleValue();
+	         progress_bar.setProgress(progress_status);
+	         progress_bar.setPrefixText(percentage_achieved+"%");
+	         progress_bar.setPrefixText(" ");
+	        
+	    }
+	}
 }

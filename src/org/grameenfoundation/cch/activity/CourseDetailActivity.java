@@ -54,6 +54,8 @@ public class CourseDetailActivity extends Activity {
 	private ArrayList<Scores> course_scores;
 	private SharedPreferences prefs;
 	private LinearLayout linearLayout;
+	private int month;
+	private int year;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,13 +64,18 @@ public class CourseDetailActivity extends Activity {
 	    expandableListview = (ListView) findViewById(R.id.listView1);
 	    mContext=CourseDetailActivity.this;
 	    db=new DbHelper(CourseDetailActivity.this);
+	    Bundle extras = getIntent().getExtras(); 
+        if (extras != null) {
+          month= extras.getInt("month");
+          year=extras.getInt("year");
+        }
 	    getActionBar().setDisplayShowHomeEnabled(false);
 	    getActionBar().setTitle("Achievement Center");
 	    getActionBar().setSubtitle("Achievement Details");
 	    textView_label=(TextView) findViewById(R.id.textView_label);
 	    textView_label.setText("Courses");
 	    textView_number=(TextView) findViewById(R.id.textView_number);
-	    courses = db.getCourses();
+	    courses = db.getCoursesForAchievements(month+1,year);
 	    textView_number.setText(" ("+courses.size()+")");
 	    ArrayList<CourseAchievments> results = new ArrayList<CourseAchievments>();
 	    linearLayout=(LinearLayout) findViewById(R.id.Linearlayout_progress);
@@ -91,6 +98,7 @@ public class CourseDetailActivity extends Activity {
 			 course_achievements = db.getQuizResultsForAchievements((int)id);
 			 if(course_achievements.size()>0){
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			 }else if(course_achievements.size()==0){
 				 Crouton.makeText(CourseDetailActivity.this, "You have no details for "+course_name+"!",
 						 Style.INFO).show();
@@ -135,15 +143,15 @@ public class CourseDetailActivity extends Activity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if( convertView == null ){
 			      
-				  convertView = minflater.inflate(R.layout.course_list_row,parent, false);
+				  convertView = minflater.inflate(R.layout.other_listview_single,parent, false);
 			    }
-			 TextView text=(TextView) convertView.findViewById(R.id.module_title);
-			 ImageView image=(ImageView) convertView.findViewById(R.id.course_image);
+			 TextView text=(TextView) convertView.findViewById(R.id.textView_otherCategory);
+			 ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
 			 text.setText(courses.get(position).getTitle(prefs.getString(mContext.getString(R.string.prefs_language), Locale
 						.getDefault().getLanguage())));
 			 image.setImageResource(R.drawable.ic_courses);
-			 ProgressBar progress=(ProgressBar) convertView.findViewById(R.id.course_progress_bar);
-			 progress.setVisibility(View.GONE);
+
+
 			    return convertView;
 		}
 	}

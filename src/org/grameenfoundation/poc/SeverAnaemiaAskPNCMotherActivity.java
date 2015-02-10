@@ -56,11 +56,13 @@ public class SeverAnaemiaAskPNCMotherActivity extends BaseActivity {
 					intent=new Intent(mContext,TakeActionSevereMalariaPNCMotherActivity.class);
 					intent.putExtra("category", "severe anaemia");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,TakeActionSevereMalariaPNCMotherActivity.class); 
 					intent.putExtra("category", "moderate_anaemia");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				
 				}
@@ -77,6 +79,7 @@ public class SeverAnaemiaAskPNCMotherActivity extends BaseActivity {
 				Intent intent=new Intent(mContext,TakeActionSevereMalariaPNCMotherActivity.class);
 				intent.putExtra("category", "no anaemia");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

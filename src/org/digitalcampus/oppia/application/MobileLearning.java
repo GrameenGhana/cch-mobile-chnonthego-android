@@ -32,7 +32,15 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-
+import org.acra.*;
+import org.acra.annotation.*;
+@ReportsCrashes(
+        formKey = "", // This is required for backward compatibility but not used
+        mailTo = "fjones@grameenfoundation.org",
+        customReportContent = { ReportField.APP_VERSION_CODE, ReportField.APP_VERSION_NAME, ReportField.ANDROID_VERSION, ReportField.PHONE_MODEL, ReportField.CUSTOM_DATA, ReportField.STACK_TRACE, ReportField.LOGCAT },                
+        mode = ReportingInteractionMode.TOAST,
+        resToastText = R.string.crash_toast_text
+    )
 public class MobileLearning extends Application {
 
 	public static final String TAG = MobileLearning.class.getSimpleName();
@@ -64,6 +72,7 @@ public class MobileLearning extends Application {
 	public static final String SERVER_COURSES_NAME = "courses";
 	public static final String CCH_QUOTES_SUBMIT_PATH = "api/v1/quotes";
 	public static final String CCH_TRACKER_SUBMIT_PATH = "api/v1/tracker";
+	public static final String CCH_COURSE_ACHIEVEMENT_PATH = "cmd=2&username=";
 
 	// general other settings
 	public static final String BUGSENSE_API_KEY = "f3a6ec3a";
@@ -119,7 +128,14 @@ public class MobileLearning extends Application {
 		}
 		return true;
 	}
-	
+	 @Override
+     public void onCreate() {
+         super.onCreate();
+
+         // The following line triggers the initialization of ACRA
+         ACRA.init(this);
+         
+     }
 	public static boolean isLoggedIn(Activity act) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(act.getBaseContext());
 		String username = prefs.getString(act.getString(R.string.prefs_username), "");

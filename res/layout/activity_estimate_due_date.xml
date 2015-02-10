@@ -30,12 +30,11 @@
         android:orientation="vertical"
         android:padding="10dp" >
 
-        <fragment
-            android:id="@+id/fragment1"
-            android:name="org.grameenfoundation.cch.caldroid.DateGridFragment"
+        <org.grameenfoundation.cch.utils.CalendarViewScrollable
+            android:id="@+id/calendarView1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="350dp"
+            android:background="@drawable/custom_border2" />
 
     </LinearLayout>
 

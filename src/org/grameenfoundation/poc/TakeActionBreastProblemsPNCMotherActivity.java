@@ -41,7 +41,7 @@ public class TakeActionBreastProblemsPNCMotherActivity extends BaseActivity {
 	   				public void onClick(View v) {
 	   					Intent intent=new Intent(mContext,BreastProblemsCounsellingActivity.class);
 	   					startActivity(intent);
-	   					
+	   					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 	   				}
 	               	
 	               });
@@ -54,7 +54,7 @@ public class TakeActionBreastProblemsPNCMotherActivity extends BaseActivity {
 	     			public void onClick(View v) {
 	     				Intent intent=new Intent(mContext,BreastProblemsCounsellingActivity.class);
 	     				startActivity(intent);
-	     				
+	     				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 	     			}
 	             	
 	             });
@@ -65,7 +65,7 @@ public class TakeActionBreastProblemsPNCMotherActivity extends BaseActivity {
 	     			public void onClick(View v) {
 	     				Intent intent=new Intent(mContext,InfantFeedingMenuActivity.class);
 	     				startActivity(intent);
-	     				
+	     				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 	     			}
 	             	
 	             });
@@ -78,7 +78,7 @@ public class TakeActionBreastProblemsPNCMotherActivity extends BaseActivity {
 	     			public void onClick(View v) {
 	     				Intent intent=new Intent(mContext,BreastProblemsCounsellingActivity.class);
 	     				startActivity(intent);
-	     				
+	     				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 	     			}
 	             	
 	             });
@@ -89,7 +89,7 @@ public class TakeActionBreastProblemsPNCMotherActivity extends BaseActivity {
 	     			public void onClick(View v) {
 	     				Intent intent=new Intent(mContext,InfantFeedingMenuActivity.class);
 	     				startActivity(intent);
-	     				
+	     				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 	     			}
 	             	
 	             });
@@ -102,7 +102,7 @@ public class TakeActionBreastProblemsPNCMotherActivity extends BaseActivity {
 	     			public void onClick(View v) {
 	     				Intent intent=new Intent(mContext,PostnatalCareCounsellingTopicsActivity.class);
 	     				startActivity(intent);
-	     				
+	     				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 	     			}
 	             	
 	             });

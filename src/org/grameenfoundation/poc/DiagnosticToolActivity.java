@@ -36,17 +36,6 @@ public class DiagnosticToolActivity extends BaseActivity implements OnItemClickL
 	    getActionBar().setSubtitle("ANC Diagnostic");
 	    listView_encounter=(ListView) findViewById(R.id.listView_encounter);
 	    listView_encounter.setOnItemClickListener(this);
-	    /*
-	    String[] category={"Breast Problems","Complication Readiness & Newborn Danger Signs",
-	    					"Family Planning","Home Care for the infant",
-	    					"Immunisation Schedule for Infant", "Infant Feeding",
-	    					"Kangaroo Mother Care- Keeping Low Birth Weight Baby Warm at Home",
-	    					"Keeping Infant Warm & Breastfeeding on the Way to the Hospital",
-	    					"Malaria Prevention"};
-	   // String[] categoryDetails={"Importance of Exclusive Breastfeeding, Breast Attachement"};
-	    DiagnosticToolBaseAdapter adapter=new DiagnosticToolBaseAdapter(mContext,category);
-	    listView_diagnosticMenu.setAdapter(adapter);
-	    */
 	    String[] encounter_location={"Home Visit","Outreach Clinic","CHPS facility","Health Center","Hospital"};
 	    ListAdapter adapter=new ListAdapter(mContext, encounter_location);
 	    listView_encounter.setAdapter(adapter);
@@ -60,22 +49,27 @@ public class DiagnosticToolActivity extends BaseActivity implements OnItemClickL
 		case 0:
 			intent=new Intent(mContext, AcuteEmergenciesActivity.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		case 1:
 			intent=new Intent(mContext, AcuteEmergenciesActivity.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		case 2:
 			intent=new Intent(mContext, AcuteEmergenciesActivity.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		case 3:
-			intent=new Intent(mContext, AcuteEmergenciesActivity.class);
+			intent=new Intent(mContext, ClientSeenAtHealthFacilityActivity.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		case 4:
-			intent=new Intent(mContext, AcuteEmergenciesActivity.class);
+			intent=new Intent(mContext, ClientSeenAtHealthFacilityActivity.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		}
 		

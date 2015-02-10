@@ -95,7 +95,7 @@
 
                 <TextView
                     android:id="@+id/TextView05"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
@@ -219,7 +219,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="209dp"
+            android:layout_height="243dp"
             android:background="@color/TakeAction"
             android:divider="@drawable/divider"
             android:orientation="vertical"
@@ -248,10 +248,10 @@
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.18"
                 android:drawableLeft="@drawable/ic_follow_up"
                 android:text="Follow up with client after discharge from health center or hospital "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
-
         </LinearLayout>
 
     </LinearLayout>

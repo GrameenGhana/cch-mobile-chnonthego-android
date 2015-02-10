@@ -11,9 +11,13 @@ import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.cch.caldroid.CaldroidFragment;
 import org.grameenfoundation.cch.caldroid.CaldroidListener;
 import org.grameenfoundation.cch.model.WebAppInterface;
+import org.grameenfoundation.cch.utils.CalendarViewScrollable;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,7 +38,7 @@ import android.widget.Toast;
 import android.widget.CalendarView.OnDateChangeListener;
 import android.widget.TextView;
 
-public class EstimateTrimester extends FragmentActivity {
+public class EstimateTrimester extends BaseActivity {
 
 	private static CalendarView calendarView_calendar;
 	private Button button_calculate;
@@ -49,6 +53,7 @@ public class EstimateTrimester extends FragmentActivity {
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;
+	private CalendarViewScrollable calendar;
 	
 	@SuppressLint("NewApi")
 	@Override
@@ -61,6 +66,20 @@ public class EstimateTrimester extends FragmentActivity {
 	    start_time=System.currentTimeMillis();
 	    dbh=new DbHelper(EstimateTrimester.this);
 	    textView_selectedDate=(TextView) findViewById(R.id.textView_selectedDate);
+	    calendar=(CalendarViewScrollable) findViewById(R.id.calendarView1);
+	    calendar.setSelectedWeekBackgroundColor(Color.rgb(82,0,0));
+	    calendar.setOnDateChangeListener(new OnDateChangeListener(){
+
+			@Override
+			public void onSelectedDayChange(CalendarView view, int year,
+					int month, int dayOfMonth) {
+				newDate=String.valueOf(dayOfMonth)+"/"+String.valueOf(month+1)+"/"+String.valueOf(year);
+				textView_selectedDate.setText("You selected: "+newDate);
+				System.out.println(newDate);
+			}
+	    	
+	    });
+	    /*
 	    final CaldroidFragment caldroidFragment = new CaldroidFragment();
 	    Bundle args = new Bundle();
 	    Calendar cal = Calendar.getInstance();
@@ -80,25 +99,38 @@ public class EstimateTrimester extends FragmentActivity {
 	        	textView_selectedDate.setText("You selected: "+formatter.format(date));
 	        	caldroidFragment.setBackgroundResourceForDate(Color.rgb(83,171,32), date);
 	        	caldroidFragment.setTextColorForDate(Color.rgb(255, 255, 255), date);
-	        
 	        }
-
-	       
 	    };
 
 	    caldroidFragment.setCaldroidListener(listener);
-	
+	*/
 	    button_calculate=(Button) findViewById(R.id.button_calculate);
 	    button_calculate.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				daysBetween();			
+				if(newDate!=null){
+					daysBetween();
+				
+				}else{
+					Crouton.makeText(EstimateTrimester.this, "Please select a date", Style.ALERT).show();	
+				}
+				
 			}
 	    	
 	    });
 	    
 	    button_proceed=(Button) findViewById(R.id.button_proceed);
+	    button_proceed.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(EstimateTrimester.this,ExamineThePatientActivity.class);
+				startActivity(intent);
+				
+			}
+	    	
+	    });
 	    textView_estimatedWeeks=(TextView) findViewById(R.id.textView_estimatedWeeks);
 	    textView_estimatedTrimester=(TextView) findViewById(R.id.textView_estimatedTrimester);
 	    
@@ -113,19 +145,16 @@ public class EstimateTrimester extends FragmentActivity {
 		Date end = null;
 		try {
 			start = dfDate.parse(now);
-			if(newDate.isEmpty()){
-			 Toast.makeText(getApplicationContext(), "Please select a date!",
-		                    Toast.LENGTH_SHORT).show();
-			}else{
-			end=dfDate.parse(newDate);
+			if(newDate!=null){
+				end=dfDate.parse(newDate);
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		long diff=end.getTime() - start.getTime();
+		long diff=start.getTime() - end.getTime();
 		int days=(int) (diff/(1000*60*60*24));
-		
+		System.out.println(String.valueOf(days));
 		if(days<90){
 			textView_estimatedTrimester.setText("1st Trimester");
 		}else if(days>89 && days<180){

@@ -4,7 +4,12 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 public class TakeActionSevereMalariaActivity extends BaseActivity {
 
@@ -13,13 +18,14 @@ public class TakeActionSevereMalariaActivity extends BaseActivity {
 	private Long end_time;
 	private DbHelper dbh;
 	private String data;
+	private Context mContext;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    Bundle extras = getIntent().getExtras(); 
 	    getActionBar().setTitle("Point of Care");
-	
+	    mContext=TakeActionSevereMalariaActivity.this;
 	    dbh=new DbHelper(TakeActionSevereMalariaActivity.this);
 	    start_time=System.currentTimeMillis();
         if (extras != null) {
@@ -63,6 +69,39 @@ public class TakeActionSevereMalariaActivity extends BaseActivity {
             setContentView(R.layout.activity_no_anaemia_take_action);
             getActionBar().setSubtitle("ANC Diagnostic: Anaemia");
             data="ANC Diagnostic: Anaemia";
+            TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+            click_here.setOnClickListener(new OnClickListener(){
+
+    			@Override
+    			public void onClick(View v) {
+    				Intent intent=new Intent(mContext,NutritionCounsellingActivity.class);
+    				startActivity(intent);
+    				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+    			}
+            	
+            });
+            TextView click_here_too=(TextView) findViewById(R.id.textView_clickHereToo);
+            click_here_too.setOnClickListener(new OnClickListener(){
+
+    			@Override
+    			public void onClick(View v) {
+    				Intent intent=new Intent(mContext,SoftUterusPNCMotherActivity.class);
+    				startActivity(intent);
+    				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+    			}
+            	
+            });
+            TextView click_here_three=(TextView) findViewById(R.id.textView_clickHereThree);
+            click_here_three.setOnClickListener(new OnClickListener(){
+
+    			@Override
+    			public void onClick(View v) {
+    				Intent intent=new Intent(mContext,BreastProblemsCounsellingActivity.class);
+    				startActivity(intent);
+    				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+    			}
+            	
+            });																										
             }
 	
 	   

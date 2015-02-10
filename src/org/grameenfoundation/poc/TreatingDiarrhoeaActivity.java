@@ -34,9 +34,14 @@ public class TreatingDiarrhoeaActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				 int ors_amount_given=Integer.valueOf(editText_weight.getText().toString())*75;
+				String weight=editText_weight.getText().toString();
+				if(weight.equals("")){
+					editText_weight.requestFocus();
+					editText_weight.setError("Enter a value!");
+				}else{
+				 double ors_amount_given=Double.valueOf(weight)*75;
 				 amount.setText("ORS amount= "+String.valueOf(ors_amount_given));
-				
+				}
 			}
 	    	
 	    });

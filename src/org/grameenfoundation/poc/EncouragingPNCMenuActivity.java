@@ -54,30 +54,36 @@ public class EncouragingPNCMenuActivity extends BaseActivity {
 					intent=new Intent(mContext,EncouragingPNCActivity.class);
 					intent.putExtra("value", "care_of_newborns");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,EncouragingPNCActivity.class);
 					intent.putExtra("value", "breast_care");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(mContext,ImmunisationScheduleActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 3:
 					intent=new Intent(mContext,ComplicationReadinessActionActivity.class);
 					intent.putExtra("value", "danger_signs_mother");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 4:
 					intent=new Intent(mContext,EncouragingPNCActivity.class);
 					intent.putExtra("value", "family_planning");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 5:
 					intent=new Intent(mContext,EncouragingPNCActivity.class);
 					intent.putExtra("value", "when_to_return");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				
 				}

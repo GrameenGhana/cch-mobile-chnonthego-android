@@ -35,6 +35,7 @@ public class HIVInfectionStatusActivity extends BaseActivity {
 			Intent intent=new Intent(HIVInfectionStatusActivity.this,HIVInfectionAskActivity.class);
 			intent.putExtra("value", "negative");
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		}
 		   
 	   });
@@ -46,6 +47,7 @@ public class HIVInfectionStatusActivity extends BaseActivity {
 				Intent intent=new Intent(HIVInfectionStatusActivity.this,HIVInfectionAskActivity.class);
 				intent.putExtra("value", "positive");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });

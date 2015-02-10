@@ -6,8 +6,11 @@ public class CourseAchievments {
 	private String courseSection;
 	private String type;
 	private String score;
+	private String maxscore;
 	private String percentage;
 	private String resultsJSON;
+	private String courseTitle;
+	private String dateTaken;
 	
 	public CourseAchievments()
 	{
@@ -39,10 +42,31 @@ public class CourseAchievments {
 	public void setScore(String score) {
 		this.score = score;
 	}
+	public String getMaxScore() {
+		return maxscore;
+	}
+	public void setMaxScore(String maxscore) {
+		this.maxscore = maxscore;
+	}
 	public String getPercentage() {
 		return percentage;
 	}
 	public void setPercentage(String percentage) {
 		this.percentage = percentage;
 	}
+	
+	public String getCourseTitle() {
+		return courseTitle;
+	}
+	public void setCourseTitle(String courseTitle) {
+		this.courseTitle = courseTitle;
+	}
+	
+	public String getDateTaken() {
+		return dateTaken;
+	}
+	public void setDateTaken(String dateTaken) {
+		this.dateTaken = dateTaken;
+	}
+
 }

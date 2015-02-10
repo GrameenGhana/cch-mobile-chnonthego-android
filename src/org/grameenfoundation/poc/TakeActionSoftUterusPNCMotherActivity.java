@@ -39,6 +39,7 @@ public class TakeActionSoftUterusPNCMotherActivity extends BaseActivity {
      				Intent intent=new Intent(TakeActionSoftUterusPNCMotherActivity.this,HomeCareForInfantActivity.class);
      				intent.putExtra("value", "malaria");
      				startActivity(intent);
+     				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
      			}
      	    	
      	    });
@@ -50,6 +51,7 @@ public class TakeActionSoftUterusPNCMotherActivity extends BaseActivity {
      			public void onClick(View v) {
      				Intent intent=new Intent(TakeActionSoftUterusPNCMotherActivity.this,BreastProblemsPNCMotherActivity.class);
      				startActivity(intent);
+     				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
      			}
      	    	
      	    });
@@ -65,6 +67,7 @@ public class TakeActionSoftUterusPNCMotherActivity extends BaseActivity {
     				Intent intent=new Intent(TakeActionSoftUterusPNCMotherActivity.this,ReturningForCareActivity.class);
     				intent.putExtra("value", "malaria");
     				startActivity(intent);
+    				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
     			}
     	    	
     	    });
@@ -76,6 +79,7 @@ public class TakeActionSoftUterusPNCMotherActivity extends BaseActivity {
     			public void onClick(View v) {
     				Intent intent=new Intent(TakeActionSoftUterusPNCMotherActivity.this,HomeCareForInfantActivity.class);
     				startActivity(intent);
+    				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
     			}
     	    	
     	    });
@@ -87,6 +91,7 @@ public class TakeActionSoftUterusPNCMotherActivity extends BaseActivity {
     			public void onClick(View v) {
     				Intent intent=new Intent(TakeActionSoftUterusPNCMotherActivity.this,BreastProblemsPNCMotherActivity.class);
     				startActivity(intent);
+    				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
     			}
     	    	
     	    });

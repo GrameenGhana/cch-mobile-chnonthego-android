@@ -41,6 +41,7 @@ public class TakeActionNoInjuriesActivity extends BaseActivity {
 				Intent intent=new Intent(TakeActionNoInjuriesActivity.this,KeepingBabyWarmAndMalariaActivity.class);
 				intent.putExtra("value", "keeping_baby_warm");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -54,6 +55,7 @@ public class TakeActionNoInjuriesActivity extends BaseActivity {
 				Intent intent=new Intent(TakeActionNoInjuriesActivity.this,KeepingBabyWarmAndMalariaActivity.class);
 				intent.putExtra("value", "keeping_baby_warm");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -69,6 +71,7 @@ public class TakeActionNoInjuriesActivity extends BaseActivity {
     				Intent intent=new Intent(TakeActionNoInjuriesActivity.this,DiarrhoeaActivity.class);
     				intent.putExtra("value", "keeping_baby_warm");
     				startActivity(intent);
+    				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
     			}
     			   
     		   });

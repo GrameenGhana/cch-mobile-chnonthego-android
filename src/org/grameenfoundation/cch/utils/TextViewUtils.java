@@ -69,7 +69,7 @@ public class TextViewUtils extends TextView
         m_modifyingText = true;
 
         SpannableString content = new SpannableString(getText());
-        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+       // content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         content.setSpan(new BulletSpan(15), 0, content.length(), 0);
         setText(content);
 

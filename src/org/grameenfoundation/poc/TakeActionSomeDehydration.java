@@ -39,6 +39,7 @@ public class TakeActionSomeDehydration extends BaseActivity {
 			Intent intent=new Intent(mContext, TakeActionSomeDehydrationNoActivity.class);
 			intent.putExtra("category","yes");	
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			
 		});
@@ -50,6 +51,7 @@ public class TakeActionSomeDehydration extends BaseActivity {
 			Intent intent=new Intent(mContext, TakeActionSomeDehydrationNoActivity.class);
 			intent.putExtra("category","no");	
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			
 		});

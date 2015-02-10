@@ -45,7 +45,7 @@ public class ManagingDangerSignsMotherPNCNextTwoActivity extends BaseActivity {
 	    				"Persistent vomiting",
 	    				"Pain in calf with or without swelling",
 	    				"Painful or tender wound",
-	    				"Pain on urination/dribbling urine",
+	    				"Pain on urination/dribbling urine",						
 	    				"Pallor",
 	    				"Abnormal behaviour/depression"};
 	    ListAdapter adapter=new ListAdapter(ManagingDangerSignsMotherPNCNextTwoActivity.this,items);
@@ -61,66 +61,79 @@ public class ManagingDangerSignsMotherPNCNextTwoActivity extends BaseActivity {
 					intent=new Intent(ManagingDangerSignsMotherPNCNextTwoActivity.this,TakeActionManagingDangerSignsMotherPNCActivity.class);
 					intent.putExtra("value", "difficulty_breathing");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(ManagingDangerSignsMotherPNCNextTwoActivity.this,TakeActionManagingDangerSignsMotherPNCActivity.class);
 					intent.putExtra("value", "shock");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(ManagingDangerSignsMotherPNCNextTwoActivity.this,TakeActionManagingDangerSignsMotherPNCActivity.class);
 					intent.putExtra("value", "heavy_bleeding");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 3:
 					intent=new Intent(ManagingDangerSignsMotherPNCNextTwoActivity.this,TakeActionManagingDangerSignsMotherPNCActivity.class);
 					intent.putExtra("value", "convulsing");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 4:
 					intent=new Intent(ManagingDangerSignsMotherPNCNextTwoActivity.this,TakeActionManagingDangerSignsMotherPNCActivity.class);
 					intent.putExtra("value", "severe_headache");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 5:
 					intent=new Intent(ManagingDangerSignsMotherPNCNextTwoActivity.this,TakeActionManagingDangerSignsMotherPNCActivity.class);
 					intent.putExtra("value", "diastolic");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 6:
 					intent=new Intent(ManagingDangerSignsMotherPNCNextTwoActivity.this,TakeActionManagingDangerSignsMotherPNCActivity.class);
 					intent.putExtra("value", "severe_abdominal");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 7:
 					intent=new Intent(ManagingDangerSignsMotherPNCNextTwoActivity.this,TakeActionManagingDangerSignsMotherPNCActivity.class);
 					intent.putExtra("value", "persistent_vomiting");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 8:
 					intent=new Intent(ManagingDangerSignsMotherPNCNextTwoActivity.this,TakeActionManagingDangerSignsMotherPNCActivity.class);
 					intent.putExtra("value", "pain_in_calf");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 9:
 					intent=new Intent(ManagingDangerSignsMotherPNCNextTwoActivity.this,TakeActionManagingDangerSignsMotherPNCActivity.class);
 					intent.putExtra("value", "painful_or_tender_wound");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 10:
 					intent=new Intent(ManagingDangerSignsMotherPNCNextTwoActivity.this,TakeActionManagingDangerSignsMotherPNCActivity.class);
 					intent.putExtra("value", "pain_on_urination");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 11:
 					intent=new Intent(ManagingDangerSignsMotherPNCNextTwoActivity.this,TakeActionManagingDangerSignsMotherPNCActivity.class);
 					intent.putExtra("value", "pallor");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 12:
 					intent=new Intent(ManagingDangerSignsMotherPNCNextTwoActivity.this,TakeActionManagingDangerSignsMotherPNCActivity.class);
 					intent.putExtra("value", "abnormal_behaviour");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				}
 				
@@ -134,6 +147,7 @@ public class ManagingDangerSignsMotherPNCNextTwoActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(ManagingDangerSignsMotherPNCNextTwoActivity.this,MalariaMotherPNCActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

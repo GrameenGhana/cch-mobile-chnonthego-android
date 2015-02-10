@@ -34,6 +34,7 @@ public class LowBirthWeightNextTwoActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(LowBirthWeightNextTwoActivity.this,LowBirthWeightNextThreeActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			};
 	    
 	    });

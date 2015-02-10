@@ -48,10 +48,6 @@ public class TargetAchievementDetailActivity extends Activity {
 	    textView_label=(TextView) findViewById(R.id.textView_label);
 	    textView_label.setText("Targets");
 	    textView_number=(TextView) findViewById(R.id.textView_number);
-	    eventTargets=db.getAllEventForAchievements(12, 2014);
-	    coverageTargets=db.getAllCoverageForAchievements(12, 2014);
-	    learningTargets=db.getAllLearningForAchievements(12, 2014);
-	    otherTargets=db.getAllOtherForAchievements(12, 2014);
 	    textView_number.setText("("+String.valueOf(eventTargets.size()+coverageTargets.size()+learningTargets.size()+otherTargets.size())+" this month)");
 	    adapter=new TargetsAchievementAdapter(mContext,eventTargets ,
 	    		coverageTargets,

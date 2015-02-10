@@ -33,6 +33,7 @@ public class AskMotherRecordsPNCActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent intent=new Intent(AskMotherRecordsPNCActivity.this,AskMotherRecordsPNCNextActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });

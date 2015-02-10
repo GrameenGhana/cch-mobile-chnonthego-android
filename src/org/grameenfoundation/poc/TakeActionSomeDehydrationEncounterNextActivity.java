@@ -46,6 +46,7 @@ public class TakeActionSomeDehydrationEncounterNextActivity extends BaseActivity
 			public void onClick(View v) {
 				Intent intent=new Intent(TakeActionSomeDehydrationEncounterNextActivity.this,ReturningForCareActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -59,6 +60,7 @@ public class TakeActionSomeDehydrationEncounterNextActivity extends BaseActivity
 				Intent intent=new Intent(TakeActionSomeDehydrationEncounterNextActivity.this,BreastProblemsCounsellingActivity.class);
 				intent.putExtra("value", "keeping_baby_warm");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -69,6 +71,7 @@ public class TakeActionSomeDehydrationEncounterNextActivity extends BaseActivity
 			public void onClick(View v) {
 				Intent intent=new Intent(TakeActionSomeDehydrationEncounterNextActivity.this,ReturningForCareActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });

@@ -63,79 +63,95 @@ public class ANCCounsellingTopicsMenuActivity extends BaseActivity {
 					intent=new Intent(mContext,ANCCounsellingTopicsGenerlActivity.class);
 					intent.putExtra("value", "birth_preparedness");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,ANCCounsellingTopicsGenerlActivity.class);
 					intent.putExtra("value", "drug_abuse");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(mContext,EncouragingPNCMenuActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 3:
 					intent=new Intent(mContext,ANCCounsellingTopicsGenerlActivity.class);
 					intent.putExtra("value", "establishing_rapport");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 4:
 					intent=new Intent(mContext,ANCCounsellingTopicsGenerlActivity.class);
 					intent.putExtra("value", "hiv_care");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 5:
 					intent=new Intent(mContext,ANCCounsellingTopicsGenerlActivity.class);
 					intent.putExtra("value", "malaria_prevention");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 6:
 					intent=new Intent(mContext,ANCCounsellingTopicsGenerlActivity.class);
 					intent.putExtra("value", "nutrition");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 7:
 					intent=new Intent(mContext,ANCCounsellingTopicsGenerlActivity.class);
 					intent.putExtra("value", "personal_hygiene");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 8:
 					intent=new Intent(mContext,ANCCounsellingTopicsGenerlActivity.class);
 					intent.putExtra("value", "pregnancy_danger_signs");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 9:
 					intent=new Intent(mContext,PostpartumExercisesActivity.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 10:
 					intent=new Intent(mContext,ANCCounsellingTopicsGenerlActivity.class);
 					intent.putExtra("value", "safe_food_preparation");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 11	:
 					intent=new Intent(mContext,ANCCounsellingTopicsGenerlActivity.class);
 					intent.putExtra("value", "sti_prevention");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 12	:
 					intent=new Intent(mContext,ANCCounsellingTopicsGenerlActivity.class);
 					intent.putExtra("value", "supplementation_during_pregnancy");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 13:
 					intent=new Intent(mContext,ANCCounsellingTopicsGenerlActivity.class);
 					intent.putExtra("value", "tt_immunisation");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 14:
 					intent=new Intent(mContext,ANCCounsellingTopicsGenerlActivity.class);
 					intent.putExtra("value", "what_expect_during_labour");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 15:
 					intent=new Intent(mContext,ANCCounsellingTopicsGenerlActivity.class);
 					intent.putExtra("value", "when_to_return_anc");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				
 				}

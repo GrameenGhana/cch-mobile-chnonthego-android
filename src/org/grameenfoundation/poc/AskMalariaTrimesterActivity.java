@@ -48,16 +48,19 @@ public class AskMalariaTrimesterActivity extends BaseActivity {
 					intent=new Intent(mContext,TakeActionSevereMalariaActivity.class);
 					intent.putExtra("category", "Ist Trimester");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,TakeActionSevereMalariaActivity.class);
 					intent.putExtra("category", "2nd Trimester");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(mContext,TakeActionSevereMalariaActivity.class);
 					intent.putExtra("category", "3rd Trimester");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				}
 				

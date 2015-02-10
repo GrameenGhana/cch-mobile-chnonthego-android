@@ -31,6 +31,7 @@ public class TakeActionSevereDehydrationActivity extends BaseActivity {
 				Intent intent=new Intent(TakeActionSevereDehydrationActivity.this,KeepingBabyWarmAndMalariaActivity.class);
 				intent.putExtra("value", "keeping_baby_warm");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -43,6 +44,7 @@ public class TakeActionSevereDehydrationActivity extends BaseActivity {
 				Intent intent=new Intent(TakeActionSevereDehydrationActivity.this,TreatingDiarrhoeaActivity.class);
 				intent.putExtra("value", "keeping_baby_warm");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });

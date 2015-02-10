@@ -50,16 +50,19 @@ public class NoInjuriesActivity extends BaseActivity {
 					intent=new Intent(mContext,TakeActionNoInjuriesActivity.class);
 					intent.putExtra("category", "club foot");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,TakeActionNoInjuriesActivity.class);
 					intent.putExtra("category", "cleft palate");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(mContext,TakeActionNoInjuriesActivity.class);
 					intent.putExtra("category", "unusual appearance");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				}
 				

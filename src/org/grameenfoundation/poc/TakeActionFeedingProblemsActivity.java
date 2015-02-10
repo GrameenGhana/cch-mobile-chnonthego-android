@@ -41,6 +41,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
       				Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,InfantFeedingNextActivity.class);
       				intent.putExtra("value", "breast_attachement");
       				startActivity(intent);
+      				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
       			}
       			   
       		   });
@@ -52,6 +53,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
     				Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,ExpressBreastmilkActivity.class);
     				intent.putExtra("value", "breast_attachement");
     				startActivity(intent);
+    				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
     			}
     			   
     		   });
@@ -64,6 +66,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
     				Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,HomeCareForInfantActivity.class);
     				intent.putExtra("value", "exclusive_breastfeeding");
     				startActivity(intent);
+    				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
     			}
     			   
     		   });
@@ -77,6 +80,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
  				Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,InfantFeedingNextActivity.class);
  				intent.putExtra("value", "breast_attachement");
  				startActivity(intent);
+ 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
  			}
  			   
  		   });
@@ -88,6 +92,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
 				Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,ExpressBreastmilkActivity.class);
 				intent.putExtra("value", "breast_attachement");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -100,6 +105,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
 				Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,HomeCareForInfantActivity.class);
 				intent.putExtra("value", "exclusive_breastfeeding");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -113,6 +119,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
 			Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,ExclusiveBreastFeedingActivity.class);
 			intent.putExtra("value", "breast_attachement");
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		}
 		   
 	   });
@@ -124,6 +131,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
 			Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,InfantFeedingNextActivity.class);
 			intent.putExtra("value", "feeding_frequency");
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		}
 		   
 	   });
@@ -136,6 +144,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
 			Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,HomeCareForInfantActivity.class);
 			intent.putExtra("value", "exclusive_breastfeeding");
 			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		}
 		   
 	   });
@@ -149,6 +158,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
   			Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,InfantFeedingNextActivity.class);
   			intent.putExtra("value", "feeding_frequency");
   			startActivity(intent);
+  			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
   		}
   		   
   	   });
@@ -160,6 +170,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
   			Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,ExpressBreastmilkActivity.class);
   			intent.putExtra("value", "feeding_frequency");
   			startActivity(intent);
+  			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
   		}
   		   
   	   });
@@ -172,6 +183,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
   			Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,HomeCareForInfantActivity.class);
   			intent.putExtra("value", "exclusive_breastfeeding");
   			startActivity(intent);
+  			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
   		}
   		   
   	   });
@@ -186,6 +198,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
      			Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,ExpressBreastmilkActivity.class);
      			intent.putExtra("value", "feeding_frequency");
      			startActivity(intent);
+     			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
      		}
      		   
      	   });
@@ -197,6 +210,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
      			Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,HomeCareForInfantActivity.class);
      			intent.putExtra("value", "feeding_frequency");
      			startActivity(intent);
+     			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
      		}
      		   
      	   });
@@ -210,6 +224,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
      	  			Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,InfantFeedingNextActivity.class);
      	  			intent.putExtra("value", "low_birth_weight");
      	  			startActivity(intent);
+     	  			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
      	  		}
      	  		   
      	  	   });
@@ -221,6 +236,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
      	  			Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,ExpressBreastmilkActivity.class);
      	  			intent.putExtra("value", "feeding_frequency");
      	  			startActivity(intent);
+     	  			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
      	  		}
      	  		   
      	  	   });
@@ -232,6 +248,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
      	  		public void onClick(View v) {
      	  			Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,KangarooCareActivity.class);
      	  			startActivity(intent);
+     	  			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
      	  		}
      	  		   
      	  	   });
@@ -242,6 +259,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
      	  		public void onClick(View v) {
      	  			Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,HomeCareForInfantActivity.class);
      	  			startActivity(intent);
+     	  			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
      	  		}
      	  		   
      	  	   });
@@ -255,6 +273,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
    	  			Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,TreatingLocationInfectionActivity.class);
    	  			intent.putExtra("value", "low_birth_weight");
    	  			startActivity(intent);
+   	  		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
    	  		}
    	  		   
    	  	   });
@@ -266,6 +285,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
    	  			Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,HomeCareForInfantActivity.class);
    	  			intent.putExtra("value", "feeding_frequency");
    	  			startActivity(intent);
+   	  		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
    	  		}
    	  		   
    	  	   });
@@ -279,6 +299,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
   	  			Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,HomeCareForInfantActivity.class);
   	  			intent.putExtra("value", "low_birth_weight");
   	  			startActivity(intent);
+  	  		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
   	  		}
   	  		   
   	  	   });
@@ -290,6 +311,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
   	  			Intent intent=new Intent(TakeActionFeedingProblemsActivity.this,PostnatalCareCounsellingTopicsActivity.class);
   	  			intent.putExtra("value", "feeding_frequency");
   	  			startActivity(intent);
+  	  		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
   	  		}
   	  		   
   	  	   });

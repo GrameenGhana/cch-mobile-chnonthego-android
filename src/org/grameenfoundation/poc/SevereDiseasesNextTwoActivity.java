@@ -57,7 +57,7 @@ public class SevereDiseasesNextTwoActivity extends Activity {
 				intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
 				intent.putExtra("category", "no symptoms");
 				startActivity(intent);
-				
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });
@@ -72,61 +72,73 @@ public class SevereDiseasesNextTwoActivity extends Activity {
 					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
 					intent.putExtra("category", "difficulty");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
 					intent.putExtra("category", "fast_breathing");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
 					intent.putExtra("category", "fast_breathing");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 3:
 					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
 					intent.putExtra("category", "fast_breathing");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 4:
 					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
 					intent.putExtra("category", "convulsion");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 5:
 					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
 					intent.putExtra("category", "cyanosis");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 6:
 					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
 					intent.putExtra("category", "low");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 7:
 					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
 					intent.putExtra("category", "fever");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 8:
 					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
 					intent.putExtra("category", "feeding");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 9:
 					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
 					intent.putExtra("category", "hypothermia");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 10:
 					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
 					intent.putExtra("category", "umbilicus");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 11:
 					intent=new Intent(mContext, TakeActionSeverDiseasesActivity.class);
 					intent.putExtra("category", "eye");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				
 				}

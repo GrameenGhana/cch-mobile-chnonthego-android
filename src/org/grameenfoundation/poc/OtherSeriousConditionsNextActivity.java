@@ -53,6 +53,7 @@ public class OtherSeriousConditionsNextActivity extends BaseActivity {
 			public void onClick(View v) {
 				intent=new Intent(mContext,NoSeriousConditionsActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				
 			}
 	    	
@@ -68,31 +69,37 @@ public class OtherSeriousConditionsNextActivity extends BaseActivity {
 					intent=new Intent(mContext,TakeActionOtherSeriousConditionActivity.class);
 					intent.putExtra("category", "bleeding");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
 					intent=new Intent(mContext,TakeActionOtherSeriousConditionActivity.class);
 					intent.putExtra("category", "soft swelling");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 2:
 					intent=new Intent(mContext,TakeActionOtherSeriousConditionActivity.class);
 					intent.putExtra("category", "open tissue");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 3:
 					intent=new Intent(mContext,TakeActionOtherSeriousConditionActivity.class);
 					intent.putExtra("category", "no urine");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 4:
 					intent=new Intent(mContext,TakeActionOtherSeriousConditionActivity.class);
 					intent.putExtra("category", "vomiting");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 5:
 					intent=new Intent(mContext,TakeActionOtherSeriousConditionActivity.class);
 					intent.putExtra("category", "blood_in_stool");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 			
 				}

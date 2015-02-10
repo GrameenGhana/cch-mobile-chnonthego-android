@@ -38,6 +38,7 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
 				Intent intent=new Intent(TakeActionOtherSeriousConditionActivity.this,KeepingBabyWarmAndMalariaActivity.class);
 				intent.putExtra("value", "keeping_baby_warm");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -51,6 +52,7 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
 				Intent intent=new Intent(TakeActionOtherSeriousConditionActivity.this,KeepingBabyWarmAndMalariaActivity.class);
 				intent.putExtra("value", "keeping_baby_warm");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -64,6 +66,7 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
 				Intent intent=new Intent(TakeActionOtherSeriousConditionActivity.this,KeepingBabyWarmAndMalariaActivity.class);
 				intent.putExtra("value", "keeping_baby_warm");
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 			   
 		   });
@@ -79,6 +82,7 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
  				Intent intent=new Intent(TakeActionOtherSeriousConditionActivity.this,KeepingBabyWarmAndMalariaActivity.class);
  				intent.putExtra("value", "keeping_baby_warm");
  				startActivity(intent);
+ 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
  			}
  			   
  		   });
@@ -94,6 +98,7 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
  				Intent intent=new Intent(TakeActionOtherSeriousConditionActivity.this,KeepingBabyWarmAndMalariaActivity.class);
  				intent.putExtra("value", "keeping_baby_warm");
  				startActivity(intent);
+ 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
  			}
  			   
  		   });
@@ -109,6 +114,7 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
  				Intent intent=new Intent(TakeActionOtherSeriousConditionActivity.this,KeepingBabyWarmAndMalariaActivity.class);
  				intent.putExtra("value", "keeping_baby_warm");
  				startActivity(intent);
+ 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
  			}
  			   
  		   });

@@ -26,6 +26,7 @@ public class TakeActionDiarrhoeaNoDehydrationNextTwoActivity extends BaseActivit
 					Intent intent=new Intent(TakeActionDiarrhoeaNoDehydrationNextTwoActivity.this,ReturningForCareActivity.class);
 					intent.putExtra("value", "keeping_baby_warm");
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
 				   
 			   });

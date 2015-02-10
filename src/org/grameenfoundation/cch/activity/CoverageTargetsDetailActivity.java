@@ -1,4 +1,4 @@
-package org.grameenfoundation.cch.activity;
+										package org.grameenfoundation.cch.activity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,29 +9,22 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import org.digitalcampus.mobile.learningGF.R;
-import org.digitalcampus.mobile.learningGF.R.color;
 import org.digitalcampus.oppia.activity.MainScreenActivity;
 import org.digitalcampus.oppia.application.DbHelper;
-import org.grameenfoundation.adapters.CoverageListAdapter;
-import org.grameenfoundation.adapters.EventBaseAdapter;
-import org.grameenfoundation.cch.activity.EventTargetsDetailActivity.DatePickerFragment;
 import org.grameenfoundation.cch.caldroid.CaldroidFragment;
 import org.grameenfoundation.cch.caldroid.CaldroidListener;
 import org.grameenfoundation.cch.utils.TextProgressBar;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,9 +33,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -117,7 +108,6 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
         today_day=c.get(Calendar.DAY_OF_WEEK);
         today_year=c.get(Calendar.YEAR);
         start_time=System.currentTimeMillis();
-      	//today=day+"-"+month+"-"+year;
 	    textView_name=(TextView) findViewById(R.id.textView_name);
 	    textView_period=(TextView) findViewById(R.id.textView_period);
 	    textView_number=(TextView) findViewById(R.id.textView_number);
@@ -131,67 +121,15 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 	    imageView_status=(ImageView) findViewById(R.id.imageView_status);
 	    button_edit=(Button) findViewById(R.id.button_edit);
 	    button_delete=(Button) findViewById(R.id.button_delete);
-	  
 	    button_update=(Button) findViewById(R.id.button_update);
-	    Bundle extras = getIntent().getExtras(); 
-        if (extras != null) {
-        	coverage_name=extras.getString("coverage_name");
-			coverage_number=extras.getString("coverage_number");
-			coverage_period=extras.getString("coverage_period");
-			due_date_extra=extras.getString("due_date");
-			start_date_extra=extras.getString("start_date");
-			achieved=extras.getString("achieved");
-			status=extras.getString("status");
-			coverage_id=extras.getLong("coverage_id");
-			last_updated=extras.getString("last_updated");
-        }
-       
-        int number_achieved_current=Integer.valueOf(achieved);
-        int number_entered_current=Integer.valueOf(coverage_number);
-        Double percentage=((double)number_achieved_current/number_entered_current)*100;
-        String percentage_achieved=String.format("%.0f", percentage);
-        textView_percentageAchieved.setText(percentage_achieved+"%");
-        progress_status=(int) percentage.doubleValue();
-        progress_bar.setProgress(progress_status);
-        progress_bar.setPrefixText(percentage_achieved+"%");
-        progress_bar.setPrefixText(" ");
-        
-        long difference_in_days=differenceIndays(start_date_extra,due_date_extra,getDateTime());
-        if (difference_in_days==1){
-        	day_difference.setTextColor(Color.rgb(225,170,7));
-        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " day");
-        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-        }else if(difference_in_days==0) {
-        	day_difference.setTextColor(Color.RED);
-        	day_difference.setText("Due today!!!!");
-        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-        }else if(difference_in_days==-1) {
-        	day_difference.setTextColor(Color.RED);
-        	day_difference.setText("Due date is past");
-        	imageView_status.setImageResource(R.drawable.sad);
-        }else {
-        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " days");
-        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-        }
-        textView_name.setText(coverage_name);
-        textView_period.setText(coverage_period);
-        textView_dueDate.setText(due_date_extra);
-        textView_number.setText(coverage_number);
-        textView_startDate.setText(start_date_extra);
-        textView_achieved.setText(achieved);
-        if(achieved==coverage_number){
-        	button_edit.setClickable(false);
-        	button_delete.setClickable(false);
-        	button_update.setClickable(false);
-        }
-      
+	    new GetData().execute();
         button_update.setOnClickListener(new OnClickListener(){
-
 			@Override
 			public void onClick(View v) {
-			
 				  number_achieved=db.getForUpdateCoverageNumberAchieved(coverage_id,coverage_period);
-				Intent intent3=new Intent(CoverageTargetsDetailActivity.this,UpdateActivity.class);
+				Intent intent3 = new Intent(Intent.ACTION_MAIN);
+				intent3.setClass(CoverageTargetsDetailActivity.this,UpdateActivity.class);
+				intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	        	intent3.putExtra("id", coverage_id);
 				intent3.putExtra("number",coverage_number);
 				intent3.putExtra("name", coverage_name);
@@ -202,36 +140,27 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 				intent3.putExtra("last_updated", last_updated);
 				intent3.putExtra("number_achieved", number_achieved.get(0));//0
 	        	startActivity(intent3);
-				
+	        	finish();
+	        	overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
-        	
         });
-        
         button_delete.setOnClickListener(new OnClickListener(){
-
 			@Override
 			public void onClick(View v) {
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 						CoverageTargetsDetailActivity.this);
-		 
-					// set title
 					alertDialogBuilder.setTitle("Delete Confirmation");
-		 
-					// set dialog message
 					alertDialogBuilder
 						.setMessage("You are about to delete this target. Proceed?")
 						.setCancelable(false)
 						.setIcon(R.drawable.ic_error)
 						.setPositiveButton("No",new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,int id) {
-								// if this button is clicked, close
-								// current activity
 								dialog.cancel();
 							}
 						  })
 						.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,int id) {
-								// if this button is clicked, just close
 								if(db.deleteCoverageCategory(coverage_id)==true){
 									  number_achieved=db.getForUpdateCoverageNumberAchieved(coverage_id,coverage_period);
 									JSONObject json = new JSONObject();
@@ -256,20 +185,14 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 						 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 						 	          startActivity(intent2);
 						 	          finish();	
+						 	         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 						 	         Toast.makeText(getApplicationContext().getApplicationContext(), "Deleted successfully!",
 									         Toast.LENGTH_LONG).show();
 					        	}
 							}
 						});
-		 
-						// create alert dialog
 						AlertDialog alertDialog = alertDialogBuilder.create();
-		 
-						// show it
 						alertDialog.show();
-				
-				
-			
 			}	
         });
         button_edit.setOnClickListener(new OnClickListener(){
@@ -287,7 +210,8 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 				  category_options.check(R.id.radio_people);
 				  category_people=(RadioButton) dialog.findViewById(R.id.radio_people);
 				  category_people.setChecked(true);
-				  items3=new String[]{"Family Planning","Age Groups","School Health"};
+				  items3=new String[]{};
+				  items3=getResources().getStringArray(R.array.CoverageIndicatorsName);
 				  spinner_coverageName.setOnItemSelectedListener(new OnItemSelectedListener(){
 
 						@Override
@@ -296,19 +220,19 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 								int position, long id) {
 						switch(position){
 						case 0:
-							String[] detail_items1={"New Acceptors","Continuing Acceptors"};
+							String[] detail_items1=getResources().getStringArray(R.array.CoverageIndicatorsDetailFamilyPlanning);
 							ArrayAdapter<String> details_adapter=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items1);
 							spinner_coverageDetails.setAdapter(details_adapter);
 							coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 							break;
 						case 1:
-							String[] detail_items2={"0 to 11 months","12 to 23 months","24 to 59 months"};
+							String[] detail_items2=getResources().getStringArray(R.array.CoverageIndicatorsDetailAgeGroups);
 							ArrayAdapter<String> details_adapter2=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items2);
 							spinner_coverageDetails.setAdapter(details_adapter2);
 							coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 							break;
 						case 2:
-							String[] detail_items3={"# of schools visited","# of schools with 3+ health talks","# examined ­ Pre­school","# examined - P1" ,"# examined - P3", "# examined - JHS 1"};
+							String[] detail_items3=getResources().getStringArray(R.array.CoverageIndicatorsSchoolHealth);
 							ArrayAdapter<String> details_adapter3=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items3);
 							spinner_coverageDetails.setAdapter(details_adapter3);
 							coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
@@ -320,8 +244,6 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 						@Override
 						public void onNothingSelected(
 								AdapterView<?> parent) {
-							// TODO Auto-generated method stub
-							
 						}
 						
 					});
@@ -332,7 +254,8 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 								RadioGroup buttonView,
 								int isChecked) {
 							if (isChecked == R.id.radio_people) {
-								items3=new String[]{"Family Planning","Age Groups","School Health"};
+								items3=new String[]{};
+								  items3=getResources().getStringArray(R.array.CoverageIndicatorsName);
 								ArrayAdapter<String> adapter3=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, items3);
 								spinner_coverageName.setAdapter(adapter3);
 								spinner_coverageName.setOnItemSelectedListener(new OnItemSelectedListener(){
@@ -343,19 +266,19 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 											int position, long id) {
 									switch(position){
 									case 0:
-										String[] detail_items1={"New Acceptors","Continuing Acceptors"};
+										String[] detail_items1=getResources().getStringArray(R.array.CoverageIndicatorsDetailFamilyPlanning);
 										ArrayAdapter<String> details_adapter=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items1);
 										spinner_coverageDetails.setAdapter(details_adapter);
 										coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 										break;
 									case 1:
-										String[] detail_items2={"0 to 11 months","12 to 23 months","24 to 59 months"};
+										String[] detail_items2=getResources().getStringArray(R.array.CoverageIndicatorsDetailAgeGroups);
 										ArrayAdapter<String> details_adapter2=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items2);
 										spinner_coverageDetails.setAdapter(details_adapter2);
 										coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 										break;
 									case 2:
-										String[] detail_items3={"Number of schools visited","Number of schools with 3+ health talks","Number examined ­ Pre­school, P1, P3, JHS 1"};
+										String[] detail_items3=getResources().getStringArray(R.array.CoverageIndicatorsSchoolHealth);
 										ArrayAdapter<String> details_adapter3=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items3);
 										spinner_coverageDetails.setAdapter(details_adapter3);
 										coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
@@ -372,9 +295,8 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 								});
 								
 							} else if (isChecked == R.id.radio_immunization) {
-								items3=new String[]{"BCG"," Penta",
-										"OPV","ROTA",
-										"PCV","Measles Rubella","Vitamin A","TT pregnant","TT non-pregnant","Yellow Fever"};
+								items3=new String[]{};
+								items3=getResources().getStringArray(R.array.CoverageImmunizationTypes);
 								ArrayAdapter<String> adapter4=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, items3);
 								spinner_coverageName.setAdapter(adapter4);
 								spinner_coverageName.setOnItemSelectedListener(new OnItemSelectedListener(){
@@ -385,61 +307,61 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 											int position, long id) {
 										switch(position){
 										case 0:
-											String[] detail_items1={"BCG"};
+											String[] detail_items1=getResources().getStringArray(R.array.CoverageImmunizationTypeBCG);
 											ArrayAdapter<String> details_adapter=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items1);
 											spinner_coverageDetails.setAdapter(details_adapter);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 1:
-											String[] detail_items2={"Penta 1","Penta 2","Penta 3"};
+											String[] detail_items2=getResources().getStringArray(R.array.CoverageImmunizationPenta);
 											ArrayAdapter<String> details_adapter2=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items2);
 											spinner_coverageDetails.setAdapter(details_adapter2);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 2:
-											String[] detail_items3={"OPV 1","OPV 2","OPV 3"};
+											String[] detail_items3=getResources().getStringArray(R.array.CoverageImmunizationOPV);
 											ArrayAdapter<String> details_adapter3=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items3);
 											spinner_coverageDetails.setAdapter(details_adapter3);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 3:
-											String[] detail_items4={"ROTA 1","ROTA 2"};
+											String[] detail_items4=getResources().getStringArray(R.array.CoverageImmunizationROTA);
 											ArrayAdapter<String> details_adapter4=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items4);
 											spinner_coverageDetails.setAdapter(details_adapter4);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 4:
-											String[] detail_itemsPCV={"PCV 1","PCV 2","PCV 3"};
+											String[] detail_itemsPCV=getResources().getStringArray(R.array.CoverageImmunizationPCV);
 											ArrayAdapter<String> details_adapterPCV=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_itemsPCV);
 											spinner_coverageDetails.setAdapter(details_adapterPCV);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 5:
-											String[] detail_items5={"Measles Rubella @9mnths","Measles 2"};
+											String[] detail_items5=getResources().getStringArray(R.array.CoverageImmunizationMeaslesRubella);
 											ArrayAdapter<String> details_adapter5=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items5);
 											spinner_coverageDetails.setAdapter(details_adapter5);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 6:
-											String[] detail_items6={"100,000 IU","200,000 IU","Postpartum"};
+											String[] detail_items6=getResources().getStringArray(R.array.CoverageImmunizationVitaminA);
 											ArrayAdapter<String> details_adapter6=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items6);
 											spinner_coverageDetails.setAdapter(details_adapter6);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 7:
-											String[] detail_items7={"TT 1","TT 2","TT 3","TT 4","TT 5"};
+											String[] detail_items7=getResources().getStringArray(R.array.CoverageImmunizationTT);
 											ArrayAdapter<String> details_adapter7=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items7);
 											spinner_coverageDetails.setAdapter(details_adapter7);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 8:
-											String[] detail_items8={"TT 1","TT 2","TT 3","TT 4","TT 5"};
+											String[] detail_items8=getResources().getStringArray(R.array.CoverageImmunizationTT);
 											ArrayAdapter<String> details_adapter8=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items8);
 											spinner_coverageDetails.setAdapter(details_adapter8);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 											break;
 										case 9:
-											String[] detail_items9={"Yellow Fever"};
+											String[] detail_items9=getResources().getStringArray(R.array.CoverageImmunizationYellowFever);
 											ArrayAdapter<String> details_adapter9=new ArrayAdapter<String>(getApplicationContext().getApplicationContext(), android.R.layout.simple_list_item_1, detail_items9);
 											spinner_coverageDetails.setAdapter(details_adapter9);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
@@ -449,9 +371,7 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 									}
 
 									@Override
-									public void onNothingSelected(
-											AdapterView<?> parent) {
-										// TODO Auto-generated method stub
+									public void onNothingSelected(AdapterView<?> parent) {
 										
 									}
 									
@@ -460,11 +380,10 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 							}
 						}
 				    });
-				    String[] items2={"Daily","Weekly","Monthly","Quarterly","Mid-year","Annually"};
+				String[] items2=getResources().getStringArray(R.array.ReminderFrequency);
 				final Spinner spinner_coveragePeriod=(Spinner) dialog.findViewById(R.id.spinner_coveragePeriod);
 				ArrayAdapter<String> spinner_adapter=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items2);
 				spinner_coveragePeriod.setAdapter(spinner_adapter);
-				
 				final EditText editText_coverageNumber=(EditText) dialog.findViewById(R.id.editText_dialogCoverageNumber);
 				editText_coverageNumber.setText(coverage_number);
 				Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddCoverage);
@@ -473,12 +392,10 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 				startDateValue=(TextView) dialog.findViewById(R.id.textView_startDate);
 				ImageButton datepickerDialog=(ImageButton) dialog.findViewById(R.id.imageButton_dueDate);
 				datepickerDialog.setOnClickListener(new OnClickListener(){
-
 					@Override
 					public void onClick(View v) {
 						final CaldroidFragment dialogCaldroidFragment = CaldroidFragment.newInstance("Select a date", today_month, today_year);
 						dialogCaldroidFragment.show(getSupportFragmentManager(),"TAG");
-						//dialogCaldroidFragment.setEnableSwipe(true);
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 						    @Override
@@ -490,11 +407,8 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 						                Toast.LENGTH_SHORT).show();
 						    }
 						};
-
 						dialogCaldroidFragment.setCaldroidListener(listener);
-						
 					}
-					
 				});
 				ImageButton datepickerDialog2=(ImageButton) dialog.findViewById(R.id.imageButton_startDate);
 				datepickerDialog2.setOnClickListener(new OnClickListener(){
@@ -503,7 +417,6 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 					public void onClick(View v) {
 						final CaldroidFragment dialogCaldroidFragment = CaldroidFragment.newInstance("Select a date", today_month, today_year);
 						dialogCaldroidFragment.show(getSupportFragmentManager(),"TAG");
-						//dialogCaldroidFragment.setEnableSwipe(true);
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 						    @Override
@@ -515,32 +428,16 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 						                Toast.LENGTH_SHORT).show();
 						    }
 						};
-
 						dialogCaldroidFragment.setCaldroidListener(listener);
-						
 					}
-					
 				});
-				
-				
 				dialogButton.setOnClickListener(new OnClickListener() {
 					
 
 					@Override
 					public void onClick(View v) {
 						//dialog.dismiss();
-						String duration = null;
-						if(isToday(due_date_to_compare)){
-							duration="Today";
-						}else if(isTomorrow(due_date_to_compare)){
-							duration="Tomorrow";
-						}else if(isThisWeek(due_date_to_compare)){
-							duration="This week";
-						}else if(isThisMonth(due_date_to_compare)){
-							duration="This month";
-						}else if(isThisQuarter(due_date_to_compare)){
-							duration="This quarter";
-						}
+						String duration = " ";
 						String coverage_name=spinner_coverageName.getSelectedItem().toString();
 						String coverage_period=spinner_coveragePeriod.getSelectedItem().toString();
 						String coverage_number=editText_coverageNumber.getText().toString();
@@ -548,6 +445,12 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 						if(isDateAfter(start_date,due_date)==true){
 				      		 startDateValue.requestFocus();
 				      		startDateValue.setError("Check this date!");
+						}else if(start_date==null){
+				      		startDateValue.requestFocus();
+				      		startDateValue.setError("Select a start date");
+				      	}else if(due_date==null){
+				      		dueDateValue.requestFocus();
+				      		dueDateValue.setError("Select an end date");
 				      	}else{
 					    if(db.editCoverage(coverage_name, coverage_detail,coverage_number, coverage_period,duration,start_date,due_date, coverage_id) ==true){
 					    	  number_achieved=db.getForUpdateCoverageNumberAchieved(coverage_id,coverage_period);
@@ -568,11 +471,12 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 							}
 							 end_time=System.currentTimeMillis();
 							 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
-					    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
+							 Intent intent2 = new Intent(Intent.ACTION_MAIN);
 				 	          intent2.setClass(CoverageTargetsDetailActivity.this, NewEventPlannerActivity.class);
 				 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				 	          startActivity(intent2);
 				 	          finish();	
+				 	         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 					    	 Toast.makeText(CoverageTargetsDetailActivity.this.getApplicationContext(), "Coverage target edited successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
@@ -607,126 +511,40 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 	 	          goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	 	          startActivity(goHome);
 	 	          finish();
-	 	         
+	 	         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
-	 public boolean isToday(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	String today = new SimpleDateFormat("MM/dd/yyyy").format(new Date(System.currentTimeMillis()));
- 	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
- 	       				.toString().equals(today)) ? true : false;
- 	}
- 	
- 	public boolean isTomorrow(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 1);
- 	    	String tomorrow = new SimpleDateFormat("MM/dd/yyyy").format(new Date(c.getTimeInMillis()));
- 	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
- 	       				.toString().equals(tomorrow)) ? true : false;
- 	}
- 	    
- 	public boolean isThisWeek(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 7);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
- 	public boolean isThisMonth(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 30);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
- 	public boolean isThisQuarter(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 90);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
- 	
- 	public boolean isMidYear(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 120);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
- 	public boolean isThisYear(long dueDate)
- 	{
- 			long milliSeconds = dueDate;
- 	    	Calendar c = Calendar.getInstance();
- 	    	c.add(Calendar.DATE, 365);
- 	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
- 	}
-	public static class DatePickerFragment extends DialogFragment
-	implements DatePickerDialog.OnDateSetListener {
-
-@Override
-public Dialog onCreateDialog(Bundle savedInstanceState) {
-//Use the current date as the default date in the picker
-final Calendar c = Calendar.getInstance();
-int year = c.get(Calendar.YEAR);
-int month = c.get(Calendar.MONTH);
-int day = c.get(Calendar.DAY_OF_MONTH);
-
-//Create a new instance of DatePickerDialog and return it
-return new DatePickerDialog(getActivity(), this, year, month, day);
-}
-
-public void onDateSet(DatePicker view, int year, int month, int day) {
-int month_value=month+1;
-due_date=day+"-"+month_value+"-"+year;
-dueDateValue.setText(due_date);
-}
-}
-	 public static class DatePickerFragment2 extends DialogFragment
-		implements DatePickerDialog.OnDateSetListener {
-
-
-
-@Override
-public Dialog onCreateDialog(Bundle savedInstanceState) {
-// Use the current date as the default date in the picker
-final Calendar c = Calendar.getInstance();
-	int year = c.get(Calendar.YEAR);
-	int month = c.get(Calendar.MONTH);
-	int day = c.get(Calendar.DAY_OF_MONTH);
-
-	// Create a new instance of DatePickerDialog and return it
-	return new DatePickerDialog(getActivity(), this, year, month, day);
-}
-
-public void onDateSet(DatePicker view, int year, int month, int day) {
-int month_value=month+1;
-start_date=day+"-"+month_value+"-"+year;
-startDateValue.setText(start_date);
-}
-}
+	
 	 public static long differenceIndays(String startDate,String endDate,String today)
 	 {
 			// String toDateAsString = "05/11/2010";
 			 Date start_date = null;
 			 Date end_date = null;
 			 Date today_date=null;
+			 long starDateAsTimestamp=0;
+			long endDateTimestamp=0;
 			try {
-				start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
-				end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+				if(startDate==null){
+				System.out.println("Enter a valid date!");
+				}else{
+					start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+					 starDateAsTimestamp = start_date.getTime();
+				}
+				if(endDate==null){
+					System.out.println("Enter a valid date!");	
+				}else {
+					end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+					  endDateTimestamp = end_date.getTime();
+				}
+				
 				today_date= new SimpleDateFormat("dd-MM-yyyy").parse(today);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			 long starDateAsTimestamp = start_date.getTime();
-			 long endDateTimestamp = end_date.getTime();
 			 long todayDateTimestamp = today_date.getTime();
 			 long diff = endDateTimestamp - todayDateTimestamp;
 			  
@@ -737,7 +555,6 @@ startDateValue.setText(start_date);
 				return diffDays;
 			  }
 	    }
-	 
 	 private String getDateTime() {
 	        SimpleDateFormat dateFormat = new SimpleDateFormat(
 	                "dd-MM-yyyy", Locale.getDefault());
@@ -749,15 +566,25 @@ startDateValue.setText(start_date);
 		// String toDateAsString = "05/11/2010";
 		 Date start_date = null;
 		 Date end_date = null;
+		long starDateAsTimestamp = 0;
+		long endDateTimestamp = 0;
 		try {
-			start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
-			end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+			if(startDate==null){
+				System.out.println("Enter a valid date!");
+			}else{
+				start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+				starDateAsTimestamp = start_date.getTime();
+			}
+			if(endDate==null){
+				System.out.println("Enter a valid date!");
+			}else{
+				end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+				endDateTimestamp = end_date.getTime();
+			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 long starDateAsTimestamp = start_date.getTime();
-		 long endDateTimestamp = end_date.getTime();
 		 long getRidOfTime = 1000 * 60 * 60 * 24;
 		 long startDateAsTimestampWithoutTime = starDateAsTimestamp / getRidOfTime;
 		 long endDateTimestampWithoutTime = endDateTimestamp / getRidOfTime;
@@ -768,4 +595,65 @@ startDateValue.setText(start_date);
 		    return false;
 		 }
 	    }
+	 private class GetData extends AsyncTask<Object, Void, Object> {
+		 DbHelper db=new DbHelper(CoverageTargetsDetailActivity.this);
+		private Double percentage;
+		private String percentage_achieved;
+
+	    @Override
+	    protected Object doInBackground(Object... params) {
+	    	 Bundle extras = getIntent().getExtras(); 
+	         if (extras != null) {
+	         	coverage_name=extras.getString("coverage_name");
+	 			coverage_number=extras.getString("coverage_number");
+	 			coverage_period=extras.getString("coverage_period");
+	 			due_date_extra=extras.getString("due_date");
+	 			start_date_extra=extras.getString("start_date");
+	 			achieved=extras.getString("achieved");
+	 			status=extras.getString("status");
+	 			coverage_id=extras.getLong("coverage_id");
+	 			last_updated=extras.getString("last_updated");
+	         }
+	        
+	         int number_achieved_current=Integer.valueOf(achieved);
+	         int number_entered_current=Integer.valueOf(coverage_number);
+	         Double percentage=((double)number_achieved_current/number_entered_current)*100;
+	         String percentage_achieved=String.format("%.0f", percentage);
+	         textView_percentageAchieved.setText(percentage_achieved+"%");
+	         progress_status=(int) percentage.doubleValue();
+	         progress_bar.setProgress(progress_status);
+	         progress_bar.setPrefixText(percentage_achieved+"%");
+	         progress_bar.setPrefixText(" ");
+	         
+	         long difference_in_days=differenceIndays(start_date_extra,due_date_extra,getDateTime());
+	         if (difference_in_days==1){
+	         	day_difference.setTextColor(Color.rgb(225,170,7));
+	         	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " day");
+	         	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
+	         }else if(difference_in_days==0) {
+	         	day_difference.setTextColor(Color.RED);
+	         	day_difference.setText("Due today!!!!");
+	         	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
+	         }else if(difference_in_days==-1) {
+	         	day_difference.setTextColor(Color.RED);
+	         	day_difference.setText("Due date is past");
+	         	imageView_status.setImageResource(R.drawable.sad);
+	         }else {
+	         	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " days");
+	         	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
+	         }
+				return null;
+	    }
+
+	    @Override
+	    protected void onPostExecute(Object result) {
+	        textView_name.setText(coverage_name);
+	        textView_period.setText(coverage_period);
+	        textView_dueDate.setText(due_date_extra);
+	        textView_number.setText(coverage_number);
+	        textView_startDate.setText(start_date_extra);
+	        textView_achieved.setText(achieved);
+	        
+	    }
+	}
 }

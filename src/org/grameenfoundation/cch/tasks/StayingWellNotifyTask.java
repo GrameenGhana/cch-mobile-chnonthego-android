@@ -62,7 +62,7 @@ public class StayingWellNotifyTask extends AsyncTask<Payload, Object, Payload> {
 		 
 		    mBuilder.setContentTitle("CCH Routine Reminder");
 		    mBuilder.setContentText(contMsg);
-		    mBuilder.setTicker("CCH On the Go: Time to do your "+this.dbh.getTime()+" routines!");
+		    mBuilder.setTicker("CHN On the Go: Time to do your "+this.dbh.getTime()+" routines!");
 		    mBuilder.setSmallIcon(R.drawable.app_icon);
 	
 		    // Increase notification number every time a new notification arrives 

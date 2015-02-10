@@ -74,6 +74,7 @@ public class PostnatalCareActivity extends BaseActivity implements AnimationList
 			public void onClick(View v) {
 				intent=new Intent(mContext,PostnatalCareSectionActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });
@@ -83,6 +84,7 @@ public class PostnatalCareActivity extends BaseActivity implements AnimationList
 			public void onClick(View v) {
 				intent=new Intent(mContext,PostnatalCareMotherDiagnosticToolActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });
@@ -94,7 +96,7 @@ public class PostnatalCareActivity extends BaseActivity implements AnimationList
 			public void onClick(View v) {
 				intent=new Intent(mContext,PostnatalCareCounsellingTopicsActivity.class);
 				startActivity(intent);
-				
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });
@@ -121,7 +123,7 @@ public class PostnatalCareActivity extends BaseActivity implements AnimationList
 			public void onClick(View v) {
 				intent=new Intent(mContext,QuickReadsMenuActivity.class);
 				startActivity(intent);
-				
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			}
 	    	
 	    });
