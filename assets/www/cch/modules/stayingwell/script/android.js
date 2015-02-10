@@ -1,4 +1,8 @@
 function CCH() {
+    this.restart = function() {
+        Android.restartApp();
+    },
+
     this.showToast = function(stri) {
         Android.showToast(stri);
     },

@@ -277,7 +277,8 @@
                      }
                 });
                 cch.setMonthlyPlan(response);
-                App.navigateTo('home.html');       
+                cch.restart();
+                //App.navigateTo('home.html');       
         });
     };
 
@@ -402,6 +403,7 @@
                     'dots': true,
                     'arrows': false,
                     'autoplay': false,
+                    'swipe': false,
                     speed: 300
                 };
                 $(_carousel).slick(slideOpt);
