@@ -107,9 +107,6 @@ public class CoursesAchievementAdapter extends BaseExpandableListAdapter{
 			   category.setText(courseList.get(groupPosition).getTitle(prefs.getString(mContext.getString(R.string.prefs_language), Locale
 				.getDefault().getLanguage())));
 			   
-			   Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-		       	      "fonts/Roboto-Thin.ttf");
-			   category.setTypeface(custom_font);
 			  return convertView;
 	}
 
@@ -128,12 +125,6 @@ public class CoursesAchievementAdapter extends BaseExpandableListAdapter{
 		   testType.setText(results.get(childPosition).getType());
 		   score.setText(results.get(childPosition).getScore());
 		   percentage.setText(results.get(childPosition).getPercentage()+"%");
-		   Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-	       	      "fonts/Roboto-Thin.ttf");
-		   topic.setTypeface(custom_font);
-		   testType.setTypeface(custom_font);
-		   score.setTypeface(custom_font);
-		   percentage.setTypeface(custom_font);
 			  return convertView;
 	}
 

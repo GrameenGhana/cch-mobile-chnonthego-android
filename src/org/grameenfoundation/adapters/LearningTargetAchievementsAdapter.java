@@ -64,9 +64,6 @@ import android.widget.TextView;
 		 @Override
 		 public View getChildView(int groupPosition, final int childPosition,
 		   boolean isLastChild, View convertView, ViewGroup parent) {
-			 Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-		       	      "fonts/Roboto-Thin.ttf");
-		  
 		   if(convertView==null){
 			   convertView=minflater.inflate(R.layout.achievements_target_listview_single,null);
 		   }
@@ -121,9 +118,6 @@ import android.widget.TextView;
 		   }
 		  return convertView;
 		 }
-
-
-		 													
 		 @Override
 		 public Object getGroup(int groupPosition) {
 		  return null;
@@ -139,10 +133,6 @@ import android.widget.TextView;
 				   
 				   TextView category=(TextView) convertView.findViewById(R.id.textView_otherCategory);
 				   category.setText(groupItem[groupPosition]);
-				   
-				   Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-			       	      "fonts/Roboto-Thin.ttf");
-				   category.setTypeface(custom_font);
 				   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
 				   if(groupPosition==0){
 					   image.setImageResource(R.drawable.ic_complete);
@@ -156,7 +146,6 @@ import android.widget.TextView;
 		 																																				
 		@Override
 		public int getGroupCount() {
-			// TODO Auto-generated method stub
 			return groupItem.length;
 		}
 
@@ -167,7 +156,6 @@ import android.widget.TextView;
 			if(groupPosition==0){
 				count=completedTargets.size();
 			}else if(groupPosition==1){
-				//count=tomorrowEventId.size();
 				count=unCompletedTargets.size();
 			}
 			return count;
@@ -176,7 +164,6 @@ import android.widget.TextView;
 
 		@Override
 		public long getGroupId(int groupPosition) {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 
@@ -257,7 +244,6 @@ import android.widget.TextView;
 
 		@Override
 		public boolean hasStableIds() {
-			// TODO Auto-generated method stub
 			return true;
 		}
 
@@ -265,7 +251,6 @@ import android.widget.TextView;
 
 		@Override
 		public boolean isChildSelectable(int groupPosition, int childPosition) {
-			// TODO Auto-generated method stub
 			return true;
 		}
 

@@ -24,19 +24,16 @@ public class PointOfCareBaseAdapter extends BaseAdapter{
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return category.length;
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -52,11 +49,8 @@ public class PointOfCareBaseAdapter extends BaseAdapter{
         } else {
       	  list = (View) convertView;
         }
-		 Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-         	      "fonts/Roboto-Thin.ttf");
 		TextView category_text=(TextView) list.findViewById(R.id.textView_pocCategory);
 		category_text.setText(category[position]);
-		//category_text.setTypeface(custom_font);
 		ImageView icon=(ImageView) list.findViewById(R.id.imageView_pocIcon);
 		icon.setImageResource(imageIds[position]);
 		

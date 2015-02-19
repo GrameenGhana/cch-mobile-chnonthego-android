@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="0.61"
+        android:background="@drawable/bg_marquee"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:background="@color/BorderBrown" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@drawable/bg_marquee"
+            android:orientation="vertical" >
+
+            <android.support.v4.view.ViewPager
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/pager2"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/bg_marquee" >
+            </android.support.v4.view.ViewPager>
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:background="@color/BorderBrown" />
+
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="300dp"
+            android:layout_height="300dp" >
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                 android:layout_width="230dp"
+                android:layout_height="100dp"
+                android:gravity="center_horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" >
+
+                <LinearLayout
+                    android:id="@+id/planner"
+                    android:layout_width="135dp"
+                    android:layout_height="80dp"
+                    android:background="@color/PlannerBlue"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/textView_events"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="30dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/White"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical" >
+
+                        <ImageView
+                            android:id="@+id/imageView1"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:src="@drawable/ic_new_calendar" />
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Planner"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/White"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="20dp"
+                    android:layout_height="80dp"
+                    android:minWidth="10dp" />
+
+                <LinearLayout
+                    android:id="@+id/poc"
+                 android:layout_width="135dp"
+                    android:layout_height="80dp"
+                    android:background="@color/pocRed"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_new_poc" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:text="Point of Care"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/White"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                 android:layout_width="230dp"
+                android:layout_height="100dp"
+                android:gravity="center_horizontal"
+                android:paddingBottom="10dp" >
+
+                <LinearLayout
+                    android:id="@+id/learning"
+                    android:layout_width="135dp"
+                    android:layout_height="80dp"
+                    android:background="@color/learningMagenta"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_book" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:text="Learning Center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/White"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+					<View
+                    android:layout_width="20dp"
+                    android:layout_height="80dp"
+                    android:minWidth="10dp" />
+                <LinearLayout
+                    android:id="@+id/stayingWell"
+                 android:layout_width="135dp"
+                    android:layout_height="80dp"
+                    android:background="@color/stayingWellGreen"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                       android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_new_staying_well" />
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:text="Staying Well"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/White"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="230dp"
+                android:layout_height="100dp"
+                android:background="@color/achievementAmber"
+                android:gravity="center_horizontal"
+                android:paddingBottom="10dp" >
+
+                <LinearLayout
+                    android:id="@+id/achievements"
+                   android:layout_width="135dp"
+                    android:layout_height="80dp"
+                    android:layout_span="2"
+                    android:background="@color/achievementAmber"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                       android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_new_achievement" />
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:text="Achievements"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/White"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

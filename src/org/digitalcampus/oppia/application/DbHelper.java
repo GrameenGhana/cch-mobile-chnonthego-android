@@ -2613,6 +2613,7 @@ public long findItemCount(String table, String searchedBy,
 		String strQuery="select * from "+COVERAGE_SET_TABLE
 							+" where "+COL_SYNC_STATUS
 							+ " = '"+status+"'";	
+		System.out.println(strQuery);
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
 			
@@ -2634,9 +2635,9 @@ public long findItemCount(String table, String searchedBy,
 					coverage_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_COVERAGE_SET_PERIOD)));
 					coverage_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
 				   list.add(coverage_targets);
-				   c.moveToNext();	
+				
 				}
-									
+				   c.moveToNext();						
 			}
 			c.close();
 			db.close();
@@ -2672,9 +2673,9 @@ public long findItemCount(String table, String searchedBy,
 					other_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_OTHER_PERIOD)));
 					other_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
 				   list.add(other_targets);
-				   c.moveToNext();				
+				 	
 				}
-				 		
+				  c.moveToNext();			 		
 			}
 			c.close();
 			db.close();
@@ -2709,9 +2710,9 @@ public long findItemCount(String table, String searchedBy,
 				learning_targets.setLearningTargetPeriod(c.getString(c.getColumnIndex(COL_LEARNING_PERIOD)));
 				learning_targets.setLearningTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
 				   list.add(learning_targets);
-				   c.moveToNext();	
+				  
 				}
-									
+				 c.moveToNext();						
 			}
 			c.close();
 			db.close();

@@ -80,9 +80,6 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 	 @Override
 	 public View getChildView(int groupPosition, final int childPosition,
 	   boolean isLastChild, View convertView, ViewGroup parent) {
-		 Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-	       	      "fonts/Roboto-Thin.ttf");
-	  
 	   if(convertView==null){
 		   convertView=minflater.inflate(R.layout.event_listview_single,null);
 	   }

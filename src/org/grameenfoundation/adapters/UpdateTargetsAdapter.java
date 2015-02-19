@@ -160,18 +160,11 @@ public class UpdateTargetsAdapter extends BaseExpandableListAdapter{
 			   
 			   TextView category=(TextView) convertView.findViewById(R.id.textView_textSingle);
 			   category.setText(groupItems[groupPosition]);
-			   
-			   Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-		       	      "fonts/Roboto-Thin.ttf");
-			   category.setTypeface(custom_font);
 			  return convertView;
 	}
 	@Override
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
-		 Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-	       	      "fonts/Roboto-Thin.ttf");
-	  
 	   if(convertView==null){
 		   convertView=minflater.inflate(R.layout.event_listview_single,null);
 	   }
@@ -194,9 +187,8 @@ public class UpdateTargetsAdapter extends BaseExpandableListAdapter{
 	   int number_achieved_today=Integer.valueOf(eventTargets.get(childPosition).getEventTargetNumberAchieved());
 		   Double percentage= ((double)number_achieved_today/Integer.valueOf(eventTargets.get(childPosition).getEventTargetNumber()))*100;	
 		   String percentage_achieved=String.format("%.0f", percentage);
-	  
 		  text6.setText(eventTargets.get(childPosition).getEventTargetNumberAchieved());   
-	   text8.setText(percentage_achieved+"%");
+		  text8.setText(percentage_achieved+"%");
 	   }else if(groupPosition==1){
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_eventCategory);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventNumber);
@@ -263,7 +255,6 @@ public class UpdateTargetsAdapter extends BaseExpandableListAdapter{
 
 	@Override
 	public boolean hasStableIds() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
@@ -271,24 +262,9 @@ public class UpdateTargetsAdapter extends BaseExpandableListAdapter{
 
 	@Override
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
-	/*
-	public void onGroupExpanded(int groupPosition) {
-    	
-    	if(groupPosition != lastExpandedGroupPosition){
-            event_list.collapseGroup(lastExpandedGroupPosition);
-       
-    }
-    	
-        super.onGroupExpanded(groupPosition);
-     
-        lastExpandedGroupPosition = groupPosition;
-        
-    }
-*/
 	}
 
 

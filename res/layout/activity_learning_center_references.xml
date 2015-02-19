@@ -3,37 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/White"
-    android:orientation="vertical"
-    android:padding="10dp" >
+    android:orientation="vertical" >
 
     <LinearLayout
+        android:id="@+id/referenceStatus"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp" >
 
         <TextView
-            android:id="@+id/textView_label"
+            android:id="@+id/textView_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Small Text"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/Brown" />
+            android:text="No references currently available"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/TextColorWine" />
 
-        <TextView
-            android:id="@+id/textView_number"
+        <Button
+            android:id="@+id/button_manage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/Green" />
+            android:text="Manage references" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/referenceList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="10dp" >
 
         <ListView
-            android:id="@+id/expandableListView1"
+            android:id="@+id/listView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/BackgroundGrey"

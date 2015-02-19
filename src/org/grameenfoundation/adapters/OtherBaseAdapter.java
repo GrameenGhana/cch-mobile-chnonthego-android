@@ -239,18 +239,11 @@ public class OtherBaseAdapter extends BaseExpandableListAdapter{
 			   
 			   TextView category=(TextView) convertView.findViewById(R.id.textView_textSingle);
 			   category.setText(groupItems[groupPosition]);
-			   
-			   Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-		       	      "fonts/Roboto-Thin.ttf");
-			   category.setTypeface(custom_font);
 			  return convertView;
 	}
 	@Override
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
-		 Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-	       	      "fonts/Roboto-Thin.ttf");
-	  
 	   if(convertView==null){
 		   convertView=minflater.inflate(R.layout.event_listview_single,null);
 	   }
@@ -264,19 +257,6 @@ public class OtherBaseAdapter extends BaseExpandableListAdapter{
 	   text2.setText(dailyLearningNumber.get(childPosition));
 	   text3.setText(dailyLearningPeriod.get(childPosition));
 	   text4.setText(dailyLearningDueDate.get(childPosition));
-	   /*
-	   if(!dailyLearningStatus.isEmpty()){
-	   if(dailyLearningStatus!=null&&dailyLearningStatus.get(childPosition).equalsIgnoreCase("updated")){
-		   image.setImageResource(R.drawable.ic_achieved);
-	   }else if(dailyLearningStatus!=null&&dailyLearningStatus.get(childPosition).equalsIgnoreCase("new_record")){
-		   image.setImageResource(R.drawable.ic_loading);
-	   }else if(dailyLearningStatus!=null&&dailyLearningStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
-		   image.setImageResource(R.drawable.ic_not_achieved);
-	   }
-	   }*/
-	   //text.setTypeface(custom_font);
-	   //text2.setTypeface(custom_font);
-	   //text3.setTypeface(custom_font);
 	   }else if(groupPosition==1){
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_eventCategory);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventNumber);
@@ -287,17 +267,6 @@ public class OtherBaseAdapter extends BaseExpandableListAdapter{
 		   text2.setText(weeklyLearningNumber.get(childPosition));
 		   text3.setText(weeklyLearningPeriod.get(childPosition));
 		   text4.setText(weeklyLearningDueDate.get(childPosition));
-		   /*
-		   if(weeklyLearningStatus!=null&&weeklyLearningStatus.get(childPosition).equalsIgnoreCase("updated")){
-			   image.setImageResource(R.drawable.ic_achieved);
-		   }else if(weeklyLearningStatus!=null&&weeklyLearningStatus.get(childPosition).equalsIgnoreCase("new_record")){
-			   image.setImageResource(R.drawable.ic_loading);
-		   }else if(weeklyLearningStatus!=null&&weeklyLearningStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
-			   image.setImageResource(R.drawable.ic_not_achieved);
-		   }*/
-		   //text.setTypeface(custom_font);
-		   //text2.setTypeface(custom_font);
-		   //text3.setTypeface(custom_font);
 	   }else if(groupPosition==2){
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_eventCategory);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventNumber);
@@ -308,17 +277,6 @@ public class OtherBaseAdapter extends BaseExpandableListAdapter{
 		   text2.setText(monthlyLearningNumber.get(childPosition));
 		   text3.setText(monthlyLearningPeriod.get(childPosition));
 		   text4.setText(monthlyLearningDueDate.get(childPosition));
-		   /*
-		   if(monthlyLearningStatus!=null&&monthlyLearningStatus.get(childPosition).equalsIgnoreCase("updated")){
-			   image.setImageResource(R.drawable.ic_achieved);
-		   }else if(monthlyLearningStatus!=null&&monthlyLearningStatus.get(childPosition).equalsIgnoreCase("new_record")){
-			   image.setImageResource(R.drawable.ic_loading);
-		   }else if(monthlyLearningStatus!=null&&monthlyLearningStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
-			   image.setImageResource(R.drawable.ic_not_achieved);
-		   }*/
-		   //text.setTypeface(custom_font);
-		   //text2.setTypeface(custom_font);
-		   //text3.setTypeface(custom_font);
 	   }else if(groupPosition==3){
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_eventCategory);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventNumber);
@@ -329,17 +287,6 @@ public class OtherBaseAdapter extends BaseExpandableListAdapter{
 		   text2.setText(yearlyLearningNumber.get(childPosition));
 		   text3.setText(yearlyLearningPeriod.get(childPosition));
 		   text4.setText(yearlyLearningDueDate.get(childPosition));
-		   /*
-		   if(yearlyLearningStatus!=null&&yearlyLearningStatus.get(childPosition).equalsIgnoreCase("updated")){
-			   image.setImageResource(R.drawable.ic_achieved);
-		   }else if(yearlyLearningStatus!=null&&yearlyLearningStatus.get(childPosition).equalsIgnoreCase("new_record")){
-			   image.setImageResource(R.drawable.ic_loading);
-		   }else if(yearlyLearningStatus!=null&&yearlyLearningStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
-			   image.setImageResource(R.drawable.ic_not_achieved);
-		   }*/
-		   //text.setTypeface(custom_font);
-		   //text2.setTypeface(custom_font);
-		   //text3.setTypeface(custom_font);
 	   }else if(groupPosition==4){
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_eventCategory);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventNumber);
@@ -350,17 +297,6 @@ public class OtherBaseAdapter extends BaseExpandableListAdapter{
 		   text2.setText(midYearLearningNumber.get(childPosition));
 		   text3.setText(midYearLearningPeriod.get(childPosition));
 		   text4.setText(midYearLearningDueDate.get(childPosition));
-		   /*
-		   if(midYearLearningStatus!=null&&midYearLearningStatus.get(childPosition).equalsIgnoreCase("updated")){
-			   image.setImageResource(R.drawable.ic_achieved);
-		   }else if(midYearLearningStatus!=null&&midYearLearningStatus.get(childPosition).equalsIgnoreCase("new_record")){
-			   image.setImageResource(R.drawable.ic_loading);
-		   }else if(midYearLearningStatus!=null&&midYearLearningStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
-			   image.setImageResource(R.drawable.ic_not_achieved);
-		   }*/
-		   //text.setTypeface(custom_font);
-		   //text2.setTypeface(custom_font);
-		   //text3.setTypeface(custom_font);
 	   }
 	  
 	  return convertView;
@@ -368,7 +304,6 @@ public class OtherBaseAdapter extends BaseExpandableListAdapter{
 
 	@Override
 	public boolean hasStableIds() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
@@ -376,24 +311,9 @@ public class OtherBaseAdapter extends BaseExpandableListAdapter{
 
 	@Override
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
-	/*
-	public void onGroupExpanded(int groupPosition) {
-    	
-    	if(groupPosition != lastExpandedGroupPosition){
-            other_list.collapseGroup(lastExpandedGroupPosition);
-       
-    }
-    	
-        super.onGroupExpanded(groupPosition);
-     
-        lastExpandedGroupPosition = groupPosition;
-        
-    }
-*/
 		
 	}
 

@@ -1,8 +1,12 @@
 package org.grameenfoundation.cch.activity;
 
+import java.util.ArrayList;
+
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.cch.model.CourseAchievments;
+import org.grameenfoundation.cch.model.EventTargets;
 import org.grameenfoundation.cch.tasks.CourseAchievementsTask;
 import org.grameenfoundation.poc.BaseActivity;
 
@@ -29,12 +33,15 @@ public class AchievementCenterActivity extends BaseActivity {
 	int year;
 	private SharedPreferences prefs;
 	private ListView listView;
+	private DbHelper db;
+	private ArrayList<EventTargets> completedCoverageTargets;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_achievements);
 	    getActionBar().setTitle("Achievement Centre");
+	   // db=new DbHelper(AchievementCenterActivity.this);
 	    CourseAchievments courses= new CourseAchievments();
 	    spinner_categories=(Spinner) findViewById(R.id.spinner_categories);
 	    String[] items={"November 2014","December 2014",
@@ -52,6 +59,8 @@ public class AchievementCenterActivity extends BaseActivity {
 	    String[] items2={"Overall course achievements"};
 	    ArrayAdapter<String> adapter2=new ArrayAdapter<String>(AchievementCenterActivity.this,android.R.layout.simple_spinner_item,items2);
 	    listView.setAdapter(adapter2);
+	    //completedCoverageTargets=db.getAllCoverageTargetsCompletedForAchievements("updated",2, 2015);
+	   // System.out.println(completedCoverageTargets.get(0).getEventTargetEndDate());
 	    spinner_categories.setOnItemSelectedListener(new OnItemSelectedListener(){
 
 			@Override

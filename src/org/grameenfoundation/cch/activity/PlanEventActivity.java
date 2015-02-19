@@ -154,34 +154,50 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 
 				@Override
 				public void onClick(View v) {
-				if(c.deleteEvent(Long.parseLong(event_id))==true){
-				JSONObject json = new JSONObject();
-				 try {
-					json.put("id", event_id);
-					 json.put("event_type", event_type);
-					 json.put("event_location", event_location);
-					 json.put("event_desc", event_desc);
-					 json.put("changed", 0);
-					 json.put("deleted", 1);
-					 
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-				 end_time=System.currentTimeMillis();
-				 dbh.insertCCHLog("Calendar", json.toString(), String.valueOf(startTime), String.valueOf(end_time));
-				 Intent intent=new Intent(mContext, EventsViewActivity.class);
-				 startActivity(intent);
-				 finish();
-				 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
-				 Toast.makeText(mContext, "Event deleted successfully!",
-				         Toast.LENGTH_LONG).show();
-				}
+					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+							mContext);
+						alertDialogBuilder.setTitle("Delete Confirmation");
+						alertDialogBuilder
+							.setMessage("You are about to delete this event. Proceed?")
+							.setCancelable(false)
+							.setIcon(R.drawable.ic_error)
+							.setPositiveButton("No",new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,int id) {
+									dialog.cancel();
+								}
+							  })
+							.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,int id) {
+									if(c.deleteEvent(Long.parseLong(event_id))==true){
+										JSONObject json = new JSONObject();
+										 try {
+											json.put("id", event_id);
+											 json.put("event_type", event_type);
+											 json.put("event_location", event_location);
+											 json.put("event_desc", event_desc);
+											 json.put("changed", 0);
+											 json.put("deleted", 1);
+											 
+										} catch (JSONException e) {
+											e.printStackTrace();
+										}
+										 end_time=System.currentTimeMillis();
+										 dbh.insertCCHLog("Calendar", json.toString(), String.valueOf(startTime), String.valueOf(end_time));
+										 Intent intent=new Intent(mContext, EventsViewActivity.class);
+										 startActivity(intent);
+										 finish();
+										 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
+										 Toast.makeText(mContext, "Event deleted successfully!",
+										         Toast.LENGTH_LONG).show();
+										}
 				}
 	    	});
-	    	
+						AlertDialog alertDialog = alertDialogBuilder.create();
+						alertDialog.show();
+			}	
+        });
+	    	}
 	    }
-	}
-	   
 	@Override
 	public void onClick(View v) {
 		

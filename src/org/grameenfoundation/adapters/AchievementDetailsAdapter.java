@@ -9,7 +9,6 @@ import org.grameenfoundation.cch.model.MyCalendarEvents;
 import org.grameenfoundation.cch.model.RoutineActivity;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,9 +54,6 @@ import android.widget.TextView;
 	 @Override
 	 public View getChildView(int groupPosition, final int childPosition,
 	   boolean isLastChild, View convertView, ViewGroup parent) {
-		 Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-	       	      "fonts/Roboto-Thin.ttf");
-	  
 	   if(convertView==null){
 		   convertView=minflater.inflate(R.layout.event_expandable_listview_single,null);
 	   }

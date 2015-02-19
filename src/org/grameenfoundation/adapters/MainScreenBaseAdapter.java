@@ -48,20 +48,21 @@ public class MainScreenBaseAdapter extends BaseAdapter{
 	        	  LayoutInflater inflater = (LayoutInflater) mContext
 	        		        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	        	  list = new View(mContext);
-	        	  list = inflater.inflate(R.layout.main_screen_listview_single, null);
+	        	  list = inflater.inflate(R.layout.main_screen_gridview_single, null);
 	       
 	          } else {
 	        	  list = (View) convertView;
 	          }
+	          
 	          TextView textView2 = (TextView) list.findViewById(R.id.textView_category);
 	            ImageView imageView = (ImageView)list.findViewById(R.id.imageView_categoryIcon);
 	            textView2.setText(category[position]);
-	            Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-		          	      "fonts/Roboto-Thin.ttf");
-		            //textView2.setTypeface(custom_font);
 	           
 	            imageView.setImageResource(Imageid[position]);
-	           
+	            imageView.setMaxHeight(250);
+	            if(position==4){
+	            	
+	            }
 	      return list;
 	    }
 		

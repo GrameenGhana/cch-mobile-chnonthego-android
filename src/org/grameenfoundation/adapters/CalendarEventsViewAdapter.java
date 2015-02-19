@@ -66,8 +66,6 @@ import android.widget.TextView;
 	 @Override
 	 public View getChildView(int groupPosition, final int childPosition,
 	   boolean isLastChild, View convertView, ViewGroup parent) {
-		 Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-	       	      "fonts/Roboto-Thin.ttf");
 	  
 	   if(convertView==null){
 		   convertView=minflater.inflate(R.layout.event_expandable_listview_single,null);
@@ -83,10 +81,6 @@ import android.widget.TextView;
 	   text3.setText(todayEvents.get(childPosition).getEventLocation());
 	  text4.setText(todayEvents.get(childPosition).getEventTime());
 	 
-	   //text.setTypeface(custom_font);
-	   //text2.setTypeface(custom_font);
-	   //text3.setTypeface(custom_font);
-	   //text4.setTypeface(custom_font);
 	   }else if(groupPosition==1){
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_eventType);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventDescription);
@@ -96,11 +90,6 @@ import android.widget.TextView;
 		   text2.setText(tomorowsEvents.get(childPosition).getEventDescription());
 		   text3.setText(tomorowsEvents.get(childPosition).getEventLocation());
 		   text4.setText(tomorowsEvents.get(childPosition).getEventTime());
-		 
-		   //text.setTypeface(custom_font);
-		   //text2.setTypeface(custom_font);
-		   //text3.setTypeface(custom_font);
-		   //text4.setTypeface(custom_font);
 	   }else if(groupPosition==2){
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_eventType);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventDescription);
@@ -110,11 +99,6 @@ import android.widget.TextView;
 		   text2.setText(futureEvents.get(childPosition).getEventDescription());
 		   text3.setText(futureEvents.get(childPosition).getEventLocation());
 		   text4.setText(futureEvents.get(childPosition).getEventTime());
-		 
-		   //text.setTypeface(custom_font);
-		   //text2.setTypeface(custom_font);
-		   //text3.setTypeface(custom_font);
-		   //text4.setTypeface(custom_font);
 	   }
 	  return convertView;
 	 }

@@ -248,12 +248,6 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 
 	        // Back?
 	        if (keyCode == KeyEvent.KEYCODE_BACK) {
-	        	/*
-	        	Intent i = new Intent(OppiaMobileActivity.this, HomeActivity.class);
-	        	i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	            i.putExtra("LOAD_URL", "file:///android_asset/www/cch/modules/learning/index.html");
-	        	startActivity(i);
-	        	*/
 	        	Intent i = new Intent(OppiaMobileActivity.this, MainScreenActivity.class);
 	        	i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	        	startActivity(i);

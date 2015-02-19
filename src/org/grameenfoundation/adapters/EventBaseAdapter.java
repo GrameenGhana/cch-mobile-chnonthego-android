@@ -28,17 +28,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 	 private final ArrayList<String> todayEventStatus;
 	 private final ArrayList<String> todayEventId;
 	 private final ArrayList<String> todayEventLastUpdated;
-	// private final ArrayList<String> todayEventNumberRemaining;
-	 
-	 /*
-	 private final ArrayList<String> tomorrowEventName;
-	 private final ArrayList<String> tomorrowEventNumber;
-	 private final ArrayList<String> tomorrowEventPeriod;
-	 private final ArrayList<String> tomorrowEventDueDate;
-	 private final ArrayList<String> tomorrowEventStartDate;
-	 private final ArrayList<String> tomorrowEventStatus;
-	 private final ArrayList<String> tomorrowEventId;
-	 */
 	 private final ArrayList<String> thisWeekEventName;
 	 private final ArrayList<String> thisWeekEventNumber;
 	 private final ArrayList<String> thisWeekEventPeriod;
@@ -48,7 +37,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 	 private final ArrayList<String> thisWeekEventStatus;
 	 private final ArrayList<String> thisWeekEventId;
 	 private final ArrayList<String> thisWeekEventLastUpdated;
-	// private final ArrayList<String> thisWeekEventNumberRemaining;
 	 
 	 private final ArrayList<String> thisMonthEventName;
 	 private final ArrayList<String> thisMonthEventNumber;
@@ -59,7 +47,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 	 private final ArrayList<String> thisMonthEventStatus;
 	 private final ArrayList<String> thisMonthEventId;
 	 private final ArrayList<String> thisMonthEventLastUpdated;
-	// private final ArrayList<String> thisMonthEventNumberRemaining;
 	 
 	 private final ArrayList<String> thisQuarterEventName;
 	 private final ArrayList<String> thisQuarterEventNumber;
@@ -70,7 +57,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 	 private final ArrayList<String> thisQuarterEventStatus;
 	 private final ArrayList<String> thisQuarterEventId;
 	 private final ArrayList<String> thisQuarterEventLastUpdated;
-	 //private final ArrayList<String> thisQuarterEventNumberRemaining;
 	 
 	 private final ArrayList<String> midYearEventName;
 	 private final ArrayList<String> midYearEventNumber;
@@ -81,7 +67,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 	 private final ArrayList<String> midYearEventStatus;
 	 private final ArrayList<String> midYearEventId;
 	 private final ArrayList<String> midYearEventLastUpdated;
-	// private final ArrayList<String> midYearEventNumberRemaining;
 	 
 	 private final ArrayList<String> thisYearEventName;
 	 private final ArrayList<String> thisYearEventNumber;
@@ -92,7 +77,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 	 private final ArrayList<String> thisYearEventStatus;
 	 private final ArrayList<String> thisYearEventId;
 	 private final ArrayList<String> thisYearEventLastUpdated;
-	// private final ArrayList<String> thisYearEventNumberRemaining;
 	 private String[] groupItems;
 	 public LayoutInflater minflater;
 	 ExpandableListView event_list;
@@ -108,17 +92,7 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 										ArrayList<String> todayEventStatus,
 										ArrayList<String> todayEventId,
 										ArrayList<String> todayEventLastUpdated,
-										//ArrayList<String> todayEventNumberRemaining,
-											
-										/*
-										ArrayList<String> tomorrowEventName,
-										ArrayList<String> tomorrowEventNumber,
-										ArrayList<String> tomorrowEventPeriod,
-										ArrayList<String> tomorrowEventDueDate,
-										ArrayList<String> tomorrowEventStartDate,
-										ArrayList<String> tomorrowEventStatus,
-										ArrayList<String> tomorrowEventId,
-				*/
+										
 										ArrayList<String> thisWeekEventName,
 										ArrayList<String> thisWeekEventNumber,
 										ArrayList<String> thisWeekEventPeriod,
@@ -128,7 +102,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 										ArrayList<String> thisWeekEventStatus,
 										ArrayList<String> thisWeekEventId,
 										ArrayList<String> thisWeekEventLastUpdated,
-										//ArrayList<String> thisWeekEventNumberRemaining,
 				
 										ArrayList<String> thisMonthEventName,
 										ArrayList<String> thisMonthEventNumber,
@@ -139,7 +112,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 										ArrayList<String> thisMonthEventStatus,
 										ArrayList<String> thisMonthEventId,
 										ArrayList<String> thisMonthEventLastUpdated,
-										//ArrayList<String> thisMonthEventNumberRemaining,
 				
 										ArrayList<String> thisQuarterEventName,
 										ArrayList<String> thisQuarterEventNumber,
@@ -161,7 +133,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 										ArrayList<String> midYearEventStatus,
 										ArrayList<String> midYearEventId,
 										ArrayList<String> midYearEventLastUpdated,
-										//ArrayList<String> midYearEventNumberRemaining,
 				
 										ArrayList<String> thisYearEventName,
 										ArrayList<String> thisYearEventNumber,
@@ -172,7 +143,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 										ArrayList<String> thisYearEventStatus,
 										ArrayList<String> thisYearEventId,
 										ArrayList<String> thisYearEventLastUpdated,
-										//ArrayList<String> thisYearEventNumberRemaining,
 			 							String[] groupItems,
 			 							ExpandableListView event_list
 			 							) {
@@ -186,16 +156,8 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
        this.todayEventStatus=todayEventStatus;
        this.todayEventId=todayEventId;
        this.todayEventLastUpdated=todayEventLastUpdated;
-      // this.todayEventNumberRemaining=todayEventNumberRemaining;
        minflater = LayoutInflater.from(mContext);
-       /*
-       this.tomorrowEventName = tomorrowEventName;
-       this.tomorrowEventNumber=tomorrowEventNumber;
-       this.tomorrowEventPeriod=tomorrowEventPeriod;
-       this.tomorrowEventDueDate=tomorrowEventDueDate;
-       this.tomorrowEventStatus=tomorrowEventStatus;
-       this.tomorrowEventId=tomorrowEventId;
-       */
+       
        this.thisWeekEventName = thisWeekEventName;
        this.thisWeekEventNumber=thisWeekEventNumber;
        this.thisWeekEventPeriod=thisWeekEventPeriod;
@@ -205,7 +167,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
        this.thisWeekEventStatus=thisWeekEventStatus;
        this.thisWeekEventId=thisWeekEventId;
        this.thisWeekEventLastUpdated=thisWeekEventLastUpdated;
-      // this.thisWeekEventNumberRemaining=thisWeekEventNumberRemaining;
        
        this.thisMonthEventName = thisMonthEventName;
        this.thisMonthEventNumber=thisMonthEventNumber;
@@ -216,7 +177,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
        this.thisMonthEventStatus=thisMonthEventStatus;
        this.thisMonthEventId=thisMonthEventId;
        this.thisMonthEventLastUpdated=thisMonthEventLastUpdated;
-       //this.thisMonthEventNumberRemaining=thisMonthEventNumberRemaining;
        
        this.thisQuarterEventName = thisQuarterEventName;
        this.thisQuarterEventNumber=thisQuarterEventNumber;
@@ -227,7 +187,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
        this.thisQuarterEventStatus=thisQuarterEventStatus;
        this.thisQuarterEventId=thisQuarterEventId;
        this.thisQuarterEventLastUpdated=thisQuarterEventLastUpdated;
-      // this.thisQuarterEventNumberRemaining=thisQuarterEventNumberRemaining;
        
        this.midYearEventName = midYearEventName;
        this.midYearEventNumber=midYearEventNumber;
@@ -238,7 +197,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
        this.midYearEventStatus=midYearEventStatus;
        this.midYearEventId=midYearEventId;
        this.midYearEventLastUpdated=midYearEventLastUpdated;
-      // this.midYearEventNumberRemaining=midYearEventNumberRemaining;
        
        this.thisYearEventName = thisYearEventName;
        this.thisYearEventNumber=thisYearEventNumber;
@@ -249,7 +207,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
        this.thisYearEventStatus=thisYearEventStatus;
        this.thisYearEventId=thisYearEventId;
        this.thisYearEventLastUpdated=thisYearEventLastUpdated;
-       //this.thisYearEventNumberRemaining=thisYearEventNumberRemaining;
        this.groupItems=groupItems;
        this.event_list=event_list;
      
@@ -268,7 +225,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 		if(groupPosition==0){
 			count=todayEventId.size();
 		}else if(groupPosition==1){
-			//count=tomorrowEventId.size();
 			count=thisWeekEventId.size();
 		}else if(groupPosition==2){
 			count=thisMonthEventId.size();
@@ -291,7 +247,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 		String[] childDetails = null;
 		if(groupPosition==0){
 			int number_achieved_today=Integer.valueOf(todayEventAchieved.get(childPosition));
-			//int number_remaining_today=Integer.valueOf(todayEventNumberRemaining.get(childPosition));
 			Double percentage= ((double)number_achieved_today/Integer.valueOf(todayEventNumber.get(childPosition)))*100;	
 			String percentage_achieved=String.format("%.1f", percentage);
 			childDetails=new String[]{todayEventName.get(childPosition),
@@ -304,19 +259,9 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 									  todayEventId.get(childPosition),
 									  todayEventLastUpdated.get(childPosition),
 									  percentage_achieved
-									 // todayEventNumberRemaining.get(childPosition)
 									  };
 		}else if(groupPosition==1){
-			/*
-			childDetails=new String[]{tomorrowEventName.get(childPosition),
-									  tomorrowEventNumber.get(childPosition),
-									  tomorrowEventPeriod.get(childPosition),
-									  tomorrowEventDueDate.get(childPosition),
-									  tomorrowEventStatus.get(childPosition),
-									  tomorrowEventId.get(childPosition)};
-									  */
 			int number_achieved_this_week=Integer.valueOf(thisWeekEventAchieved.get(childPosition));
-			//int number_remaining_this_week=Integer.valueOf(thisWeekEventNumberRemaining.get(childPosition));
 			Double percentage_this_week= ((double)number_achieved_this_week/Integer.valueOf(thisWeekEventNumber.get(childPosition))) *100;	
 			String percentage_achieved_this_week=String.format("%.1f", percentage_this_week);
 			childDetails=new String[]{thisWeekEventName.get(childPosition),
@@ -329,13 +274,8 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 					  thisWeekEventId.get(childPosition),
 					  thisWeekEventLastUpdated.get(childPosition),
 					  percentage_achieved_this_week
-					 //thisWeekEventNumberRemaining.get(childPosition)
 					  };
 		}else if(groupPosition==2){
-			//int number_achieved_this_month=Integer.valueOf(thisMonthEventAchieved.get(childPosition));
-			//int number_remaining_this_month=Integer.valueOf(thisMonthEventNumberRemaining.get(childPosition));
-			//Double percentage_this_month= ((double)number_achieved_this_month/Integer.valueOf(thisMonthEventNumber.get(childPosition)))*100;	
-			//String percentage_achieved_this_month=String.format("%.1f", percentage_this_month);
 			childDetails=new String[]{thisMonthEventName.get(childPosition),
 					  thisMonthEventNumber.get(childPosition),
 					  thisMonthEventPeriod.get(childPosition),
@@ -345,8 +285,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 					  thisMonthEventStatus.get(childPosition),
 					  thisMonthEventId.get(childPosition),
 					  thisMonthEventLastUpdated.get(childPosition)
-					 // percentage_achieved_this_month																	
-					  //thisMonthEventNumberRemaining.get(childPosition)
 					  };
 		}else if(groupPosition==3){
 			int number_achieved_this_quarter=Integer.valueOf(thisQuarterEventAchieved.get(childPosition));
@@ -453,8 +391,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 	@Override
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
-		 Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-	       	      "fonts/Roboto-Thin.ttf");
 	  
 	   if(convertView==null){
 		   convertView=minflater.inflate(R.layout.event_listview_single,null);
@@ -477,10 +413,7 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 	   text5.setText(todayEventStartDate.get(childPosition));
 	   text7.setText(todayEventLastUpdated.get(childPosition));
 	   int number_achieved_today=Integer.valueOf(todayEventAchieved.get(childPosition));
-	   //System.out.println(String.valueOf(number_achieved_today));
-		  // int number_remaining_today=Integer.valueOf(todayEventNumberRemaining.get(childPosition));
 		   Double percentage= ((double)number_achieved_today/Integer.valueOf(todayEventNumber.get(childPosition)))*100;	
-		   //System.out.println(String.valueOf(percentage));
 		   String percentage_achieved=String.format("%.0f", percentage);
 	  
 	   if(todayEventAchieved.isEmpty()){
@@ -489,25 +422,7 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 		  text6.setText(todayEventAchieved.get(childPosition));   
 	   }
 	   text8.setText(percentage_achieved+"%");
-	   /*
-	   if(!todayEventStatus.isEmpty()){
-		   if(todayEventStatus!=null&&todayEventStatus.get(childPosition).equalsIgnoreCase("updated")){
-		   image.setImageResource(R.drawable.ic_achieved);
-	   }else if(todayEventStatus!=null&&todayEventStatus.get(childPosition).equalsIgnoreCase("new_record")){
-		   image.setImageResource(R.drawable.ic_loading);
-	   }else if(todayEventStatus!=null&&todayEventStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
-		   image.setImageResource(R.drawable.ic_not_achieved);
-	   }
-	   }*/
-	   //text.setTypeface(custom_font);
-	   //text2.setTypeface(custom_font);
-	   //text3.setTypeface(custom_font);
 	   }else if(groupPosition==1){
-		  // if(thisWeekEventAchieved.size()>0&&thisWeekEventNumber.size()>0){
-		
-		   //}
-			//int number_remaining_this_week=Integer.valueOf(thisWeekEventNumberRemaining.get(childPosition));
-			
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_eventCategory);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventNumber);
 		   TextView text3=(TextView) convertView.findViewById(R.id.textView_eventPeriod);
@@ -532,23 +447,7 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 			  text6.setText(thisWeekEventAchieved.get(childPosition));   
 		   }
 		   text8.setText(percentage_achieved_this_week+"%");
-		   /*
-	   if(!tomorrowEventStatus.isEmpty()){
-		   if(tomorrowEventStatus.get(childPosition).equalsIgnoreCase("updated")){
-			   image.setImageResource(R.drawable.ic_achieved);
-		   }else if(tomorrowEventStatus.get(childPosition).equalsIgnoreCase("new_record")){
-			   image.setImageResource(R.drawable.ic_loading);
-		   }else if(tomorrowEventStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
-			   image.setImageResource(R.drawable.ic_not_achieved);
-		   }
-		   }*/
-		   //text.setTypeface(custom_font);
-		   //text2.setTypeface(custom_font);
-		   //text3.setTypeface(custom_font);
 	   }else if(groupPosition==2){
-		 //  if(thisMonthEventAchieved.size()>0&&thisMonthEventNumber.size()>0){
-		  
-			
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_eventCategory);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventNumber);
 		   TextView text3=(TextView) convertView.findViewById(R.id.textView_eventPeriod);
@@ -574,7 +473,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 			   }
 		   if(thisMonthEventAchieved.size()>0){
 			   int number_achieved_this_month=Integer.valueOf(thisMonthEventAchieved.get(childPosition));	
-		   		//int number_remaining_this_month=Integer.valueOf(thisMonthEventNumberRemaining.get(childPosition));
 				Double percentage_this_month= ((double)number_achieved_this_month/Integer.valueOf(thisMonthEventNumber.get(childPosition))) *100;	
 				String percentage_achieved_this_month=String.format("%.0f", percentage_this_month);
 		   
@@ -582,21 +480,7 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 		   text8.setText(percentage_achieved_this_month+"%");  
 		   }
 		   		
-		   /*
-		   if(!monthlyEventStatus.isEmpty()){
-		   if(monthlyEventStatus!=null&&monthlyEventStatus.get(childPosition).equalsIgnoreCase("updated")){
-			   image.setImageResource(R.drawable.ic_achieved);
-		   }else if(monthlyEventStatus!=null&&monthlyEventStatus.get(childPosition).equalsIgnoreCase("new_record")){
-			   image.setImageResource(R.drawable.ic_loading);
-		   }else if(monthlyEventStatus!=null&&monthlyEventStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
-			   image.setImageResource(R.drawable.ic_not_achieved);
-		   }
-		   }*/
-		   //text.setTypeface(custom_font);
-		   //text2.setTypeface(custom_font);
-		   //text3.setTypeface(custom_font);
 	   }else if(groupPosition==3){
-		   
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_eventCategory);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventNumber);
 		   TextView text3=(TextView) convertView.findViewById(R.id.textView_eventPeriod);
@@ -612,30 +496,15 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 		   text4.setText(thisQuarterEventDueDate.get(childPosition));
 		   text5.setText(thisQuarterEventStartDate.get(childPosition));
 		   text7.setText(thisQuarterEventLastUpdated.get(childPosition));
-		  // text8.setText(percentage_achieved_this_quarter);
 		   if(thisQuarterEventAchieved.isEmpty()){
 		   text6.setText("0");
 		   }else {
 			  text6.setText(thisQuarterEventAchieved.get(childPosition));   
 		   }
 		   int number_achieved_this_quarter=Integer.valueOf(thisQuarterEventAchieved.get(childPosition));
-			//int number_remaining_this_quarter=Integer.valueOf(thisMonthEventNumberRemaining.get(childPosition));
 			Double percentage_this_quarter= ((double)number_achieved_this_quarter/Integer.valueOf(thisQuarterEventNumber.get(childPosition))) *100;	
 			String percentage_achieved_this_quarter=String.format("%.0f", percentage_this_quarter);
 		   text8.setText(percentage_achieved_this_quarter+"%");
-		   /*
-	   if(!yearlyEventStatus.isEmpty()){
-		   if(yearlyEventStatus!=null&&yearlyEventStatus.get(childPosition).equalsIgnoreCase("updated")){
-			   image.setImageResource(R.drawable.ic_achieved);
-		   }else if(yearlyEventStatus!=null&&yearlyEventStatus.get(childPosition).equalsIgnoreCase("new_record")){
-			   image.setImageResource(R.drawable.ic_loading);
-		   }else if(yearlyEventStatus!=null&&yearlyEventStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
-			   image.setImageResource(R.drawable.ic_not_achieved);
-		   }
-	   }*/
-		   //text.setTypeface(custom_font);
-		   //text2.setTypeface(custom_font);
-		   //text3.setTypeface(custom_font);
 	   }else if(groupPosition==4){
 			
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_eventCategory);
@@ -654,7 +523,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 		   text5.setText(midYearEventStartDate.get(childPosition));
 		   text7.setText(midYearEventLastUpdated.get(childPosition));
 		   int number_achieved_this_midYear=Integer.valueOf(midYearEventAchieved.get(childPosition));
-			//int number_remaining_this_midYear=Integer.valueOf(midYearEventNumberRemaining.get(childPosition));
 			Double percentage_this_midYear=((double)number_achieved_this_midYear/Integer.valueOf(midYearEventNumber.get(childPosition))) *100;	
 			String percentage_achieved_this_midYear=String.format("%.0f", percentage_this_midYear);
 	
@@ -665,19 +533,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 			  text6.setText(midYearEventAchieved.get(childPosition));   
 		   }
 		   text8.setText(percentage_achieved_this_midYear+"%");
-		   /*
-		   if(!midYearEventStatus.isEmpty()){
-		   if(midYearEventStatus!=null&&midYearEventStatus.get(childPosition).equalsIgnoreCase("updated")){
-			   image.setImageResource(R.drawable.ic_achieved);
-		   }else if(midYearEventStatus!=null&&midYearEventStatus.get(childPosition).equalsIgnoreCase("new_record")){
-			   image.setImageResource(R.drawable.ic_loading);
-		   }else if(midYearEventStatus!=null&&midYearEventStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
-			   image.setImageResource(R.drawable.ic_not_achieved);
-		   }
-		   }*/
-		   //text.setTypeface(custom_font);
-		   //text2.setTypeface(custom_font);
-		   //text3.setTypeface(custom_font);
 	   }else if(groupPosition==5){
 		   
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_eventCategory);
@@ -696,7 +551,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 		   text5.setText(thisYearEventStartDate.get(childPosition));
 		   text7.setText(thisYearEventLastUpdated.get(childPosition));
 		   int number_achieved_thisYear=Integer.valueOf(thisYearEventAchieved.get(childPosition));
-			//int number_remaining_thisYear=Integer.valueOf(thisYearEventNumberRemaining.get(childPosition));
 			Double percentage_thisYear= ((double)number_achieved_thisYear/Integer.valueOf(midYearEventNumber.get(childPosition))) *100;	
 			String percentage_achieved_thisYear=String.format("%.0f", percentage_thisYear);
 		  
@@ -706,19 +560,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 			  text6.setText(thisYearEventAchieved.get(childPosition));   
 		   }
 		   text8.setText(percentage_achieved_thisYear+"%");
-		   /*
-		   if(!midYearEventStatus.isEmpty()){
-		   if(midYearEventStatus!=null&&midYearEventStatus.get(childPosition).equalsIgnoreCase("updated")){
-			   image.setImageResource(R.drawable.ic_achieved);
-		   }else if(midYearEventStatus!=null&&midYearEventStatus.get(childPosition).equalsIgnoreCase("new_record")){
-			   image.setImageResource(R.drawable.ic_loading);
-		   }else if(midYearEventStatus!=null&&midYearEventStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
-			   image.setImageResource(R.drawable.ic_not_achieved);
-		   }
-		   }*/
-		   //text.setTypeface(custom_font);
-		   //text2.setTypeface(custom_font);
-		   //text3.setTypeface(custom_font);
 	   }
 	  
 	  return convertView;
@@ -726,7 +567,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 
 	@Override
 	public boolean hasStableIds() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
@@ -738,20 +578,6 @@ public class EventBaseAdapter extends BaseExpandableListAdapter{
 		return true;
 	}
 
-	/*
-	public void onGroupExpanded(int groupPosition) {
-    	
-    	if(groupPosition != lastExpandedGroupPosition){
-            event_list.collapseGroup(lastExpandedGroupPosition);
-       
-    }
-    	
-        super.onGroupExpanded(groupPosition);
-     
-        lastExpandedGroupPosition = groupPosition;
-        
-    }
-*/
 	}
 
 

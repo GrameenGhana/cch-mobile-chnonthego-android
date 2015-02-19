@@ -60,11 +60,6 @@ public class EventsDetailPagerAdapter extends BaseAdapter{
 	        	  textView2.setText(todayEvents.get(position).getEventType());
 	        	  textView3.setText(todayEvents.get(position).getEventTime());
 	          
-	            Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-		          	      "fonts/Roboto-Thin.ttf");
-		           // textView2.setTypeface(custom_font);
-		            //textView3.setTypeface(custom_font);
-	           
 	      return list;
 	    }
 		

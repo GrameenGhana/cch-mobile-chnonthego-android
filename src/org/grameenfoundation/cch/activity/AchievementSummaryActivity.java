@@ -124,7 +124,7 @@ public class AchievementSummaryActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent=new Intent(AchievementSummaryActivity.this, TargetAchievementsActivity.class);
+				Intent intent=new Intent(AchievementSummaryActivity.this, TargetAchievementDetailActivity.class);
 				intent.putExtra("month", month);
 				intent.putExtra("year", year);
 				startActivity(intent);

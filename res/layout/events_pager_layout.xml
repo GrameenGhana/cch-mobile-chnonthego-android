@@ -24,8 +24,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="You have "
-                android:typeface="serif" />
+                android:text="You have " />
 
             <TextView
                 android:id="@+id/textView_eventsNumber"
@@ -33,15 +32,13 @@
                 android:layout_height="wrap_content"
                 android:text="3"
                 android:textColor="@color/TextColorGreen"
-                android:textStyle="bold"
-                android:typeface="serif" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" event(s) planned for today."
-                android:typeface="serif" />
+                android:text=" event(s) planned for today." />
             
              <TextView
                     android:id="@+id/textView_eventsClickHere"
@@ -92,9 +89,7 @@
                     android:layout_height="wrap_content"
                     android:text="You have  "
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/background_dark"
-                    android:textStyle="bold"
-                    android:typeface="serif" />
+                    android:textColor="@color/background_dark" />
 
                 <TextView
                     android:id="@+id/textView_eventTargetsNumber"
@@ -103,7 +98,7 @@
                     android:text="1"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/TextColorGreen"
-                    android:typeface="serif" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView6"
@@ -111,9 +106,7 @@
                     android:layout_height="wrap_content"
                     android:text="  target(s) to update."
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/background_dark"
-                    android:textStyle="bold"
-                    android:typeface="serif" />
+                    android:textColor="@color/background_dark" />
 
                 <TextView
                     android:id="@+id/textView_clickHere"
@@ -136,9 +129,7 @@
                     android:layout_height="wrap_content"
                     android:text="You have  "
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/background_dark"
-                    android:textStyle="bold"
-                    android:typeface="serif" />
+                    android:textColor="@color/background_dark" />
 
                 <TextView
                     android:id="@+id/textView_routinesNumber"
@@ -147,7 +138,7 @@
                     android:text="1"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/TextColorGreen"
-                    android:typeface="serif" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView8"
@@ -155,9 +146,7 @@
                     android:layout_height="wrap_content"
                     android:text="  activity(ies)."
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/background_dark"
-                    android:textStyle="bold"
-                    android:typeface="serif" />
+                    android:textColor="@color/background_dark" />
 
                 <TextView
                     android:id="@+id/textView_routinesClickHere"

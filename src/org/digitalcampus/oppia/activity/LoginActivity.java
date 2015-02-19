@@ -87,7 +87,7 @@ public class LoginActivity extends AppActivity implements SubmitListener  {
     	User u = new User();
     	u.setUsername(username);
     	u.setPassword(password);
-    
+    	
     	u = Db.checkUserExists(u);
     	
 		if (u != null){
@@ -194,4 +194,3 @@ public class LoginActivity extends AppActivity implements SubmitListener  {
 	    return false;
 	}
 }
-

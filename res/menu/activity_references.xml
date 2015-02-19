@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+        <item
+        android:id="@+id/menu_download"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="Manage References"/>
+    
+    <item
+        android:id="@+id/menu_help"
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="@string/menu_help"/>
+    <item
+        android:id="@+id/menu_about"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="@string/menu_about"/>
+
+    
+      <item
+        android:id="@+id/menu_logout"
+        android:icon="@drawable/ic_action_logout"
+        android:title="@string/menu_logout"/>
+
+</menu>

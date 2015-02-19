@@ -135,7 +135,6 @@ public class UpgradeManagerTask extends AsyncTask<Payload, String, Payload> {
 	protected void upgradeV20(){
 		Editor editor = prefs.edit();
 		editor.putString(ctx.getString(R.string.prefs_server), ctx.getString(R.string.prefServerDefault));
-		editor.putString(ctx.getString(R.string.prefs_server), ctx.getString(R.string.prefServerDefaultValue));
 		editor.commit();
 	}
 	

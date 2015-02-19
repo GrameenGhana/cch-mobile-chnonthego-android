@@ -162,34 +162,39 @@
     <string name="home_menu">Menu</string>
     <string name="title_activity_cchlogin">CCHLogin</string>
     <string name="hello_world">Hello world!</string>
-        <string name="action_settings">Settings</string>
-        <string name="message1">Zinc Supplements <b>(only for children aged 2 months – 5 years)</b> </string>
+    <string name="action_settings">Settings</string>
+    <string name="message1">Zinc Supplements <b>(only for children aged 2 months – 5 years)</b> </string>
     <string name="login">Login</string>
     <color name="White">#ffffff</color>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <color name="Green">#53AB20</color>
     <color name="Curry">#e1aa07</color>
-	 <color name="TextColorGreen">#68B036</color>
-	 <string name="action_home">Home</string>
-	 <string name="action_logout">Logout</string>
-	 <color name="BackgroundGrey">#E1DFD4</color> 
+	<color name="TextColorGreen">#68B036</color>
+	<string name="action_home">Home</string>
+	<string name="action_logout">Logout</string>
+	<color name="BackgroundGrey">#E1DFD4</color> 
 	<color name="Brown">#6E5747</color>
 	<color name="TextBrown">#493D26</color>
 	<color name="Red">#880000</color>
 	<color name="TakeAction">#FBEFF8</color>
 	<color name="TakeActionCurry">#F7F8E0</color>
-		<color name="TakeActionGreen">#BCF5A9</color>
-		<color name="Transparent">#10000000</color>
+	<color name="TakeActionGreen">#BCF5A9</color>
+	<color name="Transparent">#10000000</color>
 	<color name="BackgroundBrown">#7D695B</color>
-	 <string name="sans_serif">sans-serif-light</string>
-	 <color name="BorderBrown">#CBC8B5</color>
+	<string name="sans_serif">sans-serif-light</string>
+	<color name="BorderBrown">#CBC8B5</color>
 	<color name="ButtonBackgroundGrey">#E2E1D6</color> 
 	<color name="TextColorWine">#520000</color>
 	<color name="Blue">#08088A</color>
-	  <color name="green_500">#4CAF50</color>
+	<color name="green_500">#4CAF50</color>
     <color name="green_200">#A5D6A7</color>
 	<color name="WhileWaitingForTransport">#006699</color>
+	<color name="PlannerBlue">#4390DF</color>
+	<color name="pocRed">#E51400</color>
+	<color name="achievementAmber">#F0A30A</color>
+	<color name="learningMagenta">#D80073</color>
+	<color name="stayingWellGreen">#7AD61D</color>
 	<string-array name="Justification">
 	         <item>No transportation</item>
 	         <item>Bad weather</item>
@@ -297,9 +302,6 @@
 	         <item>Tsiyinu</item>
 	         <item>Wegbe</item>
 	         <item>Prampram</item>
-	         
-	         
-	         
 	</string-array>
 	<string-array name="ReminderFrequency">
 	    	 <item>Daily</item>
@@ -358,6 +360,7 @@
 	</string-array>
 	
 	<string-array name="CoverageImmunizationOPV">
+	     	 <item>OPV 0</item>
 	    	 <item>OPV 1</item>
 	         <item>OPV 2</item>
 	         <item>OPV 3</item>

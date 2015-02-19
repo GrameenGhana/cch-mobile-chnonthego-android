@@ -130,13 +130,13 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 	         public Fragment getItem(int position) {
 	                 Fragment fragment = null;
 	                 if(position==0 ){
-	                        fragment= new EventTargetAchievementActivity();
+	                      //  fragment= new EventTargetAchievementActivity();
 	                 }else if(position==1){
-	                	 fragment= new CoverageTargetAchievementActivity();
+	                	// fragment= new CoverageTargetAchievementActivity();
 	                 }else if(position==2){
-	                	 fragment= new LearningTargetAchievementActivity();
+	                	// fragment= new LearningTargetAchievementActivity();
 	                 }else if(position==3){
-	                	 fragment= new OtherTargetAchievementActivity();           
+	                	// fragment= new OtherTargetAchievementActivity();           
 	                 }
 	                 return fragment;
 	         }

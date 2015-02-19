@@ -67,7 +67,6 @@ public class LoginTask extends AsyncTask<Payload, Object, Payload> {
 		HTTPConnectionUtils client = new HTTPConnectionUtils(ctx);
 
 		String url = prefs.getString("prefServer", ctx.getString(R.string.prefServerDefault)) + MobileLearning.LOGIN_PATH;
-		
 		JSONObject json = new JSONObject();
 		
 		HttpPost httpPost = new HttpPost(url);
@@ -139,6 +138,7 @@ public class LoginTask extends AsyncTask<Payload, Object, Payload> {
 			payload.setResult(false);
 			payload.setResultResponse(ctx.getString(R.string.error_connection));
 		} catch (ClientProtocolException e) {
+			
 			payload.setResult(false);
 			payload.setResultResponse(ctx.getString(R.string.error_connection));
 		} catch (IOException e) {

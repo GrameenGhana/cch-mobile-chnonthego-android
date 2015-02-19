@@ -76,37 +76,7 @@ public class CalendarEvents {
     }
 	public boolean addEvent(String evt, String location, String desc)
     {	
-		/*
-		long calID = 1;
-		TimeZone timeZone = TimeZone.getDefault();
-		Calendar cal = Calendar.getInstance();
-		ContentResolver cr = mContext.getContentResolver();
-		ContentValues values = new ContentValues();
-		values.put(Events.DTSTART, dtstart);
-		values.put(Events.DTEND,  dtend);
-		values.put(Events.TITLE, evt);
-		values.put(Events.DESCRIPTION, desc);
-		values.put(Events.CALENDAR_ID, calID);
-		values.put(Events.AVAILABILITY,  Events.AVAILABILITY_BUSY);
-		values.put(Events.EVENT_LOCATION, location);
-		values.put(Events.EVENT_TIMEZONE, timeZone.getID());
-		values.put(CalendarContract.EXTRA_EVENT_ALL_DAY,  false);
-		Uri uri = cr.insert(Events.CONTENT_URI, values);
-		//System.out.println(TimeZone.getAvailableIDs().toString());
-		// get the event ID that is the last element in the Uri
 		
-		long eventID = Long.parseLong(uri.getLastPathSegment());
-		if(eventID!=0){
-			System.out.println(String.valueOf(eventID));
-		}
-		
-		
-		//beginTime.set(2012, 0, 19, 7, 30);
-		//Calendar endTime = Calendar.getInstance();
-		//endTime.set(2012, 0, 19, 8, 30);
-		 * */
-		
-		//prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 		Calendar cal = Calendar.getInstance();
 		Intent	intent = new Intent(Intent.ACTION_EDIT)
 		        .setData(Events.CONTENT_URI)
@@ -142,7 +112,7 @@ public class CalendarEvents {
 		int rows =  mContext.getContentResolver().update(updateUri, values, null, null);
 		Log.i("Calendar edit", "Rows updated: " + rows);  
 		if(rows==1){
-		return true;
+			return true;
 		}else {
 			return false;
 		}
@@ -154,7 +124,7 @@ public class CalendarEvents {
 		ContentValues values = new ContentValues();
 		Uri deleteUri = null;
 		deleteUri = ContentUris.withAppendedId(Events.CONTENT_URI, event_id);
-		int rows = mContext.getContentResolver().delete(deleteUri, null, null);
+		int rows = cr.delete(deleteUri, null, null);
 		Log.i("Calendar delete", "Rows deleted: " + rows);  
 		if(rows==1){
 			return true;
@@ -231,17 +201,10 @@ public class CalendarEvents {
         }
         
     }
-	
-
 	       public ArrayList<MyCalendarEvents> getTodaysEvents(Boolean showDay) {
 				ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
 		       int evNum = 0;
-		      
-		       //if (todaysEventsNum==0) {
-		    	//  System.out.println("No events");	
-		    	 // events.add("No planned events for today"); 
-		       //} else  long milliSeconds = ev.startDate;
-    	       String dformat =(showDay)? "MMM dd" : "hh:mm a";
+    	       String dformat ="MMM-dd hh:mm a";
     	       SimpleDateFormat formatter = new SimpleDateFormat(dformat);
     	       Calendar calendar = Calendar.getInstance();
     	       long milliSeconds = 0;
@@ -262,9 +225,6 @@ public class CalendarEvents {
 		        	   }
 		        	   
 		    	   }
-		       //}
-		       
-		       //Log.v("CCH",evHtml);
 		       
 		       return list;
 		   	}
@@ -272,12 +232,8 @@ public class CalendarEvents {
 	       public ArrayList<MyCalendarEvents> getTomorrowsEvents(Boolean showDay) {
 				ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
 		       int evNum = 0;
-		      
-		       //if (todaysEventsNum==0) {
-		    	//  System.out.println("No events");	
-		    	 // events.add("No planned events for today"); 
-		       //} else  long milliSeconds = ev.startDate;
-   	       String dformat =(showDay)? "MMM dd" : "hh:mm a";
+		   
+   	       String dformat = "MMM-dd hh:mm a";
    	       SimpleDateFormat formatter = new SimpleDateFormat(dformat);
    	       Calendar calendar = Calendar.getInstance();
    	       long milliSeconds = 0;
@@ -298,9 +254,6 @@ public class CalendarEvents {
 		        	   }
 		        	   
 		    	   }
-		       //}
-		       
-		       //Log.v("CCH",evHtml);
 		       
 		       return list;
 		   	}
@@ -308,12 +261,7 @@ public class CalendarEvents {
 	       public ArrayList<MyCalendarEvents> getFutureEvents(Boolean showDay) {
 				ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
 		       int evNum = 0;
-		      
-		       //if (todaysEventsNum==0) {
-		    	//  System.out.println("No events");	
-		    	 // events.add("No planned events for today"); 
-		       //} else  long milliSeconds = ev.startDate;
-  	       String dformat =(showDay)? "MMM dd" : "hh:mm a";
+  	       String dformat ="MMM-dd hh:mm a";
   	       SimpleDateFormat formatter = new SimpleDateFormat(dformat);
   	       Calendar calendar = Calendar.getInstance();
   	       long milliSeconds = 0;
@@ -334,9 +282,6 @@ public class CalendarEvents {
 		        	   }
 		        	   
 		    	   }
-		       //}
-		       
-		       //Log.v("CCH",evHtml);
 		       
 		       return list;
 		   	}
@@ -357,14 +302,13 @@ public class CalendarEvents {
     		while(calendarCursor.moveToNext()){
     			
     			 calID=calendarCursor.getLong(0);
-    			// System.out.println("Calendar Ids: "+String.valueOf(calID));
     		}
-    		
+    		String selection="(( "+Events.DELETED+" != 1 ))";
             Cursor cursor = context.getContentResolver()
                     .query(
                             Uri.parse("content://com.android.calendar/events"),
                             new String[] { "calendar_id", "title", "description",
-                                    "dtstart", "dtend", "eventLocation", "_id as max_id" }, null, null, "dtstart");
+                                    "dtstart", "dtend", "eventLocation", "_id as max_id" }, selection, null, "dtstart");
             cursor.moveToFirst();
             
             // fetching calendars name

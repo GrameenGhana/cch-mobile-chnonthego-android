@@ -33,7 +33,7 @@ public class EventsAchievementsActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_achievements_details);
+	    setContentView(R.layout.activity_target_details_);
 	    expandableListview = (ExpandableListView) findViewById(R.id.expandableListView1);
 	    mContext=EventsAchievementsActivity.this;
 	    c= new CalendarEvents(mContext);

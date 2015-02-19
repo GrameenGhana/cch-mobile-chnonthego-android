@@ -56,9 +56,6 @@ public class AntenatalCareBaseAdapter extends BaseAdapter{
          } else {
        	  list = (View) convertView;
          }
-		 
-		 Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-         	      "fonts/Roboto-Thin.ttf");
 		 TextView category_text= (TextView) list.findViewById(R.id.textView_ancCategory);
 		 category_text.setText(category[position]);
 		 
@@ -67,9 +64,6 @@ public class AntenatalCareBaseAdapter extends BaseAdapter{
 		 
 		 ImageView icon=(ImageView) list.findViewById(R.id.imageView_ancIcon);
 		 icon.setImageResource(imageIds[position]);
-		 
-		// category_text.setTypeface(custom_font);
-		// category_detail_text.setTypeface(custom_font);
 		return list;
 	}
 

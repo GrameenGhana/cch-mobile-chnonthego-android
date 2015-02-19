@@ -19,7 +19,6 @@ import org.grameenfoundation.poc.PointOfCareActivity;
 import org.grameenfoundation.cch.model.MyCalendarEvents;
 import org.grameenfoundation.cch.model.RoutineActivity;
 import org.grameenfoundation.cch.model.RoutineActivityDetails;
-import org.grameenfoundation.cch.utils.TypefaceUtil;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -42,28 +41,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainScreenActivity extends FragmentActivity implements OnItemClickListener, OnSharedPreferenceChangeListener {
+public class MainScreenActivity extends FragmentActivity implements OnSharedPreferenceChangeListener {
 
 	private ListView main_menu_listview;
 	private static Context mContext;
 	private static TextView status;
 	public static final String TAG = MainScreenActivity.class.getSimpleName();
-	Time time_now;
-	Time compared_time;
-	Time week;
-	Time end_of_month;
 
 	SectionsPagerAdapter mSectionsPagerAdapter;
     static ViewPager mViewPager;
 	private static DbHelper dbh;
 	private SharedPreferences prefs;
+	private LinearLayout planner;
+	private LinearLayout poc;
+	private LinearLayout achievements;
+	private LinearLayout stayingWell;
+	private LinearLayout learning;
+	private TextView events;
+	private ArrayList<MyCalendarEvents> TodayCalendarEvents;
+	private CalendarEvents c;
+	private Animation slide_up;
 	
 	// MODULE IDs
 	/*	private static final String EVENT_PLANNER_ID      = "Event Planner";
@@ -77,13 +84,15 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_main_screen);
+	    setContentView(R.layout.activity_new_mainscreen);
 	    mContext=MainScreenActivity.this;
 	    getActionBar().setDisplayShowHomeEnabled(true);
 	    getActionBar().setTitle("Welcome");
 	    getActionBar().setSubtitle("Home Page");
-	    TypefaceUtil.overrideFont(mContext, "SERIF", "fonts/Roboto-Thin.ttf");
-	    main_menu_listview=(ListView) findViewById(R.id.listView_mainScreenMenu);
+	    c= new CalendarEvents(mContext);
+	    TodayCalendarEvents=new ArrayList<MyCalendarEvents>();
+	    TodayCalendarEvents=c.getTodaysEvents(false);
+	  //  main_menu_listview=(ListView) findViewById(R.id.listView_mainScreenMenu);
 	  
 	    String[] categories={"Planner",
 	    		"Point of Care",
@@ -97,9 +106,9 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 	    			  R.drawable.ic_achievement,
 	    			  R.drawable.ic_staying_well};
 	    
-	    MainScreenBaseAdapter adapter=new MainScreenBaseAdapter(mContext,categories,images);
-	    main_menu_listview.setAdapter(adapter);				
-	    main_menu_listview.setOnItemClickListener(this);
+	   // MainScreenBaseAdapter adapter=new MainScreenBaseAdapter(mContext,categories,images);
+	    //main_menu_listview.setAdapter(adapter);				
+	    //main_menu_listview.setOnItemClickListener(this);
 		dbh = new DbHelper(getApplicationContext());
 		dbh.alterTables();
 		dbh.deleteTables();
@@ -114,7 +123,75 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 		tb.putBoolean("backgroundData", true);
 		service.putExtras(tb);
 		this.startService(service);
+		planner=(LinearLayout) findViewById(R.id.planner);
+		poc=(LinearLayout) findViewById(R.id.poc);
+		learning=(LinearLayout) findViewById(R.id.learning);
+		stayingWell=(LinearLayout) findViewById(R.id.stayingWell);
+		achievements=(LinearLayout) findViewById(R.id.achievements);
+		events=(TextView) findViewById(R.id.textView_events);
+		slide_up=AnimationUtils.loadAnimation(getApplicationContext(),
+	              R.anim.slide_up);
+		for(int i=0;i<TodayCalendarEvents.size();i++){
+			//TextView nextevents=new TextView(this);
+			if(TodayCalendarEvents.size()==0){
+				events.setText("No planned events");
+				events.setAnimation(slide_up);
+			}else{
+			events.setText(TodayCalendarEvents.get(i).getEventType());
+			events.setAnimation(slide_up);
+			}
+		}
+		planner.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(mContext, EventPlannerOptionsActivity.class);
+				startActivity(intent);
+				 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+				
+			}
+		});
 		
+		poc.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(mContext, PointOfCareActivity.class);
+				startActivity(intent);
+				 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+				
+			}
+		});
+		learning.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(), LearningCenterMenuActivity.class);
+	            startActivity(intent);	
+	            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+				
+			}
+		});
+		stayingWell.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(), StayingWellActivity.class);
+				startActivity(intent);
+				 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+				
+			}
+		});
+		achievements.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(), AchievementCenterActivity.class);
+	            startActivity(intent);	
+	            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+				
+			}
+		});
 	    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -369,7 +446,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			builder.setMessage(R.string.logout_confirm);
 			builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
-					
+																									
 					DbHelper db = new DbHelper(MainScreenActivity.this);
 					db.onLogout();
 					db.close();
@@ -401,6 +478,8 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			}
 		}
 		
+		
+		/*
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
@@ -434,7 +513,7 @@ public class MainScreenActivity extends FragmentActivity implements OnItemClickL
 			break;
 		}
 		
-	}
+	}*/
 	
 	private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
 	private long mBackPressed;

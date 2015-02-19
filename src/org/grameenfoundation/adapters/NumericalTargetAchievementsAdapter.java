@@ -8,7 +8,6 @@ import org.grameenfoundation.cch.model.EventTargets;
 import org.grameenfoundation.cch.model.TargetsForAchievements;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,9 +58,6 @@ public class NumericalTargetAchievementsAdapter extends BaseExpandableListAdapte
 	 @Override
 	 public View getChildView(int groupPosition, final int childPosition,
 	   boolean isLastChild, View convertView, ViewGroup parent) {
-		 Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-	       	      "fonts/Roboto-Thin.ttf");
-	  
 	   if(convertView==null){
 		   convertView=minflater.inflate(R.layout.achievements_target_listview_single,null);
 	   }
@@ -142,9 +138,6 @@ public class NumericalTargetAchievementsAdapter extends BaseExpandableListAdapte
 			   TextView category=(TextView) convertView.findViewById(R.id.textView_otherCategory);
 			   category.setText(groupItem[groupPosition]);
 			   
-			   Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-		       	      "fonts/Roboto-Thin.ttf");
-			   category.setTypeface(custom_font);
 			   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
 			   if(groupPosition==0){
 				   image.setImageResource(R.drawable.ic_complete);

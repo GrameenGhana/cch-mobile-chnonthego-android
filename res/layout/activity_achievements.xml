@@ -42,14 +42,16 @@
         android:paddingBottom="10dp"
         android:text="Overall Achievements"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/TextColorWine" />
+        android:textColor="@color/TextColorWine"
+        android:visibility="gone" />
 
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/BackgroundGrey"
-        android:dividerHeight="5dp" >
+        android:dividerHeight="5dp"
+        android:visibility="gone" >
 
     </ListView>
 

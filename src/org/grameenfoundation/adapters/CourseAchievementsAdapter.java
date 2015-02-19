@@ -58,12 +58,6 @@ public class CourseAchievementsAdapter extends BaseAdapter{
 			   testType.setText(course_achievements.get(position).getType());
 			   score.setText(course_achievements.get(position).getScore());
 			   percentage.setText(course_achievements.get(position).getPercentage()+"%");
-			   Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-		       	      "fonts/Roboto-Thin.ttf");
-			   topic.setTypeface(custom_font);
-			   testType.setTypeface(custom_font);
-			   score.setTypeface(custom_font);
-			   percentage.setTypeface(custom_font);
 			   
 		    return convertView;
 	}

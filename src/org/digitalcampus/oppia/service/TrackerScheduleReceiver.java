@@ -47,6 +47,6 @@ public class TrackerScheduleReceiver extends BroadcastReceiver {
 		//
 		// every 1 hour
 		// InexactRepeating allows Android to optimize the energy consumption
-		service.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pending);
+		service.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_HOUR, pending);
 	}
 }

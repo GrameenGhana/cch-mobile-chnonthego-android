@@ -10,7 +10,6 @@ import java.util.Set;
 import org.digitalcampus.mobile.learningGF.R;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -180,17 +179,6 @@ public class CoverageListAdapter extends BaseExpandableListAdapter {
 	   text2.setText(dailyCoverageNumber.get(childPosition));
 	   text3.setText(dailyCoveragePeriod.get(childPosition));
 	   text4.setText(dailyCoverageDueDate.get(childPosition));
-	   /*
-	   if(dailyCoverageStatus.get(childPosition).equalsIgnoreCase("updated")){
-		   image.setImageResource(R.drawable.ic_achieved);
-	   }else if(dailyCoverageStatus.get(childPosition).equalsIgnoreCase("new_record")){
-		   image.setImageResource(R.drawable.ic_loading);
-	   }else if(dailyCoverageStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
-		   image.setImageResource(R.drawable.ic_not_achieved);
-	   }*/
-	   //text.setTypeface(custom_font);
-	   //text2.setTypeface(custom_font);
-	   //text3.setTypeface(custom_font);
 	   }else if(groupPosition==1){
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_coverageCategory);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_coverageNumber);
@@ -201,17 +189,6 @@ public class CoverageListAdapter extends BaseExpandableListAdapter {
 		   text2.setText(weeklyCoverageNumber.get(childPosition));
 		   text3.setText(weeklyCoveragePeriod.get(childPosition));
 		   text4.setText(weeklyCoverageDueDate.get(childPosition));
-		   /*
-		   if(weeklyCoverageStatus!=null&&weeklyCoverageStatus.get(childPosition).equalsIgnoreCase("updated")){
-			   image.setImageResource(R.drawable.ic_achieved);
-		   }else if(weeklyCoverageStatus!=null&&weeklyCoverageStatus.get(childPosition).equalsIgnoreCase("new_record")){
-			   image.setImageResource(R.drawable.ic_loading);
-		   }else if(weeklyCoverageStatus!=null&&weeklyCoverageStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
-			   image.setImageResource(R.drawable.ic_not_achieved);
-		   }*/
-		   //text.setTypeface(custom_font);
-		   //text2.setTypeface(custom_font);
-		   //text3.setTypeface(custom_font);
 	   }else if(groupPosition==2){
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_coverageCategory);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_coverageNumber);
@@ -222,17 +199,6 @@ public class CoverageListAdapter extends BaseExpandableListAdapter {
 		   text2.setText(monthlyCoverageNumber.get(childPosition));
 		   text3.setText(monthlyCoveragePeriod.get(childPosition));
 		   text4.setText(monthlyCoverageDueDate.get(childPosition));
-		   /*
-		   if(monthlyCoverageStatus!=null&&monthlyCoverageStatus.get(childPosition).equalsIgnoreCase("updated")){
-			   image.setImageResource(R.drawable.ic_achieved);
-		   }else if(monthlyCoverageStatus!=null&&monthlyCoverageStatus.get(childPosition).equalsIgnoreCase("new_record")){
-			   image.setImageResource(R.drawable.ic_loading);
-		   }else if(monthlyCoverageStatus!=null&&monthlyCoverageStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
-			   image.setImageResource(R.drawable.ic_not_achieved);
-		   }*/
-		   //text.setTypeface(custom_font);
-		   //text2.setTypeface(custom_font);
-		   //text3.setTypeface(custom_font);
 	   }else if(groupPosition==3){
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_coverageCategory);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_coverageNumber);
@@ -243,17 +209,6 @@ public class CoverageListAdapter extends BaseExpandableListAdapter {
 		   text2.setText(yearlyCoverageNumber.get(childPosition));
 		   text3.setText(yearlyCoveragePeriod.get(childPosition));
 		   text4.setText(yearlyCoverageDueDate.get(childPosition));
-		   /*
-		   if(yearlyCoverageStatus!=null&&yearlyCoverageStatus.get(childPosition).equalsIgnoreCase("updated")){
-			   image.setImageResource(R.drawable.ic_achieved);
-		   }else if(yearlyCoverageStatus!=null&&yearlyCoverageStatus.get(childPosition).equalsIgnoreCase("new_record")){
-			   image.setImageResource(R.drawable.ic_loading);
-		   }else if(yearlyCoverageStatus!=null&&yearlyCoverageStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
-			   image.setImageResource(R.drawable.ic_not_achieved);
-		   }*/
-		   //text.setTypeface(custom_font);
-		   //text2.setTypeface(custom_font);
-		   //text3.setTypeface(custom_font);
 	   }else if(groupPosition==4){
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_coverageCategory);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_coverageNumber);
@@ -264,17 +219,6 @@ public class CoverageListAdapter extends BaseExpandableListAdapter {
 		   text2.setText(midYearCoverageNumber.get(childPosition));
 		   text3.setText(midYearCoveragePeriod.get(childPosition));
 		   text4.setText(midYearCoverageDueDate.get(childPosition));
-		   /*
-		   if(midYearCoverageStatus!=null&&midYearCoverageStatus.get(childPosition).equalsIgnoreCase("updated")){
-			   image.setImageResource(R.drawable.ic_achieved);
-		   }else if(midYearCoverageStatus!=null&&midYearCoverageStatus.get(childPosition).equalsIgnoreCase("new_record")){
-			   image.setImageResource(R.drawable.ic_loading);
-		   }else if(midYearCoverageStatus!=null&&midYearCoverageStatus.get(childPosition).equalsIgnoreCase("not_achieved")){
-			   image.setImageResource(R.drawable.ic_not_achieved);
-		   }*/
-		   //text.setTypeface(custom_font);
-		   //text2.setTypeface(custom_font);
-		   //text3.setTypeface(custom_font);
 	   }
 	  return convertView;
 	   

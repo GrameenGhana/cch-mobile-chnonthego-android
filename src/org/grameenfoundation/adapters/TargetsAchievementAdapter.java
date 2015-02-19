@@ -12,7 +12,6 @@ import org.grameenfoundation.cch.model.TargetsForAchievements;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -152,17 +151,11 @@ public class TargetsAchievementAdapter extends BaseExpandableListAdapter{
 			   TextView category=(TextView) convertView.findViewById(R.id.textView_textSingle);
 			   category.setText(groupItems[groupPosition]);
 			   
-			   Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-		       	      "fonts/Roboto-Thin.ttf");
-			   category.setTypeface(custom_font);
 			  return convertView;
 	}
 	@Override
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
-		 Typeface custom_font = Typeface.createFromAsset(mContext.getAssets(),
-	       	      "fonts/Roboto-Thin.ttf");
-	  
 	   if(convertView==null){
 		   convertView=minflater.inflate(R.layout.achievements_target_listview_single,null);
 	   }
@@ -278,7 +271,6 @@ public class TargetsAchievementAdapter extends BaseExpandableListAdapter{
 
 	@Override
 	public boolean hasStableIds() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
@@ -286,24 +278,9 @@ public class TargetsAchievementAdapter extends BaseExpandableListAdapter{
 
 	@Override
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
-	/*
-	public void onGroupExpanded(int groupPosition) {
-   	
-   	if(groupPosition != lastExpandedGroupPosition){
-           event_list.collapseGroup(lastExpandedGroupPosition);
-      
-   }
-   	
-       super.onGroupExpanded(groupPosition);
-    
-       lastExpandedGroupPosition = groupPosition;
-       
-   }
-*/
 	}
 
 

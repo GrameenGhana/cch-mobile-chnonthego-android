@@ -21,6 +21,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:name="android.permission.WAKE_LOCK"/>
     <application
         android:name="org.digitalcampus.oppia.application.MobileLearning"
         android:allowBackup="true"
@@ -353,10 +355,14 @@
         <activity android:name="org.grameenfoundation.cch.activity.LearningReferencesActivity"></activity>
         <activity android:name="org.grameenfoundation.cch.activity.TargetAchievementsActivity"></activity>
         <activity android:name="org.grameenfoundation.cch.model.EventTargetAchievementActivity"></activity>
+         <activity android:name="org.grameenfoundation.cch.model.CoverageTargetAchievementActivity"></activity>
+          <activity android:name="org.grameenfoundation.cch.model.LearningTargetAchievementActivity"></activity>
+           <activity android:name="org.grameenfoundation.cch.model.OtherTargetAchievementActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.ClientSeenAtHealthFacilityActivity"></activity>
         <activity android:name="org.grameenfoundation.cch.activity.AbstractListViewActivity"></activity>
         <activity android:name="org.grameenfoundation.cch.activity.PagingButtonsListViewActivity"></activity>
         <activity android:name="org.grameenfoundation.cch.activity.OverallCourseAchievementsActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.ReferencesDownloadActivity"></activity>
     </application>
 
 </manifest>
