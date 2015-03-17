@@ -4,11 +4,15 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 public class EncouragingPNCActivity extends BaseActivity {
 
@@ -18,6 +22,8 @@ public class EncouragingPNCActivity extends BaseActivity {
 	private Long end_time; 
 	private String data;
 	private Button button_next;
+	private ImageView image1;
+	private ImageView image2;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,57 @@ public class EncouragingPNCActivity extends BaseActivity {
         }else if(take_action_category.equals("when_to_return")){
        	 setContentView(R.layout.activity_anc_when_return_pnc);
        	 getActionBar().setSubtitle("ANC Counselling: When to return for PNC");
+       	 image1=(ImageView) findViewById(R.id.imageView2);
+       	 image2=(ImageView) findViewById(R.id.imageView3);
+       	 
+       	 image1.setOnClickListener(new OnClickListener(){
+
+ 			@Override
+ 			public void onClick(View v) {
+ 				final Dialog nagDialog = new Dialog(EncouragingPNCActivity.this);
+ 	            nagDialog.requestWindowFeature(Window.FEATURE_NO_TITLE); 
+ 	            nagDialog.setCancelable(false);
+ 	            nagDialog.setContentView(R.layout.image_view_dialog);
+ 	            ImageButton btnClose = (ImageButton)nagDialog.findViewById(R.id.imageButton_close);
+ 	            ImageView ivPreview = (ImageView)nagDialog.findViewById(R.id.imageView_largerImage);
+ 	            ivPreview.setImageResource(R.drawable.when_to_return_anc);
+
+ 	            btnClose.setOnClickListener(new OnClickListener() {
+ 	                @Override
+ 	                public void onClick(View arg0) {
+
+ 	                    nagDialog.dismiss();
+ 	                }
+ 	            });
+ 	            nagDialog.show();
+ 				
+ 			}
+ 	    	
+ 	    });
+       	 image2.setOnClickListener(new OnClickListener(){
+
+ 			@Override
+ 			public void onClick(View v) {
+ 				final Dialog nagDialog = new Dialog(EncouragingPNCActivity.this);
+ 	            nagDialog.requestWindowFeature(Window.FEATURE_NO_TITLE); 
+ 	            nagDialog.setCancelable(false);
+ 	            nagDialog.setContentView(R.layout.image_view_dialog);
+ 	            ImageButton btnClose = (ImageButton)nagDialog.findViewById(R.id.imageButton_close);
+ 	            ImageView ivPreview = (ImageView)nagDialog.findViewById(R.id.imageView_largerImage);
+ 	            ivPreview.setImageResource(R.drawable.when_to_return_anc_2);
+
+ 	            btnClose.setOnClickListener(new OnClickListener() {
+ 	                @Override
+ 	                public void onClick(View arg0) {
+
+ 	                    nagDialog.dismiss();
+ 	                }
+ 	            });
+ 	            nagDialog.show();
+ 				
+ 			}
+ 	    	
+ 	    });
     	 data="When to return for PNC";
        }
 	}

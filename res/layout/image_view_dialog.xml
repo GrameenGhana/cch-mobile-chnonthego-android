@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <org.grameenfoundation.cch.utils.PinchZoom
+        android:id="@+id/imageView_largerImage"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+     />
+
+    <ImageButton
+        android:id="@+id/imageButton_close"
+        android:layout_width="109dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
+        android:src="@drawable/ic_close" />
+
+</LinearLayout>

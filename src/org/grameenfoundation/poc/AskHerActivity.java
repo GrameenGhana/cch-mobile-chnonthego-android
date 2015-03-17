@@ -34,12 +34,16 @@ public class AskHerActivity extends BaseActivity {
 	    dbh=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("ANC Diagnostic: Danger Signs");
+	    getActionBar().setSubtitle("ANC Diagnostic: Managing Danger Signs");
 	    listView_askHer=(ListView) findViewById(R.id.listView_askHer);
-	    String[] items={"Excessive Vomiting","Offensive/discolored discharge",
+	    String[] items={"Excessive Vomiting",
+	    				"Offensive/discolored discharge",
 	    				"Sever abdominal pain",
-	    				"Epigastric Pain","Bleeding","Edema of the feet and hands, face, or ankles",
-	    				"BP  ≥  90mm Hg","Sever headache/blurred vision",
+	    				"Epigastric Pain",
+	    				"Bleeding",
+	    				"Edema of the feet and hands, face, or ankles",
+	    				"BP  ≥  90mm Hg",
+	    				"Sever headache/blurred vision",
 	    				"Difficulty breathing",
 	    				"Signs of shock"};
 	    AskListAdapter adapter=new AskListAdapter(mContext,items);

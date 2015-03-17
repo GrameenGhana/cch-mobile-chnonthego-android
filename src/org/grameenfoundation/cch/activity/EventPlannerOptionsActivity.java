@@ -24,7 +24,6 @@ public class EventPlannerOptionsActivity extends BaseActivity implements OnItemC
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_event_planner_options);
 	    mContext=EventPlannerOptionsActivity.this;
-	    getActionBar().setDisplayShowHomeEnabled(false);
 	    getActionBar().setTitle("Planner");
 	    getActionBar().setSubtitle("Planner Options");
 	    listView_eventPlannerOptions=(ListView) findViewById(R.id.listView_eventPlannerOptions);

@@ -47,7 +47,7 @@ public class OtherTargetAchievementActivity extends Activity{
 	    mContext=getApplicationContext();
 	    db=new DbHelper(mContext);
 	    new GetData().execute();
-	    groupItems=new String[]{"Completed","Upcoming"};
+	    groupItems=new String[]{"Completed","In progress"};
 	    textView_label=(TextView) findViewById(R.id.textView_label);
 	    textView_label.setText("Other Targets");
 	    textView_number=(TextView) findViewById(R.id.textView_number);

@@ -61,7 +61,7 @@
 
             <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="Do you get easily tired? "
@@ -98,14 +98,14 @@
 
             <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Check client’s hemoglobin, if possible"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView7"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Look at conjunctiva, nail bed, tongue, palmar "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -117,14 +117,14 @@
 
                 <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Assess if the client has pallor "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="40dp"
                     android:text="Hb &lt; 7 g/dL "
@@ -140,14 +140,14 @@
 
                 <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView14"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Does the mother have anaemia? "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView15"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="40dp"
                     android:text=" Hb 7-11 g/dL"

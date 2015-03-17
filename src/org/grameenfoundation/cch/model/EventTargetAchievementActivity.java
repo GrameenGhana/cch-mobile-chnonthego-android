@@ -49,7 +49,7 @@ public class EventTargetAchievementActivity extends Activity {
 	    mContext=getApplicationContext();
 	    db=new DbHelper(mContext);
 	    new GetData().execute();
-	    groupItems=new String[]{"Completed","Upcoming"};
+	    groupItems=new String[]{"Completed","In progress"};
 	    textView_label=(TextView) findViewById(R.id.textView_label);
 	    textView_label.setText("Event Targets");
 	    Bundle extras =getIntent().getExtras(); 

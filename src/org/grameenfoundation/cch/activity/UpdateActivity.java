@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.grameenfoundation.poc.BaseActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,7 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
-public class UpdateActivity extends Activity {
+public class UpdateActivity extends BaseActivity {
 
 	private RadioGroup update;
 	private TextView message;
@@ -132,7 +133,7 @@ public class UpdateActivity extends Activity {
 		
 		if(type.equals("learning")){
 			status.setVisibility(View.GONE);
-			message.setText(topic);
+			message.setText("Were you able to complete the course under: "+topic);
 			linearLayout_justification.setVisibility(View.GONE);
 			linearLayout_achievedNumber.setVisibility(View.GONE);
 			linearLayout_question2.setVisibility(View.GONE);
@@ -184,6 +185,10 @@ public class UpdateActivity extends Activity {
 		dialogButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				if(achievedNumber.isShown()&&achievedNumber.getText().toString().length()<=0){
+					achievedNumber.requestFocus();
+	    			achievedNumber.setError("Please enter a number!");
+				}else{
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 						UpdateActivity.this);
 					alertDialogBuilder.setTitle("Update Verification");
@@ -205,9 +210,8 @@ public class UpdateActivity extends Activity {
 						    		String event_update_status = "updated";
 						    		int event_new_number_achieved=Integer.valueOf(event_number_achieved_text);
 						        	int event_number_achieved_for_entry=event_new_number_achieved+Integer.valueOf(number_achieved_from_previous);
-						        	System.out.println("Number achieved"+String.valueOf(event_number_achieved_for_entry));
 						        	int event_number_remaining_for_entry=Integer.valueOf(number)-event_number_achieved_for_entry;
-						        	System.out.println("Number remaining"+String.valueOf(event_number_remaining_for_entry));
+						    		
 						        	/*
 						        	if(event_number_achieved_for_entry>Integer.valueOf(number)){
 						        		achievedNumber.requestFocus();
@@ -232,7 +236,6 @@ public class UpdateActivity extends Activity {
 								}
 								 end_time=System.currentTimeMillis();
 								 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
-								 System.out.println(json.toString());
 								 Calendar c = Calendar.getInstance();
 							        int month=c.get(Calendar.MONTH)+1;
 							        int day=c.get(Calendar.DAY_OF_WEEK);
@@ -242,7 +245,6 @@ public class UpdateActivity extends Activity {
 								 db.updateEventTarget(event_update_status,event_number_achieved_for_entry,event_number_remaining_for_entry, id);
 								 
 								 }else if(event_number_achieved_for_entry<Integer.valueOf(number)){
-									 System.out.println("Printing id again in update: "+String.valueOf(id));
 									 db.updateEventTarget("new_record",event_number_achieved_for_entry,event_number_remaining_for_entry,id);
 								 }
 								 Intent intent=new Intent(Intent.ACTION_MAIN);
@@ -255,7 +257,6 @@ public class UpdateActivity extends Activity {
 								         Toast.LENGTH_SHORT).show();
 						        	}
 								
-								
 								}
 								if (type.equals("coverage")){
 									String coverage_justification_text=justification.getSelectedItem().toString();
@@ -264,8 +265,8 @@ public class UpdateActivity extends Activity {
 						    		String coverage_update_status = "updated";
 						    		int coverage_new_number_achieved=Integer.valueOf(coverage_number_achieved_text);
 						        	int coverage_number_achieved_for_entry=coverage_new_number_achieved+Integer.valueOf(number_achieved_from_previous);
-						        	System.out.println("Number achieved"+String.valueOf(coverage_number_achieved_text));
 						        	int coverage_number_remaining_for_entry=Integer.valueOf(number)-coverage_number_achieved_for_entry;
+						    		
 						        	/*
 						        	if(coverage_number_achieved_for_entry>Integer.valueOf(number)){
 						        		achievedNumber.requestFocus();
@@ -288,8 +289,6 @@ public class UpdateActivity extends Activity {
 									}
 									 end_time=System.currentTimeMillis();
 									 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
-									 System.out.println(json.toString());
-									 
 									 if(coverage_number_achieved_for_entry==Integer.valueOf(number)){
 										 db.updateCoverageTarget(coverage_update_status,coverage_number_achieved_for_entry,coverage_number_remaining_for_entry, id);
 										 }else if(coverage_number_achieved_for_entry<Integer.valueOf(number)){
@@ -304,7 +303,7 @@ public class UpdateActivity extends Activity {
 									 Toast.makeText(getApplicationContext(), "Target updated!",
 									         Toast.LENGTH_SHORT).show();
 								}
-								
+						    		
 								}
 								if(type.equalsIgnoreCase("other")){
 									String other_number_achieved_text = null;
@@ -314,11 +313,11 @@ public class UpdateActivity extends Activity {
 						    		other_number_achieved_text="0";
 						    		}else{
 						    			other_number_achieved_text=achievedNumber.getText().toString();
+						    			
 						    		}
 						    		String other_update_status = "updated";
 						    		int other_new_number_achieved=Integer.valueOf(other_number_achieved_text);
 						        	int other_number_achieved_for_entry=other_new_number_achieved+Integer.valueOf(number_achieved_from_previous);
-						        	System.out.println("Number achieved"+String.valueOf(other_number_achieved_for_entry));
 						        	int other_number_remaining_for_entry=Integer.valueOf(number)-other_number_achieved_for_entry;
 						        	/*
 						        	if(other_number_achieved_for_entry>Integer.valueOf(number)){
@@ -342,7 +341,6 @@ public class UpdateActivity extends Activity {
 									}
 									 end_time=System.currentTimeMillis();
 									 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
-									 System.out.println(json.toString());
 									 
 									 if(other_number_achieved_for_entry==Integer.valueOf(number)){
 										 db.updateOtherTarget(other_update_status,other_number_achieved_for_entry,other_number_remaining_for_entry,id);
@@ -383,7 +381,6 @@ public class UpdateActivity extends Activity {
 									}
 									 end_time=System.currentTimeMillis();
 									 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
-									 System.out.println(json.toString());
 										 db.updateLearningTarget("updated",id);
 										 Intent intent=new Intent(Intent.ACTION_MAIN);
 										 intent.setClass(UpdateActivity.this, NewEventPlannerActivity.class);
@@ -400,7 +397,9 @@ public class UpdateActivity extends Activity {
 						AlertDialog alertDialog = alertDialogBuilder.create();
 						alertDialog.show();
 			}
+			}
 		});
+		
 	}	
 	private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(

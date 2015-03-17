@@ -2,13 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:fadeScrollbars="false" >
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="5dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,14 +29,23 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="364dp"
+        android:background="@drawable/custom_border2"
         android:orientation="vertical" >
 
-        <org.grameenfoundation.cch.utils.CalendarViewScrollable
-            android:id="@+id/calendarView1"
+        <fragment
+            android:id="@+id/fragment1"
+            android:name="org.grameenfoundation.cch.caldroid.DateGridFragment"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:background="@drawable/custom_border2" />
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,7 +56,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="You selected: "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/TextColorWine" />
 
         </LinearLayout>
 
@@ -71,8 +82,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/customborder"
+        android:divider="@drawable/divider"
         android:orientation="vertical"
-        android:padding="5dp" >
+        android:padding="10dp"
+        android:showDividers="middle" >
 
         <TextView
             android:id="@+id/textView2"
@@ -86,7 +100,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextColorGreen"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView3"
@@ -100,17 +115,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/TextColorGreen" />
+            android:textColor="@color/TextColorGreen"
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/button_proceed"
-            style="?android:attr/buttonStyleSmall"
+        <TextView
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Proceed to care"
-            android:textColor="@color/TextBrown" />
+            android:text="Estimated due date:"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/textView_estimatedDueDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/Green"
+            android:textStyle="bold" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button_proceed"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Proceed to care"
+        android:textColor="@color/TextBrown" />
 
 </LinearLayout>
 </ScrollView>

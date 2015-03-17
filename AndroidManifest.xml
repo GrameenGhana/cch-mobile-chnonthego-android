@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.digitalcampus.mobile.learningGF"
-    android:versionCode="111"
-    android:versionName="3.0.32" 
+    android:versionCode="113"
+    android:versionName="3.0.34" 
     android:screenOrientation="portrait">
 
     <uses-sdk
@@ -363,6 +363,9 @@
         <activity android:name="org.grameenfoundation.cch.activity.PagingButtonsListViewActivity"></activity>
         <activity android:name="org.grameenfoundation.cch.activity.OverallCourseAchievementsActivity"></activity>
         <activity android:name="org.grameenfoundation.cch.activity.ReferencesDownloadActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ANCRecordsAndHistoryActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ANCRecordsAndHistoryAnswerActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ExamineThePatientNextActivity"></activity>
     </application>
 
 </manifest>

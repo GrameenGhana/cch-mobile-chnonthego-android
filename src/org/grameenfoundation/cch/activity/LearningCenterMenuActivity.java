@@ -3,9 +3,11 @@ package org.grameenfoundation.cch.activity;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.activity.AboutActivity;
 import org.digitalcampus.oppia.activity.AppActivity;
+import org.digitalcampus.oppia.activity.DownloadActivity;
 import org.digitalcampus.oppia.activity.HelpActivity;
 import org.digitalcampus.oppia.activity.OppiaMobileActivity;
 import org.digitalcampus.oppia.activity.StartUpActivity;
+import org.digitalcampus.oppia.activity.TagSelectActivity;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.utils.UIUtils;
 import org.grameenfoundation.adapters.AntenatalCareBaseAdapter;
@@ -49,7 +51,7 @@ public class LearningCenterMenuActivity extends AppActivity {
 				Intent intent;
 				switch(position){
 				case 0:
-					intent=new Intent(mContext,OppiaMobileActivity.class);
+					intent=new Intent(mContext,TagSelectActivity.class);
 					startActivity(intent);
 					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;

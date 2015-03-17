@@ -160,7 +160,9 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
          @Override
          public CharSequence getPageTitle(int position) {
                  Locale l = Locale.getDefault();
+                 
                  db=new DbHelper(NewEventPlannerActivity.this);
+                 
      		    todayEventId=db.getEventIdCount("Daily");
      		    thisMonthEventId=db.getEventIdCount("Monthly");
      		    thisWeekEventId=db.getEventIdCount("Weekly");

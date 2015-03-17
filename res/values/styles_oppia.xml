@@ -45,7 +45,7 @@
     </style>
 
     <style name="Oppia.ActionBar.TitleTextStyle" parent="@style/Widget.Sherlock.ActionBar.Solid">
-        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textColor">@color/White</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">20dp</item>
     </style>
@@ -86,7 +86,7 @@
         <item name="android:textAppearance">@android:style/TextAppearance.Medium</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textColor">@color/White</item>
         <item name="android:textAllCaps">true</item>
     </style>
 

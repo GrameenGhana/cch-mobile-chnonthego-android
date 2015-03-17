@@ -15,6 +15,7 @@ import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -26,7 +27,7 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.CalendarView.OnDateChangeListener;
 
-public class EstimateDueDateCalculator extends BaseActivity {
+public class EstimateDueDateCalculator extends FragmentActivity {
 
 	private Button button_calculate;
 	private TextView textView_selectedDate;
@@ -43,12 +44,14 @@ public class EstimateDueDateCalculator extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_estimate_due_date);
+	    this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("Due Date Calculator");
 	    start_time=System.currentTimeMillis();
 	    dbh=new DbHelper(EstimateDueDateCalculator.this);
 	    textView_selectedDate=(TextView) findViewById(R.id.textView_selectedDate);
 	    textView_estimatedDueDate=(TextView) findViewById(R.id.textView_estimatedDueDate);
+	    /*
 	    calendar=(CalendarViewScrollable) findViewById(R.id.calendarView1);
 	    calendar.setSelectedWeekBackgroundColor(Color.rgb(82,0,0));
 	    calendar.setOnDateChangeListener(new OnDateChangeListener(){
@@ -62,7 +65,7 @@ public class EstimateDueDateCalculator extends BaseActivity {
 			}
 	    	
 	    });
-	    /*
+	    */
 	    final CaldroidFragment caldroidFragment  = new CaldroidFragment();
 	    Bundle args = new Bundle();
 	    Calendar cal = Calendar.getInstance();
@@ -89,7 +92,7 @@ public class EstimateDueDateCalculator extends BaseActivity {
 	    };
 
 	    caldroidFragment.setCaldroidListener(listener);
-	    */
+	    
 	   
 	    button_calculate=(Button) findViewById(R.id.button_calculate);
 	    button_calculate.setOnClickListener(new OnClickListener(){

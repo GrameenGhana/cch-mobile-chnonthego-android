@@ -55,12 +55,14 @@
             android:id="@+id/button_acuteEmergenciesNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/Green"
             android:paddingBottom="10dp"
-            android:paddingLeft="90dp"
-            android:paddingRight="90dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
             android:paddingTop="10dp"
-            android:text="No"
-            android:textColor="@color/TextBrown" />
+            android:text="No emergencies"
+            android:textColor="@color/White"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

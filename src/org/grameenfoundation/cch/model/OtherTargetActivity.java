@@ -49,6 +49,12 @@ public class OtherTargetActivity extends Fragment implements OnChildClickListene
 	private long coverageId;
 	private long otherId;
 	private long learningId;
+	private long todayOtherId;
+	private long thisWeekOtherId;
+	private long thisMonthOtherId;
+	private long midYearOtherId;
+	private long thisQuarterOtherId;
+	private long thisYearOtherId;
 	static String due_date ;
 	private static TextView dueDateValue;
 	
@@ -65,8 +71,6 @@ public class OtherTargetActivity extends Fragment implements OnChildClickListene
 	    listView_other=(ExpandableListView) rootView.findViewById(R.id.expandableListView_other);
 	    listView_other.setAdapter(other_adapter);
 	    listView_other.setOnChildClickListener(this);
-	    groupItems=new String[]{};
-	    groupItems=getResources().getStringArray(R.array.UpdateFrequencies);
 	    new GetData().execute();
 	   button_show=(Button) rootView.findViewById(R.id.button_show);
 	   
@@ -135,6 +139,13 @@ public class OtherTargetActivity extends Fragment implements OnChildClickListene
 
 	    @Override
 	    protected Object doInBackground(Object... params) {
+	    	 todayOtherId=db.getOtherIdCount("Daily");
+			 thisWeekOtherId=db.getOtherIdCount("Weekly");
+			 thisMonthOtherId=db.getOtherIdCount("Monthly");
+			 midYearOtherId=db.getOtherIdCount("Mid-year");
+			 thisQuarterOtherId=db.getOtherIdCount("Quarterly");
+			 thisYearOtherId=db.getOtherIdCount("Annually");
+			 
 	    	DailyOtherTargets=db.getAllOtherTargets("Daily");
 	 	    WeeklyOtherTargets=db.getAllOtherTargets("Weekly");
 	 	    MonthlyOtherTargets=db.getAllOtherTargets("Monthly");
@@ -147,6 +158,18 @@ public class OtherTargetActivity extends Fragment implements OnChildClickListene
 
 	    @Override
 	    protected void onPostExecute(Object result) {
+	    	 int other_number1=(int)todayOtherId;
+			 int other_number2=(int)thisWeekOtherId;
+			 int other_number3=(int)thisMonthOtherId;
+			 int other_number4=(int)thisQuarterOtherId;
+			 int other_number5=(int)midYearOtherId;
+			 int other_number6=(int)thisYearOtherId;
+			 groupItems=new String[]{"To update daily ("+String.valueOf(other_number1)+")",
+						"To upate weekly ("+String.valueOf(other_number2)+")",
+						"To update monthly ("+String.valueOf(other_number3)+")",
+						"To update quarterly ("+String.valueOf(other_number4)+")",
+						"To update mid-yearly ("+String.valueOf(other_number5)+")",
+						"To update annually ("+String.valueOf(other_number6)+")"};
 	    	other_adapter=new EventTargetAdapter(mContext,groupItems,DailyOtherTargets,
 					 WeeklyOtherTargets,
 					 MonthlyOtherTargets,

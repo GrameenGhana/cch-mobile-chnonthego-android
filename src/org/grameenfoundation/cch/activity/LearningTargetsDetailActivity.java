@@ -274,7 +274,9 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 				Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddLearning);
 				dialogButton.setText("Save");
 				dueDateValue=(TextView) dialog.findViewById(R.id.textView_dueDateValue);
+				dueDateValue.setText(due_date_extra);
 				startDateValue=(TextView) dialog.findViewById(R.id.textView_startDate);
+				startDateValue.setText(start_date_extra);
 				ImageButton datepickerDialog=(ImageButton) dialog.findViewById(R.id.imageButton_dueDate);
 				datepickerDialog.setOnClickListener(new OnClickListener(){
 

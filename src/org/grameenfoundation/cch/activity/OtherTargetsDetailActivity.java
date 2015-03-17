@@ -139,7 +139,9 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 				Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddEvent);
 				dialogButton.setText("Save");
 				dueDateValue=(TextView) dialog.findViewById(R.id.textView_dueDateValue);
+				dueDateValue.setText(due_date_extra);
 				startDateValue=(TextView) dialog.findViewById(R.id.textView_startDate);
+				startDateValue.setText(start_date_extra);
 				final LinearLayout number_layout=(LinearLayout) dialog.findViewById(R.id.LinearLayout_number);
 				number_layout.setVisibility(View.GONE);
 				RadioGroup enter_number=(RadioGroup) dialog.findViewById(R.id.radioGroup1);

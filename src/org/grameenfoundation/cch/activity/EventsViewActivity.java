@@ -52,7 +52,6 @@ public class EventsViewActivity extends  BaseActivity {
 	    c= new CalendarEvents(mContext);
 	    dbh = new DbHelper(mContext);
 	    String[] groupItems={"Today","Tomorrow","Future"};
-	    getActionBar().setDisplayShowHomeEnabled(false);
 	    getActionBar().setTitle("Planner");
 	    getActionBar().setSubtitle("Planned Events");
 		//new addition

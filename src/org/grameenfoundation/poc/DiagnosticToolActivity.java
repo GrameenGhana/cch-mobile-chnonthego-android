@@ -36,8 +36,8 @@ public class DiagnosticToolActivity extends BaseActivity implements OnItemClickL
 	    getActionBar().setSubtitle("ANC Diagnostic");
 	    listView_encounter=(ListView) findViewById(R.id.listView_encounter);
 	    listView_encounter.setOnItemClickListener(this);
-	    String[] encounter_location={"Home Visit","Outreach Clinic","CHPS facility","Health Center","Hospital"};
-	    ListAdapter adapter=new ListAdapter(mContext, encounter_location);
+	    String[] conditions={"Emergencies","Records and History","Management of Danger Signs","Malaria","Anaemia"};
+	    ListAdapter adapter=new ListAdapter(mContext, conditions);
 	    listView_encounter.setAdapter(adapter);
 	}
 
@@ -52,22 +52,22 @@ public class DiagnosticToolActivity extends BaseActivity implements OnItemClickL
 			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		case 1:
-			intent=new Intent(mContext, AcuteEmergenciesActivity.class);
+			intent=new Intent(mContext, ANCRecordsAndHistoryActivity.class);
 			startActivity(intent);
 			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		case 2:
-			intent=new Intent(mContext, AcuteEmergenciesActivity.class);
+			intent=new Intent(mContext, ExamineThePatientActivity.class);
 			startActivity(intent);
 			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		case 3:
-			intent=new Intent(mContext, ClientSeenAtHealthFacilityActivity.class);
+			intent=new Intent(mContext, AskMalariaFeverActivity.class);
 			startActivity(intent);
 			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
 		case 4:
-			intent=new Intent(mContext, ClientSeenAtHealthFacilityActivity.class);
+			intent=new Intent(mContext, AnaemiaAskActivity.class);
 			startActivity(intent);
 			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;
@@ -91,13 +91,11 @@ public class DiagnosticToolActivity extends BaseActivity implements OnItemClickL
 
 		@Override
 		public Object getItem(int position) {
-			// TODO Auto-generated method stub
 			return null;
 		}
 
 		@Override
 		public long getItemId(int position) {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 
@@ -105,9 +103,9 @@ public class DiagnosticToolActivity extends BaseActivity implements OnItemClickL
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if( convertView == null ){
 			      
-				  convertView = minflater.inflate(R.layout.listview_text_single,parent, false);
+				  convertView = minflater.inflate(R.layout.other_listview_single,parent, false);
 			    }
-			 TextView text=(TextView) convertView.findViewById(R.id.textView_listViewText);
+			 TextView text=(TextView) convertView.findViewById(R.id.textView_otherCategory);
 			 text.setText(items[position]);
 			 
 			    return convertView;

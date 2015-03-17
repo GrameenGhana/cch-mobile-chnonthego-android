@@ -56,7 +56,7 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
@@ -75,7 +75,7 @@
                 android:src="@drawable/ic_bullet" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
@@ -95,7 +95,7 @@
                 android:src="@drawable/ic_bullet" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
@@ -115,7 +115,7 @@
                 android:src="@drawable/ic_bullet" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
@@ -135,7 +135,7 @@
                 android:src="@drawable/ic_bullet" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
@@ -160,7 +160,7 @@
                     android:src="@drawable/ic_bullet" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:paddingRight="0dp"
@@ -179,7 +179,7 @@
                     android:src="@drawable/ic_bullet" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
@@ -199,7 +199,7 @@
                     android:src="@drawable/ic_bullet" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"

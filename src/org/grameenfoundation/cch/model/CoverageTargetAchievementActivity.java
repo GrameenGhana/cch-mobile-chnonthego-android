@@ -54,7 +54,7 @@ public class CoverageTargetAchievementActivity extends BaseActivity {
           year=extras.getInt("year");
           number=extras.getInt("number");
         }
-	    groupItems=new String[]{"Completed","Upcoming"};
+	    groupItems=new String[]{"Completed","In progress"};
 	    textView_label=(TextView) findViewById(R.id.textView_label);
 	    textView_label.setText("Coverage Targets");
 	    textView_number=(TextView) findViewById(R.id.textView_number);

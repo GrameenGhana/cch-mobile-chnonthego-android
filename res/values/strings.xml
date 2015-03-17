@@ -168,6 +168,10 @@
     <color name="White">#ffffff</color>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    
+    <string name="validation_number">Please enter a number</string>
+    <string name="validation_startDate">Please enter a start date</string>
+    <string name="validation_endDate">Please enter an end date</string>
     <color name="Green">#53AB20</color>
     <color name="Curry">#e1aa07</color>
 	<color name="TextColorGreen">#68B036</color>
@@ -195,6 +199,7 @@
 	<color name="achievementAmber">#F0A30A</color>
 	<color name="learningMagenta">#D80073</color>
 	<color name="stayingWellGreen">#7AD61D</color>
+	<color name="trans">#80000000</color>
 	<string-array name="Justification">
 	         <item>No transportation</item>
 	         <item>Bad weather</item>
@@ -213,6 +218,12 @@
 	         <item>To update quarterly</item>
 	         <item>To update mid-yearly</item>
 	         <item>To update annualy</item>
+	</string-array>
+	<string-array name="Monitoring">
+	         <item>SP under IPTp</item>
+	         <item>TBA Monitoring</item>
+	         <item>CBSV (Volunteers)</item>
+	         
 	</string-array>
 	<string-array name="EventNames">
 	         <item>ANC Static</item>
@@ -233,6 +244,7 @@
 	         <item>Staff meetings/durbars</item>
          	 <item>Workshops</item>
 	         <item>Leave/Excuse Duty</item>
+	         <item>Defaulter Tracing</item>
 	         <item>Personal</item> 
 	         <item>Other</item> 
 	</string-array>

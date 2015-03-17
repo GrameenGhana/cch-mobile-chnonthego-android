@@ -34,13 +34,13 @@ public class EncouragingPNCMenuActivity extends BaseActivity {
 	    dbh=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
 	    listView_counselling=(ListView) findViewById(R.id.listView_counsellingTopics);
-	    String[] items={"Care of newborns",
-	    				"How to breastfeed & breast care ",
-	    				"Infant immunisation schedule",
-	    				"Maternal danger signs",
-	    				"Newborn danger signs",
-	    				"Postpartum family planning",
-	    				"When to return for care in the postnatal period"};
+	    String[] items={"Care of newborns",//0
+	    				"How to breastfeed & breast care ",//1
+	    				"Infant immunisation schedule",//2
+	    				"Maternal danger signs",//3
+	    				"Newborn danger signs",//4
+	    				"Postpartum family planning",//5
+	    				"When to return for care in the postnatal period"};//6
 	    ListAdapter adapter=new ListAdapter(mContext,items);
 	    listView_counselling.setAdapter(adapter);
 	    listView_counselling.setOnItemClickListener(new OnItemClickListener(){
@@ -74,12 +74,18 @@ public class EncouragingPNCMenuActivity extends BaseActivity {
 					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 4:
+					intent=new Intent(mContext,ComplicationReadinessActionActivity.class);
+					intent.putExtra("value", "danger_signs_newborn");
+					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+					break;
+				case 5:
 					intent=new Intent(mContext,EncouragingPNCActivity.class);
 					intent.putExtra("value", "family_planning");
 					startActivity(intent);
 					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
-				case 5:
+				case 6:
 					intent=new Intent(mContext,EncouragingPNCActivity.class);
 					intent.putExtra("value", "when_to_return");
 					startActivity(intent);

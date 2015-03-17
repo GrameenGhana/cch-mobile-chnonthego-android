@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:descendantFocusability="blocksDescendants" >
+
+        <LinearLayout
+            android:id="@+id/module_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:weightSum="1.0" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:src="@drawable/ic_books" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayout_module"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.65"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="0dp" >
+
+        <TextView
+            android:id="@+id/module_title"
+            style="@style/NormalTextDark"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/TextColorWine" />
+
+        <TextView
+            android:id="@+id/module_desc"
+            style="@style/SmallTextDarkItalic"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/TextColorGreen" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/action_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".35"
+        android:src="@drawable/ic_download" />
+
+</LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ProgressBar
+                android:id="@+id/course_progress_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="8dp"
+                android:layout_margin="5dp"
+                android:progressDrawable="@drawable/progress_bar" />
+
+            <TextView
+                android:id="@+id/textView_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/fab_shape"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+ </LinearLayout>

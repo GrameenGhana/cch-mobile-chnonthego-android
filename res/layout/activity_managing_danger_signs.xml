@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" xmlns:android="http://schemas.android.com/apk/res/android">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:paddingBottom="10dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do the following:"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/TextBrown" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Ask:"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_border2"
+        android:divider="@drawable/divider"
+        android:orientation="vertical"
+        android:showDividers="middle" >
+
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do you have any abdominal pain?  How severe?"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Do you have any bleeding?  "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="If yes, how much blood have you lost?  Are you still bleeding?"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+		<org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Have you recently lost a pregnancy? Did you or anybody else do anything to induce an abortion? "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+		<org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Have you fainted recently?  "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+         <org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Do you have difficulty breathing? "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+         <org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Have you had severe headache or blurred vision?"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+         <org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Have you had any offensive/discoloured vaginal discharge? "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+         <org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Have you had pain elsewhere?  Do you have any other concerns?"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Have you had any vomiting?  How often?"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Determine if client has had any epigastric pain. "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+         <org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Determine if client has had ruptured membranes. "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="5dp" >
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/button_next"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="202dp"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:textColor="@color/Brown" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+</ScrollView>

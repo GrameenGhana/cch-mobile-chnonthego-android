@@ -140,7 +140,34 @@ public class TakeActionSevereMalariaPNCMotherActivity extends BaseActivity {
     			}
             	
             });
-            }
+            }else if(take_action_category.equals("no_anaemia_anc")){
+                setContentView(R.layout.activity_anc_no_anaemia);
+                getActionBar().setSubtitle("ANC Diagnostic: Anaemia");
+                data="ANC Diagnostic: Anaemia";
+                TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
+                click_here.setOnClickListener(new OnClickListener(){
+
+        			@Override
+        			public void onClick(View v) {
+        				Intent intent=new Intent(mContext,NutritionCounsellingActivity.class);
+        				startActivity(intent);
+        				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+        			}
+                	
+                });
+                TextView click_here_too=(TextView) findViewById(R.id.textView_clickHereToo);
+                click_here_too.setOnClickListener(new OnClickListener(){
+
+        			@Override
+        			public void onClick(View v) {
+        				Intent intent=new Intent(mContext,ANCCounsellingTopicsMenuActivity.class);
+        				startActivity(intent);
+        				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+        			}
+                	
+                });
+                
+                }
 	
 	   
 	}

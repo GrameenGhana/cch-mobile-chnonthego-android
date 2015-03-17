@@ -189,7 +189,7 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 		   String percentage_achieved=String.format("%.0f", percentage);
 		   text6.setText(midYearEventTargets.get(childPosition).getEventTargetNumberAchieved());   
 		   text8.setText(percentage_achieved+"%");
-	   }else if(groupPosition==6){
+	   }else if(groupPosition==5){
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_eventCategory);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventNumber);
 		   TextView text3=(TextView) convertView.findViewById(R.id.textView_eventPeriod);
@@ -238,7 +238,6 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 	 																																				
 	@Override
 	public int getGroupCount() {
-		// TODO Auto-generated method stub
 		return groupItem.length;
 	}
 
@@ -266,7 +265,6 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 
 	@Override
 	public long getGroupId(int groupPosition) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -346,7 +344,6 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 
 	@Override
 	public boolean hasStableIds() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
@@ -354,7 +351,6 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 
 	@Override
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

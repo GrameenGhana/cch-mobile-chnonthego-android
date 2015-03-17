@@ -78,7 +78,7 @@ public class NumericalTargetAchievementsAdapter extends BaseExpandableListAdapte
 		   text3.setText("Completed");
 	   }else{
 		   text3.setTextColor(Color.RED);
-		   text3.setText("Upcoming"); 
+		   text3.setText("In progress"); 
 	   }
 	   text4.setText(completedTargets.get(childPosition).getEventTargetEndDate());
 	   text5.setText(completedTargets.get(childPosition).getEventTargetStartDate());
@@ -105,7 +105,7 @@ public class NumericalTargetAchievementsAdapter extends BaseExpandableListAdapte
 			   text3.setText("Completed");
 		   }else{
 			   text3.setTextColor(Color.RED);
-			   text3.setText("Upcoming"); 
+			   text3.setText("In progress"); 
 		   }
 		   text4.setText(unCompletedTargets.get(childPosition).getEventTargetEndDate());
 		   text5.setText(unCompletedTargets.get(childPosition).getEventTargetStartDate());

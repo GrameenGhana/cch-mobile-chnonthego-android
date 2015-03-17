@@ -35,7 +35,18 @@ public class EventTargetActivity extends Fragment implements OnChildClickListene
 	 public ArrayList<EventTargets> MidyearEventTargets;
 	 public ArrayList<EventTargets> AnnualEventTargets;
 	 
-
+		private long todayEventId;
+		private long thisMonthEventId;
+		private long thisWeekEventId;
+		private long midYearEventId;
+		private long thisQuarterEventId;
+		private long thisYearEventId;
+		private int event_number1;
+		private int event_number2;
+		private int event_number3;
+		private int event_number4;
+		private int event_number5;
+		private int event_number6;
 	private String[] groupItems;
 	private DbHelper db;
 	public static final String ARG_SECTION_NUMBER = "section_number";       
@@ -60,15 +71,9 @@ public class EventTargetActivity extends Fragment implements OnChildClickListene
 	 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		 rootView=inflater.inflate(R.layout.activity_events,null,false);
 	    mContext=getActivity().getApplicationContext();
-	   
 	    db=new DbHelper(getActivity());
-	    groupItems=new String[]{};
-	    groupItems=getResources().getStringArray(R.array.UpdateFrequencies);
 	    listView_events=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
-	  
 	    new GetData().execute();
-	   
-	   
 	    listView_events.setOnChildClickListener(this);
 	    button_show=(Button) rootView.findViewById(R.id.button_show);
 	 
@@ -136,9 +141,17 @@ public class EventTargetActivity extends Fragment implements OnChildClickListene
 }
 	private class GetData extends AsyncTask<Object, Void, Object> {
 		 DbHelper db=new DbHelper(mContext);
+	
 
 	    @Override
 	    protected Object doInBackground(Object... params) {
+	    	todayEventId=db.getEventIdCount("Daily");
+		    thisMonthEventId=db.getEventIdCount("Monthly");
+		    thisWeekEventId=db.getEventIdCount("Weekly");
+		    midYearEventId=db.getEventIdCount("Mid-year");
+		    thisQuarterEventId=db.getEventIdCount("Quarterly");
+		    thisYearEventId=db.getEventIdCount("Annually");
+  		      
 	           	DailyEventTargets=db.getAllEventTargets("Daily");
 	           	WeeklyEventTargets=db.getAllEventTargets("Weekly");
 	   			MonthlyEventTargets=db.getAllEventTargets("Monthly");
@@ -149,6 +162,19 @@ public class EventTargetActivity extends Fragment implements OnChildClickListene
 	    }
 	    @Override
 	    protected void onPostExecute(Object result) {
+	    	 event_number1=(int)todayEventId;
+			  event_number2=(int)thisWeekEventId;
+			  event_number3=(int)thisMonthEventId;
+			  event_number4=(int)thisQuarterEventId;
+			  event_number5=(int)midYearEventId;
+			  event_number6=(int)thisYearEventId;
+			  groupItems=new String[]{"To update daily ("+String.valueOf(event_number1)+")",
+						"To upate weekly ("+String.valueOf(event_number2)+")",
+						"To update monthly ("+String.valueOf(event_number3)+")",
+						"To update quarterly ("+String.valueOf(event_number4)+")",
+						"To update mid-yearly ("+String.valueOf(event_number5)+")",
+						"To update annually ("+String.valueOf(event_number6)+")"};
+			   
 	    	events_adapter=new EventTargetAdapter(mContext,groupItems,DailyEventTargets,
 					  WeeklyEventTargets,
 					  MonthlyEventTargets,

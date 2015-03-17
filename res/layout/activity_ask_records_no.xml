@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="First Time Seeing a Health Worker"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/Brown" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_border2"
+        android:divider="@drawable/divider"
+        android:orientation="vertical"
+        android:showDividers="middle" >
+
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:text="Record the following personal information: "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:layout_marginLeft="20dp"
+            android:text="Name"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:text="Age"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:text="Home address"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:text="Occupation"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:text="Marital status:  Husband or partner"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+        <org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:text="Next of kin: Name, address, telephone number"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <org.grameenfoundation.cch.utils.TextViewUtils
+            android:id="@+id/textView_clickHere"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:text="Estimate Trimester"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/WhileWaitingForTransport" />
+        
+         <org.grameenfoundation.cch.utils.TextViewBullets
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:text="Refer client to see a midwife for full consultation "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+         
+  		<TextView
+  		    android:layout_width="match_parent"
+  		    android:layout_height="wrap_content"
+  		    android:layout_marginLeft="20dp"
+  		    android:drawableLeft="@drawable/ic_phone"
+  		    android:paddingBottom="5dp"
+  		    android:paddingLeft="10dp"
+  		    android:paddingRight="0dp"
+  		    android:text="Call provider and arrange transport "
+  		    android:textAppearance="?android:attr/textAppearanceSmall" />
+  		<TextView
+  		    android:layout_width="match_parent"
+  		    android:layout_height="wrap_content"
+  		    android:layout_marginLeft="20dp"
+  		    android:drawableLeft="@drawable/ic_refer"
+  		    android:paddingBottom="5dp"
+  		    android:paddingLeft="10dp"
+  		    android:paddingRight="0dp"
+  		    android:text="Fill out referral form or write a referral note"
+  		    android:textAppearance="?android:attr/textAppearanceSmall" />
+  		<TextView
+  		    android:layout_width="match_parent"
+  		    android:layout_height="wrap_content"
+  		    android:layout_marginLeft="20dp"
+  		    android:drawableLeft="@drawable/ic_follow_up"
+  		    android:paddingBottom="5dp"
+  		    android:paddingLeft="10dp"
+  		    android:paddingRight="0dp"
+  		    android:text="Obtain feedback from referral facility, and follow up with client "
+  		    android:textAppearance="?android:attr/textAppearanceSmall" />
+         
+    </LinearLayout>
+
+</LinearLayout>

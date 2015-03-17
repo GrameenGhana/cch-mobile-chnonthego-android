@@ -19,16 +19,22 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.activity.MainScreenActivity;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.task.Payload;
 import org.grameenfoundation.cch.model.CCHTrackerLog;
 import org.grameenfoundation.cch.utils.CCHHTTPConnectionUtils;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 
@@ -37,6 +43,8 @@ public class UpdateCCHLogTask extends AsyncTask<Payload, Object, Payload> {
 	public final static String TAG = UpdateCCHLogTask.class.getSimpleName();
 
 	private Context ctx;
+
+	private int mId;
 
 	public UpdateCCHLogTask(Context ctx) {
 		this.ctx = ctx;
@@ -91,7 +99,25 @@ public class UpdateCCHLogTask extends AsyncTask<Payload, Object, Payload> {
 							dbh.markCCHLogSubmitted(tl.getId());
 						}
 						dbh.close();
-						payload.setResult(true);				    	
+						payload.setResult(true);		
+						NotificationCompat.Builder mBuilder =
+						        new NotificationCompat.Builder(ctx)
+						        .setSmallIcon(R.drawable.app_icon_sync)
+						        .setContentTitle("CHN on the go")
+						        .setContentText("Sync complete!");
+						Intent resultIntent = new Intent(ctx, MainScreenActivity.class);
+						TaskStackBuilder stackBuilder = TaskStackBuilder.create(ctx);
+						stackBuilder.addParentStack(MainScreenActivity.class);
+						stackBuilder.addNextIntent(resultIntent);
+						PendingIntent resultPendingIntent =
+						        stackBuilder.getPendingIntent(
+						            0,
+						            PendingIntent.FLAG_UPDATE_CURRENT
+						        );
+						mBuilder.setContentIntent(resultPendingIntent);
+						NotificationManager mNotificationManager =
+						    (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+						mNotificationManager.notify(mId, mBuilder.build());
 						break;
 						
 					case 400: // submitted but invalid request - returned 400 Bad Request - so record as submitted so doesn't keep trying

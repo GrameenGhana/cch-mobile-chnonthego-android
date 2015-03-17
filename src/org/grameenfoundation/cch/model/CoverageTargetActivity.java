@@ -54,6 +54,12 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 	private long coverageId;
 	private long otherId;
 	private long learningId;
+	private long todayCoverageId;
+	private long thisWeekCoverageId;
+	private long thisMonthCoverageId;
+	private long midYearCoverageId;
+	private long thisQuarterCoverageId;
+	private long thisYearCoverageId;
 	static String due_date ;
 	private static TextView dueDateValue;
 	static String start_date ;
@@ -68,10 +74,9 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 	    mContext=getActivity().getApplicationContext();
 	    db=new DbHelper(getActivity());
 	    listView_coverage=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
-	    groupItems=new String[]{};
-	    groupItems=getResources().getStringArray(R.array.UpdateFrequencies);
 	    listView_coverage.setOnChildClickListener(this);
 	    
+		
 		 new GetData().execute();
 	    button_show=(Button) rootView.findViewById(R.id.button_show);
 	  
@@ -138,6 +143,13 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 
 	    @Override
 	    protected Object doInBackground(Object... params) {
+	    	todayCoverageId=db.getCoverageIdCount("Daily");
+			thisWeekCoverageId=db.getCoverageIdCount("Weekly");
+			thisMonthCoverageId=db.getCoverageIdCount("Monthly");
+			midYearCoverageId=db.getCoverageIdCount("Mid-year");
+			thisQuarterCoverageId=db.getCoverageIdCount("Quarterly");
+			thisYearCoverageId=db.getCoverageIdCount("Annually");
+				
 	    	DailyCoverageTargets=db.getAllCoverageTargets("Daily");
 		    WeeklyCoverageTargets=db.getAllCoverageTargets("Weekly");
 		    MonthlyCoverageTargets=db.getAllCoverageTargets("Monthly");
@@ -150,6 +162,19 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 
 	    @Override
 	    protected void onPostExecute(Object result) {
+	    	int coverage_number1=(int)todayCoverageId;
+			int coverage_number2=(int)thisWeekCoverageId;
+			int coverage_number3=(int)thisMonthCoverageId;
+			int coverage_number4=(int)thisQuarterCoverageId;
+			int coverage_number5=(int)midYearCoverageId;
+			int coverage_number6=(int)thisYearCoverageId;
+			
+			groupItems=new String[]{"To update daily ("+String.valueOf(coverage_number1)+")",
+									"To upate weekly ("+String.valueOf(coverage_number2)+")",
+									"To update monthly ("+String.valueOf(coverage_number3)+")",
+									"To update quarterly ("+String.valueOf(coverage_number4)+")",
+									"To update mid-yearly ("+String.valueOf(coverage_number5)+")",
+									"To update annually ("+String.valueOf(coverage_number6)+")"};
 	    	coverage_adapter=new EventTargetAdapter(mContext,groupItems,DailyCoverageTargets,
 					WeeklyCoverageTargets,
 					MonthlyCoverageTargets,
@@ -158,7 +183,7 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 					AnnualCoverageTargets,
 					listView_coverage);
 	    	listView_coverage.setAdapter(coverage_adapter);
-	        
+	        												
 	    }
 	}
 }

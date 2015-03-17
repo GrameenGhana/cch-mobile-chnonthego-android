@@ -33,104 +33,19 @@ public class ExamineThePatientActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_examine_patient);
+	    setContentView(R.layout.activity_managing_danger_signs);
 	    mContext=ExamineThePatientActivity.this;
 	    dbh=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("ANC Diagnostic: Danger Signs");
-	    listView_ask=(ListView) findViewById(R.id.listView_ask);
-	    listView_look=(ListView) findViewById(R.id.listView_look);
-	    listView_check=(ListView) findViewById(R.id.listView_check);
-	    String[] ask_items={"Severe headache","Severe Abdominal Pains","Excessive vomiting",
-	    					"Blurred vision","Bleeding","Offensive/discoloured vaginal discharge",
-	    					"Fever","Difficulty breathing","Epigastric pain","Foetal movements"};
-	    String[] look_items={"Examine conjunctiva, tongue, palms, and nail beds for palor",
-	    					"Oedaema of the feet, hands face, ankles","Bleeding",
-	    					"Jaundice","Signs of shock","Offensive vaginal discharge"};
-	    String[] check_items={"Blood pressure, if possible","Temperature","Pulse"};
+	    getActionBar().setSubtitle("ANC Diagnostic: Managing Danger Signs");
 	    
-	    ListAdapter adapter1=new ListAdapter(mContext,ask_items);
-	    ListAdapter adapter2=new ListAdapter(mContext,look_items);
-	    ListAdapter adapter3=new ListAdapter(mContext,check_items);
-	    listView_ask.setAdapter(adapter1);
-	    /*
-	    listView_ask.setOnTouchListener(new ListView.OnTouchListener() {
-	        @Override
-	        public boolean onTouch(View v, MotionEvent event) {
-	            int action = event.getAction();
-	            switch (action) {
-	            case MotionEvent.ACTION_DOWN:
-	                // Disallow ScrollView to intercept touch events.
-	                v.getParent().requestDisallowInterceptTouchEvent(true);
-	                break;
-
-	            case MotionEvent.ACTION_UP:
-	                // Allow ScrollView to intercept touch events.
-	                v.getParent().requestDisallowInterceptTouchEvent(false);
-	                break;
-	            }
-
-	            // Handle ListView touch events.
-	            v.onTouchEvent(event);
-	            return true;
-	        }
-	    });
-	    */
-	    listView_look.setAdapter(adapter2);
-	    /*
-	    listView_look.setOnTouchListener(new ListView.OnTouchListener() {
-	        @Override
-	        public boolean onTouch(View v, MotionEvent event) {
-	            int action = event.getAction();
-	            switch (action) {
-	            case MotionEvent.ACTION_DOWN:
-	                // Disallow ScrollView to intercept touch events.
-	                v.getParent().requestDisallowInterceptTouchEvent(true);
-	                break;
-
-	            case MotionEvent.ACTION_UP:
-	                // Allow ScrollView to intercept touch events.
-	                v.getParent().requestDisallowInterceptTouchEvent(false);
-	                break;
-	            }
-
-	            // Handle ListView touch events.
-	            v.onTouchEvent(event);
-	            return true;
-	        }
-	    });
-	    */
-	    listView_check.setAdapter(adapter3);
-	    /*
-	    listView_check.setOnTouchListener(new ListView.OnTouchListener() {
-	        @Override
-	        public boolean onTouch(View v, MotionEvent event) {
-	            int action = event.getAction();
-	            switch (action) {
-	            case MotionEvent.ACTION_DOWN:
-	                // Disallow ScrollView to intercept touch events.
-	                v.getParent().requestDisallowInterceptTouchEvent(true);
-	                break;
-
-	            case MotionEvent.ACTION_UP:
-	                // Allow ScrollView to intercept touch events.
-	                v.getParent().requestDisallowInterceptTouchEvent(false);
-	                break;
-	            }
-
-	            // Handle ListView touch events.
-	            v.onTouchEvent(event);
-	            return true;
-	        }
-	    });
-	    */
 	    button_next=(Button) findViewById(R.id.button_next);
 	    button_next.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-			Intent intent=new Intent(mContext,AskHerActivity.class);
+			Intent intent=new Intent(mContext,ExamineThePatientNextActivity.class);
 			startActivity(intent);
 			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);	
 			}
@@ -138,49 +53,7 @@ public class ExamineThePatientActivity extends BaseActivity {
 	    });
 	}
 
-	class ListAdapter extends BaseAdapter{
-		Context mContext;
-		String[] items;
-		 public LayoutInflater minflater;
-		public ListAdapter(Context mContext,String[] items){
-			this.mContext=mContext;
-			this.items=items;
-			 minflater = LayoutInflater.from(mContext);
-		}
-		@Override
-		public int getCount() {
-			return items.length;
-		}
-
-		@Override
-		public Object getItem(int position) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			if( convertView == null ){
-			      
-				  convertView = minflater.inflate(R.layout.listview_single,parent, false);
-			    }
-			 TextView text=(TextView) convertView.findViewById(R.id.textView_textSingle);
-			 text.setText(items[position]);
-			 if(position%2==0){
-				 convertView.setBackgroundColor(getResources().getColor(R.color.BackgroundGrey));
-			 }else{
-				 convertView.setBackgroundColor(getResources().getColor(R.color.White));
-			 }
-			    return convertView;
-		}
-		
-	}
+	
 	public void onBackPressed()
 	{
 	    end_time=System.currentTimeMillis();

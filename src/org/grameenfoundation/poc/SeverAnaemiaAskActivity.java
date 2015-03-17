@@ -36,7 +36,7 @@ public class SeverAnaemiaAskActivity extends BaseActivity {
 	    setContentView(R.layout.activity_severe_anaemia);
 	    mContext=SeverAnaemiaAskActivity.this;
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Mother Diagnostic: Anaemia");
+	    getActionBar().setSubtitle("ANC Diagnostic: Anaemia");
 	    dbh=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
 	    listView_sections=(ExpandableListView) findViewById(R.id.expandableListView1);
@@ -74,7 +74,7 @@ public class SeverAnaemiaAskActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent=new Intent(mContext,TakeActionSevereMalariaPNCMotherActivity.class);
-				intent.putExtra("category", "no anaemia");
+				intent.putExtra("category", "no_anaemia_anc");
 				startActivity(intent);
 			}
 	    	

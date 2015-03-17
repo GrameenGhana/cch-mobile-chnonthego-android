@@ -5,9 +5,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import org.apache.http.client.ClientProtocolException;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.activity.AboutActivity;
 import org.digitalcampus.oppia.activity.AppActivity;
@@ -17,6 +19,7 @@ import org.digitalcampus.oppia.activity.PrefsActivity;
 import org.digitalcampus.oppia.activity.StartUpActivity;
 import org.digitalcampus.oppia.activity.TagSelectActivity;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.model.Course;
 import org.digitalcampus.oppia.model.Lang;
 import org.digitalcampus.oppia.utils.UIUtils;
@@ -25,6 +28,7 @@ import org.grameenfoundation.cch.utils.ReferenceDownloader;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.bugsense.trace.BugSenseHandler;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
@@ -34,9 +38,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -54,14 +60,16 @@ public class ReferencesDownloadActivity extends AppActivity {
 	private String[] files;
 	private boolean isComplete;
 	private File myDirectory;
+	private SharedPreferences prefs;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_download);
 	    getActionBar().setTitle("Learning Center");
-	    getActionBar().setSubtitle("Download");
+	    getActionBar().setSubtitle("Download References");
 	    referenceList=(ListView) findViewById(R.id.tag_list);
+		prefs = PreferenceManager.getDefaultSharedPreferences(ReferencesDownloadActivity.this);
 	    myDirectory  = new File(Environment.getExternalStorageDirectory(), "references");
 	    if(!myDirectory.exists()){
 	    	 myDirectory.mkdirs();
@@ -89,6 +97,7 @@ public class ReferencesDownloadActivity extends AppActivity {
 	private class GetData extends AsyncTask<String, Void, String> {
 		 private ProgressDialog dialog = 
 				   new ProgressDialog(ReferencesDownloadActivity.this);
+		private int progress;
 		 
 		 
 		
@@ -97,7 +106,7 @@ public class ReferencesDownloadActivity extends AppActivity {
 			   dialog.setIndeterminate(false);
 			   dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 			   dialog.setMessage("Downloading files... Please wait...");
-			   dialog.setCancelable(false);
+			   //dialog.setCancelable(false);
 			   dialog.show();
 			  }
 
@@ -110,17 +119,15 @@ public class ReferencesDownloadActivity extends AppActivity {
 	            }
 	            try {
 	            	File file = new File(myDirectory, files[Integer.parseInt(params[0])]);
-	            	 try {
-	                      file.createNewFile();
-	                  } catch (IOException e1) {
-	                      e1.printStackTrace();
-	                  }
+	            	
+	            	 file.createNewFile();
 	                FileOutputStream f = new FileOutputStream(file);
 	                URL u = new URL("http://188.226.189.149/learning/references/"+files[Integer.parseInt(params[0])]);
 	                HttpURLConnection c = (HttpURLConnection) u.openConnection();
 	                c.setRequestMethod("GET");
 	                c.setDoOutput(true);
 	                c.connect();
+	               
 	                int lenghtOfFile = c.getContentLength();
 
 	                InputStream in = c.getInputStream();
@@ -130,31 +137,51 @@ public class ReferencesDownloadActivity extends AppActivity {
 	                long total = 0;
 	                while ((len1 = in.read(buffer)) > 0) {
 	                	 total += len1;
+	                	 progress=(int)((total*100)/lenghtOfFile);
 	                	 onProgressUpdate(""+(int)((total*100)/lenghtOfFile));
+	                	 if(progress > 0){
+	                		 onProgressUpdate(""+progress);
+	                     }
 	                    f.write(buffer, 0, len1);
 	                }
 	                f.close();
-	            } catch (Exception e) {
-	                e.printStackTrace();
-	            }
+	            }catch (ClientProtocolException cpe) { 
+	    			if(!MobileLearning.DEVELOPER_MODE){
+	    				BugSenseHandler.sendException(cpe);
+	    			} else {
+	    				cpe.printStackTrace();
+	    			}
+	    			dialog.setMessage(getString(R.string.error_connection));
+	    		} catch (SocketTimeoutException ste){
+	    			if(!MobileLearning.DEVELOPER_MODE){
+	    				BugSenseHandler.sendException(ste);
+	    			} else {
+	    				ste.printStackTrace();
+	    			}
+	    			dialog.setMessage(getString(R.string.error_connection));
+	    		} catch (IOException ioe) { 
+	    			if(!MobileLearning.DEVELOPER_MODE){
+	    				BugSenseHandler.sendException(ioe);
+	    			} else {
+	    				ioe.printStackTrace();
+	    			}
+	    			dialog.setMessage(getString(R.string.error_connection));
+	    		}
 
 				return null;
 	    }
 	    protected void onProgressUpdate(String... progress) {
-	    	isComplete=false;
 	        dialog.setProgress(Integer.parseInt(progress[0]));
 	   }
 	    @Override
 	    protected void onPostExecute(String result) {
-	    	
-	    	dialog.dismiss();
-	    	isComplete=true;
-	    	Intent intent=new Intent(Intent.ACTION_MAIN);
-			intent.setClass(ReferencesDownloadActivity.this,LearningReferencesActivity.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-			finish();
-			 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+	    	dialog.setMessage(result);
+	    	//Intent intent=new Intent(Intent.ACTION_MAIN);
+			//intent.setClass(ReferencesDownloadActivity.this,LearningReferencesActivity.class);
+			//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			//startActivity(intent);
+			//finish();
+			// overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 	    }
 	}
 	
@@ -200,7 +227,7 @@ public class ReferencesDownloadActivity extends AppActivity {
 			 if(file.exists()){
 				 image.setImageResource(R.drawable.ic_complete);
 				 image.setEnabled(false);
-			 }else{
+			 }else{																	
 				 image.setImageResource(R.drawable.ic_download);
 				 image.setEnabled(true);
 			 }
@@ -213,7 +240,6 @@ public class ReferencesDownloadActivity extends AppActivity {
 					image.setImageResource(R.drawable.ic_complete);
 					image.setEnabled(false);
 				}
-				
 				}
 				 
 			 });

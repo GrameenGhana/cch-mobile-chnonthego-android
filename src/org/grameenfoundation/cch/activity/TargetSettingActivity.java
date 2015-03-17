@@ -15,6 +15,7 @@ import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.adapters.LearningBaseAdapter;
 import org.grameenfoundation.cch.caldroid.CaldroidFragment;
 import org.grameenfoundation.cch.caldroid.CaldroidListener;
+import org.grameenfoundation.cch.model.Validation;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
@@ -190,6 +191,12 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			private long coverageId;
 			private long otherId;
 			private long learningId;
+			private String eventDetailText;
+			private RadioGroup event_detail;
+
+			private String[] items3;
+
+			private EditText editText_event_period;
 			static String due_date ;
 			static String start_date;
 			private static TextView dueDateValue;
@@ -208,12 +215,37 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				
 				ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
 				spinner_event_period.setAdapter(adapter);
-				String[] items_names=getResources().getStringArray(R.array.EventNames);
-				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items_names);
+				items3=new String[]{};
+				items3=getResources().getStringArray(R.array.EventNames);
+				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
 				spinner_event_name.setAdapter(adapter2);
-				final EditText editText_event_period=(EditText) rootView.findViewById(R.id.editText_dialogEventPeriodNumber);
+				editText_event_period=(EditText) rootView.findViewById(R.id.editText_dialogEventPeriodNumber);
 				dueDateValue=(TextView) rootView.findViewById(R.id.textView_dueDateValue);
 				startDateValue=(TextView) rootView.findViewById(R.id.textView_startDate);
+				event_detail=(RadioGroup) rootView.findViewById(R.id.radioGroup_category);
+				items3=new String[]{};
+				items3=getResources().getStringArray(R.array.Monitoring);
+				event_detail.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+
+					@Override
+					public void onCheckedChanged(RadioGroup group, int checkedId) {
+						if (checkedId == R.id.radio_events) {
+							 items3=new String[]{};
+							 items3=getResources().getStringArray(R.array.EventNames);
+							 ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
+								spinner_event_name.setAdapter(adapter2);
+								eventDetailText="Event";
+						}else if(checkedId == R.id.radio_monitoring){
+							 items3=new String[]{};
+							 items3=getResources().getStringArray(R.array.Monitoring);
+							 ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items3);
+								spinner_event_name.setAdapter(adapter2);
+								eventDetailText="Monitoring";
+						}
+						
+					}
+					
+				});
 				ImageButton datepickerDialog=(ImageButton) rootView.findViewById(R.id.imageButton_dueDate);
 				datepickerDialog.setOnClickListener(new OnClickListener(){
 
@@ -223,12 +255,13 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						dialogCaldroidFragment.show(getFragmentManager(),"TAG");
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+							SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MMM-yyyy");
 						    @Override
 						    public void onSelectDate(Date date, View view) {
 						    	dialogCaldroidFragment.dismiss();
-						    	dueDateValue.setText(formatter.format(date));
+						    	dueDateValue.setText(formatter2.format(date));
 						    	due_date=formatter.format(date);
-						        Toast.makeText(getActivity(), formatter.format(date),
+						        Toast.makeText(getActivity(), formatter2.format(date),
 						                Toast.LENGTH_SHORT).show();
 						    }
 						};
@@ -245,12 +278,13 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						dialogCaldroidFragment.show(getFragmentManager(),"TAG");
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+							SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MMM-yyyy");
 						    @Override
 						    public void onSelectDate(Date date, View view) {
 						    	dialogCaldroidFragment.dismiss();
-						    	startDateValue.setText(formatter.format(date));
+						    	startDateValue.setText(formatter2.format(date));
 						    	start_date=formatter.format(date);
-						        Toast.makeText(getActivity(), formatter.format(date),
+						        Toast.makeText(getActivity(), formatter2.format(date),
 						                Toast.LENGTH_SHORT).show();
 						    }
 						};
@@ -278,7 +312,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						String event_period_number=editText_event_period.getText().toString();
 						String duration = " ";
 						
-				      	if(isDateAfter(start_date,due_date)==true){
+				      	/*if(isDateAfter(start_date,due_date)==true){
 				      		startDateValue.requestFocus();
 				      		startDateValue.setError("Check this date!");
 				      	}else if(event_period_number.isEmpty()==true){
@@ -290,16 +324,18 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				      	}else if(due_date==null){
 				      		dueDateValue.requestFocus();
 				      		dueDateValue.setError("Select an end date");
+				      	}*/if(!checkValidation()){
+				      		 Toast.makeText(getActivity().getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();
 				      	}else{
 				     
-					    if(db.insertEventSet(event_name, event_period, event_period_number, duration,start_date,due_date,0,Integer.valueOf(event_period_number),"new_record") !=0){
+					    if(db.insertEventSet(event_name,eventDetailText, event_period, event_period_number, duration,start_date,due_date,0,Integer.valueOf(event_period_number),"new_record") !=0){
 					    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
 				 	          intent2.setClass(getActivity(), EventPlannerOptionsActivity.class);
 				 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				 	          startActivity(intent2);
 				 	          getActivity().finish();	
 				 	        getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
-					    	 Toast.makeText(getActivity().getApplicationContext(), "Event target set successfully!",
+					    	 	Toast.makeText(getActivity().getApplicationContext(), "Event target set successfully!",
 							         Toast.LENGTH_LONG).show();
 					    }else{
 					    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
@@ -333,7 +369,6 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 							 Toast.makeText(getActivity(), "You have no targets to update!",
 							         Toast.LENGTH_SHORT).show();
 						}
-						
 					}
 			    	
 			    });
@@ -342,7 +377,15 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				   
 			}
 		
-			
+			 private boolean checkValidation() {
+			        boolean ret = true;
+			 
+			        if (!Validation.hasTextEditText(editText_event_period)) ret = false;
+			        if (!Validation.hasTextTextView(startDateValue)) ret = false;
+			        if (!Validation.hasTextTextView(dueDateValue)) ret = false;
+			        if (Validation.isDateAfter(start_date,due_date,startDateValue)) ret = false;
+			        return ret;
+			    }
 			
 	 }
 	 public static class CoverageActivity extends Fragment{
@@ -360,6 +403,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			private long coverageId;
 			private long otherId;
 			private long learningId;
+			private EditText editText_coverageNumber;
 			static String due_date ;
 			private static TextView dueDateValue;
 			static String start_date ;
@@ -374,7 +418,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				rootView=inflater.inflate(R.layout.coverage_add_dialog,null,false);
 			    mContext=getActivity().getApplicationContext();
 			    db=new DbHelper(getActivity());
-			    final EditText editText_coverageNumber=(EditText) rootView.findViewById(R.id.editText_dialogCoverageNumber);
+			    editText_coverageNumber=(EditText) rootView.findViewById(R.id.editText_dialogCoverageNumber);
 			    button_show=(Button) rootView.findViewById(R.id.button_show);
 				ImageButton datepickerDialog=(ImageButton) rootView.findViewById(R.id.imageButton_dueDate);
 				datepickerDialog.setOnClickListener(new OnClickListener(){
@@ -385,12 +429,13 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						dialogCaldroidFragment.show(getFragmentManager(),"TAG");
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+							SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MMM-yyyy");
 						    @Override
 						    public void onSelectDate(Date date, View view) {
 						    	dialogCaldroidFragment.dismiss();
-						    	dueDateValue.setText(formatter.format(date));
+						    	dueDateValue.setText(formatter2.format(date));
 						    	due_date=formatter.format(date);
-						        Toast.makeText(getActivity(), formatter.format(date),
+						        Toast.makeText(getActivity(), formatter2.format(date),
 						                Toast.LENGTH_SHORT).show();
 						    }
 						};
@@ -409,12 +454,13 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						dialogCaldroidFragment.show(getFragmentManager(),"TAG");
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+							SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MMM-yyyy");
 						    @Override
 						    public void onSelectDate(Date date, View view) {
 						    	dialogCaldroidFragment.dismiss();
-						    	startDateValue.setText(formatter.format(date));
+						    	startDateValue.setText(formatter2.format(date));
 						    	start_date=formatter.format(date);
-						        Toast.makeText(getActivity(), formatter.format(date),
+						        Toast.makeText(getActivity(), formatter2.format(date),
 						                Toast.LENGTH_SHORT).show();
 						    }
 						};
@@ -441,7 +487,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				final Spinner spinner_coverageName=(Spinner) rootView.findViewById(R.id.spinner_dialogCoverageName);
 				final Spinner spinner_coverageDetails=(Spinner) rootView.findViewById(R.id.spinner_dialogCoverageDetail);
 				
-				 category_options=(RadioGroup) rootView.findViewById(R.id.radioGroup_category);
+				  category_options=(RadioGroup) rootView.findViewById(R.id.radioGroup_category);
 				  category_options.check(R.id.radio_people);
 				  category_people=(RadioButton) rootView.findViewById(R.id.radio_people);
 				  category_people.setChecked(true);
@@ -631,6 +677,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						String coverage_number=editText_coverageNumber.getText().toString();
 						coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
 						String duration = " ";
+						/*
 				      	if(isDateAfter(start_date,due_date)==true){
 				      		 startDateValue.requestFocus();
 				      		startDateValue.setError("Check this date!");
@@ -643,7 +690,9 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					      	}else if(due_date==null){
 					      		dueDateValue.requestFocus();
 					      		dueDateValue.setError("Select an end date");
-					      	}	else{
+					      	}*/if(!checkValidation()){
+					      			Toast.makeText(getActivity().getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();
+					      	}else{
 				    if(db.insertCoverageSet(coverage_name, coverage_detail, coverage_period, coverage_number, duration,start_date,due_date,0,Integer.valueOf(coverage_number),"new_record") !=0){
 				    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
 			 	          intent2.setClass(getActivity(), EventPlannerOptionsActivity.class);
@@ -687,7 +736,15 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			return rootView;
 				   
 			}
-			
+			 private boolean checkValidation() {
+			        boolean ret = true;
+			 
+			        if (!Validation.hasTextEditText(editText_coverageNumber)) ret = false;
+			        if (!Validation.hasTextTextView(startDateValue)) ret = false;
+			        if (!Validation.hasTextTextView(dueDateValue)) ret = false;
+			        if (Validation.isDateAfter(start_date,due_date,startDateValue)) ret = false;
+			        return ret;
+			    }	
 	 }
 	 
 	 public static class LearningActivity extends Fragment {
@@ -890,12 +947,13 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						dialogCaldroidFragment.show(getFragmentManager(),"TAG");
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+							SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MMM-yyyy");
 						    @Override
 						    public void onSelectDate(Date date, View view) {
 						    	dialogCaldroidFragment.dismiss();
-						    	dueDateValueLearning.setText(formatter.format(date));
+						    	dueDateValueLearning.setText(formatter2.format(date));
 						    	due_date=formatter.format(date);
-						        Toast.makeText(getActivity(), formatter.format(date),
+						        Toast.makeText(getActivity(), formatter2.format(date),
 						                Toast.LENGTH_SHORT).show();
 						    }
 						};
@@ -914,12 +972,13 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						dialogCaldroidFragment.show(getFragmentManager(),"TAG");
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+							SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MMM-yyyy");
 						    @Override
 						    public void onSelectDate(Date date, View view) {
 						    	dialogCaldroidFragment.dismiss();
-						    	startDateValue.setText(formatter.format(date));
+						    	startDateValue.setText(formatter2.format(date));
 						    	start_date=formatter.format(date);
-						        Toast.makeText(getActivity(), formatter.format(date),
+						        Toast.makeText(getActivity(), formatter2.format(date),
 						                Toast.LENGTH_SHORT).show();
 						    }
 						};
@@ -951,7 +1010,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						String learning_period=spinner_period.getSelectedItem().toString();
 						String learning_description=editText_learningDescription.getSelectedItem().toString();
 						String duration=" ";
-				      	
+				      	/*
 				      	if(isDateAfter(start_date,due_date)==true){
 				      		startDateValue.requestFocus();
 				      		startDateValue.setError("Check this date!");
@@ -961,7 +1020,9 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				      	}else if(due_date==null){
 				      		dueDateValueLearning.requestFocus();
 				      		dueDateValueLearning.setError("Select an end date");
-				      	}	else{
+				      	}*/if(!checkValidation()){
+				      		Toast.makeText(getActivity().getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();
+				      	}else{
 					    if(db.insertLearning(learning_category, learning_description,learning_course,duration,learning_period,start_date,due_date, "new_record")!=0){
 					    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
 				 	          intent2.setClass(getActivity(), EventPlannerOptionsActivity.class);
@@ -1008,7 +1069,16 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 		    });											
 			return rootView;
 				   
-			 }			
+			 }		
+			 
+			 private boolean checkValidation() {
+			        boolean ret = true;
+			 
+			        if (!Validation.hasTextTextView(startDateValue)) ret = false;
+			        if (!Validation.hasTextTextView(dueDateValueLearning)) ret = false;
+			        if (Validation.isDateAfter(start_date,due_date,startDateValue)) ret = false;
+			        return ret;
+			    }	
 	 }
 	 
 	 public static class OtherActivity extends Fragment{
@@ -1073,12 +1143,13 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						dialogCaldroidFragment.show(getFragmentManager(),"TAG");
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+							SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MMM-yyyy");
 						    @Override
 						    public void onSelectDate(Date date, View view) {
 						    	dialogCaldroidFragment.dismiss();
-						    	dueDateValue.setText(formatter.format(date));
+						    	dueDateValue.setText(formatter2.format(date));
 						    	due_date=formatter.format(date);
-						        Toast.makeText(getActivity(), formatter.format(date),
+						        Toast.makeText(getActivity(), formatter2.format(date),
 						                Toast.LENGTH_SHORT).show();
 						    }
 						};
@@ -1097,12 +1168,13 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						dialogCaldroidFragment.show(getFragmentManager(),"TAG");
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+							SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MMM-yyyy");
 						    @Override
 						    public void onSelectDate(Date date, View view) {
 						    	dialogCaldroidFragment.dismiss();
-						    	startDateValue.setText(formatter.format(date));
+						    	startDateValue.setText(formatter2.format(date));
 						    	start_date=formatter.format(date);
-						        Toast.makeText(getActivity(), formatter.format(date),
+						        Toast.makeText(getActivity(), formatter2.format(date),
 						                Toast.LENGTH_SHORT).show();
 						    }
 						};
@@ -1146,7 +1218,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				      		editText_otherNumber.setError("Please enter a number");
 				      	}else if(other_category.isEmpty()==true){
 				      		editText_otherCategory.requestFocus();
-				      		editText_otherCategory.setError("Please enter a value");
+				      		editText_otherCategory.setError("Please enter a description");
 				      	}else if(start_date==null){
 				      		startDateValue.requestFocus();
 				      		startDateValue.setError("Please enter a start date");

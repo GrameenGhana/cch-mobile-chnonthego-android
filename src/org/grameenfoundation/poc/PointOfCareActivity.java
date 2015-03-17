@@ -21,7 +21,6 @@ public class PointOfCareActivity extends BaseActivity implements OnItemClickList
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_point_of_care);
 	    mContext=PointOfCareActivity.this;
-	    getActionBar().setDisplayShowHomeEnabled(false);
 	    getActionBar().setTitle("Point of Care");
 	    listView_menu=(ListView) findViewById(R.id.listView_pocMenu);
 	    listView_menu.setOnItemClickListener(this);

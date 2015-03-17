@@ -51,13 +51,27 @@ public class CourseAchievementsAdapter extends BaseAdapter{
 			   convertView = minflater.inflate(R.layout.course_details_listview_single,parent, false);
 			  }
 			   TextView topic=(TextView) convertView.findViewById(R.id.textView_topic);
+			   TextView topicDescription=(TextView) convertView.findViewById(R.id.textView1);
 			   TextView testType=(TextView) convertView.findViewById(R.id.textView_testType);
 			   TextView score=(TextView) convertView.findViewById(R.id.textView_score);
 			   TextView percentage=(TextView) convertView.findViewById(R.id.textView_percentage);
-			   topic.setText(course_achievements.get(position).getCourseSection());
-			   testType.setText(course_achievements.get(position).getType());
-			   score.setText(course_achievements.get(position).getScore());
-			   percentage.setText(course_achievements.get(position).getPercentage()+"%");
+			   TextView dateTaken=(TextView) convertView.findViewById(R.id.textView_dateTaken);
+			   if(course_achievements.get(position).getType().equalsIgnoreCase("final exam")){
+				   topicDescription.setText("");
+				   topic.setText(" ");
+				   testType.setText(course_achievements.get(position).getType());
+				   score.setText(course_achievements.get(position).getScore());
+				   percentage.setText(course_achievements.get(position).getPercentage()+"%");
+				   dateTaken.setText(course_achievements.get(position).getDateTaken());
+			   }
+			   else{
+				   topic.setText(course_achievements.get(position).getCourseSection()); 
+				   testType.setText(course_achievements.get(position).getType());
+				   score.setText(course_achievements.get(position).getScore());
+				   percentage.setText(course_achievements.get(position).getPercentage()+"%");
+				   dateTaken.setText(course_achievements.get(position).getDateTaken());
+			   }
+			   
 			   
 		    return convertView;
 	}

@@ -28,6 +28,7 @@
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_example</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Example</item>
 	   <item name="android:actionMenuTextColor">@color/White</item>
+	    <item name="android:textColor">@color/White</item>
         
     </style>
 
@@ -36,15 +37,17 @@
         <item name="backgroundStacked">@drawable/ab_stacked_solid_example</item>
         <item name="backgroundSplit">@drawable/ab_bottom_solid_example</item>
         <item name="progressBarStyle">@style/ProgressBar.Example</item>
-     <item name="titleTextStyle">@style/ActionBar.TitleTextStyle</item>
+     	<item name="titleTextStyle">@style/ActionBar.TitleTextStyle</item>
     </style>
 	<style name="MyActionBar"
            parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/Green</item>
+         <item name="android:textColor">@color/White</item>
     </style>
     <style name="ActionBar.Transparent.Example" parent="@style/Widget.Sherlock.Light.ActionBar">
         <item name="background">@drawable/ab_transparent_example</item>
         <item name="progressBarStyle">@style/ProgressBar.Example</item>
+         <item name="android:textColor">@color/White</item>
     </style>
     <style name="ActionBar.TitleTextStyle" parent="TextAppearance.Sherlock.Widget.ActionBar.Title">
     <item name="android:textColor">@color/White</item>

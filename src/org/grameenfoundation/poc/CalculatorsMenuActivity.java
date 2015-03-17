@@ -28,7 +28,7 @@ public class CalculatorsMenuActivity extends BaseActivity {
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC Calculators");
 	    listView_calculators=(ListView) findViewById(R.id.listView_postnatalCareSections);
-	    String[] items={"Trimester Calculator","Dosage Calculator","Estimated Due Date Calculator"};
+	    String[] items={"Trimester & Due Date Calculator","Dosage Calculator"};
 	    CalculatorsSectionsListAdapter adapter=new CalculatorsSectionsListAdapter(mContext,items);
 	    listView_calculators.setAdapter(adapter);
 	    listView_calculators.setOnItemClickListener(new OnItemClickListener(){
@@ -49,14 +49,6 @@ public class CalculatorsMenuActivity extends BaseActivity {
 					startActivity(intent);
 					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
-					
-				case 2:
-					intent=new Intent(mContext,EstimateDueDateCalculator.class);
-					startActivity(intent);
-					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
-					break;
-				
-				
 			}
 			}
 	    });

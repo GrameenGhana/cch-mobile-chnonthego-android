@@ -70,7 +70,6 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 		setContentView(R.layout.activity_download);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getActionBar().setDisplayShowHomeEnabled(false);
 	    getActionBar().setTitle("Learning Center");
 	   
 	}
@@ -144,6 +143,7 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 
 	public void refreshTagList() {
 		tags = new ArrayList<Tag>();
+		System.out.println(json.toString());
 		try {
 			for (int i = 0; i < (json.getJSONArray("tags").length()); i++) {
 				JSONObject json_obj = (JSONObject) json.getJSONArray("tags").get(i);

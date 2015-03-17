@@ -80,7 +80,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.61"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" 
+                    android:focusable="true"
+   					android:focusableInTouchMode="true"/>
 
                 <ImageButton
                     android:id="@+id/imageButton_startDate"
@@ -112,7 +114,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.25"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" 
+                    android:focusable="true"
+    				android:focusableInTouchMode="true"/>
 
                 <ImageButton
                     android:id="@+id/imageButton_dueDate"

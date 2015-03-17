@@ -23,6 +23,7 @@ import java.util.concurrent.Callable;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.adapter.DownloadCourseListAdapter;
+import org.digitalcampus.oppia.adapter.DownloadCourseListNewAdapter;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.listener.APIRequestListener;
@@ -36,11 +37,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.bugsense.trace.BugSenseHandler;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class DownloadActivity extends AppActivity implements APIRequestListener {
 	
@@ -48,10 +56,12 @@ public class DownloadActivity extends AppActivity implements APIRequestListener 
 
 	private ProgressDialog pDialog;
 	private JSONObject json;
-	private DownloadCourseListAdapter dla;
+	private DownloadCourseListNewAdapter dla;
 	private String url;
 	private ArrayList<Course> courses;
 	private boolean inProgress;
+
+	private JSONObject json_obj;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -59,8 +69,8 @@ public class DownloadActivity extends AppActivity implements APIRequestListener 
 		setContentView(R.layout.activity_download);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getActionBar().setDisplayShowHomeEnabled(true);
-	    getActionBar().setTitle("Download");
+	    getActionBar().setTitle("Learning Center");
+	    getActionBar().setSubtitle("Download Modules");
 		Bundle bundle = this.getIntent().getExtras(); 
         if(bundle != null) {
         	Tag t = (Tag) bundle.getSerializable(Tag.TAG);
@@ -138,12 +148,12 @@ public class DownloadActivity extends AppActivity implements APIRequestListener 
 		// process the response and display on screen in listview
 		// Create an array of courses, that will be put to our ListActivity
 
-		DbHelper db = new DbHelper(this);
+		final DbHelper db = new DbHelper(this);
 		try {
 			this.courses = new ArrayList<Course>();
 			
 			for (int i = 0; i < (json.getJSONArray(MobileLearning.SERVER_COURSES_NAME).length()); i++) {
-				JSONObject json_obj = (JSONObject) json.getJSONArray(MobileLearning.SERVER_COURSES_NAME).get(i);
+				json_obj = (JSONObject) json.getJSONArray(MobileLearning.SERVER_COURSES_NAME).get(i);
 				Course dc = new Course();
 				
 				ArrayList<Lang> titles = new ArrayList<Lang>();
@@ -154,10 +164,15 @@ public class DownloadActivity extends AppActivity implements APIRequestListener 
 		            Lang l = new Lang(key,jsonTitles.getString(key));
 					titles.add(l);
 		        }
+		        System.out.println(json_obj.toString());
 		        dc.setTitles(titles);
 		        dc.setShortname(json_obj.getString("shortname"));
 		        dc.setVersionId(json_obj.getDouble("version"));
 		        dc.setDownloadUrl(json_obj.getString("url"));
+		        dc.setProgress(db.getCourseProgress(db.getCourseID(json_obj.getString("shortname"))));
+		        dc.setLocation(db.getCourseLocation(json_obj.getString("shortname")));
+		        dc.setModId(db.getCourseID(json_obj.getString("shortname")));
+		        dc.setImageFile(db.getCourseImage(dc.getShortname()));
 		        try {
 		        	dc.setDraft(json_obj.getBoolean("is_draft"));
 		        }catch (JSONException je){
@@ -173,10 +188,34 @@ public class DownloadActivity extends AppActivity implements APIRequestListener 
 				this.courses.add(dc);
 			}
 			
-			dla = new DownloadCourseListAdapter(this, courses);
+			dla = new DownloadCourseListNewAdapter(this, courses);
 			ListView listView = (ListView) findViewById(R.id.tag_list);
 			listView.setAdapter(dla);
+			listView.setOnItemClickListener(new OnItemClickListener(){
 
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					Course m = new Course();
+					ArrayList<Course> coursesList = new ArrayList<Course>();
+					Intent i = new Intent(DownloadActivity.this, CourseIndexActivity.class);
+					Bundle tb = new Bundle();
+					//System.out.println(m.getCourseXMLLocation());
+					//m.setLocation(courses.get(position).getLocation());
+					//m.setModId(courses.get(position).getModId());
+					m=db.getCourses(courses.get(position).getShortname());
+					coursesList=db.getCourseList(courses.get(position).getModId());
+					if(coursesList.size()>0){
+						tb.putSerializable(Course.TAG, m);
+						i.putExtras(tb);
+						startActivity(i);
+						overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+					}else{
+					Crouton.makeText(DownloadActivity.this, "Download the course!", Style.ALERT).show();
+					}	
+				}
+				
+			});
 		} catch (Exception e) {
 			db.close();
 			if(!MobileLearning.DEVELOPER_MODE){

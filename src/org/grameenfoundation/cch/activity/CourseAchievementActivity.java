@@ -64,8 +64,6 @@ public class CourseAchievementActivity extends Activity {
         progress=(TextProgressBar) findViewById(R.id.progressBar1);
         progress.setProgress((int)db.getCourseProgress((int)modid));
 	    courses = db.getQuizResultsForAchievements((int)modid);
-	    System.out.println(courses);
-	    getActionBar().setDisplayShowHomeEnabled(false);
 	    getActionBar().setTitle("Achievement Center");
 	    getActionBar().setSubtitle("Achievement Details");
 	    textView_label=(TextView) findViewById(R.id.textView_label);

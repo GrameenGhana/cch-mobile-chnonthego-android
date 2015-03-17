@@ -75,7 +75,6 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 	    setContentView(R.layout.activity_add_event);
 	    mContext=PlanEventActivity.this;
 	    dbh = new DbHelper(getApplicationContext());
-	    getActionBar().setDisplayShowHomeEnabled(false);
 	    getActionBar().setTitle("Planner");
 	    getActionBar().setSubtitle("Event Planning");
 	    c= new CalendarEvents(mContext);

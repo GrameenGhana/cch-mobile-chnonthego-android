@@ -69,6 +69,18 @@ public class LearningTargetActivity extends Fragment implements OnChildClickList
 		private long coverageId;
 		private long otherId;
 		private long learningId;
+
+		private long todayLearningId;
+
+		private long thisWeekLearningId;
+
+		private long thisMonthLearningId;
+
+		private long midYearLearningId;
+
+		private long thisQuarterLearningId;
+
+		private long thisYearLearningId;
 		 public LearningTargetActivity(){
 
  }
@@ -77,8 +89,6 @@ public class LearningTargetActivity extends Fragment implements OnChildClickList
 		    mContext=getActivity().getApplicationContext();
 		    db=new DbHelper(getActivity());
 		    learningList=(ExpandableListView) rootView.findViewById(R.id.listView_learningCategory);
-		    groupItems=new String[]{};
-		    groupItems=getResources().getStringArray(R.array.UpdateFrequencies);
 			new GetData().execute();
 			learningList.setOnChildClickListener(this);
 	   
@@ -148,7 +158,13 @@ public class LearningTargetActivity extends Fragment implements OnChildClickList
 			    @Override
 			    protected Object doInBackground(Object... params) {
 			        //db.open();
-			    
+			    	todayLearningId=db.getLearningIdCount("Daily");
+		 			thisWeekLearningId=db.getLearningIdCount("Weekly");
+		 			thisMonthLearningId=db.getLearningIdCount("Monthly");
+		 			midYearLearningId=db.getLearningIdCount("Mid-year");
+		 			thisQuarterLearningId=db.getLearningIdCount("Quarterly");
+		 			thisYearLearningId=db.getLearningIdCount("Annually");
+		 			
 			    	DailyLearningTargets=db.getAllLearningTargets("Daily");
 				    WeeklyLearningTargets=db.getAllLearningTargets("Weekly");
 					MonthlyLearningTargets=db.getAllLearningTargets("Monthly");
@@ -161,6 +177,18 @@ public class LearningTargetActivity extends Fragment implements OnChildClickList
 
 			    @Override
 			    protected void onPostExecute(Object result) {
+			    	int learning_number1=(int)todayLearningId;
+		 			 int learning_number2=(int)thisWeekLearningId;
+		 			 int learning_number3=(int)thisMonthLearningId;
+		 			 int learning_number4=(int)thisQuarterLearningId;
+		 			 int learning_number5=(int)midYearLearningId;
+		 			 int learning_number6=(int)thisYearLearningId;
+		 			groupItems=new String[]{"To update daily ("+String.valueOf(learning_number1)+")",
+		 									"To upate weekly ("+String.valueOf(learning_number2)+")",
+		 									"To update monthly ("+String.valueOf(learning_number3)+")",
+		 									"To update quarterly ("+String.valueOf(learning_number4)+")",
+		 									"To update mid-yearly ("+String.valueOf(learning_number5)+")",
+		 									"To update annually ("+String.valueOf(learning_number6)+")"};
 			    	learning_adapter=new LearningTargetAdapter(mContext,groupItems,DailyLearningTargets,
 							WeeklyLearningTargets,
 							MonthlyLearningTargets,

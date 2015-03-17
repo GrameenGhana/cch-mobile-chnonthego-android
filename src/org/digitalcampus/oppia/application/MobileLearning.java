@@ -34,13 +34,26 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import org.acra.*;
 import org.acra.annotation.*;
+import org.acra.sender.HttpSender;
 @ReportsCrashes(
-        formKey = "", // This is required for backward compatibility but not used
-        mailTo = "fjones@grameenfoundation.org",
-        customReportContent = { ReportField.APP_VERSION_CODE, ReportField.APP_VERSION_NAME, ReportField.ANDROID_VERSION, ReportField.PHONE_MODEL, ReportField.CUSTOM_DATA, ReportField.STACK_TRACE, ReportField.LOGCAT },                
-        mode = ReportingInteractionMode.TOAST,
-        resToastText = R.string.crash_toast_text
-    )
+	    formUri = "https://florencejones.cloudant.com/acra-chnonthego/_design/acra-storage/_update/report",
+	    reportType = HttpSender.Type.JSON,
+	    httpMethod = HttpSender.Method.POST,
+	    formUriBasicAuthLogin = "despecindesproughtedenou",
+	    formUriBasicAuthPassword = "Mhhri81NL6EoTubaDkXGac0J",
+	    formKey = "", // This is required for backward compatibility but not used
+	    customReportContent = {
+	            ReportField.APP_VERSION_CODE,
+	            ReportField.APP_VERSION_NAME,
+	            ReportField.ANDROID_VERSION,
+	            ReportField.PACKAGE_NAME,
+	            ReportField.REPORT_ID,
+	            ReportField.BUILD,
+	            ReportField.STACK_TRACE
+	    },
+	    mode = ReportingInteractionMode.TOAST,
+	    resToastText = R.string.crash_toast_text
+	)
 public class MobileLearning extends Application {
 
 	public static final String TAG = MobileLearning.class.getSimpleName();

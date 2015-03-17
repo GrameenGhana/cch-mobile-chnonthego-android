@@ -84,7 +84,7 @@ import android.widget.TextView;
 			   text3.setText("Completed");
 		   }else{
 			   text3.setTextColor(Color.RED);
-			   text3.setText("Upcoming"); 
+			   text3.setText("In progress"); 
 		   }
 		   text4.setText(completedTargets.get(childPosition).getLearningTargetEndDate());
 		   text5.setText(completedTargets.get(childPosition).getLearningTargetStartDate());
@@ -107,7 +107,7 @@ import android.widget.TextView;
 				   text3.setText("Completed");
 			   }else{
 				   text3.setTextColor(Color.RED);
-				   text3.setText("Upcoming"); 
+				   text3.setText("In progress"); 
 			   }
 			   text4.setText(unCompletedTargets.get(childPosition).getLearningTargetEndDate());
 			   text5.setText(unCompletedTargets.get(childPosition).getLearningTargetStartDate());

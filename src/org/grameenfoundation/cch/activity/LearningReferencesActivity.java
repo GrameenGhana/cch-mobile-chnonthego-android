@@ -64,6 +64,18 @@ public class LearningReferencesActivity extends Activity {
 	    reference_list=(LinearLayout) findViewById(R.id.referenceList);
 	    manageButton=(Button) findViewById(R.id.button_manage);
 	    myDirectory  = new File(Environment.getExternalStorageDirectory(), "references");
+	    if(!myDirectory.exists()){
+	    	 myDirectory.mkdirs();
+	    }else{
+	    	 File[] checkFiles = myDirectory.listFiles();
+	    	 for(File f:checkFiles){
+	    		 if(f.getName().equals("FPFlipchart.pdf")){
+	    			 f.delete();
+	    		 }else if(f.getName().equals("National Safe Motherhood Service Protocol.pdf")){
+	    			 f.delete();
+	    		 }
+   		 }
+	    }
 	    fileLongName=new ArrayList<String>();
 	    /*
 	    fileLongName.add("Neonatal Care Guidlines");
@@ -156,7 +168,8 @@ public class LearningReferencesActivity extends Activity {
 	   
 	    File[] files = myDirectory.listFiles();
 	    if (files.length == 0)
-	        return null;
+	    	System.out.println("No files found");
+	       // return null;
 	    else {
 	        for (int i=0; i<files.length; i++) 
 	            MyFiles.add(files[i].getName());
@@ -277,8 +290,8 @@ public class LearningReferencesActivity extends Activity {
 	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 	    switch (item.getItemId()) {
 	        case R.id.option1:
-	        	File filetodelete=new File(myDirectory,GetFiles().get((int)info.id));
-	        	System.out.println(GetFiles().get((int)info.id));
+	        	File filetodelete=new File(myDirectory,GetFiles().get((int)info.position));
+	        	System.out.println(GetFiles().get((int)info.position));
 	        	filetodelete.delete();
 	            return true;
 	        default:

@@ -61,7 +61,6 @@ public class TargetAchievementDetailActivity extends Activity {
 	    c= new CalendarEvents(mContext);
 	    db=new DbHelper(TargetAchievementDetailActivity.this);
 	    String[] groupItems={"Events","Coverage","Learning","Other"};
-	    getActionBar().setDisplayShowHomeEnabled(false);
 	    getActionBar().setTitle("Achievement Center");
 	    getActionBar().setSubtitle("Achievement Details");
 	    textView_label=(TextView) findViewById(R.id.textView_label);

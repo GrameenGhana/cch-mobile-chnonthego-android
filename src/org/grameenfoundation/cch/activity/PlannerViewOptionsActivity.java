@@ -3,6 +3,7 @@ package org.grameenfoundation.cch.activity;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.grameenfoundation.adapters.PlannerBaseAdapter;
+import org.grameenfoundation.poc.BaseActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,7 +13,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class PlannerViewOptionsActivity extends Activity implements OnItemClickListener{
+public class PlannerViewOptionsActivity extends BaseActivity implements OnItemClickListener{
 
 	private ListView listView_monthOption;
 	
@@ -20,7 +21,6 @@ public class PlannerViewOptionsActivity extends Activity implements OnItemClickL
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_month_options);
-	    getActionBar().setDisplayShowHomeEnabled(false);
 	    getActionBar().setTitle("Planner");
 	    getActionBar().setSubtitle("View events/targets");
 	    listView_monthOption=(ListView) findViewById(R.id.listView_targetMonthOptions);

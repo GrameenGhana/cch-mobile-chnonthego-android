@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Look, Listen, Feel"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_border2"
+            android:divider="@drawable/divider"
+            android:orientation="vertical"
+            android:showDividers="middle" >
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="Examine client, and looks for signs of: "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:paddingTop="5dp"
+                android:text="Edema of feet, hands, face, ankles "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="Bleeding"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:paddingBottom="10dp"
+                android:text="Jaundice "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:paddingBottom="10dp"
+                android:text="Signs of shock "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:paddingBottom="10dp"
+                android:text="Cold, moist skin "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:paddingBottom="10dp"
+                android:text="Weak but fast pulse"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:paddingBottom="10dp"
+                android:text="Systolic BP ≤ 90 mmHg"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <org.grameenfoundation.cch.utils.TextViewBullets
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:paddingBottom="10dp"
+                android:text="Offensive vaginal discharge "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/divider"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Check"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_border2"
+                android:divider="@drawable/divider"
+                android:orientation="vertical"
+                android:showDividers="middle" >
+
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:id="@+id/textView17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Blood pressure (BP), if possible "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Temperature"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                <org.grameenfoundation.cch.utils.TextViewBullets
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Pulse "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/button_next"
+                android:layout_width="213dp"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:textColor="@color/Brown" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    
+    </ScrollView>

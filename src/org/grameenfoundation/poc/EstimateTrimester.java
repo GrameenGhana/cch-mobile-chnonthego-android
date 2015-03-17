@@ -18,6 +18,7 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -38,7 +39,7 @@ import android.widget.Toast;
 import android.widget.CalendarView.OnDateChangeListener;
 import android.widget.TextView;
 
-public class EstimateTrimester extends BaseActivity {
+public class EstimateTrimester extends FragmentActivity {
 
 	private static CalendarView calendarView_calendar;
 	private Button button_calculate;
@@ -54,6 +55,8 @@ public class EstimateTrimester extends BaseActivity {
 	private Long start_time;
 	private Long end_time;
 	private CalendarViewScrollable calendar;
+	private String estimated_due_date;
+	private TextView textView_estimatedDueDate;
 	
 	@SuppressLint("NewApi")
 	@Override
@@ -61,11 +64,14 @@ public class EstimateTrimester extends BaseActivity {
 	    super.onCreate(savedInstanceState);
 	    
 	    setContentView(R.layout.activity_estimate_trimester);
+	    this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("Trimester Calculator");
 	    start_time=System.currentTimeMillis();
 	    dbh=new DbHelper(EstimateTrimester.this);
 	    textView_selectedDate=(TextView) findViewById(R.id.textView_selectedDate);
+	    textView_estimatedDueDate=(TextView) findViewById(R.id.textView_estimatedDueDate);
+	    /*
 	    calendar=(CalendarViewScrollable) findViewById(R.id.calendarView1);
 	    calendar.setSelectedWeekBackgroundColor(Color.rgb(82,0,0));
 	    calendar.setOnDateChangeListener(new OnDateChangeListener(){
@@ -79,7 +85,8 @@ public class EstimateTrimester extends BaseActivity {
 			}
 	    	
 	    });
-	    /*
+	    */
+	    
 	    final CaldroidFragment caldroidFragment = new CaldroidFragment();
 	    Bundle args = new Bundle();
 	    Calendar cal = Calendar.getInstance();
@@ -93,17 +100,27 @@ public class EstimateTrimester extends BaseActivity {
 	    
 	    final CaldroidListener listener = new CaldroidListener() {
 	    	SimpleDateFormat formatter  = new SimpleDateFormat("dd/MM/yyyy");
+	    	SimpleDateFormat formatter2  = new SimpleDateFormat("dd-MMM-yyyy");
 	        @Override
 	        public void onSelectDate(Date date, View view) {
 	        	newDate=formatter.format(date);
-	        	textView_selectedDate.setText("You selected: "+formatter.format(date));
-	        	caldroidFragment.setBackgroundResourceForDate(Color.rgb(83,171,32), date);
-	        	caldroidFragment.setTextColorForDate(Color.rgb(255, 255, 255), date);
+	        	caldroidFragment.refreshView();
+	        	Date today=new Date();
+	        	if(isDateAfter(formatter.format(date),formatter.format(today))==true){
+	        		Crouton.makeText(EstimateTrimester.this, "Select a date in the past", Style.ALERT).show();	
+	        		button_calculate.setVisibility(View.GONE);
+	        	}else{
+	        		button_calculate.setVisibility(View.VISIBLE);
+	        		textView_selectedDate.setText("You selected: "+formatter2.format(date));
+	        	}
+	        	caldroidFragment.setBackgroundResourceForDate(R.color.WhileWaitingForTransport, date);
+	        	caldroidFragment.setTextColorForDate(R.color.White, date);
+	        	caldroidFragment.refreshView();
 	        }
 	    };
 
 	    caldroidFragment.setCaldroidListener(listener);
-	*/
+	
 	    button_calculate=(Button) findViewById(R.id.button_calculate);
 	    button_calculate.setOnClickListener(new OnClickListener(){
 
@@ -111,7 +128,7 @@ public class EstimateTrimester extends BaseActivity {
 			public void onClick(View v) {
 				if(newDate!=null){
 					daysBetween();
-				
+					calculateDueDate();
 				}else{
 					Crouton.makeText(EstimateTrimester.this, "Please select a date", Style.ALERT).show();	
 				}
@@ -179,14 +196,70 @@ public class EstimateTrimester extends BaseActivity {
 			if(weeks==1){
 				String week_value=String.format("%.0f",weeks);
 				textView_estimatedWeeks.setText(week_value +" week");		
+			}else{
+				if(weeks<1){
+					textView_estimatedWeeks.setText("Less than a week");			
+				}
 			}
 		}
 	}
+	
+	public void calculateDueDate(){
+		SimpleDateFormat formatter  = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat formatter2  = new SimpleDateFormat("dd-MMM-yyyy");
+		 Calendar cal = Calendar.getInstance();
+    	 try {
+			cal.setTime(formatter.parse(newDate));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	 cal.add(Calendar.DATE,280);
+    	 estimated_due_date=formatter2.format(cal.getTime());
+    	 textView_estimatedDueDate.setText(estimated_due_date);
+	}
+	
+	public static boolean isDateAfter(String startDate,String endDate)
+    {
+	 Date start_date = null;
+	 Date end_date = null;
+	long starDateAsTimestamp = 0;
+	long endDateTimestamp = 0;
+	try {
+		if(startDate==null){
+		System.out.println("Enter a valid date!");
+		}else{
+		start_date = new SimpleDateFormat("dd/MM/yyyy").parse(startDate);
+		 starDateAsTimestamp = start_date.getTime();
+		}
+		if(endDate==null){
+			System.out.println("Enter a valid date!");
+		}else{
+		end_date = new SimpleDateFormat("dd/MM/yyyy").parse(endDate);
+		endDateTimestamp = end_date.getTime();
+		}
+	} catch (ParseException e) {
+		e.printStackTrace();
+	}
+	
+	
+	 long getRidOfTime = 1000 * 60 * 60 * 24;
+	 long startDateAsTimestampWithoutTime = starDateAsTimestamp / getRidOfTime;
+	 long endDateTimestampWithoutTime = endDateTimestamp / getRidOfTime;
+
+	 if (startDateAsTimestampWithoutTime > endDateTimestampWithoutTime) {
+	    return true;
+	 } else {
+	    return false;
+	 }
+    }
 	public void onBackPressed()
 	{
 	    end_time=System.currentTimeMillis();
 		dbh.insertCCHLog("Point of Care", "Trimester Calculator", start_time.toString(), end_time.toString());
 		finish();
 	}
+	
+	
 	}
 

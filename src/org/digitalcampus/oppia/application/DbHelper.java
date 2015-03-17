@@ -166,6 +166,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	//CCH: Events Table
 		public static final String EVENTS_SET_TABLE="event_set";
 		public static final String COL_EVENT_SET_NAME="event_name";
+		public static final String COL_EVENT_SET_DETAIL="event_detail";
 		public static final String COL_EVENT_PERIOD="event_period";
 		public static final String COL_EVENT_NUMBER="event_number";
 		public static final String COL_EVENT_DURATION="duration";
@@ -303,6 +304,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			    "CREATE TABLE " + EVENTS_SET_TABLE + " (" +
 			    		BaseColumns._ID + " INTEGER PRIMARY KEY," +
 			    		COL_EVENT_SET_NAME + TEXT_TYPE + COMMA_SEP +
+			    		COL_EVENT_SET_DETAIL + TEXT_TYPE + COMMA_SEP +
 			    		COL_EVENT_PERIOD + TEXT_TYPE + COMMA_SEP +
 			    		COL_SYNC_STATUS + TEXT_TYPE + COMMA_SEP +
 			    		COL_EVENT_DURATION + TEXT_TYPE + COMMA_SEP +
@@ -577,6 +579,25 @@ public class DbHelper extends SQLiteOpenHelper {
 		return true;
 		
 	}
+	
+	public boolean alterEventTable(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor c = db.rawQuery("PRAGMA table_info("+EVENTS_SET_TABLE+")",null);
+		c.moveToFirst();
+		System.out.println(c.getCount());
+		if(c.getCount()==12){
+			System.out.println("Columns up to date!");
+			
+		}else{
+			String sql = "ALTER TABLE " + EVENTS_SET_TABLE + " ADD COLUMN " + COL_EVENT_SET_DETAIL  + " TEXT NULL;";
+			db.execSQL(sql);
+		}
+		c.close();
+		db.close();
+		
+		return true;
+		
+	}
 	public boolean alterCourseTable(){
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor c = db.rawQuery("PRAGMA table_info("+COURSE_TABLE+")",null);
@@ -614,10 +635,21 @@ public class DbHelper extends SQLiteOpenHelper {
 		
 	}
 	
-	public long insertEventSet(String event_name, String event_period, String event_number, String duration, String start_date, String due_date,int number_achieved,int number_remaining,String sync_status){
+	public boolean updateEventDetailDefault(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		String strQuery = "Update "+EVENTS_SET_TABLE+" set "+COL_EVENT_SET_DETAIL+" ="+"'Event'"+" where "+ COL_EVENT_SET_DETAIL+ " IS NULL";
+		db.execSQL(strQuery);
+		db.close();
+		
+		return true;
+		
+	}
+	
+	public long insertEventSet(String event_name,String event_detail, String event_period, String event_number, String duration, String start_date, String due_date,int number_achieved,int number_remaining,String sync_status){
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(COL_EVENT_SET_NAME,event_name);
+		values.put(COL_EVENT_SET_DETAIL,event_detail);
 		values.put(COL_EVENT_PERIOD,event_period);
 		values.put(COL_SYNC_STATUS,sync_status);
 		values.put(COL_EVENT_NUMBER,event_number);
@@ -838,7 +870,32 @@ public class DbHelper extends SQLiteOpenHelper {
 		db.close();
 		return courses;
 	}
-	
+	public Course getCourses(String shortname) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		//Course courses = new Course();
+		String order = COURSE_C_TITLE + " ASC";
+		String s = COURSE_C_SHORTNAME + "=?";
+		String[] args = new String[] { shortname };
+		Cursor c = db.query(COURSE_TABLE, null, s, args, null, null, order);
+		c.moveToFirst();
+		Course course = null ;
+		while (c.isAfterLast() == false) {
+			course = new Course();
+			course.setModId(c.getInt(c.getColumnIndex(COURSE_C_ID)));
+			course.setLocation(c.getString(c.getColumnIndex(COURSE_C_LOCATION)));
+			course.setProgress(this.getCourseProgress(course.getModId()));
+			course.setVersionId(c.getDouble(c.getColumnIndex(COURSE_C_VERSIONID)));
+			course.setTitlesFromJSONString(c.getString(c.getColumnIndex(COURSE_C_TITLE)));
+			course.setImageFile(c.getString(c.getColumnIndex(COURSE_C_IMAGE)));
+			course.setLangsFromJSONString(c.getString(c.getColumnIndex(COURSE_C_LANGS)));
+			course.setShortname(c.getString(c.getColumnIndex(COURSE_C_SHORTNAME)));
+		//	courses.add(course);
+			c.moveToNext();
+		}
+		c.close();
+		db.close();
+		return course;
+	}
 	public ArrayList<Course> getCoursesForAchievements(int month,int year) {
 		SQLiteDatabase db = this.getReadableDatabase();
 		ArrayList<Course> courses = new ArrayList<Course>();
@@ -895,6 +952,76 @@ public class DbHelper extends SQLiteOpenHelper {
 		return m;
 	}
 	
+	public ArrayList<Course> getCourseList(long modId) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		ArrayList<Course> courses = new ArrayList<Course>();
+		String s = COURSE_C_ID + "=?";
+		String[] args = new String[] { String.valueOf(modId) };
+		Cursor c = db.query(COURSE_TABLE, null, s, args, null, null, null);
+		c.moveToFirst();
+		while (c.isAfterLast() == false) {
+			Course course = new Course();
+			course.setModId(c.getInt(c.getColumnIndex(COURSE_C_ID)));
+			course.setLocation(c.getString(c.getColumnIndex(COURSE_C_LOCATION)));
+			course.setProgress(this.getCourseProgress(course.getModId()));
+			course.setVersionId(c.getDouble(c.getColumnIndex(COURSE_C_VERSIONID)));
+			course.setTitlesFromJSONString(c.getString(c.getColumnIndex(COURSE_C_TITLE)));
+			course.setImageFile(c.getString(c.getColumnIndex(COURSE_C_IMAGE)));
+			course.setLangsFromJSONString(c.getString(c.getColumnIndex(COURSE_C_LANGS)));
+			course.setShortname(c.getString(c.getColumnIndex(COURSE_C_SHORTNAME)));
+			courses.add(course);
+			c.moveToNext();
+		}
+		c.close();
+		db.close();
+		return courses;
+	}
+	public String getCourseLocation(String short_name) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		String m = null;
+		String s = COURSE_C_SHORTNAME + "=?";
+		String[] args = new String[] { short_name };
+		Cursor c = db.query(COURSE_TABLE, null, s, args, null, null, null);
+		c.moveToFirst();
+		while (c.isAfterLast() == false) {
+			m=c.getString(c.getColumnIndex(COURSE_C_LOCATION));
+			c.moveToNext();
+		}
+		c.close();
+		db.close();
+		return m;
+	}
+	
+	public String getCourseImage(String short_name) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		String m = null;
+		String s = COURSE_C_SHORTNAME + "=?";
+		String[] args = new String[] { short_name };
+		Cursor c = db.query(COURSE_TABLE, null, s, args, null, null, null);
+		c.moveToFirst();
+		while (c.isAfterLast() == false) {
+			m=c.getString(c.getColumnIndex(COURSE_C_IMAGE));
+			c.moveToNext();
+		}
+		c.close();
+		db.close();
+		return m;
+	}
+	public String getCourseTitle(String short_name) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		String m = null;
+		String s = COURSE_C_SHORTNAME + "=?";
+		String[] args = new String[] { short_name };
+		Cursor c = db.query(COURSE_TABLE, null, s, args, null, null, null);
+		c.moveToFirst();
+		while (c.isAfterLast() == false) {
+			m=c.getString(c.getColumnIndex(COURSE_C_TITLE));
+			c.moveToNext();
+		}
+		c.close();
+		db.close();
+		return m;
+	}
 	public void insertLog(int modId, String digest, String data, boolean completed){
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -1401,6 +1528,7 @@ public class DbHelper extends SQLiteOpenHelper {
 				String t = "Quiz ";
 				if (qt.containsKey(j.getString("quiz_id"))) {
 					t += qt.get(j.getString("quiz_id")) + " retake";
+					results.setType(j2.getString("title")+" retake");
 				} else {
 					t += quiznum;
 					qt.put(j.getString("quiz_id"), quiznum);
@@ -1412,6 +1540,7 @@ public class DbHelper extends SQLiteOpenHelper {
 				Double percentage=((double)Integer.valueOf(j.getString("score"))/Integer.valueOf(j.getString("maxscore")))*100;
 				String percentage_value=String.format("%.0f", percentage);
 				results.setPercentage(percentage_value);
+				results.setDateTaken(c.getString(c.getColumnIndex(QUIZRESULTS_C_DATETIME)));
 				//quizzes.add(t + ": "+ j.getString("score") + "/" + j.getString("maxscore"));
 				quiznum++;
 			} catch (JSONException e) {

@@ -29,7 +29,7 @@
             android:text="Give first dose of Gentamicin intramuscularly "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <org.grameenfoundation.cch.utils.PinchZoom
+        <ImageView
             android:id="@+id/imageView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

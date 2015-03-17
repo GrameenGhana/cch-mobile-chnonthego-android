@@ -114,6 +114,8 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 		dbh.deleteTables();
 		dbh.alterCourseTable();
 		dbh.updateDateDefault();
+		dbh.alterEventTable();
+		dbh.updateEventDetailDefault();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		prefs.registerOnSharedPreferenceChangeListener(this);
 		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
@@ -350,7 +352,7 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 			    numactivities=todos.size();
 				textView_routinesNumber.setText(String.valueOf(numactivities));
 			    tv8 = (TextView) rootView.findViewById(R.id.textView8);
-			    tv8.setText(" activities this "+dbh.getTime()+".");
+			    tv8.setText(" activity(ies) this "+dbh.getTime()+".");
 				
 			    textView_routinesClickHere = (TextView) rootView.findViewById(R.id.textView_routinesClickHere);
 			    textView_routinesClickHere.setOnClickListener(new OnClickListener(){

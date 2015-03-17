@@ -4,10 +4,14 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class KeepingBabyWarmAndMalariaActivity extends BaseActivity {
@@ -17,6 +21,7 @@ public class KeepingBabyWarmAndMalariaActivity extends BaseActivity {
 	private Long start_time;
 	private Long end_time;
 	String data;
+	private ImageView image1;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -56,6 +61,31 @@ public class KeepingBabyWarmAndMalariaActivity extends BaseActivity {
       	}else  if(category.equals("bloody_diarrhoea")){
   	           setContentView(R.layout.activity_treating_bloody_diarrhoea);
   	            getActionBar().setSubtitle("PNC Counselling: Treating Bloody Diarrhoea");
+  	            image1=(ImageView) findViewById(R.id.imageView1);
+  	          image1.setOnClickListener(new OnClickListener(){
+
+  				@Override
+  				public void onClick(View v) {
+  					final Dialog nagDialog = new Dialog(KeepingBabyWarmAndMalariaActivity.this);
+  		            nagDialog.requestWindowFeature(Window.FEATURE_NO_TITLE); 
+  		            nagDialog.setCancelable(false);
+  		            nagDialog.setContentView(R.layout.image_view_dialog);
+  		            ImageButton btnClose = (ImageButton)nagDialog.findViewById(R.id.imageButton_close);
+  		            ImageView ivPreview = (ImageView)nagDialog.findViewById(R.id.imageView_largerImage);
+  		            ivPreview.setImageResource(R.drawable.treating_diarrhoea);
+
+  		            btnClose.setOnClickListener(new OnClickListener() {
+  		                @Override
+  		                public void onClick(View arg0) {
+
+  		                    nagDialog.dismiss();
+  		                }
+  		            });
+  		            nagDialog.show();
+  					
+  				}
+  		    	
+  		    });
  	           data="PNC Counselling: Treating Bloody Diarrhoea";
 	}
 	}

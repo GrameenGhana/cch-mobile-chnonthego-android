@@ -37,8 +37,7 @@ public class EventsAchievementsActivity extends BaseActivity {
 	    expandableListview = (ExpandableListView) findViewById(R.id.expandableListView1);
 	    mContext=EventsAchievementsActivity.this;
 	    c= new CalendarEvents(mContext);
-	    String[] groupItems={"Completed","Upcoming"};
-	    getActionBar().setDisplayShowHomeEnabled(false);
+	    String[] groupItems={"Completed","Future"};
 	    getActionBar().setTitle("Achievement Center");
 	    getActionBar().setSubtitle("Achievement Details");
 	    Bundle extras = getIntent().getExtras(); 

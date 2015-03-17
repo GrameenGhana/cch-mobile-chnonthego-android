@@ -50,8 +50,10 @@
             android:id="@+id/button_no"
             android:layout_width="249dp"
             android:layout_height="wrap_content"
-            android:text="No"
-            android:textColor="@color/Brown" />
+            android:background="@color/Green"
+            android:text="No emergencies"
+            android:textColor="@color/White"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

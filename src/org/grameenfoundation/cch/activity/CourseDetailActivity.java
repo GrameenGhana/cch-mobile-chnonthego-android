@@ -96,13 +96,13 @@ public class CourseDetailActivity extends Activity {
 			intent.putExtra("modid", id);
 			intent.putExtra("course_name", course_name);
 			 course_achievements = db.getQuizResultsForAchievements((int)id);
-			 if(course_achievements.size()>0){
+			// if(course_achievements.size()>0){
 			startActivity(intent);
 			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
-			 }else if(course_achievements.size()==0){
-				 Crouton.makeText(CourseDetailActivity.this, "You have no details for "+course_name+"!",
-						 Style.INFO).show();
-			 }
+			// }else if(course_achievements.size()==0){
+			//	 Crouton.makeText(CourseDetailActivity.this, "You have no details for "+course_name+"!",
+				//		 Style.INFO).show();
+			 //}
 			}
 	    	
 	    });

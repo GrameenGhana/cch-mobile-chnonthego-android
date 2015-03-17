@@ -39,7 +39,7 @@ public class AcuteEmergenciesActivity extends BaseActivity implements OnClickLis
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC Diagnostic: Acute Emergencies");
 	    listView_acuteEmergencies=(ListView) findViewById(R.id.listView_acuteEmergencies);
-	    String[] emergencies={"Difficulty breathing","Edema(feet and hands, face or ankles)","Excessive bleeding","Signs of shock"};
+	    String[] emergencies={"Difficulty breathing","Edema(feet and hands, face or ankles)","Heavy Bleeding","Shock"};
 	    ListAdapter adapter=new ListAdapter(mContext, emergencies);
 	    listView_acuteEmergencies.setAdapter(adapter);
 	    listView_acuteEmergencies.setOnItemClickListener(this);
@@ -93,7 +93,7 @@ public class AcuteEmergenciesActivity extends BaseActivity implements OnClickLis
 		Intent intent;
 		int id = v.getId();
 		if (id == R.id.button_acuteEmergenciesNo) {
-			intent=new Intent(mContext,PreviousVisitActivity.class);
+			intent=new Intent(mContext,ANCRecordsAndHistoryActivity.class);
 			startActivity(intent);
 			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		}
@@ -139,7 +139,7 @@ public class AcuteEmergenciesActivity extends BaseActivity implements OnClickLis
 	{
 	    end_time=System.currentTimeMillis();
 	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
-		dbh.insertCCHLog("Point of Care", "ANC Acute Emergencies", start_time.toString(), end_time.toString());
+		dbh.insertCCHLog("Point of Care", "ANC Diagnostic Acute Emergencies", start_time.toString(), end_time.toString());
 		finish();
 		
 	}
