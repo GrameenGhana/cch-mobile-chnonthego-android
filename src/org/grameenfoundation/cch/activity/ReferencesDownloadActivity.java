@@ -13,6 +13,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.activity.AboutActivity;
 import org.digitalcampus.oppia.activity.AppActivity;
+import org.digitalcampus.oppia.activity.DownloadActivity;
 import org.digitalcampus.oppia.activity.HelpActivity;
 import org.digitalcampus.oppia.activity.OppiaMobileActivity;
 import org.digitalcampus.oppia.activity.PrefsActivity;
@@ -25,9 +26,9 @@ import org.digitalcampus.oppia.model.Lang;
 import org.digitalcampus.oppia.utils.UIUtils;
 import org.grameenfoundation.cch.activity.LearningReferencesActivity.ListAdapter;
 import org.grameenfoundation.cch.utils.ReferenceDownloader;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.bugsense.trace.BugSenseHandler;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
@@ -35,25 +36,35 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class ReferencesDownloadActivity extends AppActivity {
+public class ReferencesDownloadActivity extends Activity {
 
 	private ListView referenceList;
 	private ArrayList<String>  fileLongName;
@@ -61,6 +72,9 @@ public class ReferencesDownloadActivity extends AppActivity {
 	private boolean isComplete;
 	private File myDirectory;
 	private SharedPreferences prefs;
+	private Long start_time;
+	private Long end_time;
+	private DbHelper dbh;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +83,8 @@ public class ReferencesDownloadActivity extends AppActivity {
 	    getActionBar().setTitle("Learning Center");
 	    getActionBar().setSubtitle("Download References");
 	    referenceList=(ListView) findViewById(R.id.tag_list);
+	    dbh=new DbHelper(ReferencesDownloadActivity.this);
+	    start_time=System.currentTimeMillis();
 		prefs = PreferenceManager.getDefaultSharedPreferences(ReferencesDownloadActivity.this);
 	    myDirectory  = new File(Environment.getExternalStorageDirectory(), "references");
 	    if(!myDirectory.exists()){
@@ -93,11 +109,47 @@ public class ReferencesDownloadActivity extends AppActivity {
     	fileLongName.add("National Family Planning Protocol");
     	files=new String[]{"NCG.pdf","MPG.pdf","MCG.pdf","NSMP.pdf","FPF.pdf","WHO.pdf","NFPP.pdf"};
     	referenceList.setAdapter(new ListAdapter(this,fileLongName,files,myDirectory));
+    	 this.registerForContextMenu(referenceList);
+    	 referenceList.setOnItemClickListener(new OnItemClickListener(){
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view,
+				int position, long id) {
+			String path =myDirectory.getAbsolutePath()+"/"+files[position];
+			System.out.println(path);
+	       openPdfIntent(path);
+			
+		}		
+	});
 	}
+	private void openPdfIntent(String path) 
+	{
+		
+	    	 File file=new File(path);
+	    	 if(file.exists()){
+	    	 Uri uri  = Uri.fromFile(file);
+	    	 Intent intentUrl = new Intent(Intent.ACTION_VIEW);
+	    	 intentUrl.setDataAndType(uri, "application/pdf");
+	    	 intentUrl.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+	 	    try {
+	    	 startActivity(intentUrl);
+	 	    }
+	    catch (ActivityNotFoundException e) 
+	    {
+	      e.printStackTrace();
+	      Crouton.makeText(ReferencesDownloadActivity.this, "No application available to view PDF", Style.ALERT).show();
+	    }
+	    	 }else{
+    		 Crouton.makeText(ReferencesDownloadActivity.this, "Download the file!", Style.ALERT).show();
+	    	 }
+	}
+	
 	private class GetData extends AsyncTask<String, Void, String> {
 		 private ProgressDialog dialog = 
 				   new ProgressDialog(ReferencesDownloadActivity.this);
 		private int progress;
+		private int lenghtOfFile;
 		 
 		 
 		
@@ -106,7 +158,22 @@ public class ReferencesDownloadActivity extends AppActivity {
 			   dialog.setIndeterminate(false);
 			   dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 			   dialog.setMessage("Downloading files... Please wait...");
-			   //dialog.setCancelable(false);
+			   dialog.setCancelable(false);
+			   dialog.setButton(DialogInterface.BUTTON_NEGATIVE,"Close", new DialogInterface.OnClickListener(){
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+					Intent intent=new Intent(Intent.ACTION_MAIN);
+					intent.setClass(ReferencesDownloadActivity.this,ReferencesDownloadActivity.class);
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+					finish();
+					startActivity(intent);
+					// overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+				}
+				   
+			   });
 			   dialog.show();
 			  }
 
@@ -118,18 +185,17 @@ public class ReferencesDownloadActivity extends AppActivity {
 	            	 myDirectory.mkdirs();
 	            }
 	            try {
-	            	File file = new File(myDirectory, files[Integer.parseInt(params[0])]);
 	            	
-	            	 file.createNewFile();
-	                FileOutputStream f = new FileOutputStream(file);
-	                URL u = new URL("http://188.226.189.149/learning/references/"+files[Integer.parseInt(params[0])]);
+	            	URL u = new URL(getResources().getString(R.string.serverAddress)+MobileLearning.CCH_REFERENCE_DOWNLOAD_PATH+files[Integer.parseInt(params[0])]);
 	                HttpURLConnection c = (HttpURLConnection) u.openConnection();
 	                c.setRequestMethod("GET");
 	                c.setDoOutput(true);
 	                c.connect();
 	               
-	                int lenghtOfFile = c.getContentLength();
-
+	                lenghtOfFile = c.getContentLength();
+	                File file = new File(myDirectory, files[Integer.parseInt(params[0])]);
+	            	file.createNewFile();
+	                FileOutputStream f = new FileOutputStream(file);
 	                InputStream in = c.getInputStream();
 
 	                byte[] buffer = new byte[1024];
@@ -137,12 +203,14 @@ public class ReferencesDownloadActivity extends AppActivity {
 	                long total = 0;
 	                while ((len1 = in.read(buffer)) > 0) {
 	                	 total += len1;
+	                	   
 	                	 progress=(int)((total*100)/lenghtOfFile);
 	                	 onProgressUpdate(""+(int)((total*100)/lenghtOfFile));
 	                	 if(progress > 0){
 	                		 onProgressUpdate(""+progress);
 	                     }
 	                    f.write(buffer, 0, len1);
+	                     
 	                }
 	                f.close();
 	            }catch (ClientProtocolException cpe) { 
@@ -172,10 +240,17 @@ public class ReferencesDownloadActivity extends AppActivity {
 	    }
 	    protected void onProgressUpdate(String... progress) {
 	        dialog.setProgress(Integer.parseInt(progress[0]));
+	      
 	   }
 	    @Override
 	    protected void onPostExecute(String result) {
-	    	dialog.setMessage(result);
+	    	dialog.setMessage("Download Complete!");
+	    	System.out.println(String.valueOf(progress));
+	    	if(progress==lenghtOfFile){
+	    		isComplete=true;
+	    	}else{
+	    		isComplete=false;
+	    	}
 	    	//Intent intent=new Intent(Intent.ACTION_MAIN);
 			//intent.setClass(ReferencesDownloadActivity.this,LearningReferencesActivity.class);
 			//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -225,8 +300,9 @@ public class ReferencesDownloadActivity extends AppActivity {
 			
 			 File file = new File(directory, files[position] );
 			 if(file.exists()){
-				 image.setImageResource(R.drawable.ic_complete);
-				 image.setEnabled(false);
+				 	//image.setImageResource(R.drawable.ic_complete);
+					//image.setEnabled(false);
+					image.setVisibility(View.GONE);
 			 }else{																	
 				 image.setImageResource(R.drawable.ic_download);
 				 image.setEnabled(true);
@@ -237,8 +313,9 @@ public class ReferencesDownloadActivity extends AppActivity {
 				public void onClick(View v) {
 					new GetData().execute(String.valueOf(position));
 				if(isComplete==true){
-					image.setImageResource(R.drawable.ic_complete);
-					image.setEnabled(false);
+					//image.setImageResource(R.drawable.ic_complete);
+					//image.setEnabled(false);
+					image.setVisibility(View.GONE);
 				}
 				}
 				 
@@ -247,6 +324,58 @@ public class ReferencesDownloadActivity extends AppActivity {
 		}
 		
 	}
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+	                                ContextMenuInfo menuInfo) {
+	    super.onCreateContextMenu(menu, v, menuInfo);
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.context_menu, menu);
+	}
 	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+	    final AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+	    switch (item.getItemId()) {
+	        case R.id.option1:
+	        	AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						ReferencesDownloadActivity.this);
+					alertDialogBuilder.setTitle("Delete Confirmation");
+					alertDialogBuilder
+						.setMessage("You are about to delete this file. Proceed?")
+						.setCancelable(false)
+						.setIcon(R.drawable.ic_error)
+						.setPositiveButton("No",new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,int id) {
+								dialog.cancel();
+							}
+						  })
+						.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,int id) {
+								File filetodelete=new File(myDirectory,files[((int)info.position)]);
+					        	filetodelete.delete();
+					        	Intent intent=new Intent(Intent.ACTION_MAIN);
+								intent.setClass(ReferencesDownloadActivity.this,ReferencesDownloadActivity.class);
+								intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+								intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+								finish();
+								startActivity(intent);
+							
+			}
+    	});
+					AlertDialog alertDialog = alertDialogBuilder.create();
+					alertDialog.show();
+	        	
+	            return true;
+	        default:
+	            return super.onContextItemSelected(item);
+	    }
+	}
 	
+	public void onBackPressed()
+	{
+		 end_time=System.currentTimeMillis();
+		dbh.insertCCHLog("Learning Center", "Reference Download", start_time.toString(), end_time.toString());
+		finish();
+	}
+
 }

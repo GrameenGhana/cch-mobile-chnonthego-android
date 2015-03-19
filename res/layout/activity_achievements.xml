@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:text="Select category to view achievements"
+        android:text="Select a period/month to view achievements"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/Brown" />
 

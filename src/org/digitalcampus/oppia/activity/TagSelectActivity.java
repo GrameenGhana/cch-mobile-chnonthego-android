@@ -33,6 +33,7 @@ import org.digitalcampus.oppia.model.Tag;
 import org.digitalcampus.oppia.task.APIRequestTask;
 import org.digitalcampus.oppia.task.Payload;
 import org.digitalcampus.oppia.utils.UIUtils;
+import org.grameenfoundation.poc.TakeActionOtherSeriousConditionActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,6 +60,9 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 	private ArrayList<Course> courses;
 	int[] imageIds;
 	ArrayList<Tag> tags;
+	private Long start_time;
+	private Long end_time;
+	private DbHelper dbh;
 
 	private int[] imageid;
 	
@@ -71,13 +75,19 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 	    getActionBar().setTitle("Learning Center");
+	    dbh=new DbHelper(TagSelectActivity.this);
+	    start_time=System.currentTimeMillis();
 	   
 	}
 	 public void populateImages(){
+		 if(tags.size()==2){
+			 imageIds=new int[]{R.drawable.ic_family,R.drawable.ic_postnatal};
+		 }else {
 		 imageIds=new int[tags.size()];  
 		 
 		 for(int i=0;i<tags.size();i++){
 			 imageIds[i]=R.drawable.ic_family;
+		 }
 		 }
 	   }
 	@Override
@@ -203,6 +213,12 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 			});
 		}
 
+	}
+	public void onBackPressed()
+	{
+		 end_time=System.currentTimeMillis();
+		dbh.insertCCHLog("Learning Center", "Course Download Selection", start_time.toString(), end_time.toString());
+		finish();
 	}
 
 }

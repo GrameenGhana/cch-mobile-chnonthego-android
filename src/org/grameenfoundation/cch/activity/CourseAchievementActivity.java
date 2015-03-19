@@ -47,7 +47,8 @@ public class CourseAchievementActivity extends Activity {
 	private String course_name;
 	private TextProgressBar progress;
 	private boolean loadingMore;
-
+	private Long start_time;
+	private Long end_time;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class CourseAchievementActivity extends Activity {
 	    Listview = (ListView) findViewById(R.id.listView1);
 	    mContext=CourseAchievementActivity.this;
 	    db=new DbHelper(CourseAchievementActivity.this);
+	    start_time=System.currentTimeMillis();
 	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
           modid= extras.getLong("modid");
@@ -72,7 +74,12 @@ public class CourseAchievementActivity extends Activity {
 	    Listview.setAdapter(adapter);
 	    
 	}
-
+	public void onBackPressed()
+	{
+		 end_time=System.currentTimeMillis();
+		db.insertCCHLog("Achievement Center", "Course Achievements", start_time.toString(), end_time.toString());
+		finish();
+	}
 
 	
 }

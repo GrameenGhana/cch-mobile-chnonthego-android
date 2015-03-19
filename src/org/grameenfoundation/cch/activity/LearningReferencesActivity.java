@@ -291,7 +291,6 @@ public class LearningReferencesActivity extends Activity {
 	    switch (item.getItemId()) {
 	        case R.id.option1:
 	        	File filetodelete=new File(myDirectory,GetFiles().get((int)info.position));
-	        	System.out.println(GetFiles().get((int)info.position));
 	        	filetodelete.delete();
 	            return true;
 	        default:

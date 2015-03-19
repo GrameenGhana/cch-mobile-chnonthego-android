@@ -60,6 +60,10 @@ public class DownloadActivity extends AppActivity implements APIRequestListener 
 	private String url;
 	private ArrayList<Course> courses;
 	private boolean inProgress;
+	private Long start_time;
+	private Long end_time;
+	private DbHelper dbh;
+
 
 	private JSONObject json_obj;
 	
@@ -71,6 +75,8 @@ public class DownloadActivity extends AppActivity implements APIRequestListener 
         getSupportActionBar().setHomeButtonEnabled(true);
 	    getActionBar().setTitle("Learning Center");
 	    getActionBar().setSubtitle("Download Modules");
+	    dbh=new DbHelper(DownloadActivity.this);
+	    start_time=System.currentTimeMillis();
 		Bundle bundle = this.getIntent().getExtras(); 
         if(bundle != null) {
         	Tag t = (Tag) bundle.getSerializable(Tag.TAG);
@@ -255,6 +261,12 @@ public class DownloadActivity extends AppActivity implements APIRequestListener 
 			});
 		}
 
+	}
+	public void onBackPressed()
+	{
+		 end_time=System.currentTimeMillis();
+		dbh.insertCCHLog("Learning Center", "Course Download", start_time.toString(), end_time.toString());
+		finish();
 	}
 
 }

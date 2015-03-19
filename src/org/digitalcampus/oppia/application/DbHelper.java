@@ -61,7 +61,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
 	static final String TAG = DbHelper.class.getSimpleName();
 	static final String DB_NAME = "mobilelearning.db";
-	static final int DB_VERSION = 15;
+	static final int DB_VERSION = 16;
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 	private SharedPreferences prefs;
@@ -489,6 +489,10 @@ public class DbHelper extends SQLiteOpenHelper {
 			ContentValues values = new ContentValues();
 			values.put(TRACKER_LOG_C_COMPLETED,true);
 			db.update(TRACKER_LOG_TABLE, values, null, null);
+			runSWReset(db);
+		}
+		if(newVersion>15){
+			runSWReset(db);
 		}
 	}
 
@@ -1710,7 +1714,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 	public boolean isTableExists(String tableName,SQLiteDatabase mDatabase) {
-		try {			
+		try {		
 			Cursor cursor = mDatabase.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'", null);
 			if(cursor!=null) {
 				if(cursor.getCount()>0) {
@@ -1752,7 +1756,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	public void updateSWInfo(String field, String value,SQLiteDatabase db ) {
         ContentValues values = new ContentValues();
         values.put(field, value); 
-        //Log.e("CCH","Updating "+field+" with "+value);
+        Log.e("CCH","Updating "+field+" with "+value);
 		String userid = "noid";//prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
         db.update(CCH_SW_TABLE, values, CCH_SW_STAFF_ID + "='"+userid+"'", null);
 	}
@@ -1761,7 +1765,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase(); 
         ContentValues values = new ContentValues();
         values.put(field, value); 
-        //Log.e("CCH","Updating "+field+" with "+value);
+        Log.e("CCH","Updating "+field+" with "+value);
 		String userid = "noid";//prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
         db.update(CCH_SW_TABLE, values, CCH_SW_STAFF_ID + "='"+userid+"'", null);
         db.close();             
@@ -1840,7 +1844,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
 			String strQuery=  " SELECT " + CCH_SW_ROUTINE_TODO_ID 		         
              		+ "   FROM " + CCH_SW_ROUTINE_TODO_TABLE
-             		+ "  WHERE " + CCH_SW_ROUTINE_TODO_STAFF_ID + "= '"+userid+"' "
+             		+ "   WHERE " + CCH_SW_ROUTINE_TODO_STAFF_ID + "= '"+userid+"' "
              		+ "    AND " + CCH_SW_ROUTINE_TODO_YEAR + "= '"+year+"' "
              		+ "    AND " + CCH_SW_ROUTINE_TODO_MONTH + "= '"+month+"' "
              		+ "    AND " + CCH_SW_ROUTINE_TODO_DAY + "= '"+day+"' "

@@ -31,6 +31,8 @@ public class StayingWellNotifyTask extends AsyncTask<Payload, Object, Payload> {
 
     private NotificationManager myNotificationManager;
 
+	private int todoCount;
+
 
 	public StayingWellNotifyTask(Context ctx) {
 		this.ctx = ctx;
@@ -45,10 +47,16 @@ public class StayingWellNotifyTask extends AsyncTask<Payload, Object, Payload> {
 		Time time = new Time();
 		time.setToNow();
 		
-		ArrayList<RoutineActivity> todos = this.dbh.getSWRoutineActivities();
-		
-		int todoCount = todos.size();
+		ArrayList<RoutineActivity> todos = new ArrayList<RoutineActivity>();
+		todos=dbh.getSWRoutineActivities();
+		if(todos!=null){
+			todoCount = todos.size();
+		}else {
+			todoCount=0;
+		}
+		if(todos!=null){
 		for (RoutineActivity ra: todos) {	if (ra.isDone()) { todoCount--; } }
+		}
 		
 		// only notify if at certain hours and if there are tasks to do...
 		if ((time.hour == 6 || time.hour==12 || time.hour==17) && todoCount > 0)

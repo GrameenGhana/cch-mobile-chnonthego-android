@@ -45,6 +45,8 @@ public class TargetAchievementDetailActivity extends Activity {
 	private TextView textView_number;
 	private int month;
 	private int year;
+	private Long start_time;
+	private Long end_time;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -60,6 +62,7 @@ public class TargetAchievementDetailActivity extends Activity {
 	    mContext=TargetAchievementDetailActivity.this;
 	    c= new CalendarEvents(mContext);
 	    db=new DbHelper(TargetAchievementDetailActivity.this);
+	    start_time=System.currentTimeMillis();
 	    String[] groupItems={"Events","Coverage","Learning","Other"};
 	    getActionBar().setTitle("Achievement Center");
 	    getActionBar().setSubtitle("Achievement Details");
@@ -149,5 +152,11 @@ public class TargetAchievementDetailActivity extends Activity {
 			    return convertView;
 		}
 		
+	}
+	public void onBackPressed()
+	{
+		 end_time=System.currentTimeMillis();
+		 db.insertCCHLog("Achievement Center", "Target Achievements", start_time.toString(), end_time.toString());
+		finish();
 	}
 }

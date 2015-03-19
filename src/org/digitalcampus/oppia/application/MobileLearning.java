@@ -86,6 +86,7 @@ public class MobileLearning extends Application {
 	public static final String CCH_QUOTES_SUBMIT_PATH = "api/v1/quotes";
 	public static final String CCH_TRACKER_SUBMIT_PATH = "api/v1/tracker";
 	public static final String CCH_COURSE_ACHIEVEMENT_PATH = "cmd=2&username=";
+	public static final String CCH_REFERENCE_DOWNLOAD_PATH = "references/";
 
 	// general other settings
 	public static final String BUGSENSE_API_KEY = "f3a6ec3a";

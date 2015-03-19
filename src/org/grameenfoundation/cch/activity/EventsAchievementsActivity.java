@@ -28,7 +28,9 @@ public class EventsAchievementsActivity extends BaseActivity {
 	private TextView textView_number;
 	private int month;
 	private int year;
-
+	private Long start_time;
+	private Long end_time;
+	private DbHelper db;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,8 @@ public class EventsAchievementsActivity extends BaseActivity {
 	    expandableListview = (ExpandableListView) findViewById(R.id.expandableListView1);
 	    mContext=EventsAchievementsActivity.this;
 	    c= new CalendarEvents(mContext);
+	    db=new DbHelper(EventsAchievementsActivity.this);
+	    start_time=System.currentTimeMillis();
 	    String[] groupItems={"Completed","Future"};
 	    getActionBar().setTitle("Achievement Center");
 	    getActionBar().setSubtitle("Achievement Details");
@@ -56,5 +60,10 @@ public class EventsAchievementsActivity extends BaseActivity {
 	    adapter=new AchievementDetailsAdapter(mContext,groupItems,completed,unCompleted,expandableListview);
 	    expandableListview.setAdapter(adapter);
 	}
-
+	public void onBackPressed()
+	{
+		 end_time=System.currentTimeMillis();
+		 db.insertCCHLog("Achievement Center", "Event Achievements", start_time.toString(), end_time.toString());
+		finish();
+	}
 }

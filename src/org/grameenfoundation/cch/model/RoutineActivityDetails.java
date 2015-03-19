@@ -44,7 +44,7 @@ public class RoutineActivityDetails extends Fragment {
 		    listView_details=(ListView) rootView.findViewById(R.id.listView_routineDetail);
 		   
 			ArrayList<RoutineActivity> todos = dbh.getSWRoutineActivities();
-		   			
+		   	if(todos!=null){	
 		    if (todos.size()==0) {
 		    	title.setText("No activites planned for this "+dbh.getTime()+"!"); 
 		    } else {
@@ -71,7 +71,7 @@ public class RoutineActivityDetails extends Fragment {
 		    		  }
 		    	});
 		    }
-		    
+		   	}
 		    return rootView;
 	 }
 }

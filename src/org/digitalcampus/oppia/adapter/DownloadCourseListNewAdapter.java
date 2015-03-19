@@ -41,6 +41,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -99,19 +100,19 @@ public class DownloadCourseListNewAdapter extends ArrayAdapter<Course> implement
 	    		pb.setProgress((int) c.getProgress());
 	    		courseProgress.setText(String.valueOf((int) c.getProgress())+"%");
 	    		actionBtn.setImageResource(R.drawable.ic_update);
-		    	actionBtn.setEnabled(true);
+		    	actionBtn.setEnabled(true);																				
 	    	} else {
 	    		//actionBtn.setText(R.string.installed);
 	    		pb.setProgress((int) c.getProgress());
 	    		courseProgress.setText(String.valueOf((int) c.getProgress())+"%");
-	    		
 	    		//actionBtn.setVisibility(View.GONE);
 	    		actionBtn.setImageResource(R.drawable.ic_complete);
-	    		
 		    	actionBtn.setEnabled(false);
 		    	actionBtn.setVisibility(View.GONE);
 		    	courseProgress.setVisibility(View.GONE);
-		    	moduleRow.setWeightSum(1);
+		    	LayoutParams params = moduleRow.getLayoutParams();
+		    	params.width = ctx.getResources().getDimensionPixelSize(R.dimen.textView_width);
+		    	moduleRow.setLayoutParams(params);
 		    	TextView txt1 = new TextView(ctx);
 		    	txt1.setBackgroundResource(R.drawable.fab_shape);
 		    	txt1.setText(String.valueOf((int) c.getProgress())+"%");
@@ -121,6 +122,8 @@ public class DownloadCourseListNewAdapter extends ArrayAdapter<Course> implement
 	    } else {
 	    	//actionBtn.setText(R.string.install);
 	    	pb.setProgress(0);
+	    	pb.setVisibility(View.GONE);
+	    	courseProgress.setVisibility(View.GONE);
 	    	courseProgress.setText("0%");
 	    	actionBtn.setImageResource(R.drawable.ic_download);
 	    	actionBtn.setEnabled(true);

@@ -56,6 +56,8 @@ public class CourseDetailActivity extends Activity {
 	private LinearLayout linearLayout;
 	private int month;
 	private int year;
+	private Long start_time;
+	private Long end_time;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,7 @@ public class CourseDetailActivity extends Activity {
 	    expandableListview = (ListView) findViewById(R.id.listView1);
 	    mContext=CourseDetailActivity.this;
 	    db=new DbHelper(CourseDetailActivity.this);
+	    start_time=System.currentTimeMillis();
 	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
           month= extras.getInt("month");
@@ -154,5 +157,11 @@ public class CourseDetailActivity extends Activity {
 
 			    return convertView;
 		}
+	}
+	public void onBackPressed()
+	{
+		 end_time=System.currentTimeMillis();
+		db.insertCCHLog("Achievement Center", "Course Achievements Details", start_time.toString(), end_time.toString());
+		finish();
 	}
 }

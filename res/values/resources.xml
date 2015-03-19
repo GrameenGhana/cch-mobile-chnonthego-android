@@ -22,5 +22,5 @@
     <string name="prefs_points">prefPoints</string>
     <string name="prefs_badges">prefBadges</string>
     <string name="prefs_scoring_enabled">prefScoringEnabled</string>
-
+	 <string name="serverAddress">http://188.226.189.149/learning/</string>
 </resources>

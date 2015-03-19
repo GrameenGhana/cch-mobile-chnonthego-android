@@ -71,6 +71,7 @@ public class EstimateTrimester extends FragmentActivity {
 	    dbh=new DbHelper(EstimateTrimester.this);
 	    textView_selectedDate=(TextView) findViewById(R.id.textView_selectedDate);
 	    textView_estimatedDueDate=(TextView) findViewById(R.id.textView_estimatedDueDate);
+	    
 	    /*
 	    calendar=(CalendarViewScrollable) findViewById(R.id.calendarView1);
 	    calendar.setSelectedWeekBackgroundColor(Color.rgb(82,0,0));
@@ -109,12 +110,14 @@ public class EstimateTrimester extends FragmentActivity {
 	        	if(isDateAfter(formatter.format(date),formatter.format(today))==true){
 	        		Crouton.makeText(EstimateTrimester.this, "Select a date in the past", Style.ALERT).show();	
 	        		button_calculate.setVisibility(View.GONE);
+	        		button_proceed.setVisibility(View.GONE);
 	        	}else{
 	        		button_calculate.setVisibility(View.VISIBLE);
 	        		textView_selectedDate.setText("You selected: "+formatter2.format(date));
+	        		button_proceed.setVisibility(View.VISIBLE);
 	        	}
-	        	caldroidFragment.setBackgroundResourceForDate(R.color.WhileWaitingForTransport, date);
-	        	caldroidFragment.setTextColorForDate(R.color.White, date);
+	        	//caldroidFragment.setBackgroundResourceForDate(R.color.WhileWaitingForTransport, date);
+	        	//caldroidFragment.setTextColorForDate(R.color.White, date);
 	        	caldroidFragment.refreshView();
 	        }
 	    };
@@ -151,7 +154,8 @@ public class EstimateTrimester extends FragmentActivity {
 	    textView_estimatedWeeks=(TextView) findViewById(R.id.textView_estimatedWeeks);
 	    textView_estimatedTrimester=(TextView) findViewById(R.id.textView_estimatedTrimester);
 	    
-	    
+	    button_calculate.setVisibility(View.GONE);
+		button_proceed.setVisibility(View.GONE);
 	}
 	
 	public void daysBetween(){

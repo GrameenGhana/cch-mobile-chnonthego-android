@@ -5,6 +5,7 @@ import org.digitalcampus.oppia.activity.AboutActivity;
 import org.digitalcampus.oppia.activity.AppActivity;
 import org.digitalcampus.oppia.activity.DownloadActivity;
 import org.digitalcampus.oppia.activity.HelpActivity;
+import org.digitalcampus.oppia.activity.MainScreenActivity;
 import org.digitalcampus.oppia.activity.OppiaMobileActivity;
 import org.digitalcampus.oppia.activity.StartUpActivity;
 import org.digitalcampus.oppia.activity.TagSelectActivity;
@@ -56,7 +57,7 @@ public class LearningCenterMenuActivity extends AppActivity {
 					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
-					intent=new Intent(mContext,LearningReferencesActivity.class);
+					intent=new Intent(mContext,ReferencesDownloadActivity.class);
 					startActivity(intent);
 					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
@@ -115,7 +116,7 @@ public class LearningCenterMenuActivity extends AppActivity {
 				db.close();
 
 				// restart the app
-				LearningCenterMenuActivity.this.startActivity(new Intent(LearningCenterMenuActivity.this, StartUpActivity.class));
+				LearningCenterMenuActivity.this.startActivity(new Intent(LearningCenterMenuActivity.this, MainScreenActivity.class));
 				LearningCenterMenuActivity.this.finish();
 				overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 

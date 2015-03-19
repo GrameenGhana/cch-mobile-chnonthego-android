@@ -7,6 +7,7 @@ import java.util.concurrent.Callable;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.activity.CourseActivity;
 import org.digitalcampus.oppia.activity.CourseIndexActivity;
+import org.digitalcampus.oppia.activity.DownloadActivity;
 import org.digitalcampus.oppia.adapter.SectionListAdapter;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.exception.InvalidXMLException;
@@ -89,6 +90,8 @@ public class AchievementSummaryActivity extends BaseActivity {
 	 ArrayList<Scores> course_scores;
 	private int courseUncompletedText;
 	private int courseCompleted;
+	private Long start_time;
+	private Long end_time;
 	public static final String TAG = AchievementSummaryActivity.class.getSimpleName();
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -98,7 +101,7 @@ public class AchievementSummaryActivity extends BaseActivity {
 	    getActionBar().setSubtitle("Achievement Summary");
 	    c= new CalendarEvents(AchievementSummaryActivity.this);
 	    db=new DbHelper(AchievementSummaryActivity.this);
-	  
+	    start_time=System.currentTimeMillis();
         textView_eventPercentage=(TextView) findViewById(R.id.textView_eventPercentage);
         textView_targetsPercentage=(TextView) findViewById(R.id.textView_targetPercentage);
         textView_coursesPercentage=(TextView) findViewById(R.id.textView_coursePercentage);
@@ -366,4 +369,11 @@ public class AchievementSummaryActivity extends BaseActivity {
 	    	        chart.invalidate();
 	    }
 	}
+	public void onBackPressed()
+	{
+		 end_time=System.currentTimeMillis();
+		db.insertCCHLog("Achievement Center", "Achievements Summary", start_time.toString(), end_time.toString());
+		finish();
+	}
+
 }

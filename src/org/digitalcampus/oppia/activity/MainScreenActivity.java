@@ -345,11 +345,16 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 			    
 				
 				/* Routine Info */
-				ArrayList<RoutineActivity> todos = dbh.getSWRoutineActivities();
-		    	numactivities = todos.size();
-		    	
+			    
+				ArrayList<RoutineActivity> todos = new ArrayList<RoutineActivity>();
+				todos=dbh.getSWRoutineActivities();
+				if(todos!=null){
+					numactivities = todos.size();
+				}else{
+					numactivities=0;
+				}
 			    textView_routinesNumber = (TextView) rootView.findViewById(R.id.textView_routinesNumber);
-			    numactivities=todos.size();
+			   // numactivities=todos.size();
 				textView_routinesNumber.setText(String.valueOf(numactivities));
 			    tv8 = (TextView) rootView.findViewById(R.id.textView8);
 			    tv8.setText(" activity(ies) this "+dbh.getTime()+".");

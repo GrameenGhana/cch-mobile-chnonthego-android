@@ -1092,6 +1092,8 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			private long coverageId;
 			private long otherId;
 			private long learningId;
+			private EditText editText_otherCategory;
+			private EditText editText_otherNumber;
 			static String due_date ;
 			private static TextView dueDateValue;
 			static String start_date ;
@@ -1105,12 +1107,12 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			    mContext=getActivity().getApplicationContext();
 			    db=new DbHelper(getActivity());
 			   button_show=(Button) rootView.findViewById(R.id.button_show);
-			   final EditText editText_otherCategory=(EditText) rootView.findViewById(R.id.editText_dialogOtherName);
+			   	editText_otherCategory=(EditText) rootView.findViewById(R.id.editText_dialogOtherName);
 				final Spinner spinner_otherPeriod=(Spinner) rootView.findViewById(R.id.spinner_dialogOtherPeriod);
 				String[] items=getResources().getStringArray(R.array.ReminderFrequency);
 				ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
 				spinner_otherPeriod.setAdapter(adapter);
-				final EditText editText_otherNumber=(EditText) rootView.findViewById(R.id.editText_dialogOtherNumber);
+				editText_otherNumber=(EditText) rootView.findViewById(R.id.editText_dialogOtherNumber);
 				Button dialogButton = (Button) rootView.findViewById(R.id.button_dialogAddEvent);
 				dialogButton.setText("Save");
 				dueDateValue=(TextView) rootView.findViewById(R.id.textView_dueDateValue);
@@ -1199,7 +1201,8 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 
 					@Override
 					public void onClick(View v) {
-						String other_category=editText_otherCategory.getText().toString();
+						String other_category=editText_otherCategory.getText
+								().toString();
 						String other_number = null;
 						if(noRadioButton.isChecked()){
 			      			other_number="0";
@@ -1209,7 +1212,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						//other_number=editText_otherNumber.getText().toString();
 						String other_period=spinner_otherPeriod.getSelectedItem().toString();
 						String duration=" ";
-						
+						/*
 				      	if(isDateAfter(start_date,due_date)==true){
 				      		 startDateValue.requestFocus();
 				      		startDateValue.setError("Check this date!");
@@ -1225,6 +1228,8 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				      	}else if(due_date==null){
 				      		dueDateValue.requestFocus();
 				      		dueDateValue.setError("Please enter an end date");
+				      	}*/if(!checkValidation()){
+				      		Toast.makeText(getActivity().getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();
 				      	}
 				      	else{
 					    if(db.insertOther(other_category,other_number,other_period,duration,start_date,due_date,0,Integer.valueOf(other_number),"new_record")!=0){
@@ -1273,6 +1278,16 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			return rootView;
 				   
 			}
+			 private boolean checkValidation() {
+			        boolean ret = true;
+			 
+			        if (!Validation.hasTextTextView(startDateValue)) ret = false;
+			        if (!Validation.hasTextEditText(editText_otherCategory)) ret = false;
+			        if (!Validation.hasTextTextView(dueDateValue)) ret = false;
+			        if (editText_otherNumber.isShown()&&!Validation.hasTextEditText(editText_otherNumber)) ret = false;
+			        if (Validation.isDateAfter(start_date,due_date,startDateValue)) ret = false;
+			        return ret;
+			    }	
 			}
 	 public static boolean isDateAfter(String startDate,String endDate)
 	    {
