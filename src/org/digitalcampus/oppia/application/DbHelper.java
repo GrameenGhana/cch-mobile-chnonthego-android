@@ -48,6 +48,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
@@ -62,8 +63,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	static final String DB_NAME = "mobilelearning.db";
 	static final int DB_VERSION = 15;
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "dd-MM-yyyy", Locale.getDefault());
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 	private SharedPreferences prefs;
 	private Context ctx;
 
@@ -238,6 +238,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		/* CCH additions */
 		createCCHTrackerTable(db);
 		createStayingWellTable(db);
+		runSWReset(db);
 		
 		/*CHN Target tracking changes*/
 		createEventsSetTable(db);
@@ -422,6 +423,8 @@ public class DbHelper extends SQLiteOpenHelper {
 			createOtherTable(db);
 			createJustificationTable(db);
 			createStayingWellTable(db);
+			runSWReset(db);
+
 			return;
 		}
 		
@@ -1628,8 +1631,8 @@ public class DbHelper extends SQLiteOpenHelper {
 	
 	/** Staying Well table **/
 	public void createStayingWellTable(SQLiteDatabase db)
-	{
-		String l_sql = "create table if not exists " + CCH_SW_TABLE + " (" + 
+	{		
+	    String l_sql = "create table if not exists " + CCH_SW_TABLE + " (" + 
 				CCH_SW_ID + " integer primary key autoincrement, " + 
 				CCH_SW_STAFF_ID + " text, " + 
 				CCH_SW_LEGAL_STATUS + " text, " + 
@@ -1640,15 +1643,17 @@ public class DbHelper extends SQLiteOpenHelper {
 		db.execSQL(l_sql);
 		
 		// Insert initial information TODO: GET USER ID
-		String userid = "David"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid"); 
-		ContentValues values = new ContentValues();
-		values.put(CCH_SW_STAFF_ID, userid);
-		values.put(CCH_SW_LEGAL_STATUS, "");
-		values.put(CCH_SW_PROFILE_STATUS, "");
-		values.put(CCH_SW_PROFILE_RESPONSES, "");
-		values.put(CCH_SW_MONTH_PLAN, "");
-		values.put(CCH_SW_MONTH_PLAN_LASTUPDATE, "");
-		db.insertOrThrow(CCH_SW_TABLE, null, values);
+		//if (! hasRowsSW(CCH_SW_TABLE)) 	{	
+			String userid = "noid"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid"); 
+			ContentValues values = new ContentValues();
+			values.put(CCH_SW_STAFF_ID, userid);
+			values.put(CCH_SW_LEGAL_STATUS, "");
+			values.put(CCH_SW_PROFILE_STATUS, "");
+			values.put(CCH_SW_PROFILE_RESPONSES, "");
+			values.put(CCH_SW_MONTH_PLAN, "");
+			values.put(CCH_SW_MONTH_PLAN_LASTUPDATE, "");
+			db.insertOrThrow(CCH_SW_TABLE, null, values);
+		//}
 		
 		l_sql = "create table if not exists " + CCH_SW_ROUTINE_TABLE + " (" + 
 				CCH_SW_ROUTINE_ID + " integer primary key autoincrement, " + 
@@ -1658,8 +1663,9 @@ public class DbHelper extends SQLiteOpenHelper {
 				CCH_SW_ROUTINE_ACTION + " text default '', " + 
 				CCH_SW_ROUTINE_ORDER + " integer default 0)" ; 
 		db.execSQL(l_sql);
-		
-		insertDefaultRoutineValues(db);
+		//if (! hasRowsSW(CCH_SW_ROUTINE_TABLE)) 	{	
+			insertDefaultRoutineValues(db);
+		//}
 		
 		l_sql = "create table if not exists " + CCH_SW_ROUTINE_TODO_TABLE + " (" + 
 				CCH_SW_ROUTINE_TODO_ID + " integer primary key autoincrement, " + 
@@ -1672,19 +1678,64 @@ public class DbHelper extends SQLiteOpenHelper {
 				CCH_SW_ROUTINE_TODO_TOD + " text default '', " + 
 				CCH_SW_ROUTINE_TODO_TIMEDONE + " text default '', " + 
 				CCH_SW_ROUTINE_TODO_ORDER + " integer default 0)" ; 
-		db.execSQL(l_sql);    	
+		db.execSQL(l_sql);
+		
+	}
+	
+	public void runSWReset(SQLiteDatabase db)
+	{
+		Log.v(TAG,"Resetting The table");
+
+		if (! isTableExists("sw_fix",db)) { // reset information
+			
+			// Reset all routines
+			String sql1 = "DELETE FROM "+ CCH_SW_ROUTINE_TODO_TABLE + " WHERE 1=1";
+			db.execSQL(sql1);
+			
+			// Reset plan and profile
+			updateSWInfo(CCH_SW_LEGAL_STATUS, "", db);
+			updateSWInfo(CCH_SW_PROFILE_STATUS, "", db);
+			updateSWInfo(CCH_SW_PROFILE_RESPONSES, "", db);
+			updateSWInfo(CCH_SW_MONTH_PLAN, "",db);
+			updateSWInfo(CCH_SW_MONTH_PLAN_LASTUPDATE, "",db);
+			
+			// Indicate that SW info has been reset
+			String l_sql = "create table if not exists sw_fix (ch integer default 0)";
+			db.execSQL(l_sql);
+
+			ContentValues v = new ContentValues();
+			v.put("ch", 1);
+			db.insertOrThrow("sw_fix", null, v);
+		}
+	}
+	
+	public boolean isTableExists(String tableName,SQLiteDatabase mDatabase) {
+		try {			
+			Cursor cursor = mDatabase.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'", null);
+			if(cursor!=null) {
+				if(cursor.getCount()>0) {
+	               cursor.close();
+	               return true;
+				}
+	            cursor.close();
+			}
+			return false;
+		} catch (SQLiteException e) {
+			Log.v(TAG,e.getMessage());
+		}
+		
+		return false;
 	}
 	
 	public String getSWInfo(String field) 
 	{			
-		String userid = "David"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
+		String userid = "noid"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
 
 		SQLiteDatabase db = this.getReadableDatabase();		 
 		Cursor cursor = db.query(CCH_SW_TABLE, new String[] { field }, CCH_SW_STAFF_ID + "=?",
 			            new String[] { String.valueOf(userid) }, null, null, null, null); 	        
 		
 		if (cursor == null || cursor.getCount()==0) {
-			//Log.e("CCH DB","Value for "+field+" is null or no result");	
 			return null;	    	
 		}
 		
@@ -1693,11 +1744,17 @@ public class DbHelper extends SQLiteOpenHelper {
 		String info = cursor.getString(0);
 		
 		cursor.close();
-		
-		//Log.e("CCH DB","Value for "+field+": "+info);	
-			    
+					    
 		// return value
 		return info;
+	}
+	
+	public void updateSWInfo(String field, String value,SQLiteDatabase db ) {
+        ContentValues values = new ContentValues();
+        values.put(field, value); 
+        //Log.e("CCH","Updating "+field+" with "+value);
+		String userid = "noid";//prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
+        db.update(CCH_SW_TABLE, values, CCH_SW_STAFF_ID + "='"+userid+"'", null);
 	}
 
 	public void updateSWInfo(String field, String value) {
@@ -1705,7 +1762,7 @@ public class DbHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(field, value); 
         //Log.e("CCH","Updating "+field+" with "+value);
-		String userid = "David";//prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
+		String userid = "noid";//prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
         db.update(CCH_SW_TABLE, values, CCH_SW_STAFF_ID + "='"+userid+"'", null);
         db.close();             
 	}
@@ -1733,7 +1790,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	{			
 		    SQLiteDatabase db = this.getReadableDatabase(); 
 
-			String userid = "David"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
+			String userid = "noid"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
 			ArrayList<RoutineActivity> list = new ArrayList<RoutineActivity>();
 			
 			String strQuery=  " SELECT " + CCH_SW_ROUTINE_ACTION + ", " + CCH_SW_ROUTINE_ORDER		         
@@ -1779,7 +1836,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	{	
 	        SQLiteDatabase db = this.getReadableDatabase(); 
 
-			String userid = "David"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
+			String userid = "noid"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
 
 			String strQuery=  " SELECT " + CCH_SW_ROUTINE_TODO_ID 		         
              		+ "   FROM " + CCH_SW_ROUTINE_TODO_TABLE
@@ -1810,7 +1867,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	{
 		SQLiteDatabase db = this.getWritableDatabase();		 
 
-		String userid = "David"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
+		String userid = "noid"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
     	String[] data = uuid.split("-");
 		Long endtime = System.currentTimeMillis();	
 
