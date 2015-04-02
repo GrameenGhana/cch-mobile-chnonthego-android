@@ -39,7 +39,8 @@
                 android:id="@+id/listView_diagnosticMenu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:dividerHeight="2dp" >
+                android:dividerHeight="2dp" 
+                 android:fadeScrollbars="false">
             </ListView>
 
         </LinearLayout>

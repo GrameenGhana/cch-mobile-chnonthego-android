@@ -26,7 +26,7 @@ public class PlannerViewOptionsActivity extends BaseActivity implements OnItemCl
 	    listView_monthOption=(ListView) findViewById(R.id.listView_targetMonthOptions);
 	    listView_monthOption.setOnItemClickListener(this);
 	    String[] items={"View events","View targets"};
-		   int[] images={R.drawable.ic_calendar,R.drawable.ic_event_target};
+		   int[] images={R.drawable.ic_calendar_new,R.drawable.ic_target_new};
 		   PlannerBaseAdapter adapter=new PlannerBaseAdapter(PlannerViewOptionsActivity.this,items,images);
 		   
 		    listView_monthOption.setAdapter(adapter);

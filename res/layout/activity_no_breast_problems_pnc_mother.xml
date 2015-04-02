@@ -156,6 +156,7 @@
                     android:id="@+id/textView_clickHere"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                     android:drawableLeft="@drawable/ic_click"
                     android:paddingLeft="15dp"
                     android:paddingRight="0dp"
                     android:text="PNC counseling"

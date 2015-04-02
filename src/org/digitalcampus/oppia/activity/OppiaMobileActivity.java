@@ -19,6 +19,8 @@ package org.digitalcampus.oppia.activity;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.concurrent.Callable;
 
@@ -146,8 +148,12 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 				}
 			});
 		}
-
-		CourseListAdapter mla = new CourseListAdapter(this, courses);
+		ArrayList<String> c=new ArrayList<String>();
+		for(int i=0;i<courses.size();i++){
+		c.add(courses.get(i).getTitle(prefs.getString(this.getString(R.string.prefs_language), Locale.getDefault().getLanguage())));
+		Collections.sort(c);
+		}
+		CourseListAdapter mla = new CourseListAdapter(this, courses,c);
 		ListView listView = (ListView) findViewById(R.id.course_list);
 		listView.setAdapter(mla);
 		registerForContextMenu(listView);

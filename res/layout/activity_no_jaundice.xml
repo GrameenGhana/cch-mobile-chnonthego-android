@@ -37,19 +37,21 @@
         android:padding="10dp"
         android:showDividers="middle" >
 
-        <org.grameenfoundation.cch.utils.TextViewUtils
+        <TextView
             android:id="@+id/textView_clickHere"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+             android:drawableLeft="@drawable/ic_click"
             android:padding="5dp"
             android:text="Advise mother to give home care for the young infant"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/WhileWaitingForTransport" />
 
-        <org.grameenfoundation.cch.utils.TextViewUtils
+        <TextView
             android:id="@+id/textView_clickHereToo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+             android:drawableLeft="@drawable/ic_click"
             android:padding="5dp"
             android:text="Now assess baby for other serious conditions, birth injuries and abnormalities"
             android:textAppearance="?android:attr/textAppearanceSmall"

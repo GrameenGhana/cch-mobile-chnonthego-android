@@ -62,10 +62,11 @@
                 android:text="Encourage client to eat and drink regularly "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <org.grameenfoundation.cch.utils.TextViewUtils
+            <TextView
                 android:id="@+id/textView_clickHere"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_click"
                 android:paddingBottom="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
@@ -73,10 +74,11 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/WhileWaitingForTransport" />
 
-            <org.grameenfoundation.cch.utils.TextViewUtils
+            <TextView
                 android:id="@+id/textView_clickHereToo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_click"
                 android:paddingBottom="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"

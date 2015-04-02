@@ -24,7 +24,8 @@
         android:layout_height="fill_parent"
         android:layout_above="@id/bottom_control_bar"
         android:divider="@color/list_divider_light"
-        android:dividerHeight="1dp" />
+        android:dividerHeight="1dp"
+         android:fadeScrollbars="false" />
 
     <TextView
         android:id="@android:id/empty"

@@ -52,7 +52,7 @@ public class RoutineActivityDetails extends Fragment {
 		    	RoutinesDetailPagerAdapter adapter = new RoutinesDetailPagerAdapter(getActivity(), R.layout.routines_detail_listview_single, todos);
 		    	adapter.notifyDataSetChanged();
 		    	listView_details.setAdapter(adapter);	
-		    	
+		    	listView_details.setClickable(true);
 		    	listView_details.setOnItemClickListener(new OnItemClickListener() {
 		    		   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		    		    // When clicked, show a toast with the TextView text

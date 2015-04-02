@@ -58,6 +58,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -100,14 +101,15 @@ public class ReferencesDownloadActivity extends Activity {
     		 }
 	    }
 	    fileLongName=new ArrayList<String>();
-	    fileLongName.add("Neonatal Care Guidlines");
-    	fileLongName.add("Malaria in Pregnancy");
+	    fileLongName.add("Malaria in Pregnancy");
+    	fileLongName.add("Neonatal Care Guidlines");
     	fileLongName.add("Maternal and Newborn Care");
     	fileLongName.add("National Safe Motherhood Service Protocol");
     	fileLongName.add("Family Planning Flipchart");
     	fileLongName.add("WHO");
     	fileLongName.add("National Family Planning Protocol");
-    	files=new String[]{"NCG.pdf","MPG.pdf","MCG.pdf","NSMP.pdf","FPF.pdf","WHO.pdf","NFPP.pdf"};
+    	System.out.println(fileLongName.size());
+    	files=new String[]{"MPG.pdf","NCG.pdf","MCG.pdf","NSMP.pdf","FPF.pdf","WHO.pdf","NFPP.pdf"};
     	referenceList.setAdapter(new ListAdapter(this,fileLongName,files,myDirectory));
     	 this.registerForContextMenu(referenceList);
     	 referenceList.setOnItemClickListener(new OnItemClickListener(){
@@ -117,7 +119,7 @@ public class ReferencesDownloadActivity extends Activity {
 				int position, long id) {
 			String path =myDirectory.getAbsolutePath()+"/"+files[position];
 			System.out.println(path);
-	       openPdfIntent(path);
+			openPdfIntent(path);
 			
 		}		
 	});
@@ -276,7 +278,7 @@ public class ReferencesDownloadActivity extends Activity {
 		}
 		@Override
 		public int getCount() {
-			return listItems.size();
+			return files.length;
 		}
 
 		@Override
@@ -291,36 +293,41 @@ public class ReferencesDownloadActivity extends Activity {
 
 		@Override
 		public View getView(final int position, View convertView, ViewGroup parent) {
-			if( convertView == null ){
-				  convertView = minflater.inflate(R.layout.references_download_listview_single,parent, false);
-			    }
-			 TextView text=(TextView) convertView.findViewById(R.id.textView_referenceName);
-			 text.setText(listItems.get(position));
-			 final ImageButton image=(ImageButton) convertView.findViewById(R.id.imageButton_download);
+			LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		    View rowView = inflater.inflate(R.layout.references_download_listview_single, parent, false);
 			
-			 File file = new File(directory, files[position] );
+			 TextView text=(TextView) rowView.findViewById(R.id.textView_referenceName);
+			 text.setText(listItems.get(position));
+			 LinearLayout values=(LinearLayout) rowView.findViewById(R.id.Linearlayout_values);
+			 ImageButton image=(ImageButton) rowView.findViewById(R.id.imageButton_download);
+			 TextView txt1 = new TextView(mContext);
+			 File file = new File(directory, files[position]);
 			 if(file.exists()){
-				 	//image.setImageResource(R.drawable.ic_complete);
-					//image.setEnabled(false);
+				 	double bytes = file.length();
+					double kilobytes = (bytes / 1024);	
+					double megabyte = (kilobytes / 1024);
+					if(kilobytes>1000){
+						txt1.setText(String.valueOf(String.format("%.2f", megabyte))+"MB");
+					}else{
+						txt1.setText(String.valueOf(String.format("%.2f", kilobytes))+"KB");
+					}
 					image.setVisibility(View.GONE);
-			 }else{																	
+					values.addView(txt1);
+			 }else{		
 				 image.setImageResource(R.drawable.ic_download);
 				 image.setEnabled(true);
+				 image.setOnClickListener(new OnClickListener(){
+					 
+						@Override
+						public void onClick(View v) {
+							new GetData().execute(String.valueOf(position));
+						}
+						 
+					 });
+				
 			 }
-			 image.setOnClickListener(new OnClickListener(){
-				 
-				@Override
-				public void onClick(View v) {
-					new GetData().execute(String.valueOf(position));
-				if(isComplete==true){
-					//image.setImageResource(R.drawable.ic_complete);
-					//image.setEnabled(false);
-					image.setVisibility(View.GONE);
-				}
-				}
-				 
-			 });
-			    return convertView;
+			
+			    return rowView;
 		}
 		
 	}

@@ -241,6 +241,7 @@
             android:id="@+id/textView_clickHere"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_click"
             android:paddingTop="10dp"
             android:text="Continue examination of baby for very severe disease &amp; local bacterial infections"
             android:textAppearance="?android:attr/textAppearanceSmall"

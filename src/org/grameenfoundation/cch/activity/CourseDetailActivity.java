@@ -14,7 +14,6 @@ import org.grameenfoundation.adapters.CoursesAchievementAdapter;
 import org.grameenfoundation.adapters.TargetsAchievementAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.cch.model.CourseAchievments;
-import org.grameenfoundation.cch.model.CourseGroups;
 import org.grameenfoundation.cch.model.EventTargets;
 import org.grameenfoundation.cch.utils.TextProgressBar;
 

@@ -13,6 +13,7 @@ import org.digitalcampus.oppia.activity.MainScreenActivity;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.cch.caldroid.CaldroidFragment;
 import org.grameenfoundation.cch.caldroid.CaldroidListener;
+import org.grameenfoundation.cch.model.Validation;
 import org.grameenfoundation.cch.utils.TextProgressBar;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,9 +36,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 
 public class EventTargetsDetailActivity extends FragmentActivity {
 
@@ -84,6 +87,7 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 	private long end_time;
 	private long start_time;
 	private String last_updated;
+	private String event_detail;
 	private TextView day_difference;
 
 	/** Called when the activity is first created. */
@@ -116,6 +120,10 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 	    new GetData().execute();
         button_edit.setOnClickListener(new OnClickListener(){
 
+			private RadioGroup event_detail_radio;
+			private String[] items3;
+			private String eventDetailText;
+			private ArrayAdapter<String> event_name_adapter;
 			@Override
 			public void onClick(View v) {
 				final Dialog dialog = new Dialog(EventTargetsDetailActivity.this);
@@ -127,13 +135,44 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 				final Spinner spinner_event_name=(Spinner) dialog.findViewById(R.id.spinner_eventName);
 				final Spinner spinner_eventPeriod=(Spinner) dialog.findViewById(R.id.spinner_dialogEventPeriod);
 				spinner_eventPeriod.setAdapter(adapter);
+			
 				int spinner_position_period=adapter.getPosition(event_period);
 				spinner_eventPeriod.setSelection(spinner_position_period);
-				String[] items_names=getResources().getStringArray(R.array.EventNames);
-				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(EventTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items_names);
-				spinner_event_name.setAdapter(adapter2);
-				int spinner_position=adapter2.getPosition(event_name);
-				spinner_event_name.setSelection(spinner_position);
+				event_detail_radio=(RadioGroup) dialog.findViewById(R.id.radioGroup_category);
+				items3=new String[]{};
+				items3=getResources().getStringArray(R.array.Monitoring);
+				event_detail_radio.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+					@Override
+					public void onCheckedChanged(RadioGroup group, int checkedId) {
+						if (checkedId == R.id.radio_events) {
+							 items3=new String[]{};
+							 items3=getResources().getStringArray(R.array.EventNames);
+							  event_name_adapter=new ArrayAdapter<String>(EventTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
+								spinner_event_name.setAdapter(event_name_adapter);
+								eventDetailText="Event";
+						}else if(checkedId == R.id.radio_monitoring){
+							 items3=new String[]{};
+							 items3=getResources().getStringArray(R.array.Monitoring);
+							 event_name_adapter=new ArrayAdapter<String>(EventTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
+								spinner_event_name.setAdapter(event_name_adapter);
+								eventDetailText="Monitoring";
+						}
+						
+					}
+					
+				});
+				if(event_detail.equalsIgnoreCase("Monitoring")){
+					event_detail_radio.check(R.id.radio_monitoring);
+					int spinner_position=event_name_adapter.getPosition(event_name);
+					spinner_event_name.setSelection(spinner_position);
+				}else if(event_detail.equalsIgnoreCase("Event")){
+					event_detail_radio.check(R.id.radio_events);
+					items3=getResources().getStringArray(R.array.EventNames);
+					event_name_adapter=new ArrayAdapter<String>(EventTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
+					spinner_event_name.setAdapter(event_name_adapter);
+					int spinner_position=event_name_adapter.getPosition(event_name);
+					spinner_event_name.setSelection(spinner_position);
+				}
 				editText_eventNumber.setText(event_number);
 				Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogSetEVent);
 				dialogButton.setText("Save");
@@ -200,11 +239,12 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 				dialogButton.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
+						
 						String duration = " ";
 						String event_name=spinner_event_name.getSelectedItem().toString();
 						String event_number=editText_eventNumber.getText().toString();
 						String event_period=spinner_eventPeriod.getSelectedItem().toString();
-						if(isDateAfter(start_date,due_date)==true){
+						/*if(isDateAfter(start_date,due_date)==true){
 				      		 startDateValue.requestFocus();
 				      		 startDateValue.setError("Check this date!");
 				      	}else if(start_date==null){
@@ -213,8 +253,10 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 				      	}else if(due_date==null){
 				      		dueDateValue.requestFocus();
 				      		dueDateValue.setError("Select an end date");
+			      		}*/if(!checkValidation()){
+			      			Toast.makeText(getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();
 				      	}else{
-					    if(db.editEventCategory(event_name, event_number, event_period,duration,start_date,due_date, event_id)==true){
+					    if(db.editEventCategory(event_name, event_number, event_period,duration,startDateValue.getText().toString(),dueDateValue.getText().toString(), event_id)==true){
 					    	number_achieved=db.getForUpdateEventNumberAchieved(event_id,event_period);
 					    	JSONObject json = new JSONObject();
 							 try {
@@ -405,11 +447,11 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 	 
 	 public static boolean isDateAfter(String startDate,String endDate)
 	    {
-		// String toDateAsString = "05/11/2010";
-		 Date start_date = null;
-		 Date end_date = null;
-		long starDateAsTimestamp = 0;
-		long endDateTimestamp = 0;
+		 	// String toDateAsString = "05/11/2010";
+		 	Date start_date = null;
+		 	Date end_date = null;
+		 	long starDateAsTimestamp = 0;
+		 	long endDateTimestamp = 0;
 		try {
 			if(startDate==null){
 				System.out.println("Enter a valid date!");
@@ -441,6 +483,7 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 		 DbHelper db=new DbHelper(EventTargetsDetailActivity.this);
 		private Double percentage;
 		private String percentage_achieved;
+		
 
 	    @Override
 	    protected Object doInBackground(Object... params) {
@@ -455,38 +498,39 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 				status=extras.getString("status");
 				event_id=extras.getLong("event_id");
 				last_updated=extras.getString("last_updated");
-				System.out.println(String.valueOf(event_id));
+				event_detail=extras.getString("event_detail");
+				System.out.println(String.valueOf(event_detail));
 	        }
 	       
 	        int number_achieved_current=Integer.valueOf(achieved);
 	        int number_entered_current=Integer.valueOf(event_number);
 	        percentage=((double)number_achieved_current/number_entered_current)*100;
 	        percentage_achieved=String.format("%.0f", percentage);
-	        long difference_in_days=differenceIndays(start_date_extra,due_date_extra,getDateTime());
-	        
-	        if (difference_in_days==1){
-	        	day_difference.setTextColor(Color.rgb(225,170,7));
-	        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " day");
-	        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-	        }else if(difference_in_days==0) {
-	        	day_difference.setTextColor(Color.RED);
-	        	day_difference.setText("Due today!!!!");
-	        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-	        }else if(difference_in_days==-1) {
-	        	day_difference.setTextColor(Color.RED);
-	        	day_difference.setText("Due date is past");
-	        	imageView_status.setImageResource(R.drawable.sad);
-	        }else {
-	        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " days");
-	        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-	        }
+	      
 				return null;
 	        
 	    }
 
 	    @Override
 	    protected void onPostExecute(Object result) {
-	      
+	    	  long difference_in_days=differenceIndays(start_date_extra,due_date_extra,getDateTime());
+		        
+		        if (difference_in_days==1){
+		        	day_difference.setTextColor(Color.rgb(225,170,7));
+		        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " day");
+		        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
+		        }else if(difference_in_days==0) {
+		        	day_difference.setTextColor(Color.RED);
+		        	day_difference.setText("Due today!!!!");
+		        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
+		        }else if(difference_in_days==-1) {
+		        	day_difference.setTextColor(Color.RED);
+		        	day_difference.setText("Due date is past");
+		        	imageView_status.setImageResource(R.drawable.sad);
+		        }else {
+		        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " days");
+		        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
+		        }
 	    	 textView_name.setText(event_name);
 	         textView_period.setText(event_period);
 	         textView_dueDate.setText(due_date_extra);
@@ -501,4 +545,13 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 	        
 	    }
 	}
+	 
+	 private boolean checkValidation() {
+	        boolean ret = true;
+	 
+	        if (!Validation.hasTextTextView(startDateValue)) ret = false;
+	        if (!Validation.hasTextTextView(dueDateValue)) ret = false;
+	        if (Validation.isDateAfter(start_date,due_date,startDateValue)) ret = false;
+	        return ret;
+	    }	
 }

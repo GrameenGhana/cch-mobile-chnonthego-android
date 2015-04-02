@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:fadeScrollbars="false" >
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -52,10 +53,11 @@
         android:padding="20dp"
         android:showDividers="middle" >
 
-        <org.grameenfoundation.cch.utils.TextViewUtils
+        <TextView
             android:id="@+id/textView_clickHereToo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_click"
             android:paddingBottom="10dp"
             android:text="Determine amount of ORS to give during the first 4 hour period"
             android:textAppearance="?android:attr/textAppearanceSmall"

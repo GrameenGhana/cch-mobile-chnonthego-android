@@ -282,7 +282,8 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 									  dailyEventTarget.get(childPosition).getEventTargetStartDate(),
 									  dailyEventTarget.get(childPosition).getEventTargetStatus(),
 									  dailyEventTarget.get(childPosition).getEventTargetId(),
-									  dailyEventTarget.get(childPosition).getEventTargetLastUpdated()
+									  dailyEventTarget.get(childPosition).getEventTargetLastUpdated(),
+									  dailyEventTarget.get(childPosition).getEventTargetDetail()
 									  };
 		}else if(groupPosition==1){
 			childDetails=new String[]{weeklyEventTargets.get(childPosition).getEventTargetName(),
@@ -293,7 +294,8 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 									  weeklyEventTargets.get(childPosition).getEventTargetStartDate(),
 									  weeklyEventTargets.get(childPosition).getEventTargetStatus(),
 									  weeklyEventTargets.get(childPosition).getEventTargetId(),
-									  weeklyEventTargets.get(childPosition).getEventTargetLastUpdated()};
+									  weeklyEventTargets.get(childPosition).getEventTargetLastUpdated(),
+									  weeklyEventTargets.get(childPosition).getEventTargetDetail()};
 		}else if(groupPosition==2){
 			childDetails=new String[]{monthlyEventTargets.get(childPosition).getEventTargetName(),
 					  				  monthlyEventTargets.get(childPosition).getEventTargetNumber(),
@@ -303,7 +305,8 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 					  				  monthlyEventTargets.get(childPosition).getEventTargetStartDate(),
 					  				  monthlyEventTargets.get(childPosition).getEventTargetStatus(),
 					  				  monthlyEventTargets.get(childPosition).getEventTargetId(),
-					  				  monthlyEventTargets.get(childPosition).getEventTargetLastUpdated()};
+					  				  monthlyEventTargets.get(childPosition).getEventTargetLastUpdated(),
+					  				  monthlyEventTargets.get(childPosition).getEventTargetDetail()};
 		}else if(groupPosition==3){
 			childDetails=new String[]{quarterlyEventTargets.get(childPosition).getEventTargetName(),
 									  quarterlyEventTargets.get(childPosition).getEventTargetNumber(),
@@ -313,7 +316,8 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 									  quarterlyEventTargets.get(childPosition).getEventTargetStartDate(),
 									  quarterlyEventTargets.get(childPosition).getEventTargetStatus(),
 									  quarterlyEventTargets.get(childPosition).getEventTargetId(),
-									  quarterlyEventTargets.get(childPosition).getEventTargetLastUpdated()};
+									  quarterlyEventTargets.get(childPosition).getEventTargetLastUpdated(),
+									  quarterlyEventTargets.get(childPosition).getEventTargetDetail()};
 		}else if(groupPosition==4){
 			childDetails=new String[]{midYearEventTargets.get(childPosition).getEventTargetName(),
 									  midYearEventTargets.get(childPosition).getEventTargetNumber(),
@@ -323,7 +327,8 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 									  midYearEventTargets.get(childPosition).getEventTargetStartDate(),
 									  midYearEventTargets.get(childPosition).getEventTargetStatus(),
 									  midYearEventTargets.get(childPosition).getEventTargetId(),
-									  midYearEventTargets.get(childPosition).getEventTargetLastUpdated()};
+									  midYearEventTargets.get(childPosition).getEventTargetLastUpdated(),
+									  midYearEventTargets.get(childPosition).getEventTargetDetail()};
 		}else if(groupPosition==5){
 			
 			childDetails=new String[]{annualEventTargets.get(childPosition).getEventTargetName(),
@@ -334,7 +339,8 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 									  annualEventTargets.get(childPosition).getEventTargetStartDate(),
 									  annualEventTargets.get(childPosition).getEventTargetStatus(),
 									  annualEventTargets.get(childPosition).getEventTargetId(),
-									  annualEventTargets.get(childPosition).getEventTargetLastUpdated()};
+									  annualEventTargets.get(childPosition).getEventTargetLastUpdated(),
+									  annualEventTargets.get(childPosition).getEventTargetDetail()};
 		}
 		return childDetails;
 			

@@ -3,6 +3,7 @@ package org.digitalcampus.oppia.task;
 import java.io.File;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.activity.StartUpActivity;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.exception.InvalidXMLException;
@@ -16,6 +17,9 @@ import org.digitalcampus.oppia.utils.FileUtils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -26,10 +30,15 @@ public class UpgradeManagerTask extends AsyncTask<Payload, String, Payload> {
 	private Context ctx;
 	private SharedPreferences prefs;
 	private UpgradeListener mUpgradeListener;
+	private SharedPreferences SWprefs;
+	private DbHelper db;
+	private String versionName;
 	
 	public UpgradeManagerTask(Context ctx){
 		this.ctx = ctx;
 		prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+		db=new DbHelper(ctx);
+		SWprefs = ctx.getSharedPreferences("SWprefs", ctx.MODE_WORLD_READABLE);
 	}
 	
 	@Override
@@ -62,7 +71,7 @@ public class UpgradeManagerTask extends AsyncTask<Payload, String, Payload> {
 			publishProgress("Upgraded to v29");
 			payload.setResult(true);
 		}
-		
+			SWReset();
 		return payload;
 	}
 	
@@ -137,7 +146,46 @@ public class UpgradeManagerTask extends AsyncTask<Payload, String, Payload> {
 		editor.putString(ctx.getString(R.string.prefs_server), ctx.getString(R.string.prefServerDefault));
 		editor.commit();
 	}
-	
+	protected void SWReset(){
+		String PACKAGE_NAME=ctx.getPackageName();
+		/*
+		String prefsToCheck = ctx.getFilesDir().getPath()+"/"+"shared_prefs/SWprefs.xml";
+		 File prefFile = new File(prefsToCheck);
+		 String versionName;
+		 try{
+			 versionName=ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), 0).versionName;
+			 if(versionName.equals("3.0.35")&&!prefFile.exists()){
+				 db.runSWReset();
+				 Editor editor = SWprefs.edit();
+				 editor.putString(ctx.getString(R.string.sw_prefs), ctx.getString(R.string.sw_reset));
+				 editor.commit();
+			 }else if(prefFile.exists()){
+				 
+			 }
+		 }catch (NameNotFoundException e){
+			 e.printStackTrace();
+		 }
+		 */
+		try{
+		PackageInfo info = ctx.getPackageManager().getPackageInfo(PACKAGE_NAME, 0);
+		SQLiteDatabase db2=db.getWritableDatabase();
+	      int currentVersion = info.versionCode;
+	      this.versionName = info.versionName;
+	      SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+	      int lastVersion = prefs.getInt("version_code", 0);
+	      System.out.println("CurrentVersion"+String.valueOf(currentVersion));
+	      System.out.println("LastVersion"+String.valueOf(lastVersion));
+	      if (currentVersion > lastVersion) {
+	    	  publishProgress("Resetting Staying well");
+	        prefs.edit().putInt("version_code", currentVersion).commit();
+	        db.alterStayingWellTables();
+	        db.runSWReset();
+	   }
+		}catch(NameNotFoundException e){
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 	@Override

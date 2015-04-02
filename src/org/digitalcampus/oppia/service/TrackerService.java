@@ -85,8 +85,19 @@ public class TrackerService extends Service implements APIRequestListener {
 			prefs = PreferenceManager.getDefaultSharedPreferences(this);
 			long lastRun = prefs.getLong("lastCourseUpdateCheck", 0);
 			long now = System.currentTimeMillis()/1000;
-			if((lastRun + (3600*12)) < now) {
+			System.out.println("Now: "+String.valueOf(now));
+			/* CCH: Check to see if the CCH log needs any updating */
+			
+			//if((lastRun + (3600*12)) < now) {
+			if(lastRun < now) {
+				if(app.omUpdateCCHLogTask == null){
+					Log.v(TAG, "Updating CCH logs");
+					Payload mqp = db.getCCHUnsentLog();
+					app.omUpdateCCHLogTask = new UpdateCCHLogTask(this);
+					app.omUpdateCCHLogTask.execute(mqp);
+					
 				
+				Log.v(TAG, "Syncing background data");
 				APIRequestTask task = new APIRequestTask(this);
 				p = new Payload(MobileLearning.SERVER_COURSES_PATH);
 				task.setAPIRequestListener(this);
@@ -95,14 +106,8 @@ public class TrackerService extends Service implements APIRequestListener {
 				Editor editor = prefs.edit();
 				editor.putLong("lastCourseUpdateCheck", now);
 				editor.commit();
-				
-				/* CCH: Check to see if the CCH log needs any updating */
-				if(app.omUpdateCCHLogTask == null){
-					Log.v(TAG, "Updating CCH logs");
-					Payload mqp = db.getCCHUnsentLog();
-					app.omUpdateCCHLogTask = new UpdateCCHLogTask(this);
-					app.omUpdateCCHLogTask.execute(mqp);
-				}				
+				}
+						
 			}
 			
 			// notify user on routines

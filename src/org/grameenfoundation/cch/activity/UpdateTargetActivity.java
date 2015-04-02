@@ -45,7 +45,10 @@ public class UpdateTargetActivity extends Activity implements OnChildClickListen
  	   learningTargets=db.getAllLearningTargets("Daily");
  	   otherTargets=db.getAllOtherTargets("Daily");
  	   
- 	    groupItems=new String[]{"Events","Coverage","Learning","Other"};
+ 	    groupItems=new String[]{"Events ("+String.valueOf(eventTargets.size())+")",
+ 	    						"Coverage ("+String.valueOf(coverageTargets.size())+")",
+ 	    						"Learning ("+String.valueOf(learningTargets.size())+")",
+ 	    						"Other ("+String.valueOf(otherTargets.size())+")"};
  	    expandableListView_updates=(ExpandableListView) findViewById(R.id.expandableListView_updates);
  	    updates_adapter=new UpdateTargetsAdapter(mContext,eventTargets,
 										coverageTargets,
@@ -112,9 +115,11 @@ public class UpdateTargetActivity extends Activity implements OnChildClickListen
 			String due_date=selected_items[2];
 			String status=selected_items[4];
 			String startDate=selected_items[3];
+			String learningCourse=selected_items[7];
 			Intent intent=new Intent(mContext,UpdateActivity.class);
 			intent.putExtra("id",selected_id);
 			intent.putExtra("learning_topic",name);
+			intent.putExtra("learning_course",learningCourse);
 			intent.putExtra("period", period);
 			intent.putExtra("type", "learning");
 			intent.putExtra("due_date", due_date);

@@ -121,6 +121,7 @@ public class EventTargetActivity extends Fragment implements OnChildClickListene
 		String start_date=selected_items[5];
 		String status=selected_items[6];
 		String last_updated=selected_items[8];
+		String target_detail=selected_items[9];
 		//String achieved=selected_items[4];
 		ArrayList<String> number_achieved_list=db.getForUpdateEventNumberAchieved(selected_id, event_period);
 		System.out.println(number_achieved_list.get(0));
@@ -135,6 +136,7 @@ public class EventTargetActivity extends Fragment implements OnChildClickListene
 		intent.putExtra("achieved", number_achieved_list.get(0));
 		intent.putExtra("status", status);
 		intent.putExtra("last_updated", last_updated);
+		intent.putExtra("event_detail", target_detail);
 		startActivity(intent);
 		getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			return true;

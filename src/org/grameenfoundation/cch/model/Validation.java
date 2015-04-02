@@ -67,14 +67,14 @@ public class Validation {
 		 long getRidOfTime = 1000 * 60 * 60 * 24;
 		 long startDateAsTimestampWithoutTime = starDateAsTimestamp / getRidOfTime;
 		 long endDateTimestampWithoutTime = endDateTimestamp / getRidOfTime;
-
-		 if (startDateAsTimestampWithoutTime > endDateTimestampWithoutTime) {
+		 if(startDate!=null&&endDate!=null&&startDateAsTimestampWithoutTime > endDateTimestampWithoutTime){
 			  text.requestFocus();
 			  text.setError("Start date cannot be after due date");
 		    return true; 
 		 } else {
 		    return false;
-		 }
+ }
 	    }
+	    
 	 
 }

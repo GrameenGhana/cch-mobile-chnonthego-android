@@ -52,10 +52,11 @@
                 android:text="Praise mother for baby wellness and good feeding practices "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <org.grameenfoundation.cch.utils.TextViewUtils
+            <TextView
                 android:id="@+id/textView_clickHere"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                 android:drawableLeft="@drawable/ic_click"
                 android:text="Advise mother to give home care for the baby "
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/WhileWaitingForTransport" />
@@ -64,7 +65,7 @@
                 android:id="@+id/textView_clickHereToo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_counsel"
+                android:drawableLeft="@drawable/ic_click"
                 android:text="Counseling mother on other topics: see PNC counseling topics"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/WhileWaitingForTransport" />

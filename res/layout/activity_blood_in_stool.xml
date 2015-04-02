@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+     android:fadeScrollbars="false" >
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -85,16 +86,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72" >
 
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_bullet" />
-
                 <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
                     android:id="@+id/textView_clickHereThree"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_click"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="0dp"
@@ -104,7 +100,7 @@
 
             </LinearLayout>
 
-            <org.grameenfoundation.cch.utils.TextViewBullets
+            <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -116,22 +112,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_bullet" />
-
                 <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
                     android:id="@+id/textView_clickHereToo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_click"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="0dp"
                     android:text="Prepare ORS"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/WhileWaitingForTransport" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -201,21 +193,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_bullet" />
-
                 <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
                     android:id="@+id/textView_clickHere"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_click"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="0dp"
                     android:text="Teach mother how to keep the baby warm on the way to the health facility "
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/WhileWaitingForTransport" />
+
             </LinearLayout>
         </LinearLayout>
 

@@ -67,6 +67,7 @@ public class EventTargetAchievementActivity extends Activity {
 	    @Override
 	    protected Object doInBackground(Object... params) {
 	          completedEventTargets=db.getAllEventTargetsCompletedForAchievements("updated",month+1, year);
+	          //System.out.println(completedEventTargets.get(0).getEventTargetName());
 	          unCompletedEventTargets=db.getAllEventTargetsCompletedForAchievements("new_record",month+1, year);
 			return null;
 	    }

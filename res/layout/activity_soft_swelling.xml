@@ -82,7 +82,7 @@
 
             <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView6"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="Keep baby warm "
@@ -104,10 +104,11 @@
                 android:text="If baby is not able to breastfeed, give small sips of expressed breast milk that has been collected in a clean container with a lid "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <org.grameenfoundation.cch.utils.TextViewUtils
+            <TextView
                 android:id="@+id/textView_clickHere"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_click"
                 android:text="Teach mother how to keep the baby warm on the way to the health facility"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/WhileWaitingForTransport" />

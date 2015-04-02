@@ -1,5 +1,6 @@
 package org.grameenfoundation.cch.activity;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,14 +17,17 @@ import org.grameenfoundation.adapters.LearningBaseAdapter;
 import org.grameenfoundation.cch.caldroid.CaldroidFragment;
 import org.grameenfoundation.cch.caldroid.CaldroidListener;
 import org.grameenfoundation.cch.model.Validation;
+import org.grameenfoundation.poc.EstimateTrimester;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -260,6 +264,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						    public void onSelectDate(Date date, View view) {
 						    	dialogCaldroidFragment.dismiss();
 						    	dueDateValue.setText(formatter2.format(date));
+						    	dueDateValue.setError(null);
 						    	due_date=formatter.format(date);
 						        Toast.makeText(getActivity(), formatter2.format(date),
 						                Toast.LENGTH_SHORT).show();
@@ -283,7 +288,25 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						    public void onSelectDate(Date date, View view) {
 						    	dialogCaldroidFragment.dismiss();
 						    	startDateValue.setText(formatter2.format(date));
+						    	startDateValue.setError(null);
 						    	start_date=formatter.format(date);
+						    	Date today=new Date();
+					        	if(isDateAfter(formatter.format(today),formatter.format(date))==true){
+					        		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					        				getActivity());
+										alertDialogBuilder.setTitle("Date Confirmation");
+										alertDialogBuilder
+											.setMessage("You selected a start date in the past. Click ok to proceed")
+											.setCancelable(false)
+											.setIcon(R.drawable.ic_error)
+											.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+												public void onClick(DialogInterface dialog,int id) {
+													dialog.cancel();
+												}
+											  });
+										AlertDialog alertDialog = alertDialogBuilder.create();
+										alertDialog.show();
+					        	}
 						        Toast.makeText(getActivity(), formatter2.format(date),
 						                Toast.LENGTH_SHORT).show();
 						    }
@@ -292,16 +315,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					}
 				});
 				Button cancel=(Button) rootView.findViewById(R.id.button_cancel);
-				cancel.setOnClickListener(new OnClickListener(){
-
-					@Override
-					public void onClick(View v) {
-						editText_event_period.setText(" ");
-						dueDateValue.setText(" ");
-						startDateValue.setText(" ");
-					}
-					
-				});
+				cancel.setVisibility(View.GONE);
 				Button dialogButton = (Button) rootView.findViewById(R.id.button_dialogSetEVent);
 				dialogButton.setText("Save");
 				dialogButton.setOnClickListener(new OnClickListener() {
@@ -434,6 +448,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						    public void onSelectDate(Date date, View view) {
 						    	dialogCaldroidFragment.dismiss();
 						    	dueDateValue.setText(formatter2.format(date));
+						    	dueDateValue.setError(null);
 						    	due_date=formatter.format(date);
 						        Toast.makeText(getActivity(), formatter2.format(date),
 						                Toast.LENGTH_SHORT).show();
@@ -459,7 +474,25 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						    public void onSelectDate(Date date, View view) {
 						    	dialogCaldroidFragment.dismiss();
 						    	startDateValue.setText(formatter2.format(date));
+						    	startDateValue.setError(null);
 						    	start_date=formatter.format(date);
+						    	Date today=new Date();
+					        	if(isDateAfter(formatter.format(today),formatter.format(date))==true){
+					        		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					        				getActivity());
+										alertDialogBuilder.setTitle("Date Confirmation");
+										alertDialogBuilder
+											.setMessage("You selected a start date in the past. Click ok to proceed")
+											.setCancelable(false)
+											.setIcon(R.drawable.ic_error)
+											.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+												public void onClick(DialogInterface dialog,int id) {
+													dialog.cancel();
+												}
+											  });
+										AlertDialog alertDialog = alertDialogBuilder.create();
+										alertDialog.show();
+					        	}
 						        Toast.makeText(getActivity(), formatter2.format(date),
 						                Toast.LENGTH_SHORT).show();
 						    }
@@ -471,17 +504,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					
 				});
 				Button cancel=(Button) rootView.findViewById(R.id.button_cancel);
-				cancel.setOnClickListener(new OnClickListener(){
-
-					@Override
-					public void onClick(View v) {
-						editText_coverageNumber.setText(" ");
-						dueDateValue.setText(" ");
-						startDateValue.setText(" ");
-					}
-					
-				});
-				
+				cancel.setVisibility(View.GONE);
 				dueDateValue=(TextView) rootView.findViewById(R.id.textView_dueDateValue);
 				startDateValue=(TextView) rootView.findViewById(R.id.textView_startDate);
 				final Spinner spinner_coverageName=(Spinner) rootView.findViewById(R.id.spinner_dialogCoverageName);
@@ -952,6 +975,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						    public void onSelectDate(Date date, View view) {
 						    	dialogCaldroidFragment.dismiss();
 						    	dueDateValueLearning.setText(formatter2.format(date));
+						    	dueDateValueLearning.setError(null);
 						    	due_date=formatter.format(date);
 						        Toast.makeText(getActivity(), formatter2.format(date),
 						                Toast.LENGTH_SHORT).show();
@@ -977,7 +1001,25 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						    public void onSelectDate(Date date, View view) {
 						    	dialogCaldroidFragment.dismiss();
 						    	startDateValue.setText(formatter2.format(date));
+						    	startDateValue.setError(null);
 						    	start_date=formatter.format(date);
+						    	Date today=new Date();
+					        	if(isDateAfter(formatter.format(today),formatter.format(date))==true){
+					        		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					        				getActivity());
+										alertDialogBuilder.setTitle("Date Confirmation");
+										alertDialogBuilder
+											.setMessage("You selected a start date in the past. Click ok to proceed")
+											.setCancelable(false)
+											.setIcon(R.drawable.ic_error)
+											.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+												public void onClick(DialogInterface dialog,int id) {
+													dialog.cancel();
+												}
+											  });
+										AlertDialog alertDialog = alertDialogBuilder.create();
+										alertDialog.show();
+					        	}
 						        Toast.makeText(getActivity(), formatter2.format(date),
 						                Toast.LENGTH_SHORT).show();
 						    }
@@ -989,14 +1031,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					
 				});
 				Button cancel=(Button) rootView.findViewById(R.id.button_cancel);
-				cancel.setOnClickListener(new OnClickListener(){
-
-					@Override
-					public void onClick(View v) {
-						
-					}
-					
-				});
+				cancel.setVisibility(View.GONE);
 				dueDateValueLearning=(TextView) rootView.findViewById(R.id.textView_dueDateValue);
 				startDateValue=(TextView) rootView.findViewById(R.id.textView_startDate);
 				dialogButton.setOnClickListener(new OnClickListener() {
@@ -1150,6 +1185,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						    public void onSelectDate(Date date, View view) {
 						    	dialogCaldroidFragment.dismiss();
 						    	dueDateValue.setText(formatter2.format(date));
+						    	dueDateValue.setError(null);
 						    	due_date=formatter.format(date);
 						        Toast.makeText(getActivity(), formatter2.format(date),
 						                Toast.LENGTH_SHORT).show();
@@ -1175,7 +1211,25 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						    public void onSelectDate(Date date, View view) {
 						    	dialogCaldroidFragment.dismiss();
 						    	startDateValue.setText(formatter2.format(date));
+						    	startDateValue.setError(null);
 						    	start_date=formatter.format(date);
+						    	Date today=new Date();
+					        	if(isDateAfter(formatter.format(today),formatter.format(date))==true){
+					        		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					        				getActivity());
+										alertDialogBuilder.setTitle("Date Confirmation");
+										alertDialogBuilder
+											.setMessage("You selected a start date in the past. Click ok to proceed")
+											.setCancelable(false)
+											.setIcon(R.drawable.ic_error)
+											.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+												public void onClick(DialogInterface dialog,int id) {
+													dialog.cancel();
+												}
+											  });
+										AlertDialog alertDialog = alertDialogBuilder.create();
+										alertDialog.show();
+					        	}
 						        Toast.makeText(getActivity(), formatter2.format(date),
 						                Toast.LENGTH_SHORT).show();
 						    }
@@ -1188,14 +1242,8 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				});
 				
 				Button cancel=(Button) rootView.findViewById(R.id.button_cancel);
-				cancel.setOnClickListener(new OnClickListener(){
-
-					@Override
-					public void onClick(View v) {
-						
-					}
-					
-				});
+				cancel.setVisibility(View.GONE);
+				
 				dialogButton.setOnClickListener(new OnClickListener() {
 				
 

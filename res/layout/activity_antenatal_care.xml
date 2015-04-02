@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:background="@color/BackgroundGrey"
             android:divider="@color/White"
-            android:dividerHeight="5dp" >
+            android:dividerHeight="5dp"
+             android:fadeScrollbars="false" >
 
         </ListView>
 

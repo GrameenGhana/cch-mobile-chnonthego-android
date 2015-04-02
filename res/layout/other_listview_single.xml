@@ -5,11 +5,12 @@
     android:orientation="vertical" >
 
     <LinearLayout
+        android:id="@+id/Linearlayout_values"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
+        android:paddingLeft="30dp"
         android:paddingRight="0dp"
         android:paddingTop="10dp" >
 

@@ -52,10 +52,11 @@
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <org.grameenfoundation.cch.utils.TextViewUtils
+            <TextView
                 android:id="@+id/textView_clickHere"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_click"
                 android:paddingBottom="5dp"
                 android:text="Advise mother to breastfeed more: as often and as long as the baby wants, day &amp; night  "
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -68,18 +69,20 @@
                 android:text="Advise mother to reduce other foods or drinks  "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <org.grameenfoundation.cch.utils.TextViewUtils
+            <TextView
                 android:id="@+id/textView_clickHereToo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                 android:drawableLeft="@drawable/ic_click"
                 android:text="Teach mother how to feed using a cup "
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/WhileWaitingForTransport" />
 
-            <org.grameenfoundation.cch.utils.TextViewUtils
+            <TextView
                 android:id="@+id/textView_clickHereThree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                 android:drawableLeft="@drawable/ic_click"
                 android:text="Advise mother to give home care for baby "
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/WhileWaitingForTransport" />

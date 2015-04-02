@@ -135,10 +135,11 @@
                 android:text="Wash your hands"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <org.grameenfoundation.cch.utils.TextViewUtils
+            <TextView
                 android:id="@+id/textView_clickHereToo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_click"
                 android:paddingBottom="5dp"
                 android:text="Teach mother how to treat local infection at home for the baby "
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -152,10 +153,11 @@
                 android:text="Educate mother how to clean the baby, and not bathe baby until cord heals or drops "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <org.grameenfoundation.cch.utils.TextViewUtils
+            <TextView
                 android:id="@+id/textView_clickHere"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_click"
                 android:text="Teach mother how to keep the baby warm on the way to the health facility  "
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/WhileWaitingForTransport" />

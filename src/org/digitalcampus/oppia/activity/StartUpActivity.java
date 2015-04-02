@@ -73,7 +73,6 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
         
         setContentView(R.layout.start_up);
         db=new DbHelper(StartUpActivity.this);
-       // db.alterTables();
         getActionBar().hide();
 		
         tvProgress = (TextView) this.findViewById(R.id.start_up_progress);

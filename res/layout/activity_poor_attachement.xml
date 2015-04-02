@@ -52,27 +52,30 @@
             android:padding="20dp"
             android:showDividers="middle" >
 
-            <org.grameenfoundation.cch.utils.TextViewUtils
+            <TextView
                 android:id="@+id/textView_clickHere"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                 android:drawableLeft="@drawable/ic_click"
                 android:paddingBottom="5dp"
                 android:text="Teach mother correct positioning and attachment"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/WhileWaitingForTransport" />
 
-            <org.grameenfoundation.cch.utils.TextViewUtils
+            <TextView
                 android:id="@+id/textView_clickHereToo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_click"
                 android:text="If baby is not able to attach well immediately, teach mother to express breast milk and feed by cup  "
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/WhileWaitingForTransport" />
 
-            <org.grameenfoundation.cch.utils.TextViewUtils
+            <TextView
                 android:id="@+id/textView_clickHereThree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                 android:drawableLeft="@drawable/ic_click"
                 android:text="Advise mother to give home care for baby "
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/WhileWaitingForTransport" />

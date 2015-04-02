@@ -119,13 +119,14 @@ public class UpdateTargetsAdapter extends BaseExpandableListAdapter{
 									  coverageTargets.get(childPosition).getEventTargetLastUpdated()//8
 					  };
 		}else if(groupPosition==2){
-			childDetails=new String[]{learningTargets.get(childPosition).getLearningTargetName(),//0
+			childDetails=new String[]{learningTargets.get(childPosition).getLearningTargetTopic(),//0
 									  learningTargets.get(childPosition).getLearningTargetPeriod(),//1
 									  learningTargets.get(childPosition).getLearningTargetEndDate(),//2
 									  learningTargets.get(childPosition).getLearningTargetStartDate(),//3
 									  learningTargets.get(childPosition).getLearningTargetStatus(),//4
 									  learningTargets.get(childPosition).getLearningTargetId(),//5
-									  learningTargets.get(childPosition).getLearningTargetLastUpdated()//6
+									  learningTargets.get(childPosition).getLearningTargetLastUpdated(),//6
+									  learningTargets.get(childPosition).getLearningTargetCourse()//7
 					  };
 		}else if(groupPosition==3){
 			childDetails=new String[]{otherTargets.get(childPosition).getEventTargetName(),//0

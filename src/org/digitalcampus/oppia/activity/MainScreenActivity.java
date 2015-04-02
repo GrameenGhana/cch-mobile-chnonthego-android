@@ -442,6 +442,13 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 			} else if (itemId == R.id.menu_logout) {
 				logout();
 				return true;
+			} else if (itemId == R.id.menu_sync) {
+				Intent service = new Intent(this, TrackerService.class);
+				Bundle tb = new Bundle();
+				tb.putBoolean("backgroundData", true);
+				service.putExtras(tb);
+				this.startService(service);
+				return true;
 			}
 			return true;
 		}

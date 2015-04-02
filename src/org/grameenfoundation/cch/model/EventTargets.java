@@ -14,6 +14,7 @@ public class EventTargets {
 	private String eventTargetTotalNumber;
 	private String eventTargetUncompleted;
 	private String eventTargetCompleted;
+	private String eventTargetDetail;
 	
 	public EventTargets()
 	{
@@ -95,7 +96,13 @@ public class EventTargets {
 	public String getEventTargetTotalNumber() {
 		return eventTargetTotalNumber;
 	}
-	public void setEventTargetTotalNumber(String eventTargetTotalNumber) {
-		this.eventTargetTotalNumber = eventTargetTotalNumber;
+	public void setEventTargetTotalNumber(String eventTargetDetail) {
+		this.eventTargetDetail = eventTargetDetail;
+	}
+	public String getEventTargetDetail() {
+		return eventTargetDetail;
+	}
+	public void setEventTargetDetail(String eventTargetDetail) {
+		this.eventTargetDetail = eventTargetDetail;
 	}
 }

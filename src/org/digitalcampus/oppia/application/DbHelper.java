@@ -61,7 +61,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
 	static final String TAG = DbHelper.class.getSimpleName();
 	static final String DB_NAME = "mobilelearning.db";
-	static final int DB_VERSION = 16;
+	static final int DB_VERSION = 18;
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 	private SharedPreferences prefs;
@@ -238,7 +238,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		/* CCH additions */
 		createCCHTrackerTable(db);
 		createStayingWellTable(db);
-		runSWReset(db);
+	//	runSWReset(db);
 		
 		/*CHN Target tracking changes*/
 		createEventsSetTable(db);
@@ -423,7 +423,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			createOtherTable(db);
 			createJustificationTable(db);
 			createStayingWellTable(db);
-			runSWReset(db);
+			//runSWReset(db);
 
 			return;
 		}
@@ -489,10 +489,9 @@ public class DbHelper extends SQLiteOpenHelper {
 			ContentValues values = new ContentValues();
 			values.put(TRACKER_LOG_C_COMPLETED,true);
 			db.update(TRACKER_LOG_TABLE, values, null, null);
-			runSWReset(db);
 		}
-		if(newVersion>15){
-			runSWReset(db);
+		if(oldVersion<newVersion){
+		//	runSWReset(db);
 		}
 	}
 
@@ -586,7 +585,24 @@ public class DbHelper extends SQLiteOpenHelper {
 		return true;
 		
 	}
-	
+	public boolean alterStayingWellTables(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor c = db.rawQuery("Select "+CCH_SW_STAFF_ID +" from "+CCH_SW_TABLE,null);
+		c.moveToFirst();
+		String staffId=c.getString(c.getColumnIndex(CCH_SW_STAFF_ID));
+		if(staffId.equalsIgnoreCase("David")){
+			System.out.println(staffId);
+		}else{
+			String strQuery = "Update "+CCH_SW_TABLE+" set "+CCH_SW_STAFF_ID+" ="+"'David'";
+			db.execSQL(strQuery);
+			db.close();
+		}
+		c.close();
+		db.close();
+		
+		return true;
+		
+	}
 	public boolean alterEventTable(){
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor c = db.rawQuery("PRAGMA table_info("+EVENTS_SET_TABLE+")",null);
@@ -1648,7 +1664,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		
 		// Insert initial information TODO: GET USER ID
 		//if (! hasRowsSW(CCH_SW_TABLE)) 	{	
-			String userid = "noid"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid"); 
+			String userid = "David"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid"); 
 			ContentValues values = new ContentValues();
 			values.put(CCH_SW_STAFF_ID, userid);
 			values.put(CCH_SW_LEGAL_STATUS, "");
@@ -1686,18 +1702,30 @@ public class DbHelper extends SQLiteOpenHelper {
 		
 	}
 	
-	public void runSWReset(SQLiteDatabase db)
+	public void runSWReset()
 	{
+		SQLiteDatabase db = this.getWritableDatabase();		 
 		Log.v(TAG,"Resetting The table");
 
-		if (! isTableExists("sw_fix",db)) { // reset information
+		//if (! isTableExists("sw_fix",db)) { // reset information
 			
 			// Reset all routines
 			String sql1 = "DELETE FROM "+ CCH_SW_ROUTINE_TODO_TABLE + " WHERE 1=1";
 			db.execSQL(sql1);
 			
 			// Reset plan and profile
-			updateSWInfo(CCH_SW_LEGAL_STATUS, "", db);
+			Cursor cursor = db.rawQuery("select sw_legal from stayingwell", null);
+			cursor.moveToFirst();
+			System.out.println("STaying well: "+cursor.getString(cursor.getColumnIndex(CCH_SW_LEGAL_STATUS)));
+			if(cursor!=null) {
+				if(cursor.getString(cursor.getColumnIndex(CCH_SW_LEGAL_STATUS)).equalsIgnoreCase("agreed")) {
+					updateSWInfo(CCH_SW_LEGAL_STATUS, "agreed", db);
+				}else{
+					updateSWInfo(CCH_SW_LEGAL_STATUS, "", db);
+				
+				}
+			}
+			updateSWInfo(CCH_SW_STAFF_ID, "David", db);
 			updateSWInfo(CCH_SW_PROFILE_STATUS, "", db);
 			updateSWInfo(CCH_SW_PROFILE_RESPONSES, "", db);
 			updateSWInfo(CCH_SW_MONTH_PLAN, "",db);
@@ -1710,7 +1738,8 @@ public class DbHelper extends SQLiteOpenHelper {
 			ContentValues v = new ContentValues();
 			v.put("ch", 1);
 			db.insertOrThrow("sw_fix", null, v);
-		}
+			cursor.close();
+		//}
 	}
 	
 	public boolean isTableExists(String tableName,SQLiteDatabase mDatabase) {
@@ -1733,7 +1762,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	
 	public String getSWInfo(String field) 
 	{			
-		String userid = "noid"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
+		String userid = "David"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
 
 		SQLiteDatabase db = this.getReadableDatabase();		 
 		Cursor cursor = db.query(CCH_SW_TABLE, new String[] { field }, CCH_SW_STAFF_ID + "=?",
@@ -1757,7 +1786,7 @@ public class DbHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(field, value); 
         Log.e("CCH","Updating "+field+" with "+value);
-		String userid = "noid";//prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
+		String userid = "David";//prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
         db.update(CCH_SW_TABLE, values, CCH_SW_STAFF_ID + "='"+userid+"'", null);
 	}
 
@@ -1766,7 +1795,7 @@ public class DbHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(field, value); 
         Log.e("CCH","Updating "+field+" with "+value);
-		String userid = "noid";//prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
+		String userid = "David";//prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
         db.update(CCH_SW_TABLE, values, CCH_SW_STAFF_ID + "='"+userid+"'", null);
         db.close();             
 	}
@@ -1794,7 +1823,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	{			
 		    SQLiteDatabase db = this.getReadableDatabase(); 
 
-			String userid = "noid"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
+			String userid = "David"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
 			ArrayList<RoutineActivity> list = new ArrayList<RoutineActivity>();
 			
 			String strQuery=  " SELECT " + CCH_SW_ROUTINE_ACTION + ", " + CCH_SW_ROUTINE_ORDER		         
@@ -1840,7 +1869,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	{	
 	        SQLiteDatabase db = this.getReadableDatabase(); 
 
-			String userid = "noid"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
+			String userid = "David"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
 
 			String strQuery=  " SELECT " + CCH_SW_ROUTINE_TODO_ID 		         
              		+ "   FROM " + CCH_SW_ROUTINE_TODO_TABLE
@@ -1871,7 +1900,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	{
 		SQLiteDatabase db = this.getWritableDatabase();		 
 
-		String userid = "noid"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
+		String userid = "David"; //prefs.getString(ctx.getString(R.string.prefs_username), "noid");      
     	String[] data = uuid.split("-");
 		Long endtime = System.currentTimeMillis();	
 
@@ -2463,6 +2492,7 @@ public long findItemCount(String table, String searchedBy,
 				event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
 				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_EVENT_PERIOD)));
 				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
+				event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(COL_EVENT_SET_DETAIL)));
 				   list.add(event_targets);
 				   c.moveToNext();						
 			}
@@ -2495,6 +2525,7 @@ public long findItemCount(String table, String searchedBy,
 				event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
 				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_COVERAGE_SET_PERIOD)));
 				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
+				event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(COL_COVERAGE_SET_CATEGORY_DETAIL)));
 				   list.add(event_targets);
 				   c.moveToNext();						
 			}
@@ -2568,8 +2599,9 @@ public long findItemCount(String table, String searchedBy,
 	{	SQLiteDatabase db = this.getReadableDatabase();
 		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
 		String strQuery="select * from "+EVENTS_SET_TABLE
-							+" where "+COL_SYNC_STATUS
-							+ " = '"+status+"'";	
+						+" where "+COL_SYNC_STATUS
+						+ " = '"+status+"'";	
+		System.out.println(strQuery);
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
 			while (c.isAfterLast()==false) {
@@ -2591,7 +2623,7 @@ public long findItemCount(String table, String searchedBy,
 				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_EVENT_PERIOD)));
 				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
 				   list.add(event_targets);
-				
+				System.out.println(list);
 				}
 				   c.moveToNext();		  				
 			}
@@ -2626,8 +2658,8 @@ public long findItemCount(String table, String searchedBy,
 	public int getAllEventTargetsCompleted(String status,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
 	String strQuery="select * from "+EVENTS_SET_TABLE
-			+" where "+COL_SYNC_STATUS
-			+ " = '"+status+"'";	
+					+" where "+COL_SYNC_STATUS
+					+ " = '"+status+"'";	
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();	
 			int total_event_targets = 0;
@@ -2676,8 +2708,8 @@ public long findItemCount(String table, String searchedBy,
 	public int getAllCoverageTargetsCompleted(String status,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
 	String strQuery="select * from "+COVERAGE_SET_TABLE
-			+" where "+COL_SYNC_STATUS
-			+ " = '"+status+"'";	
+					+" where "+COL_SYNC_STATUS
+					+ " = '"+status+"'";	
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();	
 			int total_event_targets = 0;
@@ -2775,8 +2807,8 @@ public long findItemCount(String table, String searchedBy,
 	public int getAllOtherTargetsCompleted(String status,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
 	String strQuery="select * from "+OTHER_TABLE
-			+" where "+COL_SYNC_STATUS
-			+ " = '"+status+"'";	
+					+" where "+COL_SYNC_STATUS
+					+ " = '"+status+"'";	
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();	
 			int total_event_targets = 0;
@@ -2801,8 +2833,8 @@ public long findItemCount(String table, String searchedBy,
 	{	SQLiteDatabase db = this.getReadableDatabase();
 		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
 		String strQuery="select * from "+COVERAGE_SET_TABLE
-							+" where "+COL_SYNC_STATUS
-							+ " = '"+status+"'";	
+						+" where "+COL_SYNC_STATUS
+						+ " = '"+status+"'";	
 		System.out.println(strQuery);
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
@@ -2841,6 +2873,7 @@ public long findItemCount(String table, String searchedBy,
 							+" where "+COL_SYNC_STATUS
 							+ " = '"+status+"'";
 			Cursor c = db.rawQuery(strQuery, null);
+			System.out.println(strQuery);
 			c.moveToFirst();
 			
 			while (c.isAfterLast()==false) {
@@ -2890,15 +2923,15 @@ public long findItemCount(String table, String searchedBy,
 				int due_date_month=Integer.parseInt(due_date_split[1]);
 				int due_date_year=Integer.parseInt(due_date_split[2]);
 				if(month==due_date_month&&year==due_date_year){
-				learning_targets.setLearningTargetName(c.getString(c.getColumnIndex(COL_LEARNING_CATEGORY)));
-				learning_targets.setLearningTargetCourse(c.getString(c.getColumnIndex(COL_LEARNING_DESCRIPTION)));
-				learning_targets.setLearningTargetTopic(c.getString(c.getColumnIndex(COL_LEARNING_TOPIC)));
-				learning_targets.setLearningTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
-				learning_targets.setLearningTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-				learning_targets.setLearningTargetEndDate(c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE)));
-				learning_targets.setLearningTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-				learning_targets.setLearningTargetPeriod(c.getString(c.getColumnIndex(COL_LEARNING_PERIOD)));
-				learning_targets.setLearningTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
+					learning_targets.setLearningTargetName(c.getString(c.getColumnIndex(COL_LEARNING_CATEGORY)));
+					learning_targets.setLearningTargetCourse(c.getString(c.getColumnIndex(COL_LEARNING_DESCRIPTION)));
+					learning_targets.setLearningTargetTopic(c.getString(c.getColumnIndex(COL_LEARNING_TOPIC)));
+					learning_targets.setLearningTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
+					learning_targets.setLearningTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
+					learning_targets.setLearningTargetEndDate(c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE)));
+					learning_targets.setLearningTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
+					learning_targets.setLearningTargetPeriod(c.getString(c.getColumnIndex(COL_LEARNING_PERIOD)));
+					learning_targets.setLearningTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
 				   list.add(learning_targets);
 				  
 				}

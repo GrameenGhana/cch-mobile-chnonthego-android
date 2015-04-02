@@ -140,9 +140,9 @@ public class NumericalTargetAchievementsAdapter extends BaseExpandableListAdapte
 			   
 			   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
 			   if(groupPosition==0){
-				   image.setImageResource(R.drawable.ic_complete);
+				   image.setImageResource(R.drawable.ic_complete_new);
 			   }else if(groupPosition==1){
-				   image.setImageResource(R.drawable.ic_incomplete);
+				   image.setImageResource(R.drawable.ic_close);
 			   }
 			  return convertView;
 	 }

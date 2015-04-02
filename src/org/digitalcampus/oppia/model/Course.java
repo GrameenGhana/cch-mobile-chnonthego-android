@@ -29,7 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Course implements Serializable {
+public class Course implements Serializable{
 	
 	/**
 	 * 
@@ -300,6 +300,7 @@ public class Course implements Serializable {
 	public void setDraft(boolean isDraft) {
 		this.isDraft = isDraft;
 	}
+
 	
 	
 }

@@ -171,19 +171,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="15dp"
-                        android:layout_marginLeft="40dp"
-                        android:src="@drawable/ic_bullet" />
-
                     <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
                         android:id="@+id/textView_clickHere"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:drawableLeft="@drawable/ic_click"
                         android:paddingBottom="10dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="0dp"
                         android:text="To sleep under an insecticide treated net every night with her baby"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/WhileWaitingForTransport" />
@@ -215,19 +209,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="15dp"
-                        android:layout_marginLeft="40dp"
-                        android:src="@drawable/ic_bullet" />
-
                     <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
                         android:id="@+id/textView_clickHereToo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="10dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="0dp"
+                        android:layout_marginLeft="40dp"
+                        android:drawableLeft="@drawable/ic_click"
                         android:text="To eat foods rich in iron and folic acid + vitamin C "
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/WhileWaitingForTransport" />
@@ -238,19 +226,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="15dp"
-                        android:layout_marginLeft="40dp"
-                        android:src="@drawable/ic_bullet" />
 
                     <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
                         android:id="@+id/textView_clickHereThree"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="10dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="0dp"
+                        android:layout_marginLeft="40dp"
+                        android:drawableLeft="@drawable/ic_click"
                         android:text="To go for scheduled PNC visits "
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/WhileWaitingForTransport" />

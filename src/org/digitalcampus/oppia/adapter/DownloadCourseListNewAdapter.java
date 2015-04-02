@@ -17,6 +17,7 @@
 
 package org.digitalcampus.oppia.adapter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -114,9 +115,32 @@ public class DownloadCourseListNewAdapter extends ArrayAdapter<Course> implement
 		    	params.width = ctx.getResources().getDimensionPixelSize(R.dimen.textView_width);
 		    	moduleRow.setLayoutParams(params);
 		    	TextView txt1 = new TextView(ctx);
+		    	TextView txt2 = new TextView(ctx);
 		    	txt1.setBackgroundResource(R.drawable.fab_shape);
 		    	txt1.setText(String.valueOf((int) c.getProgress())+"%");
+		    	File file=new File(courseList.get(position).getLocation());
+		    	System.out.println(courseList.get(position).getLocation());
+		    	if(file.exists()){
+		    		long size=0;
+		    		double kilobytes = 0;
+		    		double megabyte = 0;
+		    		for(File files:file.listFiles()){
+		    			if(files.isFile()){
+		    				size +=file.length();
+		    			}
+		    		kilobytes=(size/1024);
+		    		 megabyte=(kilobytes/1024);
+		    		}
+		    		if(kilobytes>1000){
+		    			txt2.setText(String.valueOf(megabyte)+"MB");
+		    		}else{
+		    			txt2.setText(String.valueOf(kilobytes)+"KB");
+		    		}
+		    	}else{
+		    		 System.out.println("File does not exists!");
+		    	}
 		    	moduleRow.addView(txt1);
+		    	moduleRow.addView(txt2);
 		    	
 	    	}
 	    } else {

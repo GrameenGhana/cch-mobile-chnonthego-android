@@ -62,7 +62,10 @@ public class UpdateMonthlyTargetsActivity extends Activity implements OnChildCli
  	   	coverageTargets=db.getAllCoverageTargets("Monthly");
  	   	learningTargets=db.getAllLearningTargets("Monthly");
  	   	otherTargets=db.getAllOtherTargets("Monthly");
- 	    groupItems=new String[]{"Events","Coverage","Learning","Other"};
+ 	   groupItems=new String[]{"Events ("+String.valueOf(eventTargets.size())+")",
+				"Coverage ("+String.valueOf(coverageTargets.size())+")",
+				"Learning ("+String.valueOf(learningTargets.size())+")",
+				"Other ("+String.valueOf(otherTargets.size())+")"};
  	    expandableListView_updates=(ExpandableListView) findViewById(R.id.expandableListView_updates);
  	    updates_adapter=new UpdateTargetsAdapter(mContext,eventTargets,
 										coverageTargets,

@@ -23,6 +23,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -52,9 +54,15 @@ public class LearningCenterMenuActivity extends AppActivity {
 				Intent intent;
 				switch(position){
 				case 0:
+					if(isOnline()){
 					intent=new Intent(mContext,TagSelectActivity.class);
 					startActivity(intent);
 					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+					}else{
+						intent=new Intent(mContext,OppiaMobileActivity.class);
+						startActivity(intent);
+						overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);	
+					}
 					break;
 				case 1:
 					intent=new Intent(mContext,ReferencesDownloadActivity.class);
@@ -64,7 +72,7 @@ public class LearningCenterMenuActivity extends AppActivity {
 			}
 	    	
 	    });
-	    int[] images={R.drawable.ic_learning_center,R.drawable.ic_knowledge};
+	    int[] images={R.drawable.references,R.drawable.learning};
 	    String[] category={"Learning Modules","References"};
 	    AntenatalCareBaseAdapter adapter=new AntenatalCareBaseAdapter(mContext,images,category);
 	    listView_menu.setAdapter(adapter);
@@ -128,5 +136,15 @@ public class LearningCenterMenuActivity extends AppActivity {
 			}
 		});
 		builder.show();
+	}
+	
+	public boolean isOnline() {
+	    ConnectivityManager cm =
+	        (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	        return true;
+	    }
+	    return false;
 	}
 }

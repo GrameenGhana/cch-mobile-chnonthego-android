@@ -34,7 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="312dp"
             android:background="@color/BackgroundGrey"
-            android:dividerHeight="2dp" >
+            android:dividerHeight="2dp"
+             android:fadeScrollbars="false" >
         </ListView>
 
     </LinearLayout>

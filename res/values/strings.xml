@@ -187,6 +187,8 @@
 	<color name="Transparent">#10000000</color>
 	<color name="BackgroundBrown">#7D695B</color>
 	<string name="sans_serif">sans-serif-light</string>
+	<string name="sw_prefs">sw_prefs</string>
+	<string name="sw_reset">SW_reset</string>
 	<color name="BorderBrown">#CBC8B5</color>
 	<color name="ButtonBackgroundGrey">#E2E1D6</color> 
 	<color name="TextColorWine">#520000</color>

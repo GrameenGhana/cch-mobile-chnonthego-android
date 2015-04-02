@@ -94,16 +94,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_bullet" />
+                
 
                 <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
                     android:id="@+id/textView_clickHereToo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                     android:drawableLeft="@drawable/ic_click"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="0dp"
@@ -183,16 +180,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_bullet" />
+                
 
                 <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
                     android:id="@+id/textView_clickHere"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                     android:drawableLeft="@drawable/ic_click"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="0dp"

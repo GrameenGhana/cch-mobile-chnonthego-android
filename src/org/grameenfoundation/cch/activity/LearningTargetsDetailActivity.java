@@ -11,8 +11,10 @@ import org.digitalcampus.oppia.activity.MainScreenActivity;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.cch.caldroid.CaldroidFragment;
 import org.grameenfoundation.cch.caldroid.CaldroidListener;
+import org.grameenfoundation.cch.model.Validation;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -348,6 +350,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 						String learning_category=spinner_learningCatagory.getSelectedItem().toString();
 						String learning_course=spinner_learningCourse.getSelectedItem().toString();
 						String learning_topic=spinner_learningDescription.getSelectedItem().toString();
+						/*
 						if(isDateAfter(start_date,due_date)==true){
 				      		 startDateValue.requestFocus();
 				      		startDateValue.setError("Check this date!");
@@ -356,8 +359,10 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 				      	}
 				      	else if(due_date==null){
 				      		dueDateValue.setError("Select a date");
+				      	}*/if(!checkValidation()){
+				      		Toast.makeText(getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();
 				      	}else{
-					    if(db.editLearning(learning_category, learning_course,learning_topic,duration,start_date,due_date, learning_id) ==true){
+					    if(db.editLearning(learning_category, learning_course,learning_topic,duration,startDateValue.getText().toString(),dueDateValue.getText().toString(), learning_id) ==true){
 					    	JSONObject json = new JSONObject();
 							 try {
 								json.put("id", learning_id);
@@ -459,6 +464,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 	        	intent3.putExtra("id", learning_id);
 				//intent3.putExtra("number",event_number);
 				intent3.putExtra("learning_topic", learning_topic);
+				intent3.putExtra("learning_course", learning_course);
 				intent3.putExtra("type", "learning");
 				intent3.putExtra("due_date", due_date_extra);
 				intent3.putExtra("start_date", start_date_extra);
@@ -605,23 +611,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 				last_updated=extras.getString("last_updated");
 				period=extras.getString("period");
 	        }
-	        long difference_in_days=differenceIndays(start_date_extra,due_date_extra,getDateTime());
-	        if (difference_in_days==1){
-	        	day_difference.setTextColor(Color.rgb(225,170,7));
-	        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " day");
-	        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-	        }else if(difference_in_days==0) {
-	        	day_difference.setTextColor(Color.RED);
-	        	day_difference.setText("Due today!!!!");
-	        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-	        }else if(difference_in_days==-1) {
-	        	day_difference.setTextColor(Color.RED);
-	        	day_difference.setText("Due date is past");
-	        	imageView_status.setImageResource(R.drawable.sad);
-	        }else {
-	        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " days");
-	        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
-	        }
+	      
 	       
 				return null;
 	        
@@ -629,6 +619,24 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 
 	    @Override
 	    protected void onPostExecute(Object result) {
+	    	
+	    	  long difference_in_days=differenceIndays(start_date_extra,due_date_extra,getDateTime());
+		        if (difference_in_days==1){
+		        	day_difference.setTextColor(Color.rgb(225,170,7));
+		        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " day");
+		        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
+		        }else if(difference_in_days==0) {
+		        	day_difference.setTextColor(Color.RED);
+		        	day_difference.setText("Due today!!!!");
+		        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
+		        }else if(difference_in_days==-1) {
+		        	day_difference.setTextColor(Color.RED);
+		        	day_difference.setText("Due date is past");
+		        	imageView_status.setImageResource(R.drawable.sad);
+		        }else {
+		        	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " days");
+		        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
+		        }
 	    	  learning_period.setText(period);
 	          textView_category.setText(learning_category);
 	          textView_course.setText(learning_topic);
@@ -638,4 +646,13 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 	        
 	    }
 	}
+	 
+	 private boolean checkValidation() {
+	        boolean ret = true;
+	 
+	        if (!Validation.hasTextTextView(startDateValue)) ret = false;
+	        if (!Validation.hasTextTextView(dueDateValue)) ret = false;
+	        if (Validation.isDateAfter(start_date,due_date,startDateValue)) ret = false;
+	        return ret;
+	    }	
 }

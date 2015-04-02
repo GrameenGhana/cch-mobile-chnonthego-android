@@ -1,4 +1,4 @@
-										package org.grameenfoundation.cch.activity;
+package org.grameenfoundation.cch.activity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,6 +13,7 @@ import org.digitalcampus.oppia.activity.MainScreenActivity;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.cch.caldroid.CaldroidFragment;
 import org.grameenfoundation.cch.caldroid.CaldroidListener;
+import org.grameenfoundation.cch.model.Validation;
 import org.grameenfoundation.cch.utils.TextProgressBar;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -445,6 +446,7 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 						String coverage_period=spinner_coveragePeriod.getSelectedItem().toString();
 						String coverage_number=editText_coverageNumber.getText().toString();
 						coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
+						/*
 						if(isDateAfter(start_date,due_date)==true){
 				      		 startDateValue.requestFocus();
 				      		startDateValue.setError("Check this date!");
@@ -454,8 +456,10 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 				      	}else if(due_date==null){
 				      		dueDateValue.requestFocus();
 				      		dueDateValue.setError("Select an end date");
+				      	}*/if(!checkValidation()){
+				      		Toast.makeText(getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();
 				      	}else{
-					    if(db.editCoverage(coverage_name, coverage_detail,coverage_number, coverage_period,duration,start_date,due_date, coverage_id) ==true){
+				      		if(db.editCoverage(coverage_name, coverage_detail,coverage_number, coverage_period,duration,startDateValue.getText().toString(),dueDateValue.getText().toString(), coverage_id) ==true){
 					    	  number_achieved=db.getForUpdateCoverageNumberAchieved(coverage_id,coverage_period);
 					    	JSONObject json = new JSONObject();
 							 try {
@@ -628,7 +632,13 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 	         progress_bar.setPrefixText(percentage_achieved+"%");
 	         progress_bar.setPrefixText(" ");
 	         
-	         long difference_in_days=differenceIndays(start_date_extra,due_date_extra,getDateTime());
+	        
+				return null;
+	    }
+
+	    @Override
+	    protected void onPostExecute(Object result) {
+	    	 long difference_in_days=differenceIndays(start_date_extra,due_date_extra,getDateTime());
 	         if (difference_in_days==1){
 	         	day_difference.setTextColor(Color.rgb(225,170,7));
 	         	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " day");
@@ -645,11 +655,6 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 	         	day_difference.setText("Due in: "+String.valueOf(difference_in_days)+ " days");
 	         	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
 	         }
-				return null;
-	    }
-
-	    @Override
-	    protected void onPostExecute(Object result) {
 	        textView_name.setText(coverage_name);
 	        textView_period.setText(coverage_period);
 	        textView_dueDate.setText(due_date_extra);
@@ -659,4 +664,13 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 	        
 	    }
 	}
+	 
+	 private boolean checkValidation() {
+	        boolean ret = true;
+	 
+	        if (!Validation.hasTextTextView(startDateValue)) ret = false;
+	        if (!Validation.hasTextTextView(dueDateValue)) ret = false;
+	        if (Validation.isDateAfter(start_date,due_date,startDateValue)) ret = false;
+	        return ret;
+	    }	
 }

@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent" 
+    android:fadeScrollbars="false">
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -115,32 +116,35 @@
 
                 <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Being alert and restless "
                     android:layout_marginLeft="40dp"
+                    android:text="Being alert and restless "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
+
                 <org.grameenfoundation.cch.utils.TextViewBullets
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
                     android:text="Opening mouth and turning head"
-                    android:layout_marginLeft="40dp"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
+
                  <org.grameenfoundation.cch.utils.TextViewBullets
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Putting tongue in and out"
-                    android:layout_marginLeft="40dp"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                     android:id="@+id/textView10"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginLeft="40dp"
+                     android:text="Putting tongue in and out"
+                     android:textAppearance="?android:attr/textAppearanceSmall" />
+
                     <org.grameenfoundation.cch.utils.TextViewBullets
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sucking on hand or fist "
-                    android:layout_marginLeft="40dp"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                        android:id="@+id/textView11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:text="Sucking on hand or fist "
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
 
             </LinearLayout>
 

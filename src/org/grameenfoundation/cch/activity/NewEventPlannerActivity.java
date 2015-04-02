@@ -79,6 +79,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 	 int counter;
 	 int counter2;
 	 int counter4;
+	 int counter5;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -237,7 +238,11 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
      			
      			 /* Get StayingWell todos */
      			ArrayList<RoutineActivity> todos = dbh.getSWRoutineActivities();
-     			
+     			if(todos!=null){
+     				counter5=todos.size();
+     			}else{
+     				counter5=0;
+     			}
      			
                  switch (position) {
                          case 0:
@@ -247,7 +252,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
                          case 2: 
                     	 		return "LEARNING"+" ("+String.valueOf(counter3)+")";
                          case 3: 
-                        	 	return "ROUTINES (" +  String.valueOf(todos.size()) + ")";
+                        	 	return "ROUTINES (" +  String.valueOf(counter5) + ")";
                          case 4:
                         		return "OTHER"+" ("+String.valueOf(counter4)+")";
                  }

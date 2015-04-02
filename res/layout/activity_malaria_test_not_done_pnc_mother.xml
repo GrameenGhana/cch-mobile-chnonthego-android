@@ -178,10 +178,11 @@
                 android:text="Encourage fluid intake "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <org.grameenfoundation.cch.utils.TextViewUtils
+            <TextView
                 android:id="@+id/textView_clickHere"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                 android:drawableLeft="@drawable/ic_click"
                 android:text="Counsel client to sleep under an insecticide treated net every night "
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/WhileWaitingForTransport" />

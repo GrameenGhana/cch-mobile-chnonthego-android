@@ -208,13 +208,25 @@ public class LearningReferencesActivity extends Activity {
 			if( convertView == null ){
 				  convertView = minflater.inflate(R.layout.other_listview_single,parent, false);
 			    }
-			 TextView text=(TextView) convertView.findViewById(R.id.textView_otherCategory);
-			 text.setText(items.get(position));
-			 ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
-			 image.setImageResource(R.drawable.ic_pdf);
-			    return convertView;
+				TextView text=(TextView) convertView.findViewById(R.id.textView_otherCategory);
+				LinearLayout values=(LinearLayout) convertView.findViewById(R.id.Linearlayout_values);
+				text.setText(items.get(position));
+				ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
+				image.setImageResource(R.drawable.ic_pdf);
+				TextView txt1 = new TextView(mContext);
+				File file=new File(myDirectory.getAbsolutePath()+"/"+listItems.get(position));
+				System.out.println(myDirectory.getAbsolutePath()+"/"+listItems.get(position));
+			 if(file.exists()){
+				 double bytes = file.length();
+				 double kilobytes = (bytes / 1024); 
+				 txt1.setText(String.valueOf(kilobytes)+"KB");
+				 System.out.println(String.valueOf(kilobytes)+"KB");
+				 values.addView(txt1);
+			 }
+			 	
+			 	 return convertView;
 		}
-		
+		 
 	}
 	
 	@Override

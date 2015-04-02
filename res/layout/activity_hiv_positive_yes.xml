@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -134,15 +135,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_bullet" />
-
                 <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
                     android:id="@+id/textView_clickHere"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_click"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="0dp"

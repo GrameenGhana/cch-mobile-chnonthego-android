@@ -18,7 +18,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.format.Time;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -69,6 +71,7 @@ public class UpdateActivity extends BaseActivity {
 	private LinearLayout linearLayout_question2;
 	private RadioGroup question2;
 	private EditText edittext_learningJustification;
+	private String course;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -128,12 +131,19 @@ public class UpdateActivity extends BaseActivity {
 	          number_achieved_from_previous=extras.getString("number_achieved");
 	          if(type.equals("learning")){
 	        	  topic=extras.getString("learning_topic");
+	        	  course=extras.getString("learning_course");
 	          }
 	        }
 		
 		if(type.equals("learning")){
 			status.setVisibility(View.GONE);
-			message.setText("Were you able to complete the course under: "+topic);
+			message.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+			String first="<font color='#53AB20'>Were you able to complete the topic </font>";
+			String next="<font color='#520000'>"+course+"</font>";
+			String next_two="<font color='#53AB20'> under the course: </font>";
+			String next_three="<font color='#520000'>"+topic+"</font>";
+			//message.setText("Were you able to complete the course "+course+" under the topic: "+topic);
+			message.setText(Html.fromHtml(first+next+next_two+next_three));
 			linearLayout_justification.setVisibility(View.GONE);
 			linearLayout_achievedNumber.setVisibility(View.GONE);
 			linearLayout_question2.setVisibility(View.GONE);
@@ -177,7 +187,12 @@ public class UpdateActivity extends BaseActivity {
 		}else {
 			linearLayout_question.setVisibility(View.GONE);
 			message.setText(name);
-			status.setText("So far you have completed "+number_achieved_from_previous+" out of "+number);
+			String one="<font color='#53AB20'>So far you have completed </font>";
+			String two="<font color='#520000'>"+number_achieved_from_previous+" </font>";
+			String three="<font color='#53AB20'>"+" out of "+"</font>";
+			String four="<font color='#520000'>"+number+"</font>";
+			status.setText(Html.fromHtml(one+two+three+four));
+			//status.setText("So far you have completed "+number_achieved_from_previous+" out of "+number);
 			
 		}
 		start_date.setText(startDate);
@@ -221,7 +236,7 @@ public class UpdateActivity extends BaseActivity {
 						        	if(db.insertJustification(name, number, justification_text, event_comment_text,number,String.valueOf(event_number_achieved_text),String.valueOf(event_number_remaining_for_entry),id, "new_record") !=0){
 						    	JSONObject json = new JSONObject();
 								 try {
-									json.put("id", id);
+									 json.put("id", id);
 									 json.put("target_type", name);
 									 json.put("category", "event");
 									 json.put("target_number", number);
@@ -242,8 +257,8 @@ public class UpdateActivity extends BaseActivity {
 							        int year=c.get(Calendar.YEAR);
 							        String today=day+"-"+month+"-"+year;
 								 if(event_number_achieved_for_entry==Integer.valueOf(number)){
-								 db.updateEventTarget(event_update_status,event_number_achieved_for_entry,event_number_remaining_for_entry, id);
-								 
+									 db.updateEventTarget(event_update_status,event_number_achieved_for_entry,event_number_remaining_for_entry, id);
+									 System.out.println("Updating event target with: "+event_update_status);
 								 }else if(event_number_achieved_for_entry<Integer.valueOf(number)){
 									 db.updateEventTarget("new_record",event_number_achieved_for_entry,event_number_remaining_for_entry,id);
 								 }

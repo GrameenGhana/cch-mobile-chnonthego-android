@@ -3,7 +3,8 @@
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/stroke_bg_curry" >
+    android:background="@drawable/stroke_bg_curry"
+     android:fadeScrollbars="false" >
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -94,7 +95,7 @@
 
             <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView5"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="Oral quinine: 600 mg 8 hourly for 7 days "
@@ -152,7 +153,7 @@
 
             <org.grameenfoundation.cch.utils.TextViewBullets
                 android:id="@+id/textView13"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
                 android:text="Sleeping under an ITN every night "

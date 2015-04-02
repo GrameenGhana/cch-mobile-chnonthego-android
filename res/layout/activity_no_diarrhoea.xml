@@ -29,16 +29,13 @@
             android:layout_height="wrap_content"
             android:padding="10dp" >
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_bullet" />
+           
 
             <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
                 android:id="@+id/textView_clickHere"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                 android:drawableLeft="@drawable/ic_click"
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
                 android:text="Advise mother to give home care for the young infant "
@@ -51,15 +48,12 @@
             android:layout_height="wrap_content"
             android:padding="10dp" >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_bullet" />
-
+            
             <org.grameenfoundation.cch.utils.TextViewUtilsNoBullets
                 android:id="@+id/textView_clickHereToo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                 android:drawableLeft="@drawable/ic_click"
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
                 android:text="Now assess baby and mother for HIV infection "

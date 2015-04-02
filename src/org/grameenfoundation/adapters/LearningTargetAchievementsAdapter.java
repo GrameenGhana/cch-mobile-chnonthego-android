@@ -135,9 +135,9 @@ import android.widget.TextView;
 				   category.setText(groupItem[groupPosition]);
 				   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
 				   if(groupPosition==0){
-					   image.setImageResource(R.drawable.ic_complete);
+					   image.setImageResource(R.drawable.ic_complete_new);
 				   }else if(groupPosition==1){
-					   image.setImageResource(R.drawable.ic_incomplete);
+					   image.setImageResource(R.drawable.ic_close);
 				   }
 				  return convertView;
 		 }
@@ -172,70 +172,7 @@ import android.widget.TextView;
 		@Override
 		public String[] getChild(int groupPosition, int childPosition) {
 			String[] childDetails = null;
-			/*
-			if(groupPosition==0){
-				childDetails=new String[]{dailyEventTarget.get(childPosition).getEventTargetName(),
-										  dailyEventTarget.get(childPosition).getEventTargetNumber(),
-										  dailyEventTarget.get(childPosition).getEventTargetPeriod(),
-										  dailyEventTarget.get(childPosition).getEventTargetEndDate(),
-										  dailyEventTarget.get(childPosition).getEventTargetNumberAchieved(),
-										  dailyEventTarget.get(childPosition).getEventTargetStartDate(),
-										  dailyEventTarget.get(childPosition).getEventTargetStatus(),
-										  dailyEventTarget.get(childPosition).getEventTargetId(),
-										  dailyEventTarget.get(childPosition).getEventTargetLastUpdated()
-										  };
-			}else if(groupPosition==1){
-				childDetails=new String[]{weeklyEventTargets.get(childPosition).getEventTargetName(),
-										  weeklyEventTargets.get(childPosition).getEventTargetNumber(),
-										  weeklyEventTargets.get(childPosition).getEventTargetPeriod(),
-										  weeklyEventTargets.get(childPosition).getEventTargetEndDate(),
-										  weeklyEventTargets.get(childPosition).getEventTargetNumberAchieved(),
-										  weeklyEventTargets.get(childPosition).getEventTargetStartDate(),
-										  weeklyEventTargets.get(childPosition).getEventTargetStatus(),
-										  weeklyEventTargets.get(childPosition).getEventTargetId(),
-										  weeklyEventTargets.get(childPosition).getEventTargetLastUpdated()};
-			}else if(groupPosition==2){
-				childDetails=new String[]{monthlyEventTargets.get(childPosition).getEventTargetName(),
-						  				  monthlyEventTargets.get(childPosition).getEventTargetNumber(),
-						  				  monthlyEventTargets.get(childPosition).getEventTargetPeriod(),
-						  				  monthlyEventTargets.get(childPosition).getEventTargetEndDate(),
-						  				  monthlyEventTargets.get(childPosition).getEventTargetNumberAchieved(),
-						  				  monthlyEventTargets.get(childPosition).getEventTargetStartDate(),
-						  				  monthlyEventTargets.get(childPosition).getEventTargetStatus(),
-						  				  monthlyEventTargets.get(childPosition).getEventTargetId(),
-						  				  monthlyEventTargets.get(childPosition).getEventTargetLastUpdated()};
-			}else if(groupPosition==3){
-				childDetails=new String[]{quarterlyEventTargets.get(childPosition).getEventTargetName(),
-										  quarterlyEventTargets.get(childPosition).getEventTargetNumber(),
-										  quarterlyEventTargets.get(childPosition).getEventTargetPeriod(),
-										  quarterlyEventTargets.get(childPosition).getEventTargetEndDate(),
-										  quarterlyEventTargets.get(childPosition).getEventTargetNumberAchieved(),
-										  quarterlyEventTargets.get(childPosition).getEventTargetStartDate(),
-										  quarterlyEventTargets.get(childPosition).getEventTargetStatus(),
-										  quarterlyEventTargets.get(childPosition).getEventTargetId(),
-										  quarterlyEventTargets.get(childPosition).getEventTargetLastUpdated()};
-			}else if(groupPosition==4){
-				childDetails=new String[]{midYearEventTargets.get(childPosition).getEventTargetName(),
-										  midYearEventTargets.get(childPosition).getEventTargetNumber(),
-										  midYearEventTargets.get(childPosition).getEventTargetPeriod(),
-										  midYearEventTargets.get(childPosition).getEventTargetEndDate(),
-										  midYearEventTargets.get(childPosition).getEventTargetNumberAchieved(),
-										  midYearEventTargets.get(childPosition).getEventTargetStartDate(),
-										  midYearEventTargets.get(childPosition).getEventTargetStatus(),
-										  midYearEventTargets.get(childPosition).getEventTargetId(),
-										  midYearEventTargets.get(childPosition).getEventTargetLastUpdated()};
-			}else if(groupPosition==5){
-				
-				childDetails=new String[]{annualEventTargets.get(childPosition).getEventTargetName(),
-										  annualEventTargets.get(childPosition).getEventTargetNumber(),
-										  annualEventTargets.get(childPosition).getEventTargetPeriod(),
-										  annualEventTargets.get(childPosition).getEventTargetEndDate(),
-										  annualEventTargets.get(childPosition).getEventTargetNumberAchieved(),
-										  annualEventTargets.get(childPosition).getEventTargetStartDate(),
-										  annualEventTargets.get(childPosition).getEventTargetStatus(),
-										  annualEventTargets.get(childPosition).getEventTargetId(),
-										  annualEventTargets.get(childPosition).getEventTargetLastUpdated()};
-			}*/
+
 			return childDetails;
 				
 		}

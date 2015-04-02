@@ -9,7 +9,6 @@ import org.digitalcampus.oppia.model.CourseChild;
 import org.digitalcampus.oppia.model.Lang;
 import org.digitalcampus.oppia.model.Scores;
 import org.grameenfoundation.cch.model.CourseAchievments;
-import org.grameenfoundation.cch.model.CourseGroups;
 import org.grameenfoundation.cch.model.EventTargets;
 import org.grameenfoundation.cch.model.TargetsForAchievements;
 import org.json.JSONArray;

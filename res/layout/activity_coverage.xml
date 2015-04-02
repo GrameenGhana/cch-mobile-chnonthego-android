@@ -45,7 +45,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/BackgroundGrey"
                 android:dividerHeight="5dp"
-                android:fontFamily="sans-serif-light" >
+                android:fontFamily="sans-serif-light" 
+                 android:fadeScrollbars="false">
             </ExpandableListView>
         </LinearLayout>
     </LinearLayout>

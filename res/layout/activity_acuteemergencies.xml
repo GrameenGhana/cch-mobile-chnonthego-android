@@ -38,7 +38,8 @@
             android:background="@color/ButtonBackgroundGrey"
             android:divider="@color/White"
             android:dividerHeight="10dp"
-            android:gravity="center" >
+            android:gravity="center"
+             android:fadeScrollbars="false" >
 
         </ListView>
 
