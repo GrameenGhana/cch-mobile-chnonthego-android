@@ -288,14 +288,14 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 			    
 			    EventTypeToday=c.getTodaysEvents(false);
 			    
-			    if(firstName.size()>0){
+		    if(firstName.size()>0 &&firstName!=null){
 			    	user_first_name=firstName.get(0);
-			    }else if(firstName.size()==0){
+			    }else if(firstName.size()==0&&firstName!=null){
 			    	user_first_name.equals(name);
 			    }
 			    
 		    	status.setText("Good "+dbh.getTime()+", "+user_first_name+"!");
-			 if(EventTypeToday.size()==0){
+		 if(EventTypeToday.size()==0 &&EventTypeToday!=null){
 				 event_number.setText("0"); 
 			 }else {
 				 event_number.setText(String.valueOf(EventTypeToday.size())); 
@@ -398,9 +398,9 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 			    time.setToNow();
 			    c= new CalendarEvents(mContext);
 			    TodayCalendarEvents=c.getTodaysEvents(false);
-			 if(TodayCalendarEvents.size()==0){
+		 if(TodayCalendarEvents.size()==0&&TodayCalendarEvents!=null){
 				 eventStatus.setText("No events planned for today!"); 
-			 }else if(TodayCalendarEvents.size()>0){
+		 }else if(TodayCalendarEvents.size()>0&&TodayCalendarEvents!=null){
 				 EventsDetailPagerAdapter adapter=new EventsDetailPagerAdapter(getActivity(),TodayCalendarEvents);
 			    	adapter.notifyDataSetChanged();
 			    	listView_details.setAdapter(adapter);	 

@@ -20,6 +20,8 @@ import org.grameenfoundation.cch.model.Validation;
 import org.grameenfoundation.poc.EstimateTrimester;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
@@ -75,8 +77,8 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 	 private DbHelper dbh;
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	public static String current_month;
-	private Long start_time;
-	private Long end_time;
+	private static Long start_time;
+	private static Long end_time;
 	Context mContext;
 	
 	private static final String EVENT_PLANNER_ID = "Event Planner";
@@ -341,8 +343,24 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				      	}*/if(!checkValidation()){
 				      		 Toast.makeText(getActivity().getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();
 				      	}else{
-				     
-					    if(db.insertEventSet(event_name,eventDetailText, event_period, event_period_number, duration,start_date,due_date,0,Integer.valueOf(event_period_number),"new_record") !=0){
+				      		long id=db.insertEventSet(event_name,eventDetailText, event_period, event_period_number, duration,start_date,due_date,0,Integer.valueOf(event_period_number),"new_record");
+					    if(id!=0){
+					    	
+					    	JSONObject json = new JSONObject();
+							 try {
+								 json.put("id", id);
+								 json.put("target_type", event_name);
+								 json.put("category", "event");
+								 json.put("start_date", start_date);
+								 json.put("target_number", event_period_number);
+								 json.put("due_date", due_date);
+								 json.put("achieved_number", 0);
+								 json.put("last_updated", getDateTime());
+								 end_time=System.currentTimeMillis();
+								 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
+							 } catch (JSONException e) {
+									e.printStackTrace();
+								}
 					    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
 				 	          intent2.setClass(getActivity(), EventPlannerOptionsActivity.class);
 				 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -716,7 +734,24 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					      	}*/if(!checkValidation()){
 					      			Toast.makeText(getActivity().getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();
 					      	}else{
-				    if(db.insertCoverageSet(coverage_name, coverage_detail, coverage_period, coverage_number, duration,start_date,due_date,0,Integer.valueOf(coverage_number),"new_record") !=0){
+					long id=db.insertCoverageSet(coverage_name, coverage_detail, coverage_period, coverage_number, duration,start_date,due_date,0,Integer.valueOf(coverage_number),"new_record") ;
+				    if(id!=0){
+				    	
+				    	JSONObject json = new JSONObject();
+						 try {
+							 json.put("id", id);
+							 json.put("target_type", coverage_detail);
+							 json.put("category", "coverage");
+							 json.put("start_date", start_date);
+							 json.put("target_number", coverage_number);
+							 json.put("due_date", due_date);
+							 json.put("achieved_number", 0);
+							 json.put("last_updated", getDateTime());
+							 end_time=System.currentTimeMillis();
+							 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
+						 } catch (JSONException e) {
+								e.printStackTrace();
+							}
 				    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
 			 	          intent2.setClass(getActivity(), EventPlannerOptionsActivity.class);
 			 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -1058,7 +1093,24 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				      	}*/if(!checkValidation()){
 				      		Toast.makeText(getActivity().getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();
 				      	}else{
-					    if(db.insertLearning(learning_category, learning_description,learning_course,duration,learning_period,start_date,due_date, "new_record")!=0){
+				      		long id=db.insertLearning(learning_category, learning_description,learning_course,duration,learning_period,start_date,due_date, "new_record") ;
+					    if(id!=0){
+					    	
+					    	JSONObject json = new JSONObject();
+							 try {
+								 json.put("id", id);
+								 json.put("target_type", learning_description);
+								 json.put("category", "learning");
+								 json.put("start_date", start_date);
+								 json.put("target_number", 	1);
+								 json.put("due_date", due_date);
+								 json.put("achieved_number", 0);
+								 json.put("last_updated", getDateTime());
+								 end_time=System.currentTimeMillis();
+								 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
+							 } catch (JSONException e) {
+									e.printStackTrace();
+								}
 					    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
 				 	          intent2.setClass(getActivity(), EventPlannerOptionsActivity.class);
 				 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -1280,7 +1332,24 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				      		Toast.makeText(getActivity().getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();
 				      	}
 				      	else{
-					    if(db.insertOther(other_category,other_number,other_period,duration,start_date,due_date,0,Integer.valueOf(other_number),"new_record")!=0){
+				      		long id=0;db.insertOther(other_category,other_number,other_period,duration,start_date,due_date,0,Integer.valueOf(other_number),"new_record");
+					    if(id!=0){
+					    	
+					    	JSONObject json = new JSONObject();
+							 try {
+								 json.put("id", id);
+								 json.put("target_type", other_category);
+								 json.put("category", "other");
+								 json.put("start_date", start_date);
+								 json.put("target_number", 	other_number);
+								 json.put("due_date", due_date);
+								 json.put("achieved_number", 0);
+								 json.put("last_updated", getDateTime());
+								 end_time=System.currentTimeMillis();
+								 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
+							 } catch (JSONException e) {
+									e.printStackTrace();
+								}
 					    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
 				 	          intent2.setClass(getActivity(), EventPlannerOptionsActivity.class);
 				 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -1420,5 +1489,10 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 		// TODO Auto-generated method stub
 		
 	}
-
+	public static String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+}
 }
