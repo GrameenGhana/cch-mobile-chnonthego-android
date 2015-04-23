@@ -20,21 +20,27 @@ package org.digitalcampus.oppia.adapter;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.activity.DownloadActivity;
+import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.listener.InstallCourseListener;
 import org.digitalcampus.oppia.listener.UpdateScheduleListener;
 import org.digitalcampus.oppia.model.Course;
 import org.digitalcampus.oppia.model.DownloadProgress;
+import org.digitalcampus.oppia.task.CourseSizeTask;
 import org.digitalcampus.oppia.task.DownloadCourseTask;
 import org.digitalcampus.oppia.task.InstallDownloadedCoursesTask;
 import org.digitalcampus.oppia.task.Payload;
 import org.digitalcampus.oppia.task.ScheduleUpdateTask;
+import org.grameenfoundation.cch.activity.ReferencesDownloadActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
@@ -59,12 +65,15 @@ public class DownloadCourseListNewAdapter extends ArrayAdapter<Course> implement
 	private ProgressDialog downloadDialog;
 	private SharedPreferences prefs;
 	private boolean inProgress = false;
+
+	private DbHelper dbh;
 	
 	public DownloadCourseListNewAdapter(Activity context, ArrayList<Course> courseList) {
 		super(context, R.layout.course_download_row_new, courseList);
 		this.ctx = context;
 		this.courseList = courseList;
 		prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+		  dbh=new DbHelper(ctx);
 	}
 
 	@Override
@@ -161,14 +170,53 @@ public class DownloadCourseListNewAdapter extends ArrayAdapter<Course> implement
              		
              		ArrayList<Object> data = new ArrayList<Object>();
              		data.add(dm);
-             		Payload p = new Payload(data);
-             		
-             		DownloadCourseListNewAdapter.this.showProgressDialog();
-             		DownloadCourseListNewAdapter.this.inProgress = true;
-                     
-             		DownloadCourseTask dmt = new DownloadCourseTask(ctx);
-             		dmt.setInstallerListener(DownloadCourseListNewAdapter.this);
-             		dmt.execute(p);
+             		final Payload p = new Payload(data);
+             		if(dbh.isOnline(ctx)){
+						try {
+							AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+									ctx);
+								alertDialogBuilder.setTitle("File size");
+									alertDialogBuilder
+									.setMessage("This file is "+new CourseSizeTask(ctx).execute(p).get()+".\n Proceed with download?")
+										.setCancelable(false)
+										.setIcon(R.drawable.ic_error)
+										.setPositiveButton("No",new DialogInterface.OnClickListener() {
+											public void onClick(DialogInterface dialog,int id) {
+												dialog.cancel();
+											}
+										  })
+										.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+											public void onClick(DialogInterface dialog,int id) {
+												DownloadCourseListNewAdapter.this.showProgressDialog();
+							             		DownloadCourseListNewAdapter.this.inProgress = true;
+												DownloadCourseTask dmt = new DownloadCourseTask(ctx);
+							             		dmt.setInstallerListener(DownloadCourseListNewAdapter.this);
+							             		dmt.execute(p);
+												}
+										});
+										
+								AlertDialog alertDialog = alertDialogBuilder.create();
+								alertDialog.show();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}else if(!dbh.isOnline(ctx)){
+						AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+								ctx);
+							alertDialogBuilder.setTitle("Connectivity Error");
+								alertDialogBuilder
+								.setMessage(ctx.getResources().getString(R.string.error_connection_required))
+									.setCancelable(false)
+									.setIcon(R.drawable.ic_error)
+									.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+										public void onClick(DialogInterface dialog,int id) {
+											dialog.cancel();
+										}
+									  });
+									
+							AlertDialog alertDialog = alertDialogBuilder.create();
+							alertDialog.show();
+					}
              	}
              });
 	    }

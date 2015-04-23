@@ -9,6 +9,8 @@ import org.grameenfoundation.adapters.CalendarEventsViewAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.cch.model.MyCalendarEvents;
 import org.grameenfoundation.poc.BaseActivity;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -43,6 +45,9 @@ public class EventsViewActivity extends  BaseActivity {
 	private Button button_viewCalendar;
 	
 	private CalendarEventsViewAdapter adapter;
+
+
+	private JSONObject data;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -107,8 +112,18 @@ public class EventsViewActivity extends  BaseActivity {
 	
 	public void saveToLog(Long starttime) 
 	{
-	  Long endtime = System.currentTimeMillis();  
-	  dbh.insertCCHLog(EVENT_PLANNER_ID, "Events View", starttime.toString(), endtime.toString());	
+	  Long endtime = System.currentTimeMillis(); 
+	  data=new JSONObject();
+	    try {
+	    	data.put("page", "Events View");
+	    	data.put("ver", dbh.getVersionNumber(EventsViewActivity.this));
+	    	data.put("battery", dbh.getBatteryStatus(EventsViewActivity.this));
+	    	data.put("device", dbh.getDeviceName());
+			data.put("imei", dbh.getDeviceImei(EventsViewActivity.this));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	  dbh.insertCCHLog(EVENT_PLANNER_ID, data.toString(), starttime.toString(), endtime.toString());	
 	}
 	public void onDestroy(){
 		 super.onDestroy();

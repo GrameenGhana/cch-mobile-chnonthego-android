@@ -2,6 +2,9 @@ package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,6 +22,7 @@ public class AskMalariaFeverActivity extends BaseActivity {
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;
+	private JSONObject json;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -30,6 +34,17 @@ public class AskMalariaFeverActivity extends BaseActivity {
 	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC Diagnostic: Malaria");
+	    json=new JSONObject();
+	    try {
+			json.put("page", "ANC Diagnostic: Malaria");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	    button_yes=(Button) findViewById(R.id.button_yes);
 	    button_yes.setOnClickListener(new OnClickListener(){
 
@@ -56,8 +71,8 @@ public class AskMalariaFeverActivity extends BaseActivity {
 	public void onBackPressed()
 	{
 	    end_time=System.currentTimeMillis();
-	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
-		dbh.insertCCHLog("Point of Care", "ANC Diagnostic Malaria", start_time.toString(), end_time.toString());
+		//dbh.insertCCHLog("Point of Care", "ANC Diagnostic Malaria", start_time.toString(), end_time.toString());
+	    dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 }

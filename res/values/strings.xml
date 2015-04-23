@@ -413,6 +413,13 @@
 	<string-array name="CoverageImmunizationYellowFever">
 	    	 <item>Yellow Fever</item>
 	</string-array>
+	
+	<string-array name="Trimester">
+	    	 <item>1st Trimester</item>
+	         <item>2nd Trimester</item>
+	         <item>3rd Trimester</item>
+	</string-array>
+	
 	<string name="daily">Daily</string>
 	<string name="weekly">Weekly</string>
 	<string name="monthly">Monthly</string>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Which trimester is the client in?"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/TextBrown" />
+
+        <ListView
+            android:id="@+id/listView_gestation"
+            android:layout_width="match_parent"
+            android:layout_height="211dp"
+            android:background="@color/BackgroundGrey"
+            android:divider="@color/White"
+            android:dividerHeight="10dp"
+            android:fadeScrollbars="false" >
+
+        </ListView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OR"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/button_estimateTrimester"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estimate Trimester"
+            android:textColor="@color/Brown" />
+
+    </LinearLayout>
+
+</LinearLayout>

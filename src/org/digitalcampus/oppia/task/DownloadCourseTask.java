@@ -32,12 +32,20 @@ import org.digitalcampus.oppia.listener.InstallCourseListener;
 import org.digitalcampus.oppia.model.Course;
 import org.digitalcampus.oppia.model.DownloadProgress;
 import org.digitalcampus.oppia.utils.HTTPConnectionUtils;
+import org.grameenfoundation.cch.activity.EventTargetsDetailActivity;
+import org.grameenfoundation.cch.activity.NewEventPlannerActivity;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.bugsense.trace.BugSenseHandler;
 
@@ -48,6 +56,10 @@ public class DownloadCourseTask extends AsyncTask<Payload, DownloadProgress, Pay
 	
 	private Context ctx;
 	private SharedPreferences prefs;
+	private Payload payload;
+	private Course dm;
+	private DownloadProgress dp;
+	private HttpURLConnection c;
 	
 	public DownloadCourseTask(Context ctx) {
 		this.ctx = ctx;
@@ -56,10 +68,11 @@ public class DownloadCourseTask extends AsyncTask<Payload, DownloadProgress, Pay
 	
 	@Override
 	protected Payload doInBackground(Payload... params) {
-		Payload payload = params[0];
+		payload = params[0];
 		
-		Course dm = (Course) payload.getData().get(0);
-		DownloadProgress dp = new DownloadProgress();
+		 dm = (Course) payload.getData().get(0);
+		 dp = new DownloadProgress();
+		 
 		try { 
 			HTTPConnectionUtils client = new HTTPConnectionUtils(ctx);
 
@@ -68,7 +81,7 @@ public class DownloadCourseTask extends AsyncTask<Payload, DownloadProgress, Pay
 			Log.d(TAG,"Downloading:" + url);
 			
 			URL u = new URL(url);
-            HttpURLConnection c = (HttpURLConnection) u.openConnection();
+            c = (HttpURLConnection) u.openConnection();
             c.setRequestMethod("GET");
             c.setDoOutput(true);
             c.connect();
@@ -79,9 +92,20 @@ public class DownloadCourseTask extends AsyncTask<Payload, DownloadProgress, Pay
 			
 			int fileLength = c.getContentLength();
 			
+			long size=fileLength;
+    		double kilobytes = 0;
+    		double megabyte = 0;
+    		kilobytes=(size/1024);
+    		 megabyte=(kilobytes/1024);
 			String localFileName = dm.getShortname()+"-"+String.format("%.0f",dm.getVersionId())+".zip";
-            
-			dp.setMessage(localFileName);
+			if(kilobytes>1000){
+    			//size_value=String.valueOf(megabyte);
+    			dp.setMessage("This file is "+String.format("%.2f", megabyte)+"MB" +"\n"+localFileName);
+    		}else{
+    			//size_value=String.valueOf(kilobytes);
+    			dp.setMessage("This file is "+String.format("%.2f", kilobytes)+"KB" +"\n"+localFileName);
+    		}
+			
 			dp.setProgress(0);
 			publishProgress(dp);
 				
@@ -136,7 +160,7 @@ public class DownloadCourseTask extends AsyncTask<Payload, DownloadProgress, Pay
 			payload.setResult(false);
 			payload.setResultResponse(ctx.getString(R.string.error_connection));
 		}
-		
+
 		return payload;
 	}
 	

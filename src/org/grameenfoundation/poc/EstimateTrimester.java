@@ -8,15 +8,19 @@ import java.util.GregorianCalendar;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.cch.caldroid.CaldroidFragment;
 import org.grameenfoundation.cch.caldroid.CaldroidListener;
 import org.grameenfoundation.cch.model.WebAppInterface;
 import org.grameenfoundation.cch.utils.CalendarViewScrollable;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -57,18 +61,31 @@ public class EstimateTrimester extends FragmentActivity {
 	private CalendarViewScrollable calendar;
 	private String estimated_due_date;
 	private TextView textView_estimatedDueDate;
+	private JSONObject json;
+	private Context mContext;
 	
 	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    
 	    setContentView(R.layout.activity_estimate_trimester);
 	    this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	    mContext=EstimateTrimester.this;
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("Trimester Calculator");
+	    getActionBar().setSubtitle("Trimester & Due Date Calculator");
 	    start_time=System.currentTimeMillis();
 	    dbh=new DbHelper(EstimateTrimester.this);
+	    json=new JSONObject();
+	    try {
+			json.put("page", "Trimester & Due Date Calculator");
+			json.put("section", MobileLearning.CCH_COUNSELLING);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	    textView_selectedDate=(TextView) findViewById(R.id.textView_selectedDate);
 	    textView_estimatedDueDate=(TextView) findViewById(R.id.textView_estimatedDueDate);
 	    
@@ -183,10 +200,11 @@ public class EstimateTrimester extends FragmentActivity {
 		}else if(days>180){
 			textView_estimatedTrimester.setText("3rd Trimester");
 		}
+		/*
 		if(days<1){
 			textView_estimatedTrimester.setTextColor(Color.RED);
 			textView_estimatedTrimester.setText("Please select a date in the past to proceed");
-		}
+		}*/
 		if(days>300){
 			textView_estimatedTrimester.setTextColor(Color.RED);
 			textView_estimatedTrimester.setText("Your client should have delivered by now");
@@ -260,7 +278,8 @@ public class EstimateTrimester extends FragmentActivity {
 	public void onBackPressed()
 	{
 	    end_time=System.currentTimeMillis();
-		dbh.insertCCHLog("Point of Care", "Trimester Calculator", start_time.toString(), end_time.toString());
+		//dbh.insertCCHLog("Point of Care", "Trimester Calculator", start_time.toString(), end_time.toString());
+	    dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 	

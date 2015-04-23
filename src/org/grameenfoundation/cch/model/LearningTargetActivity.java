@@ -158,12 +158,12 @@ public class LearningTargetActivity extends Fragment implements OnChildClickList
 			    @Override
 			    protected Object doInBackground(Object... params) {
 			        //db.open();
-			    	todayLearningId=db.getLearningIdCount("Daily");
-		 			thisWeekLearningId=db.getLearningIdCount("Weekly");
-		 			thisMonthLearningId=db.getLearningIdCount("Monthly");
-		 			midYearLearningId=db.getLearningIdCount("Mid-year");
-		 			thisQuarterLearningId=db.getLearningIdCount("Quarterly");
-		 			thisYearLearningId=db.getLearningIdCount("Annually");
+			    	todayLearningId=db.getLearningCount("Daily");
+		 			thisWeekLearningId=db.getLearningCount("Weekly");
+		 			thisMonthLearningId=db.getLearningCount("Monthly");
+		 			midYearLearningId=db.getLearningCount("Mid-year");
+		 			thisQuarterLearningId=db.getLearningCount("Quarterly");
+		 			thisYearLearningId=db.getLearningCount("Annually");
 		 			
 			    	DailyLearningTargets=db.getAllLearningTargets("Daily");
 				    WeeklyLearningTargets=db.getAllLearningTargets("Weekly");

@@ -29,7 +29,7 @@ public class UpdateTargetsWeeklyScheduleReceiver extends BroadcastReceiver {
 		Calendar updateTime = Calendar.getInstance();
 	    updateTime.setTimeZone(TimeZone.getTimeZone("GMT"));
 	    updateTime.set(Calendar.HOUR_OF_DAY, 17);
-	    updateTime.set(Calendar.MINUTE, 0);
+	    updateTime.set(Calendar.MINUTE, 30);
 	    updateTime.set(Calendar.SECOND, 0);
 		service.setInexactRepeating(AlarmManager.RTC_WAKEUP, updateTime.getTimeInMillis(), AlarmManager.INTERVAL_DAY*5, pending);
 	

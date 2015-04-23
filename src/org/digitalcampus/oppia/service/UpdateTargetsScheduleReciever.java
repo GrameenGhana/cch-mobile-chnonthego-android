@@ -18,7 +18,6 @@ public class UpdateTargetsScheduleReciever extends BroadcastReceiver {
 	Time week;
 	Time end_of_month;
 	// Restart service every 1 hour
-	private static final long REPEAT_TIME = 60000;
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		Log.d(TAG, "running onReceive update targets service");
@@ -29,10 +28,9 @@ public class UpdateTargetsScheduleReciever extends BroadcastReceiver {
 		Calendar updateTime = Calendar.getInstance();
 	    updateTime.setTimeZone(TimeZone.getTimeZone("GMT"));
 	    updateTime.set(Calendar.HOUR_OF_DAY, 17);
-	    updateTime.set(Calendar.MINUTE, 0);
+	    updateTime.set(Calendar.MINUTE, 30);
 	    updateTime.set(Calendar.SECOND, 0);
 		service.setInexactRepeating(AlarmManager.RTC_WAKEUP, updateTime.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pending);
-	
 	}
 
 }

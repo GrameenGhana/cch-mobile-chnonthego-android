@@ -16,6 +16,9 @@ import org.grameenfoundation.cch.activity.LearningCenterMenuActivity;
 import org.grameenfoundation.cch.activity.StayingWellActivity;
 import org.grameenfoundation.cch.activity.UpdateTargetActivity;
 import org.grameenfoundation.poc.PointOfCareActivity;
+import org.grameenfoundation.schedulers.EventUpdateService;
+import org.grameenfoundation.cch.model.EventTargets;
+import org.grameenfoundation.cch.model.LearningTargets;
 import org.grameenfoundation.cch.model.MyCalendarEvents;
 import org.grameenfoundation.cch.model.RoutineActivity;
 import org.grameenfoundation.cch.model.RoutineActivityDetails;
@@ -116,6 +119,8 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 		dbh.updateDateDefault();
 		dbh.alterEventTable();
 		dbh.updateEventDetailDefault();
+		dbh.alterOtherTable();
+		dbh.updateOtherDetailDefault();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		prefs.registerOnSharedPreferenceChangeListener(this);
 		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
@@ -125,6 +130,9 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 		tb.putBoolean("backgroundData", true);
 		service.putExtras(tb);
 		this.startService(service);
+		
+		Intent service2 = new Intent(this, EventUpdateService.class);
+		this.startService(service2);
 		planner=(LinearLayout) findViewById(R.id.planner);
 		poc=(LinearLayout) findViewById(R.id.poc);
 		learning=(LinearLayout) findViewById(R.id.learning);
@@ -231,7 +239,7 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
                 }else if(position==1){
                 	 fragment= new EventsDetails();   
                 } else if (position==2) {
-                	 fragment = new RoutineActivityDetails();
+                	 fragment = new RoutineActivityDetails(mViewPager);
                 }
                	
                 return fragment;
@@ -264,10 +272,10 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 		 private SharedPreferences prefs;
 		 private String name;
 		 private String user_first_name;
-			private long eventId;
-			private long coverageId;
-			private long otherId;
-			private long learningId;
+			private ArrayList<EventTargets> eventId;
+			private ArrayList<EventTargets> coverageId;
+			private ArrayList<EventTargets> otherId;
+			private ArrayList<LearningTargets> learningId;
 		 private ArrayList<String> firstName;
 		 public ArrayList<MyCalendarEvents> EventTypeToday;
 		private int numactivities;
@@ -291,7 +299,7 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 		    if(firstName.size()>0 &&firstName!=null){
 			    	user_first_name=firstName.get(0);
 			    }else if(firstName.size()==0&&firstName!=null){
-			    	user_first_name.equals(name);
+			    	user_first_name.equals(" ");
 			    }
 			    
 		    	status.setText("Good "+dbh.getTime()+", "+user_first_name+"!");
@@ -309,14 +317,14 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 				textView_eventTargetsNumber=(TextView) rootView.findViewById(R.id.textView_eventTargetsNumber);
 				textView_clickHere=(TextView) rootView.findViewById(R.id.textView_clickHere);
 				
-				 eventId=dbh.getEventIdCount("Daily");
-				 coverageId=dbh.getCoverageIdCount("Daily");
-				 otherId=dbh.getOtherIdCount("Daily");
-				 learningId=dbh.getLearningIdCount("Daily");
-				 int number=(int)eventId;
-				 int number2=(int)coverageId;
-				 int number3=(int)otherId;
-				 int number4=(int)learningId;
+				 eventId=dbh.getAllEventTargetsForUpdate("Daily");
+				 coverageId=dbh.getAllCoverageTargetsForUpdate("Daily");
+				 otherId=dbh.getAllOtherTargetsForUpdate("Daily");
+				 learningId=dbh.getAllLearningTargetsForUpdate("Daily");
+				 int number=(int)eventId.size();
+				 int number2=(int)coverageId.size();
+				 int number3=(int)otherId.size();
+				 int number4=(int)learningId.size();
 				 final int counter;
 				
 				counter=number+number2+number3+number4;
@@ -367,7 +375,7 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 						if(numactivities > 0){
 							mViewPager.setCurrentItem(2, true);
 						} else {
-							 Toast.makeText(getActivity(), "You have no activities for this "+dbh.getTime(),Toast.LENGTH_SHORT).show();
+							 Toast.makeText(getActivity(), "No activities for this "+dbh.getTime(),Toast.LENGTH_SHORT).show();
 						}
 					}
 				});
@@ -384,6 +392,7 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 		String month_text;
 		private ListView listView_details;
 		private ArrayList<MyCalendarEvents> TodayCalendarEvents;
+		private TextView textView_clickHere;
 		 public EventsDetails(){
 			 
 		 }
@@ -405,6 +414,17 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 			    	adapter.notifyDataSetChanged();
 			    	listView_details.setAdapter(adapter);	 
 			 }
+
+		    textView_clickHere = (TextView) rootView.findViewById(R.id.textView_back);
+		    textView_clickHere.setOnClickListener(new OnClickListener(){
+
+		    	@Override
+				public void onClick(View v) {
+						mViewPager.setCurrentItem(0, true);
+				
+				}
+			});
+		    
 			 return rootView;
 		 }
 	 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.digitalcampus.mobile.learningGF"
-    android:versionCode="117"
-    android:versionName="3.0.35.1" 
+    android:versionCode="120"
+    android:versionName="3.0.37" 
     android:screenOrientation="portrait">
 
     <uses-sdk
@@ -23,6 +23,7 @@
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission  xmlns:android="http://schemas.android.com/apk/res/android"
         android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <application
         android:name="org.digitalcampus.oppia.application.MobileLearning"
         android:allowBackup="true"
@@ -366,6 +367,16 @@
         <activity android:name="org.grameenfoundation.poc.ANCRecordsAndHistoryActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.ANCRecordsAndHistoryAnswerActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.ExamineThePatientNextActivity"></activity>
+        <activity android:name="org.grameenfoundation.poc.ANCRecordsAskYesNextActivity"></activity>
+        <service android:name="org.grameenfoundation.schedulers.EventUpdateService"></service>
+        <receiver android:name="org.grameenfoundation.schedulers.EventScheduleReceiver">
+             <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="org.grameenfoundation.schedulers.EventUpdateStartServiceReceiver"></receiver>
+        <activity android:name="org.grameenfoundation.cch.activity.EventUpdateActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.DownloadManagerTestActivity"></activity>
     </application>
 
 </manifest>

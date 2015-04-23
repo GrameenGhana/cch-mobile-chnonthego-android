@@ -8,24 +8,13 @@ import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.http.client.ClientProtocolException;
 import org.digitalcampus.mobile.learningGF.R;
-import org.digitalcampus.oppia.activity.AboutActivity;
-import org.digitalcampus.oppia.activity.AppActivity;
-import org.digitalcampus.oppia.activity.DownloadActivity;
-import org.digitalcampus.oppia.activity.HelpActivity;
-import org.digitalcampus.oppia.activity.OppiaMobileActivity;
-import org.digitalcampus.oppia.activity.PrefsActivity;
-import org.digitalcampus.oppia.activity.StartUpActivity;
-import org.digitalcampus.oppia.activity.TagSelectActivity;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
-import org.digitalcampus.oppia.model.Course;
-import org.digitalcampus.oppia.model.Lang;
-import org.digitalcampus.oppia.utils.UIUtils;
-import org.grameenfoundation.cch.activity.LearningReferencesActivity.ListAdapter;
-import org.grameenfoundation.cch.utils.ReferenceDownloader;
+import org.grameenfoundation.poc.BaseActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,6 +35,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -57,15 +47,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ReferencesDownloadActivity extends Activity {
+public class ReferencesDownloadActivity extends BaseActivity{
 
 	private ListView referenceList;
 	private ArrayList<String>  fileLongName;
@@ -76,7 +64,11 @@ public class ReferencesDownloadActivity extends Activity {
 	private Long start_time;
 	private Long end_time;
 	private DbHelper dbh;
+	private JSONObject data;
+	private TextView txt1;
 	/** Called when the activity is first created. */
+	private ListAdapter myAdapter;
+	private ArrayList<String> fileSizeList;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -108,9 +100,21 @@ public class ReferencesDownloadActivity extends Activity {
     	fileLongName.add("Family Planning Flipchart");
     	fileLongName.add("WHO");
     	fileLongName.add("National Family Planning Protocol");
-    	System.out.println(fileLongName.size());
     	files=new String[]{"MPG.pdf","NCG.pdf","MCG.pdf","NSMP.pdf","FPF.pdf","WHO.pdf","NFPP.pdf"};
-    	referenceList.setAdapter(new ListAdapter(this,fileLongName,files,myDirectory));
+    	myAdapter=new ListAdapter(ReferencesDownloadActivity.this,fileLongName,files,myDirectory);
+    	referenceList.setAdapter(myAdapter);
+    	/*
+    	fileSizeList=new ArrayList<String>();
+    	try {
+    		
+    		for(int i=0;i<files.length;i++){
+    			fileSizeList.add(new GetFileSizes().execute(String.valueOf(i)).get());
+    		}
+		} catch (Exception e) {
+		
+			e.printStackTrace();
+		}
+    */
     	 this.registerForContextMenu(referenceList);
     	 referenceList.setOnItemClickListener(new OnItemClickListener(){
 
@@ -118,15 +122,14 @@ public class ReferencesDownloadActivity extends Activity {
 		public void onItemClick(AdapterView<?> parent, View view,
 				int position, long id) {
 			String path =myDirectory.getAbsolutePath()+"/"+files[position];
-			System.out.println(path);
 			openPdfIntent(path);
 			
 		}		
 	});
 	}
+	
 	private void openPdfIntent(String path) 
 	{
-		
 	    	 File file=new File(path);
 	    	 if(file.exists()){
 	    	 Uri uri  = Uri.fromFile(file);
@@ -152,9 +155,6 @@ public class ReferencesDownloadActivity extends Activity {
 				   new ProgressDialog(ReferencesDownloadActivity.this);
 		private int progress;
 		private int lenghtOfFile;
-		 
-		 
-		
 		 protected void onPreExecute() {
 			   dialog.setMax(100);
 			   dialog.setIndeterminate(false);
@@ -180,12 +180,115 @@ public class ReferencesDownloadActivity extends Activity {
 			  }
 
 	    @Override
-	    protected String doInBackground(String... params) {
+	    protected String doInBackground(final String... params) {
 	    	
 	    	  myDirectory  = new File(Environment.getExternalStorageDirectory(), "references");
 	            if(!myDirectory.exists()){
 	            	 myDirectory.mkdirs();
 	            }
+	            try {
+	            	
+	            	URL u = new URL(getResources().getString(R.string.serverAddress)+MobileLearning.CCH_REFERENCE_DOWNLOAD_PATH+files[Integer.parseInt(params[0])]);
+	                final HttpURLConnection c = (HttpURLConnection) u.openConnection();
+	                c.setRequestMethod("GET");
+	                c.setDoOutput(true);
+	                c.connect();
+	               
+	                lenghtOfFile = c.getContentLength();
+	                long size=lenghtOfFile;
+	                String filesize;
+  	        		double kilobytes = 0;
+  	        		double megabyte = 0;
+    		    	 kilobytes=(size/1024);
+	        		 megabyte=(kilobytes/1024);
+	        		 if(kilobytes>1000){
+	        			 filesize= String.format("%.2f", megabyte)+"MB";
+	        		 }else{
+	        			 filesize=String.format("%.2f", kilobytes)+"KB" ;
+	        		 }
+	        		
+	                    	runOnUiThread(new Runnable() {
+	   	        		     @Override
+	   	        		     public void run() {
+	   	        		    	long size=lenghtOfFile;
+	   	      	        		double kilobytes = 0;
+	   	      	        		double megabyte = 0;
+	   	        		    	 kilobytes=(size/1024);
+	   	    	        		 megabyte=(kilobytes/1024);
+	   	    	    			if(kilobytes>1000){
+	   	    	    				dialog.setMessage("This file is "+String.format("%.2f", megabyte)+"MB");
+	   	    	        		}else{
+	   	    	        			dialog.setMessage("This file is "+String.format("%.2f", kilobytes)+"KB" );
+	   	    	        		}
+
+	   	        		    }
+	   	        		});
+	   	        		
+	   	                File 	file = new File(myDirectory, files[Integer.parseInt(params[0])]);
+	   	     
+							file.createNewFile();
+				            FileOutputStream f = new FileOutputStream(file);
+		   	                InputStream in = c.getInputStream();
+
+		   	                byte[] buffer = new byte[1024];
+		   	                int len1 = 0;
+		   	                long total = 0;
+		   	                while ((len1 = in.read(buffer)) > 0) {
+		   	                	 total += len1;
+		   	                	   
+		   	                	 progress=(int)((total*100)/lenghtOfFile);
+		   	                	 onProgressUpdate(""+(int)((total*100)/lenghtOfFile));
+		   	                	 if(progress > 0){
+		   	                		 onProgressUpdate(""+progress);
+		   	                     }
+		   	                    f.write(buffer, 0, len1);
+		   	                     
+		   	                }
+		   	                f.close();
+	            }catch (Exception e) { 
+	            	e.printStackTrace();
+   	    			if(!MobileLearning.DEVELOPER_MODE){
+   	    				BugSenseHandler.sendException(e);
+   	    			} else {
+   	    				e.printStackTrace();
+   	    			}
+   	    			dialog.setMessage(getString(R.string.error_connection));
+   	    		
+   	    		}  
+	            
+				return null;
+	    }
+	    protected void onProgressUpdate(String... progress) {
+	        dialog.setProgress(Integer.parseInt(progress[0]));
+	      
+	   }
+	    @Override
+	    protected void onPostExecute(String result) {
+	    	dialog.setMessage("Download Complete!");
+	    	if(progress==lenghtOfFile){
+	    		isComplete=true;
+	    	}else{
+	    		isComplete=false;
+	    	}
+	    }
+	}
+	
+	private class GetFileSizes extends AsyncTask<String, String, String> {
+		 private ProgressDialog dialog ;
+		private int progress;
+		private int lenghtOfFile;
+		private String fileSize;
+		@Override
+		protected void onPreExecute(){
+			Log.d("References", " pre execute async");
+			dialog=ProgressDialog.show(ReferencesDownloadActivity.this,"Loading files..."," Please wait...",false);
+			//dialog.setMessage("Loading files... Please wait...");
+			//dialog.setCancelable(false);
+			//dialog.show();
+		}
+	    @Override
+	    protected String doInBackground(String... params) {
+	    
 	            try {
 	            	
 	            	URL u = new URL(getResources().getString(R.string.serverAddress)+MobileLearning.CCH_REFERENCE_DOWNLOAD_PATH+files[Integer.parseInt(params[0])]);
@@ -195,26 +298,9 @@ public class ReferencesDownloadActivity extends Activity {
 	                c.connect();
 	               
 	                lenghtOfFile = c.getContentLength();
-	                File file = new File(myDirectory, files[Integer.parseInt(params[0])]);
-	            	file.createNewFile();
-	                FileOutputStream f = new FileOutputStream(file);
-	                InputStream in = c.getInputStream();
-
-	                byte[] buffer = new byte[1024];
-	                int len1 = 0;
-	                long total = 0;
-	                while ((len1 = in.read(buffer)) > 0) {
-	                	 total += len1;
-	                	   
-	                	 progress=(int)((total*100)/lenghtOfFile);
-	                	 onProgressUpdate(""+(int)((total*100)/lenghtOfFile));
-	                	 if(progress > 0){
-	                		 onProgressUpdate(""+progress);
-	                     }
-	                    f.write(buffer, 0, len1);
-	                     
-	                }
-	                f.close();
+	                double bytes = lenghtOfFile;
+	               
+	              
 	            }catch (ClientProtocolException cpe) { 
 	    			if(!MobileLearning.DEVELOPER_MODE){
 	    				BugSenseHandler.sendException(cpe);
@@ -237,37 +323,29 @@ public class ReferencesDownloadActivity extends Activity {
 	    			}
 	    			dialog.setMessage(getString(R.string.error_connection));
 	    		}
-
-				return null;
+	            double kilobytes = (lenghtOfFile / 1024);	
+				double megabyte = (kilobytes / 1024);
+				if(kilobytes>1000){
+					fileSize=String.valueOf(String.format("%.2f", megabyte))+"MB";
+				}else{
+					fileSize=String.valueOf(String.format("%.2f", kilobytes))+"KB";
+				}
+				return fileSize;
 	    }
-	    protected void onProgressUpdate(String... progress) {
-	        dialog.setProgress(Integer.parseInt(progress[0]));
-	      
-	   }
+	   
 	    @Override
 	    protected void onPostExecute(String result) {
-	    	dialog.setMessage("Download Complete!");
-	    	System.out.println(String.valueOf(progress));
-	    	if(progress==lenghtOfFile){
-	    		isComplete=true;
-	    	}else{
-	    		isComplete=false;
-	    	}
-	    	//Intent intent=new Intent(Intent.ACTION_MAIN);
-			//intent.setClass(ReferencesDownloadActivity.this,LearningReferencesActivity.class);
-			//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			//startActivity(intent);
-			//finish();
-			// overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+	    	dialog.dismiss();
+	    	
 	    }
 	}
-	
 	class ListAdapter extends BaseAdapter{
 		Context mContext;
 		ArrayList<String> listItems;
 		String[] files;
 		File directory;
 		 public LayoutInflater minflater;
+		
 		
 		public ListAdapter(Context mContext,ArrayList<String> listItems,String[] files,File directory){
 		this.mContext=mContext;
@@ -298,11 +376,14 @@ public class ReferencesDownloadActivity extends Activity {
 			
 			 TextView text=(TextView) rowView.findViewById(R.id.textView_referenceName);
 			 text.setText(listItems.get(position));
-			 LinearLayout values=(LinearLayout) rowView.findViewById(R.id.Linearlayout_values);
-			 ImageButton image=(ImageButton) rowView.findViewById(R.id.imageButton_download);
-			 TextView txt1 = new TextView(mContext);
+			 final LinearLayout values=(LinearLayout) rowView.findViewById(R.id.Linearlayout_values);
+			 final ImageButton image=(ImageButton) rowView.findViewById(R.id.imageButton_download);
+			 //final TextView txt1 = new TextView(mContext);
+			 txt1 =(TextView) rowView.findViewById(R.id.textView1);
+			
 			 File file = new File(directory, files[position]);
 			 if(file.exists()){
+				 
 				 	double bytes = file.length();
 					double kilobytes = (bytes / 1024);	
 					double megabyte = (kilobytes / 1024);
@@ -312,21 +393,63 @@ public class ReferencesDownloadActivity extends Activity {
 						txt1.setText(String.valueOf(String.format("%.2f", kilobytes))+"KB");
 					}
 					image.setVisibility(View.GONE);
-					values.addView(txt1);
 			 }else{		
 				 image.setImageResource(R.drawable.ic_download);
 				 image.setEnabled(true);
+				 //new GetFileSizes().execute(String.valueOf(position));
 				 image.setOnClickListener(new OnClickListener(){
 					 
 						@Override
 						public void onClick(View v) {
-							new GetData().execute(String.valueOf(position));
+							if(dbh.isOnline(ReferencesDownloadActivity.this)){
+								try {
+									AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+											ReferencesDownloadActivity.this);
+										alertDialogBuilder.setTitle("File size");
+											alertDialogBuilder
+											.setMessage("This file is "+new GetFileSizes().execute(String.valueOf(position)).get()+".\n Proceed with download?")
+												.setCancelable(false)
+												.setIcon(R.drawable.ic_error)
+												.setPositiveButton("No",new DialogInterface.OnClickListener() {
+													public void onClick(DialogInterface dialog,int id) {
+														dialog.cancel();
+													}
+												  })
+												.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+													public void onClick(DialogInterface dialog,int id) {
+														new GetData().execute(String.valueOf(position));
+														}
+												});
+												
+										AlertDialog alertDialog = alertDialogBuilder.create();
+										alertDialog.show();
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+							}else if(!dbh.isOnline(ReferencesDownloadActivity.this)){
+								AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+										ReferencesDownloadActivity.this);
+									alertDialogBuilder.setTitle("Connectivity Error");
+										alertDialogBuilder
+										.setMessage(getResources().getString(R.string.error_connection_required))
+											.setCancelable(false)
+											.setIcon(R.drawable.ic_error)
+											.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+												public void onClick(DialogInterface dialog,int id) {
+													dialog.cancel();
+												}
+											  });
+											
+									AlertDialog alertDialog = alertDialogBuilder.create();
+									alertDialog.show();
+							}
+					
+								
 						}
 						 
 					 });
 				
 			 }
-			
 			    return rowView;
 		}
 		
@@ -381,8 +504,19 @@ public class ReferencesDownloadActivity extends Activity {
 	public void onBackPressed()
 	{
 		 end_time=System.currentTimeMillis();
-		dbh.insertCCHLog("Learning Center", "Reference Download", start_time.toString(), end_time.toString());
+		 data=new JSONObject();
+		    try {
+		    	data.put("page", "Reference Download");
+		    	data.put("ver", dbh.getVersionNumber(ReferencesDownloadActivity.this));
+		    	data.put("battery", dbh.getBatteryStatus(ReferencesDownloadActivity.this));
+		    	data.put("device", dbh.getDeviceName());
+				data.put("imei", dbh.getDeviceImei(ReferencesDownloadActivity.this));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		dbh.insertCCHLog("Learning Center", data.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
+
 
 }

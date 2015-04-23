@@ -24,9 +24,7 @@ public class UpdateStartServiceReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		time_now=new Time();
 		compared_time=new Time();
-		week=new Time();
 		week_day=new Time();
-		end_of_month=new Time();
 		time_now.setToNow();
 		dt=new DateTime();
 		
@@ -50,8 +48,8 @@ public class UpdateStartServiceReceiver extends BroadcastReceiver {
 		String compared_endofmonth= String.valueOf(end_of_month.hour) +":"+String.valueOf(end_of_month.minute)+String.valueOf(end_of_month.second)
 				+","+String.valueOf(end_of_month.monthDay)+"/"+String.valueOf(end_of_month.month)+"/"+String.valueOf(end_of_month.year);
 		if(today.equals(compared_today)){
-		Intent service = new Intent(context, UpdateTargetsService.class);
-		context.startService(service);
+			Intent service = new Intent(context, UpdateTargetsService.class);
+			context.startService(service);
 		}
 		else if(today.equals(compared_week)){
 			Intent service = new Intent(context, UpdateTargetsWeeklyService.class);

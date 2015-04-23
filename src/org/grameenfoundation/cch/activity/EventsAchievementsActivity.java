@@ -9,6 +9,8 @@ import org.grameenfoundation.adapters.CalendarEventsViewAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.cch.model.MyCalendarEvents;
 import org.grameenfoundation.poc.BaseActivity;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -31,6 +33,7 @@ public class EventsAchievementsActivity extends BaseActivity {
 	private Long start_time;
 	private Long end_time;
 	private DbHelper db;
+	private JSONObject data;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,7 @@ public class EventsAchievementsActivity extends BaseActivity {
 	    c= new CalendarEvents(mContext);
 	    db=new DbHelper(EventsAchievementsActivity.this);
 	    start_time=System.currentTimeMillis();
-	    String[] groupItems={"Completed","Future"};
+	    String[] groupItems={"Completed","Incomplete"};
 	    getActionBar().setTitle("Achievement Center");
 	    getActionBar().setSubtitle("Achievement Details");
 	    Bundle extras = getIntent().getExtras(); 
@@ -63,7 +66,17 @@ public class EventsAchievementsActivity extends BaseActivity {
 	public void onBackPressed()
 	{
 		 end_time=System.currentTimeMillis();
-		 db.insertCCHLog("Achievement Center", "Event Achievements", start_time.toString(), end_time.toString());
+		 data=new JSONObject();
+		    try {
+		    	data.put("page", "Event Achievements");
+		    	data.put("ver", db.getVersionNumber(EventsAchievementsActivity.this));
+		    	data.put("battery", db.getBatteryStatus(EventsAchievementsActivity.this));
+		    	data.put("device", db.getDeviceName());
+				data.put("imei", db.getDeviceImei(EventsAchievementsActivity.this));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		 db.insertCCHLog("Achievement Center", data.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 }

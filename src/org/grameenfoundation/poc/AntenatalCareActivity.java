@@ -2,6 +2,7 @@ package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.adapters.AntenatalCareBaseAdapter;
 
 
@@ -9,6 +10,9 @@ import org.grameenfoundation.adapters.AntenatalCareBaseAdapter;
 
 
 
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -26,6 +30,7 @@ public class AntenatalCareActivity extends BaseActivity implements OnItemClickLi
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;
+	private JSONObject json;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -37,6 +42,17 @@ public class AntenatalCareActivity extends BaseActivity implements OnItemClickLi
 	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("Antenatal Care");
+	    json=new JSONObject();
+	    try {
+			json.put("page", "Antenatal Care");
+			json.put("section", "");
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	    listView_ancMenu=(ListView) findViewById(R.id.listView_antenatalCare);
 	    listView_ancMenu.setOnItemClickListener(this);
 	    int[] images={R.drawable.ic_diagnostic,R.drawable.ic_counselling,R.drawable.ic_calculator,R.drawable.ic_references};
@@ -80,8 +96,8 @@ public class AntenatalCareActivity extends BaseActivity implements OnItemClickLi
 	public void onBackPressed()
 	{
 	    end_time=System.currentTimeMillis();
-	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
-		dbh.insertCCHLog("Point of Care", "Antenatal Care", start_time.toString(), end_time.toString());
+		//dbh.insertCCHLog("Point of Care", "Antenatal Care", start_time.toString(), end_time.toString());
+	    dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 

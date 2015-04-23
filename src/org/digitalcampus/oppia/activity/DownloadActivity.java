@@ -66,6 +66,8 @@ public class DownloadActivity extends AppActivity implements APIRequestListener 
 
 
 	private JSONObject json_obj;
+
+	private JSONObject data;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -81,8 +83,10 @@ public class DownloadActivity extends AppActivity implements APIRequestListener 
         if(bundle != null) {
         	Tag t = (Tag) bundle.getSerializable(Tag.TAG);
         	url = MobileLearning.SERVER_TAG_PATH + String.valueOf(t.getId()) + "/";
+        	System.out.println(url);
         } else {
         	url = MobileLearning.SERVER_COURSES_PATH;
+        	System.out.println(url);
         }        	
 	}
 	
@@ -206,9 +210,6 @@ public class DownloadActivity extends AppActivity implements APIRequestListener 
 					ArrayList<Course> coursesList = new ArrayList<Course>();
 					Intent i = new Intent(DownloadActivity.this, CourseIndexActivity.class);
 					Bundle tb = new Bundle();
-					//System.out.println(m.getCourseXMLLocation());
-					//m.setLocation(courses.get(position).getLocation());
-					//m.setModId(courses.get(position).getModId());
 					m=db.getCourses(courses.get(position).getShortname());
 					coursesList=db.getCourseList(courses.get(position).getModId());
 					if(coursesList.size()>0){
@@ -264,8 +265,18 @@ public class DownloadActivity extends AppActivity implements APIRequestListener 
 	}
 	public void onBackPressed()
 	{
+		data=new JSONObject();
+	    try {
+	    	data.put("page", "Course Download");
+	    	data.put("ver", dbh.getVersionNumber(DownloadActivity.this));
+	    	data.put("battery", dbh.getBatteryStatus(DownloadActivity.this));
+	    	data.put("device", dbh.getDeviceName());
+			data.put("imei", dbh.getDeviceImei(DownloadActivity.this));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		 end_time=System.currentTimeMillis();
-		dbh.insertCCHLog("Learning Center", "Course Download", start_time.toString(), end_time.toString());
+		dbh.insertCCHLog("Learning Center", data.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 

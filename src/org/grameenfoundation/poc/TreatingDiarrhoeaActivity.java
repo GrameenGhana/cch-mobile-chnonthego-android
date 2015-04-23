@@ -3,6 +3,9 @@ package org.grameenfoundation.poc;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.mobile.learningGF.R.id;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -10,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -24,14 +28,27 @@ public class TreatingDiarrhoeaActivity extends BaseActivity {
 	private EditText editText_weight;
 	private Button button_calculate;
 	private ImageView image;
+	private JSONObject json;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_treating_diarrhoea);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Counselling: Treating Diarrhoea");
+	    mContext=TreatingDiarrhoeaActivity.this;
 	    dbh=new DbHelper(TreatingDiarrhoeaActivity.this);
 	    start_time=System.currentTimeMillis();
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Counselling: Treating Diarrhoea");
+			json.put("section", MobileLearning.CCH_COUNSELLING);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	    amount=(TextView) findViewById(R.id.textView_amount);
 	    editText_weight=(EditText) findViewById(R.id.editText_weight);
 	    button_calculate=(Button) findViewById(R.id.button_calculate);
@@ -72,7 +89,12 @@ public class TreatingDiarrhoeaActivity extends BaseActivity {
 	                    nagDialog.dismiss();
 	                }
 	            });
+	            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+	            lp.copyFrom(nagDialog.getWindow().getAttributes());
+	            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+	            lp.height = WindowManager.LayoutParams.MATCH_PARENT;
 	            nagDialog.show();
+	            nagDialog.getWindow().setAttributes(lp);
 				
 			}
 	    	
@@ -82,7 +104,7 @@ public class TreatingDiarrhoeaActivity extends BaseActivity {
 	public void onBackPressed()
 	{
 		 end_time=System.currentTimeMillis();
-		dbh.insertCCHLog("Point of Care", "PNC Counselling: Treating Diarrhoea" , start_time.toString(), end_time.toString());
+		dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 }

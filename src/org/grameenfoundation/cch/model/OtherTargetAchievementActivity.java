@@ -58,7 +58,7 @@ public class OtherTargetAchievementActivity extends Activity{
           number=extras.getInt("number");
         }
        
-	    textView_number.setText(" ("+String.valueOf(number)+" this month)");
+	   
 	}
 
 	private class GetData extends AsyncTask<Object, Void, Object> {
@@ -74,6 +74,7 @@ public class OtherTargetAchievementActivity extends Activity{
 
 	    @Override
 	    protected void onPostExecute(Object result) {
+	    	 	textView_number.setText(" ("+String.valueOf(completedOtherTargets.size()+unCompletedOtherTargets.size())+" this month)");
 	        	 adapter=new NumericalTargetAchievementsAdapter(mContext,groupItems,completedOtherTargets ,
 	 	    			unCompletedOtherTargets,expandableListview);
 	 	    expandableListview.setAdapter(adapter);

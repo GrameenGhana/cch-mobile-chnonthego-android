@@ -2,6 +2,9 @@ package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -27,7 +30,8 @@ public class SevereDiseasesNextActivity extends BaseActivity {
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;
-	private View button_next; 
+	private View button_next;
+	private JSONObject json; 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,17 @@ public class SevereDiseasesNextActivity extends BaseActivity {
 	    getActionBar().setSubtitle("PNC Diagnostic: Very Severe Diseases");
 	    dbh=new DbHelper(SevereDiseasesNextActivity.this);
 	    start_time=System.currentTimeMillis();
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Diagnostic: Very Severe Diseases");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	    button_next=(Button) findViewById(R.id.button_next);
 	    button_next.setOnClickListener(new OnClickListener(){
 
@@ -53,8 +68,7 @@ public class SevereDiseasesNextActivity extends BaseActivity {
 	public void onBackPressed()
 	{
 	    end_time=System.currentTimeMillis();
-	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
-		dbh.insertCCHLog("Point of Care", "PNC Diagnostic: Very Severe Diseases", start_time.toString(), end_time.toString());
+		dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 }

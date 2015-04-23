@@ -1,0 +1,11 @@
+Colors for CHN on the go home screen
+***************************************************************************************************************************
+Green- #53AB20
+Khaki- #E1DFD4
+Wine Text Color - #520000
+POC Icon Red - #E51400
+Planner Icon Blue - #08088A
+Staying well Icon green - #7AD61D
+Learning center icon magenta - #D80073
+Achievement Center icon Amber - #F0A30A
+NB: The background for the home page is the "bg_marquee.png" file

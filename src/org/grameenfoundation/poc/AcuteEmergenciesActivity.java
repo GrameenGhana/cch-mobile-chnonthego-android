@@ -2,6 +2,9 @@ package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -27,6 +30,7 @@ public class AcuteEmergenciesActivity extends BaseActivity implements OnClickLis
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;
+	private JSONObject json;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -38,6 +42,17 @@ public class AcuteEmergenciesActivity extends BaseActivity implements OnClickLis
 	    dbh=new DbHelper(mContext);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC Diagnostic: Acute Emergencies");
+	    json=new JSONObject();
+	    try {
+			json.put("page", "ANC Diagnostic Acute Emergencies");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	    listView_acuteEmergencies=(ListView) findViewById(R.id.listView_acuteEmergencies);
 	    String[] emergencies={"Difficulty breathing","Edema(feet and hands, face or ankles)","Heavy Bleeding","Shock"};
 	    ListAdapter adapter=new ListAdapter(mContext, emergencies);
@@ -138,8 +153,9 @@ public class AcuteEmergenciesActivity extends BaseActivity implements OnClickLis
 	public void onBackPressed()
 	{
 	    end_time=System.currentTimeMillis();
-	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
-		dbh.insertCCHLog("Point of Care", "ANC Diagnostic Acute Emergencies", start_time.toString(), end_time.toString());
+	    System.out.println(json.toString());
+		//dbh.insertCCHLog("Point of Care", "ANC Diagnostic Acute Emergencies", start_time.toString(), end_time.toString());
+	    dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 		
 	}

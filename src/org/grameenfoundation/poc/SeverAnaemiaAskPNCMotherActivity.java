@@ -2,7 +2,10 @@ package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.poc.JaundiceSectionsActivity.JaundiceListAdapter;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -29,7 +32,8 @@ public class SeverAnaemiaAskPNCMotherActivity extends BaseActivity {
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;
-	private ExpandableListView listView_sections; 
+	private ExpandableListView listView_sections;
+	private JSONObject json; 
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,17 @@ public class SeverAnaemiaAskPNCMotherActivity extends BaseActivity {
 	    getActionBar().setSubtitle("PNC Mother Diagnostic: Anaemia");
 	    dbh=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Mother Diagnostic: Anaemia");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	    listView_sections=(ExpandableListView) findViewById(R.id.expandableListView1);
 	    String[] items={"Severe anaemia","Moderate Anaemia "};
 	    ListAdapter adapter=new ListAdapter(mContext,items,listView_sections);
@@ -235,8 +250,7 @@ public class SeverAnaemiaAskPNCMotherActivity extends BaseActivity {
 	public void onBackPressed()
 	{
 	    end_time=System.currentTimeMillis();
-	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
-		dbh.insertCCHLog("Point of Care", "PNC Mother Diagnostic: Anaemia", start_time.toString(), end_time.toString());
+		dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 }

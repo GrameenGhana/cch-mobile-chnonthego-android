@@ -2,6 +2,9 @@ package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -26,6 +29,7 @@ public class NoSeriousConditionsActivity extends BaseActivity {
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;
+	private JSONObject json;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -35,6 +39,17 @@ public class NoSeriousConditionsActivity extends BaseActivity {
 	    mContext=NoSeriousConditionsActivity.this;
 	    dbh=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Diagnostic Other Serious Conditions");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	    listView_noConditions=(ListView) findViewById(R.id.listView_noConditions);
 	    String[] items={"Asymmetrical limb movement, one limb does not move",
 	    				"Firm swelling/bump on one or both sides of head",
@@ -125,8 +140,7 @@ public class NoSeriousConditionsActivity extends BaseActivity {
 	public void onBackPressed()
 	{
 	    end_time=System.currentTimeMillis();
-	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
-		dbh.insertCCHLog("Point of Care", "PNC Diagnostic Other Serious Conditions", start_time.toString(), end_time.toString());
+		dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 }

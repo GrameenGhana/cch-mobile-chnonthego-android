@@ -2,6 +2,9 @@ package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +20,7 @@ public class HIVInfectionStatusActivity extends BaseActivity {
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;
+	private JSONObject json;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,17 @@ public class HIVInfectionStatusActivity extends BaseActivity {
 	    getActionBar().setSubtitle("PNC Diagnostic: HIV Infection");
 	    dbh=new DbHelper(HIVInfectionStatusActivity.this);
 	    start_time=System.currentTimeMillis();
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Diagnostic: HIV Infection");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	   button_negative=(Button) findViewById(R.id.button_negative);
 	   button_negative.setOnClickListener(new OnClickListener(){
 
@@ -55,8 +70,8 @@ public class HIVInfectionStatusActivity extends BaseActivity {
 	public void onBackPressed()
 	{
 	    end_time=System.currentTimeMillis();
-	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
-		dbh.insertCCHLog("Point of Care", "PNC Diagnostic HIV Infection", start_time.toString(), end_time.toString());
+		//dbh.insertCCHLog("Point of Care", "PNC Diagnostic HIV Infection", start_time.toString(), end_time.toString());
+	    dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 }

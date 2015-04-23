@@ -25,7 +25,6 @@ public class ReferencesMenuActivity extends BaseActivity {
 	    super.onCreate(savedInstanceState);
 	    mContext = ReferencesMenuActivity.this;
 	    setContentView(R.layout.activity_postnatal_care_sections);
-	    mContext=ReferencesMenuActivity.this;
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC References");
 	    listView_calculators=(ListView) findViewById(R.id.listView_postnatalCareSections);

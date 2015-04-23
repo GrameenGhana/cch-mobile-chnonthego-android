@@ -15,6 +15,8 @@ import org.grameenfoundation.cch.model.LearningTargets;
 import org.grameenfoundation.cch.model.MyCalendarEvents;
 import org.grameenfoundation.cch.model.OtherTargetAchievementActivity;
 import org.grameenfoundation.cch.model.TargetsForAchievements;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -47,6 +49,7 @@ public class TargetAchievementDetailActivity extends Activity {
 	private int year;
 	private Long start_time;
 	private Long end_time;
+	private JSONObject data;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -156,7 +159,17 @@ public class TargetAchievementDetailActivity extends Activity {
 	public void onBackPressed()
 	{
 		 end_time=System.currentTimeMillis();
-		 db.insertCCHLog("Achievement Center", "Target Achievements", start_time.toString(), end_time.toString());
+		 data=new JSONObject();
+		    try {
+		    	data.put("page", "Target Achievements");
+		    	data.put("ver", db.getVersionNumber(mContext));
+		    	data.put("battery", db.getBatteryStatus(mContext));
+		    	data.put("device", db.getDeviceName());
+				data.put("imei", db.getDeviceImei(mContext));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		 db.insertCCHLog("Achievement Center",data.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 }

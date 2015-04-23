@@ -2,6 +2,9 @@ package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +20,7 @@ public class TakeActionSeverDiseasesActivity extends BaseActivity {
 	private Long end_time;
 	private DbHelper dbh;
 	private String data;
+	private JSONObject json;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -24,8 +28,20 @@ public class TakeActionSeverDiseasesActivity extends BaseActivity {
 	    Bundle extras = getIntent().getExtras(); 
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Diagnostic: Very Severe Disease");
+	    mContext=TakeActionSeverDiseasesActivity.this;
 	    dbh=new DbHelper(TakeActionSeverDiseasesActivity.this);
 	    start_time=System.currentTimeMillis();
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Diagnostic: Very Severe Disease");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
         if (extras != null) {
           take_action_category= extras.getString("category");
         }
@@ -226,7 +242,7 @@ public class TakeActionSeverDiseasesActivity extends BaseActivity {
 	public void onBackPressed()
 	{
 		 end_time=System.currentTimeMillis();
-		dbh.insertCCHLog("Point of Care", "PNC Diagnostic: Very Severe Disease", start_time.toString(), end_time.toString());
+		dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 }

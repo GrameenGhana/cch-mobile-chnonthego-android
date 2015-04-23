@@ -147,12 +147,12 @@ public class EventTargetActivity extends Fragment implements OnChildClickListene
 
 	    @Override
 	    protected Object doInBackground(Object... params) {
-	    	todayEventId=db.getEventIdCount("Daily");
-		    thisMonthEventId=db.getEventIdCount("Monthly");
-		    thisWeekEventId=db.getEventIdCount("Weekly");
-		    midYearEventId=db.getEventIdCount("Mid-year");
-		    thisQuarterEventId=db.getEventIdCount("Quarterly");
-		    thisYearEventId=db.getEventIdCount("Annually");
+	    	todayEventId=db.getEventCount("Daily");
+		    thisMonthEventId=db.getEventCount("Monthly");
+		    thisWeekEventId=db.getEventCount("Weekly");
+		    midYearEventId=db.getEventCount("Mid-year");
+		    thisQuarterEventId=db.getEventCount("Quarterly");
+		    thisYearEventId=db.getEventCount("Annually");
   		      
 	           	DailyEventTargets=db.getAllEventTargets("Daily");
 	           	WeeklyEventTargets=db.getAllEventTargets("Weekly");

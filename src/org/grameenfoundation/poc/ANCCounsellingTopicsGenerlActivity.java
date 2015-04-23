@@ -2,6 +2,9 @@ package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,13 +21,16 @@ public class ANCCounsellingTopicsGenerlActivity extends BaseActivity {
 	private Long end_time; 
 	private String data;
 	private Button button_next;
+	private JSONObject json;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    Bundle extras = getIntent().getExtras(); 
-	    dbh=new DbHelper(ANCCounsellingTopicsGenerlActivity.this);
+	    mContext = ANCCounsellingTopicsGenerlActivity.this;
+	    dbh=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
+	    json=new JSONObject();
 	    getActionBar().setTitle("Point of Care");
         if (extras != null) {
           take_action_category= extras.getString("value");
@@ -102,7 +108,18 @@ public class ANCCounsellingTopicsGenerlActivity extends BaseActivity {
 	public void onBackPressed()
 	{
 	    end_time=System.currentTimeMillis();
-		dbh.insertCCHLog("Point of Care", "ANC Counselling" +data, start_time.toString(), end_time.toString());
+	    try {
+			json.put("page", "ANC Counselling"+data);
+			json.put("section", MobileLearning.CCH_COUNSELLING);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		//dbh.insertCCHLog("Point of Care", "ANC Counselling" +data, start_time.toString(), end_time.toString());
+	    dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 }

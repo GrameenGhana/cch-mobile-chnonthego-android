@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.activity.TagSelectActivity;
 import org.digitalcampus.oppia.model.Activity;
 import org.digitalcampus.oppia.model.ActivitySchedule;
 import org.digitalcampus.oppia.model.Course;
@@ -42,16 +43,26 @@ import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.BatteryManager;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
+import android.telephony.TelephonyManager;
 import android.text.format.Time;
 import android.util.Log;
 
@@ -66,6 +77,7 @@ public class DbHelper extends SQLiteOpenHelper {
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 	private SharedPreferences prefs;
 	private Context ctx;
+	
 
 	private static final String COURSE_TABLE = "Module";
 	private static final String COURSE_C_ID = BaseColumns._ID;
@@ -77,7 +89,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	private static final String COURSE_C_IMAGE = "imagelink";
 	private static final String COURSE_C_LANGS = "langs";
 	private static final String COURSE_C_DATE = "date";
-	
+	private String battery_percentage;
 	
 	private static final String ACTIVITY_TABLE = "Activity";
 	private static final String ACTIVITY_C_ID = BaseColumns._ID;
@@ -163,6 +175,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	private static final String CCH_SW_ROUTINE_TODO_TIMEDONE  = "timedone";
 
 	
+	
 	//CCH: Events Table
 		public static final String EVENTS_SET_TABLE="event_set";
 		public static final String COL_EVENT_SET_NAME="event_name";
@@ -199,6 +212,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		public static final String COL_OTHER_PERIOD="other_period";
 		public static final String COL_OTHER_DUE_DATE="due_date";
 		public static final String COL_OTHER_DURATION="duration";
+		public static final String COL_OTHER_DETAILS="other_detail";//personal or not
 		
 		private static final String TEXT_TYPE = " TEXT";
 		private static final String COMMA_SEP = ",";
@@ -215,6 +229,31 @@ public class DbHelper extends SQLiteOpenHelper {
 		public static final String COL_COMMENT="comment";
 		
 		public static final String CALENDAR_EVENTS_TABLE="calendar_events";
+		public static final String COL_USERID="user_id";
+		public static final String COL_EVENTTYPE="event_type";
+		public static final String COL_DESCRIPTION="description";
+		public static final String COL_LOCATION="location";
+		public static final String COL_CATEGORY="category";
+		public static final String COL_EDITED="edited";
+		public static final String COL_DELETED="deleted";
+		public static final String COL_EVENT_ID="event_id";
+		
+		
+		//CCH Targets Table
+		public static final String TARGET_TABLE="targets";
+		public static final String CCH_TARGET_TYPE="target_type";
+		public static final String CCH_OLD_ID="old_id";
+		public static final String CCH_TARGET_NAME="target_name";
+		public static final String CCH_TARGET_DETAIL="target_detail";
+		public static final String CCH_TARGET_CATEGORY="target_category";
+		public static final String CCH_TARGET_NO="target_number";
+		public static final String CCH_TARGET_NO_ACHIEVED="target_no_achieved";
+		public static final String CCH_TARGET_NO_REMAINING="target_no_remaining";
+		public static final String CCH_START_DATE="start_date";
+		public static final String CCH_DUE_DATE="due_date";
+		public static final String CCH_REMINDER="reminder";
+		public static final String CCH_STATUS="target_status";
+		public static final String CCH_LAST_UPDATED="last_updated";
 		
 		
 		//CCH 
@@ -224,6 +263,8 @@ public class DbHelper extends SQLiteOpenHelper {
 	public DbHelper(Context ctx) { //
 		super(ctx, DB_NAME, null, DB_VERSION);
 		prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+		String batteryPercentage = null;
+		this.battery_percentage=batteryPercentage;
 		this.ctx = ctx;
 	}
 
@@ -246,9 +287,28 @@ public class DbHelper extends SQLiteOpenHelper {
 		createLearningTable(db);
 		createOtherTable(db);
 		createJustificationTable(db);
-		
+		//createCalendarEventsTable(db);
+		createTargetsTable(db);
 	}
 
+	
+	public void createTargetsTable(SQLiteDatabase db){
+		String m_sql = "create table " + TARGET_TABLE + " (" 
+				+ BaseColumns._ID + " integer primary key autoincrement, "
+				+ CCH_TARGET_TYPE + TEXT_TYPE + COMMA_SEP 
+				+ CCH_TARGET_NAME + TEXT_TYPE + COMMA_SEP
+				+ CCH_TARGET_DETAIL + TEXT_TYPE + COMMA_SEP
+				+ CCH_TARGET_CATEGORY + TEXT_TYPE + COMMA_SEP
+				+ CCH_TARGET_NO + TEXT_TYPE + COMMA_SEP
+				+ CCH_TARGET_NO_ACHIEVED+ TEXT_TYPE + COMMA_SEP
+				+ CCH_TARGET_NO_REMAINING+ TEXT_TYPE + COMMA_SEP
+				+ CCH_START_DATE+ TEXT_TYPE + COMMA_SEP
+				+ CCH_DUE_DATE+ TEXT_TYPE + COMMA_SEP
+				+ CCH_REMINDER+ TEXT_TYPE + COMMA_SEP
+				+ CCH_STATUS+ TEXT_TYPE + COMMA_SEP
+				+ CCH_LAST_UPDATED + " text)";
+		db.execSQL(m_sql);
+	}
 	public void createCourseTable(SQLiteDatabase db){
 		String m_sql = "create table " + COURSE_TABLE + " (" + COURSE_C_ID + " integer primary key autoincrement, "
 				+ COURSE_C_VERSIONID + " int, " + COURSE_C_TITLE + " text, " + COURSE_C_LOCATION + " text, "
@@ -273,7 +333,22 @@ public class DbHelper extends SQLiteOpenHelper {
 		db.execSQL(a_sql);
 	}
 	
-	
+	public void createCalendarEventsTable(SQLiteDatabase db){
+		//	table create statement for events set table 
+			final String CALENDAR_EVENTS_CREATE_TABLE =
+				    "CREATE TABLE " + CALENDAR_EVENTS_TABLE + " (" +
+				    		BaseColumns._ID + " INTEGER PRIMARY KEY," +
+				    		COL_EVENTTYPE + TEXT_TYPE + COMMA_SEP +
+				    		COL_EVENT_ID + TEXT_TYPE + COMMA_SEP +
+				    		COL_USERID + TEXT_TYPE + COMMA_SEP +
+				    		COL_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+				    		COL_LOCATION + TEXT_TYPE + COMMA_SEP +
+				    		COL_CATEGORY + TEXT_TYPE + COMMA_SEP +
+				    		COL_EDITED + TEXT_TYPE + COMMA_SEP +
+				    		COL_DELETED+TEXT_TYPE+
+				    " )";
+			db.execSQL(CALENDAR_EVENTS_CREATE_TABLE);
+		}
 	public void createLogTable(SQLiteDatabase db){
 		String l_sql = "create table " + TRACKER_LOG_TABLE + " (" + 
 				TRACKER_LOG_C_ID + " integer primary key autoincrement, " + 
@@ -303,6 +378,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	//	table create statement for events set table 
 		final String EVENT_SET_CREATE_TABLE =
 			    "CREATE TABLE " + EVENTS_SET_TABLE + " (" +
+			    		BaseColumns._ID + " INTEGER PRIMARY KEY," +
 			    		BaseColumns._ID + " INTEGER PRIMARY KEY," +
 			    		COL_EVENT_SET_NAME + TEXT_TYPE + COMMA_SEP +
 			    		COL_EVENT_SET_DETAIL + TEXT_TYPE + COMMA_SEP +
@@ -371,6 +447,7 @@ public class DbHelper extends SQLiteOpenHelper {
 				    		COL_NUMBER_ACHIEVED+ TEXT_TYPE + COMMA_SEP +// new column
 				    		COL_NUMBER_REMAINING+ TEXT_TYPE + COMMA_SEP +// new column
 				    		COL_LAST_UPDATED+ TEXT_TYPE + COMMA_SEP +// new column
+				    		COL_OTHER_DETAILS+ TEXT_TYPE + COMMA_SEP +//new column(personal or not personal)
 				    		COL_SYNC_STATUS+ TEXT_TYPE+
 				    " )";
 			db.execSQL(OTHER_CREATE_TABLE);
@@ -423,6 +500,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			createOtherTable(db);
 			createJustificationTable(db);
 			createStayingWellTable(db);
+			//createCalendarEventsTable(db);
 			//runSWReset(db);
 
 			return;
@@ -621,6 +699,24 @@ public class DbHelper extends SQLiteOpenHelper {
 		return true;
 		
 	}
+	public boolean alterOtherTable(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor c = db.rawQuery("PRAGMA table_info("+OTHER_TABLE+")",null);
+		c.moveToFirst();
+		System.out.println(c.getCount());
+		if(c.getCount()==12){
+			System.out.println("Columns up to date!");
+			
+		}else{
+			String sql = "ALTER TABLE " + OTHER_TABLE + " ADD COLUMN " + COL_OTHER_DETAILS  + " TEXT NULL;";
+			db.execSQL(sql);
+		}
+		c.close();
+		db.close();
+		
+		return true;
+		
+	}
 	public boolean alterCourseTable(){
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor c = db.rawQuery("PRAGMA table_info("+COURSE_TABLE+")",null);
@@ -638,6 +734,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		return true;
 		
 	}
+	
 	public boolean deleteTables(){
 		SQLiteDatabase db = this.getWritableDatabase();
 		String strQuery = "Drop table if exists "+CALENDAR_EVENTS_TABLE;
@@ -650,7 +747,8 @@ public class DbHelper extends SQLiteOpenHelper {
 	
 	public boolean updateDateDefault(){
 		SQLiteDatabase db = this.getWritableDatabase();
-		String strQuery = "Update "+COURSE_TABLE+" set "+COURSE_C_DATE+" = 12-02-2015 where "+ COURSE_C_DATE+ " IS NULL";
+		String strQuery = "Update "+COURSE_TABLE+" set "+COURSE_C_DATE+" = '"+getDate()+"' where "+ COURSE_C_DATE+" IS NULL";
+		System.out.println(strQuery);
 		db.execSQL(strQuery);
 		db.close();
 		
@@ -667,7 +765,54 @@ public class DbHelper extends SQLiteOpenHelper {
 		return true;
 		
 	}
+	public boolean updateOtherDetailDefault(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		String strQuery = "Update "+OTHER_TABLE+" set "+COL_OTHER_DETAILS+" ="+"'not_personal'"+" where "+ COL_OTHER_DETAILS+ " IS NULL";
+		db.execSQL(strQuery);
+		db.close();
+		
+		return true;
+		
+	}
 	
+	public long insertTarget(String target_type,String target_name, String target_detail, String target_category, int target_no, int target_no_achieved, int target_remaining,String start_date,String due_date,String reminder){
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(CCH_TARGET_TYPE,target_type);
+		values.put(CCH_TARGET_NAME,target_name);
+		values.put(CCH_TARGET_DETAIL,target_detail);
+		values.put(CCH_TARGET_CATEGORY,target_category);
+		values.put(CCH_TARGET_NO,target_no);
+		values.put(CCH_TARGET_NO_ACHIEVED,target_no_achieved);
+		values.put(CCH_TARGET_NO_REMAINING,target_remaining);
+		values.put(CCH_START_DATE,start_date);
+		values.put(CCH_DUE_DATE,due_date);
+		values.put(CCH_REMINDER,reminder);
+		values.put(CCH_LAST_UPDATED,getDateTime());
+		
+		long newRowId;
+		newRowId = db.insert(
+				TARGET_TABLE, null, values);
+		db.close();
+		return newRowId;
+	}
+	public long insertCalendarEvent(long event_id, String event_type, String user_id, String description, String category,String location,String edited,String deleted){
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(COL_EVENT_ID,event_id);
+		values.put(COL_EVENTTYPE,event_type);
+		values.put(COL_USERID,user_id);
+		values.put(COL_DESCRIPTION,description);
+		values.put(COL_LOCATION,location);
+		values.put(COL_CATEGORY,category);
+		values.put(COL_EDITED,edited);
+		values.put(COL_DELETED,deleted);
+		long newRowId;
+		newRowId = db.insert(
+				CALENDAR_EVENTS_TABLE, null, values);
+		db.close();
+		return newRowId;
+	}
 	public long insertEventSet(String event_name,String event_detail, String event_period, String event_number, String duration, String start_date, String due_date,int number_achieved,int number_remaining,String sync_status){
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -731,7 +876,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		return newRowId;
 	}
 	
-	public long insertOther(String other_category,String other_number,String other_period,String duration,String start_date,String due_date,int number_achieved,int number_remaining, String sync_status){
+	public long insertOther(String other_category,String other_number,String other_period,String duration,String start_date,String due_date,String other_detail,int number_achieved,int number_remaining, String sync_status){
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(COL_OTHER_CATEGORY,other_category);
@@ -743,6 +888,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		values.put(COL_SYNC_STATUS,sync_status);
 		values.put(COL_NUMBER_ACHIEVED,number_achieved);
 		values.put(COL_NUMBER_REMAINING,number_remaining);
+		values.put(COL_OTHER_DETAILS,other_detail);
 		values.put(COL_LAST_UPDATED,getDateTime());
 		
 		long newRowId;
@@ -750,6 +896,7 @@ public class DbHelper extends SQLiteOpenHelper {
 				OTHER_TABLE, null, values);
 		db.close();
 		return newRowId;
+		
 	}
 	
 	public long insertJustification(String type,String type_detail,String justification,String comment,String number,String achieved_number,String number_remaining,long id, String sync_status){
@@ -928,11 +1075,20 @@ public class DbHelper extends SQLiteOpenHelper {
 		
 		while (c.isAfterLast() == false) {
 			Course course = new Course();
-		
-			String due_date=c.getString(c.getColumnIndex(COURSE_C_DATE));
-			String[] due_date_split=due_date.split("-");
-			int due_date_month=Integer.parseInt(due_date_split[1]);
-			int due_date_year=Integer.parseInt(due_date_split[2]);
+String due_date=c.getString(c.getColumnIndex(COURSE_C_DATE));
+			
+			int due_date_month = 0;
+			int due_date_year = 0;
+			if(due_date!=null){
+				String[] due_date_split=due_date.split("-");
+		if(due_date_split.length>2){
+				due_date_month=Integer.parseInt(due_date_split[1]);
+				due_date_year=Integer.parseInt(due_date_split[2]);
+			}else{
+				due_date_month=04;
+				due_date_year=2015;
+			}
+			}
 			if(month==due_date_month&&year==due_date_year){
 			course.setModId(c.getInt(c.getColumnIndex(COURSE_C_ID)));
 			course.setLocation(c.getString(c.getColumnIndex(COURSE_C_LOCATION)));
@@ -1077,7 +1233,15 @@ public class DbHelper extends SQLiteOpenHelper {
 		}
 		c.close();
 		db.close();
-		return noComplete*100/noActs;
+		//This was necessary to fix a division by zero error
+		float progress = 0;
+		if(noActs==0){
+			progress=0;
+		}else if(noActs>0){
+			progress=noComplete*100/noActs;
+		}
+		
+		return progress;
 	}
 	
 	public String getCourseProgressCompleted(int month,int year){
@@ -1095,17 +1259,26 @@ public class DbHelper extends SQLiteOpenHelper {
 									" ON a."+ ACTIVITY_C_ACTIVITYDIGEST +" = l."+TRACKER_LOG_C_ACTIVITYDIGEST+
 									" WHERE a."+ACTIVITY_C_COURSEID+" = m."+
 										COURSE_C_ID;
-		System.out.println(sql);
+		//System.out.println(sql);
 		Cursor c = db.rawQuery(sql,null);
 		int noActs = c.getCount();
 		int noComplete = 0;
 		c.moveToFirst();
 		if(c.getCount()>0){
-		String due_date=c.getString(c.getColumnIndex(COURSE_C_DATE));
-		String[] due_date_split=due_date.split("-");
-		int due_date_month=Integer.parseInt(due_date_split[1]);
-		int due_date_year=Integer.parseInt(due_date_split[2]);
-		
+			String due_date=c.getString(c.getColumnIndex(COURSE_C_DATE));
+			
+			int due_date_month = 0;
+			int due_date_year = 0;
+			if(due_date!=null){
+				String[] due_date_split=due_date.split("-");
+		if(due_date_split.length>2){
+				due_date_month=Integer.parseInt(due_date_split[1]);
+				due_date_year=Integer.parseInt(due_date_split[2]);
+			}else{
+				due_date_month=04;
+				due_date_year=2015;
+			}
+			}
 		while (c.isAfterLast() == false) {
 			if(c.getString(c.getColumnIndex("d")) != null&&month==due_date_month&&year==due_date_year){
 				noComplete++;
@@ -1152,6 +1325,25 @@ public class DbHelper extends SQLiteOpenHelper {
 		c.close();
 		db.close();
 		return percentage;
+	}
+	
+	public String getCourseDate(){
+		SQLiteDatabase db = this.getReadableDatabase();
+		String sql = "Select date from module";
+		String course_date=null;
+		Cursor c = db.rawQuery(sql,null);
+		c.moveToFirst();
+		
+		while (c.isAfterLast() == false) {
+			if(c.getString(c.getColumnIndex("date"))!=null){
+			course_date=c.getString(c.getColumnIndex("date"));
+			}
+			c.moveToNext();
+		}
+		
+		c.close();
+		db.close();
+		return course_date;
 	}
 	public String getCourseProgressUnCompleted(){
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -1546,19 +1738,33 @@ public class DbHelper extends SQLiteOpenHelper {
 			String data = c.getString(c.getColumnIndex(QUIZRESULTS_C_DATA));
 			String data2 = c.getString(c.getColumnIndex(QUIZRESULTS_C_TITLE));
 			try {
-				JSONObject j = new JSONObject(data);
-				JSONObject j2 = new JSONObject(data2);
+				JSONObject j=null;
+				JSONObject j2=null;
+					j = new JSONObject(data);
+				if(data2!=null){
+					j2 = new JSONObject(data2);
+				}
 				String t = "Quiz ";
 				if (qt.containsKey(j.getString("quiz_id"))) {
 					t += qt.get(j.getString("quiz_id")) + " retake";
+					if(j2!=null){
 					results.setType(j2.getString("title")+" retake");
+					}else{
+						results.setType(" ");
+					}
 				} else {
 					t += quiznum;
 					qt.put(j.getString("quiz_id"), quiznum);
 				}
+				if(j2!=null){
 				results.setCourseName(j2.getString("course"));
 				results.setCourseSection(j2.getString("section"));
 				results.setType(j2.getString("title"));
+				}else{
+					results.setCourseName(" ");
+					results.setCourseSection(" ");
+					results.setType(" ");
+				}
 				results.setScore(j.getString("score") + "/" + j.getString("maxscore"));
 				Double percentage=((double)Integer.valueOf(j.getString("score"))/Integer.valueOf(j.getString("maxscore")))*100;
 				String percentage_value=String.format("%.0f", percentage);
@@ -1707,8 +1913,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();		 
 		Log.v(TAG,"Resetting The table");
 
-		//if (! isTableExists("sw_fix",db)) { // reset information
-			
+		if (! isTableExists("sw_fix",db)) { // reset information
 			// Reset all routines
 			String sql1 = "DELETE FROM "+ CCH_SW_ROUTINE_TODO_TABLE + " WHERE 1=1";
 			db.execSQL(sql1);
@@ -1739,7 +1944,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			v.put("ch", 1);
 			db.insertOrThrow("sw_fix", null, v);
 			cursor.close();
-		//}
+		}
 	}
 	
 	public boolean isTableExists(String tableName,SQLiteDatabase mDatabase) {
@@ -1920,7 +2125,18 @@ public class DbHelper extends SQLiteOpenHelper {
 		v = v.replace("=", "':'");
 		v = v.replace(" ","', '");
 		v = "{'type':'activity', '"+v+"'}";
-		this.insertCCHLog("Staying Well", v, endtime.toString(), endtime.toString());
+		JSONObject d=new JSONObject();
+	    try {
+	    	d.put("type", "activity");
+	    	d.put("values", v);
+	    	d.put("ver",getVersionNumber(ctx));
+	    	d.put("battery",getBatteryStatus(ctx));
+	    	d.put("device", getDeviceName());
+			d.put("imei", getDeviceImei(ctx));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		this.insertCCHLog("Staying Well", d.toString(), endtime.toString(), endtime.toString());
 		db.close();
 	}
 
@@ -2160,7 +2376,7 @@ return true;
 		return true;
 	}
 	
-	public boolean editOther(String other_category,String other_number,String other_period,String duration,String start_date, String due_date,long id){
+	public boolean editOther(String other_category,String other_number,String other_period,String duration,String start_date, String due_date,String details,long id){
 		SQLiteDatabase db = this.getWritableDatabase(); 
 	        String updateQuery = "Update "+OTHER_TABLE+" set "+
 	        					COL_OTHER_CATEGORY+" = '"+ other_category +"'"+
@@ -2169,6 +2385,7 @@ return true;
 	        					","+COL_OTHER_DURATION+" = '"+duration+"'"+
 	        					","+COL_START_DATE+" = '"+start_date+"'"+
 	        					","+COL_OTHER_DUE_DATE+" = '"+due_date+"'"+
+	        					","+COL_OTHER_DETAILS+" = '"+details+"'"+
 	        					" where "+BaseColumns._ID+" = "+id;
 	        db.execSQL(updateQuery);
 		return true;	
@@ -2185,7 +2402,7 @@ public long findItemCount(String table, String searchedBy,
 		SQLiteDatabase db = this.getReadableDatabase();
 		String strQuery = "select count(" + BaseColumns._ID + ")as cnt from "
 				+ table + " where " + searchedBy + " = '" + searchValue + "' "
-						+ " and "+dueDateCol+" <= now() ";
+				+ " and "+COL_SYNC_STATUS+ " = '"+"new_record"+"' ";
 		try {
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
@@ -2225,41 +2442,65 @@ public long findItemCount(String table, String searchedBy,
 	}
 
 	public long findItemIdCount(String table, String searchedBy,
-			String searchValue,String dueDateCol) {
+			String searchValue,String startDateCol) {
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
+		 SimpleDateFormat dateFormat = new SimpleDateFormat(
+	                "dd-MM-yyyy", Locale.getDefault());
+		 long starDateAsTimestamp = 0;
+		long today = 0;
+		Date date1 = null;
+		Date date2=null;
 		SQLiteDatabase db = this.getReadableDatabase();
-		String strQuery = "select count(" + BaseColumns._ID + ")as cnt from "
+		String strQuery = "select count(" + BaseColumns._ID + ")as cnt, "+COL_START_DATE+" from "
 				+ table + " where " + searchedBy + " = '" + searchValue + "' "
-						+ " and "+COL_SYNC_STATUS+ " = '"+"new_record"+"'";
+						+ " and "+COL_SYNC_STATUS+ " = '"+"new_record"+"' ";
 		
 		try {
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
-			return c.getLong(0);
+			int total_targets = 0;
+			while (c.isAfterLast()==false) {
+				EventTargets event_targets = new EventTargets();
+				date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(COL_START_DATE)));
+				date2= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
+				starDateAsTimestamp=date1.getTime();
+				today=date2.getTime();
+				if(starDateAsTimestamp<=today){
+					event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
+					list.add(event_targets);
+					total_targets=list.size();
+				}
+				   c.moveToNext();						
+			}
+			c.close();
+			db.close();
+			return total_targets;
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
+		
 		return 0l;
 	}
 
 	public long getEventIdCount(String duration) {
 
-		return findItemIdCount(EVENTS_SET_TABLE, COL_EVENT_PERIOD, duration,COL_EVENT_DUE_DATE);
+		return findItemIdCount(EVENTS_SET_TABLE, COL_EVENT_PERIOD, duration,COL_START_DATE);
 	}
 
 	public long getCoverageIdCount(String duration) {
 
 		return findItemIdCount(COVERAGE_SET_TABLE, COL_COVERAGE_SET_PERIOD,
-				duration,COL_COVERAGE_DUE_DATE);
+				duration,COL_START_DATE);
 	}
 
 	public long getLearningIdCount(String duration) {
 
-		return findItemIdCount(LEARNING_TABLE, COL_LEARNING_PERIOD, duration,COL_LEARNING_DUE_DATE);
+		return findItemIdCount(LEARNING_TABLE, COL_LEARNING_PERIOD, duration,COL_START_DATE);
 	}
 	
 	public long getOtherIdCount(String duration) {
 
-		return findItemIdCount(OTHER_TABLE, COL_OTHER_PERIOD, duration,COL_OTHER_DUE_DATE);
+		return findItemIdCount(OTHER_TABLE, COL_OTHER_PERIOD, duration,COL_START_DATE);
 	}
 
 	
@@ -2483,6 +2724,7 @@ public long findItemCount(String table, String searchedBy,
 			
 			while (c.isAfterLast()==false) {
 				EventTargets event_targets = new EventTargets();
+				
 				event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
 				event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_EVENT_NUMBER)));
 				event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
@@ -2556,6 +2798,7 @@ public long findItemCount(String table, String searchedBy,
 				event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
 				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_OTHER_PERIOD)));
 				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
+				event_targets.setEventTargetPersonalCategory(c.getString(c.getColumnIndex(COL_OTHER_DETAILS)));
 				   list.add(event_targets);
 				   c.moveToNext();						
 			}
@@ -2593,7 +2836,200 @@ public long findItemCount(String table, String searchedBy,
 			db.close();
 			return list;	
 	}
+	public ArrayList<EventTargets> getAllEventTargetsForUpdate(String period) 
+	{	
+		SQLiteDatabase db = this.getReadableDatabase();
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "dd-MM-yyyy", Locale.getDefault());
+			long starDateAsTimestamp = 0;
+			long today = 0;
+			Date date1 = null;
+			Date date2=null;	
+		String strQuery="select * from "+EVENTS_SET_TABLE
+							+" where "+COL_EVENT_PERIOD
+							+ " = '"+period+"'"
+							+ " and "+COL_SYNC_STATUS
+							+ " = '"+"new_record"+"'";	
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			
+			while (c.isAfterLast()==false) {
+				EventTargets event_targets = new EventTargets();
+				try {
+					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(COL_START_DATE)));
+					date2= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
+					starDateAsTimestamp=date1.getTime();
+					today=date2.getTime();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if(starDateAsTimestamp<=today){
+				event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
+				event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_EVENT_NUMBER)));
+				event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
+				event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
+				event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
+				event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE)));
+				event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
+				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_EVENT_PERIOD)));
+				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
+				event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(COL_EVENT_SET_DETAIL)));
+				   list.add(event_targets);
+				}
+				   c.moveToNext();						
+			}
+			c.close();
+			db.close();
+			return list;	
+	}
 	
+	
+	public ArrayList<EventTargets> getAllCoverageTargetsForUpdate(String period) 
+	{	
+		SQLiteDatabase db = this.getReadableDatabase();
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "dd-MM-yyyy", Locale.getDefault());
+			long starDateAsTimestamp = 0;
+			long today = 0;
+			Date date1 = null;
+			Date date2=null;	
+		String strQuery="select * from "+COVERAGE_SET_TABLE
+							+" where "+COL_COVERAGE_SET_PERIOD
+							+ " = '"+period+"'"
+							+ " and "+COL_SYNC_STATUS
+							+ " = '"+"new_record"+"'";	
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			
+			while (c.isAfterLast()==false) {
+				EventTargets event_targets = new EventTargets();
+				try {
+					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(COL_START_DATE)));
+					date2= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
+					starDateAsTimestamp=date1.getTime();
+					today=date2.getTime();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(starDateAsTimestamp<=today){
+				event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_COVERAGE_SET_CATEGORY_DETAIL)));
+				event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_COVERAGE_NUMBER)));
+				event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
+				event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
+				event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
+				event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE)));
+				event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
+				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_COVERAGE_SET_PERIOD)));
+				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
+				event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(COL_COVERAGE_SET_CATEGORY_DETAIL)));
+				   list.add(event_targets);
+				}
+				   c.moveToNext();						
+			}
+			c.close();
+			db.close();
+			return list;	
+	}
+	
+	public ArrayList<EventTargets> getAllOtherTargetsForUpdate(String period) 
+	{		SQLiteDatabase db = this.getReadableDatabase();
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "dd-MM-yyyy", Locale.getDefault());
+			long starDateAsTimestamp = 0;
+			long today = 0;
+			Date date1 = null;
+			Date date2=null;	
+		String strQuery="select * from "+OTHER_TABLE
+							+" where "+COL_OTHER_PERIOD
+							+ " = '"+period+"'"
+							+ " and "+COL_SYNC_STATUS
+							+ " = '"+"new_record"+"'";	
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			
+			while (c.isAfterLast()==false) {
+				EventTargets event_targets = new EventTargets();
+				try {
+					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(COL_START_DATE)));
+					date2= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
+					starDateAsTimestamp=date1.getTime();
+					today=date2.getTime();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(starDateAsTimestamp<=today){
+				event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_OTHER_CATEGORY)));
+				event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_OTHER_NUMBER)));
+				event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
+				event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
+				event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
+				event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE)));
+				event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
+				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_OTHER_PERIOD)));
+				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
+				event_targets.setEventTargetPersonalCategory(c.getString(c.getColumnIndex(COL_OTHER_DETAILS)));
+				   list.add(event_targets);
+				}
+				   c.moveToNext();						
+			}
+			c.close();
+			db.close();
+			return list;	
+	}
+	
+	public ArrayList<LearningTargets> getAllLearningTargetsForUpdate(String period) 
+	{	SQLiteDatabase db = this.getReadableDatabase();
+		ArrayList<LearningTargets> list=new ArrayList<LearningTargets>();
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "dd-MM-yyyy", Locale.getDefault());
+			long starDateAsTimestamp = 0;
+			long today = 0;
+			Date date1 = null;
+			Date date2=null;	 
+		String strQuery="select * from "+LEARNING_TABLE
+							+" where "+COL_LEARNING_PERIOD
+							+ " = '"+period+"'"
+							+ " and "+COL_SYNC_STATUS
+							+ " = '"+"new_record"+"'";	
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			
+			while (c.isAfterLast()==false) {
+				LearningTargets learning_targets = new LearningTargets();
+				try {
+					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(COL_START_DATE)));
+					date2= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
+					starDateAsTimestamp=date1.getTime();
+					today=date2.getTime();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(starDateAsTimestamp<=today){
+				learning_targets.setLearningTargetName(c.getString(c.getColumnIndex(COL_LEARNING_CATEGORY)));
+				learning_targets.setLearningTargetCourse(c.getString(c.getColumnIndex(COL_LEARNING_DESCRIPTION)));
+				learning_targets.setLearningTargetTopic(c.getString(c.getColumnIndex(COL_LEARNING_TOPIC)));
+				learning_targets.setLearningTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
+				learning_targets.setLearningTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
+				learning_targets.setLearningTargetEndDate(c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE)));
+				learning_targets.setLearningTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
+				learning_targets.setLearningTargetPeriod(c.getString(c.getColumnIndex(COL_LEARNING_PERIOD)));
+				learning_targets.setLearningTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
+				   list.add(learning_targets);
+				}
+				   c.moveToNext();						
+			}
+			c.close();
+			db.close();
+			return list;	
+	}
 	/* For Achievement Center*/
 	public ArrayList<EventTargets> getAllEventTargetsCompletedForAchievements(String status,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
@@ -2610,9 +3046,17 @@ public long findItemCount(String table, String searchedBy,
 				event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE)));
 				String due_date=c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE));
 				
-				String[] due_date_split=due_date.split("-");
-				int due_date_month=Integer.parseInt(due_date_split[1]);
-				int due_date_year=Integer.parseInt(due_date_split[2]);
+				String[] due_date_split=null;
+				int due_date_month=0;
+				int due_date_year=0;
+				due_date_split=due_date.split("-");
+				if(due_date_split.length>2){
+					due_date_month=Integer.parseInt(due_date_split[1]);
+					due_date_year=Integer.parseInt(due_date_split[2]);
+				}else{
+					due_date_month=0;
+					due_date_year=0;
+				}
 				if(month==due_date_month&&year==due_date_year){
 				event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
 				event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_EVENT_NUMBER)));
@@ -2623,7 +3067,6 @@ public long findItemCount(String table, String searchedBy,
 				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_EVENT_PERIOD)));
 				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
 				   list.add(event_targets);
-				System.out.println(list);
 				}
 				   c.moveToNext();		  				
 			}
@@ -2634,20 +3077,31 @@ public long findItemCount(String table, String searchedBy,
 	
 	public int getAllEventTargetsForAchievements(int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
 		String strQuery="select * from "+EVENTS_SET_TABLE;	
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
 			int total_event_targets = 0;
 			
 			while (c.isAfterLast()==false) {
-				  
+				EventTargets event_targets = new EventTargets();
 				String due_date=c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE));
 				
-				String[] due_date_split=due_date.split("-");
-				int due_date_month=Integer.parseInt(due_date_split[1]);
-				int due_date_year=Integer.parseInt(due_date_split[2]);
+				String[] due_date_split=null;
+				int due_date_month=0;
+				int due_date_year=0;
+				due_date_split=due_date.split("-");
+				if(due_date_split.length>2){
+					due_date_month=Integer.parseInt(due_date_split[1]);
+					due_date_year=Integer.parseInt(due_date_split[2]);
+				}else{
+					due_date_month=0;
+					due_date_year=0;
+				}
 				if(month==due_date_month&&year==due_date_year){
-					total_event_targets=c.getCount();
+					event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
+					list.add(event_targets);
+					total_event_targets=list.size();
 				}
 				   c.moveToNext();		  				
 			}
@@ -2657,6 +3111,7 @@ public long findItemCount(String table, String searchedBy,
 	}
 	public int getAllEventTargetsCompleted(String status,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
+	ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
 	String strQuery="select * from "+EVENTS_SET_TABLE
 					+" where "+COL_SYNC_STATUS
 					+ " = '"+status+"'";	
@@ -2665,14 +3120,23 @@ public long findItemCount(String table, String searchedBy,
 			int total_event_targets = 0;
 			
 			while (c.isAfterLast()==false) {
-				  
+				EventTargets event_targets = new EventTargets();
 				String due_date=c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE));
-				
-				String[] due_date_split=due_date.split("-");
-				int due_date_month=Integer.parseInt(due_date_split[1]);
-				int due_date_year=Integer.parseInt(due_date_split[2]);
+				String[] due_date_split=null;
+				int due_date_month=0;
+				int due_date_year=0;
+				due_date_split=due_date.split("-");
+				if(due_date_split.length>2){
+					due_date_month=Integer.parseInt(due_date_split[1]);
+					due_date_year=Integer.parseInt(due_date_split[2]);
+				}else{
+					due_date_month=0;
+					due_date_year=0;
+				}
 				if(month==due_date_month&&year==due_date_year){
-					total_event_targets=c.getCount();
+					event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
+					list.add(event_targets);
+					total_event_targets=list.size();
 				}
 				   c.moveToNext();		  				
 			}
@@ -2683,21 +3147,30 @@ public long findItemCount(String table, String searchedBy,
 	
 	public int getAllCoverageTargetsForAchievements(int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
 		String strQuery="select * from "+COVERAGE_SET_TABLE;	
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
 			int total_coverage_targets = 0;
 			
 			while (c.isAfterLast()==false) {
-				  
+				EventTargets event_targets = new EventTargets();
 				String due_date=c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE));
-				
-				String[] due_date_split=due_date.split("-");
-				int due_date_month=Integer.parseInt(due_date_split[1]);
-				int due_date_year=Integer.parseInt(due_date_split[2]);
-				
+				String[] due_date_split=null;
+				int due_date_month=0;
+				int due_date_year=0;
+				due_date_split=due_date.split("-");
+				if(due_date_split.length>2){
+					due_date_month=Integer.parseInt(due_date_split[1]);
+					due_date_year=Integer.parseInt(due_date_split[2]);
+				}else{
+					due_date_month=0;
+					due_date_year=0;
+				}
 				if(month==due_date_month&&year==due_date_year){
-					total_coverage_targets=c.getCount();
+					event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_COVERAGE_SET_CATEGORY_DETAIL)));
+					list.add(event_targets);
+					total_coverage_targets=list.size();
 				}
 				   c.moveToNext();		  				
 			}
@@ -2707,6 +3180,7 @@ public long findItemCount(String table, String searchedBy,
 	}
 	public int getAllCoverageTargetsCompleted(String status,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
+	ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
 	String strQuery="select * from "+COVERAGE_SET_TABLE
 					+" where "+COL_SYNC_STATUS
 					+ " = '"+status+"'";	
@@ -2715,14 +3189,23 @@ public long findItemCount(String table, String searchedBy,
 			int total_event_targets = 0;
 			
 			while (c.isAfterLast()==false) {
-				  
+			EventTargets event_targets = new EventTargets();
 			String due_date=c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE));
-				
-				String[] due_date_split=due_date.split("-");
-				int due_date_month=Integer.parseInt(due_date_split[1]);
-				int due_date_year=Integer.parseInt(due_date_split[2]);
+			String[] due_date_split=null;
+			int due_date_month=0;
+			int due_date_year=0;
+			due_date_split=due_date.split("-");
+			if(due_date_split.length>2){
+				due_date_month=Integer.parseInt(due_date_split[1]);
+				due_date_year=Integer.parseInt(due_date_split[2]);
+			}else{
+				due_date_month=0;
+				due_date_year=0;
+			}
 				if(month==due_date_month&&year==due_date_year){
-					total_event_targets=c.getCount();
+					event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_COVERAGE_SET_CATEGORY_DETAIL)));
+					list.add(event_targets);
+					total_event_targets=list.size();
 				}
 				   c.moveToNext();		  				
 			}
@@ -2732,21 +3215,30 @@ public long findItemCount(String table, String searchedBy,
 	}
 	public int getAllLearningTargetsForAchievements(int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
+		ArrayList<LearningTargets> list=new ArrayList<LearningTargets>();	 
 		String strQuery="select * from "+LEARNING_TABLE;	
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
 			int total_learning_targets = 0;
 			
 			while (c.isAfterLast()==false) {
-				  
+				LearningTargets learning_targets = new LearningTargets();
 				String due_date=c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE));
-				
-				String[] due_date_split=due_date.split("-");
-				int due_date_month=Integer.parseInt(due_date_split[1]);
-				int due_date_year=Integer.parseInt(due_date_split[2]);
-				
+				String[] due_date_split=null;
+				int due_date_month=0;
+				int due_date_year=0;
+				due_date_split=due_date.split("-");
+				if(due_date_split.length>2){
+					due_date_month=Integer.parseInt(due_date_split[1]);
+					due_date_year=Integer.parseInt(due_date_split[2]);
+				}else{
+					due_date_month=0;
+					due_date_year=0;
+				}
 				if(month==due_date_month&&year==due_date_year){
-					total_learning_targets=c.getCount();
+					learning_targets.setLearningTargetName(c.getString(c.getColumnIndex(COL_LEARNING_CATEGORY)));
+					list.add(learning_targets);
+					total_learning_targets=list.size();
 				}
 				   c.moveToNext();		  				
 			}
@@ -2756,6 +3248,7 @@ public long findItemCount(String table, String searchedBy,
 	}
 	public int getAllLearningTargetsCompleted(String status,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
+	ArrayList<LearningTargets> list=new ArrayList<LearningTargets>();	
 	String strQuery="select * from "+LEARNING_TABLE
 			+" where "+COL_SYNC_STATUS
 			+ " = '"+status+"'";	
@@ -2764,14 +3257,25 @@ public long findItemCount(String table, String searchedBy,
 			int total_event_targets = 0;
 			
 			while (c.isAfterLast()==false) {
-				  
+			LearningTargets learning_targets = new LearningTargets();
 			String due_date=c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE));
-				
-				String[] due_date_split=due_date.split("-");
-				int due_date_month=Integer.parseInt(due_date_split[1]);
-				int due_date_year=Integer.parseInt(due_date_split[2]);
+			String[] due_date_split=null;
+			int due_date_month=0;
+			int due_date_year=0;
+			if(due_date!=null){
+					due_date_split=due_date.split("-");
+				}
+				if(due_date_split.length>2){
+					due_date_month=Integer.parseInt(due_date_split[1]);
+					due_date_year=Integer.parseInt(due_date_split[2]);
+				}else{
+					due_date_month=0;
+					due_date_year=0;
+				}
 				if(month==due_date_month&&year==due_date_year){
-					total_event_targets=c.getCount();
+					learning_targets.setLearningTargetName(c.getString(c.getColumnIndex(COL_LEARNING_CATEGORY)));
+					list.add(learning_targets);
+					total_event_targets=list.size();
 				}
 				   c.moveToNext();		  				
 			}
@@ -2781,21 +3285,30 @@ public long findItemCount(String table, String searchedBy,
 	}
 	public int getAllOtherTargetsForAchievements(int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
+	ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
 		String strQuery="select * from "+OTHER_TABLE;	
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
 			int total_other_targets = 0;
 			
 			while (c.isAfterLast()==false) {
-				  
+				EventTargets event_targets = new EventTargets();
 				String due_date=c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE));
-				
-				String[] due_date_split=due_date.split("-");
-				int due_date_month=Integer.parseInt(due_date_split[1]);
-				int due_date_year=Integer.parseInt(due_date_split[2]);
-				
+				String[] due_date_split=null;
+				int due_date_month=0;
+				int due_date_year=0;
+				due_date_split=due_date.split("-");
+				if(due_date_split.length>2){
+					due_date_month=Integer.parseInt(due_date_split[1]);
+					due_date_year=Integer.parseInt(due_date_split[2]);
+				}else{
+					due_date_month=0;
+					due_date_year=0;
+				}
 				if(month==due_date_month&&year==due_date_year){
-					total_other_targets=c.getCount();
+					event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_OTHER_CATEGORY)));
+					list.add(event_targets);
+					total_other_targets=list.size();
 				}
 				   c.moveToNext();		  				
 			}
@@ -2806,6 +3319,7 @@ public long findItemCount(String table, String searchedBy,
 	
 	public int getAllOtherTargetsCompleted(String status,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
+	ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
 	String strQuery="select * from "+OTHER_TABLE
 					+" where "+COL_SYNC_STATUS
 					+ " = '"+status+"'";	
@@ -2814,14 +3328,24 @@ public long findItemCount(String table, String searchedBy,
 			int total_event_targets = 0;
 			
 			while (c.isAfterLast()==false) {
-				  
+				EventTargets event_targets = new EventTargets();  
 			String due_date=c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE));
 				
-				String[] due_date_split=due_date.split("-");
-				int due_date_month=Integer.parseInt(due_date_split[1]);
-				int due_date_year=Integer.parseInt(due_date_split[2]);
+			String[] due_date_split=null;
+			int due_date_month=0;
+			int due_date_year=0;
+			due_date_split=due_date.split("-");
+			if(due_date_split.length>2){
+				due_date_month=Integer.parseInt(due_date_split[1]);
+				due_date_year=Integer.parseInt(due_date_split[2]);
+			}else{
+				due_date_month=0;
+				due_date_year=0;
+			}
 				if(month==due_date_month&&year==due_date_year){
-					total_event_targets=c.getCount();
+					event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_OTHER_CATEGORY)));
+					list.add(event_targets);
+					total_event_targets=list.size();
 				}
 				   c.moveToNext();		  				
 			}
@@ -2843,10 +3367,17 @@ public long findItemCount(String table, String searchedBy,
 				EventTargets coverage_targets = new EventTargets();
 				coverage_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE)));
 				String due_date=c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE));
-				
-				String[] due_date_split=due_date.split("-");
-				int due_date_month=Integer.parseInt(due_date_split[1]);
-				int due_date_year=Integer.parseInt(due_date_split[2]);
+				String[] due_date_split=null;
+				int due_date_month=0;
+				int due_date_year=0;
+				due_date_split=due_date.split("-");
+				if(due_date_split.length>2){
+					due_date_month=Integer.parseInt(due_date_split[1]);
+					due_date_year=Integer.parseInt(due_date_split[2]);
+				}else{
+					due_date_month=0;
+					due_date_year=0;
+				}
 				if(month==due_date_month&&year==due_date_year){
 					coverage_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_COVERAGE_SET_CATEGORY_DETAIL)));
 					coverage_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_COVERAGE_NUMBER)));
@@ -2881,10 +3412,17 @@ public long findItemCount(String table, String searchedBy,
 				EventTargets other_targets = new EventTargets();
 				other_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE)));
 				String due_date=c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE));
-				
-				String[] due_date_split=due_date.split("-");
-				int due_date_month=Integer.parseInt(due_date_split[1]);
-				int due_date_year=Integer.parseInt(due_date_split[2]);
+				String[] due_date_split=null;
+				int due_date_month=0;
+				int due_date_year=0;
+				due_date_split=due_date.split("-");
+				if(due_date_split.length>2){
+					due_date_month=Integer.parseInt(due_date_split[1]);
+					due_date_year=Integer.parseInt(due_date_split[2]);
+				}else{
+					due_date_month=0;
+					due_date_year=0;
+				}
 				if(month==due_date_month&&year==due_date_year){
 					other_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_OTHER_CATEGORY)));
 					other_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_OTHER_NUMBER)));
@@ -2919,9 +3457,17 @@ public long findItemCount(String table, String searchedBy,
 				learning_targets.setLearningTargetEndDate(c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE)));
 				String due_date=c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE));
 				
-				String[] due_date_split=due_date.split("-");
-				int due_date_month=Integer.parseInt(due_date_split[1]);
-				int due_date_year=Integer.parseInt(due_date_split[2]);
+				String[] due_date_split=null;
+				int due_date_month=0;
+				int due_date_year=0;
+				due_date_split=due_date.split("-");
+				if(due_date_split.length>2){
+					due_date_month=Integer.parseInt(due_date_split[1]);
+					due_date_year=Integer.parseInt(due_date_split[2]);
+				}else{
+					due_date_month=0;
+					due_date_year=0;
+				}
 				if(month==due_date_month&&year==due_date_year){
 					learning_targets.setLearningTargetName(c.getString(c.getColumnIndex(COL_LEARNING_CATEGORY)));
 					learning_targets.setLearningTargetCourse(c.getString(c.getColumnIndex(COL_LEARNING_DESCRIPTION)));
@@ -2954,10 +3500,17 @@ public long findItemCount(String table, String searchedBy,
 				TargetsForAchievements event_targets = new TargetsForAchievements();
 				event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE)));
 				String due_date=c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE));
-				
-				String[] due_date_split=due_date.split("-");
-				int due_date_month=Integer.parseInt(due_date_split[1]);
-				int due_date_year=Integer.parseInt(due_date_split[2]);
+				String[] due_date_split=null;
+				int due_date_month=0;
+				int due_date_year=0;
+				due_date_split=due_date.split("-");
+				if(due_date_split.length>2){
+					due_date_month=Integer.parseInt(due_date_split[1]);
+					due_date_year=Integer.parseInt(due_date_split[2]);
+				}else{
+					due_date_month=0;
+					due_date_year=0;
+				}
 				if(month==due_date_month&&year==due_date_year){
 				event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
 				event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_EVENT_NUMBER)));
@@ -2990,10 +3543,17 @@ public long findItemCount(String table, String searchedBy,
 				TargetsForAchievements coverage_targets = new TargetsForAchievements();
 				coverage_targets.setCoverageTargetEndDate(c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE)));
 				String due_date=c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE));
-				
-				String[] due_date_split=due_date.split("-");
-				int due_date_month=Integer.parseInt(due_date_split[1]);
-				int due_date_year=Integer.parseInt(due_date_split[2]);
+				String[] due_date_split=null;
+				int due_date_month=0;
+				int due_date_year=0;
+				due_date_split=due_date.split("-");
+				if(due_date_split.length>2){
+					due_date_month=Integer.parseInt(due_date_split[1]);
+					due_date_year=Integer.parseInt(due_date_split[2]);
+				}else{
+					due_date_month=0;
+					due_date_year=0;
+				}
 				if(month==due_date_month&&year==due_date_year){
 					coverage_targets.setCoverageTargetName(c.getString(c.getColumnIndex(COL_COVERAGE_SET_CATEGORY_DETAIL)));
 					coverage_targets.setCoverageTargetNumber(c.getString(c.getColumnIndex(COL_COVERAGE_NUMBER)));
@@ -3027,10 +3587,17 @@ public long findItemCount(String table, String searchedBy,
 				TargetsForAchievements other_targets = new TargetsForAchievements();
 				other_targets.setOtherTargetEndDate(c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE)));
 				String due_date=c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE));
-				
-				String[] due_date_split=due_date.split("-");
-				int due_date_month=Integer.parseInt(due_date_split[1]);
-				int due_date_year=Integer.parseInt(due_date_split[2]);
+				String[] due_date_split=null;
+				int due_date_month=0;
+				int due_date_year=0;
+				due_date_split=due_date.split("-");
+				if(due_date_split.length>2){
+					due_date_month=Integer.parseInt(due_date_split[1]);
+					due_date_year=Integer.parseInt(due_date_split[2]);
+				}else{
+					due_date_month=0;
+					due_date_year=0;
+				}
 				if(month==due_date_month&&year==due_date_year){
 					other_targets.setOtherTargetName(c.getString(c.getColumnIndex(COL_OTHER_CATEGORY)));
 					other_targets.setOtherTargetNumber(c.getString(c.getColumnIndex(COL_OTHER_NUMBER)));
@@ -3063,9 +3630,17 @@ public long findItemCount(String table, String searchedBy,
 				learning_targets.setLearningTargetEndDate(c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE)));
 				String due_date=c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE));
 				
-				String[] due_date_split=due_date.split("-");
-				int due_date_month=Integer.parseInt(due_date_split[1]);
-				int due_date_year=Integer.parseInt(due_date_split[2]);
+				String[] due_date_split=null;
+				int due_date_month=0;
+				int due_date_year=0;
+				due_date_split=due_date.split("-");
+				if(due_date_split.length>2){
+					due_date_month=Integer.parseInt(due_date_split[1]);
+					due_date_year=Integer.parseInt(due_date_split[2]);
+				}else{
+					due_date_month=0;
+					due_date_year=0;
+				}
 				if(month==due_date_month&&year==due_date_year){
 				learning_targets.setLearningTargetName(c.getString(c.getColumnIndex(COL_LEARNING_CATEGORY)));
 				learning_targets.setLearningTargetCourse(c.getString(c.getColumnIndex(COL_LEARNING_DESCRIPTION)));
@@ -3103,10 +3678,17 @@ public long findItemCount(String table, String searchedBy,
 				TargetsForAchievements targets = new TargetsForAchievements();
 				targets.setEventTargetEndDate(c.getString(4));
 				String due_date=c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE));
-				
-				String[] due_date_split=due_date.split("-");
-				int due_date_month=Integer.parseInt(due_date_split[1]);
-				int due_date_year=Integer.parseInt(due_date_split[2]);
+				String[] due_date_split=null;
+				int due_date_month=0;
+				int due_date_year=0;
+				due_date_split=due_date.split("-");
+				if(due_date_split.length>2){
+					due_date_month=Integer.parseInt(due_date_split[1]);
+					due_date_year=Integer.parseInt(due_date_split[2]);
+				}else{
+					due_date_month=0;
+					due_date_year=0;
+				}
 				if(month==due_date_month&&year==due_date_year){
 					targets.setEventTargetName(c.getString(0));
 					targets.setEventTargetNumber(c.getString(1));
@@ -3241,4 +3823,73 @@ public long findItemCount(String table, String searchedBy,
 				 }
 		    }
 			
+		   public String getBatteryStatus(Context c)
+		    {
+			   String battery;
+			   Intent batteryIntent = c.getApplicationContext().registerReceiver(null,
+	                    new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+			   				int rawlevel = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+			   				int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+			   				int level = -1;
+			   				if (rawlevel >= 0 && scale > 0) {
+			   					level = (rawlevel *100) / scale;
+			   				}
+			   		battery=String.valueOf(level+"%");
+				return battery;
+			  }
+			 
+			  
+		   
+		   public String getVersionNumber(Context context)
+		   
+		    {
+			   String versionNumber = null;
+			   try{
+			   String PACKAGE_NAME=context.getPackageName();
+			   PackageInfo info = context.getPackageManager().getPackageInfo(PACKAGE_NAME, 0);
+			   versionNumber = info.versionName;
+			   }catch(NameNotFoundException e){
+				   e.printStackTrace();
+			   }
+			   return versionNumber;
+		    }
+		   public String getDeviceName() {
+			    String manufacturer = Build.MANUFACTURER;
+			    String model = Build.MODEL;
+			    if (model.startsWith(manufacturer)) {
+			        return capitalize(model);
+			    } else {
+			        return capitalize(manufacturer) + " " + model;
+			    }
+			}
+
+
+			private String capitalize(String s) {
+			    if (s == null || s.length() == 0) {
+			        return "";
+			    }
+			    char first = s.charAt(0);
+			    if (Character.isUpperCase(first)) {
+			        return s;
+			    } else {
+			        return Character.toUpperCase(first) + s.substring(1);
+			    }
+			} 	
+			
+			public String getDeviceImei(Context context){
+				String device_id = null;
+				TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+				device_id = tm.getDeviceId();
+				return device_id;
+			}
+			
+			public boolean isOnline(Context context) {
+			    ConnectivityManager cm =
+			        (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+			    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+			    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+			        return true;
+			    }
+			    return false;
+			}
 }

@@ -356,6 +356,10 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 								 json.put("due_date", due_date);
 								 json.put("achieved_number", 0);
 								 json.put("last_updated", getDateTime());
+								 json.put("ver", db.getVersionNumber(getActivity().getApplicationContext()));
+									json.put("battery", db.getBatteryStatus(getActivity().getApplicationContext()));
+							    	json.put("device", db.getDeviceName());
+							    	json.put("imei", db.getDeviceImei(getActivity().getApplicationContext()));
 								 end_time=System.currentTimeMillis();
 								 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
 							 } catch (JSONException e) {
@@ -747,6 +751,10 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 							 json.put("due_date", due_date);
 							 json.put("achieved_number", 0);
 							 json.put("last_updated", getDateTime());
+							 json.put("ver", db.getVersionNumber(getActivity().getApplicationContext()));
+								json.put("battery", db.getBatteryStatus(getActivity().getApplicationContext()));
+						    	json.put("device", db.getDeviceName());
+						    	json.put("imei", db.getDeviceImei(getActivity().getApplicationContext()));
 							 end_time=System.currentTimeMillis();
 							 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
 						 } catch (JSONException e) {
@@ -917,7 +925,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 							break;
 						case 2:
 							String[] items5;
-							if(spinner_learningCourse.getSelectedItem().equals("Diarrhoeal Disease")){
+							if(spinner_learningCourse.getSelectedItem().equals("Diarrhoea Disease")){
 								items5=new String[]{"Etiology and Epidemiology",
 													"Clinical Assessment and Classification",
 													"Treatment",
@@ -1106,6 +1114,10 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 								 json.put("due_date", due_date);
 								 json.put("achieved_number", 0);
 								 json.put("last_updated", getDateTime());
+								 json.put("ver", db.getVersionNumber(getActivity().getApplicationContext()));
+									json.put("battery", db.getBatteryStatus(getActivity().getApplicationContext()));
+							    	json.put("device", db.getDeviceName());
+							    	json.put("imei", db.getDeviceImei(getActivity().getApplicationContext()));
 								 end_time=System.currentTimeMillis();
 								 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
 							 } catch (JSONException e) {
@@ -1181,6 +1193,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			private long learningId;
 			private EditText editText_otherCategory;
 			private EditText editText_otherNumber;
+			private RadioGroup personal;
 			static String due_date ;
 			private static TextView dueDateValue;
 			static String start_date ;
@@ -1207,6 +1220,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 				final LinearLayout number_layout=(LinearLayout) rootView.findViewById(R.id.LinearLayout_number);
 				number_layout.setVisibility(View.GONE);
 				RadioGroup enter_number=(RadioGroup) rootView.findViewById(R.id.radioGroup1);
+				personal=(RadioGroup) rootView.findViewById(R.id.radioGroup_personal);
 				final RadioButton yesRadioButton;
 				final RadioButton noRadioButton;
 				yesRadioButton = (RadioButton) rootView.findViewById(R.id.radio_yes);
@@ -1309,32 +1323,15 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			      		}else if (yesRadioButton.isChecked()){
 			      			other_number=editText_otherNumber.getText().toString();
 			      		}
-						//other_number=editText_otherNumber.getText().toString();
 						String other_period=spinner_otherPeriod.getSelectedItem().toString();
 						String duration=" ";
-						/*
-				      	if(isDateAfter(start_date,due_date)==true){
-				      		 startDateValue.requestFocus();
-				      		startDateValue.setError("Check this date!");
-				      	}else if(other_number.isEmpty()==true&&yesRadioButton.isChecked()){
-				      		editText_otherNumber.requestFocus();
-				      		editText_otherNumber.setError("Please enter a number");
-				      	}else if(other_category.isEmpty()==true){
-				      		editText_otherCategory.requestFocus();
-				      		editText_otherCategory.setError("Please enter a description");
-				      	}else if(start_date==null){
-				      		startDateValue.requestFocus();
-				      		startDateValue.setError("Please enter a start date");
-				      	}else if(due_date==null){
-				      		dueDateValue.requestFocus();
-				      		dueDateValue.setError("Please enter an end date");
-				      	}*/if(!checkValidation()){
+						if(!checkValidation()){
 				      		Toast.makeText(getActivity().getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();
 				      	}
 				      	else{
-				      		long id=0;db.insertOther(other_category,other_number,other_period,duration,start_date,due_date,0,Integer.valueOf(other_number),"new_record");
+				      		if(personal.getCheckedRadioButtonId()==R.id.radio_personalYes){
+				      		long id=db.insertOther(other_category,other_number,other_period,duration,start_date,due_date,"personal",0,Integer.valueOf(other_number),"new_record");
 					    if(id!=0){
-					    	
 					    	JSONObject json = new JSONObject();
 							 try {
 								 json.put("id", id);
@@ -1345,6 +1342,11 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 								 json.put("due_date", due_date);
 								 json.put("achieved_number", 0);
 								 json.put("last_updated", getDateTime());
+								 json.put("details", "personal");
+								 json.put("ver", db.getVersionNumber(getActivity().getApplicationContext()));
+									json.put("battery", db.getBatteryStatus(getActivity().getApplicationContext()));
+							    	json.put("device", db.getDeviceName());
+							    	json.put("imei", db.getDeviceImei(getActivity().getApplicationContext()));
 								 end_time=System.currentTimeMillis();
 								 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
 							 } catch (JSONException e) {
@@ -1362,6 +1364,42 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 					    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
 							         Toast.LENGTH_LONG).show();
 					    }
+				      		}else if(personal.getCheckedRadioButtonId()==R.id.radio_personalNo){
+				      			long id=db.insertOther(other_category,other_number,other_period,duration,start_date,due_date,"not_personal",0,Integer.valueOf(other_number),"new_record");
+							    if(id!=0){
+							    	JSONObject json = new JSONObject();
+									 try {
+										 json.put("id", id);
+										 json.put("target_type", other_category);
+										 json.put("category", "other");
+										 json.put("start_date", start_date);
+										 json.put("target_number", 	other_number);
+										 json.put("due_date", due_date);
+										 json.put("achieved_number", 0);
+										 json.put("last_updated", getDateTime());
+										 json.put("details", "not_personal");
+										 json.put("ver", db.getVersionNumber(getActivity().getApplicationContext()));
+											json.put("battery", db.getBatteryStatus(getActivity().getApplicationContext()));
+									    	json.put("device", db.getDeviceName());
+									    	json.put("imei", db.getDeviceImei(getActivity().getApplicationContext()));
+										 end_time=System.currentTimeMillis();
+										 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
+									 } catch (JSONException e) {
+											e.printStackTrace();
+										}
+							    	Intent intent2 = new Intent(Intent.ACTION_MAIN);
+						 	          intent2.setClass(getActivity(), EventPlannerOptionsActivity.class);
+						 	          intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						 	          startActivity(intent2);
+						 	          getActivity().finish();	
+						 	         getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
+							    	 Toast.makeText(getActivity().getApplicationContext(), "Added target successfully!",
+									         Toast.LENGTH_LONG).show();
+							    }else{
+							    	Toast.makeText(getActivity().getApplicationContext(), "Oops! Something went wrong. Please try again",
+									         Toast.LENGTH_LONG).show();
+							    }
+				      		}
 					}
 					}
 				});

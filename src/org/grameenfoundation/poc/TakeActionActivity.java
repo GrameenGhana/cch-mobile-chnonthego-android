@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -29,6 +32,7 @@ public class TakeActionActivity extends BaseActivity{
 	private Long end_time;
 	private DbHelper dbh;
 	String data;
+	private JSONObject json;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -38,7 +42,17 @@ public class TakeActionActivity extends BaseActivity{
 	    dbh=new DbHelper(mContext);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC Diagnostic: Acute Emergencies");
-	    
+	    json=new JSONObject();
+	    try {
+			json.put("page", "ANC Diagnostic: Acute Emergencies");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	   // listView_takeAction=(ListView) findViewById(R.id.listView_takeAction);
 	  //  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
 	    Bundle extras = getIntent().getExtras(); 
@@ -57,7 +71,7 @@ public class TakeActionActivity extends BaseActivity{
 	public void onBackPressed()
 	{
 		 end_time=System.currentTimeMillis();
-		dbh.insertCCHLog("Point of Care", "ANC Diagnostic: Acute Emergencies", start_time.toString(), end_time.toString());
+		dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 	

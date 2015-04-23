@@ -16,6 +16,8 @@ import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.cch.model.CourseAchievments;
 import org.grameenfoundation.cch.model.EventTargets;
 import org.grameenfoundation.cch.utils.TextProgressBar;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
@@ -57,6 +59,7 @@ public class CourseDetailActivity extends Activity {
 	private int year;
 	private Long start_time;
 	private Long end_time;
+	private JSONObject data;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -98,9 +101,14 @@ public class CourseDetailActivity extends Activity {
 			intent.putExtra("modid", id);
 			intent.putExtra("course_name", course_name);
 			 course_achievements = db.getQuizResultsForAchievements((int)id);
+			 if(course_achievements!=null){
 			// if(course_achievements.size()>0){
 			startActivity(intent);
 			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+			 }else{
+				 Crouton.makeText(CourseDetailActivity.this, "You have no details for "+course_name+"!",
+					 Style.INFO).show();
+			 }
 			// }else if(course_achievements.size()==0){
 			//	 Crouton.makeText(CourseDetailActivity.this, "You have no details for "+course_name+"!",
 				//		 Style.INFO).show();
@@ -160,7 +168,17 @@ public class CourseDetailActivity extends Activity {
 	public void onBackPressed()
 	{
 		 end_time=System.currentTimeMillis();
-		db.insertCCHLog("Achievement Center", "Course Achievements Details", start_time.toString(), end_time.toString());
+		 data=new JSONObject();
+		    try {
+		    	data.put("page", "Course Achievements Details");
+		    	data.put("ver", db.getVersionNumber(CourseDetailActivity.this));
+		    	data.put("battery", db.getBatteryStatus(CourseDetailActivity.this));
+		    	data.put("device", db.getDeviceName());
+				data.put("imei", db.getDeviceImei(CourseDetailActivity.this));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		db.insertCCHLog("Achievement Center", data.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 }

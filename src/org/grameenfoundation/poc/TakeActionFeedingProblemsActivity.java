@@ -2,6 +2,9 @@ package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,6 +19,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
 	private Long start_time;
 	private Long end_time;
 	private DbHelper dbh;
+	private JSONObject json;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -23,10 +27,20 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
 	    super.onCreate(savedInstanceState);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Diagnostic: Feeding Problems");
+	    mContext=TakeActionFeedingProblemsActivity.this;
 	    dbh=new DbHelper(TakeActionFeedingProblemsActivity.this);
 	    start_time=System.currentTimeMillis();
-	   // listView_takeAction=(ListView) findViewById(R.id.listView_takeAction);
-	  //  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Diagnostic: Feeding Problems");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
           take_action_category= extras.getString("value");
@@ -322,7 +336,7 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
 	public void onBackPressed()
 	{
 		 end_time=System.currentTimeMillis();
-		dbh.insertCCHLog("Point of Care", "PNC Diagnostic: Feeding Problems", start_time.toString(), end_time.toString());
+		dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 }

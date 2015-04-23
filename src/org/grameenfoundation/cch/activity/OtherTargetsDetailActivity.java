@@ -80,6 +80,7 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 	private static String due_date;
 	static String start_date ;
 	static long due_date_to_compare;
+	private String details;
 	private static TextView startDateValue;
 	private static ArrayList<String> number_entered;
 	private static ArrayList<String> number_achieved;
@@ -122,6 +123,8 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 	    new GetData().execute();
         button_edit.setOnClickListener(new OnClickListener(){
 
+			private RadioGroup personal;
+
 			@Override
 			public void onClick(View v) {
 				final Dialog dialog = new Dialog(OtherTargetsDetailActivity.this);
@@ -144,8 +147,22 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 				startDateValue=(TextView) dialog.findViewById(R.id.textView_startDate);
 				startDateValue.setText(start_date_extra);
 				final LinearLayout number_layout=(LinearLayout) dialog.findViewById(R.id.LinearLayout_number);
+			if(!other_number.equals("0")){
 				number_layout.setVisibility(View.GONE);
+			}else{
+				number_layout.setVisibility(View.VISIBLE);
+			}
 				RadioGroup enter_number=(RadioGroup) dialog.findViewById(R.id.radioGroup1);
+				
+				personal=(RadioGroup) dialog.findViewById(R.id.radioGroup_personal);
+				if(details.equals("personal")){
+					personal.check(R.id.radio_personalYes);
+				}else if(details.equals("not_personal")){
+					personal.check(R.id.radio_personalNo);
+				}	else{
+					personal.check(R.id.radio_personalNo);
+				}
+				personal.check(R.id.radio_personalNo);
 				final RadioButton yesRadioButton;
 				final RadioButton noRadioButton;
 				yesRadioButton = (RadioButton) dialog.findViewById(R.id.radio_yes);
@@ -228,27 +245,12 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 			      		}
 						String other_period=spinner_otherPeriod.getSelectedItem().toString();
 						String duration=" ";
-						/*
-				      	if(isDateAfter(start_date,due_date)==true){
-				      		 startDateValue.requestFocus();
-				      		startDateValue.setError("Check this date!");
-				      	}else if(other_number.isEmpty()==true&&yesRadioButton.isChecked()){
-				      		editText_otherNumber.requestFocus();
-				      		editText_otherNumber.setError("Please enter a number");
-				      	}else if(other_category.isEmpty()==true){
-				      		editText_otherCategory.requestFocus();
-				      		editText_otherCategory.setError("Please enter a value");
-				      	}else if(start_date==null){
-				      		startDateValue.requestFocus();
-				      		startDateValue.setError("Please enter a start date");
-				      	}else if(due_date==null){
-				      		dueDateValue.requestFocus();
-				      		dueDateValue.setError("Please enter an end date");
-				      	}*/if(!checkValidation()){
+						if(!checkValidation()){
 				      		Toast.makeText(getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();
 				      	}
 				      		else{
-				      			if(db.editOther(other_category, other_number, other_period,duration,startDateValue.getText().toString(),dueDateValue.getText().toString(), other_id) ==true){
+				      			if(personal.getCheckedRadioButtonId()==R.id.radio_personalYes){
+				      			if(db.editOther(other_category, other_number, other_period,duration,startDateValue.getText().toString(),dueDateValue.getText().toString(),"personal", other_id) ==true){
 				      				number_achieved=db.getForUpdateOtherNumberAchieved(other_id,other_period);
 				      				JSONObject json = new JSONObject();
 				      				try {
@@ -260,8 +262,13 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 				      					json.put("last_updated", last_updated);
 				      					json.put("start_date", start_date_extra);
 				      					json.put("due_date", due_date_extra);
+				      					json.put("details", "personal");
 				      					json.put("changed", 1);
 				      					json.put("deleted", 0);
+				      					 json.put("ver", db.getVersionNumber(OtherTargetsDetailActivity.this));
+											json.put("battery", db.getBatteryStatus(OtherTargetsDetailActivity.this));
+									    	json.put("device", db.getDeviceName());
+									    	json.put("imei", db.getDeviceImei(OtherTargetsDetailActivity.this));
 				      				} catch (JSONException e) {
 				      					e.printStackTrace();
 				      				}
@@ -279,6 +286,44 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 				      				Toast.makeText(OtherTargetsDetailActivity.this, "Oops! Something went wrong. Please try again",
 							         Toast.LENGTH_LONG).show();
 				      			}
+				      		}else if(personal.getCheckedRadioButtonId()==R.id.radio_personalNo){
+				      			if(db.editOther(other_category, other_number, other_period,duration,startDateValue.getText().toString(),dueDateValue.getText().toString(),"not_personal", other_id) ==true){
+				      				number_achieved=db.getForUpdateOtherNumberAchieved(other_id,other_period);
+				      				JSONObject json = new JSONObject();
+				      				try {
+				      					json.put("id", other_id);
+				      					json.put("target_type", other_category);
+				      					json.put("category", "other");
+				      					json.put("target_number", other_number);
+				      					json.put("achieved_number", achieved);
+				      					json.put("last_updated", last_updated);
+				      					json.put("start_date", start_date_extra);
+				      					json.put("due_date", due_date_extra);
+				      					json.put("details", "not_personal");
+				      					json.put("changed", 1);
+				      					json.put("deleted", 0);
+				      					 json.put("ver", db.getVersionNumber(OtherTargetsDetailActivity.this));
+											json.put("battery", db.getBatteryStatus(OtherTargetsDetailActivity.this));
+									    	json.put("device", db.getDeviceName());
+									    	json.put("imei", db.getDeviceImei(OtherTargetsDetailActivity.this));
+				      				} catch (JSONException e) {
+				      					e.printStackTrace();
+				      				}
+				      				end_time=System.currentTimeMillis();
+				      				db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
+				      				Intent intent2 = new Intent(Intent.ACTION_MAIN);
+				      				intent2.setClass(OtherTargetsDetailActivity.this, NewEventPlannerActivity.class);
+				      				intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				      				startActivity(intent2);
+				      				finish();	
+				      				overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
+				      				Toast.makeText(OtherTargetsDetailActivity.this, "Target edtied successfully!",
+							         Toast.LENGTH_LONG).show();
+				      			}else{
+				      				Toast.makeText(OtherTargetsDetailActivity.this, "Oops! Something went wrong. Please try again",
+							         Toast.LENGTH_LONG).show();
+				      			}
+				      		}
 				      		}
 						}
 					});
@@ -327,6 +372,10 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 										 json.put("due_date", due_date_extra);
 										 json.put("changed", 0);
 										 json.put("deleted", 1);
+										 json.put("ver", db.getVersionNumber(OtherTargetsDetailActivity.this));
+											json.put("battery", db.getBatteryStatus(OtherTargetsDetailActivity.this));
+									    	json.put("device", db.getDeviceName());
+									    	json.put("imei", db.getDeviceImei(OtherTargetsDetailActivity.this));
 									} catch (JSONException e) {
 										e.printStackTrace();
 									}
@@ -416,20 +465,21 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 			 long starDateAsTimestamp=0;
 			long endDateTimestamp=0;
 			try {
-				if(startDate==null){
-					 System.out.println("Enter a valid date!");
-				}else{
+				today_date= new SimpleDateFormat("dd-MM-yyyy").parse(today);
+				if(startDate!=null){
 					 start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
 					 starDateAsTimestamp = start_date.getTime();
+				}else{
+					 System.out.println("Enter a valid date!");
 				}
 				if(endDate==null){
-					System.out.println("Enter a valid date!");	
-				}else {
 					end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
-					  endDateTimestamp = end_date.getTime();
+					endDateTimestamp = end_date.getTime();
+				}else {
+					System.out.println("Enter a valid date!");	
 				}
 				
-				today_date= new SimpleDateFormat("dd-MM-yyyy").parse(today);
+				
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -460,17 +510,18 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 		long starDateAsTimestamp = 0;
 		long endDateTimestamp = 0;
 		try {
-			if(startDate==null){
-				System.out.println("Enter a valid date!");
+	if(startDate!=null){
+		start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+		starDateAsTimestamp = start_date.getTime();
 			}else{
-				start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
-				starDateAsTimestamp = start_date.getTime();
+				System.out.println("Enter a valid date!");
 			}
-			if(endDate==null){
-				System.out.println("Enter a valid date!");
-			}else{
+			if(endDate!=null){
 				end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
 				endDateTimestamp = end_date.getTime();
+				
+			}else{
+				System.out.println("Enter a valid date!");
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -490,6 +541,7 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 		 DbHelper db=new DbHelper(OtherTargetsDetailActivity.this);
 		private Double percentage;
 		private String percentage_achieved;
+		
 
 	    @Override
 	    protected Object doInBackground(Object... params) {
@@ -504,6 +556,7 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 	 			status=extras.getString("status");
 	 			other_id=extras.getLong("other_id");
 	 			last_updated=extras.getString("last_updated");
+	 			details=extras.getString("detail");
 	         }
 	     
 	    

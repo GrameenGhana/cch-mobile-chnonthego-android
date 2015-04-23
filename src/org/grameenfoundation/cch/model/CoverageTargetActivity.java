@@ -143,12 +143,12 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 
 	    @Override
 	    protected Object doInBackground(Object... params) {
-	    	todayCoverageId=db.getCoverageIdCount("Daily");
-			thisWeekCoverageId=db.getCoverageIdCount("Weekly");
-			thisMonthCoverageId=db.getCoverageIdCount("Monthly");
-			midYearCoverageId=db.getCoverageIdCount("Mid-year");
-			thisQuarterCoverageId=db.getCoverageIdCount("Quarterly");
-			thisYearCoverageId=db.getCoverageIdCount("Annually");
+	    	todayCoverageId=db.getCoverageCount("Daily");
+			thisWeekCoverageId=db.getCoverageCount("Weekly");
+			thisMonthCoverageId=db.getCoverageCount("Monthly");
+			midYearCoverageId=db.getCoverageCount("Mid-year");
+			thisQuarterCoverageId=db.getCoverageCount("Quarterly");
+			thisYearCoverageId=db.getCoverageCount("Annually");
 				
 	    	DailyCoverageTargets=db.getAllCoverageTargets("Daily");
 		    WeeklyCoverageTargets=db.getAllCoverageTargets("Weekly");

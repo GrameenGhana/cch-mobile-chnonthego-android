@@ -5,8 +5,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.digitalcampus.oppia.application.DbHelper;
+import org.grameenfoundation.cch.activity.ReferencesDownloadActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 
 
@@ -50,7 +52,9 @@ public class CalendarChangeReceiver extends BroadcastReceiver {
                         Uri.parse("content://com.android.calendar/events"),
                         new String[] { "title", "description", "dtstart", "dtend", "eventLocation",  
                         				CalendarContract.Events.DIRTY, 
-                        				CalendarContract.Events.DELETED  }, SELECTION, null, null);
+                        				CalendarContract.Events.DELETED,
+                        				Events._ID,
+                        				Events.AVAILABILITY}, SELECTION, null, null);
         cursor.moveToFirst();
         
         String CNames[] = new String[cursor.getCount()];
@@ -69,16 +73,26 @@ public class CalendarChangeReceiver extends BroadcastReceiver {
      	   
      	     JSONObject json = new JSONObject();
 			 try {
-				json.put("eventtype", cursor.getString(0));
+				 json.put("eventtype", cursor.getString(0));
 				 json.put("description", cursor.getString(1));
 				 json.put("location", cursor.getString(4));
 				 json.put("changed", cursor.getInt(5));
 				 json.put("deleted", cursor.getInt(6));
+				 json.put("eventid", cursor.getString(7));
+				 json.put("ver", dbh.getVersionNumber(context));
+				 json.put("battery", dbh.getBatteryStatus(context));
+				 json.put("device", dbh.getDeviceName());
+				 json.put("imei", dbh.getDeviceImei(context));
+				 if(Integer.valueOf(cursor.getString(8))==Events.AVAILABILITY_BUSY){
+					 json.put("category","personal");
+				 }else if(Integer.valueOf(cursor.getString(8))==Events.AVAILABILITY_FREE){
+					 json.put("category","not_personal");
+				 }
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 			 
-			 //Log.v(TAG,"Saving: "+json.toString());
+			 Log.v(TAG,"Saving: "+json.toString());
 			 
 			 dbh.insertCCHLog(module, json.toString(), start, end);	
              cursor.moveToNext();

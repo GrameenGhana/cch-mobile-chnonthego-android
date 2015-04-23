@@ -49,6 +49,7 @@ public class CourseAchievementActivity extends Activity {
 	private boolean loadingMore;
 	private Long start_time;
 	private Long end_time;
+	private JSONObject data;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +78,17 @@ public class CourseAchievementActivity extends Activity {
 	public void onBackPressed()
 	{
 		 end_time=System.currentTimeMillis();
-		db.insertCCHLog("Achievement Center", "Course Achievements", start_time.toString(), end_time.toString());
+		 data=new JSONObject();
+		    try {
+		    	data.put("page", "Course Achievements");
+		    	data.put("ver", db.getVersionNumber(CourseAchievementActivity.this));
+		    	data.put("battery", db.getBatteryStatus(CourseAchievementActivity.this));
+		    	data.put("device", db.getDeviceName());
+				data.put("imei", db.getDeviceImei(CourseAchievementActivity.this));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		db.insertCCHLog("Achievement Center", data.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 

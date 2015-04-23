@@ -161,25 +161,39 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 					}
 					
 				});
-				if(event_detail.equalsIgnoreCase("Monitoring")){
+			if(event_detail!=null&&event_detail.equalsIgnoreCase("Monitoring")){
 					event_detail_radio.check(R.id.radio_monitoring);
 					int spinner_position=event_name_adapter.getPosition(event_name);
 					spinner_event_name.setSelection(spinner_position);
-				}else if(event_detail.equalsIgnoreCase("Event")){
+				}else if(event_detail!=null&&event_detail.equalsIgnoreCase("Event")){
 					event_detail_radio.check(R.id.radio_events);
 					items3=getResources().getStringArray(R.array.EventNames);
 					event_name_adapter=new ArrayAdapter<String>(EventTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
 					spinner_event_name.setAdapter(event_name_adapter);
 					int spinner_position=event_name_adapter.getPosition(event_name);
 					spinner_event_name.setSelection(spinner_position);
+				}else if(event_detail==null){
+					event_detail_radio.check(R.id.radio_events);
 				}
-				editText_eventNumber.setText(event_number);
+				if(event_number!=null){
+					editText_eventNumber.setText(event_number);
+				}else{
+					editText_eventNumber.setText("0");
+				}
 				Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogSetEVent);
 				dialogButton.setText("Save");
 				dueDateValue=(TextView) dialog.findViewById(R.id.textView_dueDateValue);
+			if(due_date_extra!=null){
 				dueDateValue.setText(due_date_extra);
+			}else{
+				dueDateValue.setText("null");
+			}
 				startDateValue=(TextView) dialog.findViewById(R.id.textView_startDate);
+			if(start_date_extra!=null){
 				startDateValue.setText(start_date_extra);
+				}else{
+					startDateValue.setText("null");
+				}
 				ImageButton datepickerDialog=(ImageButton) dialog.findViewById(R.id.imageButton_dueDate);
 				datepickerDialog.setOnClickListener(new OnClickListener(){
 
@@ -269,6 +283,10 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 								 json.put("last_updated", last_updated);
 								 json.put("changed", 1);
 								 json.put("deleted", 0);
+								 json.put("ver", db.getVersionNumber(EventTargetsDetailActivity.this));
+									json.put("battery", db.getBatteryStatus(EventTargetsDetailActivity.this));
+							    	json.put("device", db.getDeviceName());
+							    	json.put("imei", db.getDeviceImei(EventTargetsDetailActivity.this));
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
@@ -325,6 +343,10 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 										 json.put("last_updated", last_updated);
 										 json.put("changed", 0);
 										 json.put("deleted", 1);
+										 json.put("ver", db.getVersionNumber(EventTargetsDetailActivity.this));
+											json.put("battery", db.getBatteryStatus(EventTargetsDetailActivity.this));
+									    	json.put("device", db.getDeviceName());
+									    	json.put("imei", db.getDeviceImei(EventTargetsDetailActivity.this));
 									} catch (JSONException e) {
 										e.printStackTrace();
 									}
@@ -352,7 +374,6 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 			@Override
 			public void onClick(View v) {
 				number_achieved=db.getForUpdateEventNumberAchieved(event_id,event_period);
-				System.out.println("Printing id: "+String.valueOf(event_id));
 				Intent intent3 = new Intent(Intent.ACTION_MAIN);
 				intent3.setClass(EventTargetsDetailActivity.this,UpdateActivity.class);
 				intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -410,20 +431,22 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 			 long starDateAsTimestamp=0;
 			long endDateTimestamp=0;
 			try {
-				if(startDate==null){
-				System.out.println("Enter a valid date!");
+				today_date= new SimpleDateFormat("dd-MM-yyyy").parse(today);
+			if(startDate!=null){
+				start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+				 starDateAsTimestamp = start_date.getTime();
 				}else{
-					start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
-					 starDateAsTimestamp = start_date.getTime();
+					System.out.println("Enter a valid date!");
 				}
-				if(endDate==null){
-					System.out.println("Enter a valid date!");	
+			if(endDate!=null){
+				  end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+				  endDateTimestamp = end_date.getTime();
+				
 				}else {
-					end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
-					  endDateTimestamp = end_date.getTime();
+					System.out.println("Enter a valid date!");	
 				}
 				
-				today_date= new SimpleDateFormat("dd-MM-yyyy").parse(today);
+				
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

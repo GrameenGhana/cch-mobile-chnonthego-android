@@ -220,4 +220,19 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/button_next"
+            android:layout_width="182dp"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:textColor="@color/Brown" />
+
+    </LinearLayout>
+
 </LinearLayout>

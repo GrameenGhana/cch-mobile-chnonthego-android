@@ -15,6 +15,7 @@ public class EventTargets {
 	private String eventTargetUncompleted;
 	private String eventTargetCompleted;
 	private String eventTargetDetail;
+	private String eventTargetPersonalCategory;
 	
 	public EventTargets()
 	{
@@ -104,5 +105,12 @@ public class EventTargets {
 	}
 	public void setEventTargetDetail(String eventTargetDetail) {
 		this.eventTargetDetail = eventTargetDetail;
+	}
+	
+	public String getEventTargetPersonalCategory() {
+		return eventTargetPersonalCategory;
+	}
+	public void setEventTargetPersonalCategory(String eventTargetPersonalCategory) {
+		this.eventTargetPersonalCategory = eventTargetPersonalCategory;
 	}
 }

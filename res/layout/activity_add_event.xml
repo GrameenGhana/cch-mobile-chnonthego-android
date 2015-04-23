@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/White"
-     android:fadeScrollbars="false" >
+     android:fadeScrollbars="false" 
+      android:focusableInTouchMode="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -109,6 +110,45 @@
                     android:textStyle="italic" />
             </TableRow>
         </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp" >
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Is this a personal event?"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold|italic" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup_personal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/radio_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/apptheme_btn_radio_holo_light"
+                    android:checked="true"
+                    android:text="Yes" />
+
+ 				<RadioButton
+ 				    android:id="@+id/radio_no"
+ 				    android:layout_width="wrap_content"
+ 				    android:layout_height="wrap_content"
+ 				    android:button="@drawable/apptheme_btn_radio_holo_light"
+ 				    android:text="No" />
+                
+            </RadioGroup>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout_buttonsOne"

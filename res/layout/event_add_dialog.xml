@@ -58,6 +58,42 @@
                 </EditText>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Is this a personal target?"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroup_personal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/radio_personalYes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/apptheme_btn_radio_holo_light"
+                        android:text="Yes" />
+
+                    <RadioButton
+                        android:id="@+id/radio_personalNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/apptheme_btn_radio_holo_light"
+                        android:checked="true"
+                        android:text="No" />
+                </RadioGroup>
+            </LinearLayout>
+
             <TableRow
                 android:id="@+id/tableRow1"
                 android:layout_width="match_parent"
@@ -234,6 +270,7 @@
                 android:text="Cancel"
                 android:textColor="@color/TextBrown" />
         </LinearLayout>
+
     </LinearLayout>
 
 </ScrollView>

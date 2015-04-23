@@ -13,9 +13,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,11 +31,16 @@ public class RoutineActivityDetails extends Fragment {
 	View rootView;
 	private TextView title;
 	private ListView listView_details;
-	 
+	private TextView textView_clickHere;
+	ViewPager mViewPager;
 	public static final String TAG = RoutineActivityDetails.class.getSimpleName();
 
+	public RoutineActivityDetails() { 
 	
-	public RoutineActivityDetails() { }
+	}
+	public RoutineActivityDetails(ViewPager mViewPager) { 
+		this.mViewPager=mViewPager;
+	}
 	 
 	 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		 	mContext = getActivity().getApplicationContext();
@@ -42,7 +49,16 @@ public class RoutineActivityDetails extends Fragment {
 		 	rootView = inflater.inflate(R.layout.routines_detail_pager_layout,null,false);
 		    title = (TextView) rootView.findViewById(R.id.textView1);
 		    listView_details=(ListView) rootView.findViewById(R.id.listView_routineDetail);
-		   
+		    textView_clickHere = (TextView) rootView.findViewById(R.id.textView_back);
+		    textView_clickHere.setOnClickListener(new OnClickListener(){
+
+		    	@Override
+				public void onClick(View v) {
+						mViewPager.setCurrentItem(0, true);
+				
+				}
+			});
+		    
 			ArrayList<RoutineActivity> todos = dbh.getSWRoutineActivities();
 		   	if(todos!=null){	
 		    if (todos.size()==0) {

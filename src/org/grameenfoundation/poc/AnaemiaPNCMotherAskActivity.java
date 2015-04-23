@@ -2,6 +2,9 @@ package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,6 +19,7 @@ public class AnaemiaPNCMotherAskActivity extends BaseActivity {
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;
+	private JSONObject json;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -27,6 +31,17 @@ public class AnaemiaPNCMotherAskActivity extends BaseActivity {
 	    getActionBar().setSubtitle("PNC Mother Diagnostic: Anaemia");
 	    dbh=new DbHelper(AnaemiaPNCMotherAskActivity.this);
 	    start_time=System.currentTimeMillis();
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Mother Diagnostic: Anaemia");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	    button_next=(Button) findViewById(R.id.button_next);
 	    button_next.setOnClickListener(new OnClickListener(){
 
@@ -42,8 +57,9 @@ public class AnaemiaPNCMotherAskActivity extends BaseActivity {
 	public void onBackPressed()
 	{
 	    end_time=System.currentTimeMillis();
-	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
-		dbh.insertCCHLog("Point of Care", "PNC Mother Diagnostic: Anaemia", start_time.toString(), end_time.toString());
+	    //System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
+		//dbh.insertCCHLog("Point of Care", "PNC Mother Diagnostic: Anaemia", start_time.toString(), end_time.toString());
+	    dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 }

@@ -245,6 +245,10 @@ public class UpdateActivity extends BaseActivity {
 									 json.put("achieved_number", event_number_achieved_for_entry);
 									 json.put("last_updated", getDateTime());
 									 json.put("justification", justification_text); 
+									 json.put("ver", db.getVersionNumber(getApplicationContext()));
+										json.put("battery", db.getBatteryStatus(getApplicationContext()));
+								    	json.put("device", db.getDeviceName());
+								    	json.put("imei", db.getDeviceImei(getApplicationContext()));
 									 
 								} catch (JSONException e) {
 									e.printStackTrace();
@@ -261,6 +265,9 @@ public class UpdateActivity extends BaseActivity {
 									 System.out.println("Updating event target with: "+event_update_status);
 								 }else if(event_number_achieved_for_entry<Integer.valueOf(number)){
 									 db.updateEventTarget("new_record",event_number_achieved_for_entry,event_number_remaining_for_entry,id);
+								 }else if(event_number_achieved_for_entry>Integer.valueOf(number)){
+									 db.updateEventTarget(event_update_status,event_number_achieved_for_entry,event_number_remaining_for_entry, id);
+									 System.out.println("Updating event target with: "+event_update_status); 
 								 }
 								 Intent intent=new Intent(Intent.ACTION_MAIN);
 								 intent.setClass(UpdateActivity.this, NewEventPlannerActivity.class);
@@ -298,7 +305,11 @@ public class UpdateActivity extends BaseActivity {
 										 json.put("target_number", number);
 										 json.put("achieved_number", coverage_number_achieved_for_entry);
 										 json.put("last_updated", getDateTime());
-										 json.put("justification", justification_text); 
+										 json.put("justification", justification_text);
+										 json.put("ver", db.getVersionNumber(getApplicationContext()));
+											json.put("battery", db.getBatteryStatus(getApplicationContext()));
+									    	json.put("device", db.getDeviceName());
+									    	json.put("imei", db.getDeviceImei(getApplicationContext()));
 									} catch (JSONException e) {
 										e.printStackTrace();
 									}
@@ -308,6 +319,8 @@ public class UpdateActivity extends BaseActivity {
 										 db.updateCoverageTarget(coverage_update_status,coverage_number_achieved_for_entry,coverage_number_remaining_for_entry, id);
 										 }else if(coverage_number_achieved_for_entry<Integer.valueOf(number)){
 											 db.updateCoverageTarget("new_record",coverage_number_achieved_for_entry,coverage_number_remaining_for_entry,id);
+										 }else if(coverage_number_achieved_for_entry>Integer.valueOf(number)){
+											 db.updateCoverageTarget(coverage_update_status,coverage_number_achieved_for_entry,coverage_number_remaining_for_entry, id);
 										 }
 									 Intent intent=new Intent(Intent.ACTION_MAIN);
 									 intent.setClass(UpdateActivity.this, NewEventPlannerActivity.class);
@@ -351,6 +364,10 @@ public class UpdateActivity extends BaseActivity {
 										 json.put("achieved_number", other_number_achieved_for_entry);
 										 json.put("last_updated", getDateTime());
 										 json.put("justification", justification_text); 
+										 json.put("ver", db.getVersionNumber(getApplicationContext()));
+											json.put("battery", db.getBatteryStatus(getApplicationContext()));
+									    	json.put("device", db.getDeviceName());
+									    	json.put("imei", db.getDeviceImei(getApplicationContext()));
 									} catch (JSONException e) {
 										e.printStackTrace();
 									}
@@ -358,9 +375,11 @@ public class UpdateActivity extends BaseActivity {
 									 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
 									 
 									 if(other_number_achieved_for_entry==Integer.valueOf(number)){
-										 db.updateOtherTarget(other_update_status,other_number_achieved_for_entry,other_number_remaining_for_entry,id);
+										 	db.updateOtherTarget(other_update_status,other_number_achieved_for_entry,other_number_remaining_for_entry,id);
 										 }else if(other_number_achieved_for_entry<Integer.valueOf(number)){
 											 db.updateOtherTarget("new_record",other_number_achieved_for_entry,other_number_remaining_for_entry,id);
+										 }else if(other_number_achieved_for_entry>Integer.valueOf(number)){
+											 db.updateOtherTarget(other_update_status,other_number_achieved_for_entry,other_number_remaining_for_entry,id);
 										 }
 									 Intent intent=new Intent(Intent.ACTION_MAIN);
 									 intent.setClass(UpdateActivity.this, NewEventPlannerActivity.class);
@@ -386,6 +405,10 @@ public class UpdateActivity extends BaseActivity {
 										 json.put("due_date", dueDate);
 										 json.put("achieved_number", learning_achieved_number);
 										 json.put("last_updated", getDateTime());
+										 json.put("ver", db.getVersionNumber(getApplicationContext()));
+											json.put("battery", db.getBatteryStatus(getApplicationContext()));
+									    	json.put("device", db.getDeviceName());
+									    	json.put("imei", db.getDeviceImei(getApplicationContext()));
 										 if(learning_justification_text.equals(" ")){
 										 json.put("justification", " ");
 										 }else {

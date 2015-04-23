@@ -65,10 +65,10 @@ public class UpdateTargetsService extends Service {
 		Log.v(TAG, "Starting target update Service");
 		 Time time = new Time();
 		    time.setToNow();
-		    eventId=db.getEventIdCount("Daily");
-			 coverageId=db.getCoverageIdCount("Daily");
-			 otherId=db.getOtherIdCount("Daily");
-			 learningId=db.getLearningIdCount("Daily");
+		    eventId=db.getEventCount("Daily");
+			 coverageId=db.getCoverageCount("Daily");
+			 otherId=db.getOtherCount("Daily");
+			 learningId=db.getLearningCount("Daily");
 			 int number=(int)eventId;
 			 int number2=(int)coverageId;
 			 int number3=(int)otherId;
@@ -83,17 +83,9 @@ public class UpdateTargetsService extends Service {
 		        .setSmallIcon(R.drawable.app_icon)
 		        .setContentTitle("CHN on the go")
 		        .setContentText("You have "+String.valueOf(counter) +" target(s) to update.");
-		// Creates an explicit intent for an Activity in your app
 		Intent resultIntent = new Intent(this, UpdateTargetActivity.class);
-
-		// The stack builder object will contain an artificial back stack for the
-		// started Activity.
-		// This ensures that navigating backward from the Activity leads out of
-		// your application to the Home screen.
 		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-		// Adds the back stack for the Intent (but not the Intent itself)
 		stackBuilder.addParentStack(UpdateTargetActivity.class);
-		// Adds the Intent that starts the Activity to the top of the stack
 		stackBuilder.addNextIntent(resultIntent);
 		PendingIntent resultPendingIntent =
 		        stackBuilder.getPendingIntent(
@@ -103,7 +95,6 @@ public class UpdateTargetsService extends Service {
 		mBuilder.setContentIntent(resultPendingIntent);
 		NotificationManager mNotificationManager =
 		    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		// mId allows you to update the notification later on.
 		mBuilder.setAutoCancel(true);
 		mNotificationManager.notify(mId, mBuilder.build());
 		//}

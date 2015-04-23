@@ -2,6 +2,9 @@ package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -26,6 +29,7 @@ public class AskHerActivity extends BaseActivity {
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;
+	private JSONObject json;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -35,6 +39,17 @@ public class AskHerActivity extends BaseActivity {
 	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC Diagnostic: Managing Danger Signs");
+	    json=new JSONObject();
+	    try {
+			json.put("page", "ANC Diagnostic: Managing Danger Signs");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	    listView_askHer=(ListView) findViewById(R.id.listView_askHer);
 	    String[] items={"Excessive Vomiting",
 	    				"Offensive/discolored discharge",
@@ -172,8 +187,8 @@ public class AskHerActivity extends BaseActivity {
 	public void onBackPressed()
 	{
 	    end_time=System.currentTimeMillis();
-	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
-		dbh.insertCCHLog("Point of Care", "ANC Diagnostic Managing Danger Signs", start_time.toString(), end_time.toString());
+		//dbh.insertCCHLog("Point of Care", "ANC Diagnostic Managing Danger Signs", start_time.toString(), end_time.toString());
+	    dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 }

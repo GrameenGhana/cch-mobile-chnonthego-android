@@ -2,6 +2,9 @@ package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -9,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -20,7 +24,8 @@ public class ReturningForCareNextActivity extends BaseActivity {
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;
-	private ImageView image2;  
+	private ImageView image2;
+	private JSONObject json;  
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,17 @@ public class ReturningForCareNextActivity extends BaseActivity {
 	    getActionBar().setSubtitle("PNC Counselling: Returning for care");
 	    dbh=new DbHelper(ReturningForCareNextActivity.this);
 	    start_time=System.currentTimeMillis();
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Counselling: Returning for care");
+			json.put("section", MobileLearning.CCH_COUNSELLING);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	    button_next=(Button) findViewById(R.id.button_next);
 	    image2=(ImageView) findViewById(R.id.imageView2);
 	    button_next.setOnClickListener(new OnClickListener(){
@@ -62,7 +78,12 @@ public class ReturningForCareNextActivity extends BaseActivity {
  	                    nagDialog.dismiss();
  	                }
  	            });
- 	            nagDialog.show();
+ 	          WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+  	          lp.copyFrom(nagDialog.getWindow().getAttributes());
+  	          lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+  	          lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+  	          nagDialog.show();
+  	          nagDialog.getWindow().setAttributes(lp);
  				
  			}
  	    	
@@ -71,8 +92,7 @@ public class ReturningForCareNextActivity extends BaseActivity {
 	public void onBackPressed()
 	{
 	    end_time=System.currentTimeMillis();
-	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
-		dbh.insertCCHLog("Point of Care", "PNC Counselling: Returning for care", start_time.toString(), end_time.toString());
+		dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 }

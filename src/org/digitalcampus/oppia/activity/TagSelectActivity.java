@@ -65,6 +65,8 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 	private DbHelper dbh;
 
 	private int[] imageid;
+
+	private JSONObject data;
 	
 
 	
@@ -216,8 +218,18 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 	}
 	public void onBackPressed()
 	{
+		data=new JSONObject();
+	    try {
+	    	data.put("page", "Course Download Selection");
+	    	data.put("ver", dbh.getVersionNumber(TagSelectActivity.this));
+	    	data.put("battery", dbh.getBatteryStatus(TagSelectActivity.this));
+	    	data.put("device", dbh.getDeviceName());
+			data.put("imei", dbh.getDeviceImei(TagSelectActivity.this));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		 end_time=System.currentTimeMillis();
-		dbh.insertCCHLog("Learning Center", "Course Download Selection", start_time.toString(), end_time.toString());
+		dbh.insertCCHLog("Learning Center", data.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 

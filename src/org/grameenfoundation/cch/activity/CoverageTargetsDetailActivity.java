@@ -176,6 +176,10 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 										 json.put("last_updated", last_updated);
 										json.put("deleted", 1);
 										json.put("changed", 0);
+										json.put("ver", db.getVersionNumber(CoverageTargetsDetailActivity.this));
+										json.put("battery", db.getBatteryStatus(CoverageTargetsDetailActivity.this));
+								    	json.put("device", db.getDeviceName());
+								    	json.put("imei", db.getDeviceImei(CoverageTargetsDetailActivity.this));
 									} catch (JSONException e) {
 										e.printStackTrace();
 									}
@@ -387,13 +391,25 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 				ArrayAdapter<String> spinner_adapter=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items2);
 				spinner_coveragePeriod.setAdapter(spinner_adapter);
 				final EditText editText_coverageNumber=(EditText) dialog.findViewById(R.id.editText_dialogCoverageNumber);
-				editText_coverageNumber.setText(coverage_number);
+				if(coverage_number!=null){
+					editText_coverageNumber.setText(coverage_number);
+				}else {
+					editText_coverageNumber.setText(0);
+				}
 				Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddCoverage);
 				dialogButton.setText("Save");
 				dueDateValue=(TextView) dialog.findViewById(R.id.textView_dueDateValue);
-				dueDateValue.setText(due_date_extra);
+				if(due_date_extra!=null){
+					dueDateValue.setText(due_date_extra);
+				}else{
+					dueDateValue.setText("null");
+				}
 				startDateValue=(TextView) dialog.findViewById(R.id.textView_startDate);
-				startDateValue.setText(start_date_extra);
+				if(start_date_extra!=null){
+					startDateValue.setText(start_date_extra);
+				}else{
+					startDateValue.setText("null");
+				}
 				ImageButton datepickerDialog=(ImageButton) dialog.findViewById(R.id.imageButton_dueDate);
 				datepickerDialog.setOnClickListener(new OnClickListener(){
 					@Override
@@ -473,6 +489,11 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 								 json.put("last_updated", last_updated);
 								 json.put("changed", 1);
 								 json.put("deleted", 0);
+								 json.put("ver", db.getVersionNumber(CoverageTargetsDetailActivity.this));
+									json.put("battery", db.getBatteryStatus(CoverageTargetsDetailActivity.this));
+							    	json.put("device", db.getDeviceName());
+							    	json.put("imei", db.getDeviceImei(CoverageTargetsDetailActivity.this));
+							
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
@@ -534,20 +555,21 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 			 long starDateAsTimestamp=0;
 			long endDateTimestamp=0;
 			try {
-				if(startDate==null){
-				System.out.println("Enter a valid date!");
-				}else{
+				today_date= new SimpleDateFormat("dd-MM-yyyy").parse(today);
+				if(startDate!=null){
 					start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
 					 starDateAsTimestamp = start_date.getTime();
+				}else{
+					System.out.println("Enter a valid date!");
 				}
-				if(endDate==null){
-					System.out.println("Enter a valid date!");	
-				}else {
+				if(endDate!=null){
 					end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
 					  endDateTimestamp = end_date.getTime();
+				}else {
+					System.out.println("Enter a valid date!");	
 				}
 				
-				today_date= new SimpleDateFormat("dd-MM-yyyy").parse(today);
+				
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -576,17 +598,17 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 		long starDateAsTimestamp = 0;
 		long endDateTimestamp = 0;
 		try {
-			if(startDate==null){
-				System.out.println("Enter a valid date!");
-			}else{
+			if(startDate!=null){
 				start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
 				starDateAsTimestamp = start_date.getTime();
-			}
-			if(endDate==null){
-				System.out.println("Enter a valid date!");
 			}else{
+				System.out.println("Enter a valid date!");
+			}
+			if(endDate!=null){
 				end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
 				endDateTimestamp = end_date.getTime();
+			}else{
+				System.out.println("Enter a valid date!");
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block

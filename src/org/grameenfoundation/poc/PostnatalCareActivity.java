@@ -49,7 +49,6 @@ public class PostnatalCareActivity extends BaseActivity implements AnimationList
 	    super.onCreate(savedInstanceState);
 	    mContext = PostnatalCareActivity.this;
 	    setContentView(R.layout.activity_postnatal_care_menu);
-	    mContext=PostnatalCareActivity.this;
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("Postnatal Care");
 	    dbh=new DbHelper(mContext);
@@ -193,8 +192,7 @@ public class PostnatalCareActivity extends BaseActivity implements AnimationList
 	public void onBackPressed()
 	{
 	    end_time=System.currentTimeMillis();
-	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
-		dbh.insertCCHLog("Point of Care", "Postnatal Care", start_time.toString(), end_time.toString());
+		//dbh.insertCCHLog("Point of Care", "Postnatal Care", start_time.toString(), end_time.toString());
 		finish();
 	}
 }

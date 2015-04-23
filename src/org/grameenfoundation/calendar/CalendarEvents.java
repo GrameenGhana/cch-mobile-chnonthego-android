@@ -54,9 +54,6 @@ public class CalendarEvents {
 	public boolean addRecurringEvent(String evt, String location, String desc,String rrule)
     {			
 		Calendar cal = Calendar.getInstance();
-		//beginTime.set(2012, 0, 19, 7, 30);
-		//Calendar endTime = Calendar.getInstance();
-		//endTime.set(2012, 0, 19, 8, 30);
 		Intent	intent = new Intent(Intent.ACTION_EDIT)
 		        .setData(Events.CONTENT_URI)
 		        .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTimeInMillis())
@@ -69,8 +66,6 @@ public class CalendarEvents {
 		Bundle b=new Bundle();
 		b.putString(Events.RRULE,rrule);
 		intent.putExtras(b);
-		
-		//System.out.println(rrule);
 		mContext.startActivity(intent);
 		return true;
     }
@@ -87,19 +82,13 @@ public class CalendarEvents {
 		        .putExtra(Events.EVENT_LOCATION, location)
 		        .putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY)
 		 		.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY , false);
-		
-		//long eventID = Long.parseLong(Events.CONTENT_URI.getLastPathSegment());
-		//System.out.println(String.valueOf(eventID));
-		
-		//String user_id = prefs.getString(mContext.getString(R.string.prefs_username), "noid"); 
-		//dbh.insertCalendarEvent(eventID,evt, user_id, desc, location, cal.getTimeInMillis(),  cal.getTimeInMillis()+60*60*1000);
 		mContext.startActivity(intent);
 		
 		return true;
 		
 	
     }
-	public boolean editEvent(long event_id,String evt, String location, String desc)
+	public boolean editEvent(long event_id,String evt, String location, String desc,int availability)
     {	
 		ContentResolver cr = mContext.getContentResolver();
 		ContentValues values = new ContentValues();
@@ -108,6 +97,7 @@ public class CalendarEvents {
 		values.put(Events.TITLE,evt); 
 		values.put(Events.DESCRIPTION,desc); 
 		values.put(Events.EVENT_LOCATION,location); 
+		values.put(Events.AVAILABILITY,availability); 
 		updateUri = ContentUris.withAppendedId(Events.CONTENT_URI, event_id);
 		int rows =  mContext.getContentResolver().update(updateUri, values, null, null);
 		Log.i("Calendar edit", "Rows updated: " + rows);  
@@ -117,7 +107,22 @@ public class CalendarEvents {
 			return false;
 		}
     }
-	
+	public boolean updateEvent(long event_id,int status)
+    {	
+		ContentResolver cr = mContext.getContentResolver();
+		ContentValues values = new ContentValues();
+		Uri updateUri = null;
+		// The new title for the event
+		values.put(Events.STATUS,status); 
+		updateUri = ContentUris.withAppendedId(Events.CONTENT_URI, event_id);
+		int rows =  mContext.getContentResolver().update(updateUri, values, null, null);
+		Log.i("Calendar edit", "Rows updated: " + rows);  
+		if(rows==1){
+			return true;
+		}else {
+			return false;
+		}
+    }
 	public boolean deleteEvent(long event_id)
     {	
 		ContentResolver cr = mContext.getContentResolver();
@@ -229,6 +234,34 @@ public class CalendarEvents {
 		       return list;
 		   	}
 	       
+	       
+	       public ArrayList<MyCalendarEvents> getEventsToUpdate(Boolean showDay) {
+				ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
+		       int evNum = 0;
+   	       String dformat ="MMM-dd hh:mm a";
+   	       SimpleDateFormat formatter = new SimpleDateFormat(dformat);
+   	       Calendar calendar = Calendar.getInstance();
+   	       long milliSeconds = 0;
+   	       calendar.setTimeInMillis(milliSeconds);
+   	    	String d =formatter.format(calendar.getTime());
+		    	   for(MyEvent ev: calEvents){
+		    		   MyCalendarEvents calendarEvents=new MyCalendarEvents();
+		        	   if (ev.isToday())
+		        	   {
+		        		   calendarEvents.setEventType(ev.eventType);
+		        		   calendarEvents.setEventDescription(ev.description);
+		        		   calendarEvents.setEventLocation(ev.location);
+		        		   calendarEvents.setEventTime(ev.getDate(dformat));
+		        		   calendarEvents.setEventId(String.valueOf(ev.eventId));
+		        		  
+		        		   evNum++;
+		        		   list.add(calendarEvents);
+		        	   }
+		        	   
+		    	   }
+		       
+		       return list;
+		   	}
 	       public ArrayList<MyCalendarEvents> getTomorrowsEvents(Boolean showDay) {
 				ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
 		       int evNum = 0;
@@ -287,7 +320,38 @@ public class CalendarEvents {
 		   	}
 	
 	
-	
+	   	
+	       public int readCalendarEventForEdit(Context context,long id)
+	       	{
+	       		int availability = 0;
+	       		
+	       		String selection="(( "+Events._ID+" = "+id+" ))";
+	               Cursor cursor = context.getContentResolver()
+	                       .query(
+	                               Uri.parse("content://com.android.calendar/events"),
+	                               new String[] { Events.AVAILABILITY}, selection, null, null);
+	               cursor.moveToFirst();
+	               
+	               // fetching calendars name
+	               String CNames[] = new String[cursor.getCount()];
+
+
+	               Calendar c = Calendar.getInstance();
+	               for (int i = 0; i < CNames.length; i++) {
+	                   // CNames[i] = cursor.getString(0);
+	                  
+	            	    try {
+	            	    	availability = cursor.getInt(cursor.getColumnIndex(Events.AVAILABILITY));
+	            	    } catch(NumberFormatException e) {e.printStackTrace();}
+	            	   
+	                   cursor.moveToNext();
+	               }  
+	               
+	               cursor.close();
+	   			return availability;
+	        }
+	     
+	       
     public void readCalendarEvent(Context context){
     	{
     		
@@ -372,7 +436,8 @@ public ArrayList<MyCalendarEvents> readPastCalendarEvents(Context context, int m
     				 							  CalendarContract.Events.DTSTART,     //3
     				 							  CalendarContract.Events.DTEND,       //4
     				 							  CalendarContract.Events.ALL_DAY,     //5
-    				 							  CalendarContract.Events.EVENT_LOCATION };//6
+    				 							  CalendarContract.Events.EVENT_LOCATION,//6
+    				 							 CalendarContract.Events.STATUS};//7
 
     		// 0 = January, 1 = February, ...
 
@@ -386,7 +451,10 @@ public ArrayList<MyCalendarEvents> readPastCalendarEvents(Context context, int m
     			last_day_of_month.set(year, month, 30);
     		}
 
-    		String selection = "(( " + CalendarContract.Events.DTSTART + " >= " + first_day_of_month.getTimeInMillis() + " ) AND ( " + CalendarContract.Events.DTSTART + " <= " + last_day_of_month.getTimeInMillis() + " ) AND ("+ CalendarContract.Events.DTSTART+" < "+today_date+" ))";
+    		String selection = "(( " + CalendarContract.Events.DTSTART + " >= " + first_day_of_month.getTimeInMillis() + 
+    					" ) AND ( " + CalendarContract.Events.DTSTART + " <= " + last_day_of_month.getTimeInMillis() +
+    					" ) AND ( "+ CalendarContract.Events.STATUS+" = "+Events.STATUS_CONFIRMED+
+    					" ) AND ( "+Events.DELETED+" !=1 "+" ))";
 
     		Cursor cursor = context.getContentResolver().query(Uri.parse("content://com.android.calendar/events"), projection, selection, null, null );
     	
@@ -435,7 +503,9 @@ public ArrayList<MyCalendarEvents> readCalendarEventsTotal(Context context, int 
 		last_day_of_month.set(year, month, 30);
 		}
 
-		String selection2 = "(( " + CalendarContract.Events.DTSTART + " >= " + first_day_of_month.getTimeInMillis() + " ) AND ( " + CalendarContract.Events.DTSTART + " <= " + last_day_of_month.getTimeInMillis() +" ))";
+		String selection2 = "(( " + CalendarContract.Events.DTSTART + " >= " + first_day_of_month.getTimeInMillis() +
+							" ) AND ( " + CalendarContract.Events.DTSTART + " <= " + last_day_of_month.getTimeInMillis() +
+							" ) AND ( "+Events.DELETED+" !=1 "+" ))";
 		  Cursor cursor2 = context.getContentResolver()
                   .query(Uri.parse("content://com.android.calendar/events"),projection, selection2, null, null);
 		// output the events 
@@ -469,7 +539,8 @@ public ArrayList<MyCalendarEvents> readFutureCalendarEvents(Context context, int
 				 							  CalendarContract.Events.DTSTART,     //3
 				 							  CalendarContract.Events.DTEND,       //4
 				 							  CalendarContract.Events.ALL_DAY,     //5
-				 							  CalendarContract.Events.EVENT_LOCATION };//6
+				 							  CalendarContract.Events.EVENT_LOCATION,//6
+				 							  Events.STATUS};//7
 
 		// 0 = January, 1 = February, ...
 
@@ -483,7 +554,11 @@ public ArrayList<MyCalendarEvents> readFutureCalendarEvents(Context context, int
 		last_day_of_month.set(year, month, 30);
 		}
 
-		String selection = "(( " + CalendarContract.Events.DTSTART + " >= " + first_day_of_month.getTimeInMillis() + " ) AND ( " + CalendarContract.Events.DTSTART + " <= " + last_day_of_month.getTimeInMillis() + " ) AND ("+ CalendarContract.Events.DTSTART+" >= "+today_date+" ))";
+		String selection = "(( " + CalendarContract.Events.DTSTART + " >= " + first_day_of_month.getTimeInMillis() + 
+							" ) AND ( " + CalendarContract.Events.DTSTART + " <= " + last_day_of_month.getTimeInMillis() +
+							" ) AND ( "+ CalendarContract.Events.STATUS+" = "+Events.STATUS_CANCELED+
+							" ) AND ( "+ CalendarContract.Events.STATUS+" != "+Events.STATUS_CONFIRMED+
+							" ) AND ( "+Events.DELETED+" !=1 "+" ))";
 
 		Cursor cursor = context.getContentResolver().query( CalendarContract.Events.CONTENT_URI, projection, selection, null, null );
 		 
@@ -503,9 +578,53 @@ public ArrayList<MyCalendarEvents> readFutureCalendarEvents(Context context, int
 		    }
         cursor.close();
     	return list;    
+	}
  }
 
-	
+	//Read future events within a particular month
+	public ArrayList<MyCalendarEvents> readEventsToUpdate(Context context,Boolean showDay){
+		{
+			ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
+			long today_date = new Date().getTime();
+			 String dformat =(showDay)? "MMM dd" : "hh:mm a";
+		       SimpleDateFormat formatter = new SimpleDateFormat(dformat);
+			 String[] projection = new String[] { CalendarContract.Events._ID, //0
+					 							  CalendarContract.Events.TITLE,       //1
+					 							  CalendarContract.Events.DESCRIPTION, //2
+					 							  CalendarContract.Events.DTSTART,     //3
+					 							  CalendarContract.Events.DTEND,       //4
+					 							  CalendarContract.Events.ALL_DAY,     //5
+					 							  CalendarContract.Events.EVENT_LOCATION,//6
+					 							  CalendarContract.Events.STATUS};//7
+
+			// 0 = January, 1 = February, ...
+
+			Date today=new Date();
+
+String selection = "(( " + CalendarContract.Events.DTEND + " <= " + today.getTime() + 
+					" ) AND ( " + CalendarContract.Events.STATUS + " != " + Events.STATUS_CONFIRMED + 
+					" ) AND ( "+ CalendarContract.Events.STATUS+" != "+Events.STATUS_CANCELED+
+					" ) AND ( "+Events.DELETED+" !=1 "+" ))";
+
+			Cursor cursor = context.getContentResolver().query( CalendarContract.Events.CONTENT_URI, projection, selection, null, null );
+			 
+			 cursor.moveToFirst();
+			     while ( cursor.isAfterLast()==false){
+			    	 Long startDate=Long.valueOf(cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DTSTART)));
+			    	 MyCalendarEvents calendarEvents=new MyCalendarEvents();
+			    	 calendarEvents.setEventStartDate(cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DTSTART)));
+			    	 calendarEvents.setEventEndDate(cursor.getString(cursor.getColumnIndex("dtend")));
+			    	 calendarEvents.setEventDescription(cursor.getString(cursor.getColumnIndex("description")));
+			    	 calendarEvents.setEventLocation(cursor.getString(cursor.getColumnIndex("eventLocation")));
+			    	 calendarEvents.setEventType(cursor.getString(cursor.getColumnIndex("title")));
+			    	 calendarEvents.setEventId(cursor.getString(cursor.getColumnIndex(Events._ID)));
+			    	 calendarEvents.setEventTime(formatter.format(startDate));
+			    	 list.add(calendarEvents);
+			    	 cursor.moveToNext();		
+			    }
+	        cursor.close();
+	    	return list;    
+	 }
 }
     private void addToPreviousLocations(String s)
     {

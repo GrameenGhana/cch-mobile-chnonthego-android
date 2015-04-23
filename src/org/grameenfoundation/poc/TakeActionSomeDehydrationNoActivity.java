@@ -1,7 +1,11 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.poc.NoInjuriesActivity.NoInjuriesListAdapter;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,6 +25,10 @@ public class TakeActionSomeDehydrationNoActivity extends BaseActivity {
 
 	private String take_action_category;
 	private ListView listView_someDehydrationNo;
+	private DbHelper dbh;
+	private Long start_time;
+	private JSONObject json;
+	private Long end_time;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -28,6 +36,20 @@ public class TakeActionSomeDehydrationNoActivity extends BaseActivity {
 		mContext = TakeActionSomeDehydrationNoActivity.this;
 		getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("PNC Diagnostic: Diarrhoea");
+	    mContext=TakeActionSomeDehydrationNoActivity.this;
+	    dbh=new DbHelper(TakeActionSomeDehydrationNoActivity.this);
+	    start_time=System.currentTimeMillis();
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Diagnostic: Diarrhoea");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			take_action_category = extras.getString("category");
@@ -147,5 +169,11 @@ public class TakeActionSomeDehydrationNoActivity extends BaseActivity {
 			return convertView;
 		}
 
+	}
+	public void onBackPressed()
+	{
+		 end_time=System.currentTimeMillis();
+		dbh.insertCCHLog("Point of Care", json.toString() , start_time.toString(), end_time.toString());
+		finish();
 	}
 }

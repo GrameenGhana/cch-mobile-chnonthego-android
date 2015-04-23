@@ -288,7 +288,7 @@ button { padding:4px 12px;text-align:center;vertical-align:middle !important;bac
 
 .gcontent {
     height: 100%;
-    margin-top: 50px; 
+    margin-top: 20px; 
 }
 
 
@@ -544,10 +544,17 @@ div.scrollfader_top {
 }
 
 .gcontent div.main_title {
-    margin-bottom: 30px;
+    margin-bottom: 0px;
     text-align: left;
 }
-
+.gcontent div.back_button{
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    -webkit-backface-visibility: hidden; 
+    z-index: 0;
+}
 .short {
     width: 250px;
 }
@@ -571,8 +578,8 @@ div.scrollfader_top {
 .gcontent h5 {
     color: #6E5747;
     font-size: 1.2em;
-    text-align: center;
-    font-weight: 300;
+    text-align: left;
+    font-weight: 100;
 }
 
 .gcontent h6 {
@@ -614,6 +621,7 @@ div.scrollfader_top {
     margin: 0 auto;
     background: url('../assets/btn-back.png') no-repeat center top;
     z-index: 1002;
+    
 }
 
 .back_btn_sticky {

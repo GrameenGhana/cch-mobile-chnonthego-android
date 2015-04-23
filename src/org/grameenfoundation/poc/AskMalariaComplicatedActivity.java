@@ -2,6 +2,9 @@ package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,6 +29,7 @@ public class AskMalariaComplicatedActivity extends BaseActivity {
 	private DbHelper dbh;
 	private Long start_time;
 	private Long end_time;
+	private JSONObject json;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -32,11 +37,21 @@ public class AskMalariaComplicatedActivity extends BaseActivity {
 	    super.onCreate(savedInstanceState);
 	    mContext = AskMalariaComplicatedActivity.this;
 	    setContentView(R.layout.activity_positive_malaria);
-	    mContext=AskMalariaComplicatedActivity.this;
 	    dbh=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC Diagnostic: Malaria");
+	    json=new JSONObject();
+	    try {
+			json.put("page", "ANC Diagnostic: Malaria");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	    listView_malaria=(ListView) findViewById(R.id.listView_malaria);
 	    String[] items={"Persistent vomiting","Prostration","Convulsions","Jaundice",
     					"Altered consciousness","Severe pallor","Dark, coca-cola coloured urine",
@@ -102,7 +117,10 @@ public class AskMalariaComplicatedActivity extends BaseActivity {
 			      
 				  convertView = minflater.inflate(R.layout.listview_text_single,parent, false);
 			    }
+			 LinearLayout layout=(LinearLayout) convertView.findViewById(R.id.Linearlayout_listView);
+			 layout.setPadding(0, 5, 0, 5);
 			 TextView text=(TextView) convertView.findViewById(R.id.textView_listViewText);
+			 text.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_bullet, 0, 0, 0);
 			 text.setText(items[position]);
 			 
 			    return convertView;
@@ -112,8 +130,8 @@ public class AskMalariaComplicatedActivity extends BaseActivity {
 	public void onBackPressed()
 	{
 	    end_time=System.currentTimeMillis();
-	    System.out.println("Start: " +start_time.toString()+"  "+"End: "+end_time.toString());
-		dbh.insertCCHLog("Point of Care", "ANC Diagnostic Malaria", start_time.toString(), end_time.toString());
+		//dbh.insertCCHLog("Point of Care", "ANC Diagnostic Malaria", start_time.toString(), end_time.toString());
+	    dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 }

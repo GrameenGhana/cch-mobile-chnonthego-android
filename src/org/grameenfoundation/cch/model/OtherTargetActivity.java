@@ -118,6 +118,8 @@ public class OtherTargetActivity extends Fragment implements OnChildClickListene
 		String startDate=selected_items[5];
 		String achieved=selected_items[4];
 		String last_updated=selected_items[8];
+		String detail=selected_items[10];//personal or not
+		//System.out.println(detail);
 		ArrayList<String> number_achieved_list=db.getForUpdateOtherNumberAchieved(selected_id, other_period);
 		Intent intent=new Intent(getActivity(),OtherTargetsDetailActivity.class);
 		intent.putExtra("other_id",selected_id);
@@ -129,6 +131,7 @@ public class OtherTargetActivity extends Fragment implements OnChildClickListene
 		intent.putExtra("status", status);
 		intent.putExtra("last_updated", last_updated);
 		intent.putExtra("achieved", number_achieved_list.get(0));
+		intent.putExtra("detail",detail);
 		startActivity(intent);
 		getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		return true;
@@ -139,12 +142,12 @@ public class OtherTargetActivity extends Fragment implements OnChildClickListene
 
 	    @Override
 	    protected Object doInBackground(Object... params) {
-	    	 todayOtherId=db.getOtherIdCount("Daily");
-			 thisWeekOtherId=db.getOtherIdCount("Weekly");
-			 thisMonthOtherId=db.getOtherIdCount("Monthly");
-			 midYearOtherId=db.getOtherIdCount("Mid-year");
-			 thisQuarterOtherId=db.getOtherIdCount("Quarterly");
-			 thisYearOtherId=db.getOtherIdCount("Annually");
+	    	 todayOtherId=db.getOtherCount("Daily");
+			 thisWeekOtherId=db.getOtherCount("Weekly");
+			 thisMonthOtherId=db.getOtherCount("Monthly");
+			 midYearOtherId=db.getOtherCount("Mid-year");
+			 thisQuarterOtherId=db.getOtherCount("Quarterly");
+			 thisYearOtherId=db.getOtherCount("Annually");
 			 
 	    	DailyOtherTargets=db.getAllOtherTargets("Daily");
 	 	    WeeklyOtherTargets=db.getAllOtherTargets("Weekly");

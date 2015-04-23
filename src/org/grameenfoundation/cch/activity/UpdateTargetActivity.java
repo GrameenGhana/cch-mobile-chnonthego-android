@@ -22,10 +22,10 @@ public class UpdateTargetActivity extends Activity implements OnChildClickListen
 
 	private DbHelper db;
 	private Context mContext;
-	 private ArrayList<EventTargets> eventTargets;
-	 private ArrayList<EventTargets> coverageTargets;
-	 private ArrayList<EventTargets> otherTargets;
-	 private ArrayList<LearningTargets> learningTargets;
+		 private ArrayList<EventTargets> eventTargets;
+		 private ArrayList<EventTargets> coverageTargets;
+		 private ArrayList<EventTargets> otherTargets;
+		 private ArrayList<LearningTargets> learningTargets;
 	String due_date;
 	private ExpandableListView expandableListView_updates;
 	private UpdateTargetsAdapter updates_adapter;
@@ -40,10 +40,10 @@ public class UpdateTargetActivity extends Activity implements OnChildClickListen
 	    db=new DbHelper(mContext);
 	    getActionBar().setTitle("Planner");
 		getActionBar().setSubtitle("Update Targets");
- 	   eventTargets=db.getAllEventTargets("Daily");
- 	   coverageTargets=db.getAllCoverageTargets("Daily");
- 	   learningTargets=db.getAllLearningTargets("Daily");
- 	   otherTargets=db.getAllOtherTargets("Daily");
+ 	   eventTargets=db.getAllEventTargetsForUpdate("Daily");
+ 	   coverageTargets=db.getAllCoverageTargetsForUpdate("Daily");
+ 	   learningTargets=db.getAllLearningTargetsForUpdate("Daily");
+ 	   otherTargets=db.getAllOtherTargetsForUpdate("Daily");
  	   
  	    groupItems=new String[]{"Events ("+String.valueOf(eventTargets.size())+")",
  	    						"Coverage ("+String.valueOf(coverageTargets.size())+")",

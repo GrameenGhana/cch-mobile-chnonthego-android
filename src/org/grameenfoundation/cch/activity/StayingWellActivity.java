@@ -2,6 +2,7 @@ package org.grameenfoundation.cch.activity;
 
 
 import java.util.Locale;
+
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.activity.AboutActivity;
 import org.digitalcampus.oppia.activity.AppActivity;
@@ -13,6 +14,8 @@ import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.service.TrackerService;
 import org.digitalcampus.oppia.utils.UIUtils;
 import org.grameenfoundation.cch.model.StayingWellWebAppInterface;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -151,7 +154,18 @@ public class StayingWellActivity extends AppActivity implements OnSharedPreferen
 			String module = STAYING_WELL_ID;
 			Long endtime = System.currentTimeMillis();	
 			String data = "{'type':'url', 'value':'"+url+"'}";
-			dbh.insertCCHLog(module,data, starttime.toString(), endtime.toString());	
+			JSONObject d=new JSONObject();
+		    try {
+		    	d.put("type", "url");
+		    	d.put("values", url);
+		    	d.put("ver",dbh.getVersionNumber(getApplicationContext()));
+		    	d.put("battery",dbh.getBatteryStatus(getApplicationContext()));
+		    	d.put("device", dbh.getDeviceName());
+				d.put("imei", dbh.getDeviceImei(getApplicationContext()));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			dbh.insertCCHLog(module,d.toString(), starttime.toString(), endtime.toString());	
 		}	
 	}
 

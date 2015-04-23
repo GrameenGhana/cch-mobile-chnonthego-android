@@ -8,6 +8,7 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.activity.CourseActivity;
 import org.digitalcampus.oppia.activity.CourseIndexActivity;
 import org.digitalcampus.oppia.activity.DownloadActivity;
+import org.digitalcampus.oppia.activity.TagSelectActivity;
 import org.digitalcampus.oppia.adapter.SectionListAdapter;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.exception.InvalidXMLException;
@@ -24,6 +25,8 @@ import org.grameenfoundation.cch.model.LearningTargets;
 import org.grameenfoundation.cch.model.MyCalendarEvents;
 import org.grameenfoundation.cch.model.TargetsForAchievements;
 import org.grameenfoundation.poc.BaseActivity;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -96,6 +99,7 @@ public class AchievementSummaryActivity extends BaseActivity {
 	private int numberCompleted;
 	private int numberTodo;
 	private int eventsNumberCompleted;
+	private JSONObject data;
 	public static final String TAG = AchievementSummaryActivity.class.getSimpleName();
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -376,7 +380,17 @@ public class AchievementSummaryActivity extends BaseActivity {
 	public void onBackPressed()
 	{
 		 end_time=System.currentTimeMillis();
-		db.insertCCHLog("Achievement Center", "Achievements Summary", start_time.toString(), end_time.toString());
+		 data=new JSONObject();
+		    try {
+		    	data.put("page", "Achievements Summary");
+		    	data.put("ver", db.getVersionNumber(AchievementSummaryActivity.this));
+		    	data.put("battery", db.getBatteryStatus(AchievementSummaryActivity.this));
+		    	data.put("device", db.getDeviceName());
+				data.put("imei", db.getDeviceImei(AchievementSummaryActivity.this));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		db.insertCCHLog("Achievement Center", data.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 

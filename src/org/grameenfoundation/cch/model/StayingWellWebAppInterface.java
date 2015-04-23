@@ -5,11 +5,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.grameenfoundation.cch.activity.EventsAchievementsActivity;
 import org.grameenfoundation.cch.activity.MagicAppRestart;
 import org.grameenfoundation.cch.activity.StayingWellActivity;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -29,6 +31,7 @@ public class StayingWellWebAppInterface {
 	Context mContext;
     private DbHelper dbh;
     private long thirtydays = 2592000000L;
+	private JSONObject d;
     
 
     /** Instantiate the interface and set the context */
@@ -153,6 +156,18 @@ public class StayingWellWebAppInterface {
 		Long t = System.currentTimeMillis();
     	String profile = getProfileStatus();
 		String data = "{'type':'plan', 'plan':'"+plan+"', 'profile':'"+profile+"'}";
+		 d=new JSONObject();
+		    try {
+		    	d.put("type", "plan");
+		    	d.put("plan", plan);
+		    	d.put("profile", profile);
+		    	d.put("ver", dbh.getVersionNumber(mContext));
+		    	d.put("battery", dbh.getBatteryStatus(mContext));
+		    	d.put("device", dbh.getDeviceName());
+				d.put("imei", dbh.getDeviceImei(mContext));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		this.saveToCCHLog(data, t.toString(), t.toString());
     }
     

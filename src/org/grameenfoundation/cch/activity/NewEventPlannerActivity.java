@@ -12,6 +12,8 @@ import org.grameenfoundation.cch.model.LearningTargetActivity;
 import org.grameenfoundation.cch.model.OtherTargetActivity;
 import org.grameenfoundation.cch.model.RoutineActivity;
 import org.grameenfoundation.cch.model.RoutineActivityDetails;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
@@ -29,6 +31,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 
@@ -80,6 +83,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 	 int counter2;
 	 int counter4;
 	 int counter5;
+	private JSONObject data;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -146,7 +150,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
                  }else if(position==2){
                 	 fragment= new LearningTargetActivity();
                  }else if(position==3){
-                	 fragment= new RoutineActivityDetails();           
+                	 fragment= new RoutineActivityDetails(mViewPager);           
                  }else if(position==4){
                 	 fragment= new OtherTargetActivity();
                  }
@@ -164,12 +168,12 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
                  
                  db=new DbHelper(NewEventPlannerActivity.this);
                  
-     		    todayEventId=db.getEventIdCount("Daily");
-     		    thisMonthEventId=db.getEventIdCount("Monthly");
-     		    thisWeekEventId=db.getEventIdCount("Weekly");
-     		    midYearEventId=db.getEventIdCount("Mid-year");
-     		    thisQuarterEventId=db.getEventIdCount("Quarterly");
-     		    thisYearEventId=db.getEventIdCount("Annually");
+     		    todayEventId=db.getEventCount("Daily");
+     		    thisMonthEventId=db.getEventCount("Monthly");
+     		    thisWeekEventId=db.getEventCount("Weekly");
+     		    midYearEventId=db.getEventCount("Mid-year");
+     		    thisQuarterEventId=db.getEventCount("Quarterly");
+     		    thisYearEventId=db.getEventCount("Annually");
      		     int event_number1=(int)todayEventId;
      			 int event_number2=(int)thisMonthEventId;
      			 int event_number3=(int)thisWeekEventId;
@@ -179,12 +183,12 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
      	
      			counter=event_number1+event_number2+event_number3+event_number4+event_number5+event_number6;
      			
-     			todayCoverageId=db.getCoverageIdCount("Daily");
-     			thisWeekCoverageId=db.getCoverageIdCount("Weekly");
-     			thisMonthCoverageId=db.getCoverageIdCount("Monthly");
-     			midYearCoverageId=db.getCoverageIdCount("Mid-year");
-     			thisQuarterCoverageId=db.getCoverageIdCount("Quarterly");
-     			thisYearCoverageId=db.getCoverageIdCount("Annually");
+     			todayCoverageId=db.getCoverageCount("Daily");
+     			thisWeekCoverageId=db.getCoverageCount("Weekly");
+     			thisMonthCoverageId=db.getCoverageCount("Monthly");
+     			midYearCoverageId=db.getCoverageCount("Mid-year");
+     			thisQuarterCoverageId=db.getCoverageCount("Quarterly");
+     			thisYearCoverageId=db.getCoverageCount("Annually");
      			
      			     int coverage_number1=(int)todayCoverageId;
      				 int coverage_number2=(int)thisWeekCoverageId;
@@ -195,12 +199,12 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
      				
      				counter2=coverage_number1+coverage_number2+coverage_number3+coverage_number4+coverage_number5+coverage_number6;
      			
-     			todayLearningId=db.getLearningIdCount("Daily");
-     			thisWeekLearningId=db.getLearningIdCount("Weekly");
-     			thisMonthLearningId=db.getLearningIdCount("Monthly");
-     			midYearLearningId=db.getLearningIdCount("Mid-year");
-     			thisQuarterLearningId=db.getLearningIdCount("Quarterly");
-     			thisYearLearningId=db.getLearningIdCount("Annually");
+     			todayLearningId=db.getLearningCount("Daily");
+     			thisWeekLearningId=db.getLearningCount("Weekly");
+     			thisMonthLearningId=db.getLearningCount("Monthly");
+     			midYearLearningId=db.getLearningCount("Mid-year");
+     			thisQuarterLearningId=db.getLearningCount("Quarterly");
+     			thisYearLearningId=db.getLearningCount("Annually");
      			
      			 int learning_number1=(int)todayLearningId;
      			 int learning_number2=(int)thisWeekLearningId;
@@ -214,12 +218,12 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
      					learning_number4+
      					learning_number5+
      					learning_number6;
-     			 todayOtherId=db.getOtherIdCount("Daily");
-     			 thisWeekOtherId=db.getOtherIdCount("Weekly");
-     			 thisMonthOtherId=db.getOtherIdCount("Monthly");
-     			 midYearOtherId=db.getOtherIdCount("Mid-year");
-     			 thisQuarterOtherId=db.getOtherIdCount("Quarterly");
-     			 thisYearOtherId=db.getOtherIdCount("Annually");
+     			 todayOtherId=db.getOtherCount("Daily");
+     			 thisWeekOtherId=db.getOtherCount("Weekly");
+     			 thisMonthOtherId=db.getOtherCount("Monthly");
+     			 midYearOtherId=db.getOtherCount("Mid-year");
+     			 thisQuarterOtherId=db.getOtherCount("Quarterly");
+     			 thisYearOtherId=db.getOtherCount("Annually");
      			 
      			 int other_number1=(int)todayOtherId;
      			 int other_number2=(int)thisWeekOtherId;
@@ -277,8 +281,18 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 		}
 	  public void saveToLog(Long starttime) 
 		{
-		  Long endtime = System.currentTimeMillis();  
-		  dbh.insertCCHLog(EVENT_PLANNER_ID, "Target Setting", starttime.toString(), endtime.toString());	
+		  Long endtime = System.currentTimeMillis(); 
+		  data=new JSONObject();
+		    try {
+		    	data.put("page", "Target Setting");
+		    	data.put("ver", db.getVersionNumber(NewEventPlannerActivity.this));
+		    	data.put("battery", db.getBatteryStatus(NewEventPlannerActivity.this));
+		    	data.put("device", db.getDeviceName());
+				data.put("imei", db.getDeviceImei(NewEventPlannerActivity.this));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		  dbh.insertCCHLog(EVENT_PLANNER_ID, data.toString(), starttime.toString(), endtime.toString());	
 		}
 	 public void onDestroy(){
 		 super.onDestroy();

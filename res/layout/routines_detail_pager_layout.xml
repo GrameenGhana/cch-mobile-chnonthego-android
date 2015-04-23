@@ -14,23 +14,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
+<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Today&apos;s activities"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/Brown"
-                android:textSize="17sp"
-                android:typeface="serif" />
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.55"
+                    android:text="Today&apos;s activity(ies)"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/Brown"
+                    android:textSize="17sp"
+                    android:typeface="serif" />
+
+                <TextView
+                    android:id="@+id/textView_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_back"
+                    android:text="go back"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextColorWine" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <ListView
             android:id="@+id/listView_routineDetail"
             android:layout_width="match_parent"
-            android:layout_height="133dp" >
+            android:layout_height="wrap_content"
+           	android:clickable="true"
+			android:descendantFocusability="beforeDescendants" >
         </ListView>
 
     </LinearLayout>

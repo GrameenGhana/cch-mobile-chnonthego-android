@@ -59,7 +59,6 @@ public class EventTargetAchievementActivity extends Activity {
           number=extras.getInt("number");
         }
 	    textView_number=(TextView) findViewById(R.id.textView_number);
-	    textView_number.setText(" ("+String.valueOf(number)+" this month)");
 	}
 	private class GetData extends AsyncTask<Object, Void, Object> {
 		 DbHelper db=new DbHelper(mContext);
@@ -74,10 +73,11 @@ public class EventTargetAchievementActivity extends Activity {
 
 	    @Override
 	    protected void onPostExecute(Object result) {
-	    	
+	    	  textView_number.setText(" ("+String.valueOf(completedEventTargets.size()+unCompletedEventTargets.size())+" this month)");
 	        	 adapter=new NumericalTargetAchievementsAdapter(mContext,groupItems,completedEventTargets,
 	        			 unCompletedEventTargets,expandableListview);
 	 	    expandableListview.setAdapter(adapter);
+	 	    
 	    }
 
 	}
