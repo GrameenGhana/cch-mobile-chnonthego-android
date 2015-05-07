@@ -16,6 +16,10 @@ public class EventTargets {
 	private String eventTargetCompleted;
 	private String eventTargetDetail;
 	private String eventTargetPersonalCategory;
+	private String eventTargetNumberRemaining;
+	private String eventTargetOldId;
+	private String eventTargetType;
+	private String eventTargetCategory;
 	
 	public EventTargets()
 	{
@@ -28,7 +32,14 @@ public class EventTargets {
 	public void setEventTargetId(String eventTargetId) {
 		this.eventTargetId = eventTargetId;
 	}
-			
+	
+	
+	public String getEventTargetOldId() {
+		return eventTargetOldId;
+	}
+	public void setEventTargetOldId(String eventTargetOldId) {
+		this.eventTargetOldId = eventTargetOldId;
+	}
 	public String getEventTargetName() {
 		return eventTargetName;
 	}
@@ -112,5 +123,26 @@ public class EventTargets {
 	}
 	public void setEventTargetPersonalCategory(String eventTargetPersonalCategory) {
 		this.eventTargetPersonalCategory = eventTargetPersonalCategory;
+	}
+	
+	public String getEventTargetNumberRemaining() {
+		return eventTargetNumberRemaining;
+	}
+	public void setEventTargetNumberRemaining(String eventTargetNumberRemaining) {
+		this.eventTargetNumberRemaining = eventTargetNumberRemaining;
+	}
+	
+	public String getEventTargetType() {
+		return eventTargetType;
+	}
+	public void setEventTargetType(String eventTargetType) {
+		this.eventTargetType= eventTargetType;
+	}
+	
+	public String getEventTargetCategory() {
+		return eventTargetCategory;
+	}
+	public void setEventTargetCategory(String eventTargetCategory) {
+		this.eventTargetCategory= eventTargetCategory;
 	}
 }

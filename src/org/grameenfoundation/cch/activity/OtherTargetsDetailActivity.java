@@ -10,9 +10,11 @@ import java.util.Locale;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.activity.MainScreenActivity;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.cch.caldroid.CaldroidFragment;
 import org.grameenfoundation.cch.caldroid.CaldroidListener;
 import org.grameenfoundation.cch.model.Validation;
+import org.grameenfoundation.cch.utils.MaterialSpinner;
 import org.grameenfoundation.cch.utils.TextProgressBar;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -92,6 +94,8 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 	private TableRow goal_layout;
 	private EditText editText_otherCategory;
 	private EditText editText_otherNumber;
+	public long other_old_id;
+	private MaterialSpinner spinner_otherPeriod;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -124,6 +128,7 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
         button_edit.setOnClickListener(new OnClickListener(){
 
 			private RadioGroup personal;
+		
 
 			@Override
 			public void onClick(View v) {
@@ -132,12 +137,14 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 				dialog.setTitle("Edit Other Target");
 				editText_otherCategory=(EditText) dialog.findViewById(R.id.editText_dialogOtherName);
 				editText_otherCategory.setText(other_name);
-				final Spinner spinner_otherPeriod=(Spinner) dialog.findViewById(R.id.spinner_dialogOtherPeriod);
+				spinner_otherPeriod=(MaterialSpinner) dialog.findViewById(R.id.spinner_dialogOtherPeriod);
 				String[] items=getResources().getStringArray(R.array.ReminderFrequency);
 				ArrayAdapter<String> adapter=new ArrayAdapter<String>(OtherTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 				spinner_otherPeriod.setAdapter(adapter);
 				int spinner_position=adapter.getPosition(other_period);
 				spinner_otherPeriod.setSelection(spinner_position);
+				final Button button_show=(Button) dialog.findViewById(R.id.button_show);
+				button_show.setVisibility(View.GONE);
 				editText_otherNumber=(EditText) dialog.findViewById(R.id.editText_dialogOtherNumber);
 				editText_otherNumber.setText(other_number);
 				Button dialogButton = (Button) dialog.findViewById(R.id.button_dialogAddEvent);
@@ -250,11 +257,15 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 				      	}
 				      		else{
 				      			if(personal.getCheckedRadioButtonId()==R.id.radio_personalYes){
-				      			if(db.editOther(other_category, other_number, other_period,duration,startDateValue.getText().toString(),dueDateValue.getText().toString(),"personal", other_id) ==true){
-				      				number_achieved=db.getForUpdateOtherNumberAchieved(other_id,other_period);
+				      			if(db.editTarget(other_category,"",MobileLearning.CCH_TARGET_PERSONAL, other_number,startDateValue.getText().toString(),dueDateValue.getText().toString(), other_period, other_id) ==true){
+				      				number_achieved=db.getNumberAchieved(other_id,other_period,MobileLearning.CCH_TARGET_STATUS_NEW);
 				      				JSONObject json = new JSONObject();
 				      				try {
-				      					json.put("id", other_id);
+				      					if(other_old_id!=0){
+											 json.put("id", other_old_id);
+										 }else{
+											 json.put("id", other_id);
+										 }
 				      					json.put("target_type", other_category);
 				      					json.put("category", "other");
 				      					json.put("target_number", other_number);
@@ -287,11 +298,15 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 							         Toast.LENGTH_LONG).show();
 				      			}
 				      		}else if(personal.getCheckedRadioButtonId()==R.id.radio_personalNo){
-				      			if(db.editOther(other_category, other_number, other_period,duration,startDateValue.getText().toString(),dueDateValue.getText().toString(),"not_personal", other_id) ==true){
-				      				number_achieved=db.getForUpdateOtherNumberAchieved(other_id,other_period);
+				      			if(db.editTarget(other_category,"",MobileLearning.CCH_TARGET_NOT_PERSONAL, other_number,startDateValue.getText().toString(),dueDateValue.getText().toString(),other_period, other_id) ==true){
+				      				number_achieved=db.getNumberAchieved(other_id,other_period,MobileLearning.CCH_TARGET_STATUS_NEW);
 				      				JSONObject json = new JSONObject();
 				      				try {
-				      					json.put("id", other_id);
+				      					if(other_old_id!=0){
+											 json.put("id", other_old_id);
+										 }else{
+											 json.put("id", other_id);
+										 }
 				      					json.put("target_type", other_category);
 				      					json.put("category", "other");
 				      					json.put("target_number", other_number);
@@ -327,6 +342,7 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 				      		}
 						}
 					});
+				
 	 				dialog.show();
 
 				
@@ -358,11 +374,15 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 						.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,int id) {
 								// if this button is clicked, just close
-								if(db.deleteOtherCategory(other_id)==true){
-									number_achieved=db.getForUpdateOtherNumberAchieved(other_id,other_period);
+								if(db.deleteTarget(other_id)==true){
+									number_achieved=db.getNumberAchieved(other_id,other_period,MobileLearning.CCH_TARGET_STATUS_NEW);
 									JSONObject json = new JSONObject();
 									 try {
-										json.put("id", other_id);
+										 if(other_old_id!=0){
+											 json.put("id", other_old_id);
+										 }else{
+											 json.put("id", other_id);
+										 }
 										json.put("target_type", other_name);
 										 json.put("category", "other");
 										 json.put("target_number", other_number);
@@ -405,11 +425,12 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 
 			@Override
 			public void onClick(View v) {
-				number_achieved=db.getForUpdateOtherNumberAchieved(other_id,other_period);
+				number_achieved=db.getNumberAchieved(other_id,other_period,MobileLearning.CCH_TARGET_STATUS_NEW);
 				Intent intent3=new Intent(Intent.ACTION_MAIN);
 				intent3.setClass(OtherTargetsDetailActivity.this,UpdateActivity.class);
 				intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	        	intent3.putExtra("id", other_id);
+	        	intent3.putExtra("old_id", other_old_id);
 				intent3.putExtra("number",other_number);
 				intent3.putExtra("name", other_name);
 				intent3.putExtra("type", "other");
@@ -457,8 +478,9 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 	    }
 	}
 
-	 public static long differenceIndays(String startDate,String endDate,String today)
+	public static long differenceIndays(String startDate,String endDate,String today)
 	 {
+			// String toDateAsString = "05/11/2010";
 			 Date start_date = null;
 			 Date end_date = null;
 			 Date today_date=null;
@@ -467,14 +489,14 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 			try {
 				today_date= new SimpleDateFormat("dd-MM-yyyy").parse(today);
 				if(startDate!=null){
-					 start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+					start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
 					 starDateAsTimestamp = start_date.getTime();
 				}else{
-					 System.out.println("Enter a valid date!");
+					System.out.println("Enter a valid date!");
 				}
-				if(endDate==null){
+				if(endDate!=null){
 					end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
-					endDateTimestamp = end_date.getTime();
+					  endDateTimestamp = end_date.getTime();
 				}else {
 					System.out.println("Enter a valid date!");	
 				}
@@ -555,6 +577,7 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 	 			start_date_extra=extras.getString("start_date");
 	 			status=extras.getString("status");
 	 			other_id=extras.getLong("other_id");
+	 			other_old_id=extras.getLong("old_id");
 	 			last_updated=extras.getString("last_updated");
 	 			details=extras.getString("detail");
 	         }
@@ -617,8 +640,9 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 	        if (!Validation.hasTextTextView(startDateValue)) ret = false;
 	        if (!Validation.hasTextEditText(editText_otherCategory)) ret = false;
 	        if (!Validation.hasTextTextView(dueDateValue)) ret = false;
+	        if (!Validation.hasSelection(spinner_otherPeriod)) ret=false;
 	        if (editText_otherNumber.isShown()&&!Validation.hasTextEditText(editText_otherNumber)) ret = false;
-	        if (Validation.isDateAfter(start_date,due_date,startDateValue)) ret = false;
+	        if (Validation.isDateAfter(startDateValue.getText().toString(),dueDateValue.getText().toString(),startDateValue)) ret = false;
 	        return ret;
 	    }	
 }

@@ -1,6 +1,7 @@
 package org.digitalcampus.oppia.task;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.activity.StartUpActivity;
@@ -13,6 +14,8 @@ import org.digitalcampus.oppia.utils.CourseScheduleXMLReader;
 import org.digitalcampus.oppia.utils.CourseTrackerXMLReader;
 import org.digitalcampus.oppia.utils.CourseXMLReader;
 import org.digitalcampus.oppia.utils.FileUtils;
+import org.grameenfoundation.cch.model.EventTargets;
+import org.grameenfoundation.cch.model.LearningTargets;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -23,6 +26,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 public class UpgradeManagerTask extends AsyncTask<Payload, String, Payload> {
 	
@@ -72,6 +76,7 @@ public class UpgradeManagerTask extends AsyncTask<Payload, String, Payload> {
 			payload.setResult(true);
 		}
 			SWReset();
+			 ReloadingTargets();
 		return payload;
 	}
 	
@@ -174,7 +179,7 @@ public class UpgradeManagerTask extends AsyncTask<Payload, String, Payload> {
 	      SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 	      int lastVersion = prefs.getInt("version_code", 0);
 	      System.out.println("CurrentVersion"+String.valueOf(currentVersion));
-	      System.out.println("LastVersion"+String.valueOf(lastVersion));
+	      System.out.println("LastVersion "+String.valueOf(lastVersion));
 	      if (currentVersion > lastVersion) {
 	    	  publishProgress("Resetting Staying well");
 	        prefs.edit().putInt("version_code", currentVersion).commit();
@@ -187,7 +192,107 @@ public class UpgradeManagerTask extends AsyncTask<Payload, String, Payload> {
 		
 	}
 	
-	
+	protected void ReloadingTargets(){
+		ArrayList<EventTargets> event_targets=new ArrayList<EventTargets>();
+		ArrayList<EventTargets> coverage_targets=new ArrayList<EventTargets>();
+		ArrayList<EventTargets> other_targets=new ArrayList<EventTargets>();
+		ArrayList<LearningTargets> learning_targets=new ArrayList<LearningTargets>();
+		
+		try{
+			if(db.doesTableExists(db.EVENTS_SET_TABLE)){
+				event_targets=db.getAllEventTargets();
+			}
+			if(db.doesTableExists(db.COVERAGE_SET_TABLE)){
+				coverage_targets=db.getAllCoverageTargets();
+			}
+			if(db.doesTableExists(db.OTHER_TABLE)){
+				other_targets=db.getAllOtherTargets();
+			}
+			if(db.doesTableExists(db.LEARNING_TABLE)){
+				learning_targets=db.getAllLearningTargets();
+			}
+		}catch(Exception e){
+			Toast.makeText(ctx, "Could not process data", Toast.LENGTH_LONG).show();
+			e.printStackTrace();
+		}
+		try{
+	      SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+	      int fix_number = prefs.getInt("target_fix", 0);
+	      if (fix_number==0) {
+	    	  publishProgress("Resetting Staying well");
+	        prefs.edit().putInt("target_fix", 1).commit();
+	        for(int i=0;i<event_targets.size();i++){
+	    	   db.insertTarget(Integer.parseInt(event_targets.get(i).getEventTargetId()),
+	    			   			MobileLearning.CCH_TARGET_TYPE_EVENT, 
+	    			   			event_targets.get(i).getEventTargetName(),
+	    			   			" ", 
+	    			   			event_targets.get(i).getEventTargetDetail(),
+	    			   			Integer.parseInt(event_targets.get(i).getEventTargetNumber()),
+	    			   			Integer.parseInt(event_targets.get(i).getEventTargetNumberAchieved()),
+	    			   			Integer.parseInt(event_targets.get(i).getEventTargetNumberRemaining()), 
+	    			   			event_targets.get(i).getEventTargetStartDate(),
+	    			   			event_targets.get(i).getEventTargetEndDate(),
+	    			   			event_targets.get(i).getEventTargetPeriod(),
+	    			   			event_targets.get(i).getEventTargetStatus(),
+	    			   			event_targets.get(i).getEventTargetLastUpdated());
+	       }
+	       db.deleteTables(db.EVENTS_SET_TABLE);
+	       for(int i=0;i<coverage_targets.size();i++){
+	    	   db.insertTarget(Integer.parseInt(coverage_targets.get(i).getEventTargetId()),
+	    			   			MobileLearning.CCH_TARGET_TYPE_COVERAGE, 
+	    			   			coverage_targets.get(i).getEventTargetName(),//Family Planning
+	    			   			coverage_targets.get(i).getEventTargetDetail(),//Continuing Acceptors
+	    			   			" ",//Indicators 
+	    			   			Integer.parseInt(coverage_targets.get(i).getEventTargetNumber()),
+	    			   			Integer.parseInt(coverage_targets.get(i).getEventTargetNumberAchieved()),
+	    			   			Integer.parseInt(coverage_targets.get(i).getEventTargetNumberRemaining()), 
+	    			   			coverage_targets.get(i).getEventTargetStartDate(),
+	    			   			coverage_targets.get(i).getEventTargetEndDate(),
+	    			   			coverage_targets.get(i).getEventTargetPeriod(),
+	    			   			coverage_targets.get(i).getEventTargetStatus(),
+	    			   			event_targets.get(i).getEventTargetLastUpdated());
+	       }
+	       db.deleteTables(db.COVERAGE_SET_TABLE);
+	       for(int i=0;i<other_targets.size();i++){
+	    	   db.insertTarget(Integer.parseInt(other_targets.get(i).getEventTargetId()),
+	    			   			MobileLearning.CCH_TARGET_TYPE_OTHER, 
+	    			   			other_targets.get(i).getEventTargetName(),
+	    			   			" ", 
+	    			   			other_targets.get(i).getEventTargetPersonalCategory(),
+	    			   			Integer.parseInt(other_targets.get(i).getEventTargetNumber()),
+	    			   			Integer.parseInt(other_targets.get(i).getEventTargetNumberAchieved()),
+	    			   			Integer.parseInt(other_targets.get(i).getEventTargetNumberRemaining()), 
+	    			   			other_targets.get(i).getEventTargetStartDate(),
+	    			   			other_targets.get(i).getEventTargetEndDate(),
+	    			   			other_targets.get(i).getEventTargetPeriod(),
+	    			   			other_targets.get(i).getEventTargetStatus(),
+	    			   			event_targets.get(i).getEventTargetLastUpdated());
+	       }
+	       db.deleteTables(db.OTHER_TABLE);
+	       for(int i=0;i<learning_targets.size();i++){
+	    	   db.insertTarget(Integer.parseInt(learning_targets.get(i).getLearningTargetId()),
+	    			   			MobileLearning.CCH_TARGET_TYPE_LEARNING, 
+	    			   			learning_targets.get(i).getLearningTargetName(),
+	    			   			learning_targets.get(i).getLearningTargetTopic(),
+	    			   			learning_targets.get(i).getLearningTargetCourse(),
+	    			   			Integer.parseInt("0"),
+	    			   			Integer.parseInt("0"),
+	    			   			Integer.parseInt("0"), 
+	    			   			learning_targets.get(i).getLearningTargetStartDate(),
+	    			   			learning_targets.get(i).getLearningTargetEndDate(),
+	    			   			learning_targets.get(i).getLearningTargetPeriod(),
+	    			   			learning_targets.get(i).getLearningTargetStatus(),
+	    			   			learning_targets.get(i).getLearningTargetLastUpdated());
+	       }
+	       db.deleteTables(db.LEARNING_TABLE);
+	       System.out.println("Fixing TargetSetting");
+	   }
+		}catch(Exception e){
+			Toast.makeText(ctx, "Oops something went wrong", Toast.LENGTH_LONG).show();
+			e.printStackTrace();
+		}
+		
+	}
 	@Override
 	protected void onProgressUpdate(String... obj) {
 		synchronized (this) {

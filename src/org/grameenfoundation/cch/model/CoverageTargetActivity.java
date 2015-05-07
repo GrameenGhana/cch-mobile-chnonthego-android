@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.adapters.EventTargetAdapter;
 import org.grameenfoundation.cch.activity.CoverageTargetsDetailActivity;
@@ -50,7 +51,7 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 	protected RadioButton category_people;
 	private long selected_id;
 	private Button button_show;
-	private long eventId;
+	private ArrayList<EventTargets> eventId;
 	private long coverageId;
 	private long otherId;
 	private long learningId;
@@ -78,34 +79,24 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 	    
 		
 		 new GetData().execute();
-	    button_show=(Button) rootView.findViewById(R.id.button_show);
-	  
-	    button_show.setOnClickListener(new OnClickListener(){
+		 button_show=(Button) rootView.findViewById(R.id.button_show);
+			eventId=db.getAllTargetsForUpdate("Daily",MobileLearning.CCH_TARGET_STATUS_NEW);
+			 final int number=(int)eventId.size();
+			 button_show.setOnClickListener(new OnClickListener(){
 
-			@Override
-			public void onClick(View v) {
-				 eventId=db.getEventIdCount("Daily");
-				 coverageId=db.getCoverageIdCount("Daily");
-				 otherId=db.getOtherIdCount("Daily");
-				 learningId=db.getLearningIdCount("Daily");
-				 int number=(int)eventId;
-				 int number2=(int)coverageId;
-				 int number3=(int)otherId;
-				 int number4=(int)learningId;
-				 final int counter;
-				counter=number+number2+number3+number4;	
-				if(counter>0){
-				Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
-				startActivity(intent);
-				getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
-				}else if(counter==0){
-					 Toast.makeText(getActivity(), "You have no targets to update!",
-					         Toast.LENGTH_SHORT).show();
-				}
-				
-			}
-	    	
-	    });
+					@Override
+					public void onClick(View v) {
+						if(number>0){
+						Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
+						startActivity(intent);
+						getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+						}else if(number==0){
+							 Toast.makeText(getActivity(), "You have no targets to update!",
+							         Toast.LENGTH_SHORT).show();
+						}
+					}
+					
+				});		
     	listView_coverage.setOnChildClickListener(this);
 	return rootView;
 		   
@@ -115,7 +106,7 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 			int groupPosition, int childPosition, final long id) {
 		selected_items=coverage_adapter.getChild(groupPosition, childPosition);
 		selected_id=Long.parseLong(selected_items[7]);
-		String coverage_name=selected_items[0];
+		String coverage_name=selected_items[9];
 		String coverage_number=selected_items[1];
 		String coverage_period=selected_items[2];
 		String due_date=selected_items[3];
@@ -123,9 +114,11 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 		String status=selected_items[6];
 		String achieved=selected_items[4];
 		String last_updated=selected_items[8];
-		ArrayList<String> number_achieved_list=db.getForUpdateCoverageNumberAchieved(selected_id, coverage_period);
+		long old_id=Long.parseLong(selected_items[11]);
+		ArrayList<String> number_achieved_list=db.getNumberAchieved(selected_id, coverage_period,MobileLearning.CCH_TARGET_STATUS_NEW);
 		Intent intent=new Intent(getActivity(),CoverageTargetsDetailActivity.class);
 		intent.putExtra("coverage_id",selected_id);
+		intent.putExtra("old_id",old_id);
 		intent.putExtra("coverage_name",coverage_name);
 		intent.putExtra("coverage_number",coverage_number);
 		intent.putExtra("coverage_period", coverage_period);
@@ -143,19 +136,19 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 
 	    @Override
 	    protected Object doInBackground(Object... params) {
-	    	todayCoverageId=db.getCoverageCount("Daily");
-			thisWeekCoverageId=db.getCoverageCount("Weekly");
-			thisMonthCoverageId=db.getCoverageCount("Monthly");
-			midYearCoverageId=db.getCoverageCount("Mid-year");
-			thisQuarterCoverageId=db.getCoverageCount("Quarterly");
-			thisYearCoverageId=db.getCoverageCount("Annually");
+	    	todayCoverageId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+			thisWeekCoverageId=db.getCount("Weekly",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+			thisMonthCoverageId=db.getCount("Monthly",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+			midYearCoverageId=db.getCount("Mid-year",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+			thisQuarterCoverageId=db.getCount("Quarterly",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+			thisYearCoverageId=db.getCount("Annually",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
 				
-	    	DailyCoverageTargets=db.getAllCoverageTargets("Daily");
-		    WeeklyCoverageTargets=db.getAllCoverageTargets("Weekly");
-		    MonthlyCoverageTargets=db.getAllCoverageTargets("Monthly");
-		    QuarterlyCoverageTargets=db.getAllCoverageTargets("Quarterly");
-		    MidyearCoverageTargets=db.getAllCoverageTargets("Mid-year");
-		    AnnualCoverageTargets=db.getAllCoverageTargets("Annually");
+	    	DailyCoverageTargets=db.getAllTargetsToView("Daily",MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+		    WeeklyCoverageTargets=db.getAllTargetsToView("Weekly",MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+		    MonthlyCoverageTargets=db.getAllTargetsToView("Monthly",MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+		    MidyearCoverageTargets=db.getAllTargetsToView("Mid-year",MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+		    QuarterlyCoverageTargets=db.getAllTargetsToView("Quarterly",MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+		    AnnualCoverageTargets=db.getAllTargetsToView("Annually",MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_COVERAGE);
 				return null;
 	        
 	    }

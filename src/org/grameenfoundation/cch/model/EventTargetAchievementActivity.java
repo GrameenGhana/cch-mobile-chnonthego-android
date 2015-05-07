@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.adapters.NumericalTargetAchievementsAdapter;
 import org.grameenfoundation.adapters.TargetsAchievementAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
@@ -48,11 +49,11 @@ public class EventTargetAchievementActivity extends Activity {
 	    expandableListview = (ExpandableListView) findViewById(R.id.expandableListView1);
 	    mContext=getApplicationContext();
 	    db=new DbHelper(mContext);
-	    new GetData().execute();
 	    groupItems=new String[]{"Completed","In progress"};
 	    textView_label=(TextView) findViewById(R.id.textView_label);
 	    textView_label.setText("Event Targets");
-	    Bundle extras =getIntent().getExtras(); 
+	    new GetData().execute();
+	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
           month= extras.getInt("month");
           year=extras.getInt("year");
@@ -65,15 +66,15 @@ public class EventTargetAchievementActivity extends Activity {
 
 	    @Override
 	    protected Object doInBackground(Object... params) {
-	          completedEventTargets=db.getAllEventTargetsCompletedForAchievements("updated",month+1, year);
-	          //System.out.println(completedEventTargets.get(0).getEventTargetName());
-	          unCompletedEventTargets=db.getAllEventTargetsCompletedForAchievements("new_record",month+1, year);
+	    	System.out.println(month);
+	          completedEventTargets=db.getListOfTargetsForAchievements(MobileLearning.CCH_TARGET_STATUS_UPDATED,MobileLearning.CCH_TARGET_TYPE_EVENT,month+1, year);
+	          unCompletedEventTargets=db.getListOfTargetsForAchievements(MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_EVENT,month+1, year);
 			return null;
 	    }
 
 	    @Override
 	    protected void onPostExecute(Object result) {
-	    	  textView_number.setText(" ("+String.valueOf(completedEventTargets.size()+unCompletedEventTargets.size())+" this month)");
+	    	  textView_number.setText(" ("+number+" this month)");
 	        	 adapter=new NumericalTargetAchievementsAdapter(mContext,groupItems,completedEventTargets,
 	        			 unCompletedEventTargets,expandableListview);
 	 	    expandableListview.setAdapter(adapter);

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.adapters.NumericalTargetAchievementsAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
 
@@ -46,11 +47,11 @@ public class OtherTargetAchievementActivity extends Activity{
 	    expandableListview = (ExpandableListView) findViewById(R.id.expandableListView1);
 	    mContext=getApplicationContext();
 	    db=new DbHelper(mContext);
-	    new GetData().execute();
 	    groupItems=new String[]{"Completed","In progress"};
 	    textView_label=(TextView) findViewById(R.id.textView_label);
 	    textView_label.setText("Other Targets");
 	    textView_number=(TextView) findViewById(R.id.textView_number);
+	    new GetData().execute();
 	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
           month= extras.getInt("month");
@@ -66,8 +67,8 @@ public class OtherTargetAchievementActivity extends Activity{
 
 	    @Override
 	    protected Object doInBackground(Object... params) {
-	          completedOtherTargets=db.getAllOtherTargetsCompletedForAchievements("updated",month+1, year);
-	         unCompletedOtherTargets=db.getAllOtherTargetsCompletedForAchievements("new_record",month+1, year);
+	          completedOtherTargets=db.getListOfTargetsForAchievements(MobileLearning.CCH_TARGET_STATUS_UPDATED,MobileLearning.CCH_TARGET_TYPE_OTHER,month+1, year);
+	         unCompletedOtherTargets=db.getListOfTargetsForAchievements(MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_OTHER,month+1, year);
 	            return null;
 	        
 	    }

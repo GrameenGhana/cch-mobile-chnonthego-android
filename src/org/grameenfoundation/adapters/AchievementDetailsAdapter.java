@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 	public class AchievementDetailsAdapter extends BaseExpandableListAdapter {
@@ -91,12 +92,19 @@ import android.widget.TextView;
 	 @Override
 	 public View getGroupView(int groupPosition, boolean isExpanded,
 	   View convertView, ViewGroup parent) {
-		 if( convertView == null ){
-		      
-			  convertView = minflater.inflate(R.layout.listview_text_single,parent, false);
-		    }
-		 TextView text=(TextView) convertView.findViewById(R.id.textView_listViewText);
-		 text.setText(groupItem[groupPosition]);
+		 if (convertView == null) {
+			   convertView = minflater.inflate(R.layout.other_listview_single,parent, false);
+			  }
+			   
+			   TextView category=(TextView) convertView.findViewById(R.id.textView_otherCategory);
+			   category.setText(groupItem[groupPosition]);
+			   
+			   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
+			   if(groupPosition==0){
+				   image.setImageResource(R.drawable.ic_complete_new);
+			   }else if(groupPosition==1){
+				   image.setImageResource(R.drawable.ic_close);
+			   }
 		    return convertView;
 	 }
 	@Override

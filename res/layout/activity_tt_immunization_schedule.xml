@@ -56,7 +56,7 @@
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
-                android:text="TT1:  First ANC visit"
+                android:text="TD1:  First ANC visit"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -76,7 +76,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
                 android:paddingTop="5dp"
-                android:text="TT2:  At least 4 weeks after TT1"
+                android:text="TD2:  At least 4 weeks after TD1"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -96,7 +96,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
                 android:paddingTop="5dp"
-                android:text="TT3:  Six months after TT2"
+                android:text="TD3:  Six months after TD2"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -116,7 +116,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
                 android:paddingTop="5dp"
-                android:text="TT4:  One year after TT3"
+                android:text="TD4:  One year after TD3"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -136,7 +136,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
                 android:paddingTop="5dp"
-                android:text="TT5:  At least one year after TT4"
+                android:text="TD5:  At least one year after TD4"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -209,7 +209,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
                 android:paddingTop="5dp"
-                android:text="Immunised during childhood: 1 dose of TT/Td"
+                android:text="Immunised during childhood: 1 dose of TD"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
@@ -229,7 +229,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
                 android:paddingTop="5dp"
-                android:text="Immunised during school age: 1 dose of TT/Td"
+                android:text="Immunised during school age: 1 dose of TD"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>

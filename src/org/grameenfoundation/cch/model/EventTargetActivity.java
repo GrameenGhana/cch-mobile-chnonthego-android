@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.adapters.EventTargetAdapter;
 import org.grameenfoundation.adapters.NumericalTargetAchievementsAdapter;
 import org.grameenfoundation.cch.activity.EventTargetsDetailActivity;
@@ -56,7 +57,7 @@ public class EventTargetActivity extends Fragment implements OnChildClickListene
 	int selected_position;
 	private long selected_id;
 	private Button button_show;
-	private long eventId;
+	private ArrayList<EventTargets> eventId;
 	private long coverageId;
 	private long otherId;
 	private long learningId;
@@ -75,35 +76,25 @@ public class EventTargetActivity extends Fragment implements OnChildClickListene
 	    listView_events=(ExpandableListView) rootView.findViewById(R.id.expandableListView1);
 	    new GetData().execute();
 	    listView_events.setOnChildClickListener(this);
-	    button_show=(Button) rootView.findViewById(R.id.button_show);
 	 
-	    button_show.setOnClickListener(new OnClickListener(){
+	    button_show=(Button) rootView.findViewById(R.id.button_show);
+		eventId=db.getAllTargetsForUpdate("Daily",MobileLearning.CCH_TARGET_STATUS_NEW);
+		 final int number=(int)eventId.size();
+		 button_show.setOnClickListener(new OnClickListener(){
 
-			@Override
-			public void onClick(View v) {
-				 eventId=db.getEventIdCount("Daily");
-				 coverageId=db.getCoverageIdCount("Daily");
-				 otherId=db.getOtherIdCount("Daily");
-				 learningId=db.getLearningIdCount("Daily");
-				 int number=(int)eventId;
-				 int number2=(int)coverageId;
-				 int number3=(int)otherId;
-				 int number4=(int)learningId;
-				 final int counter;
-				
-				counter=number+number2+number3+number4;	
-				if(counter>0){
-				Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
-				startActivity(intent);
-				getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
-				}else if(counter==0){
-					 Toast.makeText(getActivity(), "You have no targets to update!",
-					         Toast.LENGTH_SHORT).show();
+				@Override
+				public void onClick(View v) {
+					if(number>0){
+					Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
+					startActivity(intent);
+					getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+					}else if(number==0){
+						 Toast.makeText(getActivity(), "You have no targets to update!",
+						         Toast.LENGTH_SHORT).show();
+					}
 				}
 				
-			}
-	    	
-	    });
+			});		
 	return rootView;
 		   
 	}
@@ -122,15 +113,18 @@ public class EventTargetActivity extends Fragment implements OnChildClickListene
 		String status=selected_items[6];
 		String last_updated=selected_items[8];
 		String target_detail=selected_items[9];
+		long old_id=Long.parseLong(selected_items[11]);
 		//String achieved=selected_items[4];
-		ArrayList<String> number_achieved_list=db.getForUpdateEventNumberAchieved(selected_id, event_period);
+		ArrayList<String> number_achieved_list=db.getNumberAchieved(selected_id, event_period,MobileLearning.CCH_TARGET_STATUS_NEW);
 		System.out.println(number_achieved_list.get(0));
 		System.out.println(event_number);
 		Intent intent=new Intent(getActivity(),EventTargetsDetailActivity.class);
 		intent.putExtra("event_id",selected_id);
+		intent.putExtra("old_id",old_id);
 		intent.putExtra("event_name",event_name);
 		intent.putExtra("event_number",event_number);
 		intent.putExtra("event_period", event_period);
+		intent.putExtra("type", "event");
 		intent.putExtra("due_date", due_date);
 		intent.putExtra("start_date", start_date);
 		intent.putExtra("achieved", number_achieved_list.get(0));
@@ -147,19 +141,19 @@ public class EventTargetActivity extends Fragment implements OnChildClickListene
 
 	    @Override
 	    protected Object doInBackground(Object... params) {
-	    	todayEventId=db.getEventCount("Daily");
-		    thisMonthEventId=db.getEventCount("Monthly");
-		    thisWeekEventId=db.getEventCount("Weekly");
-		    midYearEventId=db.getEventCount("Mid-year");
-		    thisQuarterEventId=db.getEventCount("Quarterly");
-		    thisYearEventId=db.getEventCount("Annually");
+	    	todayEventId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_EVENT);
+		    thisMonthEventId=db.getCount("Monthly",MobileLearning.CCH_TARGET_TYPE_EVENT);
+		    thisWeekEventId=db.getCount("Weekly",MobileLearning.CCH_TARGET_TYPE_EVENT);
+		    midYearEventId=db.getCount("Mid-year",MobileLearning.CCH_TARGET_TYPE_EVENT);
+		    thisQuarterEventId=db.getCount("Quarterly",MobileLearning.CCH_TARGET_TYPE_EVENT);
+		    thisYearEventId=db.getCount("Annually",MobileLearning.CCH_TARGET_TYPE_EVENT);
   		      
-	           	DailyEventTargets=db.getAllEventTargets("Daily");
-	           	WeeklyEventTargets=db.getAllEventTargets("Weekly");
-	   			MonthlyEventTargets=db.getAllEventTargets("Monthly");
-	   			QuarterlyEventTargets=db.getAllEventTargets("Quarterly");
-	   			MidyearEventTargets=db.getAllEventTargets("Mid-year");
-	   			AnnualEventTargets=db.getAllEventTargets("Annually");
+	           	DailyEventTargets=db.getAllTargetsToView("Daily",MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_EVENT);
+	           	WeeklyEventTargets=db.getAllTargetsToView("Weekly",MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_EVENT);
+	   			MonthlyEventTargets=db.getAllTargetsToView("Monthly",MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_EVENT);
+	   			QuarterlyEventTargets=db.getAllTargetsToView("Quarterly",MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_EVENT);
+	   			MidyearEventTargets=db.getAllTargetsToView("Mid-year",MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_EVENT);
+	   			AnnualEventTargets=db.getAllTargetsToView("Annually",MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_EVENT);
 				return null;
 	    }
 	    @Override

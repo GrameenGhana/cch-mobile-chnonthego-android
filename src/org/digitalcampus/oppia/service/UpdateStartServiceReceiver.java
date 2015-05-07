@@ -52,11 +52,11 @@ public class UpdateStartServiceReceiver extends BroadcastReceiver {
 			context.startService(service);
 		}
 		else if(today.equals(compared_week)){
-			Intent service = new Intent(context, UpdateTargetsWeeklyService.class);
-			context.startService(service);	
+			//Intent service = new Intent(context, UpdateTargetsWeeklyService.class);
+			//context.startService(service);	
 		}else if(today.equals(compared_endofmonth)){
-			Intent service = new Intent(context, UpdateMonthlyTargetService.class);
-			context.startService(service);
+			//Intent service = new Intent(context, UpdateMonthlyTargetService.class);
+			//context.startService(service);
 		}
 	}
 

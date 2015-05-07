@@ -136,7 +136,19 @@ public class StayingWellWebAppInterface {
 		// store results in plan
 		Long time = System.currentTimeMillis();
 		String data = "{'type':'profile', 'profile':'"+profile+"', 'responses':'"+status+"'}";
-		this.saveToCCHLog(data, time.toString(), time.toString());
+		 JSONObject d=new JSONObject();
+		    try {
+		    	d.put("type", "profile");
+		    	d.put("profile", profile);
+		    	d.put("responses", status);
+		    	d.put("ver", dbh.getVersionNumber(mContext));
+		    	d.put("battery", dbh.getBatteryStatus(mContext));
+		    	d.put("device", dbh.getDeviceName());
+				d.put("imei", dbh.getDeviceImei(mContext));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		this.saveToCCHLog(d.toString(), time.toString(), time.toString());
     }
      
     @JavascriptInterface
@@ -168,7 +180,7 @@ public class StayingWellWebAppInterface {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-		this.saveToCCHLog(data, t.toString(), t.toString());
+		this.saveToCCHLog(d.toString(), t.toString(), t.toString());
     }
     
     @JavascriptInterface

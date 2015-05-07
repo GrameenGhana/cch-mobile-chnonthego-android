@@ -90,6 +90,17 @@ public class MobileLearning extends Application {
 	public static final String CCH_DIAGNOSTIC = "Diagnostic Tool";
 	public static final String CCH_REFERENCES = "References";
 	public static final String CCH_COUNSELLING = "Counselling";
+	
+	public static final String CCH_TARGET_TYPE_EVENT = "Event";
+	public static final String CCH_TARGET_TYPE_COVERAGE = "Coverage";
+	public static final String CCH_TARGET_TYPE_OTHER = "Other";
+	public static final String CCH_TARGET_TYPE_LEARNING = "Learning";
+	
+	public static final String CCH_TARGET_STATUS_NEW = "new_record";
+	public static final String CCH_TARGET_STATUS_UPDATED = "updated";
+	
+	public static final String CCH_TARGET_PERSONAL = "personal";
+	public static final String CCH_TARGET_NOT_PERSONAL= "not_personal";
 
 	// general other settings
 	public static final String BUGSENSE_API_KEY = "f3a6ec3a";

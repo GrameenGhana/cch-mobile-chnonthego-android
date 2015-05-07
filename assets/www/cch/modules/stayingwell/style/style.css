@@ -288,7 +288,7 @@ button { padding:4px 12px;text-align:center;vertical-align:middle !important;bac
 
 .gcontent {
     height: 100%;
-    margin-top: 20px; 
+    margin-top: 0px; 
 }
 
 
@@ -547,11 +547,11 @@ div.scrollfader_top {
     margin-bottom: 0px;
     text-align: left;
 }
-.gcontent div.back_button{
+.gcontent div.back-button{
     bottom: 0;
     left: 0;
     right: 0;
-    position: absolute;
+    position: fixed;
     -webkit-backface-visibility: hidden; 
     z-index: 0;
 }
@@ -572,7 +572,7 @@ div.scrollfader_top {
     font-size: 1.2em;
     text-align: left;
     font-weight: 300;
-    line-height: 32px;
+    line-height: 20px;
 }
 
 .gcontent h5 {

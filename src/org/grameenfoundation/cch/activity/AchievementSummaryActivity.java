@@ -11,6 +11,7 @@ import org.digitalcampus.oppia.activity.DownloadActivity;
 import org.digitalcampus.oppia.activity.TagSelectActivity;
 import org.digitalcampus.oppia.adapter.SectionListAdapter;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.exception.InvalidXMLException;
 import org.digitalcampus.oppia.model.Activity;
 import org.digitalcampus.oppia.model.Course;
@@ -173,11 +174,12 @@ public class AchievementSummaryActivity extends BaseActivity {
 		int totalNumber=totalNumberOfEvents.size();
 		String percentage;
 		if(totalNumber>0){
-		Double  percentage_completed=((double)eventsNumberCompleted/totalNumber) *100;
-		percentage=String.format("%.0f", percentage_completed);
+			System.out.println("Number of events completed in: "+String.valueOf(eventsNumberCompleted));
+			Double  percentage_completed=((double)eventsNumberCompleted/totalNumber) *100;
+			percentage=String.format("%.0f", percentage_completed);
 		}else{
 			percentage="0";
-		}
+		}	
 		return percentage;
 	}
 	
@@ -189,6 +191,8 @@ public class AchievementSummaryActivity extends BaseActivity {
 		int totalNumber=totalNumberOfEvents.size();
 		String percentage;
 		if(totalNumber>0){
+			System.out.println("Number of events to do in: "+String.valueOf(numberTodo));
+			System.out.println("Number of events total: "+String.valueOf(totalNumber));
 		Double percentage_completed=((double)numberTodo/totalNumber) *100;
 		percentage=String.format("%.0f", percentage_completed);
 		}else{
@@ -198,15 +202,15 @@ public class AchievementSummaryActivity extends BaseActivity {
 	}
 	
 	private String calculateTargetsCompleted(){
-		completedEventTargets=db.getAllEventTargetsCompleted("updated", month+1, year);
-		completedCoverageTargets=db.getAllCoverageTargetsCompleted("updated",  month+1, year);
-		completedLearningTargets=db.getAllLearningTargetsCompleted("updated",  month+1, year);
-		completedOtherTargets=db.getAllOtherTargetsCompleted("updated", month+1, year);
+		completedEventTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_UPDATED,MobileLearning.CCH_TARGET_TYPE_EVENT, month+1, year);
+		completedCoverageTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_UPDATED,MobileLearning.CCH_TARGET_TYPE_COVERAGE, month+1, year);
+		completedLearningTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_UPDATED,MobileLearning.CCH_TARGET_TYPE_LEARNING,  month+1, year);
+		completedOtherTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_UPDATED, MobileLearning.CCH_TARGET_TYPE_OTHER,month+1, year);
 		 
-	    totalEventTargets=db.getAllEventTargetsForAchievements(month+1, year);
-	    totalCoverageTargets=db.getAllCoverageTargetsForAchievements(month+1, year);
-	    totalLearningTargets=db.getAllLearningTargetsForAchievements(month+1, year);
-	    totalOtherTargets=db.getAllOtherTargetsForAchievements(month+1, year);
+	    totalEventTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_EVENT,month+1, year);
+	    totalCoverageTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_COVERAGE,month+1, year);
+	    totalLearningTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_LEARNING,month+1, year);
+	    totalOtherTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_OTHER,month+1, year);
 		numberCompleted=completedEventTargets+completedCoverageTargets+completedLearningTargets+completedOtherTargets;
 		int totalNumber=totalEventTargets+totalCoverageTargets+totalLearningTargets+totalOtherTargets;
 		String percentage;
@@ -229,15 +233,15 @@ public class AchievementSummaryActivity extends BaseActivity {
 			percentage= "0";
 		}
 		*/
-		futureEventTargets=db.getAllEventTargetsCompleted("new_record", month+1	, year);
-		futureCoverageTargets=db.getAllCoverageTargetsCompleted("new_record", month+1, year);
-	    futureLearningTargets=db.getAllLearningTargetsCompleted("new_record", month+1, year);
-	    futureOtherTargets=db.getAllOtherTargetsCompleted("new_record", month+1	, year);
+		futureEventTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_NEW, MobileLearning.CCH_TARGET_TYPE_EVENT,month+1, year);
+		futureCoverageTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_COVERAGE, month+1, year);
+	    futureLearningTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_LEARNING, month+1, year);
+	    futureOtherTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_OTHER, month+1, year);
 	  
-	    totalEventTargets=db.getAllEventTargetsForAchievements( month+1	, year);
-	    totalCoverageTargets=db.getAllCoverageTargetsForAchievements( month+1, year);
-	    totalLearningTargets=db.getAllLearningTargetsForAchievements( month+1, year);
-	    totalOtherTargets=db.getAllOtherTargetsForAchievements( month+1	, year);
+	    totalEventTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_EVENT, month+1, year);
+	    totalCoverageTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_COVERAGE,month+1, year);
+	    totalLearningTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_LEARNING,month+1, year);
+	    totalOtherTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_OTHER,month+1, year);
 		numberFuture=futureEventTargets+futureCoverageTargets+futureLearningTargets+futureOtherTargets;
 		
 		int totalNumber=totalEventTargets+totalCoverageTargets+totalLearningTargets+totalOtherTargets;
@@ -284,11 +288,11 @@ public class AchievementSummaryActivity extends BaseActivity {
 	    protected void onPostExecute(Object result) {
 	    	dialog.dismiss();
 	    	 if(eventsCompleted!=null && eventsTodo!=null){
-	    		    textView_eventPercentage.setText(String.valueOf(eventsNumberCompleted)+"     /    "+String.valueOf(numberTodo) );
+	    		 		textView_eventPercentage.setText(String.valueOf(eventsNumberCompleted)+"     /    "+String.valueOf(numberTodo) );
 	    	        }
 	    	        
 	    	        if(targetsCompleted!=null && targetTodo!=null){
-	    		    textView_targetsPercentage.setText(String.valueOf(numberCompleted)+ "      /    "+String.valueOf(numberFuture));
+	    	        	textView_targetsPercentage.setText(String.valueOf(numberCompleted)+ "      /    "+String.valueOf(numberFuture));
 	    	        }
 	    	       
 	    	        if(courseCompleted>0){

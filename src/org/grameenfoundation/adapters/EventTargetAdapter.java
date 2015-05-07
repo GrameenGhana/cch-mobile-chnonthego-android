@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.cch.model.EventTargets;
 import org.grameenfoundation.cch.model.MyCalendarEvents;
 
@@ -93,7 +94,13 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 		   TextView text7=(TextView) convertView.findViewById(R.id.textView_lastUpdated);
 		   TextView text8=(TextView) convertView.findViewById(R.id.textView_percentageAchieved);
 		   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
-		   text.setText(dailyEventTarget.get(childPosition).getEventTargetName());
+		   if(dailyEventTarget.get(childPosition).getEventTargetType().equals(MobileLearning.CCH_TARGET_TYPE_LEARNING)){
+			   text.setText(dailyEventTarget.get(childPosition).getEventTargetCategory());
+		   }else if(dailyEventTarget.get(childPosition).getEventTargetType().equals(MobileLearning.CCH_TARGET_TYPE_COVERAGE)){
+			   text.setText(dailyEventTarget.get(childPosition).getEventTargetDetail());
+		   }else{
+			   text.setText(dailyEventTarget.get(childPosition).getEventTargetName());
+		   }
 		   text2.setText(dailyEventTarget.get(childPosition).getEventTargetNumber());
 		   text3.setText(dailyEventTarget.get(childPosition).getEventTargetPeriod());
 		   text4.setText(dailyEventTarget.get(childPosition).getEventTargetEndDate());
@@ -115,7 +122,13 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 		   TextView text7=(TextView) convertView.findViewById(R.id.textView_lastUpdated);
 		   TextView text8=(TextView) convertView.findViewById(R.id.textView_percentageAchieved);
 		   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
-		   text.setText(weeklyEventTargets.get(childPosition).getEventTargetName());
+		   if(weeklyEventTargets.get(childPosition).getEventTargetType().equals(MobileLearning.CCH_TARGET_TYPE_LEARNING)){
+			   text.setText(weeklyEventTargets.get(childPosition).getEventTargetCategory());
+		   }else if(weeklyEventTargets.get(childPosition).getEventTargetType().equals(MobileLearning.CCH_TARGET_TYPE_COVERAGE)){
+			   text.setText(weeklyEventTargets.get(childPosition).getEventTargetDetail());
+		   }else{
+			   text.setText(weeklyEventTargets.get(childPosition).getEventTargetName());
+		   }
 		   text2.setText(weeklyEventTargets.get(childPosition).getEventTargetNumber());
 		   text3.setText(weeklyEventTargets.get(childPosition).getEventTargetPeriod());
 		   text4.setText(weeklyEventTargets.get(childPosition).getEventTargetEndDate());
@@ -136,7 +149,13 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 		   TextView text7=(TextView) convertView.findViewById(R.id.textView_lastUpdated);
 		   TextView text8=(TextView) convertView.findViewById(R.id.textView_percentageAchieved);
 		   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
-		   text.setText(monthlyEventTargets.get(childPosition).getEventTargetName());
+		   if(monthlyEventTargets.get(childPosition).getEventTargetType().equals(MobileLearning.CCH_TARGET_TYPE_LEARNING)){
+			   text.setText(monthlyEventTargets.get(childPosition).getEventTargetCategory());
+		   }else if(monthlyEventTargets.get(childPosition).getEventTargetType().equals(MobileLearning.CCH_TARGET_TYPE_COVERAGE)){
+			   text.setText(monthlyEventTargets.get(childPosition).getEventTargetDetail());
+		   }else{
+			   text.setText(monthlyEventTargets.get(childPosition).getEventTargetName());
+		   }
 		   text2.setText(monthlyEventTargets.get(childPosition).getEventTargetNumber());
 		   text3.setText(monthlyEventTargets.get(childPosition).getEventTargetPeriod());
 		   text4.setText(monthlyEventTargets.get(childPosition).getEventTargetEndDate());
@@ -157,7 +176,13 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 		   TextView text7=(TextView) convertView.findViewById(R.id.textView_lastUpdated);
 		   TextView text8=(TextView) convertView.findViewById(R.id.textView_percentageAchieved);
 		   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
-		   text.setText(quarterlyEventTargets.get(childPosition).getEventTargetName());
+		   if(quarterlyEventTargets.get(childPosition).getEventTargetType().equals(MobileLearning.CCH_TARGET_TYPE_LEARNING)){
+			   text.setText(quarterlyEventTargets.get(childPosition).getEventTargetCategory());
+		   }else if(quarterlyEventTargets.get(childPosition).getEventTargetType().equals(MobileLearning.CCH_TARGET_TYPE_COVERAGE)){
+			   text.setText(quarterlyEventTargets.get(childPosition).getEventTargetDetail());
+		   }else{
+			   text.setText(quarterlyEventTargets.get(childPosition).getEventTargetName());
+		   }
 		   text2.setText(quarterlyEventTargets.get(childPosition).getEventTargetNumber());
 		   text3.setText(quarterlyEventTargets.get(childPosition).getEventTargetPeriod());
 		   text4.setText(quarterlyEventTargets.get(childPosition).getEventTargetEndDate());
@@ -178,7 +203,13 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 		   TextView text7=(TextView) convertView.findViewById(R.id.textView_lastUpdated);
 		   TextView text8=(TextView) convertView.findViewById(R.id.textView_percentageAchieved);
 		   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
-		   text.setText(midYearEventTargets.get(childPosition).getEventTargetName());
+		   if(midYearEventTargets.get(childPosition).getEventTargetType().equals(MobileLearning.CCH_TARGET_TYPE_LEARNING)){
+			   text.setText(midYearEventTargets.get(childPosition).getEventTargetCategory());
+		   }else if(midYearEventTargets.get(childPosition).getEventTargetType().equals(MobileLearning.CCH_TARGET_TYPE_COVERAGE)){
+			   text.setText(midYearEventTargets.get(childPosition).getEventTargetDetail());
+		   }else{
+			   text.setText(midYearEventTargets.get(childPosition).getEventTargetName());
+		   }
 		   text2.setText(midYearEventTargets.get(childPosition).getEventTargetNumber());
 		   text3.setText(midYearEventTargets.get(childPosition).getEventTargetPeriod());
 		   text4.setText(midYearEventTargets.get(childPosition).getEventTargetEndDate());
@@ -199,7 +230,13 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 		   TextView text7=(TextView) convertView.findViewById(R.id.textView_lastUpdated);
 		   TextView text8=(TextView) convertView.findViewById(R.id.textView_percentageAchieved);
 		   ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
-		   text.setText(annualEventTargets.get(childPosition).getEventTargetName());
+		   if(annualEventTargets.get(childPosition).getEventTargetType().equals(MobileLearning.CCH_TARGET_TYPE_LEARNING)){
+			   text.setText(annualEventTargets.get(childPosition).getEventTargetCategory());
+		   }else if(annualEventTargets.get(childPosition).getEventTargetType().equals(MobileLearning.CCH_TARGET_TYPE_COVERAGE)){
+			   text.setText(annualEventTargets.get(childPosition).getEventTargetDetail());
+		   }else{
+			   text.setText(annualEventTargets.get(childPosition).getEventTargetName());
+		   }
 		   text2.setText(annualEventTargets.get(childPosition).getEventTargetNumber());
 		   text3.setText(annualEventTargets.get(childPosition).getEventTargetPeriod());
 		   text4.setText(annualEventTargets.get(childPosition).getEventTargetEndDate());
@@ -274,17 +311,19 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 	public String[] getChild(int groupPosition, int childPosition) {
 		String[] childDetails = null;
 		if(groupPosition==0){
-			childDetails=new String[]{dailyEventTarget.get(childPosition).getEventTargetName(),
-									  dailyEventTarget.get(childPosition).getEventTargetNumber(),
-									  dailyEventTarget.get(childPosition).getEventTargetPeriod(),
-									  dailyEventTarget.get(childPosition).getEventTargetEndDate(),
-									  dailyEventTarget.get(childPosition).getEventTargetNumberAchieved(),
-									  dailyEventTarget.get(childPosition).getEventTargetStartDate(),
-									  dailyEventTarget.get(childPosition).getEventTargetStatus(),
-									  dailyEventTarget.get(childPosition).getEventTargetId(),
-									  dailyEventTarget.get(childPosition).getEventTargetLastUpdated(),
-									  dailyEventTarget.get(childPosition).getEventTargetDetail(),
-									  dailyEventTarget.get(childPosition).getEventTargetPersonalCategory()};
+			childDetails=new String[]{dailyEventTarget.get(childPosition).getEventTargetName(),//0
+									  dailyEventTarget.get(childPosition).getEventTargetNumber(),//1
+									  dailyEventTarget.get(childPosition).getEventTargetPeriod(),//2
+									  dailyEventTarget.get(childPosition).getEventTargetEndDate(),//3
+									  dailyEventTarget.get(childPosition).getEventTargetNumberAchieved(),//4
+									  dailyEventTarget.get(childPosition).getEventTargetStartDate(),//5
+									  dailyEventTarget.get(childPosition).getEventTargetStatus(),//6
+									  dailyEventTarget.get(childPosition).getEventTargetId(),//7
+									  dailyEventTarget.get(childPosition).getEventTargetLastUpdated(),//8
+									  dailyEventTarget.get(childPosition).getEventTargetDetail(),//9
+									  dailyEventTarget.get(childPosition).getEventTargetPersonalCategory(),//10
+									  dailyEventTarget.get(childPosition).getEventTargetOldId(),//11
+									  dailyEventTarget.get(childPosition).getEventTargetCategory()};//12
 		}else if(groupPosition==1){
 			childDetails=new String[]{weeklyEventTargets.get(childPosition).getEventTargetName(),
 									  weeklyEventTargets.get(childPosition).getEventTargetNumber(),
@@ -296,7 +335,9 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 									  weeklyEventTargets.get(childPosition).getEventTargetId(),
 									  weeklyEventTargets.get(childPosition).getEventTargetLastUpdated(),
 									  weeklyEventTargets.get(childPosition).getEventTargetDetail(),
-									  weeklyEventTargets.get(childPosition).getEventTargetPersonalCategory()};
+									  weeklyEventTargets.get(childPosition).getEventTargetPersonalCategory(),
+									  weeklyEventTargets.get(childPosition).getEventTargetOldId(),
+									  weeklyEventTargets.get(childPosition).getEventTargetCategory()};
 		}else if(groupPosition==2){
 			childDetails=new String[]{monthlyEventTargets.get(childPosition).getEventTargetName(),
 					  				  monthlyEventTargets.get(childPosition).getEventTargetNumber(),
@@ -308,7 +349,9 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 					  				  monthlyEventTargets.get(childPosition).getEventTargetId(),
 					  				  monthlyEventTargets.get(childPosition).getEventTargetLastUpdated(),
 					  				  monthlyEventTargets.get(childPosition).getEventTargetDetail(),
-					  				  monthlyEventTargets.get(childPosition).getEventTargetPersonalCategory()};
+					  				  monthlyEventTargets.get(childPosition).getEventTargetPersonalCategory(),
+					  				  monthlyEventTargets.get(childPosition).getEventTargetOldId(),
+					  				  monthlyEventTargets.get(childPosition).getEventTargetCategory()};
 		}else if(groupPosition==3){
 			childDetails=new String[]{quarterlyEventTargets.get(childPosition).getEventTargetName(),
 									  quarterlyEventTargets.get(childPosition).getEventTargetNumber(),
@@ -320,7 +363,9 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 									  quarterlyEventTargets.get(childPosition).getEventTargetId(),
 									  quarterlyEventTargets.get(childPosition).getEventTargetLastUpdated(),
 									  quarterlyEventTargets.get(childPosition).getEventTargetDetail(),
-									  quarterlyEventTargets.get(childPosition).getEventTargetPersonalCategory()};
+									  quarterlyEventTargets.get(childPosition).getEventTargetPersonalCategory(),
+									  quarterlyEventTargets.get(childPosition).getEventTargetOldId(),
+									  quarterlyEventTargets.get(childPosition).getEventTargetCategory()};
 		}else if(groupPosition==4){
 			childDetails=new String[]{midYearEventTargets.get(childPosition).getEventTargetName(),
 									  midYearEventTargets.get(childPosition).getEventTargetNumber(),
@@ -332,7 +377,9 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 									  midYearEventTargets.get(childPosition).getEventTargetId(),
 									  midYearEventTargets.get(childPosition).getEventTargetLastUpdated(),
 									  midYearEventTargets.get(childPosition).getEventTargetDetail(),
-									  midYearEventTargets.get(childPosition).getEventTargetPersonalCategory()};
+									  midYearEventTargets.get(childPosition).getEventTargetPersonalCategory(),
+									  midYearEventTargets.get(childPosition).getEventTargetOldId(),
+									  midYearEventTargets.get(childPosition).getEventTargetCategory()};
 		}else if(groupPosition==5){
 			
 			childDetails=new String[]{annualEventTargets.get(childPosition).getEventTargetName(),
@@ -345,7 +392,9 @@ public class EventTargetAdapter extends BaseExpandableListAdapter{
 									  annualEventTargets.get(childPosition).getEventTargetId(),
 									  annualEventTargets.get(childPosition).getEventTargetLastUpdated(),
 									  annualEventTargets.get(childPosition).getEventTargetDetail(),
-									  annualEventTargets.get(childPosition).getEventTargetPersonalCategory()};
+									  annualEventTargets.get(childPosition).getEventTargetPersonalCategory(),
+									  annualEventTargets.get(childPosition).getEventTargetOldId(),
+									  annualEventTargets.get(childPosition).getEventTargetCategory()};
 		}
 		return childDetails;
 			

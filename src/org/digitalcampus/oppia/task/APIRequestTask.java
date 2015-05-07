@@ -98,6 +98,7 @@ public class APIRequestTask extends AsyncTask<Payload, Object, Payload>{
 	protected void onPostExecute(Payload response) {
 		synchronized (this) {
             if (requestListener != null) {
+            	System.out.println(response.toString());
                requestListener.apiRequestComplete(response);
             }
         }

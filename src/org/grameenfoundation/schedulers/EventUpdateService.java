@@ -6,7 +6,6 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.cch.activity.EventUpdateActivity;
-import org.grameenfoundation.cch.activity.UpdateMonthlyTargetsActivity;
 import org.grameenfoundation.cch.model.MyCalendarEvents;
 
 import android.app.NotificationManager;

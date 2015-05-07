@@ -454,6 +454,7 @@ public ArrayList<MyCalendarEvents> readPastCalendarEvents(Context context, int m
     		String selection = "(( " + CalendarContract.Events.DTSTART + " >= " + first_day_of_month.getTimeInMillis() + 
     					" ) AND ( " + CalendarContract.Events.DTSTART + " <= " + last_day_of_month.getTimeInMillis() +
     					" ) AND ( "+ CalendarContract.Events.STATUS+" = "+Events.STATUS_CONFIRMED+
+    					" ) AND ( "+ CalendarContract.Events.STATUS+" != "+Events.STATUS_CANCELED+
     					" ) AND ( "+Events.DELETED+" !=1 "+" ))";
 
     		Cursor cursor = context.getContentResolver().query(Uri.parse("content://com.android.calendar/events"), projection, selection, null, null );
@@ -500,7 +501,7 @@ public ArrayList<MyCalendarEvents> readCalendarEventsTotal(Context context, int 
 		if(month==2){
 			last_day_of_month.set(year, month, 28);
 		}else{
-		last_day_of_month.set(year, month, 30);
+			last_day_of_month.set(year, month, 30);
 		}
 
 		String selection2 = "(( " + CalendarContract.Events.DTSTART + " >= " + first_day_of_month.getTimeInMillis() +
@@ -551,7 +552,7 @@ public ArrayList<MyCalendarEvents> readFutureCalendarEvents(Context context, int
 		if(month==2){
 			last_day_of_month.set(year, month, 28);
 		}else{
-		last_day_of_month.set(year, month, 30);
+			last_day_of_month.set(year, month, 30);
 		}
 
 		String selection = "(( " + CalendarContract.Events.DTSTART + " >= " + first_day_of_month.getTimeInMillis() + 

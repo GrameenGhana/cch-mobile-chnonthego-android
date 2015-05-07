@@ -155,7 +155,6 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 
 	public void refreshTagList() {
 		tags = new ArrayList<Tag>();
-		System.out.println(json.toString());
 		try {
 			for (int i = 0; i < (json.getJSONArray("tags").length()); i++) {
 				JSONObject json_obj = (JSONObject) json.getJSONArray("tags").get(i);
@@ -198,6 +197,7 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 				json = new JSONObject(response.getResultResponse());
 				refreshTagList();
 			} catch (JSONException e) {
+				e.printStackTrace();
 				if(!MobileLearning.DEVELOPER_MODE){
 					BugSenseHandler.sendException(e);
 				} else {

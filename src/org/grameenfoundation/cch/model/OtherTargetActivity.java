@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.adapters.EventTargetAdapter;
 import org.grameenfoundation.adapters.LearningTargetAdapter;
@@ -45,7 +46,7 @@ public class OtherTargetActivity extends Fragment implements OnChildClickListene
 	int selected_position;
 	private long selected_id;
 	private Button button_show;
-	private long eventId;
+	private ArrayList<EventTargets> eventId;
 	private long coverageId;
 	private long otherId;
 	private long learningId;
@@ -74,34 +75,23 @@ public class OtherTargetActivity extends Fragment implements OnChildClickListene
 	    new GetData().execute();
 	   button_show=(Button) rootView.findViewById(R.id.button_show);
 	   
-	    button_show.setOnClickListener(new OnClickListener(){
-	    	
-			@Override
-			public void onClick(View v) {
-				 eventId=db.getEventIdCount("Daily");
-				 coverageId=db.getCoverageIdCount("Daily");
-				 otherId=db.getOtherIdCount("Daily");
-				 learningId=db.getLearningIdCount("Daily");
-				 int number=(int)eventId;
-				 int number2=(int)coverageId;
-				 int number3=(int)otherId;
-				 int number4=(int)learningId;
-				 final int counter;
-				
-				counter=number+number2+number3+number4;	
-				if(counter>0){
-				Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
-				startActivity(intent);
-				getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
-				}else if(counter==0){
-					 Toast.makeText(getActivity(), "You have no targets to update!",
-					         Toast.LENGTH_SHORT).show();
+		eventId=db.getAllTargetsForUpdate("Daily",MobileLearning.CCH_TARGET_STATUS_NEW);
+		 final int number=(int)eventId.size();
+		 button_show.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					if(number>0){
+					Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
+					startActivity(intent);
+					getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+					}else if(number==0){
+						 Toast.makeText(getActivity(), "You have no targets to update!",
+						         Toast.LENGTH_SHORT).show();
+					}
 				}
 				
-			}
-	    	
-	    });
-	   
+			});		
 	return rootView;
 		   
 	}
@@ -118,11 +108,13 @@ public class OtherTargetActivity extends Fragment implements OnChildClickListene
 		String startDate=selected_items[5];
 		String achieved=selected_items[4];
 		String last_updated=selected_items[8];
-		String detail=selected_items[10];//personal or not
+		String detail=selected_items[12];//personal or not
+		long old_id=Long.parseLong(selected_items[11]);
 		//System.out.println(detail);
-		ArrayList<String> number_achieved_list=db.getForUpdateOtherNumberAchieved(selected_id, other_period);
+		ArrayList<String> number_achieved_list=db.getNumberAchieved(selected_id, other_period,MobileLearning.CCH_TARGET_STATUS_NEW);
 		Intent intent=new Intent(getActivity(),OtherTargetsDetailActivity.class);
 		intent.putExtra("other_id",selected_id);
+		intent.putExtra("old_id",old_id);
 		intent.putExtra("other_name",other_name);
 		intent.putExtra("other_number",other_number);
 		intent.putExtra("other_period", other_period);
@@ -142,19 +134,19 @@ public class OtherTargetActivity extends Fragment implements OnChildClickListene
 
 	    @Override
 	    protected Object doInBackground(Object... params) {
-	    	 todayOtherId=db.getOtherCount("Daily");
-			 thisWeekOtherId=db.getOtherCount("Weekly");
-			 thisMonthOtherId=db.getOtherCount("Monthly");
-			 midYearOtherId=db.getOtherCount("Mid-year");
-			 thisQuarterOtherId=db.getOtherCount("Quarterly");
-			 thisYearOtherId=db.getOtherCount("Annually");
+	    	 todayOtherId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_OTHER);
+			 thisWeekOtherId=db.getCount("Weekly",MobileLearning.CCH_TARGET_TYPE_OTHER);
+			 thisMonthOtherId=db.getCount("Monthly",MobileLearning.CCH_TARGET_TYPE_OTHER);
+			 midYearOtherId=db.getCount("Mid-year",MobileLearning.CCH_TARGET_TYPE_OTHER);
+			 thisQuarterOtherId=db.getCount("Quarterly",MobileLearning.CCH_TARGET_TYPE_OTHER);
+			 thisYearOtherId=db.getCount("Annually",MobileLearning.CCH_TARGET_TYPE_OTHER);
 			 
-	    	DailyOtherTargets=db.getAllOtherTargets("Daily");
-	 	    WeeklyOtherTargets=db.getAllOtherTargets("Weekly");
-	 	    MonthlyOtherTargets=db.getAllOtherTargets("Monthly");
-	 	    QuarterlyOtherTargets=db.getAllOtherTargets("Quarterly");
-	 	    MidyearOtherTargets=db.getAllOtherTargets("Mid-year");
-	 	    AnnualOtherTargets=db.getAllOtherTargets("Annually");
+	    	DailyOtherTargets=db.getAllTargetsToView("Daily",MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_OTHER);
+	 	    WeeklyOtherTargets=db.getAllTargetsToView("Weekly",MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_OTHER);
+	 	    MonthlyOtherTargets=db.getAllTargetsToView("Monthly",MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_OTHER);
+	 	    QuarterlyOtherTargets=db.getAllTargetsToView("Quarterly",MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_OTHER);
+	 	    MidyearOtherTargets=db.getAllTargetsToView("Mid-year",MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_OTHER);
+	 	    AnnualOtherTargets=db.getAllTargetsToView("Annually",MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_OTHER);
 				return null;
 	        
 	    }

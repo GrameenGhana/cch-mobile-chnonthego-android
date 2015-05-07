@@ -1,6 +1,7 @@
 package org.grameenfoundation.cch.activity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 import org.digitalcampus.mobile.learningGF.R;
@@ -8,6 +9,8 @@ import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.calendar.CalendarEvents.MyEvent;
+import org.grameenfoundation.cch.model.Validation;
+import org.grameenfoundation.cch.utils.MaterialSpinner;
 import org.grameenfoundation.poc.BaseActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,7 +53,7 @@ import android.widget.TextView;
 public final class PlanEventActivity extends BaseActivity implements OnClickListener{
 
 	private Context mContext;
-	private Spinner spinner_eventName;
+	private MaterialSpinner spinner_eventName;
 	private EditText editText_eventDescription;
 	private AutoCompleteTextView editText_event_location;
 	private Button button_addEvent;
@@ -71,6 +74,8 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 	private Long end_time;
 	private RadioGroup radioGroup_personal;
 	private JSONObject data;
+	private TableRow other_option;
+	private EditText editText_otherOption;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -85,12 +90,37 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
         if (extras != null) {
           mode= extras.getString("mode");
         }
+        other_option=(TableRow) findViewById(R.id.other_option);
+        editText_otherOption=(EditText) findViewById(R.id.editText_otherOption);
+		other_option.setVisibility(View.GONE);
 		String[] items_names=new String[]{};
 		items_names=getResources().getStringArray(R.array.EventNames);
+		Arrays.sort(items_names);
 		 adapter2=new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, items_names);
-		 spinner_eventName=(Spinner) findViewById(R.id.spinner_eventPlanType);
+		 spinner_eventName=(MaterialSpinner) findViewById(R.id.spinner_eventPlanType);
+		 spinner_eventName.setFloatingLabelText(" ");
 		 spinner_eventName.setAdapter(adapter2);
-	   
+		 spinner_eventName.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+					if(spinner_eventName.getSelectedItem().toString().equalsIgnoreCase("Other")){
+						other_option.setVisibility(View.VISIBLE);
+					}else{
+						other_option.setVisibility(View.GONE);
+					}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+			 
+		 });
+		
+		 
 	    editText_eventDescription=(EditText) findViewById(R.id.editText_eventPlanDescription);
 	    radioGroup_personal=(RadioGroup) findViewById(R.id.radioGroup_personal);
 	    radioGroup_personal.check(R.id.radio_no);
@@ -124,6 +154,15 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 	    	}else if(availability==Events.AVAILABILITY_FREE){
 	    		radioGroup_personal.check(R.id.radio_no);	
 	    	}
+	    	if(Arrays.asList(items_names).contains(event_type)){
+	    		int spinner_position=adapter2.getPosition(event_type);
+		    	spinner_eventName.setSelection(spinner_position);
+	    	}else{
+	    		int spinner_position=adapter2.getPosition("Other");
+		    	spinner_eventName.setSelection(spinner_position);
+		    	other_option.setVisibility(View.VISIBLE);
+		    	editText_otherOption.setText(event_type);
+	    	}
 	    	int spinner_position=adapter2.getPosition(event_type);
 	    	spinner_eventName.setSelection(spinner_position);
 	    	editText_event_location.setText(event_location);
@@ -132,8 +171,12 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 
 				@Override
 				public void onClick(View v) {
-				
-				String edited_event_type=spinner_eventName.getSelectedItem().toString();
+					String edited_event_type;
+					if(spinner_eventName.getSelectedItem().toString().equalsIgnoreCase("Other")){
+						edited_event_type=editText_otherOption.getText().toString();
+					}else{
+						edited_event_type=spinner_eventName.getSelectedItem().toString();
+					}
 				String edited_event_location=editText_event_location.getText().toString();
 				String edited_event_description=editText_eventDescription.getText().toString();
 				if(radioGroup_personal.getCheckedRadioButtonId()==R.id.radio_yes){
@@ -250,8 +293,16 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 		
 		int id = v.getId();
 		if (id == R.id.button_eventPlanAdd) {
+			if(!checkValidation()){
+				Toast.makeText(getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();
+			}else{
 			int event_category = 0;
-			String eventName=spinner_eventName.getSelectedItem().toString();
+			String eventName;
+			if(spinner_eventName.getSelectedItem().toString().equalsIgnoreCase("Other")){
+				eventName=editText_otherOption.getText().toString();
+			}else{
+			eventName=spinner_eventName.getSelectedItem().toString();
+			}
 			String eventLocation=editText_event_location.getText().toString();
 			String eventDescription=editText_eventDescription.getText().toString();
 			Calendar cal = Calendar.getInstance();
@@ -272,6 +323,7 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 			 		.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY , false);
 			
 			startActivityForResult(intent, 1);
+		}
 		}
 		else if (id == R.id.button_eventViewCalendar) {
 			Intent intent =  new Intent(Intent.ACTION_VIEW);
@@ -301,7 +353,15 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 		
 	    return true; 
 	}
-
+	 private boolean checkValidation() {
+	        boolean ret = true;
+	 
+	        if (!Validation.hasTextEditText(editText_event_location)) ret = false;
+	        if (!Validation.hasTextTextView(editText_eventDescription)) ret = false;
+	        if (!Validation.hasSelection(spinner_eventName))ret = false;
+	        if (other_option.isShown()&&!Validation.hasTextTextView(editText_otherOption))ret = false;
+	        return ret;
+	    }
 	public void saveToLog(Long starttime) 
 	{
 	  Long endtime = System.currentTimeMillis();

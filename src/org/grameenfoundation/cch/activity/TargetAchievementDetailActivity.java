@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.adapters.AchievementDetailsAdapter;
 import org.grameenfoundation.adapters.TargetsAchievementAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
@@ -15,6 +16,7 @@ import org.grameenfoundation.cch.model.LearningTargets;
 import org.grameenfoundation.cch.model.MyCalendarEvents;
 import org.grameenfoundation.cch.model.OtherTargetAchievementActivity;
 import org.grameenfoundation.cch.model.TargetsForAchievements;
+import org.grameenfoundation.poc.BaseActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,7 +34,7 @@ import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class TargetAchievementDetailActivity extends Activity {
+public class TargetAchievementDetailActivity extends BaseActivity {
 
 	private ListView expandableListview;
 	private Context mContext;
@@ -72,10 +74,10 @@ public class TargetAchievementDetailActivity extends Activity {
 	    textView_label=(TextView) findViewById(R.id.textView_label);
 	    textView_label.setText("Targets");
 	    textView_number=(TextView) findViewById(R.id.textView_number);
-	    eventTargets=db.getAllEventTargetsForAchievements(month+1,year);
-	    coverageTargets=db.getAllCoverageTargetsForAchievements(month+1,year);
-	    learningTargets=db.getAllLearningTargetsForAchievements(month+1, year);
-	    otherTargets=db.getAllOtherTargetsForAchievements(month+1, year);
+	    eventTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_EVENT,month+1,year);
+	    coverageTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_COVERAGE,month+1,year);
+	    learningTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_LEARNING,month+1, year);
+	    otherTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_OTHER,month+1, year);
 	    textView_number.setText(" ("+String.valueOf(eventTargets+coverageTargets+learningTargets+otherTargets)+" this month)");
 	    adapter=new ListAdapter(mContext,groupItems);
 	    expandableListview.setAdapter(adapter);

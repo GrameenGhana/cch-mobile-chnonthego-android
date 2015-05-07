@@ -2,9 +2,11 @@ package org.digitalcampus.oppia.activity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.service.TrackerService;
 import org.grameenfoundation.adapters.EventsDetailPagerAdapter;
 import org.grameenfoundation.adapters.MainScreenBaseAdapter;
@@ -22,6 +24,8 @@ import org.grameenfoundation.cch.model.LearningTargets;
 import org.grameenfoundation.cch.model.MyCalendarEvents;
 import org.grameenfoundation.cch.model.RoutineActivity;
 import org.grameenfoundation.cch.model.RoutineActivityDetails;
+import org.grameenfoundation.cch.utils.CCHTimeUtil;
+import org.joda.time.DateTime;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -74,6 +78,8 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 	private ArrayList<MyCalendarEvents> TodayCalendarEvents;
 	private CalendarEvents c;
 	private Animation slide_up;
+	private CCHTimeUtil timeUtils;
+	private DateTime today;
 	
 	// MODULE IDs
 	/*	private static final String EVENT_PLANNER_ID      = "Event Planner";
@@ -113,6 +119,13 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 	    //main_menu_listview.setAdapter(adapter);				
 	    //main_menu_listview.setOnItemClickListener(this);
 		dbh = new DbHelper(getApplicationContext());
+		timeUtils=new CCHTimeUtil();
+		today=new DateTime();
+		try{
+			System.out.println(timeUtils.checkIfMonthIsQuarter());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		dbh.alterTables();
 		dbh.deleteTables();
 		dbh.alterCourseTable();
@@ -272,7 +285,7 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 		 private SharedPreferences prefs;
 		 private String name;
 		 private String user_first_name;
-			private ArrayList<EventTargets> eventId;
+			private int eventId;
 			private ArrayList<EventTargets> coverageId;
 			private ArrayList<EventTargets> otherId;
 			private ArrayList<LearningTargets> learningId;
@@ -316,7 +329,29 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 	
 				textView_eventTargetsNumber=(TextView) rootView.findViewById(R.id.textView_eventTargetsNumber);
 				textView_clickHere=(TextView) rootView.findViewById(R.id.textView_clickHere);
-				
+				eventId=dbh.getDailyTargetsToUpdate()+
+						dbh.getWeeklyTargetsToUpdate()+
+						dbh.getMonthlyTargetsToUpdate()+
+						dbh.getQuarterlylyTargetsToUpdate()+
+						dbh.getMidYearTargetsToUpdate()+
+						dbh.getAnnualTargetsToUpdate();
+				 final int number=(int)eventId;
+				 textView_eventTargetsNumber.setText(String.valueOf(number));
+					textView_clickHere.setOnClickListener(new OnClickListener(){
+
+						@Override
+						public void onClick(View v) {
+							if(number>0){
+							Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
+							startActivity(intent);
+							}else if(number==0){
+								 Toast.makeText(getActivity(), "You have no targets to update!",
+								         Toast.LENGTH_SHORT).show();
+							}
+						}
+						
+					});
+				/*
 				 eventId=dbh.getAllEventTargetsForUpdate("Daily");
 				 coverageId=dbh.getAllCoverageTargetsForUpdate("Daily");
 				 otherId=dbh.getAllOtherTargetsForUpdate("Daily");
@@ -342,7 +377,7 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 						}
 					}
 					
-				});
+				});*/
 				textView_eventsClickHere = (TextView) rootView.findViewById(R.id.textView_eventsClickHere);
 			    textView_eventsClickHere.setOnClickListener(new OnClickListener(){
 			    	@Override

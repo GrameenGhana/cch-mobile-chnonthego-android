@@ -63,7 +63,7 @@ public class TreatingDiarrhoeaActivity extends BaseActivity {
 					editText_weight.setError("Enter a value!");
 				}else{
 				 double ors_amount_given=Double.valueOf(weight)*75;
-				 amount.setText("ORS amount= "+String.valueOf(ors_amount_given));
+				 amount.setText("ORS amount= "+String.valueOf(ors_amount_given)+"ml");
 				}
 			}
 	    	

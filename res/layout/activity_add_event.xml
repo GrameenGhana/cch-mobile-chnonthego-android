@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,6 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/White"
+         android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:orientation="vertical"
         android:padding="10dp" >
 
@@ -50,14 +53,38 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/TextBrown" />
 
-                <Spinner
+                <org.grameenfoundation.cch.utils.MaterialSpinner
                     android:id="@+id/spinner_eventPlanType"
-                    style="@drawable/spinner_ab_focused_om"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content" />
+                    app:ms_multiline="false"
+       				    app:ms_hint="Select"
+        	            app:ms_baseColor="@color/spinner_base_color"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"  />
 
             </TableRow>
+			<TableRow
+                android:id="@+id/other_option"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingBottom="5dp"
+                android:paddingTop="10dp" >
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="If other specify"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/TextBrown" />
+
+                <EditText
+                    android:id="@+id/editText_otherOption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10" >
+                </EditText>
+              
+            </TableRow>
             <TableRow
                 android:id="@+id/tableRow2"
                 android:layout_width="wrap_content"

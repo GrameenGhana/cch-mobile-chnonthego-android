@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
@@ -179,12 +180,12 @@ android:focusableInTouchMode="true">
                         android:text="No" />
                 </RadioGroup>
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/LinearLayout_justification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="visible" >
+                android:orientation="vertical" >
 
                 <TextView
                     android:id="@+id/textView2"
@@ -193,12 +194,40 @@ android:focusableInTouchMode="true">
                     android:text="Justification:"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <Spinner
+                <org.grameenfoundation.cch.utils.MaterialSpinner
                     android:id="@+id/spinner_justification"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                     app:ms_multiline="false"
+       		   app:ms_hint="Select"
+        	   app:ms_baseColor="@color/spinner_base_color"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"/>
             </LinearLayout>
 
+<TableRow
+    android:id="@+id/other_option"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="29dp"
+                        android:text="If other specify:"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/Brown"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/editText_otherOption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="10" >
+
+                    </EditText>
+
+                </TableRow>
             <LinearLayout
                 android:id="@+id/linearLayout_learningJustification"
                 android:layout_width="match_parent"

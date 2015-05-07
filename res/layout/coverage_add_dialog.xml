@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
@@ -20,7 +21,8 @@
             android:id="@+id/button_show"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Show Pending updates"
+            android:drawableLeft="@drawable/ic_pending"
+            android:text="Pending updates"
             android:textColor="@color/Brown" />
 
     </LinearLayout>
@@ -60,7 +62,7 @@
  				    android:layout_width="wrap_content"
  				    android:layout_height="wrap_content"
  				    android:button="@drawable/apptheme_btn_radio_holo_light"
- 				    android:text="Immunizations" />
+ 				    android:text="Antigens" />
                 
             </RadioGroup>
 
@@ -85,11 +87,13 @@
 
            
 
-            <Spinner
-                android:id="@+id/spinner_dialogCoverageName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+            <org.grameenfoundation.cch.utils.MaterialSpinner
+               android:id="@+id/spinner_dialogCoverageName"
+               app:ms_multiline="false"
+       		   app:ms_hint="Select"
+        	   app:ms_baseColor="@color/spinner_base_color"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"/>
         </LinearLayout>
 	<LinearLayout
             android:layout_width="match_parent"
@@ -106,13 +110,14 @@
                 android:textColor="@color/Brown"
                 android:textStyle="bold" />
 
-            <requestFocus />
 
-            <Spinner
+            <org.grameenfoundation.cch.utils.MaterialSpinner
                 android:id="@+id/spinner_dialogCoverageDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                app:ms_multiline="false"
+       		   app:ms_hint="Select"
+        	   app:ms_baseColor="@color/spinner_base_color"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -222,13 +227,13 @@
                 android:textColor="@color/Brown"
                 android:textStyle="bold" />
 
-            <Spinner
+            <org.grameenfoundation.cch.utils.MaterialSpinner
                 android:id="@+id/spinner_coveragePeriod"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:imeOptions="actionNext"
-                android:nextFocusDown="@+id/button_dialogAddCoverage" />
+               app:ms_multiline="false"
+       		   app:ms_hint="Select"
+        	   app:ms_baseColor="@color/spinner_base_color"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>
 

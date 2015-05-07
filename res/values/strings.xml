@@ -202,6 +202,13 @@
 	<color name="learningMagenta">#D80073</color>
 	<color name="stayingWellGreen">#7AD61D</color>
 	<color name="trans">#80000000</color>
+	 <string name="Select">Select</string>
+	<string-array name="TargetTypes">
+	         <item>Event</item>
+	         <item>Coverage</item>
+	         <item>Learning</item>
+	         <item>Other</item>
+	</string-array>
 	<string-array name="Justification">
 	         <item>No transportation</item>
 	         <item>Bad weather</item>
@@ -225,6 +232,9 @@
 	         <item>SP under IPTp</item>
 	         <item>TBA Monitoring</item>
 	         <item>CBSV (Volunteers)</item>
+	          <item>Family Planning Commodities</item>
+	           <item>CMAM</item>
+	           
 	         
 	</string-array>
 	<string-array name="EventNames">
@@ -338,6 +348,7 @@
 	</string-array>
 	
 	<string-array name="CoverageIndicatorsDetailAgeGroups">
+	     	 <item>0 to 28days</item>
 	    	 <item>0 to 11 months</item>
 	         <item>12 to 23 months</item>
 	         <item>24 to 59 months</item>
@@ -347,6 +358,7 @@
 	    	 <item># of schools visited</item>
 	         <item># of schools with 3+ health talks</item>
 	         <item># examined ­ Pre­school</item>
+	         <item># examined - P1</item>
 	         <item># examined - P3</item>
 	         <item># examined - JHS 1</item>
 	</string-array>
@@ -357,7 +369,7 @@
 	         <item>OPV</item>
 	         <item>ROTA</item>
 	         <item>PCV</item>
-	         <item>Measles Rubella</item>
+	         <item>Measles</item>
 	         <item>Vitamin A</item>
 	         <item>TT pregnant</item>
 	         <item>TT non-pregnant</item>
@@ -392,7 +404,7 @@
 	</string-array>
 	
 	<string-array name="CoverageImmunizationMeaslesRubella">
-	    	 <item>Measles Rubella @9mnths</item>
+	    	 <item>Measles Rubella</item>
 	         <item>Measles 2</item>
 	</string-array>
 	

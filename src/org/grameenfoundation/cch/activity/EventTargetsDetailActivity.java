@@ -3,6 +3,7 @@ package org.grameenfoundation.cch.activity;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,9 +12,11 @@ import java.util.Locale;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.activity.MainScreenActivity;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.cch.caldroid.CaldroidFragment;
 import org.grameenfoundation.cch.caldroid.CaldroidListener;
 import org.grameenfoundation.cch.model.Validation;
+import org.grameenfoundation.cch.utils.MaterialSpinner;
 import org.grameenfoundation.cch.utils.TextProgressBar;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +34,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,8 +42,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 public class EventTargetsDetailActivity extends FragmentActivity {
@@ -67,6 +73,7 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 	private TextView textView_percentageAchieved;
 	private int today_year;
 	private int today_day;
+	private long event_old_id;
 	private int today_month;
 	private Integer due_date_day;
 	private Integer due_date_month;
@@ -89,6 +96,14 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 	private String last_updated;
 	private String event_detail;
 	private TextView day_difference;
+	private RadioGroup event_detail_radio;
+	private String[] items3;
+	private String eventDetailText;
+	private ArrayAdapter<String> event_name_adapter;
+	private TableRow other_option;
+	private EditText editText_otherOption;
+	private MaterialSpinner spinner_event_name;
+	private MaterialSpinner spinner_eventPeriod;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -120,10 +135,7 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 	    new GetData().execute();
         button_edit.setOnClickListener(new OnClickListener(){
 
-			private RadioGroup event_detail_radio;
-			private String[] items3;
-			private String eventDetailText;
-			private ArrayAdapter<String> event_name_adapter;
+			
 			@Override
 			public void onClick(View v) {
 				final Dialog dialog = new Dialog(EventTargetsDetailActivity.this);
@@ -131,28 +143,55 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 				dialog.setTitle("Edit Event Target");
 				final EditText editText_eventNumber=(EditText) dialog.findViewById(R.id.editText_dialogEventPeriodNumber);
 				String[] items=getResources().getStringArray(R.array.ReminderFrequency);
+				final Button button_show=(Button) dialog.findViewById(R.id.button_show);
+				button_show.setVisibility(View.GONE);
 				ArrayAdapter<String> adapter=new ArrayAdapter<String>(EventTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
-				final Spinner spinner_event_name=(Spinner) dialog.findViewById(R.id.spinner_eventName);
-				final Spinner spinner_eventPeriod=(Spinner) dialog.findViewById(R.id.spinner_dialogEventPeriod);
+				spinner_event_name=(MaterialSpinner) dialog.findViewById(R.id.spinner_eventName);
+				spinner_eventPeriod=(MaterialSpinner) dialog.findViewById(R.id.spinner_dialogEventPeriod);
 				spinner_eventPeriod.setAdapter(adapter);
-			
+				  other_option=(TableRow) dialog.findViewById(R.id.other_option);
+				  editText_otherOption=(EditText) dialog.findViewById(R.id.editText_otherOption);
+				  other_option.setVisibility(View.GONE);
 				int spinner_position_period=adapter.getPosition(event_period);
 				spinner_eventPeriod.setSelection(spinner_position_period);
 				event_detail_radio=(RadioGroup) dialog.findViewById(R.id.radioGroup_category);
 				items3=new String[]{};
-				items3=getResources().getStringArray(R.array.Monitoring);
+				items3=getResources().getStringArray(R.array.EventNames);
+				Arrays.sort(items3);
+				event_name_adapter=new ArrayAdapter<String>(EventTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
+				spinner_event_name.setAdapter(event_name_adapter);
+				spinner_event_name.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+					public void onItemSelected(AdapterView<?> parent,
+							View view, int position, long id) {
+						if(spinner_event_name.getSelectedItem().toString().equalsIgnoreCase("Other")){
+							other_option.setVisibility(View.VISIBLE);
+						}else{
+							 other_option.setVisibility(View.GONE);
+						}
+						
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> parent) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
 				event_detail_radio.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 					@Override
 					public void onCheckedChanged(RadioGroup group, int checkedId) {
 						if (checkedId == R.id.radio_events) {
 							 items3=new String[]{};
 							 items3=getResources().getStringArray(R.array.EventNames);
+							 Arrays.sort(items3);
 							  event_name_adapter=new ArrayAdapter<String>(EventTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
 								spinner_event_name.setAdapter(event_name_adapter);
 								eventDetailText="Event";
 						}else if(checkedId == R.id.radio_monitoring){
 							 items3=new String[]{};
 							 items3=getResources().getStringArray(R.array.Monitoring);
+							 Arrays.sort(items3);
 							 event_name_adapter=new ArrayAdapter<String>(EventTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
 								spinner_event_name.setAdapter(event_name_adapter);
 								eventDetailText="Monitoring";
@@ -253,28 +292,26 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 				dialogButton.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						
-						String duration = " ";
-						String event_name=spinner_event_name.getSelectedItem().toString();
+						String event_name;
+						if(spinner_event_name.getSelectedItem().toString().equalsIgnoreCase("Other")){
+							event_name=editText_otherOption.getText().toString();
+						}else{
+							event_name=spinner_event_name.getSelectedItem().toString();
+						}
 						String event_number=editText_eventNumber.getText().toString();
 						String event_period=spinner_eventPeriod.getSelectedItem().toString();
-						/*if(isDateAfter(start_date,due_date)==true){
-				      		 startDateValue.requestFocus();
-				      		 startDateValue.setError("Check this date!");
-				      	}else if(start_date==null){
-				      		startDateValue.requestFocus();
-				      		startDateValue.setError("Select a start date");
-				      	}else if(due_date==null){
-				      		dueDateValue.requestFocus();
-				      		dueDateValue.setError("Select an end date");
-			      		}*/if(!checkValidation()){
+						if(!checkValidation()){
 			      			Toast.makeText(getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();
 				      	}else{
-					    if(db.editEventCategory(event_name, event_number, event_period,duration,startDateValue.getText().toString(),dueDateValue.getText().toString(), event_id)==true){
-					    	number_achieved=db.getForUpdateEventNumberAchieved(event_id,event_period);
+					    if(db.editTarget(event_name, "", event_detail,event_number,startDateValue.getText().toString(),dueDateValue.getText().toString(),event_period, event_id)==true){
+					    	number_achieved=db.getNumberAchieved(event_id,event_period,MobileLearning.CCH_TARGET_STATUS_NEW);
 					    	JSONObject json = new JSONObject();
 							 try {
-								json.put("id", event_id);
+								 if(event_old_id!=0){
+									 json.put("id", event_old_id);
+								 }else{
+									 json.put("id", event_id);
+								 }
 								json.put("target_type", event_name);
 								 json.put("target_number", event_number);
 								 json.put("start_date", start_date_extra);
@@ -330,11 +367,15 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 						  })
 						.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,int id) {
-								if(db.deleteEventCategory(event_id)==true){
-									number_achieved=db.getForUpdateEventNumberAchieved(event_id,event_period);
+								if(db.deleteTarget(event_id)==true){
+									number_achieved=db.getNumberAchieved(event_id,event_period,MobileLearning.CCH_TARGET_STATUS_NEW);
 									JSONObject json = new JSONObject();
 									 try {
-										json.put("id", event_id);
+										 if(event_old_id!=0){
+											 json.put("id", event_old_id);
+										 }else{
+											 json.put("id", event_id);
+										 }
 										json.put("target_type", event_name);
 										 json.put("target_number", event_number);
 										 json.put("start_date", start_date_extra);
@@ -373,11 +414,12 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 
 			@Override
 			public void onClick(View v) {
-				number_achieved=db.getForUpdateEventNumberAchieved(event_id,event_period);
+				number_achieved=db.getNumberAchieved(event_id,event_period,MobileLearning.CCH_TARGET_STATUS_NEW);
 				Intent intent3 = new Intent(Intent.ACTION_MAIN);
 				intent3.setClass(EventTargetsDetailActivity.this,UpdateActivity.class);
 				intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	        	intent3.putExtra("id", event_id);
+	        	intent3.putExtra("old_id", event_old_id);
 				intent3.putExtra("number",event_number);
 				intent3.putExtra("name", event_name);
 				intent3.putExtra("type", "event");
@@ -507,6 +549,7 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 		private Double percentage;
 		private String percentage_achieved;
 		
+		
 
 	    @Override
 	    protected Object doInBackground(Object... params) {
@@ -520,6 +563,7 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 				achieved=extras.getString("achieved");
 				status=extras.getString("status");
 				event_id=extras.getLong("event_id");
+				event_old_id=extras.getLong("old_id");
 				last_updated=extras.getString("last_updated");
 				event_detail=extras.getString("event_detail");
 				System.out.println(String.valueOf(event_detail));
@@ -574,7 +618,10 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 	 
 	        if (!Validation.hasTextTextView(startDateValue)) ret = false;
 	        if (!Validation.hasTextTextView(dueDateValue)) ret = false;
-	        if (Validation.isDateAfter(start_date,due_date,startDateValue)) ret = false;
+	        if (!Validation.hasSelection(spinner_event_name))ret = false;
+	        if (!Validation.hasSelection(spinner_eventPeriod))ret = false;
+	        if (other_option.isShown()&&!Validation.hasTextTextView(editText_otherOption))ret = false;
+	        if (Validation.isDateAfter(startDateValue.getText().toString(),dueDateValue.getText().toString(),startDateValue)) ret = false;
 	        return ret;
 	    }	
 }

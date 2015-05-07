@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.digitalcampus.mobile.learningGF"
-    android:versionCode="120"
-    android:versionName="3.0.37" 
+    android:versionCode="121"
+    android:versionName="3.0.38" 
     android:screenOrientation="portrait">
 
     <uses-sdk
@@ -377,6 +377,10 @@
         <receiver android:name="org.grameenfoundation.schedulers.EventUpdateStartServiceReceiver"></receiver>
         <activity android:name="org.grameenfoundation.cch.activity.EventUpdateActivity"></activity>
         <activity android:name="org.grameenfoundation.cch.activity.DownloadManagerTestActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.EventTargetUpdateActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.CoverageTargetsUpdateActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.LearningTargetUpdateActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.activity.OtherTargetsUpdateActivity"></activity>
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.service.TrackerService;
 import org.grameenfoundation.cch.model.CoverageTargetActivity;
 import org.grameenfoundation.cch.model.EventTargetActivity;
@@ -168,12 +169,12 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
                  
                  db=new DbHelper(NewEventPlannerActivity.this);
                  
-     		    todayEventId=db.getEventCount("Daily");
-     		    thisMonthEventId=db.getEventCount("Monthly");
-     		    thisWeekEventId=db.getEventCount("Weekly");
-     		    midYearEventId=db.getEventCount("Mid-year");
-     		    thisQuarterEventId=db.getEventCount("Quarterly");
-     		    thisYearEventId=db.getEventCount("Annually");
+     		    todayEventId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_EVENT);
+     		    thisMonthEventId=db.getCount("Monthly",MobileLearning.CCH_TARGET_TYPE_EVENT);
+     		    thisWeekEventId=db.getCount("Weekly",MobileLearning.CCH_TARGET_TYPE_EVENT);
+     		    midYearEventId=db.getCount("Mid-year",MobileLearning.CCH_TARGET_TYPE_EVENT);
+     		    thisQuarterEventId=db.getCount("Quarterly",MobileLearning.CCH_TARGET_TYPE_EVENT);
+     		    thisYearEventId=db.getCount("Annually",MobileLearning.CCH_TARGET_TYPE_EVENT);
      		     int event_number1=(int)todayEventId;
      			 int event_number2=(int)thisMonthEventId;
      			 int event_number3=(int)thisWeekEventId;
@@ -183,12 +184,12 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
      	
      			counter=event_number1+event_number2+event_number3+event_number4+event_number5+event_number6;
      			
-     			todayCoverageId=db.getCoverageCount("Daily");
-     			thisWeekCoverageId=db.getCoverageCount("Weekly");
-     			thisMonthCoverageId=db.getCoverageCount("Monthly");
-     			midYearCoverageId=db.getCoverageCount("Mid-year");
-     			thisQuarterCoverageId=db.getCoverageCount("Quarterly");
-     			thisYearCoverageId=db.getCoverageCount("Annually");
+     			todayCoverageId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+     			thisWeekCoverageId=db.getCount("Weekly",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+     			thisMonthCoverageId=db.getCount("Monthly",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+     			midYearCoverageId=db.getCount("Mid-year",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+     			thisQuarterCoverageId=db.getCount("Quarterly",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+     			thisYearCoverageId=db.getCount("Annually",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
      			
      			     int coverage_number1=(int)todayCoverageId;
      				 int coverage_number2=(int)thisWeekCoverageId;
@@ -199,12 +200,12 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
      				
      				counter2=coverage_number1+coverage_number2+coverage_number3+coverage_number4+coverage_number5+coverage_number6;
      			
-     			todayLearningId=db.getLearningCount("Daily");
-     			thisWeekLearningId=db.getLearningCount("Weekly");
-     			thisMonthLearningId=db.getLearningCount("Monthly");
-     			midYearLearningId=db.getLearningCount("Mid-year");
-     			thisQuarterLearningId=db.getLearningCount("Quarterly");
-     			thisYearLearningId=db.getLearningCount("Annually");
+     			todayLearningId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_LEARNING);
+     			thisWeekLearningId=db.getCount("Weekly",MobileLearning.CCH_TARGET_TYPE_LEARNING);
+     			thisMonthLearningId=db.getCount("Monthly",MobileLearning.CCH_TARGET_TYPE_LEARNING);
+     			midYearLearningId=db.getCount("Mid-year",MobileLearning.CCH_TARGET_TYPE_LEARNING);
+     			thisQuarterLearningId=db.getCount("Quarterly",MobileLearning.CCH_TARGET_TYPE_LEARNING);
+     			thisYearLearningId=db.getCount("Annually",MobileLearning.CCH_TARGET_TYPE_LEARNING);
      			
      			 int learning_number1=(int)todayLearningId;
      			 int learning_number2=(int)thisWeekLearningId;
@@ -218,12 +219,12 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
      					learning_number4+
      					learning_number5+
      					learning_number6;
-     			 todayOtherId=db.getOtherCount("Daily");
-     			 thisWeekOtherId=db.getOtherCount("Weekly");
-     			 thisMonthOtherId=db.getOtherCount("Monthly");
-     			 midYearOtherId=db.getOtherCount("Mid-year");
-     			 thisQuarterOtherId=db.getOtherCount("Quarterly");
-     			 thisYearOtherId=db.getOtherCount("Annually");
+     			 todayOtherId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_OTHER);
+     			 thisWeekOtherId=db.getCount("Weekly",MobileLearning.CCH_TARGET_TYPE_OTHER);
+     			 thisMonthOtherId=db.getCount("Monthly",MobileLearning.CCH_TARGET_TYPE_OTHER);
+     			 midYearOtherId=db.getCount("Mid-year",MobileLearning.CCH_TARGET_TYPE_OTHER);
+     			 thisQuarterOtherId=db.getCount("Quarterly",MobileLearning.CCH_TARGET_TYPE_OTHER);
+     			 thisYearOtherId=db.getCount("Annually",MobileLearning.CCH_TARGET_TYPE_OTHER);
      			 
      			 int other_number1=(int)todayOtherId;
      			 int other_number2=(int)thisWeekOtherId;

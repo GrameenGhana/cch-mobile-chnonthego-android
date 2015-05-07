@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.adapters.NumericalTargetAchievementsAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.poc.BaseActivity;
@@ -66,8 +67,8 @@ public class CoverageTargetAchievementActivity extends BaseActivity {
 
 	    @Override
 	    protected Object doInBackground(Object... params) {
-	          completedCoverageTargets=db.getAllCoverageTargetsCompletedForAchievements("updated",month+1, year);
-	          unCompletedCoverageTargets=db.getAllCoverageTargetsCompletedForAchievements("new_record",month+1, year);
+	          completedCoverageTargets=db.getListOfTargetsForAchievements(MobileLearning.CCH_TARGET_STATUS_UPDATED,MobileLearning.CCH_TARGET_TYPE_COVERAGE,month+1, year);
+	          unCompletedCoverageTargets=db.getListOfTargetsForAchievements(MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_COVERAGE,month+1, year);
 	            return null;
 	        
 	    }

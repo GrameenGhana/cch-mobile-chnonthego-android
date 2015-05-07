@@ -39,7 +39,11 @@ import org.grameenfoundation.cch.model.EventTargets;
 import org.grameenfoundation.cch.model.LearningTargets;
 import org.grameenfoundation.cch.model.RoutineActivity;
 import org.grameenfoundation.cch.model.TargetsForAchievements;
+import org.grameenfoundation.cch.utils.CCHTimeUtil;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -72,7 +76,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
 	static final String TAG = DbHelper.class.getSimpleName();
 	static final String DB_NAME = "mobilelearning.db";
-	static final int DB_VERSION = 18;
+	static final int DB_VERSION = 19;
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 	private SharedPreferences prefs;
@@ -90,6 +94,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	private static final String COURSE_C_LANGS = "langs";
 	private static final String COURSE_C_DATE = "date";
 	private String battery_percentage;
+	private CCHTimeUtil timeUtil;
 	
 	private static final String ACTIVITY_TABLE = "Activity";
 	private static final String ACTIVITY_C_ID = BaseColumns._ID;
@@ -215,6 +220,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		public static final String COL_OTHER_DETAILS="other_detail";//personal or not
 		
 		private static final String TEXT_TYPE = " TEXT";
+		private static final String INT_TYPE = " integer";
 		private static final String COMMA_SEP = ",";
 		
 		//CCH: Update Justification Table
@@ -266,6 +272,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		String batteryPercentage = null;
 		this.battery_percentage=batteryPercentage;
 		this.ctx = ctx;
+		timeUtil=new CCHTimeUtil();
 	}
 
 	@Override
@@ -282,10 +289,10 @@ public class DbHelper extends SQLiteOpenHelper {
 	//	runSWReset(db);
 		
 		/*CHN Target tracking changes*/
-		createEventsSetTable(db);
-		createCoverageSetTable(db);
-		createLearningTable(db);
-		createOtherTable(db);
+		//createEventsSetTable(db);
+		//createCoverageSetTable(db);
+		//createLearningTable(db);
+		//createOtherTable(db);
 		createJustificationTable(db);
 		//createCalendarEventsTable(db);
 		createTargetsTable(db);
@@ -293,8 +300,9 @@ public class DbHelper extends SQLiteOpenHelper {
 
 	
 	public void createTargetsTable(SQLiteDatabase db){
-		String m_sql = "create table " + TARGET_TABLE + " (" 
+		String m_sql = "create table if not exists " + TARGET_TABLE + " (" 
 				+ BaseColumns._ID + " integer primary key autoincrement, "
+				+ CCH_OLD_ID + INT_TYPE + COMMA_SEP 
 				+ CCH_TARGET_TYPE + TEXT_TYPE + COMMA_SEP 
 				+ CCH_TARGET_NAME + TEXT_TYPE + COMMA_SEP
 				+ CCH_TARGET_DETAIL + TEXT_TYPE + COMMA_SEP
@@ -373,85 +381,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 
-	
-	public void createEventsSetTable(SQLiteDatabase db){
-	//	table create statement for events set table 
-		final String EVENT_SET_CREATE_TABLE =
-			    "CREATE TABLE " + EVENTS_SET_TABLE + " (" +
-			    		BaseColumns._ID + " INTEGER PRIMARY KEY," +
-			    		BaseColumns._ID + " INTEGER PRIMARY KEY," +
-			    		COL_EVENT_SET_NAME + TEXT_TYPE + COMMA_SEP +
-			    		COL_EVENT_SET_DETAIL + TEXT_TYPE + COMMA_SEP +
-			    		COL_EVENT_PERIOD + TEXT_TYPE + COMMA_SEP +
-			    		COL_SYNC_STATUS + TEXT_TYPE + COMMA_SEP +
-			    		COL_EVENT_DURATION + TEXT_TYPE + COMMA_SEP +
-			    		COL_START_DATE + TEXT_TYPE + COMMA_SEP +
-			    		COL_EVENT_DUE_DATE+ TEXT_TYPE +COMMA_SEP+
-			    		COL_NUMBER_ACHIEVED+ TEXT_TYPE + COMMA_SEP +// new column
-				    	COL_NUMBER_REMAINING+ TEXT_TYPE + COMMA_SEP +// new column
-				    	COL_LAST_UPDATED+ TEXT_TYPE + COMMA_SEP +// new column
-			    		COL_EVENT_NUMBER+TEXT_TYPE+
-			    " )";
-		db.execSQL(EVENT_SET_CREATE_TABLE);
-	}
-	
-	public void createCoverageSetTable(SQLiteDatabase db){
-//		table create statement for events set table 
-		final String COVERAGE_SET_CREATE_TABLE =
-			    "CREATE TABLE " + COVERAGE_SET_TABLE + " (" +
-			    		BaseColumns._ID + " INTEGER PRIMARY KEY," +
-			    		COL_COVERAGE_SET_CATEGORY_NAME + TEXT_TYPE + COMMA_SEP +
-			    		COL_COVERAGE_SET_CATEGORY_DETAIL + TEXT_TYPE + COMMA_SEP +
-			    		COL_COVERAGE_SET_PERIOD + TEXT_TYPE + COMMA_SEP +
-			    		COL_COVERAGE_NUMBER + TEXT_TYPE + COMMA_SEP +
-			    		COL_START_DATE + TEXT_TYPE + COMMA_SEP +
-			    		COL_COVERAGE_DUE_DATE+ TEXT_TYPE +COMMA_SEP+
-			    		COL_COVERAGE_DURATION+ TEXT_TYPE + COMMA_SEP +
-			    		COL_NUMBER_ACHIEVED+ TEXT_TYPE + COMMA_SEP +// new column
-				    	COL_NUMBER_REMAINING+ TEXT_TYPE + COMMA_SEP +// new column
-				    	COL_LAST_UPDATED+ TEXT_TYPE + COMMA_SEP +// new column
-			    		COL_SYNC_STATUS+TEXT_TYPE+
-			    " )";
-		db.execSQL(COVERAGE_SET_CREATE_TABLE);
-	}
-	
-	public void createLearningTable(SQLiteDatabase db){
-//		table create statement for learning table
-			final String LEARNING_CREATE_TABLE =
-				    "CREATE TABLE " + LEARNING_TABLE + " (" +
-				    		BaseColumns._ID + " INTEGER PRIMARY KEY," +
-				    		COL_LEARNING_CATEGORY + TEXT_TYPE + COMMA_SEP +
-				    		COL_LEARNING_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
-				    		COL_LEARNING_DURATION+ TEXT_TYPE + COMMA_SEP +
-				    		COL_LEARNING_TOPIC+ TEXT_TYPE + COMMA_SEP +
-				    		COL_LEARNING_PERIOD+ TEXT_TYPE + COMMA_SEP +
-				    		COL_START_DATE + TEXT_TYPE + COMMA_SEP +
-				    		COL_LEARNING_DUE_DATE+ TEXT_TYPE + COMMA_SEP +
-				    		COL_LAST_UPDATED+ TEXT_TYPE + COMMA_SEP +// new column
-				    		COL_SYNC_STATUS+ TEXT_TYPE+
-				    " )";
-			db.execSQL(LEARNING_CREATE_TABLE);
-	}
-	
-	public void createOtherTable(SQLiteDatabase db){
-//		table create statement for other table
-			final String OTHER_CREATE_TABLE =
-				    "CREATE TABLE " + OTHER_TABLE + " (" +
-				    		BaseColumns._ID + " INTEGER PRIMARY KEY," +
-				    		COL_OTHER_CATEGORY + TEXT_TYPE + COMMA_SEP +
-				    		COL_OTHER_NUMBER + TEXT_TYPE + COMMA_SEP +
-				    		COL_OTHER_PERIOD + TEXT_TYPE + COMMA_SEP+
-				    		COL_OTHER_DURATION + TEXT_TYPE + COMMA_SEP+
-				    		COL_START_DATE + TEXT_TYPE + COMMA_SEP +
-				    		COL_OTHER_DUE_DATE+ TEXT_TYPE + COMMA_SEP +
-				    		COL_NUMBER_ACHIEVED+ TEXT_TYPE + COMMA_SEP +// new column
-				    		COL_NUMBER_REMAINING+ TEXT_TYPE + COMMA_SEP +// new column
-				    		COL_LAST_UPDATED+ TEXT_TYPE + COMMA_SEP +// new column
-				    		COL_OTHER_DETAILS+ TEXT_TYPE + COMMA_SEP +//new column(personal or not personal)
-				    		COL_SYNC_STATUS+ TEXT_TYPE+
-				    " )";
-			db.execSQL(OTHER_CREATE_TABLE);
-	}
+
 	
 	public void createJustificationTable(SQLiteDatabase db){
 	
@@ -494,12 +424,13 @@ public class DbHelper extends SQLiteOpenHelper {
 			createQuizResultsTable(db);
 			createCCHTrackerTable(db);
 			createUserTable(db);
-			createEventsSetTable(db);
-			createCoverageSetTable(db);
-			createLearningTable(db);
-			createOtherTable(db);
-			createJustificationTable(db);
-			createStayingWellTable(db);
+			//createEventsSetTable(db);
+			//createCoverageSetTable(db);
+			//createLearningTable(db);
+			//createOtherTable(db);
+			//createJustificationTable(db);
+			//createStayingWellTable(db);
+			createTargetsTable(db);
 			//createCalendarEventsTable(db);
 			//runSWReset(db);
 
@@ -568,8 +499,8 @@ public class DbHelper extends SQLiteOpenHelper {
 			values.put(TRACKER_LOG_C_COMPLETED,true);
 			db.update(TRACKER_LOG_TABLE, values, null, null);
 		}
-		if(oldVersion<newVersion){
-		//	runSWReset(db);
+		if(oldVersion==19){
+			createTargetsTable(db);
 		}
 	}
 
@@ -648,44 +579,54 @@ public class DbHelper extends SQLiteOpenHelper {
 	
 	public boolean alterTables(){
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor c = db.rawQuery("PRAGMA table_info("+QUIZRESULTS_TABLE+")",null);
-		c.moveToFirst();
-		if(c.getCount()==6){
-			System.out.println("Columns up to date!");
+		if(doesTableExists(QUIZRESULTS_TABLE)){
+			try{
+				Cursor c = db.rawQuery("PRAGMA table_info("+QUIZRESULTS_TABLE+")",null);
+				c.moveToFirst();
+				if(c.getCount()==6){
+					System.out.println("Columns up to date!");
 			
-		}else{
-			String sql = "ALTER TABLE " + QUIZRESULTS_TABLE + " ADD COLUMN " + QUIZRESULTS_C_TITLE  + " TEXT NULL;";
-			db.execSQL(sql);
+				}else{
+					String sql = "ALTER TABLE " + QUIZRESULTS_TABLE + " ADD COLUMN " + QUIZRESULTS_C_TITLE  + " TEXT NULL;";
+					db.execSQL(sql);
+				}
+				c.close();
+				db.close();
+		}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
-		c.close();
-		db.close();
-		
 		return true;
 		
 	}
 	public boolean alterStayingWellTables(){
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor c = db.rawQuery("Select "+CCH_SW_STAFF_ID +" from "+CCH_SW_TABLE,null);
-		c.moveToFirst();
-		String staffId=c.getString(c.getColumnIndex(CCH_SW_STAFF_ID));
-		if(staffId.equalsIgnoreCase("David")){
-			System.out.println(staffId);
-		}else{
-			String strQuery = "Update "+CCH_SW_TABLE+" set "+CCH_SW_STAFF_ID+" ="+"'David'";
-			db.execSQL(strQuery);
-			db.close();
-		}
+		if(doesTableExists(CCH_SW_TABLE)){
+			try{
+				Cursor c = db.rawQuery("Select "+CCH_SW_STAFF_ID +" from "+CCH_SW_TABLE,null);
+				c.moveToFirst();
+				String staffId=c.getString(c.getColumnIndex(CCH_SW_STAFF_ID));
+				if(staffId.equalsIgnoreCase("David")){
+				}else{
+					String strQuery = "Update "+CCH_SW_TABLE+" set "+CCH_SW_STAFF_ID+" ="+"'David'";
+					db.execSQL(strQuery);
+					db.close();
+				}
 		c.close();
 		db.close();
-		
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
 		return true;
 		
 	}
 	public boolean alterEventTable(){
 		SQLiteDatabase db = this.getWritableDatabase();
+		if(doesTableExists(EVENTS_SET_TABLE)){
+			try{
 		Cursor c = db.rawQuery("PRAGMA table_info("+EVENTS_SET_TABLE+")",null);
 		c.moveToFirst();
-		System.out.println(c.getCount());
 		if(c.getCount()==12){
 			System.out.println("Columns up to date!");
 			
@@ -695,42 +636,53 @@ public class DbHelper extends SQLiteOpenHelper {
 		}
 		c.close();
 		db.close();
-		
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
 		return true;
 		
 	}
 	public boolean alterOtherTable(){
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor c = db.rawQuery("PRAGMA table_info("+OTHER_TABLE+")",null);
-		c.moveToFirst();
-		System.out.println(c.getCount());
-		if(c.getCount()==12){
-			System.out.println("Columns up to date!");
+		if(doesTableExists(OTHER_TABLE)){
+			try{
+				Cursor c = db.rawQuery("PRAGMA table_info("+OTHER_TABLE+")",null);
+				c.moveToFirst();
+				if(c.getCount()==12){
 			
-		}else{
-			String sql = "ALTER TABLE " + OTHER_TABLE + " ADD COLUMN " + COL_OTHER_DETAILS  + " TEXT NULL;";
-			db.execSQL(sql);
+				}else{
+					String sql = "ALTER TABLE " + OTHER_TABLE + " ADD COLUMN " + COL_OTHER_DETAILS  + " TEXT NULL;";
+					db.execSQL(sql);
+				}
+				c.close();
+				db.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
-		c.close();
-		db.close();
-		
 		return true;
 		
 	}
 	public boolean alterCourseTable(){
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor c = db.rawQuery("PRAGMA table_info("+COURSE_TABLE+")",null);
-		c.moveToFirst();
-		if(c.getCount()==9){
-			System.out.println("Course Columns up to date!");
+		if(doesTableExists(COURSE_TABLE)){
+			try{
+				Cursor c = db.rawQuery("PRAGMA table_info("+COURSE_TABLE+")",null);
+				c.moveToFirst();
+				if(c.getCount()==9){
+					System.out.println("Course Columns up to date!");
 			
-		}else{
-			String sql = "ALTER TABLE " + COURSE_TABLE + " ADD COLUMN " + COURSE_C_DATE  + " TEXT NULL;";
-			db.execSQL(sql);
+				}else{
+					String sql = "ALTER TABLE " + COURSE_TABLE + " ADD COLUMN " + COURSE_C_DATE  + " TEXT NULL;";
+					db.execSQL(sql);
+				}
+				c.close();
+				db.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
-		c.close();
-		db.close();
-		
 		return true;
 		
 	}
@@ -744,40 +696,71 @@ public class DbHelper extends SQLiteOpenHelper {
 		return true;
 		
 	}
+	public boolean deleteTables(String table){
+		SQLiteDatabase db = this.getWritableDatabase();
+		if(doesTableExists(table)){
+			try{
+				String strQuery = "Drop table if exists "+table;
+				Log.d("SQLITE","Deleting table: " +table);
+				db.execSQL(strQuery);
+				db.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return true;
+		
+	}
 	
 	public boolean updateDateDefault(){
 		SQLiteDatabase db = this.getWritableDatabase();
-		String strQuery = "Update "+COURSE_TABLE+" set "+COURSE_C_DATE+" = '"+getDate()+"' where "+ COURSE_C_DATE+" IS NULL";
-		System.out.println(strQuery);
-		db.execSQL(strQuery);
-		db.close();
-		
+		if(doesTableExists(COURSE_TABLE)){
+			try{
+				String strQuery = "Update "+COURSE_TABLE+" set "+COURSE_C_DATE+" = '"+getDate()+"' where "+ COURSE_C_DATE+" IS NULL";
+				db.execSQL(strQuery);
+				db.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
 		return true;
 		
 	}
 	
 	public boolean updateEventDetailDefault(){
 		SQLiteDatabase db = this.getWritableDatabase();
-		String strQuery = "Update "+EVENTS_SET_TABLE+" set "+COL_EVENT_SET_DETAIL+" ="+"'Event'"+" where "+ COL_EVENT_SET_DETAIL+ " IS NULL";
-		db.execSQL(strQuery);
-		db.close();
-		
+		if(doesTableExists(EVENTS_SET_TABLE)){
+			try{
+				String strQuery = "Update "+EVENTS_SET_TABLE+" set "+COL_EVENT_SET_DETAIL+" ="+"'Event'"+" where "+ COL_EVENT_SET_DETAIL+ " IS NULL";
+				db.execSQL(strQuery);
+				db.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
 		return true;
 		
 	}
 	public boolean updateOtherDetailDefault(){
 		SQLiteDatabase db = this.getWritableDatabase();
-		String strQuery = "Update "+OTHER_TABLE+" set "+COL_OTHER_DETAILS+" ="+"'not_personal'"+" where "+ COL_OTHER_DETAILS+ " IS NULL";
-		db.execSQL(strQuery);
-		db.close();
-		
+		if(doesTableExists(OTHER_TABLE)){
+			try{
+				String strQuery = "Update "+OTHER_TABLE+" set "+COL_OTHER_DETAILS+" ="+"'not_personal'"+" where "+ COL_OTHER_DETAILS+ " IS NULL";
+				db.execSQL(strQuery);
+				db.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
 		return true;
 		
 	}
 	
-	public long insertTarget(String target_type,String target_name, String target_detail, String target_category, int target_no, int target_no_achieved, int target_remaining,String start_date,String due_date,String reminder){
+	public long insertTarget(int old_id,String target_type,String target_name, String target_detail, String target_category, int target_no, int target_no_achieved, int target_remaining,String start_date,String due_date,String reminder,String status,String last_updated){
 		SQLiteDatabase db = this.getWritableDatabase();
+		createTargetsTable(db);
 		ContentValues values = new ContentValues();
+		values.put(CCH_OLD_ID,old_id);
 		values.put(CCH_TARGET_TYPE,target_type);
 		values.put(CCH_TARGET_NAME,target_name);
 		values.put(CCH_TARGET_DETAIL,target_detail);
@@ -788,7 +771,8 @@ public class DbHelper extends SQLiteOpenHelper {
 		values.put(CCH_START_DATE,start_date);
 		values.put(CCH_DUE_DATE,due_date);
 		values.put(CCH_REMINDER,reminder);
-		values.put(CCH_LAST_UPDATED,getDateTime());
+		values.put(CCH_STATUS,status);
+		values.put(CCH_LAST_UPDATED,last_updated);
 		
 		long newRowId;
 		newRowId = db.insert(
@@ -813,91 +797,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		db.close();
 		return newRowId;
 	}
-	public long insertEventSet(String event_name,String event_detail, String event_period, String event_number, String duration, String start_date, String due_date,int number_achieved,int number_remaining,String sync_status){
-		SQLiteDatabase db = this.getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put(COL_EVENT_SET_NAME,event_name);
-		values.put(COL_EVENT_SET_DETAIL,event_detail);
-		values.put(COL_EVENT_PERIOD,event_period);
-		values.put(COL_SYNC_STATUS,sync_status);
-		values.put(COL_EVENT_NUMBER,event_number);
-		values.put(COL_START_DATE,start_date);
-		values.put(COL_EVENT_DUE_DATE,due_date);
-		values.put(COL_EVENT_DURATION,duration);
-		values.put(COL_NUMBER_ACHIEVED,number_achieved);
-		values.put(COL_NUMBER_REMAINING,number_remaining);
-		values.put(COL_LAST_UPDATED,getDateTime());
-		
-		long newRowId;
-		newRowId = db.insert(
-				EVENTS_SET_TABLE, null, values);
-		db.close();
-		return newRowId;
-	}
-	public long insertCoverageSet(String category_name, String category_detail,String coverage_period, String coverage_number,String duration, String start_date,String due_date,int number_achieved,int number_remaining, String sync_status){
-		SQLiteDatabase db = this.getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put(COL_COVERAGE_SET_CATEGORY_NAME,category_name);
-		values.put(COL_COVERAGE_SET_CATEGORY_DETAIL,category_detail);
-		values.put(COL_COVERAGE_SET_PERIOD,coverage_period);
-		values.put(COL_COVERAGE_NUMBER,coverage_number);
-		values.put(COL_START_DATE,start_date);
-		values.put(COL_COVERAGE_DUE_DATE,due_date);
-		values.put(COL_COVERAGE_DURATION,duration);
-		values.put(COL_SYNC_STATUS,sync_status);
-		values.put(COL_NUMBER_ACHIEVED,number_achieved);
-		values.put(COL_NUMBER_REMAINING,number_remaining);
-		values.put(COL_LAST_UPDATED,getDateTime());
-		
-		long newRowId;
-		newRowId = db.insert(
-				COVERAGE_SET_TABLE, null, values);
-		db.close();
-		return newRowId;
-	}
-	
-	public long insertLearning(String learning_category, String learning_description,String topic, String duration, String period,String start_date,String due_date,String sync_status){
-		SQLiteDatabase db = this.getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put(COL_LEARNING_CATEGORY,learning_category);
-		values.put(COL_LEARNING_DESCRIPTION,learning_description);
-		values.put(COL_LEARNING_TOPIC,topic);
-		values.put(COL_START_DATE,start_date);
-		values.put(COL_LEARNING_PERIOD,period);
-		values.put(COL_LEARNING_DUE_DATE,due_date);
-		values.put(COL_COVERAGE_DURATION,duration);
-		values.put(COL_SYNC_STATUS,sync_status);
-		values.put(COL_LAST_UPDATED,getDateTime());
-		
-		long newRowId;
-		newRowId = db.insert(
-				LEARNING_TABLE, null, values);
-		db.close();
-		return newRowId;
-	}
-	
-	public long insertOther(String other_category,String other_number,String other_period,String duration,String start_date,String due_date,String other_detail,int number_achieved,int number_remaining, String sync_status){
-		SQLiteDatabase db = this.getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put(COL_OTHER_CATEGORY,other_category);
-		values.put(COL_OTHER_NUMBER,other_number);
-		values.put(COL_OTHER_PERIOD,other_period);
-		values.put(COL_OTHER_DURATION	,duration);
-		values.put(COL_OTHER_DUE_DATE,due_date);
-		values.put(COL_START_DATE,start_date);
-		values.put(COL_SYNC_STATUS,sync_status);
-		values.put(COL_NUMBER_ACHIEVED,number_achieved);
-		values.put(COL_NUMBER_REMAINING,number_remaining);
-		values.put(COL_OTHER_DETAILS,other_detail);
-		values.put(COL_LAST_UPDATED,getDateTime());
-		
-		long newRowId;
-		newRowId = db.insert(
-				OTHER_TABLE, null, values);
-		db.close();
-		return newRowId;
-		
-	}
+
 	
 	public long insertJustification(String type,String type_detail,String justification,String comment,String number,String achieved_number,String number_remaining,long id, String sync_status){
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -1259,7 +1159,6 @@ String due_date=c.getString(c.getColumnIndex(COURSE_C_DATE));
 									" ON a."+ ACTIVITY_C_ACTIVITYDIGEST +" = l."+TRACKER_LOG_C_ACTIVITYDIGEST+
 									" WHERE a."+ACTIVITY_C_COURSEID+" = m."+
 										COURSE_C_ID;
-		//System.out.println(sql);
 		Cursor c = db.rawQuery(sql,null);
 		int noActs = c.getCount();
 		int noComplete = 0;
@@ -1303,7 +1202,6 @@ String due_date=c.getString(c.getColumnIndex(COURSE_C_DATE));
 		Double percentage_completed;
 		String percentage = null;
 		String sql = "Select module.title, activity.modid,trackerlog.modid from module,activity,trackerlog where trackerlog.completed=1 and activity.modid=trackerlog.modid ";
-		System.out.println(sql);
 		Cursor c = db.rawQuery(sql,null);
 		//int noActs = c.getCount();
 		int noComplete = c.getCount();
@@ -1894,7 +1792,7 @@ String due_date=c.getString(c.getColumnIndex(COURSE_C_DATE));
 		//}
 		
 		l_sql = "create table if not exists " + CCH_SW_ROUTINE_TODO_TABLE + " (" + 
-				CCH_SW_ROUTINE_TODO_ID + " integer primary key autoincrement, " + 
+				CCH_SW_ROUTINE_TODO_ID + " integer primary key, " + 
 				CCH_SW_ROUTINE_TODO_STAFF_ID + " text, " + 
 				CCH_SW_ROUTINE_TODO_PROFILE + " text, " + 
 				CCH_SW_ROUTINE_TODO_PLAN + " text, " + 
@@ -1921,7 +1819,6 @@ String due_date=c.getString(c.getColumnIndex(COURSE_C_DATE));
 			// Reset plan and profile
 			Cursor cursor = db.rawQuery("select sw_legal from stayingwell", null);
 			cursor.moveToFirst();
-			System.out.println("STaying well: "+cursor.getString(cursor.getColumnIndex(CCH_SW_LEGAL_STATUS)));
 			if(cursor!=null) {
 				if(cursor.getString(cursor.getColumnIndex(CCH_SW_LEGAL_STATUS)).equalsIgnoreCase("agreed")) {
 					updateSWInfo(CCH_SW_LEGAL_STATUS, "agreed", db);
@@ -1950,6 +1847,25 @@ String due_date=c.getString(c.getColumnIndex(COURSE_C_DATE));
 	public boolean isTableExists(String tableName,SQLiteDatabase mDatabase) {
 		try {		
 			Cursor cursor = mDatabase.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'", null);
+			if(cursor!=null) {
+				if(cursor.getCount()>0) {
+	               cursor.close();
+	               return true;
+				}
+	            cursor.close();
+			}
+			return false;
+		} catch (SQLiteException e) {
+			Log.v(TAG,e.getMessage());
+		}
+		
+		return false;
+	}
+	
+	public boolean doesTableExists(String tableName) {
+		try {		
+			SQLiteDatabase db = this.getReadableDatabase();
+			Cursor cursor = db.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'", null);
 			if(cursor!=null) {
 				if(cursor.getCount()>0) {
 	               cursor.close();
@@ -2239,157 +2155,7 @@ String due_date=c.getString(c.getColumnIndex(COURSE_C_DATE));
 		   return u;
    }
 	
-	public boolean updateEventTarget(String sync_status, int number_achieved,int number_remaining,long id){
-			SQLiteDatabase db = this.getWritableDatabase(); 
-	        String updateQuery = "Update "+EVENTS_SET_TABLE+" set "+
-	        					COL_SYNC_STATUS+" = '"+ sync_status +"'"+
-	        					","+COL_NUMBER_ACHIEVED+" = '"+ number_achieved +"'"+
-	        					","+COL_NUMBER_REMAINING+" = '"+ number_remaining +"'"+
-	        					","+COL_LAST_UPDATED+" = '"+ getDateTime() +"'"+
-	        					" where "+BaseColumns._ID+" = "+id;
-	        db.execSQL(updateQuery);
-		return true;
-		
-	}
-	public boolean updateCoverageTarget(String sync_status, int number_achieved,int number_remaining,long id){
-		SQLiteDatabase db = this.getWritableDatabase(); 
-        String updateQuery2 = "Update "+COVERAGE_SET_TABLE+" set "+
-        					COL_SYNC_STATUS+" = '"+ sync_status +"'"+
-        					","+COL_NUMBER_ACHIEVED+" = '"+ number_achieved +"'"+
-        					","+COL_NUMBER_REMAINING+" = '"+ number_remaining +"'"+
-        					","+COL_LAST_UPDATED+" = '"+ getDateTime() +"'"+
-        					" where "+BaseColumns._ID+" = "+id;
-        db.execSQL(updateQuery2);
-        
-	return true;
-}
-	
-public boolean updateOtherTarget(String sync_status,int number_achieved,int number_remaining,long id){
-	SQLiteDatabase db = this.getWritableDatabase(); 
-        String updateQuery3 = "Update "+OTHER_TABLE+" set "+
-        					COL_SYNC_STATUS+" = '"+ sync_status +"'"+
-        					","+COL_NUMBER_ACHIEVED+" = '"+ number_achieved +"'"+
-        					","+COL_NUMBER_REMAINING+" = '"+ number_remaining +"'"+
-        					","+COL_LAST_UPDATED+" = '"+ getDateTime() +"'"+
-        					" where "+BaseColumns._ID+" = "+id;
-        db.execSQL(updateQuery3);
-	return true;	
-}
 
-public boolean updateLearningTarget(String sync_status,long id){
-	SQLiteDatabase db = this.getWritableDatabase(); 
-    String updateQuery4 = "Update "+LEARNING_TABLE+" set "+
-    					COL_SYNC_STATUS+" = '"+ sync_status +"'"+
-    					","+COL_LAST_UPDATED+" = '"+ getDateTime() +"'"+
-    					" where "+BaseColumns._ID+" = "+id;
-    db.execSQL(updateQuery4);
-return true;	
-}
-
-	public boolean editEventCategory(String event_category,String event_number,String event_period,String duration,String start_date, String due_date,long id){
-		SQLiteDatabase db = this.getWritableDatabase(); 
-	        String updateQuery = "Update "+EVENTS_SET_TABLE+" set "+
-	        					COL_EVENT_SET_NAME+" = '"+ event_category +"'"+
-	        					","+COL_EVENT_NUMBER+" = '"+event_number+"'"+
-	        					","+COL_EVENT_PERIOD+" = '"+event_period+"'"+
-	        					","+COL_EVENT_DURATION+" = '"+duration+"'"+
-	        					","+COL_START_DATE+" = '"+start_date+"'"+
-	        					","+COL_EVENT_DUE_DATE+" = '"+due_date+"'"+
-	        					" where "+BaseColumns._ID+" = "+id;
-	        db.execSQL(updateQuery);
-		return true;
-		
-	}
-	
-	public boolean deleteEventCategory(long id){
-		SQLiteDatabase db = this.getWritableDatabase();   
-		 String deleteQuery="Delete from "+EVENTS_SET_TABLE+" where "+
-				 			BaseColumns._ID+" = "+ id;
-	        db.execSQL(deleteQuery);
-		return true;
-		
-	}
-	
-	public boolean deleteCoverageCategory(long id){
-		SQLiteDatabase db = this.getWritableDatabase(); 
-		 String deleteQuery="Delete from "+COVERAGE_SET_TABLE+" where "+
-				 			BaseColumns._ID+" = "+ id;
-	       db.execSQL(deleteQuery);
-		return true;
-		
-	}
-	
-	public boolean deleteLearningCategory(long id){
-		SQLiteDatabase db = this.getWritableDatabase(); 
-		 String deleteQuery="Delete from "+LEARNING_TABLE+" where "+
-				 			BaseColumns._ID+" = "+ id;
-	      db.execSQL(deleteQuery);
-		return true;
-		
-	}
-	public boolean deleteOtherCategory(long id){
-		SQLiteDatabase db = this.getWritableDatabase(); 
-		 String deleteQuery="Delete from "+OTHER_TABLE+" where "+
-				 			BaseColumns._ID+" = "+ id;
-	      db.execSQL(deleteQuery);
-		return true;
-		
-	}
-	public boolean editCoverage(String coverage_category,String coverage_detail,String coverage_number,String coverage_period,String duration,String start_date, String due_date,long id){
-		SQLiteDatabase db = this.getWritableDatabase(); 
-	        String updateQuery = "Update "+COVERAGE_SET_TABLE+" set "+
-	        					COL_COVERAGE_SET_CATEGORY_NAME+" = '"+ coverage_category +"'"+
-	        					","+COL_COVERAGE_SET_CATEGORY_DETAIL+" = '"+ coverage_detail +"'"+
-	        					","+COL_COVERAGE_NUMBER+" = '"+coverage_number+"'"+
-	        					","+COL_COVERAGE_SET_PERIOD+" = '"+coverage_period+"'"+
-	        					","+COL_COVERAGE_DURATION+" = '"+duration+"'"+
-	        					","+COL_START_DATE+" = '"+start_date+"'"+
-	        					","+COL_COVERAGE_DUE_DATE+" = '"+due_date+"'"+
-	        					" where "+BaseColumns._ID+" = "+id;
-	        db.execSQL(updateQuery);
-		return true;
-		
-	}
-	public boolean editJustification(String justification,String number_achieved,String number_remaining,String comment,long id){
-		SQLiteDatabase db = this.getWritableDatabase(); 
-        String updateQuery = "Update "+JUSTIFICATION_TABLE+" set "+
-        					COL_JUSTIFICATION+" = '"+ justification +"'"+
-        					","+COL_NUMBER_ACHIEVED+" = '"+number_achieved+"'"+
-        					","+COL_NUMBER_REMAINING+" = '"+number_remaining+"'"+
-        					","+COL_COMMENT+" = '"+comment+"'"+
-        					" where "+BaseColumns._ID+" = "+id;
-        db.execSQL(updateQuery);
-	return true;
-	
-}
-	public boolean editLearning(String learning_category,String learning_description,String topic, String duration,String start_date,String due_date, long id){
-		SQLiteDatabase db = this.getWritableDatabase(); 
-	        String updateQuery = "Update "+LEARNING_TABLE+" set "+
-	        					COL_LEARNING_CATEGORY+" = '"+ learning_category +"'"+
-	        					","+COL_LEARNING_DESCRIPTION+" = '"+learning_description+"'"+
-	        					","+COL_LEARNING_TOPIC+" = '"+topic+"'"+
-	        					","+COL_LEARNING_DURATION+" = '"+duration+"'"+
-	        					","+COL_START_DATE+" = '"+start_date+"'"+
-	        					","+COL_LEARNING_DUE_DATE+" = '"+due_date+"'"+
-	        					" where "+BaseColumns._ID+" = "+id;
-	        db.execSQL(updateQuery);
-		return true;
-	}
-	
-	public boolean editOther(String other_category,String other_number,String other_period,String duration,String start_date, String due_date,String details,long id){
-		SQLiteDatabase db = this.getWritableDatabase(); 
-	        String updateQuery = "Update "+OTHER_TABLE+" set "+
-	        					COL_OTHER_CATEGORY+" = '"+ other_category +"'"+
-	        					","+COL_OTHER_NUMBER+" = '"+ other_number +"'"+
-	        					","+COL_OTHER_PERIOD+" = '"+other_period+"'"+
-	        					","+COL_OTHER_DURATION+" = '"+duration+"'"+
-	        					","+COL_START_DATE+" = '"+start_date+"'"+
-	        					","+COL_OTHER_DUE_DATE+" = '"+due_date+"'"+
-	        					","+COL_OTHER_DETAILS+" = '"+details+"'"+
-	        					" where "+BaseColumns._ID+" = "+id;
-	        db.execSQL(updateQuery);
-		return true;	
-	}
 
 public long findItemCount(String table, String searchedBy,
 			String searchValue) {
@@ -2400,9 +2166,10 @@ public long findItemCount(String table, String searchedBy,
 	public long findItemCount(String table, String searchedBy,
 			String searchValue,String dueDateCol) {
 		SQLiteDatabase db = this.getReadableDatabase();
-		String strQuery = "select count(" + BaseColumns._ID + ")as cnt from "
+		if(doesTableExists(TARGET_TABLE)){
+			String strQuery = "select count(" + BaseColumns._ID + ")as cnt from "
 				+ table + " where " + searchedBy + " = '" + searchValue + "' "
-				+ " and "+COL_SYNC_STATUS+ " = '"+"new_record"+"' ";
+				+ " and "+CCH_STATUS+ " = '"+MobileLearning.CCH_TARGET_STATUS_NEW+"' ";
 		try {
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
@@ -2410,12 +2177,32 @@ public long findItemCount(String table, String searchedBy,
 		} catch (Exception e) {
 
 		}
+		}
+		return 0l;
+	}
+	
+	public long findTargetCount(String table, String searchedBy,
+			String searchValue,String dueDateCol,String targetType) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		if(doesTableExists(TARGET_TABLE)){
+		String strQuery = "select count(" + BaseColumns._ID + ")as cnt from "
+				+ table + " where " + searchedBy + " = '" + searchValue + "' "
+				+ " and "+CCH_STATUS+ " = '"+MobileLearning.CCH_TARGET_STATUS_NEW+"' "
+				+ " and "+CCH_TARGET_TYPE+ " = '"+targetType+"' ";
+		try {
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			return c.getLong(0);
+		} catch (Exception e) {
+
+		}
+		}
 		return 0l;
 	}
 
-	public long getEventCount(String duration) {
+	public long getCount(String duration,String target_type) {
 
-		return findItemCount(EVENTS_SET_TABLE, COL_EVENT_PERIOD, duration,COL_EVENT_DUE_DATE);
+		return findTargetCount(TARGET_TABLE, CCH_REMINDER, duration,CCH_DUE_DATE,target_type);
 	}
 
 	public long getCoverageCount(String duration) {
@@ -2451,7 +2238,8 @@ public long findItemCount(String table, String searchedBy,
 		Date date1 = null;
 		Date date2=null;
 		SQLiteDatabase db = this.getReadableDatabase();
-		String strQuery = "select count(" + BaseColumns._ID + ")as cnt, "+COL_START_DATE+" from "
+		if(doesTableExists(TARGET_TABLE)){
+		String strQuery = "select count(" + BaseColumns._ID + ")as cnt, "+CCH_START_DATE+" from "
 				+ table + " where " + searchedBy + " = '" + searchValue + "' "
 						+ " and "+COL_SYNC_STATUS+ " = '"+"new_record"+"' ";
 		
@@ -2478,30 +2266,15 @@ public long findItemCount(String table, String searchedBy,
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		}
 		return 0l;
 	}
 
-	public long getEventIdCount(String duration) {
+	public long getIdCount(String duration) {
 
-		return findItemIdCount(EVENTS_SET_TABLE, COL_EVENT_PERIOD, duration,COL_START_DATE);
+		return findItemIdCount(TARGET_TABLE, CCH_REMINDER, duration,CCH_START_DATE);
 	}
 
-	public long getCoverageIdCount(String duration) {
-
-		return findItemIdCount(COVERAGE_SET_TABLE, COL_COVERAGE_SET_PERIOD,
-				duration,COL_START_DATE);
-	}
-
-	public long getLearningIdCount(String duration) {
-
-		return findItemIdCount(LEARNING_TABLE, COL_LEARNING_PERIOD, duration,COL_START_DATE);
-	}
-	
-	public long getOtherIdCount(String duration) {
-
-		return findItemIdCount(OTHER_TABLE, COL_OTHER_PERIOD, duration,COL_START_DATE);
-	}
 
 	
 	private void insertDefaultRoutineValues(SQLiteDatabase db) 
@@ -2710,133 +2483,7 @@ public long findItemCount(String table, String searchedBy,
 		db.execSQL(insertQuery);
 	}
 	
-	public ArrayList<EventTargets> getAllEventTargets(String period) 
-	{	
-		SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
-		String strQuery="select * from "+EVENTS_SET_TABLE
-							+" where "+COL_EVENT_PERIOD
-							+ " = '"+period+"'"
-							+ " and "+COL_SYNC_STATUS
-							+ " = '"+"new_record"+"'";	
-			Cursor c = db.rawQuery(strQuery, null);
-			c.moveToFirst();
-			
-			while (c.isAfterLast()==false) {
-				EventTargets event_targets = new EventTargets();
-				
-				event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
-				event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_EVENT_NUMBER)));
-				event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
-				event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
-				event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-				event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE)));
-				event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_EVENT_PERIOD)));
-				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
-				event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(COL_EVENT_SET_DETAIL)));
-				   list.add(event_targets);
-				   c.moveToNext();						
-			}
-			c.close();
-			db.close();
-			return list;	
-	}
-	
-	
-	public ArrayList<EventTargets> getAllCoverageTargets(String period) 
-	{	
-		SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
-		String strQuery="select * from "+COVERAGE_SET_TABLE
-							+" where "+COL_COVERAGE_SET_PERIOD
-							+ " = '"+period+"'"
-							+ " and "+COL_SYNC_STATUS
-							+ " = '"+"new_record"+"'";	
-			Cursor c = db.rawQuery(strQuery, null);
-			c.moveToFirst();
-			
-			while (c.isAfterLast()==false) {
-				EventTargets event_targets = new EventTargets();
-				event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_COVERAGE_SET_CATEGORY_DETAIL)));
-				event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_COVERAGE_NUMBER)));
-				event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
-				event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
-				event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-				event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE)));
-				event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_COVERAGE_SET_PERIOD)));
-				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
-				event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(COL_COVERAGE_SET_CATEGORY_DETAIL)));
-				   list.add(event_targets);
-				   c.moveToNext();						
-			}
-			c.close();
-			db.close();
-			return list;	
-	}
-	
-	public ArrayList<EventTargets> getAllOtherTargets(String period) 
-	{		SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
-		String strQuery="select * from "+OTHER_TABLE
-							+" where "+COL_OTHER_PERIOD
-							+ " = '"+period+"'"
-							+ " and "+COL_SYNC_STATUS
-							+ " = '"+"new_record"+"'";	
-			Cursor c = db.rawQuery(strQuery, null);
-			c.moveToFirst();
-			
-			while (c.isAfterLast()==false) {
-				EventTargets event_targets = new EventTargets();
-				event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_OTHER_CATEGORY)));
-				event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_OTHER_NUMBER)));
-				event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
-				event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
-				event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-				event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE)));
-				event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_OTHER_PERIOD)));
-				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
-				event_targets.setEventTargetPersonalCategory(c.getString(c.getColumnIndex(COL_OTHER_DETAILS)));
-				   list.add(event_targets);
-				   c.moveToNext();						
-			}
-			c.close();
-			db.close();
-			return list;	
-	}
-	
-	public ArrayList<LearningTargets> getAllLearningTargets(String period) 
-	{	SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<LearningTargets> list=new ArrayList<LearningTargets>();	 
-		String strQuery="select * from "+LEARNING_TABLE
-							+" where "+COL_LEARNING_PERIOD
-							+ " = '"+period+"'"
-							+ " and "+COL_SYNC_STATUS
-							+ " = '"+"new_record"+"'";	
-			Cursor c = db.rawQuery(strQuery, null);
-			c.moveToFirst();
-			
-			while (c.isAfterLast()==false) {
-				LearningTargets learning_targets = new LearningTargets();
-				learning_targets.setLearningTargetName(c.getString(c.getColumnIndex(COL_LEARNING_CATEGORY)));
-				learning_targets.setLearningTargetCourse(c.getString(c.getColumnIndex(COL_LEARNING_DESCRIPTION)));
-				learning_targets.setLearningTargetTopic(c.getString(c.getColumnIndex(COL_LEARNING_TOPIC)));
-				learning_targets.setLearningTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
-				learning_targets.setLearningTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-				learning_targets.setLearningTargetEndDate(c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE)));
-				learning_targets.setLearningTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-				learning_targets.setLearningTargetPeriod(c.getString(c.getColumnIndex(COL_LEARNING_PERIOD)));
-				learning_targets.setLearningTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
-				   list.add(learning_targets);
-				   c.moveToNext();						
-			}
-			c.close();
-			db.close();
-			return list;	
-	}
-	public ArrayList<EventTargets> getAllEventTargetsForUpdate(String period) 
+	public ArrayList<EventTargets> getAllTargetsForUpdate(String period,String status) 
 	{	
 		SQLiteDatabase db = this.getReadableDatabase();
 		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
@@ -2846,18 +2493,19 @@ public long findItemCount(String table, String searchedBy,
 			long today = 0;
 			Date date1 = null;
 			Date date2=null;	
-		String strQuery="select * from "+EVENTS_SET_TABLE
-							+" where "+COL_EVENT_PERIOD
+			if(doesTableExists(TARGET_TABLE)){
+		String strQuery="select * from "+TARGET_TABLE
+							+" where "+CCH_REMINDER
 							+ " = '"+period+"'"
-							+ " and "+COL_SYNC_STATUS
-							+ " = '"+"new_record"+"'";	
+							+ " and "+CCH_STATUS
+							+ " = '"+status+"'";	
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
 			
 			while (c.isAfterLast()==false) {
 				EventTargets event_targets = new EventTargets();
 				try {
-					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(COL_START_DATE)));
+					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_START_DATE)));
 					date2= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
 					starDateAsTimestamp=date1.getTime();
 					today=date2.getTime();
@@ -2867,27 +2515,130 @@ public long findItemCount(String table, String searchedBy,
 				}
 				
 				if(starDateAsTimestamp<=today){
-				event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
-				event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_EVENT_NUMBER)));
-				event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
-				event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
+				event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+				event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(CCH_TARGET_NO)));
+				event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(CCH_TARGET_NO_ACHIEVED)));
+				event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(CCH_START_DATE)));
 				event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-				event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE)));
-				event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_EVENT_PERIOD)));
-				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
-				event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(COL_EVENT_SET_DETAIL)));
+				event_targets.setEventTargetOldId(c.getString(c.getColumnIndex(CCH_OLD_ID)));
+				event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+				event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(CCH_LAST_UPDATED)));
+				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(CCH_REMINDER)));
+				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(CCH_STATUS)));
+				event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(CCH_TARGET_DETAIL)));
 				   list.add(event_targets);
 				}
 				   c.moveToNext();						
 			}
 			c.close();
 			db.close();
+			}
 			return list;	
 	}
+	public boolean updateTarget(String status, int number_achieved,int number_remaining,long id){
+		SQLiteDatabase db = this.getWritableDatabase(); 
+		if(doesTableExists(TARGET_TABLE)){
+        String updateQuery = "Update "+TARGET_TABLE+" set "+
+        					CCH_STATUS+" = '"+ status +"'"+
+        					","+CCH_TARGET_NO_ACHIEVED+" = '"+ number_achieved +"'"+
+        					","+CCH_TARGET_NO_REMAINING+" = '"+ number_remaining +"'"+
+        					","+CCH_LAST_UPDATED+" = '"+ getDateTime() +"'"+
+        					" where "+BaseColumns._ID+" = "+id;
+        db.execSQL(updateQuery);
+		}
+	return true;
 	
+}
 	
-	public ArrayList<EventTargets> getAllCoverageTargetsForUpdate(String period) 
+	public boolean deleteTarget(long id){
+		SQLiteDatabase db = this.getWritableDatabase(); 
+		if(doesTableExists(TARGET_TABLE)){
+		 String deleteQuery="Delete from "+TARGET_TABLE+" where "+
+				 			BaseColumns._ID+" = "+ id;
+	      db.execSQL(deleteQuery);
+		}
+		return true;
+		
+	}
+	public boolean editTarget(String target_name,String target_detail,String target_category,String target_number,String start_date, String due_date,String reminder,long id){
+		SQLiteDatabase db = this.getWritableDatabase(); 
+		if(doesTableExists(TARGET_TABLE)){
+	        String updateQuery = "Update "+TARGET_TABLE+" set "+
+	        						CCH_TARGET_NAME+" = '"+ target_name +"'"+
+	        					","+CCH_TARGET_DETAIL+" = '"+ target_detail +"'"+
+	        					","+CCH_TARGET_CATEGORY+" = '"+ target_category +"'"+
+	        					","+CCH_TARGET_NO+" = '"+target_number+"'"+
+	        					","+CCH_START_DATE+" = '"+start_date+"'"+
+	        					","+CCH_DUE_DATE+" = '"+due_date+"'"+
+	        					","+CCH_REMINDER+" = '"+reminder+"'"+
+	        					" where "+BaseColumns._ID+" = "+id;
+	        db.execSQL(updateQuery);
+		}
+		return true;
+		
+	}
+	public ArrayList<EventTargets> getAllTargetsToView(String period,String status,String targetType) 
+	{	
+		SQLiteDatabase db = this.getReadableDatabase();
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
+		if(doesTableExists(TARGET_TABLE)){
+		String strQuery="select * from "+TARGET_TABLE
+							+" where "+CCH_REMINDER
+							+ " = '"+period+"'"
+							+ " and "+CCH_STATUS
+							+ " = '"+status+"'"
+							+ " and "+CCH_TARGET_TYPE
+							+ " = '"+targetType+"'";	
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			
+			while (c.isAfterLast()==false) {
+				EventTargets event_targets = new EventTargets();
+				
+				event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+				event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(CCH_TARGET_NO)));
+				event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(CCH_TARGET_NO_ACHIEVED)));
+				event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(CCH_START_DATE)));
+				event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
+				event_targets.setEventTargetOldId(c.getString(c.getColumnIndex(CCH_OLD_ID)));
+				event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+				event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(CCH_LAST_UPDATED)));
+				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(CCH_REMINDER)));
+				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(CCH_STATUS)));
+				event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(CCH_TARGET_DETAIL)));
+				event_targets.setEventTargetType(c.getString(c.getColumnIndex(CCH_TARGET_TYPE)));
+				event_targets.setEventTargetCategory(c.getString(c.getColumnIndex(CCH_TARGET_CATEGORY)));
+				   list.add(event_targets);
+				   c.moveToNext();						
+			}
+			c.close();
+			db.close();
+		}
+			return list;	
+	}
+	public ArrayList<String> getNumberAchieved(long id,String reminder,String status){
+		SQLiteDatabase db = this.getReadableDatabase();
+		ArrayList<String> list=new ArrayList<String>();
+		if(doesTableExists(TARGET_TABLE)){
+		 String strQuery="select * from "+TARGET_TABLE
+	             	+" where "+CCH_REMINDER
+	             	+ " = '"+reminder+"'"
+	             	+ " and "+CCH_STATUS
+		              + " = '"+status+"'"
+		              + " and "+BaseColumns._ID
+		              + " = "+id;	
+		Cursor c=db.rawQuery(strQuery, null);
+		c.moveToFirst();
+		while (c.isAfterLast()==false){
+			list.add(c.getString(c.getColumnIndex(CCH_TARGET_NO_ACHIEVED)));
+			c.moveToNext();						
+		}
+		c.close();
+		db.close();
+		}
+		return list;
+	}
+	public ArrayList<EventTargets> getAllTargetsForUpdate(String period,String status,String target_type) 
 	{	
 		SQLiteDatabase db = this.getReadableDatabase();
 		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
@@ -2897,18 +2648,21 @@ public long findItemCount(String table, String searchedBy,
 			long today = 0;
 			Date date1 = null;
 			Date date2=null;	
-		String strQuery="select * from "+COVERAGE_SET_TABLE
-							+" where "+COL_COVERAGE_SET_PERIOD
+			if(doesTableExists(TARGET_TABLE)){
+		String strQuery="select * from "+TARGET_TABLE
+							+" where "+CCH_REMINDER
 							+ " = '"+period+"'"
-							+ " and "+COL_SYNC_STATUS
-							+ " = '"+"new_record"+"'";	
+							+ " and "+CCH_STATUS
+							+ " = '"+status+"'"
+							+ " and "+CCH_TARGET_TYPE
+							+ " = '"+target_type+"'";
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
 			
 			while (c.isAfterLast()==false) {
 				EventTargets event_targets = new EventTargets();
 				try {
-					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(COL_START_DATE)));
+					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_START_DATE)));
 					date2= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
 					starDateAsTimestamp=date1.getTime();
 					today=date2.getTime();
@@ -2916,246 +2670,47 @@ public long findItemCount(String table, String searchedBy,
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				if(starDateAsTimestamp<=today){
-				event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_COVERAGE_SET_CATEGORY_DETAIL)));
-				event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_COVERAGE_NUMBER)));
-				event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
-				event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
-				event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-				event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE)));
-				event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_COVERAGE_SET_PERIOD)));
-				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
-				event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(COL_COVERAGE_SET_CATEGORY_DETAIL)));
-				   list.add(event_targets);
-				}
-				   c.moveToNext();						
-			}
-			c.close();
-			db.close();
-			return list;	
-	}
-	
-	public ArrayList<EventTargets> getAllOtherTargetsForUpdate(String period) 
-	{		SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
-		SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "dd-MM-yyyy", Locale.getDefault());
-			long starDateAsTimestamp = 0;
-			long today = 0;
-			Date date1 = null;
-			Date date2=null;	
-		String strQuery="select * from "+OTHER_TABLE
-							+" where "+COL_OTHER_PERIOD
-							+ " = '"+period+"'"
-							+ " and "+COL_SYNC_STATUS
-							+ " = '"+"new_record"+"'";	
-			Cursor c = db.rawQuery(strQuery, null);
-			c.moveToFirst();
-			
-			while (c.isAfterLast()==false) {
-				EventTargets event_targets = new EventTargets();
-				try {
-					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(COL_START_DATE)));
-					date2= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
-					starDateAsTimestamp=date1.getTime();
-					today=date2.getTime();
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				if(starDateAsTimestamp<=today){
-				event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_OTHER_CATEGORY)));
-				event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_OTHER_NUMBER)));
-				event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
-				event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
-				event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-				event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE)));
-				event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_OTHER_PERIOD)));
-				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
-				event_targets.setEventTargetPersonalCategory(c.getString(c.getColumnIndex(COL_OTHER_DETAILS)));
-				   list.add(event_targets);
-				}
-				   c.moveToNext();						
-			}
-			c.close();
-			db.close();
-			return list;	
-	}
-	
-	public ArrayList<LearningTargets> getAllLearningTargetsForUpdate(String period) 
-	{	SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<LearningTargets> list=new ArrayList<LearningTargets>();
-		SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "dd-MM-yyyy", Locale.getDefault());
-			long starDateAsTimestamp = 0;
-			long today = 0;
-			Date date1 = null;
-			Date date2=null;	 
-		String strQuery="select * from "+LEARNING_TABLE
-							+" where "+COL_LEARNING_PERIOD
-							+ " = '"+period+"'"
-							+ " and "+COL_SYNC_STATUS
-							+ " = '"+"new_record"+"'";	
-			Cursor c = db.rawQuery(strQuery, null);
-			c.moveToFirst();
-			
-			while (c.isAfterLast()==false) {
-				LearningTargets learning_targets = new LearningTargets();
-				try {
-					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(COL_START_DATE)));
-					date2= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
-					starDateAsTimestamp=date1.getTime();
-					today=date2.getTime();
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				if(starDateAsTimestamp<=today){
-				learning_targets.setLearningTargetName(c.getString(c.getColumnIndex(COL_LEARNING_CATEGORY)));
-				learning_targets.setLearningTargetCourse(c.getString(c.getColumnIndex(COL_LEARNING_DESCRIPTION)));
-				learning_targets.setLearningTargetTopic(c.getString(c.getColumnIndex(COL_LEARNING_TOPIC)));
-				learning_targets.setLearningTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
-				learning_targets.setLearningTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-				learning_targets.setLearningTargetEndDate(c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE)));
-				learning_targets.setLearningTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-				learning_targets.setLearningTargetPeriod(c.getString(c.getColumnIndex(COL_LEARNING_PERIOD)));
-				learning_targets.setLearningTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
-				   list.add(learning_targets);
-				}
-				   c.moveToNext();						
-			}
-			c.close();
-			db.close();
-			return list;	
-	}
-	/* For Achievement Center*/
-	public ArrayList<EventTargets> getAllEventTargetsCompletedForAchievements(String status,int month,int year)
-	{	SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
-		String strQuery="select * from "+EVENTS_SET_TABLE
-						+" where "+COL_SYNC_STATUS
-						+ " = '"+status+"'";	
-		System.out.println(strQuery);
-			Cursor c = db.rawQuery(strQuery, null);
-			c.moveToFirst();
-			while (c.isAfterLast()==false) {
-				  
-				EventTargets event_targets = new EventTargets();
-				event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE)));
-				String due_date=c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE));
 				
-				String[] due_date_split=null;
-				int due_date_month=0;
-				int due_date_year=0;
-				due_date_split=due_date.split("-");
-				if(due_date_split.length>2){
-					due_date_month=Integer.parseInt(due_date_split[1]);
-					due_date_year=Integer.parseInt(due_date_split[2]);
-				}else{
-					due_date_month=0;
-					due_date_year=0;
-				}
-				if(month==due_date_month&&year==due_date_year){
-				event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
-				event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_EVENT_NUMBER)));
-				event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
-				event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
+				if(starDateAsTimestamp<=today){
+				event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+				event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(CCH_TARGET_NO)));
+				event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(CCH_TARGET_NO_ACHIEVED)));
+				event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(CCH_START_DATE)));
 				event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-				event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_EVENT_PERIOD)));
-				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
+				event_targets.setEventTargetOldId(c.getString(c.getColumnIndex(CCH_OLD_ID)));
+				event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+				event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(CCH_LAST_UPDATED)));
+				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(CCH_REMINDER)));
+				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(CCH_STATUS)));
+				event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(CCH_TARGET_DETAIL)));
+				event_targets.setEventTargetType(c.getString(c.getColumnIndex(CCH_TARGET_TYPE)));
+				event_targets.setEventTargetCategory(c.getString(c.getColumnIndex(CCH_TARGET_CATEGORY)));
 				   list.add(event_targets);
 				}
-				   c.moveToNext();		  				
+				   c.moveToNext();						
 			}
 			c.close();
 			db.close();
+			}
 			return list;	
 	}
 	
-	public int getAllEventTargetsForAchievements(int month,int year)
-	{	SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
-		String strQuery="select * from "+EVENTS_SET_TABLE;	
-			Cursor c = db.rawQuery(strQuery, null);
-			c.moveToFirst();
-			int total_event_targets = 0;
-			
-			while (c.isAfterLast()==false) {
-				EventTargets event_targets = new EventTargets();
-				String due_date=c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE));
-				
-				String[] due_date_split=null;
-				int due_date_month=0;
-				int due_date_year=0;
-				due_date_split=due_date.split("-");
-				if(due_date_split.length>2){
-					due_date_month=Integer.parseInt(due_date_split[1]);
-					due_date_year=Integer.parseInt(due_date_split[2]);
-				}else{
-					due_date_month=0;
-					due_date_year=0;
-				}
-				if(month==due_date_month&&year==due_date_year){
-					event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
-					list.add(event_targets);
-					total_event_targets=list.size();
-				}
-				   c.moveToNext();		  				
-			}
-			c.close();
-			db.close();
-			return total_event_targets;	
-	}
-	public int getAllEventTargetsCompleted(String status,int month,int year)
-	{	SQLiteDatabase db = this.getReadableDatabase();
-	ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
-	String strQuery="select * from "+EVENTS_SET_TABLE
-					+" where "+COL_SYNC_STATUS
-					+ " = '"+status+"'";	
-			Cursor c = db.rawQuery(strQuery, null);
-			c.moveToFirst();	
-			int total_event_targets = 0;
-			
-			while (c.isAfterLast()==false) {
-				EventTargets event_targets = new EventTargets();
-				String due_date=c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE));
-				String[] due_date_split=null;
-				int due_date_month=0;
-				int due_date_year=0;
-				due_date_split=due_date.split("-");
-				if(due_date_split.length>2){
-					due_date_month=Integer.parseInt(due_date_split[1]);
-					due_date_year=Integer.parseInt(due_date_split[2]);
-				}else{
-					due_date_month=0;
-					due_date_year=0;
-				}
-				if(month==due_date_month&&year==due_date_year){
-					event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
-					list.add(event_targets);
-					total_event_targets=list.size();
-				}
-				   c.moveToNext();		  				
-			}
-			c.close();
-			db.close();
-			return total_event_targets;	
-	}
 	
-	public int getAllCoverageTargetsForAchievements(int month,int year)
+	public int getTargetsForAchievements(String target_type,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
 		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
-		String strQuery="select * from "+COVERAGE_SET_TABLE;	
+		int total_targets = 0;
+		if(doesTableExists(TARGET_TABLE)){
+		String strQuery="select * from "+TARGET_TABLE
+						+" where "+CCH_TARGET_TYPE
+						+" = '"+target_type+"'";
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
-			int total_coverage_targets = 0;
+			
 			
 			while (c.isAfterLast()==false) {
 				EventTargets event_targets = new EventTargets();
-				String due_date=c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE));
+				String due_date=c.getString(c.getColumnIndex(CCH_DUE_DATE));
 				String[] due_date_split=null;
 				int due_date_month=0;
 				int due_date_year=0;
@@ -3168,29 +2723,36 @@ public long findItemCount(String table, String searchedBy,
 					due_date_year=0;
 				}
 				if(month==due_date_month&&year==due_date_year){
-					event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_COVERAGE_SET_CATEGORY_DETAIL)));
+					try{
+					event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
 					list.add(event_targets);
-					total_coverage_targets=list.size();
+					total_targets=list.size();
+					}catch(Exception e){
+						e.printStackTrace();
+					}
 				}
 				   c.moveToNext();		  				
 			}
 			c.close();
 			db.close();
-			return total_coverage_targets;	
+		}
+			return total_targets;	
 	}
-	public int getAllCoverageTargetsCompleted(String status,int month,int year)
+	public int getTargetsBasedOnStatus(String status,String target_type,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
 	ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
-	String strQuery="select * from "+COVERAGE_SET_TABLE
-					+" where "+COL_SYNC_STATUS
-					+ " = '"+status+"'";	
+	int total_targets = 0;
+	if(doesTableExists(TARGET_TABLE)){
+	String strQuery="select * from "+TARGET_TABLE
+					+" where "+CCH_STATUS
+					+ " = '"+status+"'"
+					+" and "+CCH_TARGET_TYPE
+					+" = '"+target_type+"'";
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();	
-			int total_event_targets = 0;
-			
 			while (c.isAfterLast()==false) {
 			EventTargets event_targets = new EventTargets();
-			String due_date=c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE));
+			String due_date=c.getString(c.getColumnIndex(CCH_DUE_DATE));
 			String[] due_date_split=null;
 			int due_date_month=0;
 			int due_date_year=0;
@@ -3203,259 +2765,40 @@ public long findItemCount(String table, String searchedBy,
 				due_date_year=0;
 			}
 				if(month==due_date_month&&year==due_date_year){
-					event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_COVERAGE_SET_CATEGORY_DETAIL)));
+					try{
+					event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
 					list.add(event_targets);
-					total_event_targets=list.size();
+					total_targets=list.size();
+					}catch(Exception e){
+						e.printStackTrace();
+					}
 				}
 				   c.moveToNext();		  				
 			}
 			c.close();
 			db.close();
-			return total_event_targets;	
 	}
-	public int getAllLearningTargetsForAchievements(int month,int year)
-	{	SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<LearningTargets> list=new ArrayList<LearningTargets>();	 
-		String strQuery="select * from "+LEARNING_TABLE;	
-			Cursor c = db.rawQuery(strQuery, null);
-			c.moveToFirst();
-			int total_learning_targets = 0;
-			
-			while (c.isAfterLast()==false) {
-				LearningTargets learning_targets = new LearningTargets();
-				String due_date=c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE));
-				String[] due_date_split=null;
-				int due_date_month=0;
-				int due_date_year=0;
-				due_date_split=due_date.split("-");
-				if(due_date_split.length>2){
-					due_date_month=Integer.parseInt(due_date_split[1]);
-					due_date_year=Integer.parseInt(due_date_split[2]);
-				}else{
-					due_date_month=0;
-					due_date_year=0;
-				}
-				if(month==due_date_month&&year==due_date_year){
-					learning_targets.setLearningTargetName(c.getString(c.getColumnIndex(COL_LEARNING_CATEGORY)));
-					list.add(learning_targets);
-					total_learning_targets=list.size();
-				}
-				   c.moveToNext();		  				
-			}
-			c.close();
-			db.close();
-			return total_learning_targets;	
-	}
-	public int getAllLearningTargetsCompleted(String status,int month,int year)
-	{	SQLiteDatabase db = this.getReadableDatabase();
-	ArrayList<LearningTargets> list=new ArrayList<LearningTargets>();	
-	String strQuery="select * from "+LEARNING_TABLE
-			+" where "+COL_SYNC_STATUS
-			+ " = '"+status+"'";	
-			Cursor c = db.rawQuery(strQuery, null);
-			c.moveToFirst();	
-			int total_event_targets = 0;
-			
-			while (c.isAfterLast()==false) {
-			LearningTargets learning_targets = new LearningTargets();
-			String due_date=c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE));
-			String[] due_date_split=null;
-			int due_date_month=0;
-			int due_date_year=0;
-			if(due_date!=null){
-					due_date_split=due_date.split("-");
-				}
-				if(due_date_split.length>2){
-					due_date_month=Integer.parseInt(due_date_split[1]);
-					due_date_year=Integer.parseInt(due_date_split[2]);
-				}else{
-					due_date_month=0;
-					due_date_year=0;
-				}
-				if(month==due_date_month&&year==due_date_year){
-					learning_targets.setLearningTargetName(c.getString(c.getColumnIndex(COL_LEARNING_CATEGORY)));
-					list.add(learning_targets);
-					total_event_targets=list.size();
-				}
-				   c.moveToNext();		  				
-			}
-			c.close();
-			db.close();
-			return total_event_targets;	
-	}
-	public int getAllOtherTargetsForAchievements(int month,int year)
-	{	SQLiteDatabase db = this.getReadableDatabase();
-	ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
-		String strQuery="select * from "+OTHER_TABLE;	
-			Cursor c = db.rawQuery(strQuery, null);
-			c.moveToFirst();
-			int total_other_targets = 0;
-			
-			while (c.isAfterLast()==false) {
-				EventTargets event_targets = new EventTargets();
-				String due_date=c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE));
-				String[] due_date_split=null;
-				int due_date_month=0;
-				int due_date_year=0;
-				due_date_split=due_date.split("-");
-				if(due_date_split.length>2){
-					due_date_month=Integer.parseInt(due_date_split[1]);
-					due_date_year=Integer.parseInt(due_date_split[2]);
-				}else{
-					due_date_month=0;
-					due_date_year=0;
-				}
-				if(month==due_date_month&&year==due_date_year){
-					event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_OTHER_CATEGORY)));
-					list.add(event_targets);
-					total_other_targets=list.size();
-				}
-				   c.moveToNext();		  				
-			}
-			c.close();
-			db.close();
-			return total_other_targets;	
+			return total_targets;	
 	}
 	
-	public int getAllOtherTargetsCompleted(String status,int month,int year)
-	{	SQLiteDatabase db = this.getReadableDatabase();
-	ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
-	String strQuery="select * from "+OTHER_TABLE
-					+" where "+COL_SYNC_STATUS
-					+ " = '"+status+"'";	
-			Cursor c = db.rawQuery(strQuery, null);
-			c.moveToFirst();	
-			int total_event_targets = 0;
-			
-			while (c.isAfterLast()==false) {
-				EventTargets event_targets = new EventTargets();  
-			String due_date=c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE));
-				
-			String[] due_date_split=null;
-			int due_date_month=0;
-			int due_date_year=0;
-			due_date_split=due_date.split("-");
-			if(due_date_split.length>2){
-				due_date_month=Integer.parseInt(due_date_split[1]);
-				due_date_year=Integer.parseInt(due_date_split[2]);
-			}else{
-				due_date_month=0;
-				due_date_year=0;
-			}
-				if(month==due_date_month&&year==due_date_year){
-					event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_OTHER_CATEGORY)));
-					list.add(event_targets);
-					total_event_targets=list.size();
-				}
-				   c.moveToNext();		  				
-			}
-			c.close();
-			db.close();
-			return total_event_targets;	
-	}
-	public ArrayList<EventTargets> getAllCoverageTargetsCompletedForAchievements(String status,int month,int year)
+	
+	/* For Achievement Center*/
+	public ArrayList<EventTargets> getListOfTargetsForAchievements(String status,String target_type,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
 		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
-		String strQuery="select * from "+COVERAGE_SET_TABLE
-						+" where "+COL_SYNC_STATUS
-						+ " = '"+status+"'";	
+		if(doesTableExists(TARGET_TABLE)){
+		String strQuery="select * from "+TARGET_TABLE
+						+" where "+CCH_STATUS
+						+ " = '"+status+"'"
+						+ " and "+CCH_TARGET_TYPE
+						+" = '"+target_type+"'";	
 		System.out.println(strQuery);
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
-			
 			while (c.isAfterLast()==false) {
-				EventTargets coverage_targets = new EventTargets();
-				coverage_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE)));
-				String due_date=c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE));
-				String[] due_date_split=null;
-				int due_date_month=0;
-				int due_date_year=0;
-				due_date_split=due_date.split("-");
-				if(due_date_split.length>2){
-					due_date_month=Integer.parseInt(due_date_split[1]);
-					due_date_year=Integer.parseInt(due_date_split[2]);
-				}else{
-					due_date_month=0;
-					due_date_year=0;
-				}
-				if(month==due_date_month&&year==due_date_year){
-					coverage_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_COVERAGE_SET_CATEGORY_DETAIL)));
-					coverage_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_COVERAGE_NUMBER)));
-					coverage_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
-					coverage_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
-					coverage_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-					coverage_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-					coverage_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_COVERAGE_SET_PERIOD)));
-					coverage_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
-				   list.add(coverage_targets);
-				
-				}
-				   c.moveToNext();						
-			}
-			c.close();
-			db.close();
-			return list;	
-	}
-	
-	public ArrayList<EventTargets> getAllOtherTargetsCompletedForAchievements(String status,int month,int year)
-	{	SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
-		String strQuery="select * from "+OTHER_TABLE
-							+" where "+COL_SYNC_STATUS
-							+ " = '"+status+"'";
-			Cursor c = db.rawQuery(strQuery, null);
-			System.out.println(strQuery);
-			c.moveToFirst();
-			
-			while (c.isAfterLast()==false) {
-				   
-				EventTargets other_targets = new EventTargets();
-				other_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE)));
-				String due_date=c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE));
-				String[] due_date_split=null;
-				int due_date_month=0;
-				int due_date_year=0;
-				due_date_split=due_date.split("-");
-				if(due_date_split.length>2){
-					due_date_month=Integer.parseInt(due_date_split[1]);
-					due_date_year=Integer.parseInt(due_date_split[2]);
-				}else{
-					due_date_month=0;
-					due_date_year=0;
-				}
-				if(month==due_date_month&&year==due_date_year){
-					other_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_OTHER_CATEGORY)));
-					other_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_OTHER_NUMBER)));
-					other_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
-					other_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
-					other_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-					other_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE)));
-					other_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-					other_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_OTHER_PERIOD)));
-					other_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
-				   list.add(other_targets);
-				 	
-				}
-				  c.moveToNext();			 		
-			}
-			c.close();
-			db.close();
-			return list;	
-	}
-	
-	public ArrayList<LearningTargets> getAllLearningTargetsCompletedForAchievements(String status,int month,int year)
-	{	SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<LearningTargets> list=new ArrayList<LearningTargets>();	 
-		String strQuery="select * from "+LEARNING_TABLE
-							+" where "+COL_SYNC_STATUS
-							+ " = '"+status+"'";	
-			Cursor c = db.rawQuery(strQuery, null);
-			c.moveToFirst();
-			
-			while (c.isAfterLast()==false) {
-				LearningTargets learning_targets = new LearningTargets();
-				learning_targets.setLearningTargetEndDate(c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE)));
-				String due_date=c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE));
+				EventTargets event_targets = new EventTargets();
+				event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+				String due_date=c.getString(c.getColumnIndex(CCH_DUE_DATE));
 				
 				String[] due_date_split=null;
 				int due_date_month=0;
@@ -3469,303 +2812,728 @@ public long findItemCount(String table, String searchedBy,
 					due_date_year=0;
 				}
 				if(month==due_date_month&&year==due_date_year){
-					learning_targets.setLearningTargetName(c.getString(c.getColumnIndex(COL_LEARNING_CATEGORY)));
-					learning_targets.setLearningTargetCourse(c.getString(c.getColumnIndex(COL_LEARNING_DESCRIPTION)));
-					learning_targets.setLearningTargetTopic(c.getString(c.getColumnIndex(COL_LEARNING_TOPIC)));
-					learning_targets.setLearningTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
-					learning_targets.setLearningTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-					learning_targets.setLearningTargetEndDate(c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE)));
-					learning_targets.setLearningTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-					learning_targets.setLearningTargetPeriod(c.getString(c.getColumnIndex(COL_LEARNING_PERIOD)));
-					learning_targets.setLearningTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
-				   list.add(learning_targets);
-				  
-				}
-				 c.moveToNext();						
-			}
-			c.close();
-			db.close();
-			return list;	
-	}
-	public ArrayList<TargetsForAchievements> getAllEventForAchievements(String status,int month,int year)
-	{	SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<TargetsForAchievements> list=new ArrayList<TargetsForAchievements>();	 
-		String strQuery="select * from "+EVENTS_SET_TABLE
-						+" where "+COL_SYNC_STATUS
-						+ " = '"+status+"'";
-			Cursor c = db.rawQuery(strQuery, null);
-			c.moveToFirst();
-			while (c.isAfterLast()==false) {
-				  
-				TargetsForAchievements event_targets = new TargetsForAchievements();
-				event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE)));
-				String due_date=c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE));
-				String[] due_date_split=null;
-				int due_date_month=0;
-				int due_date_year=0;
-				due_date_split=due_date.split("-");
-				if(due_date_split.length>2){
-					due_date_month=Integer.parseInt(due_date_split[1]);
-					due_date_year=Integer.parseInt(due_date_split[2]);
-				}else{
-					due_date_month=0;
-					due_date_year=0;
-				}
-				if(month==due_date_month&&year==due_date_year){
-				event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
-				event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_EVENT_NUMBER)));
-				event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
-				event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
-				event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-				event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-				event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_EVENT_PERIOD)));
-				event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
+					event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+					event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(CCH_TARGET_NO)));
+					event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(CCH_TARGET_NO_ACHIEVED)));
+					event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(CCH_START_DATE)));
+					event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
+					event_targets.setEventTargetOldId(c.getString(c.getColumnIndex(CCH_OLD_ID)));
+					event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+					event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(CCH_LAST_UPDATED)));
+					event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(CCH_REMINDER)));
+					event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(CCH_STATUS)));
+					event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(CCH_TARGET_DETAIL)));
+					event_targets.setEventTargetType(c.getString(c.getColumnIndex(CCH_TARGET_TYPE)));
+					event_targets.setEventTargetCategory(c.getString(c.getColumnIndex(CCH_TARGET_CATEGORY)));
+					System.out.println(event_targets.getEventTargetName());
 				   list.add(event_targets);
-				System.out.println("The size is: "+list.size());
 				}
 				   c.moveToNext();		  				
 			}
 			c.close();
 			db.close();
+		}
 			return list;	
 	}
 	
-	public ArrayList<TargetsForAchievements> getAllCoverageForAchievements(String status,int month,int year)
+	
+
+	public int getDailyTargetsToUpdate()
 	{	SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<TargetsForAchievements> list=new ArrayList<TargetsForAchievements>();	 
-		String strQuery="select * from "+COVERAGE_SET_TABLE
-							+" where "+COL_SYNC_STATUS
-							+ " = '"+status+"'";
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
+		Date date1 = null;
+		Date date2 = null;
+		Date date3= null;
+		long starDateAsTimestamp = 0;
+		long dueDateAsTimestamp = 0;
+		long today = 0;
+		int total_targets = 0;
+		if(doesTableExists(TARGET_TABLE)){
+		String strQuery="select * from "+TARGET_TABLE
+						+" where "+CCH_REMINDER
+						+" = '"+"Daily"+"'"
+						+" and "+CCH_STATUS
+						+" = '"+MobileLearning.CCH_TARGET_STATUS_NEW+"'";
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
 			
+			
 			while (c.isAfterLast()==false) {
-				TargetsForAchievements coverage_targets = new TargetsForAchievements();
-				coverage_targets.setCoverageTargetEndDate(c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE)));
-				String due_date=c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE));
-				String[] due_date_split=null;
-				int due_date_month=0;
-				int due_date_year=0;
-				due_date_split=due_date.split("-");
-				if(due_date_split.length>2){
-					due_date_month=Integer.parseInt(due_date_split[1]);
-					due_date_year=Integer.parseInt(due_date_split[2]);
-				}else{
-					due_date_month=0;
-					due_date_year=0;
+				EventTargets event_targets = new EventTargets();
+				String start_date=c.getString(c.getColumnIndex(CCH_START_DATE));
+				String due_date=c.getString(c.getColumnIndex(CCH_DUE_DATE));
+				try {
+					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_START_DATE)));
+					date2 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+					date3= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
+					starDateAsTimestamp = date1.getTime();
+					dueDateAsTimestamp = date2.getTime();
+					today = date3.getTime();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				if(month==due_date_month&&year==due_date_year){
-					coverage_targets.setCoverageTargetName(c.getString(c.getColumnIndex(COL_COVERAGE_SET_CATEGORY_DETAIL)));
-					coverage_targets.setCoverageTargetNumber(c.getString(c.getColumnIndex(COL_COVERAGE_NUMBER)));
-					coverage_targets.setCoverageTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
-					coverage_targets.setCoverageTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
-					coverage_targets.setCoverageTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-					coverage_targets.setCoverageTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-					coverage_targets.setCoverageTargetPeriod(c.getString(c.getColumnIndex(COL_COVERAGE_SET_PERIOD)));
-					coverage_targets.setCoverageTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
-				   list.add(coverage_targets);
-				   c.moveToNext();	
+				if(starDateAsTimestamp<=today&& dueDateAsTimestamp>=today){
+					
+					try{
+					event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+					list.add(event_targets);
+					total_targets=list.size();
+					}catch(Exception e){
+						e.printStackTrace();
+					}
 				}
-									
+				   c.moveToNext();		  				
 			}
 			c.close();
 			db.close();
-			return list;	
+		}
+			return total_targets;	
 	}
 	
-	public ArrayList<TargetsForAchievements> getAllOtherForAchievements(String status,int month,int year)
+	public int getWeeklyTargetsToUpdate()
 	{	SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<TargetsForAchievements> list=new ArrayList<TargetsForAchievements>();	 
-		String strQuery="select * from "+OTHER_TABLE
-						+" where "+COL_SYNC_STATUS
-						+ " = '"+status+"'";
+		DateTime today=new DateTime();
+		Date date1 = null;
+		Date date2 = null;
+		Date date3= null;
+		long starDateAsTimestamp = 0;
+		long dueDateAsTimestamp = 0;
+		long now = 0;
+		int total_targets = 0;
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
+		if(doesTableExists(TARGET_TABLE)){
+		String strQuery="select * from "+TARGET_TABLE
+						+" where "+CCH_REMINDER
+						+" = '"+"Weekly"+"'"
+						+" and "+CCH_STATUS
+						+" = '"+MobileLearning.CCH_TARGET_STATUS_NEW+"'";
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
-			
 			while (c.isAfterLast()==false) {
-				   
-				TargetsForAchievements other_targets = new TargetsForAchievements();
-				other_targets.setOtherTargetEndDate(c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE)));
-				String due_date=c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE));
-				String[] due_date_split=null;
-				int due_date_month=0;
-				int due_date_year=0;
-				due_date_split=due_date.split("-");
-				if(due_date_split.length>2){
-					due_date_month=Integer.parseInt(due_date_split[1]);
-					due_date_year=Integer.parseInt(due_date_split[2]);
-				}else{
-					due_date_month=0;
-					due_date_year=0;
+				EventTargets event_targets = new EventTargets();
+				String start_date=c.getString(c.getColumnIndex(CCH_START_DATE));
+				String due_date=c.getString(c.getColumnIndex(CCH_DUE_DATE));
+				try {
+					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_START_DATE)));
+					date2 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+					date3= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
+					starDateAsTimestamp = date1.getTime();
+					dueDateAsTimestamp = date2.getTime();
+					now = date3.getTime();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				if(month==due_date_month&&year==due_date_year){
-					other_targets.setOtherTargetName(c.getString(c.getColumnIndex(COL_OTHER_CATEGORY)));
-					other_targets.setOtherTargetNumber(c.getString(c.getColumnIndex(COL_OTHER_NUMBER)));
-					other_targets.setOtherTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
-					other_targets.setOtherTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
-					other_targets.setOtherTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-					other_targets.setOtherTargetEndDate(c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE)));
-					other_targets.setOtherTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-					other_targets.setOtherTargetPeriod(c.getString(c.getColumnIndex(COL_OTHER_PERIOD)));
-					other_targets.setOtherTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
-				   list.add(other_targets);
-				   c.moveToNext();				
-				}
-				 		
-			}
-			c.close();
-			db.close();
-			return list;	
-	}
-	
-	public ArrayList<TargetsForAchievements> getAllLearningForAchievements(int month,int year)
-	{	SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<TargetsForAchievements> list=new ArrayList<TargetsForAchievements>();	 
-		String strQuery="select * from "+LEARNING_TABLE;	
-			Cursor c = db.rawQuery(strQuery, null);
-			c.moveToFirst();
-			
-			while (c.isAfterLast()==false) {
-				TargetsForAchievements learning_targets = new TargetsForAchievements();
-				learning_targets.setLearningTargetEndDate(c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE)));
-				String due_date=c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE));
 				
-				String[] due_date_split=null;
-				int due_date_month=0;
-				int due_date_year=0;
-				due_date_split=due_date.split("-");
-				if(due_date_split.length>2){
-					due_date_month=Integer.parseInt(due_date_split[1]);
-					due_date_year=Integer.parseInt(due_date_split[2]);
-				}else{
-					due_date_month=0;
-					due_date_year=0;
+				if(starDateAsTimestamp<=now&& dueDateAsTimestamp>=now&&timeUtil.checkTodayFriday(today)=="Friday"){
+					try{
+						event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+						list.add(event_targets);
+						total_targets=list.size();
+					}catch(Exception e){
+						e.printStackTrace();
+					}
 				}
-				if(month==due_date_month&&year==due_date_year){
-				learning_targets.setLearningTargetName(c.getString(c.getColumnIndex(COL_LEARNING_CATEGORY)));
-				learning_targets.setLearningTargetCourse(c.getString(c.getColumnIndex(COL_LEARNING_DESCRIPTION)));
-				learning_targets.setLearningTargetTopic(c.getString(c.getColumnIndex(COL_LEARNING_TOPIC)));
-				learning_targets.setLearningTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
-				learning_targets.setLearningTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-				learning_targets.setLearningTargetEndDate(c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE)));
-				learning_targets.setLearningTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
-				learning_targets.setLearningTargetPeriod(c.getString(c.getColumnIndex(COL_LEARNING_PERIOD)));
-				learning_targets.setLearningTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
-				   list.add(learning_targets);
-				   c.moveToNext();	
-				}
-									
+				   c.moveToNext();		  				
 			}
 			c.close();
 			db.close();
-			return list;	
+		}
+			return total_targets;	
 	}
-	/* For Achievement Center*/
-	public ArrayList<TargetsForAchievements> getAllTargetsForAchievements(String status,int month,int year)
+	public int getMonthlyTargetsToUpdate()
 	{	SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<TargetsForAchievements> list=new ArrayList<TargetsForAchievements>();	 
-		String strQuery="select "+COL_EVENT_SET_NAME+", "+COL_EVENT_NUMBER+", "+COL_NUMBER_ACHIEVED+", "+COL_START_DATE+", "+COL_EVENT_DUE_DATE+" from "+EVENTS_SET_TABLE
-						+" UNION select "+COL_COVERAGE_SET_CATEGORY_DETAIL+", "+COL_COVERAGE_NUMBER+", "+COL_NUMBER_ACHIEVED+", "+COL_START_DATE+", "+COL_EVENT_DUE_DATE+" from "+ COVERAGE_SET_TABLE
-						+" UNION select "+COL_OTHER_CATEGORY+", "+COL_OTHER_NUMBER+", "+COL_NUMBER_ACHIEVED+", "+COL_START_DATE+", "+COL_EVENT_DUE_DATE+" from "+OTHER_TABLE
-						+" UNION select "+COL_LEARNING_CATEGORY+", "+COL_LEARNING_DESCRIPTION+", "+COL_LEARNING_TOPIC+", "+COL_START_DATE+", "+COL_EVENT_DUE_DATE+" from "+LEARNING_TABLE
-							+" where "+COL_SYNC_STATUS
-							+ " = '"+status+"'";	
+		DateTime today=new DateTime();
+		Date date1 = null;
+		Date date2 = null;
+		Date date3= null;
+		long starDateAsTimestamp = 0;
+		long dueDateAsTimestamp = 0;
+		long now = 0;
+		int total_targets = 0;
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
+		if(doesTableExists(TARGET_TABLE)){
+		String strQuery="select * from "+TARGET_TABLE
+						+" where "+CCH_REMINDER
+						+" = '"+"Monthly"+"'"
+						+" and "+CCH_STATUS
+						+" = '"+MobileLearning.CCH_TARGET_STATUS_NEW+"'";
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
-			System.out.println(strQuery);
 			while (c.isAfterLast()==false) {
-				  
-				TargetsForAchievements targets = new TargetsForAchievements();
-				targets.setEventTargetEndDate(c.getString(4));
-				String due_date=c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE));
-				String[] due_date_split=null;
-				int due_date_month=0;
-				int due_date_year=0;
-				due_date_split=due_date.split("-");
-				if(due_date_split.length>2){
-					due_date_month=Integer.parseInt(due_date_split[1]);
-					due_date_year=Integer.parseInt(due_date_split[2]);
-				}else{
-					due_date_month=0;
-					due_date_year=0;
+				EventTargets event_targets = new EventTargets();
+				String start_date=c.getString(c.getColumnIndex(CCH_START_DATE));
+				String due_date=c.getString(c.getColumnIndex(CCH_DUE_DATE));
+				try {
+					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_START_DATE)));
+					date2 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+					date3= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
+					starDateAsTimestamp = date1.getTime();
+					dueDateAsTimestamp = date2.getTime();
+					now = date3.getTime();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				if(month==due_date_month&&year==due_date_year){
-					targets.setEventTargetName(c.getString(0));
-					targets.setEventTargetNumber(c.getString(1));
-					targets.setEventTargetNumberAchieved(c.getString(2));
-					targets.setEventTargetStartDate(c.getString(3));
-					targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
 				
-				   list.add(targets);
-				   c.moveToNext();		  
+				if(starDateAsTimestamp<=now&& dueDateAsTimestamp>=now&&timeUtil.checkTodayFriday(today)=="Friday"&&getDate().equals(timeUtil.getLastFridayofMonth(0))){
+					try{
+					event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+					list.add(event_targets);
+					total_targets=list.size();
+					}catch(Exception e){
+						e.printStackTrace();
+					}
 				}
-								
+				   c.moveToNext();		  				
 			}
 			c.close();
 			db.close();
+		}
+			return total_targets;	
+	}
+	public int getQuarterlylyTargetsToUpdate()
+	{	SQLiteDatabase db = this.getReadableDatabase();
+		DateTime today=new DateTime();
+		Date date1 = null;
+		Date date2 = null;
+		Date date3= null;
+		long starDateAsTimestamp = 0;
+		long dueDateAsTimestamp = 0;
+		long now = 0;
+		int total_targets = 0;
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
+		if(doesTableExists(TARGET_TABLE)){
+		String strQuery="select * from "+TARGET_TABLE
+						+" where "+CCH_REMINDER
+						+" = '"+"Quarterly"+"'"
+						+" and "+CCH_STATUS
+						+" = '"+MobileLearning.CCH_TARGET_STATUS_NEW+"'";
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			while (c.isAfterLast()==false) {
+				EventTargets event_targets = new EventTargets();
+				String start_date=c.getString(c.getColumnIndex(CCH_START_DATE));
+				String due_date=c.getString(c.getColumnIndex(CCH_DUE_DATE));
+				try {
+					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_START_DATE)));
+					date2 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+					date3= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
+					starDateAsTimestamp = date1.getTime();
+					dueDateAsTimestamp = date2.getTime();
+					now = date3.getTime();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if(starDateAsTimestamp<=now&&dueDateAsTimestamp>=now&&timeUtil.checkTodayFriday(today)=="Friday"&&getDate().equals(timeUtil.getLastFridayofMonth(0))&&timeUtil.checkIfMonthIsQuarter()==true){
+					try{
+					event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+					list.add(event_targets);
+					total_targets=list.size();
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				}
+				   c.moveToNext();		  				
+			}
+			c.close();
+			db.close();
+		}
+			return total_targets;	
+	}
+	public int getMidYearTargetsToUpdate()
+	{	SQLiteDatabase db = this.getReadableDatabase();
+		DateTime today=new DateTime();
+		Date date1 = null;
+		Date date2 = null;
+		Date date3= null;
+		long starDateAsTimestamp = 0;
+		long dueDateAsTimestamp = 0;
+		long now = 0;
+		int total_targets = 0;
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
+		if(doesTableExists(TARGET_TABLE)){
+		String strQuery="select * from "+TARGET_TABLE
+						+" where "+CCH_REMINDER
+						+" = '"+"Mid-year"+"'"
+						+" and "+CCH_STATUS
+						+" = '"+MobileLearning.CCH_TARGET_STATUS_NEW+"'";
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			while (c.isAfterLast()==false) {
+				EventTargets event_targets = new EventTargets();
+				String start_date=c.getString(c.getColumnIndex(CCH_START_DATE));
+				String due_date=c.getString(c.getColumnIndex(CCH_DUE_DATE));
+				try {
+					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_START_DATE)));
+					date2 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+					date3= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
+					starDateAsTimestamp = date1.getTime();
+					dueDateAsTimestamp = date2.getTime();
+					now = date3.getTime();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if(starDateAsTimestamp<=now&& dueDateAsTimestamp>=now&&timeUtil.checkTodayFriday(today)=="Friday"&&getDate().equals(timeUtil.getLastFridayofMonth(0))&&timeUtil.checkIfMonthIsMidYear()==true){
+					try{
+					event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+					list.add(event_targets);
+					total_targets=list.size();
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				}
+				   c.moveToNext();		  				
+			}
+			c.close();
+			db.close();
+		}
+			return total_targets;	
+	}
+	
+	public int getAnnualTargetsToUpdate()
+	{	SQLiteDatabase db = this.getReadableDatabase();
+		DateTime today=new DateTime();
+		Date date1 = null;
+		Date date2 = null;
+		Date date3= null;
+		long starDateAsTimestamp = 0;
+		long dueDateAsTimestamp = 0;
+		long now = 0;
+		int total_targets = 0;
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
+		if(doesTableExists(TARGET_TABLE)){
+		String strQuery="select * from "+TARGET_TABLE
+						+" where "+CCH_REMINDER
+						+" = '"+"Annually"+"'"
+						+" and "+CCH_STATUS
+						+" = '"+MobileLearning.CCH_TARGET_STATUS_NEW+"'";
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			
+			
+			while (c.isAfterLast()==false) {
+				EventTargets event_targets = new EventTargets();
+				try {
+					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_START_DATE)));
+					date2 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+					date3= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
+					starDateAsTimestamp = date1.getTime();
+					dueDateAsTimestamp = date2.getTime();
+					now = date3.getTime();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if(starDateAsTimestamp<=now&& dueDateAsTimestamp>=now&&timeUtil.checkTodayFriday(today)=="Friday"&&getDate().equals(timeUtil.getLastFridayofMonth(0))&&timeUtil.checkIfMonthIsEndOfYear()==true){
+					try{
+					event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+					list.add(event_targets);
+					total_targets=list.size();
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				}
+				   c.moveToNext();		  				
+			}
+			c.close();
+			db.close();
+		}
+			return total_targets;	
+	}
+	
+	public ArrayList<EventTargets> getListOfDailyTargetsToUpdate(String target_type)
+	{	SQLiteDatabase db = this.getReadableDatabase();
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
+		Date date1 = null;
+		Date date2 = null;
+		Date date3= null;
+		long starDateAsTimestamp = 0;
+		long dueDateAsTimestamp = 0;
+		long today = 0;
+		int total_targets = 0;
+		if(doesTableExists(TARGET_TABLE)){
+		String strQuery="select * from "+TARGET_TABLE
+						+" where "+CCH_REMINDER
+						+" = '"+"Daily"+"'"
+						+" and "+CCH_STATUS
+						+" = '"+MobileLearning.CCH_TARGET_STATUS_NEW+"'"
+						+" and "+CCH_TARGET_TYPE
+						+" = '"+target_type+"'";
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();
+		
+			
+			while (c.isAfterLast()==false) {
+				EventTargets event_targets = new EventTargets();
+				String start_date=c.getString(c.getColumnIndex(CCH_START_DATE));
+				String due_date=c.getString(c.getColumnIndex(CCH_DUE_DATE));
+				try {
+					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_START_DATE)));
+					date2 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+					date3= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
+					starDateAsTimestamp = date1.getTime();
+					dueDateAsTimestamp = date2.getTime();
+					today = date3.getTime();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(starDateAsTimestamp<=today&& dueDateAsTimestamp>=today){
+					
+					try{
+						event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+						event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(CCH_TARGET_NO)));
+						event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(CCH_TARGET_NO_ACHIEVED)));
+						event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(CCH_START_DATE)));
+						event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
+						event_targets.setEventTargetOldId(c.getString(c.getColumnIndex(CCH_OLD_ID)));
+						event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+						event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(CCH_LAST_UPDATED)));
+						event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(CCH_REMINDER)));
+						event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(CCH_STATUS)));
+						event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(CCH_TARGET_DETAIL)));
+						event_targets.setEventTargetType(c.getString(c.getColumnIndex(CCH_TARGET_TYPE)));
+						event_targets.setEventTargetCategory(c.getString(c.getColumnIndex(CCH_TARGET_CATEGORY)));
+						   list.add(event_targets);
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				}
+				   c.moveToNext();		  				
+			}
+			c.close();
+			db.close();
+		}
 			return list;	
 	}
-	public ArrayList<String> getForUpdateOtherNumberAchieved(long id,String duration){
-		SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<String> list=new ArrayList<String>();
-		 String strQuery="select * from "+OTHER_TABLE
-	             +" where "+COL_OTHER_PERIOD
-	             + " = '"+duration+"'"
-	              + " and "+COL_SYNC_STATUS
-		              + " = '"+"new_record"+"'"
-		              + " and "+BaseColumns._ID
-		              + " = "+id;	
-		Cursor c=db.rawQuery(strQuery, null);
-		c.moveToFirst();
-		while (c.isAfterLast()==false){
-			list.add(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
-			c.moveToNext();						
+	
+	public ArrayList<EventTargets> getListOfWeeklyTargetsToUpdate(String target_type)
+	{	SQLiteDatabase db = this.getReadableDatabase();
+		DateTime today=new DateTime();
+		Date date1 = null;
+		Date date2 = null;
+		Date date3= null;
+		long starDateAsTimestamp = 0;
+		long dueDateAsTimestamp = 0;
+		long now = 0;
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
+		if(doesTableExists(TARGET_TABLE)){
+		String strQuery="select * from "+TARGET_TABLE
+						+" where "+CCH_REMINDER
+						+" = '"+"Weekly"+"'"
+						+" and "+CCH_STATUS
+						+" = '"+MobileLearning.CCH_TARGET_STATUS_NEW+"'"
+						+" and "+CCH_TARGET_TYPE
+						+" = '"+target_type+"'";
+						
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			int total_targets = 0;
+			
+			while (c.isAfterLast()==false) {
+				EventTargets event_targets = new EventTargets();
+				String start_date=c.getString(c.getColumnIndex(CCH_START_DATE));
+				String due_date=c.getString(c.getColumnIndex(CCH_DUE_DATE));
+				try {
+					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_START_DATE)));
+					date2 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+					date3= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
+					starDateAsTimestamp = date1.getTime();
+					dueDateAsTimestamp = date2.getTime();
+					now = date3.getTime();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if(starDateAsTimestamp<=now&& dueDateAsTimestamp>=now&&timeUtil.checkTodayFriday(today)=="Friday"){
+					try{
+						event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+						event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(CCH_TARGET_NO)));
+						event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(CCH_TARGET_NO_ACHIEVED)));
+						event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(CCH_START_DATE)));
+						event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
+						event_targets.setEventTargetOldId(c.getString(c.getColumnIndex(CCH_OLD_ID)));
+						event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+						event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(CCH_LAST_UPDATED)));
+						event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(CCH_REMINDER)));
+						event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(CCH_STATUS)));
+						event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(CCH_TARGET_DETAIL)));
+						event_targets.setEventTargetType(c.getString(c.getColumnIndex(CCH_TARGET_TYPE)));
+						event_targets.setEventTargetCategory(c.getString(c.getColumnIndex(CCH_TARGET_CATEGORY)));
+						   list.add(event_targets);
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				}
+				   c.moveToNext();		  				
+			}
+			c.close();
+			db.close();
 		}
-		c.close();
-		db.close();
-		return list;
+			return list;	
+	}
+	public  ArrayList<EventTargets> getListOfMonthlyTargetsToUpdate(String target_type)
+	{	SQLiteDatabase db = this.getReadableDatabase();
+		DateTime today=new DateTime();
+		Date date1 = null;
+		Date date2 = null;
+		Date date3= null;
+		long starDateAsTimestamp = 0;
+		long dueDateAsTimestamp = 0;
+		long now = 0;
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
+		if(doesTableExists(TARGET_TABLE)){
+		String strQuery="select * from "+TARGET_TABLE
+						+" where "+CCH_REMINDER
+						+" = '"+"Monthly"+"'"
+						+" and "+CCH_STATUS
+						+" = '"+MobileLearning.CCH_TARGET_STATUS_NEW+"'"
+						+" and "+CCH_TARGET_TYPE
+						+" = '"+target_type+"'";
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			
+			while (c.isAfterLast()==false) {
+				EventTargets event_targets = new EventTargets();
+				String start_date=c.getString(c.getColumnIndex(CCH_START_DATE));
+				String due_date=c.getString(c.getColumnIndex(CCH_DUE_DATE));
+				try {
+					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_START_DATE)));
+					date2 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+					date3= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
+					starDateAsTimestamp = date1.getTime();
+					dueDateAsTimestamp = date2.getTime();
+					now = date3.getTime();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if(starDateAsTimestamp<=now&& dueDateAsTimestamp>=now&&timeUtil.checkTodayFriday(today)=="Friday"&&getDate().equals(timeUtil.getLastFridayofMonth(0))){
+					try{
+						event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+						event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(CCH_TARGET_NO)));
+						event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(CCH_TARGET_NO_ACHIEVED)));
+						event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(CCH_START_DATE)));
+						event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
+						event_targets.setEventTargetOldId(c.getString(c.getColumnIndex(CCH_OLD_ID)));
+						event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+						event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(CCH_LAST_UPDATED)));
+						event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(CCH_REMINDER)));
+						event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(CCH_STATUS)));
+						event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(CCH_TARGET_DETAIL)));
+						event_targets.setEventTargetType(c.getString(c.getColumnIndex(CCH_TARGET_TYPE)));
+						event_targets.setEventTargetCategory(c.getString(c.getColumnIndex(CCH_TARGET_CATEGORY)));
+						   list.add(event_targets);
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				}
+				   c.moveToNext();		  				
+			}
+			c.close();
+			db.close();
+		}
+			return list;	
+	}
+	public ArrayList<EventTargets> getListOfQuarterlylyTargetsToUpdate(String target_type)
+	{	SQLiteDatabase db = this.getReadableDatabase();
+		DateTime today=new DateTime();
+		Date date1 = null;
+		Date date2 = null;
+		Date date3= null;
+		long starDateAsTimestamp = 0;
+		long dueDateAsTimestamp = 0;
+		long now = 0;
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
+		if(doesTableExists(TARGET_TABLE)){
+		String strQuery="select * from "+TARGET_TABLE
+						+" where "+CCH_REMINDER
+						+" = '"+"Quarterly"+"'"
+						+" and "+CCH_STATUS
+						+" = '"+MobileLearning.CCH_TARGET_STATUS_NEW+"'"
+						+" and "+CCH_TARGET_TYPE
+						+" = '"+target_type+"'";
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			
+			while (c.isAfterLast()==false) {
+				EventTargets event_targets = new EventTargets();
+				String start_date=c.getString(c.getColumnIndex(CCH_START_DATE));
+				String due_date=c.getString(c.getColumnIndex(CCH_DUE_DATE));
+				try {
+					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_START_DATE)));
+					date2 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+					date3= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
+					starDateAsTimestamp = date1.getTime();
+					dueDateAsTimestamp = date2.getTime();
+					now = date3.getTime();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if(starDateAsTimestamp<=now&&dueDateAsTimestamp>=now&&timeUtil.checkTodayFriday(today)=="Friday"&&getDate().equals(timeUtil.getLastFridayofMonth(0))&&timeUtil.checkIfMonthIsQuarter()==true){
+					try{
+						event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+						event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(CCH_TARGET_NO)));
+						event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(CCH_TARGET_NO_ACHIEVED)));
+						event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(CCH_START_DATE)));
+						event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
+						event_targets.setEventTargetOldId(c.getString(c.getColumnIndex(CCH_OLD_ID)));
+						event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+						event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(CCH_LAST_UPDATED)));
+						event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(CCH_REMINDER)));
+						event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(CCH_STATUS)));
+						event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(CCH_TARGET_DETAIL)));
+						event_targets.setEventTargetType(c.getString(c.getColumnIndex(CCH_TARGET_TYPE)));
+						event_targets.setEventTargetCategory(c.getString(c.getColumnIndex(CCH_TARGET_CATEGORY)));
+						   list.add(event_targets);
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				}
+				   c.moveToNext();		  				
+			}
+			c.close();
+			db.close();
+		}
+			return list;	
+	}
+	public ArrayList<EventTargets> getListOfMidYearTargetsToUpdate(String target_type)
+	{	SQLiteDatabase db = this.getReadableDatabase();
+		DateTime today=new DateTime();
+		Date date1 = null;
+		Date date2 = null;
+		Date date3= null;
+		long starDateAsTimestamp = 0;
+		long dueDateAsTimestamp = 0;
+		long now = 0;
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
+		if(doesTableExists(TARGET_TABLE)){
+		String strQuery="select * from "+TARGET_TABLE
+						+" where "+CCH_REMINDER
+						+" = '"+"Mid-year"+"'"
+						+" and "+CCH_STATUS
+						+" = '"+MobileLearning.CCH_TARGET_STATUS_NEW+"'"
+						+" and "+CCH_TARGET_TYPE
+						+" = '"+target_type+"'";
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			
+			while (c.isAfterLast()==false) {
+				EventTargets event_targets = new EventTargets();
+				String start_date=c.getString(c.getColumnIndex(CCH_START_DATE));
+				String due_date=c.getString(c.getColumnIndex(CCH_DUE_DATE));
+				try {
+					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_START_DATE)));
+					date2 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+					date3= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
+					starDateAsTimestamp = date1.getTime();
+					dueDateAsTimestamp = date2.getTime();
+					now = date3.getTime();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if(starDateAsTimestamp<=now&& dueDateAsTimestamp>=now&&timeUtil.checkTodayFriday(today)=="Friday"&&getDate().equals(timeUtil.getLastFridayofMonth(0))&&timeUtil.checkIfMonthIsMidYear()==true){
+					try{
+						event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+						event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(CCH_TARGET_NO)));
+						event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(CCH_TARGET_NO_ACHIEVED)));
+						event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(CCH_START_DATE)));
+						event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
+						event_targets.setEventTargetOldId(c.getString(c.getColumnIndex(CCH_OLD_ID)));
+						event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+						event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(CCH_LAST_UPDATED)));
+						event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(CCH_REMINDER)));
+						event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(CCH_STATUS)));
+						event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(CCH_TARGET_DETAIL)));
+						event_targets.setEventTargetType(c.getString(c.getColumnIndex(CCH_TARGET_TYPE)));
+						event_targets.setEventTargetCategory(c.getString(c.getColumnIndex(CCH_TARGET_CATEGORY)));
+						   list.add(event_targets);
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				}
+				   c.moveToNext();		  				
+			}
+			c.close();
+			db.close();
+		}
+			return list;	
 	}
 	
-	public ArrayList<String> getForUpdateEventNumberAchieved(long id,String duration){
-		SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<String> list=new ArrayList<String>();
-		 String strQuery="select * from "+EVENTS_SET_TABLE
-	             +" where "+COL_EVENT_PERIOD
-	             + " = '"+duration+"'"
-	              + " and "+COL_SYNC_STATUS
-		              + " = '"+"new_record"+"'"
-		              + " and "+BaseColumns._ID
-		              + " = "+id;	
-		Cursor c=db.rawQuery(strQuery, null);
-		c.moveToFirst();
-		while (c.isAfterLast()==false){
-			list.add(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
-			c.moveToNext();						
+	public ArrayList<EventTargets> getListOfAnnualTargetsToUpdate(String target_type)
+	{	SQLiteDatabase db = this.getReadableDatabase();
+		DateTime today=new DateTime();
+		Date date1 = null;
+		Date date2 = null;
+		Date date3= null;
+		long starDateAsTimestamp = 0;
+		long dueDateAsTimestamp = 0;
+		long now = 0;
+		ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
+		if(doesTableExists(TARGET_TABLE)){
+		String strQuery="select * from "+TARGET_TABLE
+						+" where "+CCH_REMINDER
+						+" = '"+"Annually"+"'"
+						+" and "+CCH_STATUS
+						+" = '"+MobileLearning.CCH_TARGET_STATUS_NEW+"'"
+						+" and "+CCH_TARGET_TYPE
+						+" = '"+target_type +"'";
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			
+			while (c.isAfterLast()==false) {
+				EventTargets event_targets = new EventTargets();
+				try {
+					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_START_DATE)));
+					date2 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+					date3= new SimpleDateFormat("dd-MM-yyyy").parse(getDate());
+					starDateAsTimestamp = date1.getTime();
+					dueDateAsTimestamp = date2.getTime();
+					now = date3.getTime();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if(starDateAsTimestamp<=now&& dueDateAsTimestamp>=now&&timeUtil.checkTodayFriday(today)=="Friday"&&getDate().equals(timeUtil.getLastFridayofMonth(0))&&timeUtil.checkIfMonthIsEndOfYear()==true){
+					try{
+						event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+						event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(CCH_TARGET_NO)));
+						event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(CCH_TARGET_NO_ACHIEVED)));
+						event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(CCH_START_DATE)));
+						event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
+						event_targets.setEventTargetOldId(c.getString(c.getColumnIndex(CCH_OLD_ID)));
+						event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
+						event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(CCH_LAST_UPDATED)));
+						event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(CCH_REMINDER)));
+						event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(CCH_STATUS)));
+						event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(CCH_TARGET_DETAIL)));
+						event_targets.setEventTargetType(c.getString(c.getColumnIndex(CCH_TARGET_TYPE)));
+						event_targets.setEventTargetCategory(c.getString(c.getColumnIndex(CCH_TARGET_CATEGORY)));
+						   list.add(event_targets);
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				}
+				   c.moveToNext();		  				
+			}
+			c.close();
+			db.close();
 		}
-		c.close();
-		db.close();
-		return list;
-	}
-	
-	public ArrayList<String> getForUpdateCoverageNumberAchieved(long id,String duration){
-		SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<String> list=new ArrayList<String>();
-		 String strQuery="select * from "+COVERAGE_SET_TABLE
-	             +" where "+COL_COVERAGE_SET_PERIOD
-	             + " = '"+duration+"'"
-	              + " and "+COL_SYNC_STATUS
-		              + " = '"+"new_record"+"'"
-		              + " and "+BaseColumns._ID
-		              + " = "+id;	
-		Cursor c=db.rawQuery(strQuery, null);
-		c.moveToFirst();
-		while (c.isAfterLast()==false){
-			list.add(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
-			c.moveToNext();						
-		}
-		c.close();
-		db.close();
-		return list;
+			return list;	
 	}
 	
 	public ArrayList<String> getUserFirstName(String staff_id){
@@ -3845,9 +3613,9 @@ public long findItemCount(String table, String searchedBy,
 		    {
 			   String versionNumber = null;
 			   try{
-			   String PACKAGE_NAME=context.getPackageName();
-			   PackageInfo info = context.getPackageManager().getPackageInfo(PACKAGE_NAME, 0);
-			   versionNumber = info.versionName;
+				   String PACKAGE_NAME=context.getPackageName();
+				   PackageInfo info = context.getPackageManager().getPackageInfo(PACKAGE_NAME, 0);
+				   versionNumber = info.versionName;
 			   }catch(NameNotFoundException e){
 				   e.printStackTrace();
 			   }
@@ -3863,7 +3631,33 @@ public long findItemCount(String table, String searchedBy,
 			    }
 			}
 
-
+		   	public boolean isDateBefore(String date){
+		   		boolean isDateBefore = false;
+		   		DateTimeFormatter formatter = DateTimeFormat.forPattern( "dd-MM-yyyy" );
+		   		LocalDate comparedDate = formatter.parseLocalDate( date );
+		   		LocalDate today = new LocalDate();
+		   		
+		   		if(comparedDate.isBefore(today)){
+		   			isDateBefore=true;
+		   		}else{
+		   			isDateBefore=false;
+		   		}
+		   		return isDateBefore;
+		   	}
+		   	
+		   	public boolean isDateAfter(String date){
+		   		boolean isDateBefore = false;
+		   		DateTimeFormatter formatter = DateTimeFormat.forPattern( "dd-MM-yyyy" );
+		   		LocalDate comparedDate = formatter.parseLocalDate( date );
+		   		LocalDate today = new LocalDate();
+		   		
+		   		if(comparedDate.isAfter(today)){
+		   			isDateBefore=true;
+		   		}else{
+		   			isDateBefore=false;
+		   		}
+		   		return isDateBefore;
+		   	}
 			private String capitalize(String s) {
 			    if (s == null || s.length() == 0) {
 			        return "";
@@ -3891,5 +3685,118 @@ public long findItemCount(String table, String searchedBy,
 			        return true;
 			    }
 			    return false;
+			}
+// Transforming target setting			
+			public ArrayList<EventTargets> getAllEventTargets() 
+			{	
+				SQLiteDatabase db = this.getReadableDatabase();
+				ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
+				String strQuery="select * from "+EVENTS_SET_TABLE;	
+					Cursor c = db.rawQuery(strQuery, null);
+					c.moveToFirst();
+					
+					while (c.isAfterLast()==false) {
+						EventTargets event_targets = new EventTargets();
+						event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_EVENT_SET_NAME)));
+						event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_EVENT_NUMBER)));
+						event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
+						event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
+						event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
+						event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_EVENT_DUE_DATE)));
+						event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
+						event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_EVENT_PERIOD)));
+						event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
+						event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(COL_EVENT_SET_DETAIL)));
+						event_targets.setEventTargetNumberRemaining(c.getString(c.getColumnIndex(COL_NUMBER_REMAINING)));
+						   list.add(event_targets);
+						   c.moveToNext();						
+					}
+					c.close();
+					db.close();
+					return list;	
+			}
+			
+			
+			public ArrayList<EventTargets> getAllCoverageTargets() 
+			{	
+				SQLiteDatabase db = this.getReadableDatabase();
+				ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
+				String strQuery="select * from "+COVERAGE_SET_TABLE;	
+					Cursor c = db.rawQuery(strQuery, null);
+					c.moveToFirst();
+					
+					while (c.isAfterLast()==false) {
+						EventTargets event_targets = new EventTargets();
+						event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_COVERAGE_SET_CATEGORY_NAME)));
+						event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_COVERAGE_NUMBER)));
+						event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
+						event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
+						event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
+						event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_COVERAGE_DUE_DATE)));
+						event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
+						event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_COVERAGE_SET_PERIOD)));
+						event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
+						event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(COL_COVERAGE_SET_CATEGORY_DETAIL)));
+						event_targets.setEventTargetNumberRemaining(c.getString(c.getColumnIndex(COL_NUMBER_REMAINING)));
+						   list.add(event_targets);
+						   c.moveToNext();						
+					}
+					c.close();
+					db.close();
+					return list;	
+			}
+			
+			public ArrayList<EventTargets> getAllOtherTargets() 
+			{		SQLiteDatabase db = this.getReadableDatabase();
+				ArrayList<EventTargets> list=new ArrayList<EventTargets>();	 
+				String strQuery="select * from "+OTHER_TABLE;	
+					Cursor c = db.rawQuery(strQuery, null);
+					c.moveToFirst();
+					
+					while (c.isAfterLast()==false) {
+						EventTargets event_targets = new EventTargets();
+						event_targets.setEventTargetName(c.getString(c.getColumnIndex(COL_OTHER_CATEGORY)));
+						event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(COL_OTHER_NUMBER)));
+						event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(COL_NUMBER_ACHIEVED)));
+						event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
+						event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
+						event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(COL_OTHER_DUE_DATE)));
+						event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
+						event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(COL_OTHER_PERIOD)));
+						event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
+						event_targets.setEventTargetPersonalCategory(c.getString(c.getColumnIndex(COL_OTHER_DETAILS)));
+						event_targets.setEventTargetNumberRemaining(c.getString(c.getColumnIndex(COL_NUMBER_REMAINING)));
+						   list.add(event_targets);
+						   c.moveToNext();						
+					}
+					c.close();
+					db.close();
+					return list;	
+			}
+			
+			public ArrayList<LearningTargets> getAllLearningTargets() 
+			{	SQLiteDatabase db = this.getReadableDatabase();
+				ArrayList<LearningTargets> list=new ArrayList<LearningTargets>();	 
+				String strQuery="select * from "+LEARNING_TABLE;	
+					Cursor c = db.rawQuery(strQuery, null);
+					c.moveToFirst();
+					
+					while (c.isAfterLast()==false) {
+						LearningTargets learning_targets = new LearningTargets();
+						learning_targets.setLearningTargetName(c.getString(c.getColumnIndex(COL_LEARNING_CATEGORY)));
+						learning_targets.setLearningTargetCourse(c.getString(c.getColumnIndex(COL_LEARNING_DESCRIPTION)));
+						learning_targets.setLearningTargetTopic(c.getString(c.getColumnIndex(COL_LEARNING_TOPIC)));
+						learning_targets.setLearningTargetStartDate(c.getString(c.getColumnIndex(COL_START_DATE)));
+						learning_targets.setLearningTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
+						learning_targets.setLearningTargetEndDate(c.getString(c.getColumnIndex(COL_LEARNING_DUE_DATE)));
+						learning_targets.setLearningTargetLastUpdated(c.getString(c.getColumnIndex(COL_LAST_UPDATED)));
+						learning_targets.setLearningTargetPeriod(c.getString(c.getColumnIndex(COL_LEARNING_PERIOD)));
+						learning_targets.setLearningTargetStatus(c.getString(c.getColumnIndex(COL_SYNC_STATUS)));
+						   list.add(learning_targets);
+						   c.moveToNext();						
+					}
+					c.close();
+					db.close();
+					return list;	
 			}
 }

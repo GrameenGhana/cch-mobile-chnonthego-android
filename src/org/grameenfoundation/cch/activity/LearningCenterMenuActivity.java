@@ -55,9 +55,9 @@ public class LearningCenterMenuActivity extends AppActivity {
 				switch(position){
 				case 0:
 					if(isOnline()){
-					intent=new Intent(mContext,TagSelectActivity.class);
-					startActivity(intent);
-					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+						intent=new Intent(mContext,TagSelectActivity.class);
+						startActivity(intent);
+						overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					}else{
 						intent=new Intent(mContext,OppiaMobileActivity.class);
 						startActivity(intent);

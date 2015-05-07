@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.adapters.LearningTargetAchievementsAdapter;
 import org.grameenfoundation.adapters.NumericalTargetAchievementsAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
@@ -23,9 +24,9 @@ public class LearningTargetAchievementActivity extends Activity{
 	private ExpandableListView expandableListview;
 	private Context mContext;
 	private CalendarEvents c;
-	 private ArrayList<LearningTargets> completedLearningTargets;
-	 private ArrayList<LearningTargets> unCompletedLearningTargets;
-	private LearningTargetAchievementsAdapter adapter;
+	 private ArrayList<EventTargets> completedLearningTargets;
+	 private ArrayList<EventTargets> unCompletedLearningTargets;
+	private NumericalTargetAchievementsAdapter adapter;
 	private DbHelper db;
 	private TextView textView_label;
 	private TextView textView_number;
@@ -64,15 +65,16 @@ public class LearningTargetAchievementActivity extends Activity{
 
 	    @Override
 	    protected Object doInBackground(Object... params) {
-	         completedLearningTargets=db.getAllLearningTargetsCompletedForAchievements("updated",month+1, year);
-	         unCompletedLearningTargets=db.getAllLearningTargetsCompletedForAchievements("new_record",month+1, year);
+	         completedLearningTargets=db.getListOfTargetsForAchievements(MobileLearning.CCH_TARGET_STATUS_UPDATED,MobileLearning.CCH_TARGET_TYPE_LEARNING,month+1, year);
+	         unCompletedLearningTargets=db.getListOfTargetsForAchievements(MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_LEARNING,month+1, year);
 	            return null;
 	        
 	    }
 
 	    @Override
 	    protected void onPostExecute(Object result) {
-	        	 adapter=new LearningTargetAchievementsAdapter(mContext,groupItems,completedLearningTargets ,
+	    	System.out.println(month);
+	        	 adapter=new NumericalTargetAchievementsAdapter(mContext,groupItems,completedLearningTargets ,
 	 	    			unCompletedLearningTargets,
 						expandableListview);
 		    expandableListview.setAdapter(adapter);

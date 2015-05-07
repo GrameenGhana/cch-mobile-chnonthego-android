@@ -4,12 +4,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.grameenfoundation.cch.utils.MaterialSpinner;
+
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class Validation {
 
-	 private static final String REQUIRED_MSG = "required";
+	 private static final String REQUIRED_MSG = "*required";
 	 public static boolean hasTextEditText(EditText editText) {
 		 
 	        String text = editText.getText().toString().trim();
@@ -23,7 +26,21 @@ public class Validation {
 	        }
 	 
 	        return true;
-	    }								
+	    }	
+	 
+	 public static boolean hasSelection(MaterialSpinner spinner) {
+		 
+	        String text = spinner.getSelectedItem().toString();
+	        spinner.setError(null);;
+	 
+	        // length 0 means there is no text
+	        if (text.equalsIgnoreCase("Select")) {
+	            spinner.setError(REQUIRED_MSG);
+	            return false;
+	        }
+	 
+	        return true;
+	    }	
 	 
 	 public static boolean hasTextTextView(TextView textView) {
 		 

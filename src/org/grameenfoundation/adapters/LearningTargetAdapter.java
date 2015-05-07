@@ -167,7 +167,7 @@ public class LearningTargetAdapter extends BaseExpandableListAdapter{
 		   text6.setText(midYearLearningTargets.get(childPosition).getLearningTargetPeriod());
 		   text7.setText(midYearLearningTargets.get(childPosition).getLearningTargetLastUpdated());
 		   
-	   }else if(groupPosition==6){
+	   }else if(groupPosition==5){
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_learningCategory);
 		   TextView text2=(TextView) convertView.findViewById(R.id.textView_learningCourse);
 		   TextView text3=(TextView) convertView.findViewById(R.id.textView_learningTopic);

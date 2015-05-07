@@ -65,10 +65,10 @@ public class UpdateTargetsService extends Service {
 		Log.v(TAG, "Starting target update Service");
 		 Time time = new Time();
 		    time.setToNow();
-		    eventId=db.getEventCount("Daily");
-			 coverageId=db.getCoverageCount("Daily");
-			 otherId=db.getOtherCount("Daily");
-			 learningId=db.getLearningCount("Daily");
+		    eventId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_EVENT);
+			 coverageId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+			 otherId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_OTHER);
+			 learningId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_LEARNING);
 			 int number=(int)eventId;
 			 int number2=(int)coverageId;
 			 int number3=(int)otherId;

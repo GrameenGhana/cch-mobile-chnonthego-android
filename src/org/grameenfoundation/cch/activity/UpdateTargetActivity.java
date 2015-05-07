@@ -5,152 +5,134 @@ import java.util.Calendar;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.adapters.UpdateTargetsAdapter;
+import org.grameenfoundation.calendar.CalendarEvents;
+import org.grameenfoundation.cch.activity.TargetAchievementDetailActivity.ListAdapter;
+import org.grameenfoundation.cch.model.CoverageTargetAchievementActivity;
+import org.grameenfoundation.cch.model.EventTargetAchievementActivity;
 import org.grameenfoundation.cch.model.EventTargets;
+import org.grameenfoundation.cch.model.LearningTargetAchievementActivity;
 import org.grameenfoundation.cch.model.LearningTargets;
+import org.grameenfoundation.cch.model.OtherTargetAchievementActivity;
+import org.grameenfoundation.poc.BaseActivity;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.Time;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ExpandableListView.OnChildClickListener;
 
-public class UpdateTargetActivity extends Activity implements OnChildClickListener{
+public class UpdateTargetActivity extends BaseActivity{
 
 	private DbHelper db;
 	private Context mContext;
-		 private ArrayList<EventTargets> eventTargets;
-		 private ArrayList<EventTargets> coverageTargets;
-		 private ArrayList<EventTargets> otherTargets;
-		 private ArrayList<LearningTargets> learningTargets;
+	 public ArrayList<EventTargets> DailyTargets;
+	 public ArrayList<EventTargets> WeeklyTargets;
+	 public ArrayList<EventTargets> MonthlyTargets;
+	 public ArrayList<EventTargets> QuarterlyTargets;
+	 public ArrayList<EventTargets> MidyearTargets;
+	 public ArrayList<EventTargets> AnnualTargets;
 	String due_date;
 	private ExpandableListView expandableListView_updates;
 	private UpdateTargetsAdapter updates_adapter;
 	private String[] groupItems;
 	private long selected_id;
+	private ListView expandableListview;
+	private TextView textView_label;
+	private TextView textView_number;
+	private ListAdapter adapter;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_update_targets);
+	    setContentView(R.layout.activity_achievements_details);
+	    expandableListview = (ListView) findViewById(R.id.expandableListView1);
 	    mContext=UpdateTargetActivity.this;
-	    db=new DbHelper(mContext);
+	    db=new DbHelper(UpdateTargetActivity.this);
+	    String[] groupItems={"Events","Coverage","Learning","Other"};
 	    getActionBar().setTitle("Planner");
-		getActionBar().setSubtitle("Update Targets");
- 	   eventTargets=db.getAllEventTargetsForUpdate("Daily");
- 	   coverageTargets=db.getAllCoverageTargetsForUpdate("Daily");
- 	   learningTargets=db.getAllLearningTargetsForUpdate("Daily");
- 	   otherTargets=db.getAllOtherTargetsForUpdate("Daily");
- 	   
- 	    groupItems=new String[]{"Events ("+String.valueOf(eventTargets.size())+")",
- 	    						"Coverage ("+String.valueOf(coverageTargets.size())+")",
- 	    						"Learning ("+String.valueOf(learningTargets.size())+")",
- 	    						"Other ("+String.valueOf(otherTargets.size())+")"};
- 	    expandableListView_updates=(ExpandableListView) findViewById(R.id.expandableListView_updates);
- 	    updates_adapter=new UpdateTargetsAdapter(mContext,eventTargets,
-										coverageTargets,
-										otherTargets,
-										learningTargets,
-			 							groupItems,
-			 							expandableListView_updates);
- 	   expandableListView_updates.setAdapter(updates_adapter);
- 	  expandableListView_updates.setOnChildClickListener(this);
-	}
+	    getActionBar().setSubtitle("Update Targets");
+	    textView_label=(TextView) findViewById(R.id.textView_label);
+	    textView_label.setVisibility(View.GONE);
+	    textView_number=(TextView) findViewById(R.id.textView_number);
+	    textView_number.setVisibility(View.GONE);
+	    adapter=new ListAdapter(mContext,groupItems);
+	    expandableListview.setAdapter(adapter);
+	    expandableListview.setOnItemClickListener(new OnItemClickListener(){
 
-	@Override
-	public boolean onChildClick(ExpandableListView parent, View v,
-			int groupPosition, int childPosition, long id) {
-		String[] selected_items=updates_adapter.getChild(groupPosition, childPosition);
-		if(groupPosition==0){
-			selected_id=Long.parseLong(selected_items[7]);
-			String name=selected_items[0];
-			String number=selected_items[1];
-			String period=selected_items[2];
-			String due_date=selected_items[3];
-			String status=selected_items[6];
-			String startDate=selected_items[5];
-			String achieved=selected_items[4];
-			ArrayList<String> number_achieved=db.getForUpdateEventNumberAchieved(selected_id,period);
-			Intent intent=new Intent(mContext,UpdateActivity.class);
-			intent.putExtra("id",selected_id);
-			intent.putExtra("name",name);
-			intent.putExtra("number",number);
-			intent.putExtra("period", period);
-			intent.putExtra("type", "event");
-			intent.putExtra("due_date", due_date);
-			intent.putExtra("start_date", startDate);
-			intent.putExtra("status", status);
-			intent.putExtra("number_achieved", number_achieved.get(0));
-			startActivity(intent);
-			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
-		}else if(groupPosition==1){
-			selected_id=Long.parseLong(selected_items[7]);
-			String name=selected_items[0];
-			String number=selected_items[1];
-			String period=selected_items[2];
-			String due_date=selected_items[3];
-			String status=selected_items[6];
-			String startDate=selected_items[5];
-			String achieved=selected_items[4];
-			ArrayList<String> number_achieved=db.getForUpdateCoverageNumberAchieved(selected_id,period);
-			Intent intent=new Intent(mContext,UpdateActivity.class);
-			intent.putExtra("id",selected_id);
-			intent.putExtra("name",name);
-			intent.putExtra("number",number);
-			intent.putExtra("period", period);
-			intent.putExtra("type", "coverage");
-			intent.putExtra("due_date", due_date);
-			intent.putExtra("start_date", startDate);
-			intent.putExtra("status", status);
-			intent.putExtra("number_achieved", number_achieved.get(0));
-			startActivity(intent);
-			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
-		}else if(groupPosition==2){
-			selected_id=Long.parseLong(selected_items[5]);
-			String name=selected_items[0];
-			String period=selected_items[1];
-			String due_date=selected_items[2];
-			String status=selected_items[4];
-			String startDate=selected_items[3];
-			String learningCourse=selected_items[7];
-			Intent intent=new Intent(mContext,UpdateActivity.class);
-			intent.putExtra("id",selected_id);
-			intent.putExtra("learning_topic",name);
-			intent.putExtra("learning_course",learningCourse);
-			intent.putExtra("period", period);
-			intent.putExtra("type", "learning");
-			intent.putExtra("due_date", due_date);
-			intent.putExtra("start_date", startDate);
-			intent.putExtra("status", status);
-			startActivity(intent);
-			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
-		}else if(groupPosition==3){
-			selected_id=Long.parseLong(selected_items[7]);
-			String name=selected_items[0];
-			String number=selected_items[1];
-			String period=selected_items[2];
-			String due_date=selected_items[3];
-			String status=selected_items[6];
-			String startDate=selected_items[5];
-			String achieved=selected_items[4];
-			ArrayList<String> number_achieved=db.getForUpdateOtherNumberAchieved(selected_id,period);
-			Intent intent=new Intent(mContext,UpdateActivity.class);
-			intent.putExtra("id",selected_id);
-			intent.putExtra("name",name);
-			intent.putExtra("number",number);
-			intent.putExtra("period", period);
-			intent.putExtra("type", "other");
-			intent.putExtra("due_date", due_date);
-			intent.putExtra("start_date", startDate);
-			intent.putExtra("status", status);
-			intent.putExtra("number_achieved", number_achieved.get(0));
-			startActivity(intent);
-			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent intent;
+				switch(position){
+				case 0:
+					intent=new Intent(mContext,EventTargetUpdateActivity.class);
+					startActivity(intent);
+					break;
+				case 1:
+					intent=new Intent(mContext,CoverageTargetsUpdateActivity.class);
+					startActivity(intent);
+					break;
+				case 2:
+					intent=new Intent(mContext,LearningTargetUpdateActivity.class);
+					startActivity(intent);
+					break;
+					
+				case 3:
+					intent=new Intent(mContext,OtherTargetsUpdateActivity.class);
+					startActivity(intent);
+					break;
+				}
+			}
+	    	
+	    });
+	}
+	class ListAdapter extends BaseAdapter{
+		Context mContext;
+		String[] listItems;
+		 public LayoutInflater minflater;
+		
+		public ListAdapter(Context mContext,String[] listItems){
+		this.mContext=mContext;
+		this.listItems=listItems;
+		 minflater = LayoutInflater.from(mContext);
 		}
-		return true;
-	}	
+		@Override
+		public int getCount() {
+			return listItems.length;
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return null;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return 0;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			if( convertView == null ){
+				  convertView = minflater.inflate(R.layout.other_listview_single,parent, false);
+			    }
+			 TextView text=(TextView) convertView.findViewById(R.id.textView_otherCategory);
+			 text.setText(listItems[position]);
+			    return convertView;
+		}
+		
+	}
 	
 }

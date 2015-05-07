@@ -12,6 +12,7 @@ import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.cch.caldroid.CaldroidFragment;
 import org.grameenfoundation.cch.caldroid.CaldroidListener;
 import org.grameenfoundation.cch.model.Validation;
+import org.grameenfoundation.cch.utils.MaterialSpinner;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,9 +49,6 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 
 	
 	private ImageView imageView_status;
-	private String learning_category;
-	private String learning_course;
-	private String learning_topic;
 	private String status;
 	private long learning_id;
 	private DbHelper db;
@@ -78,7 +76,14 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 	private int today_month;
 	private int today_day;
 	private int today_year;
-
+	public long learning_old_id;
+	private String learning_target_name;
+	private String learning_target_detail;
+	private String learning_target_category;
+	private MaterialSpinner target_name;
+	private MaterialSpinner target_category;
+	private MaterialSpinner target_detail;
+	private MaterialSpinner spinner_period;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -106,40 +111,71 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 	    new GetData().execute();
         button_edit.setOnClickListener(new OnClickListener(){
 
+		
+
 			@Override
 			public void onClick(View v) {
 				final Dialog dialog = new Dialog(LearningTargetsDetailActivity.this);
 				dialog.setContentView(R.layout.learning_add_dialog);
 				dialog.setTitle("Edit Learning Target");
-				final Spinner editText_learningDescription=(Spinner) dialog.findViewById(R.id.spinner_learningDescription);
-			    final Spinner spinner_learningCatagory=(Spinner) dialog.findViewById(R.id.spinner_learningHeader);
+			    target_name=(MaterialSpinner) dialog.findViewById(R.id.spinner_learningHeader);
 				String[] items={"Family Planning","Maternal and Child Health"};
-				final Spinner spinner_learningDescription=(Spinner) dialog.findViewById(R.id.spinner_learningDescription);
+				target_category=(MaterialSpinner) dialog.findViewById(R.id.spinner_learningDescription);
+				final Button button_show=(Button) dialog.findViewById(R.id.button_show);
+				button_show.setVisibility(View.GONE);
 				ArrayAdapter<String> adapter=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
-				spinner_learningCatagory.setAdapter(adapter);
-				final Spinner spinner_learningCourse=(Spinner) dialog.findViewById(R.id.spinner_learningCourse);
-				
-				spinner_learningCatagory.setOnItemSelectedListener(new OnItemSelectedListener(){
+				target_name.setAdapter(adapter);
+				target_detail=(MaterialSpinner) dialog.findViewById(R.id.spinner_learningCourse);
+				String[] items2={"Family Planning 101",
+						"Family Planning Counselling",
+						"Family Planning for people living with HIV",
+						"Hormonal Contraceptives",
+						"Postpartum Family Planning"};
+				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items2);
+				target_detail.setAdapter(adapter2);
+				String[] items3=new String[]{"Rationale for voluntary family planning",
+				"Family Planning method considerations",
+				"Short-acting contraceptive methods",
+				"Long-acting contraceptive methods",
+				"Special needs"};
+		ArrayAdapter<String> adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
+		target_category.setAdapter(adapter3);
+				target_name.setOnItemSelectedListener(new OnItemSelectedListener(){
 					
 					@Override
 					public void onItemSelected(AdapterView<?> parent,
 							View view, int position, long id) {
-						switch(position){
-						case 0:
-							String[] items2={"Family Planning 101","Family Planning Counselling",
-									"Family Planning for people living with HIV","Hormonal Contraceptives",
-									"Postpartum Family Planning"};
+						if(target_name.getSelectedItem().toString().equalsIgnoreCase("Family Planning")){
+							String[] items2={"Family Planning 101",
+											"Family Planning Counselling",
+											"Family Planning for people living with HIV",
+											"Hormonal Contraceptives",
+											"Postpartum Family Planning"};
 							ArrayAdapter<String> adapter2=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items2);
-							spinner_learningCourse.setAdapter(adapter2);
-							break;
-						case 1:
+							target_detail.setAdapter(adapter2);
+							String[] items=new String[]{"Rationale for voluntary family planning",
+									"Family Planning method considerations",
+									"Short-acting contraceptive methods",
+									"Long-acting contraceptive methods",
+									"Special needs"};
+							ArrayAdapter<String> adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
+							target_category.setAdapter(adapter3);
+						}else if(target_name.getSelectedItem().toString().equalsIgnoreCase("Maternal and Child Health")){
 							String[] items2_1={"Essential Newborn care","Antenatal Care",
 												"Diarrhoea Disease","Emergency obstetrics",
-												"Malaria in Pregnancy","Postpartum Care",
+												"Malaria in Pregnancy",
+												"Postpartum Care",
 												"Preventing Postpartum Hemorrhage"};
 							ArrayAdapter<String> adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items2_1);
-							spinner_learningCourse.setAdapter(adapter3);
-							break;
+							target_detail.setAdapter(adapter3);
+							String[] items=new String[]{"Newborn mortality",
+									"Care during labor and birth",
+									"Newborn care following birth",
+									"Newborn care following birth: Later",
+									"Infant feeding",
+									"Household to hospital continuum"};
+							ArrayAdapter<String> adapter4=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
+							target_category.setAdapter(adapter4);
 						}
 					}
 
@@ -147,123 +183,112 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 					public void onNothingSelected(AdapterView<?> parent) {
 					}
 				});
-				final Spinner spinner_period=(Spinner) dialog.findViewById(R.id.spinner_period);
+				spinner_period=(MaterialSpinner) dialog.findViewById(R.id.spinner_period);
 				final String[] items_period=getResources().getStringArray(R.array.ReminderFrequency);
 				ArrayAdapter<String> adapter_period=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items_period);
 				spinner_period.setAdapter(adapter_period);
 				
-				spinner_learningCourse.setOnItemSelectedListener(new OnItemSelectedListener(){
+				target_detail.setOnItemSelectedListener(new OnItemSelectedListener(){
 					
 					@Override
 					public void onItemSelected(AdapterView<?> parent,
 							View view, int position, long id) {
-						switch (position){
-						case 0:
-							String[] items;
-							if(spinner_learningCourse.getSelectedItem().equals("Essential Newborn care")){
+						String items[];
+						ArrayAdapter<String> adapter3;
+						if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Family Planning 101")){
+							items=new String[]{"Rationale for voluntary family planning",
+									"Family Planning method considerations",
+									"Short-acting contraceptive methods",
+									"Long-acting contraceptive methods",
+									"Special needs"};
+							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
+							target_category.setAdapter(adapter3);
+						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Family Planning Counselling")){
+							items=new String[]{"Family planning counselling",
+							"Family planning counselling skills"};
+							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
+							target_category.setAdapter(adapter3);
+						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Family Planning for people living with HIV")){
+							items= new String[]{"Family Planning/Reproductive Health",
+									"Family planning for people living with HIV",
+									"Reproductive Health",
+									"Helping Clients Make a Family Planning",
+									"Family Planning in PMTCT Services"};
+							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
+							target_category.setAdapter(adapter3);
+						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Hormonal Contraceptives")){
+							items=new String[]{"Hormonal Contraceptives",
+									"Oral contraceptives",
+									"Emergency contraceptive pills",
+									"Injectable contraceptives",
+									"Implants",
+									"Benefits and risks of hormonal contraceptives"};
+							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
+							target_category.setAdapter(adapter3);
+						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Postpartum Family Planning")){
+							items=new String[]{"Rationale for postpartum family planning",
+									"Contraceptive method considerations",
+									"Service delivery:Clinical Considerations",
+									"Service delivery:Integration and linkage"};
+							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
+							target_category.setAdapter(adapter3);
+						}
+						else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Essential Newborn care")){
 							items=new String[]{"Newborn mortality",
 									"Care during labor and birth",
 									"Newborn care following birth",
 									"Newborn care following birth: Later",
 									"Infant feeding",
 									"Household to hospital continuum"};
-							
-						}else {
-							items=new String[]{"Rationale for voluntary family planning",
-									"Family Planning method considerations",
-									"Short-acting contraceptive methods",
-									"Long-acting contraceptive methods",
-									"Special needs"};
-							}
-							ArrayAdapter<String> adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
-							spinner_learningDescription.setAdapter(adapter3);
-							break;
-						case 1:
-							String[] items4;
-							if(spinner_learningCourse.getSelectedItem().equals("Antenatal Care")){
-								items4=new String[]{"Significance of Antenatal Care",
-										"Goal and Principles of Antenatal Care",
-										"Elements of Focused (Goal-directed) Assessment",
-										"Screening to Detect, Not Predict, Problems",
-										"Preventive Measures",
-										"Malaria in Pregnancy",
-										"HIV in Pregnancy","Syphilis in Pregnancy",
-										"Program Considerations"};
-							}else {
-							items4=new String[]{"Family planning counselling",
-									"Family planning counselling skills"};
-							}
-					ArrayAdapter<String> adapter4=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items4);
-					spinner_learningDescription.setAdapter(adapter4);
-							break;
-						case 2:
-							String[] items5;
-							if(spinner_learningCourse.getSelectedItem().equals("Diarrhoeal Disease")){
-								items5=new String[]{"Etiology and Epidemiology",
-										"Clinical Assessment and Classification",
-										"Treatment",
-										"Prevention"};
-							}else {
-							items5= new String[]{"Family Planning/Reproductive Health",
-									"Family planning for people living with HIV",
-									"Reproductive Health",
-									"Helping Clients Make a Family Planning",
-									"Family Planning in PMTCT Services"};
-							}
-					ArrayAdapter<String> adapter5=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items5);
-					spinner_learningDescription.setAdapter(adapter5);
-							break;
-						case 3:
-							String[] items6;
-							if(spinner_learningCourse.getSelectedItem().equals("Emergency obstetrics")){
-								items6=new String[]{"Background and Definitions",
-										"Basic and Comprehensive EmONC",
-										"Implementation of EmONC Services"};
-							}else {
-							items6=new String[]{"Hormonal Contraceptives",
-									"Oral contraceptives",
-									"Emergency contraceptive pills",
-									"Injectable contraceptives",
-									"Implants",
-									"Benefits and risks of hormonal contraceptives"};
-							}
-					ArrayAdapter<String> adapter6=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items6);
-					spinner_learningDescription.setAdapter(adapter6);
-							break;
-						case 4:
-							String[] items7;
-							 if(spinner_learningCourse.getSelectedItem().equals("Malaria in Pregnancy")){
-									items7=new String[]{"Why Is Malaria in Pregnancy (MIP) Important?",
-											"MIP: Strategic Framework, Main Interventions",
-											"Insecticide-treated Nets, Case Management",
-											"Partnerships for MIP, MIP Readiness",
-											"Case Study: Frequent Problems/Practical Solutions"};
-							 }else{
-							items7=new String[]{"Rationale for postpartum family planning",
-									"Contraceptive method considerations",
-									"Service delivery:Clinical Considerations",
-									"Service delivery:Integration and linkage"};
-							 }
-					ArrayAdapter<String> adapter7=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items7);
-					spinner_learningDescription.setAdapter(adapter7);
-							break;
-						case 5:
+							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
+							target_category.setAdapter(adapter3);
+						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Antenatal Care")){
+							items=new String[]{"Significance of Antenatal Care",
+									"Goal and Principles of Antenatal Care",
+									"Elements of Focused (Goal-directed) Assessment",
+									"Screening to Detect, Not Predict, Problems",
+									"Preventive Measures",
+									"Malaria in Pregnancy",
+									"HIV in Pregnancy","Syphilis in Pregnancy",
+									"Program Considerations"};
+							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
+							target_category.setAdapter(adapter3);
+						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Diarrhoea Disease")){
+							items=new String[]{"Etiology and Epidemiology",
+									"Clinical Assessment and Classification",
+									"Treatment",
+									"Prevention"};
+							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
+							target_category.setAdapter(adapter3);
+						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Emergency obstetrics")){
+							items=new String[]{"Background and Definitions",
+									"Basic and Comprehensive EmONC",
+									"Implementation of EmONC Services"};
+							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
+							target_category.setAdapter(adapter3);
+						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Malaria in Pregnancy")){
+							items=new String[]{"Why Is Malaria in Pregnancy (MIP) Important?",
+									"MIP: Strategic Framework, Main Interventions",
+									"Insecticide-treated Nets, Case Management",
+									"Partnerships for MIP, MIP Readiness",
+									"Case Study: Frequent Problems/Practical Solutions"};
+							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
+							target_category.setAdapter(adapter3);
+						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Postpartum Care")){
 							items=new String[]{"Postpartum Care: Overview",
 									"Field Realities",
 									"Preventing Postpartum Mortality and Morbidity One",
 									"Preventing Postpartum Mortality and Morbidity Two",
 									"Case Study: Frequent Problems/Practical Solutions"};
-							ArrayAdapter<String> adapter8=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
-							spinner_learningDescription.setAdapter(adapter8);
-							break;
-						case 6:
+							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
+							target_category.setAdapter(adapter3);
+						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Preventing Postpartum Hemorrhage")){
 							items=new String[]{"Postpartum Hemorrhage and Maternal Mortality",
 									"Causes of Postpartum Hemorrhage",
 									"Prevention of Postpartum Hemorrhage One",
 									"Prevention of Postpartum Hemorrhage Two: AMTSL"};	
-							ArrayAdapter<String> adapter9=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
-							spinner_learningDescription.setAdapter(adapter9);
-							break;
+							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
+							target_category.setAdapter(adapter3);
 						}
 						
 					}
@@ -294,7 +319,6 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 					public void onClick(View v) {
 						final CaldroidFragment dialogCaldroidFragment = CaldroidFragment.newInstance("Select a date", today_month, today_year);
 						dialogCaldroidFragment.show(getSupportFragmentManager(),"TAG");
-						//dialogCaldroidFragment.setEnableSwipe(true);
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 						    @Override
@@ -319,7 +343,6 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 					public void onClick(View v) {
 						final CaldroidFragment dialogCaldroidFragment = CaldroidFragment.newInstance("Select a date", today_month, today_year);
 						dialogCaldroidFragment.show(getSupportFragmentManager(),"TAG");
-						//dialogCaldroidFragment.setEnableSwipe(true);
 						final CaldroidListener listener = new CaldroidListener() {
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 						    @Override
@@ -350,31 +373,29 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 				});
 				
 				dialogButton.setOnClickListener(new OnClickListener() {
+					
+
 					@Override
 					public void onClick(View v) {
 						//dialog.dismiss();
 						String duration=" ";
 						
-						String learning_category=spinner_learningCatagory.getSelectedItem().toString();
-						String learning_course=spinner_learningCourse.getSelectedItem().toString();
-						String learning_topic=spinner_learningDescription.getSelectedItem().toString();
-						/*
-						if(isDateAfter(start_date,due_date)==true){
-				      		 startDateValue.requestFocus();
-				      		startDateValue.setError("Check this date!");
-				      	}else if(start_date==null){
-				      		startDateValue.setError("Select a date");
-				      	}
-				      	else if(due_date==null){
-				      		dueDateValue.setError("Select a date");
-				      	}*/if(!checkValidation()){
+						learning_target_name=target_name.getSelectedItem().toString();
+						learning_target_detail=target_detail.getSelectedItem().toString();
+						learning_target_category=target_category.getSelectedItem().toString();
+						period=spinner_period.getSelectedItem().toString();
+						if(!checkValidation()){
 				      		Toast.makeText(getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();
 				      	}else{
-					    if(db.editLearning(learning_category, learning_course,learning_topic,duration,startDateValue.getText().toString(),dueDateValue.getText().toString(), learning_id) ==true){
+					    if(db.editTarget(learning_target_name, learning_target_detail,learning_target_category,"0",startDateValue.getText().toString(),dueDateValue.getText().toString(),period, learning_id) ==true){
 					    	JSONObject json = new JSONObject();
 							 try {
-								json.put("id", learning_id);
-								 json.put("target_type", learning_topic);
+								 if(learning_old_id!=0){
+									 json.put("id", learning_old_id);
+								 }else{
+									 json.put("id", learning_id);
+								 }
+								 json.put("target_type", learning_target_category);
 								 json.put("target_number", 1);
 								 json.put("achieved_number", 0);
 								 json.put("category", "learning");
@@ -428,11 +449,15 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 						  })
 						.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,int id) {
-								if(db.deleteLearningCategory(learning_id)==true){
+								if(db.deleteTarget(learning_id)==true){
 									JSONObject json = new JSONObject();
 									 try {
-										json.put("id", learning_id);
-										 json.put("target_type", learning_topic);
+										 if(learning_old_id!=0){
+											 json.put("id", learning_old_id);
+										 }else{
+											 json.put("id", learning_id);
+										 }
+										 json.put("target_type", learning_target_category);
 										 json.put("target_number", 1);
 										 json.put("achieved_number", 0);
 										 json.put("category", "learning");
@@ -478,9 +503,9 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 				intent3.setClass(LearningTargetsDetailActivity.this,UpdateActivity.class);
 				intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	        	intent3.putExtra("id", learning_id);
-				//intent3.putExtra("number",event_number);
-				intent3.putExtra("learning_topic", learning_topic);
-				intent3.putExtra("learning_course", learning_course);
+				intent3.putExtra("old_id",learning_old_id);
+				intent3.putExtra("learning_topic", learning_target_category);
+				intent3.putExtra("learning_section", learning_target_detail);
 				intent3.putExtra("type", "learning");
 				intent3.putExtra("due_date", due_date_extra);
 				intent3.putExtra("start_date", start_date_extra);
@@ -526,6 +551,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 
 	 public static long differenceIndays(String startDate,String endDate,String today)
 	 {
+			// String toDateAsString = "05/11/2010";
 			 Date start_date = null;
 			 Date end_date = null;
 			 Date today_date=null;
@@ -533,18 +559,18 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 			long endDateTimestamp=0;
 			try {
 				today_date= new SimpleDateFormat("dd-MM-yyyy").parse(today);
-				if(startDate==null){
-				System.out.println("Enter a valid date!");
+			if(startDate!=null){
+				start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+				 starDateAsTimestamp = start_date.getTime();
 				}else{
-					start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
-					 starDateAsTimestamp = start_date.getTime();
+					System.out.println("Enter a valid date!");
 				}
+			if(endDate!=null){
+				  end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+				  endDateTimestamp = end_date.getTime();
 				
-				if(endDate==null){
-					System.out.println("Enter a valid date!");	
 				}else {
-					end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
-					  endDateTimestamp = end_date.getTime();
+					System.out.println("Enter a valid date!");	
 				}
 				
 				
@@ -552,8 +578,6 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
 			 long todayDateTimestamp = today_date.getTime();
 			 long diff = endDateTimestamp - todayDateTimestamp;
 			  
@@ -620,13 +644,14 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 	    protected Object doInBackground(Object... params) {
 	    	Bundle extras = getIntent().getExtras(); 
 	        if (extras != null) {
-	        	learning_category=extras.getString("learning_category");
-	        	learning_course=extras.getString("learning_course");
-	        	learning_topic=extras.getString("learning_topic");
+	        	learning_target_name=extras.getString("learning_course");
+	        	learning_target_detail=extras.getString("learning_section");
+	        	learning_target_category=extras.getString("learning_topic");
 				due_date_extra=extras.getString("due_date");
 				start_date_extra=extras.getString("start_date");
 				status=extras.getString("status");
 				learning_id=extras.getLong("learning_id");
+				learning_old_id=extras.getLong("old_id");
 				last_updated=extras.getString("last_updated");
 				period=extras.getString("period");
 	        }
@@ -657,10 +682,10 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 		        	imageView_status.setImageResource(R.drawable.ic_achieved_waiting);
 		        }
 	    	  learning_period.setText(period);
-	          textView_category.setText(learning_category);
-	          textView_course.setText(learning_topic);
+	          textView_category.setText(learning_target_name);
+	          textView_course.setText(learning_target_detail);
+	          textView_topic.setText(learning_target_category);
 	          textView_dueDate.setText(due_date_extra);
-	          textView_topic.setText(learning_course);
 	          textView_startDate.setText(start_date_extra);
 	        
 	    }
@@ -671,7 +696,11 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 	 
 	        if (!Validation.hasTextTextView(startDateValue)) ret = false;
 	        if (!Validation.hasTextTextView(dueDateValue)) ret = false;
-	        if (Validation.isDateAfter(start_date,due_date,startDateValue)) ret = false;
+	        if (!Validation.hasSelection(target_name)) ret=false;
+	        if (!Validation.hasSelection(target_category)) ret=false;
+	        if (!Validation.hasSelection(target_detail)) ret=false;
+	        if (!Validation.hasSelection(spinner_period)) ret=false;
+	        if (Validation.isDateAfter(startDateValue.getText().toString(),dueDateValue.getText().toString(),startDateValue)) ret = false;
 	        return ret;
 	    }	
 }

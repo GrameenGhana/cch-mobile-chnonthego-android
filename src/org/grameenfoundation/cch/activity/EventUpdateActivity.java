@@ -7,6 +7,8 @@ import org.digitalcampus.oppia.activity.MainScreenActivity;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.cch.model.MyCalendarEvents;
+import org.grameenfoundation.cch.model.Validation;
+import org.grameenfoundation.cch.utils.MaterialSpinner;
 import org.grameenfoundation.poc.BaseActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,11 +26,15 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.TableRow;
 import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
@@ -45,6 +51,11 @@ public class EventUpdateActivity extends BaseActivity {
 	private DbHelper db;
 	private Long start_time;
 	private static final String EVENT_PLANNER_ID = "Event Planner";
+	private LinearLayout linearLayout_justification;
+	private MaterialSpinner justification;
+	private TableRow other_option;
+	private EditText editText_otherOption;
+	private String justification_text;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,26 +68,66 @@ public class EventUpdateActivity extends BaseActivity {
 	    db=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
 	    c= new CalendarEvents(mContext);
+	    
 	    TodayCalendarEvents=new ArrayList<MyCalendarEvents>();
 	    try{
 	    	TodayCalendarEvents=c.readEventsToUpdate(mContext, true);
 	    }catch(Exception e){
 	    	e.printStackTrace();
 	    }
-	    adapter=new CalendarEventsViewAdapter(mContext,TodayCalendarEvents);
-	    listView.setAdapter(adapter);
-	    
+	    if(TodayCalendarEvents.size()>0){
+	    	adapter=new CalendarEventsViewAdapter(mContext,TodayCalendarEvents);
+	    	listView.setAdapter(adapter);
+	    }else{
+	    	Intent intent=new Intent(Intent.ACTION_MAIN);
+			intent.setClass(EventUpdateActivity.this,MainScreenActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			finish();
+			startActivity(intent);
+	    }
 	    listView.setOnItemClickListener(new OnItemClickListener(){
+
+		
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				
 				final Dialog dialog = new Dialog(EventUpdateActivity.this);
+				
 				dialog.setContentView(R.layout.event_update_dialog);
-				final Spinner justification=(Spinner) dialog.findViewById(R.id.spinner1);
 				dialog.setTitle("Update event");
-				final LinearLayout linearLayout_justification=(LinearLayout) dialog.findViewById(R.id.Linearlayout_justification);
+				justification=(MaterialSpinner) dialog.findViewById(R.id.spinner1);
+				other_option=(TableRow) dialog.findViewById(R.id.other_option);
+				editText_otherOption=(EditText) dialog.findViewById(R.id.editText_otherOption);
+				other_option.setVisibility(View.GONE);
+				String[] items=getResources().getStringArray(R.array.Justification);
+				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(EventUpdateActivity.this, android.R.layout.simple_list_item_1, items);
+				justification.setAdapter(adapter2);
+				justification.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+					
+
+					@Override
+					public void onItemSelected(AdapterView<?> parent,
+							View view, int position, long id) {
+						if(justification.getSelectedItem().toString().equalsIgnoreCase("Other")){
+							other_option.setVisibility(View.VISIBLE);
+							justification_text=editText_otherOption.getText().toString();
+						}else{
+							other_option.setVisibility(View.GONE);
+							justification_text=justification.getSelectedItem().toString();
+						}
+						
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> parent) {
+						
+					}
+				});
+				linearLayout_justification=(LinearLayout) dialog.findViewById(R.id.Linearlayout_justification);
 				final RadioGroup answer=(RadioGroup) dialog.findViewById(R.id.radioGroup_answer);
 				TextView question=(TextView) dialog.findViewById(R.id.textView_question);
 				try{
@@ -122,9 +173,10 @@ public class EventUpdateActivity extends BaseActivity {
 
 					@Override
 					public void onClick(View v) {
-						System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ I was clicked @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 						try{
-							System.out.println("***** I was clicked oooooooo******");
+							if(!checkValidation()){
+								Toast.makeText(getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();	
+							}else{
 							if(answer.getCheckedRadioButtonId()==R.id.radio_yes){
 								c.updateEvent(Long.valueOf(selected_items[3]), Events.STATUS_CONFIRMED);//event was completed
 								JSONObject json = new JSONObject();
@@ -152,8 +204,6 @@ public class EventUpdateActivity extends BaseActivity {
 									finish();
 									startActivity(intent);
 							    
-								 System.out.println("***** Now close errh******");
-								 
 								 Toast.makeText(getApplicationContext(), "Event updated!",
 								         Toast.LENGTH_SHORT).show();
 							}else if(answer.getCheckedRadioButtonId()==R.id.radio_no){
@@ -164,7 +214,7 @@ public class EventUpdateActivity extends BaseActivity {
 									 json.put("eventtype", selected_items[0]);
 									 json.put("location", selected_items[2]);
 									 json.put("description", selected_items[1]);
-									 json.put("justification", justification.getSelectedItem().toString()); 
+									 json.put("justification", justification_text); 
 									 json.put("ver", db.getVersionNumber(getApplicationContext()));
 									 json.put("battery", db.getBatteryStatus(getApplicationContext()));
 								    	json.put("device", db.getDeviceName());
@@ -185,9 +235,11 @@ public class EventUpdateActivity extends BaseActivity {
 								 Toast.makeText(getApplicationContext(), "Event updated!",
 								         Toast.LENGTH_SHORT).show();
 							}
+							}
 						}catch(Exception e){
-							
+							e.printStackTrace();
 						}
+						
 					}
 					
 				});
@@ -196,7 +248,13 @@ public class EventUpdateActivity extends BaseActivity {
 	    });
 	}
 	
-	
+	private boolean checkValidation() {
+        boolean ret = true;
+ 
+        if (linearLayout_justification.isShown()&&!Validation.hasSelection(justification)) ret = false;
+        if (other_option.isShown()&&!Validation.hasTextEditText(editText_otherOption))ret = false;
+        return ret;
+    }
 	
 	public class CalendarEventsViewAdapter extends BaseAdapter {
 
