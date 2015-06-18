@@ -695,7 +695,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 											ArrayAdapter<String> details_adapterPCV=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, detail_itemsPCV);
 											spinner_coverageDetails.setAdapter(details_adapterPCV);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
-										}else if(spinner_coverageName.getSelectedItem().toString().equalsIgnoreCase("Measles")){
+										}else if(spinner_coverageName.getSelectedItem().toString().equalsIgnoreCase("Measles Rubella")){
 											String[] detail_items5=getResources().getStringArray(R.array.CoverageImmunizationMeaslesRubella);
 											ArrayAdapter<String> details_adapter5=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, detail_items5);
 											spinner_coverageDetails.setAdapter(details_adapter5);

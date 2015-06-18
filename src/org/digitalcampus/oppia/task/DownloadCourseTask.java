@@ -27,6 +27,7 @@ import java.net.URL;
 
 import org.apache.http.client.ClientProtocolException;
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.listener.InstallCourseListener;
 import org.digitalcampus.oppia.model.Course;
@@ -34,6 +35,7 @@ import org.digitalcampus.oppia.model.DownloadProgress;
 import org.digitalcampus.oppia.utils.HTTPConnectionUtils;
 import org.grameenfoundation.cch.activity.EventTargetsDetailActivity;
 import org.grameenfoundation.cch.activity.NewEventPlannerActivity;
+import org.grameenfoundation.cch.tasks.CourseDetailsTask;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -60,10 +62,12 @@ public class DownloadCourseTask extends AsyncTask<Payload, DownloadProgress, Pay
 	private Course dm;
 	private DownloadProgress dp;
 	private HttpURLConnection c;
+	private DbHelper dbh;
 	
 	public DownloadCourseTask(Context ctx) {
 		this.ctx = ctx;
 		prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+		dbh = new DbHelper(ctx);
 	}
 	
 	@Override
@@ -178,6 +182,16 @@ public class DownloadCourseTask extends AsyncTask<Payload, DownloadProgress, Pay
 		synchronized (this) {
             if (mStateListener != null) {
                mStateListener.downloadComplete(results);
+           	if(dbh.isOnline()){
+    			try{
+    		if(dbh.getCourseGroups()>=0){
+    					CourseDetailsTask courseDetails = new CourseDetailsTask(ctx);
+    					courseDetails.execute(new String[] {ctx.getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.CCH_COURSE_DETAILS_PATH});
+    				}
+    			}catch(Exception e){
+    				e.printStackTrace();
+    			}
+    		}
             }
         }
 	}

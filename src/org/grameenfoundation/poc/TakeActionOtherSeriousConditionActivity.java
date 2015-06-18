@@ -26,13 +26,16 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
 	    super.onCreate(savedInstanceState);
 	    Bundle extras = getIntent().getExtras(); 
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions");
-	    mContext=TakeActionOtherSeriousConditionActivity.this;
-	    dbh=new DbHelper(TakeActionOtherSeriousConditionActivity.this);
-	    start_time=System.currentTimeMillis();
+	   
+        if (extras != null) {
+          take_action_category= extras.getString("category");
+        }
+        if(take_action_category.equals("bleeding")){
+	    setContentView(R.layout.activity_bleeding_umbilical_cord);
+	    getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions > Bleeding Umbilical Cord");
 	    json=new JSONObject();
 	    try {
-			json.put("page", "PNC Diagnostic: Other Serious Conditions");
+			json.put("page", "PNC Diagnostic: Other Serious Conditions > Bleeding Umbilical Cord");
 			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
 			json.put("ver", dbh.getVersionNumber(mContext));
 			json.put("battery", dbh.getBatteryStatus(mContext));
@@ -41,11 +44,6 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-        if (extras != null) {
-          take_action_category= extras.getString("category");
-        }
-        if(take_action_category.equals("bleeding")){
-	    setContentView(R.layout.activity_bleeding_umbilical_cord);
 	    TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
 		   click_here.setOnClickListener(new OnClickListener(){
 
@@ -60,6 +58,18 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
 		   });
         }else if(take_action_category.equals("soft swelling")){
         setContentView(R.layout.activity_soft_swelling);
+        getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions > Soft Swelling");
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Diagnostic: Other Serious Conditions > Soft Swelling");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
         TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
 		   click_here.setOnClickListener(new OnClickListener(){
 
@@ -74,6 +84,18 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
 		   });
         }else if(take_action_category.equals("open tissue")){
         setContentView(R.layout.activity_open_tissue);
+        getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions > Open Tissue");
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Diagnostic: Other Serious Conditions > Open Tissue");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
         TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
 		   click_here.setOnClickListener(new OnClickListener(){
 
@@ -88,6 +110,18 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
 		   });
         }else if(take_action_category.equals("no urine")){
             setContentView(R.layout.activity_no_urine);
+            getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions > No Urine");
+    	    json=new JSONObject();
+    	    try {
+    			json.put("page", "PNC Diagnostic: Other Serious Conditions > No Urine");
+    			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+    			json.put("ver", dbh.getVersionNumber(mContext));
+    			json.put("battery", dbh.getBatteryStatus(mContext));
+    			json.put("device", dbh.getDeviceName());
+    			json.put("imei", dbh.getDeviceImei(mContext));
+    		} catch (JSONException e) {
+    			e.printStackTrace();
+    		}
             TextView take_action=(TextView) findViewById(R.id.textView1);
             take_action.setText("Take action: No urine or Meconium");
             TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
@@ -104,6 +138,18 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
  		   });
         }else if(take_action_category.equals("vomiting")){
             setContentView(R.layout.activity_no_urine);
+            getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions > Vomiting");
+    	    json=new JSONObject();
+    	    try {
+    			json.put("page", "PNC Diagnostic: Other Serious Conditions > Vomiting");
+    			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+    			json.put("ver", dbh.getVersionNumber(mContext));
+    			json.put("battery", dbh.getBatteryStatus(mContext));
+    			json.put("device", dbh.getDeviceName());
+    			json.put("imei", dbh.getDeviceImei(mContext));
+    		} catch (JSONException e) {
+    			e.printStackTrace();
+    		}
             TextView take_action=(TextView) findViewById(R.id.textView1);
             take_action.setText("Take action: Vomiting");
             TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
@@ -120,6 +166,18 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
  		   });
         }else if(take_action_category.equals("blood_in_stool")){
             setContentView(R.layout.activity_no_urine);
+            getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions > Blood in Stool");
+    	    json=new JSONObject();
+    	    try {
+    			json.put("page", "PNC Diagnostic: Other Serious Conditions > Blood in Stool");
+    			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+    			json.put("ver", dbh.getVersionNumber(mContext));
+    			json.put("battery", dbh.getBatteryStatus(mContext));
+    			json.put("device", dbh.getDeviceName());
+    			json.put("imei", dbh.getDeviceImei(mContext));
+    		} catch (JSONException e) {
+    			e.printStackTrace();
+    		}
             TextView take_action=(TextView) findViewById(R.id.textView1);
             take_action.setText("Take action: Blood in stool");
             TextView click_here=(TextView) findViewById(R.id.textView_clickHere);

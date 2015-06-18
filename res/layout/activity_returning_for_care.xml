@@ -31,13 +31,15 @@
             android:src="@drawable/returning_for_care2" />
 
     </LinearLayout>
-
+ <HorizontalScrollView
+        android:layout_width="fill_parent"
+         android:layout_height="fill_parent">
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="176dp"
+        android:layout_height="wrap_content"
         android:src="@drawable/returning_for_care1" />
-
+</HorizontalScrollView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -97,6 +97,7 @@ public class LoginActivity extends AppActivity implements SubmitListener  {
 				finish();
 			} else {
 				UIUtils.showAlert(this,R.string.error,"Invalid login details. Please try again.");
+				pDialog.dismiss();
     			return;
 			}
 		} else {
@@ -112,6 +113,7 @@ public class LoginActivity extends AppActivity implements SubmitListener  {
 	    		lt.execute(p);
 			} else {
     			UIUtils.showAlert(this,R.string.error,"No user found on system and no connection to check with server. Please get a data connection to continue.");
+    			pDialog.dismiss();
     			return;
     		}
     	}	

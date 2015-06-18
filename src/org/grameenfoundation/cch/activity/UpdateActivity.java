@@ -203,11 +203,11 @@ public class UpdateActivity extends BaseActivity {
 			
 		}else if(number.equals("0")&&type.equals("other")){
 			status.setVisibility(View.GONE);
-			//message.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+			message.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
 			String first="<font color='#53AB20'>Were you able to complete the following target:  </font>";
 			String next="<font color='#520000'>"+name+"</font>";
-			//message.setText(Html.fromHtml(first+next));
-			message.setText(name);
+			message.setText(Html.fromHtml(first+next));
+			//message.setText(name);
 			linearLayout_justification.setVisibility(View.GONE);
 			linearLayout_achievedNumber.setVisibility(View.GONE);
 			linearLayout_question2.setVisibility(View.GONE);
@@ -228,7 +228,11 @@ public class UpdateActivity extends BaseActivity {
 			});
 		}else {
 			linearLayout_question.setVisibility(View.GONE);
-			message.setText(name);
+			message.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+			String first="<font color='#53AB20'>Were you able to complete the following target:  </font>";
+			String next="<font color='#520000'>"+name+"</font>";
+			message.setText(Html.fromHtml(first+next));
+			//message.setText(name);
 			String one="<font color='#53AB20'>So far you have completed </font>";
 			String two="<font color='#520000'>"+number_achieved_from_previous+" </font>";
 			String three="<font color='#53AB20'>"+" out of "+"</font>";

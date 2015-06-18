@@ -30,12 +30,20 @@ public class User {
 	private int points = 0;
 	private int badges = 0;
 	private boolean passwordRight = true;
+	private String userrole;
 	
 	public String getUsername() {
 		return username;
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	
+	public String getUserrole() {
+		return userrole;
+	}
+	public void setUserrole(String userrole) {
+		this.userrole = userrole;
 	}
 	public String getEmail() {
 		return email;

@@ -41,18 +41,8 @@ public class TakeActionActivity extends BaseActivity{
 	    mContext=TakeActionActivity.this;
 	    dbh=new DbHelper(mContext);
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("ANC Diagnostic: Acute Emergencies");
-	    json=new JSONObject();
-	    try {
-			json.put("page", "ANC Diagnostic: Acute Emergencies");
-			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
-			json.put("ver", dbh.getVersionNumber(mContext));
-			json.put("battery", dbh.getBatteryStatus(mContext));
-			json.put("device", dbh.getDeviceName());
-			json.put("imei", dbh.getDeviceImei(mContext));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+	   
+	   
 	   // listView_takeAction=(ListView) findViewById(R.id.listView_takeAction);
 	  //  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
 	    Bundle extras = getIntent().getExtras(); 
@@ -62,10 +52,46 @@ public class TakeActionActivity extends BaseActivity{
         }
         if(take_action_category.equals("Difficulty breathing")){
         	   setContentView(R.layout.activity_difficulty_breathing_anc);
+        	   getActionBar().setSubtitle("ANC Diagnostic: Acute Emergencies > Difficulty Breathing");
+        	   json=new JSONObject();
+       	    try {
+       			json.put("page", "ANC Diagnostic: Acute Emergencies > Difficulty Breathing");
+       			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+       			json.put("ver", dbh.getVersionNumber(mContext));
+       			json.put("battery", dbh.getBatteryStatus(mContext));
+       			json.put("device", dbh.getDeviceName());
+       			json.put("imei", dbh.getDeviceImei(mContext));
+       		} catch (JSONException e) {
+       			e.printStackTrace();
+       		}
         }else if(take_action_category.equals("Edema")){
         	 setContentView(R.layout.activity_edema_of_feet);
+        	 getActionBar().setSubtitle("ANC Diagnostic: Acute Emergencies > Edema");
+        	 json=new JSONObject();
+     	    try {
+ 			json.put("page", "ANC Diagnostic: Acute Emergencies > Edema");
+     			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+     			json.put("ver", dbh.getVersionNumber(mContext));
+     			json.put("battery", dbh.getBatteryStatus(mContext));
+     			json.put("device", dbh.getDeviceName());
+     			json.put("imei", dbh.getDeviceImei(mContext));
+     		} catch (JSONException e) {
+     			e.printStackTrace();
+     		}
         }else if(take_action_category.equals("Shock")){
         	 setContentView(R.layout.activity_shock_anc);
+        	 getActionBar().setSubtitle("ANC Diagnostic: Acute Emergencies > Shock");
+        	 json=new JSONObject();
+     	    try {
+ 			json.put("page", "ANC Diagnostic: Acute Emergencies > Shock");
+     			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+     			json.put("ver", dbh.getVersionNumber(mContext));
+     			json.put("battery", dbh.getBatteryStatus(mContext));
+     			json.put("device", dbh.getDeviceName());
+     			json.put("imei", dbh.getDeviceImei(mContext));
+     		} catch (JSONException e) {
+     			e.printStackTrace();
+     		}
         }
 	}
 	public void onBackPressed()

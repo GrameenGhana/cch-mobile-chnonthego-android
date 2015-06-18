@@ -34,6 +34,10 @@
         android:id="@+id/menu_sync"
         android:icon="@drawable/ic_sync"
         android:title="Sync now"/>
+       <item
+        android:id="@+id/menu_survey"
+        android:icon="@drawable/ic_sync"
+        android:title="Take the survey"/>
   
 
 </menu>

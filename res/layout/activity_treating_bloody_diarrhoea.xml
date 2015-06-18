@@ -28,14 +28,16 @@
             android:paddingTop="10dp"
             android:text="Give first dose of Gentamicin intramuscularly "
             android:textAppearance="?android:attr/textAppearanceSmall" />
-
+ <HorizontalScrollView
+        android:layout_width="fill_parent"
+         android:layout_height="fill_parent">
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:src="@drawable/treating_diarrhoea" />
-
+</HorizontalScrollView>
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"

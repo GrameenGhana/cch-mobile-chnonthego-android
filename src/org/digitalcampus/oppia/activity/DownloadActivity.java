@@ -27,30 +27,43 @@ import org.digitalcampus.oppia.adapter.DownloadCourseListNewAdapter;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.listener.APIRequestListener;
+import org.digitalcampus.oppia.listener.InstallCourseListener;
+import org.digitalcampus.oppia.listener.UpdateScheduleListener;
 import org.digitalcampus.oppia.model.Course;
+import org.digitalcampus.oppia.model.DownloadProgress;
 import org.digitalcampus.oppia.model.Lang;
 import org.digitalcampus.oppia.model.Tag;
 import org.digitalcampus.oppia.task.APIRequestTask;
+import org.digitalcampus.oppia.task.DownloadCourseTask;
+import org.digitalcampus.oppia.task.InstallDownloadedCoursesTask;
 import org.digitalcampus.oppia.task.Payload;
 import org.digitalcampus.oppia.utils.UIUtils;
+import org.grameenfoundation.cch.activity.CourseGroupActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.bugsense.trace.BugSenseHandler;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
-public class DownloadActivity extends AppActivity implements APIRequestListener {
+public class DownloadActivity extends AppActivity implements APIRequestListener{
 	
 	public static final String TAG = DownloadActivity.class.getSimpleName();
 
@@ -63,11 +76,10 @@ public class DownloadActivity extends AppActivity implements APIRequestListener 
 	private Long start_time;
 	private Long end_time;
 	private DbHelper dbh;
-
-
 	private JSONObject json_obj;
-
 	private JSONObject data;
+
+	private SharedPreferences prefs;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +91,7 @@ public class DownloadActivity extends AppActivity implements APIRequestListener 
 	    getActionBar().setSubtitle("Download Modules");
 	    dbh=new DbHelper(DownloadActivity.this);
 	    start_time=System.currentTimeMillis();
+		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		Bundle bundle = this.getIntent().getExtras(); 
         if(bundle != null) {
         	Tag t = (Tag) bundle.getSerializable(Tag.TAG);
@@ -86,7 +99,6 @@ public class DownloadActivity extends AppActivity implements APIRequestListener 
         	System.out.println(url);
         } else {
         	url = MobileLearning.SERVER_COURSES_PATH;
-        	System.out.println(url);
         }        	
 	}
 	
@@ -120,24 +132,31 @@ public class DownloadActivity extends AppActivity implements APIRequestListener 
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
-	    this.courses = (ArrayList<Course>) savedInstanceState.getSerializable("courses");
-	    this.inProgress = savedInstanceState.getBoolean("inprogress");
-	    try {
-			this.json = new JSONObject(savedInstanceState.getString("json"));
-		} catch (JSONException e) {
-			// error in the json so just get the list again
+		try{
+			this.courses = (ArrayList<Course>) savedInstanceState.getSerializable("courses");
+			this.inProgress = savedInstanceState.getBoolean("inprogress");
+			try {
+				this.json = new JSONObject(savedInstanceState.getString("json"));
+			} catch (JSONException e) {
+				// error in the json so just get the list again
+			}
+			Log.d(TAG,"restored instance state");
+		}catch(Exception e){
+			e.printStackTrace();
 		}
-	    Log.d(TAG,"restored instance state");
-	    
 	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle savedInstanceState) {
 		super.onSaveInstanceState(savedInstanceState);
-	    savedInstanceState.putString("json", json.toString());
-	    savedInstanceState.putSerializable("courses", courses);
-	    savedInstanceState.putBoolean("inprogress", dla.isInProgress());
-	    Log.d(TAG,"saved instance state");
+		try{
+			savedInstanceState.putString("json", json.toString());
+			savedInstanceState.putSerializable("courses", courses);
+			savedInstanceState.putBoolean("inprogress", dla.isInProgress());
+			Log.d(TAG,"saved instance state");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	private void getCourseList() {
@@ -263,6 +282,73 @@ public class DownloadActivity extends AppActivity implements APIRequestListener 
 		}
 
 	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getSupportMenuInflater().inflate(R.menu.acivity_download_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		UIUtils.showUserData(menu,this);
+	    return super.onPrepareOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int itemId = item.getItemId();
+		if (itemId == R.id.menu_about) {
+			startActivity(new Intent(this, AboutActivity.class));
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+			return true;
+		}else if (itemId == R.id.menu_settings) {
+			Intent i = new Intent(this, PrefsActivity.class);
+			Bundle tb = new Bundle();
+			ArrayList<Lang> langs = new ArrayList<Lang>();
+			for(Course m: courses){
+				langs.addAll(m.getLangs());
+			}
+			tb.putSerializable("langs", langs);
+			i.putExtras(tb);
+			startActivity(i);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+			return true;
+		} else if (itemId == R.id.menu_help) {
+			startActivity(new Intent(this, HelpActivity.class));
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+			return true;
+		} else if (itemId == R.id.menu_logout) {
+			logout();
+			return true;
+		}
+		return true;
+	}
+	private void logout() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setCancelable(false);
+		builder.setTitle(R.string.logout);
+		builder.setMessage(R.string.logout_confirm);
+		builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				// wipe activity data
+				DbHelper db = new DbHelper(DownloadActivity.this);
+				db.onLogout();
+				db.close();
+
+				// restart the app
+				DownloadActivity.this.startActivity(new Intent(DownloadActivity.this, StartUpActivity.class));
+				DownloadActivity.this.finish();
+				overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
+
+			}
+		});
+		builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				return; // do nothing
+			}
+		});
+		builder.show();
+	}
 	public void onBackPressed()
 	{
 		data=new JSONObject();
@@ -279,5 +365,7 @@ public class DownloadActivity extends AppActivity implements APIRequestListener 
 		dbh.insertCCHLog("Learning Center", data.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
+
+
 
 }

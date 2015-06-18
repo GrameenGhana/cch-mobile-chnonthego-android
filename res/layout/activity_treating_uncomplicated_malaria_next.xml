@@ -128,13 +128,15 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
         </LinearLayout>
-
+ <HorizontalScrollView
+        android:layout_width="fill_parent"
+         android:layout_height="fill_parent">
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/uncomplicated_malaria1" />
-
+</HorizontalScrollView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -154,13 +156,15 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
         </LinearLayout>
-
+ <HorizontalScrollView
+        android:layout_width="fill_parent"
+         android:layout_height="fill_parent">
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/uncomplicated_malaria2" />
-
+</HorizontalScrollView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -181,14 +185,16 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
         </LinearLayout>
-
+ <HorizontalScrollView
+        android:layout_width="fill_parent"
+         android:layout_height="fill_parent">
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.69"
             android:src="@drawable/uncomplicated_malaria3" />
-
+</HorizontalScrollView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

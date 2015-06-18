@@ -16,6 +16,12 @@ import org.digitalcampus.oppia.utils.CourseXMLReader;
 import org.digitalcampus.oppia.utils.FileUtils;
 import org.grameenfoundation.cch.model.EventTargets;
 import org.grameenfoundation.cch.model.LearningTargets;
+import org.grameenfoundation.cch.utils.CCHTimeUtil;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -25,6 +31,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.text.format.Time;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -37,11 +44,13 @@ public class UpgradeManagerTask extends AsyncTask<Payload, String, Payload> {
 	private SharedPreferences SWprefs;
 	private DbHelper db;
 	private String versionName;
+	private CCHTimeUtil timeUtil;
 	
 	public UpgradeManagerTask(Context ctx){
 		this.ctx = ctx;
 		prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		db=new DbHelper(ctx);
+		timeUtil=new CCHTimeUtil();
 		SWprefs = ctx.getSharedPreferences("SWprefs", ctx.MODE_WORLD_READABLE);
 	}
 	
@@ -77,6 +86,7 @@ public class UpgradeManagerTask extends AsyncTask<Payload, String, Payload> {
 		}
 			SWReset();
 			 ReloadingTargets();
+			 SurveyInitialize();
 		return payload;
 	}
 	
@@ -128,7 +138,7 @@ public class UpgradeManagerTask extends AsyncTask<Payload, String, Payload> {
 				
 				DbHelper db = new DbHelper(ctx);
 				long modId = db.refreshCourse(c);
-				
+			
 				if (modId != -1) {
 					db.insertActivities(cxr.getActivities(modId));
 					db.insertTrackers(ctxr.getTrackers(),modId);
@@ -153,24 +163,6 @@ public class UpgradeManagerTask extends AsyncTask<Payload, String, Payload> {
 	}
 	protected void SWReset(){
 		String PACKAGE_NAME=ctx.getPackageName();
-		/*
-		String prefsToCheck = ctx.getFilesDir().getPath()+"/"+"shared_prefs/SWprefs.xml";
-		 File prefFile = new File(prefsToCheck);
-		 String versionName;
-		 try{
-			 versionName=ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), 0).versionName;
-			 if(versionName.equals("3.0.35")&&!prefFile.exists()){
-				 db.runSWReset();
-				 Editor editor = SWprefs.edit();
-				 editor.putString(ctx.getString(R.string.sw_prefs), ctx.getString(R.string.sw_reset));
-				 editor.commit();
-			 }else if(prefFile.exists()){
-				 
-			 }
-		 }catch (NameNotFoundException e){
-			 e.printStackTrace();
-		 }
-		 */
 		try{
 		PackageInfo info = ctx.getPackageManager().getPackageInfo(PACKAGE_NAME, 0);
 		SQLiteDatabase db2=db.getWritableDatabase();
@@ -191,7 +183,31 @@ public class UpgradeManagerTask extends AsyncTask<Payload, String, Payload> {
 		}
 		
 	}
-	
+	protected void SurveyInitialize(){
+		try{
+			 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+		      int fix_number = prefs.getInt("survey_init3", 0);
+		      if (fix_number==0) {
+		    	  publishProgress("Initializing survey");
+		        prefs.edit().putInt("survey_init3", 1).commit();
+		        Time now=new Time();
+		        now.setToNow();
+		    	  DateTime firstDate=new DateTime(2015,06,16,now.hour,now.minute);
+		    	 //DateTime secondDate=new DateTime(2015,8,31,now.hour,now.minute);
+		    	  DateTime thirdDate=new DateTime(2015,11,30,now.hour,now.minute);
+		    	  //LocalDate secondreminder=todaysDate.plusDays(9);
+		    	 // System.out.println(todaysDate.toString("dd-MM-yyyy"));
+		    	  db.deleteTables(db.SURVEY_TABLE);
+		        db.insertSurvey("", "", "",firstDate.toString("dd-MM-yyyy HH:mm"),"", "", "");
+		       // db.insertSurvey("", "", "",secondDate.toString("dd-MM-yyyy HH:mm"), "","", "");
+		        db.insertSurvey("", "", "", thirdDate.toString("dd-MM-yyyy HH:mm"),"", "", "");
+		      }
+		      
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
 	protected void ReloadingTargets(){
 		ArrayList<EventTargets> event_targets=new ArrayList<EventTargets>();
 		ArrayList<EventTargets> coverage_targets=new ArrayList<EventTargets>();
@@ -212,7 +228,7 @@ public class UpgradeManagerTask extends AsyncTask<Payload, String, Payload> {
 				learning_targets=db.getAllLearningTargets();
 			}
 		}catch(Exception e){
-			Toast.makeText(ctx, "Could not process data", Toast.LENGTH_LONG).show();
+			//Toast.makeText(ctx, "Could not process data", Toast.LENGTH_LONG).show();
 			e.printStackTrace();
 		}
 		try{
@@ -288,7 +304,7 @@ public class UpgradeManagerTask extends AsyncTask<Payload, String, Payload> {
 	       System.out.println("Fixing TargetSetting");
 	   }
 		}catch(Exception e){
-			Toast.makeText(ctx, "Oops something went wrong", Toast.LENGTH_LONG).show();
+			//Toast.makeText(ctx, "Oops something went wrong", Toast.LENGTH_LONG).show();
 			e.printStackTrace();
 		}
 		

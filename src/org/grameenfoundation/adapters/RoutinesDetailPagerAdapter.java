@@ -8,6 +8,7 @@ import org.grameenfoundation.cch.model.RoutineActivity;
 
 import android.content.Context;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,8 @@ public class RoutinesDetailPagerAdapter extends ArrayAdapter<RoutineActivity> {
 	       
 			holder = new ViewHolder();
 			holder.uuid = (CheckBox) convertView.findViewById(R.id.uuid);
+			holder.uuid.setFocusable(false);
+			holder.uuid.setFocusableInTouchMode(true);
 			holder.action = (TextView) convertView.findViewById(R.id.action);
 			convertView.setTag(holder);
 		      
@@ -87,6 +90,7 @@ public class RoutinesDetailPagerAdapter extends ArrayAdapter<RoutineActivity> {
 		}
 		 
 		RoutineActivity ra = activities.get(position);
+		//holder.action.setMovementMethod(LinkMovementMethod.getInstance());
 		holder.action.setText(Html.fromHtml(ra.getAction()));
 		holder.uuid.setText("");
 		holder.uuid.setChecked(ra.isDone());

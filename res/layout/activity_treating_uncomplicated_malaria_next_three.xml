@@ -143,18 +143,20 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:paddingRight="0dp"
-                    android:text="Treatment of fever with Paracetamolis a recommended part of supportive care for malaria.  Paracetamol in tablet form may be given every 4-6 hours until the temperature is normal.  "
+                    android:text="Treatment of fever with Paracetamol is a recommended part of supportive care for malaria.  Paracetamol in tablet form may be given every 4-6 hours until the temperature is normal.  "
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textStyle="normal" />
             </LinearLayout>
 
         </LinearLayout>
-        <ImageView
+ <HorizontalScrollView
+        android:layout_width="fill_parent"
+         android:layout_height="fill_parent">        <ImageView
             android:id="@+id/imageView1"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:src="@drawable/uncomplicated_malaria5" />
-
+</HorizontalScrollView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

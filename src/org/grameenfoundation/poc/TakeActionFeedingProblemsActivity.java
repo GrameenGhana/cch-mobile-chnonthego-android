@@ -25,28 +25,29 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic: Feeding Problems");
 	    mContext=TakeActionFeedingProblemsActivity.this;
 	    dbh=new DbHelper(TakeActionFeedingProblemsActivity.this);
 	    start_time=System.currentTimeMillis();
-	    json=new JSONObject();
-	    try {
-			json.put("page", "PNC Diagnostic: Feeding Problems");
-			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
-			json.put("ver", dbh.getVersionNumber(mContext));
-			json.put("battery", dbh.getBatteryStatus(mContext));
-			json.put("device", dbh.getDeviceName());
-			json.put("imei", dbh.getDeviceImei(mContext));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+	    getActionBar().setTitle("Point of Care");
+	  
 	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
           take_action_category= extras.getString("value");
         }
         if(take_action_category.equals("not_attached")){
         	   setContentView(R.layout.activity_poor_attachement);
+        	   getActionBar().setSubtitle("PNC Diagnostic: Feeding Problems > Not Attached");
+       	    json=new JSONObject();
+       	    try {
+       			json.put("page", "PNC Diagnostic: Feeding Problems > Not Attached");
+       			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+       			json.put("ver", dbh.getVersionNumber(mContext));
+       			json.put("battery", dbh.getBatteryStatus(mContext));
+       			json.put("device", dbh.getDeviceName());
+       			json.put("imei", dbh.getDeviceImei(mContext));
+       		} catch (JSONException e) {
+       			e.printStackTrace();
+       		}
         	   TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
       		   click_here.setOnClickListener(new OnClickListener(){
 
@@ -86,6 +87,18 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
     		   });
         }else if(take_action_category.equals("not_suckling")){
      	   setContentView(R.layout.activity_poor_attachement);
+     	   getActionBar().setSubtitle("PNC Diagnostic: Feeding Problems > Not Suckling");
+     	    json=new JSONObject();
+     	    try {
+     			json.put("page", "PNC Diagnostic: Feeding Problems > Not Suckling");
+     			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+     			json.put("ver", dbh.getVersionNumber(mContext));
+     			json.put("battery", dbh.getBatteryStatus(mContext));
+     			json.put("device", dbh.getDeviceName());
+     			json.put("imei", dbh.getDeviceImei(mContext));
+     		} catch (JSONException e) {
+     			e.printStackTrace();
+     		}
      	  TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
  		   click_here.setOnClickListener(new OnClickListener(){
 
@@ -125,6 +138,18 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
 		   });
      }else if(take_action_category.equals("breastfeeding")){
    	   setContentView(R.layout.activity_breastfeeding);
+   	 getActionBar().setSubtitle("PNC Diagnostic: Feeding Problems > BreastFeeding");
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Diagnostic: Feeding Problems > BreastFeeding");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
    	 TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
 	   click_here.setOnClickListener(new OnClickListener(){
 
@@ -164,6 +189,18 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
 	   });
      }else if(take_action_category.equals("receive_food")){
    	   setContentView(R.layout.activity_receive_other_foods);
+   	   getActionBar().setSubtitle("PNC Diagnostic: Feeding Problems > Receive Other Foods");
+   	   json=new JSONObject();
+   	   try {
+   		   json.put("page", "PNC Diagnostic: Feeding Problems > Receive Other Foods");
+   		   json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+   		   json.put("ver", dbh.getVersionNumber(mContext));
+   		   json.put("battery", dbh.getBatteryStatus(mContext));
+   		   json.put("device", dbh.getDeviceName());
+   		   json.put("imei", dbh.getDeviceImei(mContext));
+   	   } catch (JSONException e) {
+   		   e.printStackTrace();
+   	   }
     	 TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
   	   click_here.setOnClickListener(new OnClickListener(){
 
@@ -203,7 +240,18 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
   	   });
      }else if(take_action_category.equals("not_breastfeeding")){
      	   setContentView(R.layout.activity_not_breastfeeding);
-     	   
+     	  getActionBar().setSubtitle("PNC Diagnostic: Feeding Problems > Not Breastfeeding");
+      	   json=new JSONObject();
+      	   try {
+      		   json.put("page", "PNC Diagnostic: Feeding Problems > Not Breastfeeding");
+      		   json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+      		   json.put("ver", dbh.getVersionNumber(mContext));
+      		   json.put("battery", dbh.getBatteryStatus(mContext));
+      		   json.put("device", dbh.getDeviceName());
+      		   json.put("imei", dbh.getDeviceImei(mContext));
+      	   } catch (JSONException e) {
+      		   e.printStackTrace();
+      	   }
      	  TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
      	   click_here.setOnClickListener(new OnClickListener(){
 
@@ -230,6 +278,18 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
      	   });
        }else if(take_action_category.equals("low_weight_for_age")){
      	   setContentView(R.layout.activity_low_birth_weight_for_age);
+     	   getActionBar().setSubtitle("PNC Diagnostic: Feeding Problems > Low Weight for age");
+     	   json=new JSONObject();
+     	   try {
+     		   json.put("page", "PNC Diagnostic: Feeding Problems > Low Weight for age");
+     		   json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+     		   json.put("ver", dbh.getVersionNumber(mContext));
+     		   json.put("battery", dbh.getBatteryStatus(mContext));
+     		   json.put("device", dbh.getDeviceName());
+     		   json.put("imei", dbh.getDeviceImei(mContext));
+     	   } catch (JSONException e) {
+     		   e.printStackTrace();
+     	   }
      	   	 TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
      	  	   click_here.setOnClickListener(new OnClickListener(){
 
@@ -279,6 +339,18 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
      	  	   });
        }else if(take_action_category.equals("thrush")){
      	   setContentView(R.layout.activity_thrush);
+     	  getActionBar().setSubtitle("PNC Diagnostic: Feeding Problems > Thrush");
+    	   json=new JSONObject();
+    	   try {
+    		   json.put("page", "PNC Diagnostic: Feeding Problems > Thrush");
+    		   json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+    		   json.put("ver", dbh.getVersionNumber(mContext));
+    		   json.put("battery", dbh.getBatteryStatus(mContext));
+    		   json.put("device", dbh.getDeviceName());
+    		   json.put("imei", dbh.getDeviceImei(mContext));
+    	   } catch (JSONException e) {
+    		   e.printStackTrace();
+    	   }
      	   	 TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
    	  	   click_here.setOnClickListener(new OnClickListener(){
 
@@ -305,6 +377,18 @@ public class TakeActionFeedingProblemsActivity extends BaseActivity {
    	  	   });
        }else if(take_action_category.equals("no_feeding_problems")){
      	   setContentView(R.layout.activity_no_feeding_problems);
+     	   getActionBar().setSubtitle("PNC Diagnostic: Feeding Problems > No Feeding Problems");
+     	   json=new JSONObject();
+     	   try {
+     		   json.put("page", "PNC Diagnostic: Feeding Problems > No Feeding Problems");
+   		  	   json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+   		  	   json.put("ver", dbh.getVersionNumber(mContext));
+   		  	   json.put("battery", dbh.getBatteryStatus(mContext));
+   		  	   json.put("device", dbh.getDeviceName());
+   		  	   json.put("imei", dbh.getDeviceImei(mContext));
+     	   } catch (JSONException e) {
+     		   e.printStackTrace();
+   	  	   }
      	  TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
   	  	   click_here.setOnClickListener(new OnClickListener(){
 

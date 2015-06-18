@@ -31,24 +31,25 @@ public class TakeActionBreastProblemsPNCMotherActivity extends BaseActivity {
 	    dbh=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Mother Diagnostic: Breast Problems");
-	    json=new JSONObject();
-	    try {
-			json.put("page", "PNC Mother Diagnostic: Breast Problems");
-			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
-			json.put("ver", dbh.getVersionNumber(mContext));
-			json.put("battery", dbh.getBatteryStatus(mContext));
-			json.put("device", dbh.getDeviceName());
-			json.put("imei", dbh.getDeviceImei(mContext));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+	  
 	    Bundle extras = getIntent().getExtras(); 
 	    if (extras != null) {
 	          take_action_category= extras.getString("value");
 	        }
 	        if(take_action_category.equals("mastitis")){
 	        	   setContentView(R.layout.activity_mastitis_pnc_mother);
+	        	   getActionBar().setSubtitle("PNC Mother Diagnostic: Breast Problems > Mastitis");
+	       	    	json=new JSONObject();
+	       	    	try {
+	       			json.put("page", "PNC Mother Diagnostic: Breast Problems > Mastitis");
+	       			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+	       			json.put("ver", dbh.getVersionNumber(mContext));
+	       			json.put("battery", dbh.getBatteryStatus(mContext));
+	       			json.put("device", dbh.getDeviceName());
+	       			json.put("imei", dbh.getDeviceImei(mContext));
+	       		} catch (JSONException e) {
+	       			e.printStackTrace();
+	       		}			
 	        	   TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
 	               click_here.setOnClickListener(new OnClickListener(){
 
@@ -62,6 +63,18 @@ public class TakeActionBreastProblemsPNCMotherActivity extends BaseActivity {
 	               });
 	        }else if(take_action_category.equals("breast_engorgment")){
 	        	 setContentView(R.layout.activity_breast_engorgment_pnc_mother);
+	        	  getActionBar().setSubtitle("PNC Mother Diagnostic: Breast Problems > Breast Engorgment");
+	      	    json=new JSONObject();
+	      	    try {
+	      			json.put("page", "PNC Mother Diagnostic: Breast Problems > Breast Engorgment");
+	      			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+	      			json.put("ver", dbh.getVersionNumber(mContext));
+	      			json.put("battery", dbh.getBatteryStatus(mContext));
+	      			json.put("device", dbh.getDeviceName());
+	      			json.put("imei", dbh.getDeviceImei(mContext));
+	      		} catch (JSONException e) {
+	      			e.printStackTrace();
+	      		}
 	        	 TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
 	             click_here.setOnClickListener(new OnClickListener(){
 
@@ -86,6 +99,18 @@ public class TakeActionBreastProblemsPNCMotherActivity extends BaseActivity {
 	             });
 	        }else if(take_action_category.equals("cracked_nipples")){
 	        	 setContentView(R.layout.activity_cracked_nipples_pnc_mother);
+	        	  getActionBar().setSubtitle("PNC Mother Diagnostic: Breast Problems > Cracked Nipples");
+		      	    json=new JSONObject();
+		      	    try {
+		      			json.put("page", "PNC Mother Diagnostic: Breast Problems > Cracked Nipples");
+		      			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+		      			json.put("ver", dbh.getVersionNumber(mContext));
+		      			json.put("battery", dbh.getBatteryStatus(mContext));
+		      			json.put("device", dbh.getDeviceName());
+		      			json.put("imei", dbh.getDeviceImei(mContext));
+		      		} catch (JSONException e) {
+		      			e.printStackTrace();
+		      		}
 	        	 TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
 	             click_here.setOnClickListener(new OnClickListener(){
 
@@ -110,6 +135,18 @@ public class TakeActionBreastProblemsPNCMotherActivity extends BaseActivity {
 	             });
 	        }else if(take_action_category.equals("no_problems")){
 	        	 setContentView(R.layout.activity_no_breast_problems_pnc_mother);
+	        	 getActionBar().setSubtitle("PNC Mother Diagnostic: Breast Problems > No Problems");
+		      	    json=new JSONObject();
+		      	    try {
+		      			json.put("page", "PNC Mother Diagnostic: Breast Problems > No Problems");
+		      			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+		      			json.put("ver", dbh.getVersionNumber(mContext));
+		      			json.put("battery", dbh.getBatteryStatus(mContext));
+		      			json.put("device", dbh.getDeviceName());
+		      			json.put("imei", dbh.getDeviceImei(mContext));
+		      		} catch (JSONException e) {
+		      			e.printStackTrace();
+		      		}
 	        	 TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
 	             click_here.setOnClickListener(new OnClickListener(){
 

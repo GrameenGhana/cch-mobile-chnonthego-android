@@ -7,6 +7,7 @@ import java.util.Date;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
+import org.digitalcampus.oppia.model.User;
 import org.digitalcampus.oppia.service.TrackerService;
 import org.grameenfoundation.adapters.EventsDetailPagerAdapter;
 import org.grameenfoundation.adapters.MainScreenBaseAdapter;
@@ -14,6 +15,7 @@ import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.cch.activity.AchievementCenterActivity;
 import org.grameenfoundation.cch.activity.AchievementSummaryActivity;
 import org.grameenfoundation.cch.activity.EventPlannerOptionsActivity;
+import org.grameenfoundation.cch.activity.EventUpdateActivity;
 import org.grameenfoundation.cch.activity.LearningCenterMenuActivity;
 import org.grameenfoundation.cch.activity.StayingWellActivity;
 import org.grameenfoundation.cch.activity.UpdateTargetActivity;
@@ -24,23 +26,43 @@ import org.grameenfoundation.cch.model.LearningTargets;
 import org.grameenfoundation.cch.model.MyCalendarEvents;
 import org.grameenfoundation.cch.model.RoutineActivity;
 import org.grameenfoundation.cch.model.RoutineActivityDetails;
+import org.grameenfoundation.cch.model.Survey;
+import org.grameenfoundation.cch.popupquestions.RunForm;
+import org.grameenfoundation.cch.popupquestions.XmlGui;
+import org.grameenfoundation.cch.tasks.CourseDetailsTask;
+import org.grameenfoundation.cch.tasks.SurveyNotifyTask;
+import org.grameenfoundation.cch.tasks.UserDetailsProcessTask;
 import org.grameenfoundation.cch.utils.CCHTimeUtil;
+import org.grameenfoundation.cch.utils.MaterialSpinner;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.CalendarContract.Events;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,8 +75,15 @@ import android.view.animation.AnimationUtils;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioGroup;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,6 +109,15 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 	private Animation slide_up;
 	private CCHTimeUtil timeUtils;
 	private DateTime today;
+	private String name;
+	private RadioGroup reminder;
+	private DateTime newReminderDate;
+	private DateTime nextReminderDate;
+	private DateTime reminderDate;
+	private ArrayList<Survey> surveyData;
+	private LocalDate date;
+	private LocalDate date2;
+	public static Dialog dialog ;
 	
 	// MODULE IDs
 	/*	private static final String EVENT_PLANNER_ID      = "Event Planner";
@@ -101,40 +139,210 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 	    c= new CalendarEvents(mContext);
 	    TodayCalendarEvents=new ArrayList<MyCalendarEvents>();
 	    TodayCalendarEvents=c.getTodaysEvents(false);
-	  //  main_menu_listview=(ListView) findViewById(R.id.listView_mainScreenMenu);
-	  
-	    String[] categories={"Planner",
-	    		"Point of Care",
-	    		"Learning Center",
-	    		"Achievements",
-	    		"Staying Well"};
-	    
-	    int[] images={R.drawable.ic_calendar,
-	    			  R.drawable.ic_point_of_care_cross,
-	    			  R.drawable.ic_learning_center,
-	    			  R.drawable.ic_achievement,
-	    			  R.drawable.ic_staying_well};
-	    
-	   // MainScreenBaseAdapter adapter=new MainScreenBaseAdapter(mContext,categories,images);
-	    //main_menu_listview.setAdapter(adapter);				
-	    //main_menu_listview.setOnItemClickListener(this);
 		dbh = new DbHelper(getApplicationContext());
 		timeUtils=new CCHTimeUtil();
 		today=new DateTime();
+		 try{
+			dbh.alterTables();
+			dbh.deleteTables();
+			dbh.alterCourseTable();
+			dbh.updateDateDefault();
+			dbh.alterEventTable();
+			dbh.updateEventDetailDefault();
+			dbh.alterOtherTable();
+			dbh.updateOtherDetailDefault();
+			dbh.alterUserTable(); 
+			dbh.alterCourseTableGroup();
+			prefs = PreferenceManager.getDefaultSharedPreferences(this);
+			name=prefs.getString("first_name", "name");
+			 	//SurveyNotifyTask omSurveyNotifyTask = new SurveyNotifyTask(this);
+			 	//omSurveyNotifyTask.execute();
+		 }catch(Exception e){
+			 e.printStackTrace();
+		 }
+		 if(isOnline()){
+				try{
+					UserDetailsProcessTask usd = new UserDetailsProcessTask(this);
+					usd.execute(new String[] { getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.CCH_USER_DETAILS_PATH+name});
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		 if(isOnline()){
+				try{
+					//
+			if(dbh.getCourseGroups()>=0){
+						CourseDetailsTask courseDetails = new CourseDetailsTask(this);
+						courseDetails.execute(new String[] { getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.CCH_COURSE_DETAILS_PATH});
+					}
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
 		try{
-			System.out.println(timeUtils.checkIfMonthIsQuarter());
+			date=new LocalDate();
+			date2=new LocalDate();
+			DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy HH:mm");
+			DateTimeFormatter formatter2 = DateTimeFormat.forPattern("dd-MM-yyyy");
+				ArrayList<User> user_role = dbh.getUserFirstName(name);
+				//ArrayList<Survey> surveys = dbh.getSurveys();
+				surveyData = dbh.getSurveyDetails(date2.toString("dd-MM-yyyy"));
+				reminderDate=formatter.parseDateTime(surveyData.get(0).getSurveyReminderDate());
+				if(!surveyData.get(0).getSurveyNextReminderDate().equals("")){
+					nextReminderDate=formatter.parseDateTime(surveyData.get(0).getSurveyNextReminderDate());
+				}
+				System.out.println("Reminder date: "+reminderDate.toString("dd-MM-yyyy HH:mm"));
+				System.out.println("Today's date: "+date2.toString("dd-MM-yyyy"));
+				newReminderDate=new DateTime();
+			if(user_role.get(0).getUserrole().equals("chn")||user_role.get(0).getUserrole().equals("Supervisor")){
+				if(surveyData.get(0).getSurveyNextReminderDate().equals("")){
+					if(reminderDate.toString("dd-MM-yyyy HH:mm").contains(date2.toString("dd-MM-yyyy"))&&surveyData.get(0).getSurveyStatus().equals("")){
+						System.out.println("Reminder date: "+reminderDate.toString("dd-MM-yyyy HH:mm"));
+						System.out.println("Today's date: "+date2.toString("dd-MM-yyyy"));
+						dialog = new Dialog(MainScreenActivity.this);
+						dialog.setContentView(R.layout.survey_popup_dialog);
+						dialog.setTitle("Satisfaction Survey");
+						dialog.setCancelable(false);
+						Button next=(Button) dialog.findViewById(R.id.button_next);
+						Button close=(Button) dialog.findViewById(R.id.button_cancel);
+						TextView instruction=(TextView) dialog.findViewById(R.id.textView_instruct);
+						String first="<font color='#53AB20'>Click next to take the </font>";
+						String second="<font color='#520000'>Satisfaction Survey. </font>";
+						String third="<font color='#53AB20'> If you would like to do this another time, select one of the reminders below and click close. "
+									+ "If you would like to access the survey before the reminder selected, go to the menu on this page to access the survey. </font>";
+						instruction.setText(Html.fromHtml(first+second+third));
+						final TextView remindMe=(TextView) dialog.findViewById(R.id.textView2);
+								reminder=(RadioGroup) dialog.findViewById(R.id.radioGroup_reminder);
+						close.setOnClickListener(new OnClickListener(){
+
+							@Override
+							public void onClick(View v) {
+								if(reminder.getCheckedRadioButtonId()==-1){
+									remindMe.setFocusable(true);
+									remindMe.setFocusableInTouchMode(true);
+								remindMe.requestFocus();
+								remindMe.setError("Please select a reminder");
+								}else{
+									if(reminder.getCheckedRadioButtonId()==R.id.radio0){
+										newReminderDate=reminderDate.plusHours(1);
+										dbh.updateSurveyReminder(surveyData.get(0).getSurveyReminderDate(), newReminderDate.toString("dd-MM-yyyy HH:mm"),Integer.valueOf(surveyData.get(0).getSurveyId()));
+										dialog.dismiss();
+										Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
+									}else if(reminder.getCheckedRadioButtonId()==R.id.radio1){
+										newReminderDate=reminderDate.plusHours(6);
+										dbh.updateSurveyReminder(surveyData.get(0).getSurveyReminderDate(), newReminderDate.toString("dd-MM-yyyy HH:mm"),Integer.valueOf(surveyData.get(0).getSurveyId()));
+										dialog.dismiss();
+										Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
+									}else if(reminder.getCheckedRadioButtonId()==R.id.radio2){
+										newReminderDate=reminderDate.plusDays(1);
+										dbh.updateSurveyReminder(surveyData.get(0).getSurveyReminderDate(), newReminderDate.toString("dd-MM-yyyy HH:mm"),Integer.valueOf(surveyData.get(0).getSurveyId()));
+										dialog.dismiss();
+										Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
+									}
+								}
+							}
+							
+						});
+						next.setOnClickListener(new OnClickListener(){
+							@Override
+							public void onClick(View v) {
+								try{
+									Intent intent=new Intent(MainScreenActivity.this, RunForm.class);
+									intent.putExtra("date",date2.toString("dd-MM-yyyy"));
+									startActivity(intent);
+									dialog.dismiss();
+								}catch(Exception e){
+									e.printStackTrace();
+								}
+								
+							}
+							
+						});
+						dialog.show();
+					}
+					}else {
+						if(date.toString("dd-MM-yyyy HH:mm").equals(surveyData.get(0).getSurveyNextReminderDate())&&surveyData.get(0).getSurveyStatus().equals("")){
+							dialog = new Dialog(MainScreenActivity.this);
+							dialog.setContentView(R.layout.survey_popup_dialog);
+							dialog.setTitle("Satisfaction Survey");
+							dialog.setCancelable(false);
+							Button next=(Button) dialog.findViewById(R.id.button_next);
+							Button close=(Button) dialog.findViewById(R.id.button_cancel);
+							TextView instruction=(TextView) dialog.findViewById(R.id.textView_instruct);
+							String first="<font color='#53AB20'>Click next to take the </font>";
+							String second="<font color='#520000'>Satisfaction Survey.</font>";
+							String third="<font color='#53AB20'> If you would like to do this another time, select one of the reminders below and click close. "
+										+ "If you would like to access the survey before the reminder selected, go to the menu on this page to access the survey. </font>";
+							instruction.setText(Html.fromHtml(first+second+third));
+							final TextView remindMe=(TextView) dialog.findViewById(R.id.textView2);
+									reminder=(RadioGroup) dialog.findViewById(R.id.radioGroup_reminder);
+							close.setOnClickListener(new OnClickListener(){
+
+								@Override
+								public void onClick(View v) {
+									if(reminder.getCheckedRadioButtonId()==-1){
+										remindMe.setFocusable(true);
+										remindMe.setFocusableInTouchMode(true);
+									remindMe.requestFocus();
+									remindMe.setError("Please select a reminder");
+									}else{
+										if(reminder.getCheckedRadioButtonId()==R.id.radio0){
+											newReminderDate=reminderDate.plusHours(1);
+											dbh.updateSurveyReminder(surveyData.get(0).getSurveyReminderDate(), newReminderDate.toString("dd-MM-yyyy HH:mm"),Integer.valueOf(surveyData.get(0).getSurveyId()));
+											dialog.dismiss();
+											Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
+										}else if(reminder.getCheckedRadioButtonId()==R.id.radio1){
+											newReminderDate=reminderDate.plusHours(6);
+											dbh.updateSurveyReminder(surveyData.get(0).getSurveyReminderDate(), newReminderDate.toString("dd-MM-yyyy HH:mm"),Integer.valueOf(surveyData.get(0).getSurveyId()));
+											dialog.dismiss();
+											Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
+										}else if(reminder.getCheckedRadioButtonId()==R.id.radio2){
+											newReminderDate=reminderDate.plusDays(1);
+											dbh.updateSurveyReminder(surveyData.get(0).getSurveyReminderDate(), newReminderDate.toString("dd-MM-yyyy HH:mm"),Integer.valueOf(surveyData.get(0).getSurveyId()));
+											dialog.dismiss();
+											Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
+										}
+									}
+									
+									
+								}
+								
+							});
+							next.setOnClickListener(new OnClickListener(){
+								@Override
+								public void onClick(View v) {
+									try{
+										Intent intent=new Intent(MainScreenActivity.this, RunForm.class);
+										intent.putExtra("date",date2.toString("dd-MM-yyyy"));
+										startActivity(intent);
+										dialog.dismiss();
+									}catch(Exception e){
+										e.printStackTrace();
+									}
+									
+								}
+								
+							});
+							dialog.show();
+						}
+					}
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		dbh.alterTables();
-		dbh.deleteTables();
-		dbh.alterCourseTable();
-		dbh.updateDateDefault();
-		dbh.alterEventTable();
-		dbh.updateEventDetailDefault();
-		dbh.alterOtherTable();
-		dbh.updateOtherDetailDefault();
-		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		
+		if(isOnline()){
+			try{
+				//
+		if(dbh.getCourseGroups()>=0){
+					CourseDetailsTask courseDetails = new CourseDetailsTask(this);
+					courseDetails.execute(new String[] { getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.CCH_COURSE_DETAILS_PATH});
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
 		prefs.registerOnSharedPreferenceChangeListener(this);
 		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
 		
@@ -289,7 +497,7 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 			private ArrayList<EventTargets> coverageId;
 			private ArrayList<EventTargets> otherId;
 			private ArrayList<LearningTargets> learningId;
-		 private ArrayList<String> firstName;
+		 private ArrayList<User> firstName;
 		 public ArrayList<MyCalendarEvents> EventTypeToday;
 		private int numactivities;
 		 public EventsSummary(){
@@ -310,7 +518,7 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 			    EventTypeToday=c.getTodaysEvents(false);
 			    
 		    if(firstName.size()>0 &&firstName!=null){
-			    	user_first_name=firstName.get(0);
+			    	user_first_name=firstName.get(0).getFirstname();
 			    }else if(firstName.size()==0&&firstName!=null){
 			    	user_first_name.equals(" ");
 			    }
@@ -504,6 +712,63 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 				service.putExtras(tb);
 				this.startService(service);
 				return true;
+			}else if (itemId == R.id.menu_survey) {
+				try{
+					DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy HH:mm");
+				DateTime today=new DateTime();
+				today=formatter.parseDateTime(today.toString("dd-MM-yyyy HH:mm"));
+				
+				ArrayList<Survey> surveys=new ArrayList<Survey>();
+				surveys=dbh.getSurveys();
+				System.out.println("Today "+today.getMillis());
+				System.out.println("Reminder Date "+reminderDate.getMillis());
+				System.out.println("Next Reminder Date "+surveyData.get(0).getSurveyStatus());
+				DateTime surveyFirstReminderDate=formatter.parseDateTime(surveys.get(0).getSurveyReminderDate());
+				DateTime surveySecondReminderDate=formatter.parseDateTime(surveys.get(1).getSurveyReminderDate());
+				System.out.println("Next Reminder Date "+surveySecondReminderDate.getMillis());
+				DateTime surveyFirstNextReminderDate = null;
+				DateTime surveySecondNextReminderDate=null;
+				//for(int i=0;i<surveys.size();i++){
+					//DateTime surveyReminderDate=formatter.parseDateTime(surveys.get(0).getSurveyReminderDate());
+				if(!surveys.get(0).getSurveyNextReminderDate().equals("")){
+					surveyFirstNextReminderDate=formatter.parseDateTime(surveys.get(0).getSurveyNextReminderDate());
+				}
+				if(!surveys.get(1).getSurveyNextReminderDate().equals("")){
+					surveySecondNextReminderDate = formatter.parseDateTime(surveys.get(1).getSurveyNextReminderDate());
+				}
+				if(today.getMillis()>=surveyFirstReminderDate.getMillis()&&today.getMillis()<=surveyFirstNextReminderDate.getMillis()&&surveys.get(0).getSurveyStatus().equals("")){
+					Intent intent = new Intent(this, RunForm.class);
+					intent.putExtra("date", surveyFirstReminderDate.toString("dd-MM-yyyy"));
+					this.startActivity(intent);
+				}else if(today.getMillis()>=surveyFirstReminderDate.getMillis()&&today.getMillis()<=surveySecondReminderDate.getMillis()&&surveys.get(0).getSurveyStatus().equals("")){
+					Intent intent = new Intent(this, RunForm.class);
+					intent.putExtra("date", surveyFirstReminderDate.toString("dd-MM-yyyy"));
+					this.startActivity(intent);
+				}else if(today.getMillis()>=surveySecondReminderDate.getMillis()&&surveys.get(1).getSurveyStatus().equals("")){
+					Intent intent = new Intent(this, RunForm.class);
+					intent.putExtra("date", surveySecondReminderDate.toString("dd-MM-yyyy"));
+					this.startActivity(intent);
+				}else if(surveys.get(0).getSurveyNextReminderDate().equals("")&&today.getMillis()>=surveyFirstReminderDate.getMillis()&&surveys.get(0).getSurveyStatus().equals("")){
+					Intent intent = new Intent(this, RunForm.class);
+					intent.putExtra("date", surveyFirstReminderDate.toString("dd-MM-yyyy"));
+					this.startActivity(intent);
+				}else if(surveys.get(1).getSurveyNextReminderDate().equals("")&&today.getMillis()>=surveySecondReminderDate.getMillis()&&surveys.get(0).getSurveyStatus().equals("")){
+					Intent intent = new Intent(this, RunForm.class);
+					intent.putExtra("date", surveySecondReminderDate.toString("dd-MM-yyyy"));
+					this.startActivity(intent);
+				}else if(today.getMillis()>=surveySecondReminderDate.getMillis()&&today.getMillis()<=surveySecondReminderDate.getMillis()&&surveys.get(0).getSurveyStatus().equals("")){
+						Intent intent = new Intent(this, RunForm.class);
+						intent.putExtra("date", surveySecondReminderDate.toString("dd-MM-yyyy"));
+						this.startActivity(intent);
+				}else{
+					Crouton.makeText(this, "This survey does not exist at this time", Style.ALERT).show();
+				}
+				//}
+				}catch(Exception e){
+					e.printStackTrace();
+					Crouton.makeText(this, "This survey does not exist at this time", Style.ALERT).show();
+				}
+				return true;
 			}
 			return true;
 		}
@@ -548,41 +813,7 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 		}
 		
 		
-		/*
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		Intent intent;
-		switch(position){
-		case 0:
-			intent=new Intent(mContext, EventPlannerOptionsActivity.class);
-			startActivity(intent);
-			 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
-			break;
-		case 1:
-			intent=new Intent(mContext, PointOfCareActivity.class);
-			startActivity(intent);
-			 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
-			break;
-			
-		case 2:
-			intent = new Intent(getApplicationContext(), LearningCenterMenuActivity.class);
-            startActivity(intent);	
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
-			break;
-		case 3:
-			intent = new Intent(getApplicationContext(), AchievementCenterActivity.class);
-            startActivity(intent);	
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
-			break;
-		case 4:
-			intent = new Intent(getApplicationContext(), StayingWellActivity.class);
-			startActivity(intent);
-			 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
-			break;
-		}
-		
-	}*/
+
 	
 	private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
 	private long mBackPressed;
@@ -599,5 +830,20 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 
 	    mBackPressed = System.currentTimeMillis();
 	}
+	public boolean isOnline() {
+		 boolean haveConnectedWifi = false;
+		    boolean haveConnectedMobile = false;
 
+		    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		    NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+		    for (NetworkInfo ni : netInfo) {
+		        if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+		            if (ni.isConnected())
+		                haveConnectedWifi = true;
+		        if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+		            if (ni.isConnected())
+		                haveConnectedMobile = true;
+		    }
+		    return haveConnectedWifi || haveConnectedMobile;
+	}
 }

@@ -23,12 +23,19 @@ public class TakeActionBleedingActivity extends BaseActivity {
 	    mContext=TakeActionBleedingActivity.this;
 	    Bundle extras = getIntent().getExtras(); 
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("ANC Diagnostic: Managing Danger Signs ");
+	   
 	    dbh=new DbHelper(TakeActionBleedingActivity.this);
 	    start_time=System.currentTimeMillis();
+	    
+        if (extras != null) {
+          take_action_category= extras.getString("category");
+        }
+        if(take_action_category.equals("heavy")){
+	    setContentView(R.layout.activity_heavy_bleeding);
+	    getActionBar().setSubtitle("ANC Diagnostic: Managing Danger Signs > Heavy Bleeding ");
 	    json=new JSONObject();
 	    try {
-			json.put("page", "ANC Diagnostic: Managing Danger Signs");
+			json.put("page", "ANC Diagnostic: Managing Danger Signs > Heavy Bleeding");
 			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
 			json.put("ver", dbh.getVersionNumber(mContext));
 			json.put("battery", dbh.getBatteryStatus(mContext));
@@ -37,13 +44,20 @@ public class TakeActionBleedingActivity extends BaseActivity {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-        if (extras != null) {
-          take_action_category= extras.getString("category");
-        }
-        if(take_action_category.equals("heavy")){
-	    setContentView(R.layout.activity_heavy_bleeding);
         }else if(take_action_category.equals("light")){
         setContentView(R.layout.activity_light_bleeding);
+        getActionBar().setSubtitle("ANC Diagnostic: Managing Danger Signs > Light Bleeding ");
+	    json=new JSONObject();
+	    try {
+			json.put("page", "ANC Diagnostic: Managing Danger Signs > Light Bleeding");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
         }
 	}
 	public void onBackPressed()

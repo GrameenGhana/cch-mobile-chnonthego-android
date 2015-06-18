@@ -90,6 +90,7 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 	private static ArrayList<String> number_achieved;
 	private static ArrayList<String> update_id;
 	private String coverage_detail;
+	private String coverage_detail_extra;
 	private TextProgressBar progress_bar;
 	private int progress_status;
 	static long due_date_to_compare;
@@ -99,6 +100,7 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 	private TextView day_difference;
 	public long coverage_old_id;
 	private String coverage_category;
+	private String coverage_category_extra;
 	private RadioButton category_people;
 	private MaterialSpinner spinner_coverageName;
 	private MaterialSpinner spinner_coverageDetails;
@@ -215,6 +217,9 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 			}	
         });
         button_edit.setOnClickListener(new OnClickListener(){
+			private ArrayAdapter<String> coverage_name_adapter;
+			private ArrayAdapter<String> details_adapter;
+
 			@Override
 			public void onClick(View v) {
 				final Dialog dialog = new Dialog(CoverageTargetsDetailActivity.this);
@@ -225,17 +230,41 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 				button_show.setVisibility(View.GONE);
 				dialog.setTitle("Edit Coverage Target");
 				 category_options=(RadioGroup) dialog.findViewById(R.id.radioGroup_category);
-				  category_options.check(R.id.radio_people);
-				  coverage_category="Indicators";
-				  category_people=(RadioButton) dialog.findViewById(R.id.radio_people);
-				  category_people.setChecked(true);
+				 
 				  items3=new String[]{};
 				  items3=getResources().getStringArray(R.array.CoverageIndicatorsName);
-				  ArrayAdapter<String> adapter3=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
-					spinner_coverageName.setAdapter(adapter3);
-					String[] detail_items1=getResources().getStringArray(R.array.CoverageIndicatorsDetailFamilyPlanning);
-					ArrayAdapter<String> details_adapter=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, detail_items1);
+				  coverage_name_adapter=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
+					spinner_coverageName.setAdapter(coverage_name_adapter);
+					
+					String[] detail_items1=getSpinnerData(spinner_coverageName.getSelectedItem().toString());
+					details_adapter=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, detail_items1);
 					spinner_coverageDetails.setAdapter(details_adapter);
+					
+					if(coverage_category_extra!=null&&coverage_category_extra.equalsIgnoreCase("Indicators")){
+						category_options.check(R.id.radio_people);
+						String[] items=new String[]{};
+						items=getResources().getStringArray(R.array.CoverageIndicatorsName);
+						 coverage_name_adapter=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
+						 spinner_coverageName.setAdapter(coverage_name_adapter);
+						 spinner_coverageName.setSelection(getIndex(spinner_coverageName,coverage_detail_extra));
+						 
+						 items3=getSpinnerData(coverage_detail_extra);
+						 details_adapter=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
+						 spinner_coverageDetails.setAdapter(details_adapter);
+						 spinner_coverageDetails.setSelection(getIndex(spinner_coverageDetails, coverage_name));
+					}else if(coverage_category_extra!=null&&coverage_category_extra.equalsIgnoreCase("Immunizations")){
+						category_options.check(R.id.radio_immunization);
+						String[] items=new String[]{};
+						items=getResources().getStringArray(R.array.CoverageImmunizationTypes);
+						coverage_name_adapter=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
+						 spinner_coverageName.setAdapter(coverage_name_adapter);
+						 spinner_coverageName.setSelection(getIndex(spinner_coverageName,coverage_detail_extra));
+						 
+							items3=getSpinnerData(coverage_detail_extra);
+							details_adapter=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
+							 spinner_coverageDetails.setAdapter(details_adapter);
+							 spinner_coverageDetails.setSelection(getIndex(spinner_coverageDetails, coverage_name));
+					}
 				  spinner_coverageName.setOnItemSelectedListener(new OnItemSelectedListener(){
 
 						@Override
@@ -280,15 +309,18 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 								  items3=getResources().getStringArray(R.array.CoverageIndicatorsName);
 								ArrayAdapter<String> adapter3=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
 								spinner_coverageName.setAdapter(adapter3);
-								String[] detail_items1=getResources().getStringArray(R.array.CoverageIndicatorsDetailFamilyPlanning);
+								spinner_coverageName.setSelection(getIndex(spinner_coverageName,coverage_detail_extra));
+								String[] detail_items1=getSpinnerData(spinner_coverageName.getSelectedItem().toString());
 								ArrayAdapter<String> details_adapter=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, detail_items1);
 								spinner_coverageDetails.setAdapter(details_adapter);
+								 spinner_coverageDetails.setSelection(getIndex(spinner_coverageDetails, coverage_name));
 								spinner_coverageName.setOnItemSelectedListener(new OnItemSelectedListener(){
-
+																										
 									@Override
 									public void onItemSelected(
 											AdapterView<?> parent, View view,
 											int position, long id) {
+										
 										if(spinner_coverageName.getSelectedItem().toString().equalsIgnoreCase("Family Planning")){
 											String[] detail_items1=getResources().getStringArray(R.array.CoverageIndicatorsDetailFamilyPlanning);
 											ArrayAdapter<String> details_adapter=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, detail_items1);
@@ -321,9 +353,11 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 								items3=getResources().getStringArray(R.array.CoverageImmunizationTypes);
 								ArrayAdapter<String> adapter4=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
 								spinner_coverageName.setAdapter(adapter4);
+								spinner_coverageName.setSelection(getIndex(spinner_coverageName,coverage_detail_extra));
 								String[] detail_items1=getResources().getStringArray(R.array.CoverageImmunizationTypeBCG);
 								ArrayAdapter<String> details_adapter=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, detail_items1);
 								spinner_coverageDetails.setAdapter(details_adapter);
+								 spinner_coverageDetails.setSelection(getIndex(spinner_coverageDetails, coverage_name));
 								spinner_coverageName.setOnItemSelectedListener(new OnItemSelectedListener(){
 
 									@Override
@@ -356,7 +390,7 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 											ArrayAdapter<String> details_adapterPCV=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, detail_itemsPCV);
 											spinner_coverageDetails.setAdapter(details_adapterPCV);
 											coverage_detail=spinner_coverageDetails.getSelectedItem().toString();
-										}else if(spinner_coverageName.getSelectedItem().toString().equalsIgnoreCase("Measles")){
+										}else if(spinner_coverageName.getSelectedItem().toString().equalsIgnoreCase("Measles Rubella")){
 											String[] detail_items5=getResources().getStringArray(R.array.CoverageImmunizationMeaslesRubella);
 											ArrayAdapter<String> details_adapter5=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, detail_items5);
 											spinner_coverageDetails.setAdapter(details_adapter5);
@@ -409,6 +443,7 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 				spinner_coveragePeriod=(MaterialSpinner) dialog.findViewById(R.id.spinner_coveragePeriod);
 				ArrayAdapter<String> spinner_adapter=new ArrayAdapter<String>(CoverageTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items2);
 				spinner_coveragePeriod.setAdapter(spinner_adapter);
+				spinner_coveragePeriod.setSelection(getIndex(spinner_coveragePeriod,coverage_period));
 				final EditText editText_coverageNumber=(EditText) dialog.findViewById(R.id.editText_dialogCoverageNumber);
 				if(coverage_number!=null){
 					editText_coverageNumber.setText(coverage_number);
@@ -539,7 +574,7 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    // Inflate the menu items for use in the action bar
 	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.update_menu_icons, menu);
+	    inflater.inflate(R.menu.custom_action_bar, menu);
 	    return super.onCreateOptionsMenu(menu);
 	}
 	@Override
@@ -638,9 +673,6 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 		 }
 	    }
 	 private class GetData extends AsyncTask<Object, Void, Object> {
-		 DbHelper db=new DbHelper(CoverageTargetsDetailActivity.this);
-		private Double percentage;
-		private String percentage_achieved;
 
 	    @Override
 	    protected Object doInBackground(Object... params) {
@@ -656,6 +688,8 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 	 			coverage_id=extras.getLong("coverage_id");
 	 			coverage_old_id=extras.getLong("old_id");
 	 			last_updated=extras.getString("last_updated");
+	 			coverage_category_extra=extras.getString("coverage_category");
+	 			coverage_detail_extra=extras.getString("coverage_detail");
 	         }
 	        
 	         int number_achieved_current=Integer.valueOf(achieved);
@@ -700,7 +734,70 @@ public class CoverageTargetsDetailActivity extends FragmentActivity {
 	        
 	    }
 	}
+	 private int getIndex(MaterialSpinner spinner, String myString)
+	 {
+		 int index = 0;
+
+	  for (int i=0;i<spinner.getCount();i++){
+		  	if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+		  			index = i;
+		  			break;
+		  }
+	  }
+	  return index;
+	 } 
 	 
+	 public String[] getSpinnerData(String selection){
+		String[] values=new String[]{};
+		selection=spinner_coverageName.getSelectedItem().toString();
+		switch(selection){
+		case "Family Planning":
+			values=getResources().getStringArray(R.array.CoverageIndicatorsDetailFamilyPlanning);
+			break;
+		case "Age Groups":
+			values=getResources().getStringArray(R.array.CoverageIndicatorsDetailAgeGroups);
+			break;
+		case "School Health":
+			values=getResources().getStringArray(R.array.CoverageIndicatorsSchoolHealth);
+			break;
+		case "BCG":
+			values=getResources().getStringArray(R.array.CoverageImmunizationTypeBCG);
+			break;
+		case "Penta":
+			values=getResources().getStringArray(R.array.CoverageImmunizationPenta);
+			break;
+		case "OPV":
+			values=getResources().getStringArray(R.array.CoverageImmunizationOPV);
+			break;
+		case "ROTA":
+			values=getResources().getStringArray(R.array.CoverageImmunizationROTA);
+			break;
+		case "PCV":
+			values=getResources().getStringArray(R.array.CoverageImmunizationPCV);
+			break;
+		case "Measles Rubella":
+			values=getResources().getStringArray(R.array.CoverageImmunizationMeaslesRubella);
+			break;
+		case "Vitamin A":
+			values=getResources().getStringArray(R.array.CoverageImmunizationVitaminA);
+			break;
+		case "TT pregnant":
+			values=getResources().getStringArray(R.array.CoverageImmunizationTT);
+			break;
+		case "TT non-pregnant":
+			values=getResources().getStringArray(R.array.CoverageImmunizationTT);
+			break;
+		case "Yellow Fever":
+			values=getResources().getStringArray(R.array.CoverageImmunizationYellowFever);
+			break;
+		}
+		
+		
+		return values;
+		
+		 
+		 
+	 }
 	 private boolean checkValidation() {
 	        boolean ret = true;
 	 

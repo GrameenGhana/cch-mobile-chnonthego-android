@@ -35,27 +35,27 @@ public class TakeActionSevereMalariaPNCMotherActivity extends BaseActivity {
         }
         if(take_action_category.equals("severe_malaria")){
         	setContentView(R.layout.activity_severe_malaria);
-            getActionBar().setSubtitle("PNC Mother Diagnostic: Malaria");
-            data="PNC Mother Diagnostic: Malaria";
+            getActionBar().setSubtitle("PNC Mother Diagnostic: Malaria > Severe Malaria");
+            data="PNC Mother Diagnostic: Malaria > Severe Malaria";
         }else if(take_action_category.equals("Ist Trimester")){
         setContentView(R.layout.activity_first_trimester_malaria);
-        getActionBar().setSubtitle("PNC Mother Diagnostic: Malaria");
-        data="PNC Mother Diagnostic: Malaria";
+        getActionBar().setSubtitle("PNC Mother Diagnostic: Malaria > 1st Trimester");
+        data="PNC Mother Diagnostic: Malaria > 1st Trimester";
         }else if(take_action_category.equals("2nd Trimester")){
             setContentView(R.layout.activity_second_trimester_malaria);
-            getActionBar().setSubtitle("PNC Mother Diagnostic: Malaria");
-            data="PNC Mother Diagnostic: Malaria";
+            getActionBar().setSubtitle("PNC Mother Diagnostic: Malaria > 2nd Trimester");
+            data="PNC Mother Diagnostic: Malaria > 2nd Trimester";
             }
         else if(take_action_category.equals("3rd Trimester")){
             setContentView(R.layout.activity_third_trimester_malaria);
-            getActionBar().setSubtitle("PNC Mother Diagnostic: Malaria");
-            data="PNC Mother Diagnostic: Malaria";
+            getActionBar().setSubtitle("PNC Mother Diagnostic: Malaria > 3rd Trimester");
+            data="PNC Mother Diagnostic: Malaria > 3rd Trimester";
             }
 	
         else if(take_action_category.equals("negative")){
             setContentView(R.layout.activity_malaria_test_negative_pnc_mother);
-            getActionBar().setSubtitle("PNC Mother Diagnostic: Malaria");
-            data="PNC Mother Diagnostic: Malaria";
+            getActionBar().setSubtitle("PNC Mother Diagnostic: Malaria > Test Negative");
+            data="PNC Mother Diagnostic:  Malaria > Test Negative";
             TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
             click_here.setOnClickListener(new OnClickListener(){
 
@@ -71,8 +71,8 @@ public class TakeActionSevereMalariaPNCMotherActivity extends BaseActivity {
             }
         else if(take_action_category.equals("not done")){
             setContentView(R.layout.activity_malaria_test_not_done_pnc_mother);
-            getActionBar().setSubtitle("PNC Mother Diagnostic: Malaria");
-            data="PNC Mother Diagnostic: Malaria";
+            getActionBar().setSubtitle("PNC Mother Diagnostic: Malaria > Test not done");
+            data="PNC Mother Diagnostic: Malaria > Test not done";
             TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
             click_here.setOnClickListener(new OnClickListener(){
 
@@ -88,13 +88,13 @@ public class TakeActionSevereMalariaPNCMotherActivity extends BaseActivity {
             }
         else if(take_action_category.equals("severe anaemia")){
             setContentView(R.layout.activity_severe_anaemia_take_action);
-            getActionBar().setSubtitle("PNC Mother Diagnostic: Anaemia");
-            data="PNC Mother Diagnostic: Anaemia";
+            getActionBar().setSubtitle("PNC Mother Diagnostic: Anaemia > Severe Anaemia");
+            data="PNC Mother Diagnostic: Anaemia > Severe Anaemia";
             }
         else if(take_action_category.equals("moderate_anaemia")){
         setContentView(R.layout.activity_moderate_anaemia);
-        getActionBar().setSubtitle("PNC Mother Diagnostic: Anaemia");
-        data="PNC Mother Diagnostic: Anaemia";
+        getActionBar().setSubtitle("PNC Mother Diagnostic: Anaemia > Moderate Anaemia");
+        data="PNC Mother Diagnostic:  Anaemia > Moderate Anaemia";
         TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
         click_here.setOnClickListener(new OnClickListener(){
 
@@ -109,8 +109,8 @@ public class TakeActionSevereMalariaPNCMotherActivity extends BaseActivity {
         }
         else if(take_action_category.equals("no anaemia")){
             setContentView(R.layout.activity_no_anaemia_take_action);
-            getActionBar().setSubtitle("PNC Mother Diagnostic: Anaemia");
-            data="PNC Mother Diagnostic: Anaemia";
+            getActionBar().setSubtitle("PNC Mother Diagnostic: Anaemia > No Anaemia");
+            data="PNC Mother Diagnostic: Anaemia > No Anaemia";
             TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
             click_here.setOnClickListener(new OnClickListener(){
 
@@ -146,8 +146,8 @@ public class TakeActionSevereMalariaPNCMotherActivity extends BaseActivity {
             });
             }else if(take_action_category.equals("no_anaemia_anc")){
                 setContentView(R.layout.activity_anc_no_anaemia);
-                getActionBar().setSubtitle("ANC Diagnostic: Anaemia");
-                data="ANC Diagnostic: Anaemia";
+                getActionBar().setSubtitle("ANC Diagnostic: Anaemia > No Anaemia");
+                data="ANC Diagnostic:  Anaemia > No Anaemia";
                 TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
                 click_here.setOnClickListener(new OnClickListener(){
 

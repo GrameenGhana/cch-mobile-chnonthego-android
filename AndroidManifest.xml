@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.digitalcampus.mobile.learningGF"
-    android:versionCode="121"
-    android:versionName="3.0.38" 
+    android:versionCode="123"
+    android:versionName="3.0.40" 
     android:screenOrientation="portrait">
 
     <uses-sdk
@@ -356,9 +356,9 @@
         <activity android:name="org.grameenfoundation.cch.activity.LearningReferencesActivity"></activity>
         <activity android:name="org.grameenfoundation.cch.activity.TargetAchievementsActivity"></activity>
         <activity android:name="org.grameenfoundation.cch.model.EventTargetAchievementActivity"></activity>
-         <activity android:name="org.grameenfoundation.cch.model.CoverageTargetAchievementActivity"></activity>
-          <activity android:name="org.grameenfoundation.cch.model.LearningTargetAchievementActivity"></activity>
-           <activity android:name="org.grameenfoundation.cch.model.OtherTargetAchievementActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.model.CoverageTargetAchievementActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.model.LearningTargetAchievementActivity"></activity>
+        <activity android:name="org.grameenfoundation.cch.model.OtherTargetAchievementActivity"></activity>
         <activity android:name="org.grameenfoundation.poc.ClientSeenAtHealthFacilityActivity"></activity>
         <activity android:name="org.grameenfoundation.cch.activity.AbstractListViewActivity"></activity>
         <activity android:name="org.grameenfoundation.cch.activity.PagingButtonsListViewActivity"></activity>
@@ -381,6 +381,12 @@
         <activity android:name="org.grameenfoundation.cch.activity.CoverageTargetsUpdateActivity"></activity>
         <activity android:name="org.grameenfoundation.cch.activity.LearningTargetUpdateActivity"></activity>
         <activity android:name="org.grameenfoundation.cch.activity.OtherTargetsUpdateActivity"></activity>
+          <activity android:name="org.grameenfoundation.cch.popupquestions.XmlGui"></activity>
+            <activity android:name="org.grameenfoundation.cch.popupquestions.RunForm"></activity>
+            <activity android:name="org.grameenfoundation.cch.activity.VideoPlayerActivity"
+                  android:configChanges="orientation">
+            </activity>
+            <activity android:name="org.grameenfoundation.cch.activity.CourseGroupActivity"></activity>
     </application>
 
 </manifest>

@@ -114,7 +114,6 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
 				
 			}
 			 
@@ -155,16 +154,13 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 	    		radioGroup_personal.check(R.id.radio_no);	
 	    	}
 	    	if(Arrays.asList(items_names).contains(event_type)){
-	    		int spinner_position=adapter2.getPosition(event_type);
-		    	spinner_eventName.setSelection(spinner_position);
+		    	spinner_eventName.setSelection(getIndex(spinner_eventName, event_type));
 	    	}else{
-	    		int spinner_position=adapter2.getPosition("Other");
-		    	spinner_eventName.setSelection(spinner_position);
+	    		spinner_eventName.setSelection(getIndex(spinner_eventName, event_type));
 		    	other_option.setVisibility(View.VISIBLE);
 		    	editText_otherOption.setText(event_type);
 	    	}
-	    	int spinner_position=adapter2.getPosition(event_type);
-	    	spinner_eventName.setSelection(spinner_position);
+	    	spinner_eventName.setSelection(getIndex(spinner_eventName, event_type));
 	    	editText_event_location.setText(event_location);
 	    	editText_eventDescription.setText(event_desc);
 	    	button_edit.setOnClickListener(new OnClickListener(){
@@ -199,13 +195,13 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 							e.printStackTrace();
 						}
 						end_time=System.currentTimeMillis();
-						dbh.insertCCHLog("Calendar", json.toString(), String.valueOf(startTime), String.valueOf(end_time));
+						//dbh.insertCCHLog("Calendar", json.toString(), String.valueOf(startTime), String.valueOf(end_time));
 						Intent intent=new Intent(mContext, EventsViewActivity.class);
-						startActivity(intent);
-						finish();
-						overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
-						Toast.makeText(mContext, "Event edited successfully!",
-				         Toast.LENGTH_LONG).show();
+						//startActivity(intent);
+						//finish();
+						//overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
+						//Toast.makeText(mContext, "Event edited successfully!",
+				         //Toast.LENGTH_LONG).show();
 					}
 					}else if(radioGroup_personal.getCheckedRadioButtonId()==R.id.radio_no){
 						if(c.editEvent(Long.parseLong(event_id), edited_event_type, edited_event_location, edited_event_description,Events.AVAILABILITY_FREE)==true){		
@@ -226,13 +222,13 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 								e.printStackTrace();
 							}
 							end_time=System.currentTimeMillis();
-							dbh.insertCCHLog("Calendar", json.toString(), String.valueOf(startTime), String.valueOf(end_time));
+							//dbh.insertCCHLog("Calendar", json.toString(), String.valueOf(startTime), String.valueOf(end_time));
 							Intent intent=new Intent(mContext, EventsViewActivity.class);
-							startActivity(intent);
-							finish();
-							overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
-							Toast.makeText(mContext, "Event edited successfully!",
-					         Toast.LENGTH_LONG).show();
+							//startActivity(intent);
+							//finish();
+							//overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
+							//Toast.makeText(mContext, "Event edited successfully!",
+					         //Toast.LENGTH_LONG).show();
 						}
 					}
 					}
@@ -272,7 +268,7 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 											e.printStackTrace();
 										}
 										 end_time=System.currentTimeMillis();
-										 dbh.insertCCHLog("Calendar", json.toString(), String.valueOf(startTime), String.valueOf(end_time));
+										// dbh.insertCCHLog("Calendar", json.toString(), String.valueOf(startTime), String.valueOf(end_time));
 										 Intent intent=new Intent(mContext, EventsViewActivity.class);
 										 startActivity(intent);
 										 finish();
@@ -377,6 +373,19 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 		}
 	  dbh.insertCCHLog(EVENT_PLANNER_ID, data.toString(), starttime.toString(), endtime.toString());	
 	}
+	
+	 private int getIndex(MaterialSpinner spinner, String myString)
+	 {
+	  int index = 0;
+
+	  for (int i=0;i<spinner.getCount();i++){
+		  if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+			  index = i;
+	    break;
+		  }
+	  }
+	  return index;
+	 } 
 	public void onDestroy(){
 		 super.onDestroy();
 		 Long starttime=System.currentTimeMillis();  

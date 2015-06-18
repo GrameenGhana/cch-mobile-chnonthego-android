@@ -25,14 +25,20 @@ public class TakeActionJaundiceActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    Bundle extras = getIntent().getExtras(); 
-	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic: Jaundice");
 	    mContext=TakeActionJaundiceActivity.this;
 	    dbh=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
+	    getActionBar().setTitle("Point of Care");
+	    
+        if (extras != null) {
+          take_action_category= extras.getString("category");
+        }
+        if(take_action_category.equals("severe")){
+	    setContentView(R.layout.activity_severe_jaundice);
+	    getActionBar().setSubtitle("PNC Diagnostic: Jaundice > Severe Jaundice");
 	    json=new JSONObject();
 	    try {
-			json.put("page", "PNC Diagnostic: Jaundice");
+			json.put("page", "PNC Diagnostic: Jaundice > Severe Jaundice");
 			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
 			json.put("ver", dbh.getVersionNumber(mContext));
 			json.put("battery", dbh.getBatteryStatus(mContext));
@@ -41,11 +47,6 @@ public class TakeActionJaundiceActivity extends BaseActivity {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-        if (extras != null) {
-          take_action_category= extras.getString("category");
-        }
-        if(take_action_category.equals("severe")){
-	    setContentView(R.layout.activity_severe_jaundice);
 	    TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
 		   click_here.setOnClickListener(new OnClickListener(){
 
@@ -60,6 +61,18 @@ public class TakeActionJaundiceActivity extends BaseActivity {
 		   });
         }else if(take_action_category.equals("jaundice")){
         setContentView(R.layout.activity_just_jaundice);
+        getActionBar().setSubtitle("PNC Diagnostic: Jaundice > Just Jaundice");
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Diagnostic: Jaundice > Just Jaundice");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
         TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
 		   click_here.setOnClickListener(new OnClickListener(){
 
@@ -74,6 +87,18 @@ public class TakeActionJaundiceActivity extends BaseActivity {
 		   });
         }else if(take_action_category.equals("no jaundice")){
         setContentView(R.layout.activity_no_jaundice);
+        getActionBar().setSubtitle("PNC Diagnostic: Jaundice > No Jaundice");
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Diagnostic: Jaundice > No Jaundice");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
         TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
 		   click_here.setOnClickListener(new OnClickListener(){
 

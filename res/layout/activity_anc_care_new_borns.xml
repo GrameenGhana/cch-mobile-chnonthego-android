@@ -35,39 +35,40 @@
             android:showDividers="middle" >
 
             <org.grameenfoundation.cch.utils.TextViewBullets
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="Counsel pregnant women to register her newborn at birth with NHIS"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <org.grameenfoundation.cch.utils.TextViewBullets
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="Need for ear piercing and circumcision "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <org.grameenfoundation.cch.utils.TextViewBullets
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="Sickle cell disease screening "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <org.grameenfoundation.cch.utils.TextViewBullets
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="Importance of good cord care "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
             
               <org.grameenfoundation.cch.utils.TextViewBullets
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="Counsel pregnant woman how to give home care after baby is born, which include:"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:paddingBottom="5dp"
+                  android:text="Counsel pregnant woman how to give home care after baby is born, which include:"
+                  android:textAppearance="?android:attr/textAppearanceSmall" />
+
         </LinearLayout>
 
         <View

@@ -6,6 +6,7 @@ import java.util.Date;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
+import org.joda.time.LocalDate;
 
 import android.text.format.Time;
 
@@ -102,7 +103,10 @@ public class CCHTimeUtil {
 	    return what_date;
 
 	  }
-	  
+	  public  String getLastDayOfMonth(int month, int year) {
+		    LocalDate lastDayOfMonth = new LocalDate(year, month, 1).dayOfMonth().withMaximumValue();
+		    return lastDayOfMonth.toString("dd-MM-yyyy");
+		}
 	  public boolean checkIfMonthIsQuarter(){
 		 int  month=DateTime.now().monthOfYear().get();
 		  boolean isQuarter;

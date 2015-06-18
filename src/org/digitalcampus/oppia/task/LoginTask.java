@@ -30,11 +30,13 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.listener.SubmitListener;
 import org.digitalcampus.oppia.model.User;
 import org.digitalcampus.oppia.utils.HTTPConnectionUtils;
 import org.digitalcampus.oppia.utils.MetaDataUtils;
+import org.grameenfoundation.cch.tasks.UserDetailsProcessTask;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,10 +55,15 @@ public class LoginTask extends AsyncTask<Payload, Object, Payload> {
 	private Context ctx;
 	private SharedPreferences prefs;
 	private SubmitListener mStateListener;
+
+	private DbHelper dbh;
+
+	private String name;
 	
 	public LoginTask(Context c) {
 		this.ctx = c;
 		prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+		dbh = new DbHelper(ctx);
 	}
 
 	@Override
@@ -163,6 +170,15 @@ public class LoginTask extends AsyncTask<Payload, Object, Payload> {
 		synchronized (this) {
             if (mStateListener != null) {
                mStateListener.submitComplete(response);
+               if(dbh.isOnline()){
+       			try{
+       				name=prefs.getString("first_name", "name");
+       				UserDetailsProcessTask usd = new UserDetailsProcessTask(ctx);
+       				usd.execute(new String[] { ctx.getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.CCH_USER_DETAILS_PATH+name});
+       			}catch(Exception e){
+       				e.printStackTrace();
+       			}
+       		}
             }
         }
 	}

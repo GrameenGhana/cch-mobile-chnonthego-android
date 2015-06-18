@@ -34,13 +34,13 @@ public class TreatingDiarrhoeaActivity extends BaseActivity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_treating_diarrhoea);
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Counselling: Treating Diarrhoea");
+	    getActionBar().setSubtitle("PNC Counselling: Treating Diarrhoea > ORS Calculator");
 	    mContext=TreatingDiarrhoeaActivity.this;
 	    dbh=new DbHelper(TreatingDiarrhoeaActivity.this);
 	    start_time=System.currentTimeMillis();
 	    json=new JSONObject();
 	    try {
-			json.put("page", "PNC Counselling: Treating Diarrhoea");
+			json.put("page", "PNC Counselling:  Treating Diarrhoea > ORS Calculator");
 			json.put("section", MobileLearning.CCH_COUNSELLING);
 			json.put("ver", dbh.getVersionNumber(mContext));
 			json.put("battery", dbh.getBatteryStatus(mContext));

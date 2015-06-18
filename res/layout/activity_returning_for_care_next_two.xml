@@ -25,12 +25,14 @@
             android:textColor="@color/Brown" />
 
     </LinearLayout>
-
+ <HorizontalScrollView
+        android:layout_width="fill_parent"
+         android:layout_height="fill_parent">
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="279dp"
+        android:layout_height="wrap_content"
         android:src="@drawable/returning_for_care4" />
-
+</HorizontalScrollView>
 </LinearLayout>
 </ScrollView>

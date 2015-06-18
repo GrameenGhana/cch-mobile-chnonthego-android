@@ -31,12 +31,12 @@ public class TakeActionSomeDehydration extends BaseActivity {
 		setContentView(R.layout.activity_some_dehydration);
 		mContext=TakeActionSomeDehydration.this;
 		getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic: Diarrhoea");
+	    getActionBar().setSubtitle("PNC Diagnostic: Diarrhoea > Some Dehydration");
 	    dbh=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
 	    json=new JSONObject();
 	    try {
-			json.put("page", "PNC Diagnostic: Diarrhoea");
+			json.put("page", "PNC Diagnostic: Diarrhoea > Some Dehydration");
 			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
 			json.put("ver", dbh.getVersionNumber(mContext));
 			json.put("battery", dbh.getBatteryStatus(mContext));

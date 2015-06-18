@@ -25,13 +25,20 @@ public class TakeActionNewbornEmergency extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic: Newborn Emergencies");
 	    mContext=TakeActionNewbornEmergency.this;
 	    dbh=new DbHelper(TakeActionNewbornEmergency.this);
 	    start_time=System.currentTimeMillis();
+	   
+	    Bundle extras = getIntent().getExtras(); 
+        if (extras != null) {
+          take_action_category= extras.getString("take_action");
+        }
+        if(take_action_category.equals("difficulty")){
+	    setContentView(R.layout.activity_difficulty_breathing);
+	    getActionBar().setSubtitle("PNC Diagnostic: Newborn Emergencies > Difficulty Breathing");
 	    json=new JSONObject();
 	    try {
-			json.put("page", "PNC Diagnostic: Newborn Emergencies");
+			json.put("page", "PNC Diagnostic: Newborn Emergencies > Difficulty Breathing");
 			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
 			json.put("ver", dbh.getVersionNumber(mContext));
 			json.put("battery", dbh.getBatteryStatus(mContext));
@@ -40,12 +47,6 @@ public class TakeActionNewbornEmergency extends BaseActivity {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-	    Bundle extras = getIntent().getExtras(); 
-        if (extras != null) {
-          take_action_category= extras.getString("take_action");
-        }
-        if(take_action_category.equals("difficulty")){
-	    setContentView(R.layout.activity_difficulty_breathing);
 	   TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
 	   click_here.setOnClickListener(new OnClickListener(){
 
@@ -60,6 +61,18 @@ public class TakeActionNewbornEmergency extends BaseActivity {
 	   });
         }else if(take_action_category.equals("cyanosis")){
         setContentView(R.layout.activity_cyanosis);
+        getActionBar().setSubtitle("PNC Diagnostic: Newborn Emergencies > Cyanosis");
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Diagnostic: Newborn Emergencies > Cyanosis");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
         TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
  	   click_here.setOnClickListener(new OnClickListener(){
 
@@ -74,6 +87,18 @@ public class TakeActionNewbornEmergency extends BaseActivity {
  	   });
         }else if(take_action_category.equals("convulsion")){
         setContentView(R.layout.activity_convulsion);
+        getActionBar().setSubtitle("PNC Diagnostic: Newborn Emergencies > Convulsion");
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Diagnostic: Newborn Emergencies > Convulsion");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
         TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
   	   click_here.setOnClickListener(new OnClickListener(){
 

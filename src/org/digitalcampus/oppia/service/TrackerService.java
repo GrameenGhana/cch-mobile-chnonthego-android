@@ -27,6 +27,8 @@ import org.digitalcampus.oppia.task.Payload;
 import org.digitalcampus.oppia.task.SubmitQuizTask;
 import org.digitalcampus.oppia.task.SubmitTrackerMultipleTask;
 import org.grameenfoundation.cch.tasks.StayingWellNotifyTask;
+import org.grameenfoundation.cch.tasks.SurveyNotifyTask;
+import org.grameenfoundation.cch.tasks.TargetSettingNotifyTask;
 import org.grameenfoundation.cch.tasks.UpdateCCHLogTask;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -115,6 +117,16 @@ public class TrackerService extends Service implements APIRequestListener {
 				app.omStayingWellNotifyTask = new StayingWellNotifyTask(this);
 				app.omStayingWellNotifyTask.execute();
 			}
+			// notify user on routines
+						if (app.omTargetSettingNotifyTask == null) {
+							app.omTargetSettingNotifyTask = new TargetSettingNotifyTask(this);
+							app.omTargetSettingNotifyTask.execute();
+						}
+						
+						if (app.omSurveyNotifyTask == null) {
+							app.omSurveyNotifyTask = new SurveyNotifyTask(this);
+							app.omSurveyNotifyTask.execute();
+						}
 			
 			// send activity trackers
 			if(app.omSubmitTrackerMultipleTask == null){

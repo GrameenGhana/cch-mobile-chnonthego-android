@@ -449,7 +449,7 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    // Inflate the menu items for use in the action bar
 	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.update_menu_icons, menu);
+	    inflater.inflate(R.menu.custom_action_bar, menu);
 	    return super.onCreateOptionsMenu(menu);
 	}
 	@Override
@@ -464,15 +464,7 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 	 	          finish();
 	 	         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 	            return true;
-	        case R.id.action_edit:
-	        		 	         
-	            return true;
-	        case R.id.action_delete:
-	        	
-	        	return true;
-	        case R.id.action_update:
-	        	
-	        	return true;
+	        
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
@@ -563,7 +555,6 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 		 DbHelper db=new DbHelper(OtherTargetsDetailActivity.this);
 		private Double percentage;
 		private String percentage_achieved;
-		
 
 	    @Override
 	    protected Object doInBackground(Object... params) {
@@ -581,9 +572,6 @@ public class OtherTargetsDetailActivity extends FragmentActivity {
 	 			last_updated=extras.getString("last_updated");
 	 			details=extras.getString("detail");
 	         }
-	     
-	    
-	         
 				return null;
 	    }
 

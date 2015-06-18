@@ -50,6 +50,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout.LayoutParams;
@@ -109,6 +110,13 @@ public class PageWidget extends WidgetFactory {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		wv = (WebView) super.getActivity().findViewById(activity.getActId());
+		WebSettings webSettings = wv.getSettings();
+		webSettings.setJavaScriptEnabled(true);
+		webSettings.setDomStorageEnabled(true);
+        webSettings.setAllowFileAccess(true);
+		wv.getSettings().setJavaScriptEnabled(true);
+		 wv.getSettings().setDomStorageEnabled(true);
+		 wv.getSettings().setAllowFileAccess(true);
 		// get the location data
 		String url = course.getLocation()
 				+ activity.getLocation(prefs.getString(super.getActivity().getString(R.string.prefs_language), Locale.getDefault()
@@ -150,6 +158,8 @@ public class PageWidget extends WidgetFactory {
 					// launch intent to play video
 					Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
 					Uri data = Uri.parse(MobileLearning.MEDIA_PATH + mediaFileName);
+					 String extension = android.webkit.MimeTypeMap.getFileExtensionFromUrl(data.toString());
+					 String mimetype = FileUtils.getMimeType(MobileLearning.MEDIA_PATH + mediaFileName);
 					intent.setDataAndType(data, "video/mp4");
 
 					PackageManager pm = PageWidget.super.getActivity().getPackageManager();
@@ -158,7 +168,7 @@ public class PageWidget extends WidgetFactory {
 					boolean appFound = false;
 					for (ResolveInfo info : infos) {
 						IntentFilter filter = info.filter;
-						if (filter != null && filter.hasAction(Intent.ACTION_VIEW)) {
+						if (filter != null && filter.hasAction(android.content.Intent.ACTION_VIEW)) {
 							// Found an app with the right intent/filter
 							appFound = true;
 						}
@@ -175,9 +185,10 @@ public class PageWidget extends WidgetFactory {
 
 					return true;
 				} else {
-					Intent intent = new Intent(Intent.ACTION_VIEW);
-					Uri data = Uri.parse(url);
-					intent.setData(data);
+					Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
+					Uri data = Uri.parse(MobileLearning.MEDIA_PATH + mediaFileName);
+					//Uri data = Uri.parse(url);
+					intent.setDataAndType(data, "video/*");
 					PageWidget.super.getActivity().startActivity(intent);
 					// launch action in mobile browser - not the webview
 					// return true so doesn't follow link within webview

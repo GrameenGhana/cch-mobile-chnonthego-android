@@ -34,13 +34,18 @@ import org.digitalcampus.oppia.task.Payload;
 import org.digitalcampus.oppia.task.PostInstallTask;
 import org.digitalcampus.oppia.task.UpgradeManagerTask;
 import org.grameenfoundation.cch.activity.HomeActivity;
+import org.grameenfoundation.cch.tasks.CourseDetailsTask;
+import org.grameenfoundation.cch.tasks.UserDetailsProcessTask;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.animation.Animation;
@@ -64,6 +69,8 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
 	private Animation drop_three;
 	private Animation slide_in;
 	private DbHelper db;
+	private String name;
+	private DbHelper dbh;
 	//DbHelper Db;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,13 +81,15 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
         setContentView(R.layout.start_up);
         db=new DbHelper(StartUpActivity.this);
         getActionBar().hide();
-		
         tvProgress = (TextView) this.findViewById(R.id.start_up_progress);
+        dbh = new DbHelper(getApplicationContext());
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        name=prefs.getString("first_name", "name");
         text_one=(TextView) findViewById(R.id.textView_c);
  	   text_two=(TextView) findViewById(R.id.textView_h);
  	   text_three=(TextView) findViewById(R.id.textView_n);
  	   text_four=(TextView) findViewById(R.id.textView_text);
+ 		dbh.alterCourseTableGroup();
  	  drop_one=AnimationUtils.loadAnimation(getApplicationContext(),
               R.anim.drop_one);
 	   drop_one.setAnimationListener(this);
@@ -120,6 +129,18 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
 		ArrayList<Object> data = new ArrayList<Object>();
  		Payload p = new Payload(data);
 		umt.execute(p);
+		
+		 if(isOnline()){
+				try{
+					//
+			if(dbh.getCourseGroups()>=0){
+						CourseDetailsTask courseDetails = new CourseDetailsTask(this);
+						courseDetails.execute(new String[] { getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.CCH_COURSE_DETAILS_PATH});
+					}
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
 	}
 	
 	
@@ -216,5 +237,22 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
 	@Override
 	public void onAnimationRepeat(Animation animation) {
 		
+	}
+	
+	public boolean isOnline() {
+		 boolean haveConnectedWifi = false;
+		    boolean haveConnectedMobile = false;
+
+		    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		    NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+		    for (NetworkInfo ni : netInfo) {
+		        if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+		            if (ni.isConnected())
+		                haveConnectedWifi = true;
+		        if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+		            if (ni.isConnected())
+		                haveConnectedMobile = true;
+		    }
+		    return haveConnectedWifi || haveConnectedMobile;
 	}
 }

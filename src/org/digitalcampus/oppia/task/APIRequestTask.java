@@ -65,10 +65,7 @@ public class APIRequestTask extends AsyncTask<Payload, Object, Payload>{
 			while ((s = buffer.readLine()) != null) {
 				responseStr += s;
 			}
-			
-			
 			switch (response.getStatusLine().getStatusCode()){
-				// TODO check the unauthorised response code...
 				case 400: // unauthorised
 					payload.setResult(false);
 					payload.setResultResponse(ctx.getString(R.string.error_login));
@@ -98,7 +95,6 @@ public class APIRequestTask extends AsyncTask<Payload, Object, Payload>{
 	protected void onPostExecute(Payload response) {
 		synchronized (this) {
             if (requestListener != null) {
-            	System.out.println(response.toString());
                requestListener.apiRequestComplete(response);
             }
         }

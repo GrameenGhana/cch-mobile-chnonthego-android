@@ -34,28 +34,28 @@ public class TakeActionSomeDehydrationNoActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mContext = TakeActionSomeDehydrationNoActivity.this;
+		dbh=new DbHelper(TakeActionSomeDehydrationNoActivity.this);
+		start_time=System.currentTimeMillis();
 		getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic: Diarrhoea");
-	    mContext=TakeActionSomeDehydrationNoActivity.this;
-	    dbh=new DbHelper(TakeActionSomeDehydrationNoActivity.this);
-	    start_time=System.currentTimeMillis();
-	    json=new JSONObject();
-	    try {
-			json.put("page", "PNC Diagnostic: Diarrhoea");
-			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
-			json.put("ver", dbh.getVersionNumber(mContext));
-			json.put("battery", dbh.getBatteryStatus(mContext));
-			json.put("device", dbh.getDeviceName());
-			json.put("imei", dbh.getDeviceImei(mContext));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+	   
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			take_action_category = extras.getString("category");
 		}
 		if (take_action_category.equals("yes")) {
 			setContentView(R.layout.activity_some_dehydration_yes);
+			 getActionBar().setSubtitle("PNC Diagnostic: Diarrhoea > Some Dehydration");
+			    json=new JSONObject();
+			    try {
+					json.put("page", "PNC Diagnostic: Diarrhoea > Some Dehydration");
+					json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+					json.put("ver", dbh.getVersionNumber(mContext));
+					json.put("battery", dbh.getBatteryStatus(mContext));
+					json.put("device", dbh.getDeviceName());
+					json.put("imei", dbh.getDeviceImei(mContext));
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
 			TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
 			   click_here.setOnClickListener(new OnClickListener(){
 
@@ -83,6 +83,18 @@ public class TakeActionSomeDehydrationNoActivity extends BaseActivity {
 			   });
 		} else if (take_action_category.equals("no")) {
 			setContentView(R.layout.activity_some_dehydration_no);
+			 getActionBar().setSubtitle("PNC Diagnostic: Diarrhoea > Some Dehydration");
+			    json=new JSONObject();
+			    try {
+					json.put("page", "PNC Diagnostic: Diarrhoea > Some Dehydration");
+					json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+					json.put("ver", dbh.getVersionNumber(mContext));
+					json.put("battery", dbh.getBatteryStatus(mContext));
+					json.put("device", dbh.getDeviceName());
+					json.put("imei", dbh.getDeviceImei(mContext));
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
 			listView_someDehydrationNo = (ListView) findViewById(R.id.listView_someDehydrationNo);
 			String[] items = {
 					"Home visit or Outreach Clinic",

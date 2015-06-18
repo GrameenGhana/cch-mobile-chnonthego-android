@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xmlgui>
+<form id="1" name="Survey" submitTo="survey_table" >
+<field name="" label="Here are a few questions to better understand what aspects of the app are most useful to you, and how satisfied you are with the app. This will help us make improvements to the app for future use in other districts as well.
+Your responses will be confidential and used only for the purpose of improving the app." type="Preamble" required="N" options=""/>
+<field name="" label="Which module of the app do you find most useful?[Mark only one]" type="text" required="N" options=""/>
+<field name="q1" label=" " type="choice" required="Y" options="Point of care|Learning Center|Event Calendar|Achievement Center|Staying Well|Whatsapp"/>
+
+<field name="" label="To what extent has the app motivated you in your work?" type="text" required="N" options=""/>
+<field name="q2" label="" type="choice" required="Y" options="Very much|A little|Not at all"/>
+
+<field name="" label="To what extent has the app made your work life easier?" type="text" required="N" options=""/>
+<field name="q3" label="" type="choice" required="Y" options="Very much|A little|Not at all|Made my work more difficult"/>
+
+<field name="" label="To what extent has the app made your personal life happier?" type="text" required="N" options=""/>
+<field name="q4" label="" type="choice" required="Y" options="Very much|A little|Not at all|Made my life more difficult"/>
+
+<field name="" label="Based on your experience till now, do you think you will continue to use the app next year after the project has ended?" type="text" required="N" options=""/>
+<field name="q5" label="" type="choice" required="Y" options="Yes|No|Not sure"/>
+
+<field name="" label="To what extent has the app increased your knowledge on maternal and child health issues?" type="text" required="N" options=""/>
+<field name="q6" label="" type="choice" required="Y" options="Very much|A little|Not at all"/>
+
+<field name="" label="In the last month, to what extent has the app improved your relationship with your supervisor?" type="text" required="N" options=""/>
+<field name="q7" label="" type="choice" required="Y" options="Very much|A little|No difference|Made it worse"/>
+</form>
+</xmlgui>
+

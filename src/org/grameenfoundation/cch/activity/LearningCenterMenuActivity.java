@@ -54,15 +54,15 @@ public class LearningCenterMenuActivity extends AppActivity {
 				Intent intent;
 				switch(position){
 				case 0:
-					if(isOnline()){
-						intent=new Intent(mContext,TagSelectActivity.class);
+					//if(isOnline()){
+						intent=new Intent(mContext,CourseGroupActivity.class);
 						startActivity(intent);
 						overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
-					}else{
-						intent=new Intent(mContext,OppiaMobileActivity.class);
-						startActivity(intent);
-						overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);	
-					}
+					//}else{
+						//intent=new Intent(mContext,OppiaMobileActivity.class);
+						//startActivity(intent);
+						//overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);	
+					//}
 					break;
 				case 1:
 					intent=new Intent(mContext,ReferencesDownloadActivity.class);
@@ -139,12 +139,19 @@ public class LearningCenterMenuActivity extends AppActivity {
 	}
 	
 	public boolean isOnline() {
-	    ConnectivityManager cm =
-	        (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
-	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-	        return true;
-	    }
-	    return false;
+		 boolean haveConnectedWifi = false;
+		    boolean haveConnectedMobile = false;
+
+		    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		    NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+		    for (NetworkInfo ni : netInfo) {
+		        if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+		            if (ni.isConnected())
+		                haveConnectedWifi = true;
+		        if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+		            if (ni.isConnected())
+		                haveConnectedMobile = true;
+		    }
+		    return haveConnectedWifi || haveConnectedMobile;
 	}
 }

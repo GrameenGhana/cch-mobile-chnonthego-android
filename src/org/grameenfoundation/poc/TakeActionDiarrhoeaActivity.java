@@ -25,26 +25,28 @@ public class TakeActionDiarrhoeaActivity extends BaseActivity {
 	    super.onCreate(savedInstanceState);
 	    mContext=TakeActionDiarrhoeaActivity.this;
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic: Diarrhoea");
-	    dbh=new DbHelper(TakeActionDiarrhoeaActivity.this);
 	    start_time=System.currentTimeMillis();
-	    json=new JSONObject();
-	    try {
-			json.put("page", "PNC Diagnostic: Diarrhoea");
-			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
-			json.put("ver", dbh.getVersionNumber(mContext));
-			json.put("battery", dbh.getBatteryStatus(mContext));
-			json.put("device", dbh.getDeviceName());
-			json.put("imei", dbh.getDeviceImei(mContext));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+	    dbh=new DbHelper(TakeActionDiarrhoeaActivity.this);
+	  
 	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
           take_action_category= extras.getString("value");
         }
         if(take_action_category.equals("severe_diarrhoea")){
         	   setContentView(R.layout.activity_persistent_diarrhoea);
+        	   getActionBar().setSubtitle("PNC Diagnostic: Diarrhoea > Severe Diarrhoea");
+        		 
+       	    json=new JSONObject();
+       	    try {
+       			json.put("page", "PNC Diagnostic: Diarrhoea > Severe Diarrhoea");
+       			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+       			json.put("ver", dbh.getVersionNumber(mContext));
+       			json.put("battery", dbh.getBatteryStatus(mContext));
+       			json.put("device", dbh.getDeviceName());
+       			json.put("imei", dbh.getDeviceImei(mContext));
+       		} catch (JSONException e) {
+       			e.printStackTrace();
+       		}
         	   TextView click_here_too=(TextView) findViewById(R.id.textView_clickHereToo);
     		   click_here_too.setOnClickListener(new OnClickListener(){
 
@@ -70,6 +72,19 @@ public class TakeActionDiarrhoeaActivity extends BaseActivity {
     		   });
         }else if(take_action_category.equals("blood_stool")){
      	   setContentView(R.layout.activity_blood_in_stool);
+     	  getActionBar().setSubtitle("PNC Diagnostic: Diarrhoea > Blood in Stool");
+ 		 
+     	    json=new JSONObject();
+     	    try {
+     			json.put("page", "PNC Diagnostic: Diarrhoea > Blood in Stool");
+     			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+     			json.put("ver", dbh.getVersionNumber(mContext));
+     			json.put("battery", dbh.getBatteryStatus(mContext));
+     			json.put("device", dbh.getDeviceName());
+     			json.put("imei", dbh.getDeviceImei(mContext));
+     		} catch (JSONException e) {
+     			e.printStackTrace();
+     		}
      	  TextView click_here_too=(TextView) findViewById(R.id.textView_clickHereToo);
 		   click_here_too.setOnClickListener(new OnClickListener(){
 
@@ -107,6 +122,19 @@ public class TakeActionDiarrhoeaActivity extends BaseActivity {
 		   });
      }else if(take_action_category.equals("no_diarrhoea")){
    	   setContentView(R.layout.activity_no_diarrhoea);
+   	 getActionBar().setSubtitle("PNC Diagnostic: Diarrhoea > No Diarrhoea");
+		 
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Diagnostic: Diarrhoea > No Diarrhoea");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
    	TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
 	   click_here.setOnClickListener(new OnClickListener(){
 

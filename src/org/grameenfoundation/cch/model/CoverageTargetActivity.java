@@ -107,6 +107,7 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 		selected_items=coverage_adapter.getChild(groupPosition, childPosition);
 		selected_id=Long.parseLong(selected_items[7]);
 		String coverage_name=selected_items[9];
+		String coverage_detail=selected_items[0];
 		String coverage_number=selected_items[1];
 		String coverage_period=selected_items[2];
 		String due_date=selected_items[3];
@@ -114,6 +115,7 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 		String status=selected_items[6];
 		String achieved=selected_items[4];
 		String last_updated=selected_items[8];
+		String coverage_category=selected_items[12];
 		long old_id=Long.parseLong(selected_items[11]);
 		ArrayList<String> number_achieved_list=db.getNumberAchieved(selected_id, coverage_period,MobileLearning.CCH_TARGET_STATUS_NEW);
 		Intent intent=new Intent(getActivity(),CoverageTargetsDetailActivity.class);
@@ -127,6 +129,8 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 		intent.putExtra("achieved", number_achieved_list.get(0));
 		intent.putExtra("status", status);
 		intent.putExtra("last_updated", last_updated);
+		intent.putExtra("coverage_category", coverage_category);
+		intent.putExtra("coverage_detail", coverage_detail);
 		startActivity(intent);
 		getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		return true;

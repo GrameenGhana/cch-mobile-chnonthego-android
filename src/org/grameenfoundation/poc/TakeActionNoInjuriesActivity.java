@@ -26,14 +26,20 @@ public class TakeActionNoInjuriesActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    Bundle extras = getIntent().getExtras(); 
-	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions");
 	    mContext=TakeActionNoInjuriesActivity.this;
 	    dbh=new DbHelper(TakeActionNoInjuriesActivity.this);
 	    start_time=System.currentTimeMillis();
+	    getActionBar().setTitle("Point of Care");
+	    
+        if (extras != null) {
+          take_action_category= extras.getString("category");
+        }
+        if(take_action_category.equals("club foot")){
+	    setContentView(R.layout.activity_club_foot);
+	    getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions > Club Foot");
 	    json=new JSONObject();
 	    try {
-			json.put("page", "PNC Diagnostic: Other Serious Conditions");
+			json.put("page", "PNC Diagnostic: Other Serious Conditions > Club Foot");
 			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
 			json.put("ver", dbh.getVersionNumber(mContext));
 			json.put("battery", dbh.getBatteryStatus(mContext));
@@ -42,13 +48,20 @@ public class TakeActionNoInjuriesActivity extends BaseActivity {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-        if (extras != null) {
-          take_action_category= extras.getString("category");
-        }
-        if(take_action_category.equals("club foot")){
-	    setContentView(R.layout.activity_club_foot);
         }else if(take_action_category.equals("cleft palate")){
         setContentView(R.layout.activity_cleft_palate);
+        getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions > Cleft Palate");
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Diagnostic: Other Serious Conditions > Cleft Palate");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
         TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
 		   click_here.setOnClickListener(new OnClickListener(){
 
@@ -63,6 +76,18 @@ public class TakeActionNoInjuriesActivity extends BaseActivity {
 		   });
         }else if(take_action_category.equals("unusual appearance")){
         setContentView(R.layout.activity_unusual_appearance);
+        getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions > Unusual Appearance");
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Diagnostic: Other Serious Conditions > Unusual Appearance");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
         TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
 		   click_here.setOnClickListener(new OnClickListener(){
 
@@ -77,6 +102,18 @@ public class TakeActionNoInjuriesActivity extends BaseActivity {
 		   });
         }else if(take_action_category.equals("no_injuries")){
             setContentView(R.layout.activity_no_birth_abnormalities);
+            getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions > No Injuries");
+    	    json=new JSONObject();
+    	    try {
+    			json.put("page", "PNC Diagnostic: Other Serious Conditions > No Injuries");
+    			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+    			json.put("ver", dbh.getVersionNumber(mContext));
+    			json.put("battery", dbh.getBatteryStatus(mContext));
+    			json.put("device", dbh.getDeviceName());
+    			json.put("imei", dbh.getDeviceImei(mContext));
+    		} catch (JSONException e) {
+    			e.printStackTrace();
+    		}
             TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
         String text = "<a href='#'> diarrhoea </a>";
            	click_here.setText("Continue examination, and check baby for "+Html.fromHtml(text));

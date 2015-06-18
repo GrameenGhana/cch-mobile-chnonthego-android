@@ -9,7 +9,8 @@
     <string name="menu_search">Search</string>
     <!-- /End CCH additions -->
 
-    <string name="menu_download">Manage Courses</string>
+    <string name="menu_download">Download Courses</string>
+    <string name="menu_download_all">Download All</string>
     <string name="menu_language">Change language</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_about">About</string>
@@ -232,8 +233,9 @@
 	         <item>SP under IPTp</item>
 	         <item>TBA Monitoring</item>
 	         <item>CBSV (Volunteers)</item>
-	          <item>Family Planning Commodities</item>
-	           <item>CMAM</item>
+	         <item>Family Planning Commodities</item>
+	         <item>CMAM</item>
+	         <item>Routine Monitoring</item>
 	           
 	         
 	</string-array>
@@ -348,7 +350,6 @@
 	</string-array>
 	
 	<string-array name="CoverageIndicatorsDetailAgeGroups">
-	     	 <item>0 to 28days</item>
 	    	 <item>0 to 11 months</item>
 	         <item>12 to 23 months</item>
 	         <item>24 to 59 months</item>
@@ -369,7 +370,7 @@
 	         <item>OPV</item>
 	         <item>ROTA</item>
 	         <item>PCV</item>
-	         <item>Measles</item>
+	         <item>Measles Rubella</item>
 	         <item>Vitamin A</item>
 	         <item>TT pregnant</item>
 	         <item>TT non-pregnant</item>
@@ -404,7 +405,7 @@
 	</string-array>
 	
 	<string-array name="CoverageImmunizationMeaslesRubella">
-	    	 <item>Measles Rubella</item>
+	    	 <item>Measles Rubella @9mnths</item>
 	         <item>Measles 2</item>
 	</string-array>
 	

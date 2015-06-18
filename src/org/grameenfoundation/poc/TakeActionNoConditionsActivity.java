@@ -25,13 +25,19 @@ public class TakeActionNoConditionsActivity extends BaseActivity {
 	    super.onCreate(savedInstanceState);
 	    Bundle extras = getIntent().getExtras(); 
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions");
 	    mContext=TakeActionNoConditionsActivity.this;
 	    dbh=new DbHelper(TakeActionNoConditionsActivity.this);
 	    start_time=System.currentTimeMillis();
+	    
+        if (extras != null) {
+          take_action_category= extras.getString("category");
+        }
+        if(take_action_category.equals("asymmetrical")){
+	    setContentView(R.layout.activity_asymmetrical_limb);
+	    getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions > Asymmetrical Limb");
 	    json=new JSONObject();
 	    try {
-			json.put("page", "PNC Diagnostic: Other Serious Conditions");
+			json.put("page", "PNC Diagnostic: Other Serious Conditions > Asymmetrical Limb");
 			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
 			json.put("ver", dbh.getVersionNumber(mContext));
 			json.put("battery", dbh.getBatteryStatus(mContext));
@@ -40,11 +46,6 @@ public class TakeActionNoConditionsActivity extends BaseActivity {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-        if (extras != null) {
-          take_action_category= extras.getString("category");
-        }
-        if(take_action_category.equals("asymmetrical")){
-	    setContentView(R.layout.activity_asymmetrical_limb);
 	    TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
 		   click_here.setOnClickListener(new OnClickListener(){
 
@@ -59,6 +60,18 @@ public class TakeActionNoConditionsActivity extends BaseActivity {
 		   });
         }else if(take_action_category.equals("firm swelling")){
         setContentView(R.layout.activity_swelling_on_head);
+        getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions > Swelling on the head");
+	    json=new JSONObject();
+	    try {
+			json.put("page", "PNC Diagnostic: Other Serious Conditions > Swelling on the head");
+			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
         }
 	}
 	public void onBackPressed()

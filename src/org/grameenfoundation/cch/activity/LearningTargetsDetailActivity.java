@@ -520,7 +520,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.update_menu_icons, menu);
+	    inflater.inflate(R.menu.custom_action_bar, menu);
 	    return super.onCreateOptionsMenu(menu);
 	}
 	@Override
@@ -535,15 +535,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 	 	          finish();
 	 	         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 	            return true;
-	        case R.id.action_edit:
-	        	
-	            return true;
-	        case R.id.action_delete:
-	        	
-	        	return true;
-	        case R.id.action_update:
-	        	
-	        	return true;
+	        
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }

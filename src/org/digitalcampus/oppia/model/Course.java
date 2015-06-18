@@ -54,6 +54,8 @@ public class Course implements Serializable{
 	private Double scheduleVersionID;
 	private String scheduleURI;
 	private boolean isDraft = false;
+
+	private String courseGroup;
 	
 	public Course() {
 
@@ -293,6 +295,14 @@ public class Course implements Serializable{
 		this.scheduleURI = scheduleURI;
 	}
 
+
+	public String getCourseGroup() {
+		return courseGroup;
+	}
+
+	public void setCourseGroup(String courseGroup) {
+		this.courseGroup = courseGroup;
+	}
 	public boolean isDraft() {
 		return isDraft;
 	}

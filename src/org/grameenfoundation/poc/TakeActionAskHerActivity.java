@@ -29,21 +29,11 @@ public class TakeActionAskHerActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("ANC Diagnostic: Managing Danger Signs");
+	  
 	    mContext=TakeActionAskHerActivity.this;
 	    dbh=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
-	    json=new JSONObject();
-	    try {
-			json.put("page", "ANC Diagnostic: Managing Danger Signs");
-			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
-			json.put("ver", dbh.getVersionNumber(mContext));
-			json.put("battery", dbh.getBatteryStatus(mContext));
-			json.put("device", dbh.getDeviceName());
-			json.put("imei", dbh.getDeviceImei(mContext));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+	    
 	    Bundle extras = getIntent().getExtras(); 
         if (extras != null) {
           take_action_category= extras.getString("take_action");
@@ -51,6 +41,18 @@ public class TakeActionAskHerActivity extends BaseActivity {
       
         if(take_action_category.equals("Excessive Vomiting")){
         	  setContentView(R.layout.activity_danger_signs);
+        	  getActionBar().setSubtitle("ANC Diagnostic: Managing Danger Signs > Excessive Vomiting");
+        	  json=new JSONObject();
+      	    try {
+      			json.put("page", "ANC Diagnostic:  Managing Danger Signs > Excessive Vomiting");
+      			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+      			json.put("ver", dbh.getVersionNumber(mContext));
+      			json.put("battery", dbh.getBatteryStatus(mContext));
+      			json.put("device", dbh.getDeviceName());
+      			json.put("imei", dbh.getDeviceImei(mContext));
+      		} catch (JSONException e) {
+      			e.printStackTrace();
+      		}
         	  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
         	  imageView=(ImageView) findViewById(R.id.imageView1);
         	  textView_takeAction.setText(take_action_category);
@@ -58,6 +60,18 @@ public class TakeActionAskHerActivity extends BaseActivity {
         	  
     	    }else if(take_action_category.equals("Offensive/discolored vaginal discharge")){
     	      setContentView(R.layout.activity_danger_signs);
+    	      getActionBar().setSubtitle("ANC Diagnostic: Managing Danger Signs > Offensive/ Discolored Vaginal Discharge");
+        	  json=new JSONObject();
+      	    try {
+      			json.put("page", "ANC Diagnostic:  Managing Danger Signs > Offensive/ Discolored Vaginal Discharge");
+      			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+      			json.put("ver", dbh.getVersionNumber(mContext));
+      			json.put("battery", dbh.getBatteryStatus(mContext));
+      			json.put("device", dbh.getDeviceName());
+      			json.put("imei", dbh.getDeviceImei(mContext));
+      		} catch (JSONException e) {
+      			e.printStackTrace();
+      		}
            	  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
            	  imageView=(ImageView) findViewById(R.id.imageView1);
            	  textView_takeAction.setText(take_action_category);
@@ -65,6 +79,18 @@ public class TakeActionAskHerActivity extends BaseActivity {
            	  
     	    }else if(take_action_category.equals("Sever abdominal pain")){
     	    	 setContentView(R.layout.activity_danger_signs);
+    	    	 getActionBar().setSubtitle("ANC Diagnostic: Managing Danger Signs > Severe Abdominal Pain");
+           	  json=new JSONObject();
+         	    try {
+         			json.put("page", "ANC Diagnostic:  Managing Danger Signs > Severe Abdominal Pain");
+         			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+         			json.put("ver", dbh.getVersionNumber(mContext));
+         			json.put("battery", dbh.getBatteryStatus(mContext));
+         			json.put("device", dbh.getDeviceName());
+         			json.put("imei", dbh.getDeviceImei(mContext));
+         		} catch (JSONException e) {
+         			e.printStackTrace();
+         		}
               	  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
               	  imageView=(ImageView) findViewById(R.id.imageView1);
               	  textView_takeAction.setText(take_action_category);
@@ -72,12 +98,36 @@ public class TakeActionAskHerActivity extends BaseActivity {
               	  
     	    }else if(take_action_category.equals("Epigastric Pain")){
     	    	setContentView(R.layout.activity_danger_signs);
+	   	 getActionBar().setSubtitle("ANC Diagnostic: Managing Danger Signs > Epigastric Pain");
+          	  json=new JSONObject();
+        	    try {
+        			json.put("page", "ANC Diagnostic: Managing Danger Signs > Epigastric Pain");
+        			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+        			json.put("ver", dbh.getVersionNumber(mContext));
+        			json.put("battery", dbh.getBatteryStatus(mContext));
+        			json.put("device", dbh.getDeviceName());
+        			json.put("imei", dbh.getDeviceImei(mContext));
+        		} catch (JSONException e) {
+        			e.printStackTrace();
+        		}
             	  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
             	  imageView=(ImageView) findViewById(R.id.imageView1);
             	  textView_takeAction.setText(take_action_category);
             	  imageView.setImageResource(R.drawable.ic_image_placeholder);
     	    }else if(take_action_category.equals("Edema of the feet, face or ankles")){
     	    	setContentView(R.layout.activity_danger_signs);
+    	    	 getActionBar().setSubtitle("ANC Diagnostic: Managing Danger Signs > Edema of the feet, face or ankles");
+             	  json=new JSONObject();
+           	    try {
+           			json.put("page", "ANC Diagnostic: Managing Danger Signs > Edema of the feet, face or ankles");
+           			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+           			json.put("ver", dbh.getVersionNumber(mContext));
+           			json.put("battery", dbh.getBatteryStatus(mContext));
+           			json.put("device", dbh.getDeviceName());
+           			json.put("imei", dbh.getDeviceImei(mContext));
+           		} catch (JSONException e) {
+           			e.printStackTrace();
+           		}
           	  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
           	  imageView=(ImageView) findViewById(R.id.imageView1);
           	  textView_takeAction.setText(take_action_category);
@@ -85,19 +135,68 @@ public class TakeActionAskHerActivity extends BaseActivity {
     	    }else if(take_action_category.equals("BP  ≥  90mm Hg")){
     	    	setContentView(R.layout.activity_danger_signs);
             	  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
+            	  getActionBar().setSubtitle("ANC Diagnostic: Managing Danger Signs > BP  ≥  90mm Hg");
+             	  json=new JSONObject();
+           	    try {
+           			json.put("page", "ANC Diagnostic: Managing Danger Signs > BP  ≥  90mm Hg");
+           			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+           			json.put("ver", dbh.getVersionNumber(mContext));
+           			json.put("battery", dbh.getBatteryStatus(mContext));
+           			json.put("device", dbh.getDeviceName());
+           			json.put("imei", dbh.getDeviceImei(mContext));
+           		} catch (JSONException e) {
+           			e.printStackTrace();
+           		}
             	  imageView=(ImageView) findViewById(R.id.imageView1);
             	  textView_takeAction.setText(take_action_category);
             	  imageView.setImageResource(R.drawable.ic_image_placeholder);
     	    }else if(take_action_category.equals("Severe headache/blurred vision")){
     	    	setContentView(R.layout.activity_danger_signs);
+    	    	  getActionBar().setSubtitle("ANC Diagnostic: Managing Danger Signs > Severe headache/blurred vision");
+             	  json=new JSONObject();
+           	    try {
+           			json.put("page", "ANC Diagnostic: Managing Danger Signs > Severe headache/blurred vision");
+           			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+           			json.put("ver", dbh.getVersionNumber(mContext));
+           			json.put("battery", dbh.getBatteryStatus(mContext));
+           			json.put("device", dbh.getDeviceName());
+           			json.put("imei", dbh.getDeviceImei(mContext));
+           		} catch (JSONException e) {
+           			e.printStackTrace();
+           		}
           	  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
           	  imageView=(ImageView) findViewById(R.id.imageView1);
           	  textView_takeAction.setText(take_action_category);
           	  imageView.setImageResource(R.drawable.severe_headache);
+          	  
     	    }else if(take_action_category.equals("Difficulty Breathing")){
     	    	setContentView(R.layout.activity_difficulty_breathing_anc);
+    	    	 getActionBar().setSubtitle("ANC Diagnostic: Managing Danger Signs > Difficulty Breathing");
+            	  json=new JSONObject();
+          	    try {
+          			json.put("page", "ANC Diagnostic: Managing Danger Signs > Difficulty Breathing");
+          			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+          			json.put("ver", dbh.getVersionNumber(mContext));
+          			json.put("battery", dbh.getBatteryStatus(mContext));
+          			json.put("device", dbh.getDeviceName());
+          			json.put("imei", dbh.getDeviceImei(mContext));
+          		} catch (JSONException e) {
+          			e.printStackTrace();
+          		}
     	    }else if(take_action_category.equals("Shock")){
     	    	setContentView(R.layout.activity_shock_anc);
+    	    	 getActionBar().setSubtitle("ANC Diagnostic: Managing Danger Signs > Shock");
+           	  json=new JSONObject();
+         	    try {
+         			json.put("page", "ANC Diagnostic: Managing Danger Signs > Shock");
+         			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+         			json.put("ver", dbh.getVersionNumber(mContext));
+         			json.put("battery", dbh.getBatteryStatus(mContext));
+         			json.put("device", dbh.getDeviceName());
+         			json.put("imei", dbh.getDeviceImei(mContext));
+         		} catch (JSONException e) {
+         			e.printStackTrace();
+         		}
     	    }
 
 	}

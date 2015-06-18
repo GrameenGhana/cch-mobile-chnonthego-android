@@ -35,7 +35,7 @@ public class AnaemiaAskActivity extends BaseActivity {
 	    start_time=System.currentTimeMillis();
 	    json=new JSONObject();
 	    try {
-			json.put("page", "ANC Diagnostic Anaemia");
+			json.put("page", "ANC Diagnostic: Anaemia");
 			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
 			json.put("ver", dbh.getVersionNumber(mContext));
 			json.put("battery", dbh.getBatteryStatus(mContext));

@@ -26,6 +26,7 @@ import java.util.concurrent.Callable;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.adapter.CourseListAdapter;
+import org.digitalcampus.oppia.adapter.NewCourseListAdapter;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.exception.CourseNotFoundException;
@@ -33,10 +34,12 @@ import org.digitalcampus.oppia.listener.ScanMediaListener;
 import org.digitalcampus.oppia.model.Activity;
 import org.digitalcampus.oppia.model.Course;
 import org.digitalcampus.oppia.model.Lang;
+import org.digitalcampus.oppia.model.Tag;
 import org.digitalcampus.oppia.task.Payload;
 import org.digitalcampus.oppia.task.ScanMediaTask;
 import org.digitalcampus.oppia.utils.FileUtils;
 import org.digitalcampus.oppia.utils.UIUtils;
+import org.grameenfoundation.cch.activity.CourseGroupActivity;
 import org.grameenfoundation.cch.activity.HomeActivity;
 
 import android.app.AlertDialog;
@@ -56,6 +59,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -69,25 +73,46 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 	private SharedPreferences prefs;
 	private ArrayList<Course> courses;
 	private Course tempCourse;
+	private Bundle bundle;
+	private String courseGroup;
+	private Button download;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_main);
-		
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		prefs.registerOnSharedPreferenceChangeListener(this);
 		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
 		getActionBar().setDisplayShowHomeEnabled(true);
 	    getActionBar().setTitle("Learning Center");
 	    getActionBar().setSubtitle("Learning Modules");
+	    download=(Button) this.findViewById(R.id.button_download);
 		// set preferred lang to the default lang
 		if (prefs.getString(getString(R.string.prefs_language), "").equals("")) {
 			Editor editor = prefs.edit();
 			editor.putString(getString(R.string.prefs_language), Locale.getDefault().getLanguage());
 			editor.commit();
 		}
+		Bundle extras = getIntent().getExtras(); 
+		 if(extras != null) {
+	        	//Course t = (Course) bundle.getSerializable(Course.TAG);
+	        	//System.out.println(t.getCourseGroup());
+	        	courseGroup = extras.getString("courseGroup");
+	        } else {
+	        	courseGroup="Family planning";
+	        }
+		
+			download.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					startActivity(new Intent(OppiaMobileActivity.this, TagSelectActivity.class));
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+				}
+				
+			});
 	}
 
 	@Override
@@ -110,7 +135,7 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 	private void displayCourses() {
 
 		DbHelper db = new DbHelper(this);
-		courses = db.getCourses();
+		courses = db.getCoursesWithGroups(courseGroup);
 		db.close();
 		
 		if(MobileLearning.createDirs()){
@@ -141,6 +166,7 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 		} else {
 			llNone.setVisibility(View.VISIBLE);
 			Button manageBtn = (Button) this.findViewById(R.id.manage_courses_btn);
+			download.setVisibility(View.GONE);
 			manageBtn.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					startActivity(new Intent(OppiaMobileActivity.this, TagSelectActivity.class));
@@ -150,8 +176,8 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 		}
 		ArrayList<String> c=new ArrayList<String>();
 		for(int i=0;i<courses.size();i++){
-		c.add(courses.get(i).getTitle(prefs.getString(this.getString(R.string.prefs_language), Locale.getDefault().getLanguage())));
-		Collections.sort(c);
+			c.add(courses.get(i).getTitle(prefs.getString(this.getString(R.string.prefs_language), Locale.getDefault().getLanguage())));
+			Collections.sort(c);
 		}
 		CourseListAdapter mla = new CourseListAdapter(this, courses,c);
 		ListView listView = (ListView) findViewById(R.id.course_list);
@@ -249,23 +275,7 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 		return true;
 	}
 	
-	@Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-	        // Back?
-	        if (keyCode == KeyEvent.KEYCODE_BACK) {
-	        	Intent i = new Intent(OppiaMobileActivity.this, MainScreenActivity.class);
-	        	i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	        	startActivity(i);
-	    		finish();
-	    		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
-	            return false;
-	        }
-	        else {
-	            // Return
-	            return super.onKeyDown(keyCode, event);
-	        }
-    }
 
 	private void createLanguageDialog() {
 		ArrayList<Lang> langs = new ArrayList<Lang>();

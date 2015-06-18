@@ -77,7 +77,7 @@ public class DosageCalculatorActivity extends BaseActivity {
 
 	
 	public double oralQuinineDosage(double weight,int trimester){
-		int base;
+		int base = 0;
 		if(weight>60){
 			weight=60;
 		} 
@@ -91,39 +91,36 @@ public class DosageCalculatorActivity extends BaseActivity {
 		case 3:
 			base=4;
 			break;
-			
-			default:
-				base=4;
-				break;
+		default:
+			base = 4;
+			break;
 		}
 		return base*weight;
 	}
 	
 	public double artesunateDosage(double weight,int trimester){
-		int base;
+		int base = 0;
 		switch(trimester){
 		case 1:
 			base=0;
 			break;
-		default:
-			base=4;
-			break;
-			
+		default: 
+			base =4; 
+		break;
 		}
 		return base *weight;
 		
 	}
 	
 	public double amodiaquineDosage(double weight,int trimester){
-		 int base;
+		 int base = 0;
 		 switch(trimester){
 		 case 1:
-			 base =0;
+			 base = 0;
 			 break;
-			 
-			 default:
-				 base =10;
-				 break;
+		 default: 
+				base=10; 
+			break;
 		 }
 		
 		return base * weight;
@@ -138,21 +135,29 @@ public class DosageCalculatorActivity extends BaseActivity {
 		if(trimester>3||trimester<1){
 			editText_trimester.requestFocus();
 			editText_trimester.setError("Please enter a valid trimester (1 to 3)");
+			textView_three.setVisibility(View.GONE);
+			textView_four.setVisibility(View.GONE);
+			textView_one.setVisibility(View.GONE);
+			textView_two.setVisibility(View.GONE);
 		}
-		if(trimester>1){
+		else if(trimester>1){
 			//dosage=artesunateDosage(weight,trimester);
 			textView_three.setVisibility(View.VISIBLE);
 			textView_four.setVisibility(View.VISIBLE);
+			textView_one.setVisibility(View.VISIBLE);
+			textView_two.setVisibility(View.VISIBLE);
 			textView_one.setText("Oral Quinine: 600 mg every 8 hours for 7days \n OR");
-			textView_two.setText("Artesunate+Amodiaquine: "+String.valueOf(artesunateDosage(weight,trimester))+" mg artesunate "+String.valueOf(amodiaquineDosage(weight,trimester)+" mg amodiaquine twice a day for 3 days \n OR"));
+			textView_two.setText("Artesunate+Amodiaquine: "+String.valueOf(artesunateDosage(weight,trimester))+" mg artesunate "+String.valueOf(amodiaquineDosage(weight,trimester)+" mg amodiaquine per day for 3 days \n OR"));
 			textView_three.setText("Artesunate+Amodiaquine: "+String.valueOf(artesunateDosage(weight,trimester)/2)+" mg artesunate "+String.valueOf(amodiaquineDosage(weight,trimester)/2)+" mg amodiaquine twice a day for 3 days \n OR");
 			textView_four.setText("Artemether Lumefantrine: Arimether 20 mg, Lumfantrine: 120 mg lumfantrine with fatty meal \n Day 1: 4 tablets stat +  4 tablets in 8 hours \n "
 					+ "Day 2: 4 tablets twice daily \n Day 3: 4 tablets twice daily");
-		}else if(trimester==1) {
+		}else {
 			textView_one.setText("Oral Quinine: 600 mg every 8 hours for 7days \n OR");
-			textView_two.setText("Artesunate+Amodiaquine: "+String.valueOf(oralQuinineDosage(weight,trimester))+" mg of quinine plus 300 mg of Clindamycin three times daily for 3 days");
+			textView_two.setText("Oral Quinine: "+String.valueOf(oralQuinineDosage(weight,trimester))+" mg of quinine plus 300 mg of Clindamycin three times daily for 3 days");
 			textView_three.setVisibility(View.GONE);
 			textView_four.setVisibility(View.GONE);
+			textView_one.setVisibility(View.VISIBLE);
+			textView_two.setVisibility(View.VISIBLE);
 		}
 	}
 	

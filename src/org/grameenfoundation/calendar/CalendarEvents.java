@@ -102,10 +102,21 @@ public class CalendarEvents {
 		int rows =  mContext.getContentResolver().update(updateUri, values, null, null);
 		Log.i("Calendar edit", "Rows updated: " + rows);  
 		if(rows==1){
+			Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, event_id);
+			Intent intent = new Intent(Intent.ACTION_EDIT)
+			   .setData(uri)
+			   .putExtra(Events.TITLE, evt)
+			   .putExtra(Events.DESCRIPTION, desc)
+			   .putExtra(Events.EVENT_LOCATION, location)
+			   .putExtra(Events.AVAILABILITY, availability);
+			
+			mContext.startActivity(intent);
 			return true;
 		}else {
 			return false;
 		}
+		
+	
     }
 	public boolean updateEvent(long event_id,int status)
     {	

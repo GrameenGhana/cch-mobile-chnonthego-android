@@ -83,12 +83,12 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 	}
 	 public void populateImages(){
 		 if(tags.size()==2){
-			 imageIds=new int[]{R.drawable.ic_family,R.drawable.ic_postnatal};
+			 imageIds=new int[]{R.drawable.ic_family_planning,R.drawable.ic_mnch};
 		 }else {
 		 imageIds=new int[tags.size()];  
 		 
 		 for(int i=0;i<tags.size();i++){
-			 imageIds[i]=R.drawable.ic_family;
+			 imageIds[i]=R.drawable.ic_family_planning;
 		 }
 		 }
 	   }
@@ -125,17 +125,33 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 	    try {
 			this.json = new JSONObject(savedInstanceState.getString("json"));
 		} catch (JSONException e) {
+			e.printStackTrace();
+			pDialog.dismiss();
+			UIUtils.showAlert(this, R.string.error, R.string.error_processing_response, new Callable<Boolean>() {
+				public Boolean call() throws Exception {
+					TagSelectActivity.this.finish();
+					return true;
+				}
+			});
 		}
-	    
-	    
 	    Log.d(TAG,"restored instance state");
 	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle savedInstanceState) {
 	    super.onSaveInstanceState(savedInstanceState);
+	    try {
 	    savedInstanceState.putString("json", json.toString());
-	   
+	    }catch(Exception e){
+	    	e.printStackTrace();
+	    	pDialog.dismiss();
+	    	UIUtils.showAlert(this, R.string.error, R.string.error_processing_response, new Callable<Boolean>() {
+				public Boolean call() throws Exception {
+					TagSelectActivity.this.finish();
+					return true;
+				}
+			});
+	    }
 	    Log.d(TAG,"saved instance state");
 	}
 	
@@ -158,10 +174,12 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 		try {
 			for (int i = 0; i < (json.getJSONArray("tags").length()); i++) {
 				JSONObject json_obj = (JSONObject) json.getJSONArray("tags").get(i);
+				System.out.println(json_obj.toString());
 				Tag t = new Tag();
 				t.setName(json_obj.getString("name"));
 				t.setId(json_obj.getInt("id"));
 				t.setCount(json_obj.getInt("count"));
+			
 				tags.add(t);
 			}
 			 populateImages();
@@ -184,6 +202,12 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 			});
 		} catch (JSONException e) {
 			e.printStackTrace();
+			UIUtils.showAlert(this, R.string.error, R.string.error_processing_response, new Callable<Boolean>() {
+				public Boolean call() throws Exception {
+					TagSelectActivity.this.finish();
+					return true;
+				}
+			});
 		}
 		
 	}

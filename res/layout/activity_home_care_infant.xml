@@ -109,12 +109,15 @@
                 android:text="Advise Mother When to Return to the Health Facility"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
-
+ <HorizontalScrollView
+        android:layout_width="fill_parent"
+         android:layout_height="fill_parent">
             <ImageView
                 android:id="@+id/imageView1"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="wrap_content"
                 android:src="@drawable/infant_home_care" />
+            </HorizontalScrollView>
         </LinearLayout>
 
         <LinearLayout
@@ -130,12 +133,15 @@
                 android:text="Advise Mother When to Return to the Health Facility IMMEDIATELY "
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
-
+ <HorizontalScrollView
+        android:layout_width="fill_parent"
+         android:layout_height="fill_parent">
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 android:src="@drawable/infant_home_care_2" />
+            </HorizontalScrollView>
         </LinearLayout>
 
     </LinearLayout>

@@ -40,6 +40,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TableRow;
@@ -147,19 +148,40 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 				button_show.setVisibility(View.GONE);
 				ArrayAdapter<String> adapter=new ArrayAdapter<String>(EventTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 				spinner_event_name=(MaterialSpinner) dialog.findViewById(R.id.spinner_eventName);
+				
 				spinner_eventPeriod=(MaterialSpinner) dialog.findViewById(R.id.spinner_dialogEventPeriod);
 				spinner_eventPeriod.setAdapter(adapter);
-				  other_option=(TableRow) dialog.findViewById(R.id.other_option);
-				  editText_otherOption=(EditText) dialog.findViewById(R.id.editText_otherOption);
-				  other_option.setVisibility(View.GONE);
-				int spinner_position_period=adapter.getPosition(event_period);
-				spinner_eventPeriod.setSelection(spinner_position_period);
+				spinner_eventPeriod.setSelection(getIndex(spinner_eventPeriod,event_period));
+				other_option=(TableRow) dialog.findViewById(R.id.other_option);
+				editText_otherOption=(EditText) dialog.findViewById(R.id.editText_otherOption);
+				other_option.setVisibility(View.GONE);
+				
 				event_detail_radio=(RadioGroup) dialog.findViewById(R.id.radioGroup_category);
+				RadioButton radio_monitoring=(RadioButton) dialog.findViewById(R.id.radio_monitoring);
+				RadioButton radio_event=(RadioButton) dialog.findViewById(R.id.radio_events);
+				
 				items3=new String[]{};
 				items3=getResources().getStringArray(R.array.EventNames);
 				Arrays.sort(items3);
 				event_name_adapter=new ArrayAdapter<String>(EventTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
 				spinner_event_name.setAdapter(event_name_adapter);
+				
+				if(event_detail!=null&&event_detail.equalsIgnoreCase("Monitoring")){
+					radio_monitoring.setChecked(true);
+					radio_event.setChecked(false);
+					 items3=getResources().getStringArray(R.array.Monitoring);
+					 Arrays.sort(items3);
+					 event_name_adapter=new ArrayAdapter<String>(EventTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
+						spinner_event_name.setAdapter(event_name_adapter);
+					spinner_event_name.setSelection(getIndex(spinner_event_name,event_name));
+				}else if(event_detail!=null&&event_detail.equalsIgnoreCase("Event")){
+					radio_monitoring.setChecked(false);
+					radio_event.setChecked(true);
+					items3=getResources().getStringArray(R.array.EventNames);
+					event_name_adapter=new ArrayAdapter<String>(EventTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
+					spinner_event_name.setAdapter(event_name_adapter);
+					spinner_event_name.setSelection(getIndex(spinner_event_name,event_name));
+				}
 				spinner_event_name.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 					public void onItemSelected(AdapterView<?> parent,
@@ -187,6 +209,7 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 							 Arrays.sort(items3);
 							  event_name_adapter=new ArrayAdapter<String>(EventTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
 								spinner_event_name.setAdapter(event_name_adapter);
+								spinner_event_name.setSelection(getIndex(spinner_event_name,event_name));
 								eventDetailText="Event";
 						}else if(checkedId == R.id.radio_monitoring){
 							 items3=new String[]{};
@@ -194,26 +217,14 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 							 Arrays.sort(items3);
 							 event_name_adapter=new ArrayAdapter<String>(EventTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
 								spinner_event_name.setAdapter(event_name_adapter);
+								spinner_event_name.setSelection(getIndex(spinner_event_name,event_name));
 								eventDetailText="Monitoring";
 						}
 						
 					}
 					
 				});
-			if(event_detail!=null&&event_detail.equalsIgnoreCase("Monitoring")){
-					event_detail_radio.check(R.id.radio_monitoring);
-					int spinner_position=event_name_adapter.getPosition(event_name);
-					spinner_event_name.setSelection(spinner_position);
-				}else if(event_detail!=null&&event_detail.equalsIgnoreCase("Event")){
-					event_detail_radio.check(R.id.radio_events);
-					items3=getResources().getStringArray(R.array.EventNames);
-					event_name_adapter=new ArrayAdapter<String>(EventTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
-					spinner_event_name.setAdapter(event_name_adapter);
-					int spinner_position=event_name_adapter.getPosition(event_name);
-					spinner_event_name.setSelection(spinner_position);
-				}else if(event_detail==null){
-					event_detail_radio.check(R.id.radio_events);
-				}
+		
 				if(event_number!=null){
 					editText_eventNumber.setText(event_number);
 				}else{
@@ -436,7 +447,7 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.update_menu_icons, menu);
+	    inflater.inflate(R.menu.custom_action_bar, menu);
 	    return super.onCreateOptionsMenu(menu);
 	}
 	@Override
@@ -450,15 +461,7 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 	 	          startActivity(goHome);
 	 	          finish();
 	            return true;
-	        case R.id.action_edit:
-	        	
-	            return true;
-	        case R.id.action_delete:
-	        	
-	        	return true;
-	        case R.id.action_update:
-	        
-	        	return true;
+	       
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
@@ -566,7 +569,6 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 				event_old_id=extras.getLong("old_id");
 				last_updated=extras.getString("last_updated");
 				event_detail=extras.getString("event_detail");
-				System.out.println(String.valueOf(event_detail));
 	        }
 	       
 	        int number_achieved_current=Integer.valueOf(achieved);
@@ -612,7 +614,19 @@ public class EventTargetsDetailActivity extends FragmentActivity {
 	        
 	    }
 	}
-	 
+	 private int getIndex(MaterialSpinner spinner, String myString)
+	 {
+	  int index = 0;
+
+	  for (int i=0;i<spinner.getCount();i++){
+		  if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+			  index = i;
+	    break;
+		  }
+	  }
+	  return index;
+	 } 
+
 	 private boolean checkValidation() {
 	        boolean ret = true;
 	 

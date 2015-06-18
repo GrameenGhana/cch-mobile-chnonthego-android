@@ -24,7 +24,7 @@ public class TakeActionSevereDehydrationActivity extends BaseActivity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_sever_dehydration);
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic: Diarrheoa");
+	    getActionBar().setSubtitle("PNC Diagnostic: Diarrheoa > Severe Dehydration");
 	    mContext=TakeActionSevereDehydrationActivity.this;
 	    dbh=new DbHelper(TakeActionSevereDehydrationActivity.this);
 	    start_time=System.currentTimeMillis();

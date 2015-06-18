@@ -23,32 +23,57 @@ public class TakeActionHIVInfectionActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    Bundle extras = getIntent().getExtras(); 
-	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Diagnostic: HIV Infection");
 	    mContext=TakeActionHIVInfectionActivity.this;
 	    dbh=new DbHelper(TakeActionHIVInfectionActivity.this);
 	    start_time=System.currentTimeMillis();
-	    json=new JSONObject();
-	    try {
-			json.put("page", "PNC Diagnostic: HIV Infection");
-			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
-			json.put("ver", dbh.getVersionNumber(mContext));
-			json.put("battery", dbh.getBatteryStatus(mContext));
-			json.put("device", dbh.getDeviceName());
-			json.put("imei", dbh.getDeviceImei(mContext));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+	    Bundle extras = getIntent().getExtras(); 
+	    getActionBar().setTitle("Point of Care");
+	   
         if (extras != null) {
           category= extras.getString("value");
         }
         if(category.equalsIgnoreCase("negative_no")){
         	setContentView(R.layout.activity_hiv_negative_no);
+        	 getActionBar().setSubtitle("PNC Diagnostic: HIV Infection > Negative");
+     	    json=new JSONObject();
+     	    try {
+     			json.put("page", "PNC Diagnostic: HIV Infection > Negative");
+     			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+     			json.put("ver", dbh.getVersionNumber(mContext));
+     			json.put("battery", dbh.getBatteryStatus(mContext));
+     			json.put("device", dbh.getDeviceName());
+     			json.put("imei", dbh.getDeviceImei(mContext));
+     		} catch (JSONException e) {
+     			e.printStackTrace();
+     		}
         }else if(category.equalsIgnoreCase("negative_yes")){
         	setContentView(R.layout.activity_hiv_negative_yes);
+        	 getActionBar().setSubtitle("PNC Diagnostic: HIV Infection > Negative");
+      	    json=new JSONObject();
+      	    try {
+      			json.put("page", "PNC Diagnostic: HIV Infection > Negative");
+      			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+      			json.put("ver", dbh.getVersionNumber(mContext));
+      			json.put("battery", dbh.getBatteryStatus(mContext));
+      			json.put("device", dbh.getDeviceName());
+      			json.put("imei", dbh.getDeviceImei(mContext));
+      		} catch (JSONException e) {
+      			e.printStackTrace();
+      		}
         }else if(category.equalsIgnoreCase("positive_no")){
         	setContentView(R.layout.activity_hiv_positive_no);
+        	 getActionBar().setSubtitle("PNC Diagnostic: HIV Infection > Positive");
+      	    json=new JSONObject();
+      	    try {
+      			json.put("page", "PNC Diagnostic: HIV Infection > Positive");
+      			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+      			json.put("ver", dbh.getVersionNumber(mContext));
+      			json.put("battery", dbh.getBatteryStatus(mContext));
+      			json.put("device", dbh.getDeviceName());
+      			json.put("imei", dbh.getDeviceImei(mContext));
+      		} catch (JSONException e) {
+      			e.printStackTrace();
+      		}
         	TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
   		   click_here.setOnClickListener(new OnClickListener(){
 
@@ -63,6 +88,18 @@ public class TakeActionHIVInfectionActivity extends BaseActivity {
   		   });
         }else if(category.equalsIgnoreCase("positive_yes")){
         	setContentView(R.layout.activity_hiv_positive_yes);
+        	 getActionBar().setSubtitle("PNC Diagnostic: HIV Infection > Positive");
+       	    json=new JSONObject();
+       	    try {
+       			json.put("page", "PNC Diagnostic: HIV Infection > Positive");
+       			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
+       			json.put("ver", dbh.getVersionNumber(mContext));
+       			json.put("battery", dbh.getBatteryStatus(mContext));
+       			json.put("device", dbh.getDeviceName());
+       			json.put("imei", dbh.getDeviceImei(mContext));
+       		} catch (JSONException e) {
+       			e.printStackTrace();
+       		}
         	TextView click_here=(TextView) findViewById(R.id.textView_clickHere);
  		   click_here.setOnClickListener(new OnClickListener(){
 

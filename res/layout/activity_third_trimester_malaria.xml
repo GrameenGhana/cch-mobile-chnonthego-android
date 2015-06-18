@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Take Action: 2nd Trimester"
+            android:text="Take Action: 3rd Trimester"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/Curry" />
 

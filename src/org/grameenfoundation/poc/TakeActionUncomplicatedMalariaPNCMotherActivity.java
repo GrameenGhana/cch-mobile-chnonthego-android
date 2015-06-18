@@ -33,10 +33,10 @@ public class TakeActionUncomplicatedMalariaPNCMotherActivity extends BaseActivit
 	    dbh=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Mother Diagnostic: Malaria");
+	    getActionBar().setSubtitle("PNC Mother Diagnostic: Malaria > Uncomplicated Malaria");
 	    json=new JSONObject();
 	    try {
-			json.put("page", "PNC Mother Diagnostic: Malaria");
+			json.put("page", "PNC Mother Diagnostic: Malaria > Uncomplicated Malaria");
 			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
 			json.put("ver", dbh.getVersionNumber(mContext));
 			json.put("battery", dbh.getBatteryStatus(mContext));

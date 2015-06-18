@@ -48,6 +48,9 @@ public class EventsViewActivity extends  BaseActivity {
 
 
 	private JSONObject data;
+
+
+	private Button button_update;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -80,6 +83,18 @@ public class EventsViewActivity extends  BaseActivity {
 		}
 		
 	});
+	    button_update=(Button) findViewById(R.id.button_update);
+	    button_update.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(EventsViewActivity.this,EventUpdateActivity.class);
+				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+				
+			}
+	    	
+	    });
 	expandableList_events.setOnChildClickListener(new OnChildClickListener(){
 
 		@Override

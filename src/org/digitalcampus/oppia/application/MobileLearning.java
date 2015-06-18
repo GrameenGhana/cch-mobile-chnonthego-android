@@ -23,6 +23,8 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.task.SubmitQuizTask;
 import org.digitalcampus.oppia.task.SubmitTrackerMultipleTask;
 import org.grameenfoundation.cch.tasks.StayingWellNotifyTask;
+import org.grameenfoundation.cch.tasks.SurveyNotifyTask;
+import org.grameenfoundation.cch.tasks.TargetSettingNotifyTask;
 import org.grameenfoundation.cch.tasks.UpdateCCHLogTask;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -32,6 +34,7 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+
 import org.acra.*;
 import org.acra.annotation.*;
 import org.acra.sender.HttpSender;
@@ -84,6 +87,8 @@ public class MobileLearning extends Application {
 	public static final String SERVER_POINTS_PATH = OPPIAMOBILE_API + "points/";
 	public static final String SERVER_COURSES_NAME = "courses";
 	public static final String CCH_QUOTES_SUBMIT_PATH = "api/v1/quotes";
+	public static final String CCH_USER_DETAILS_PATH = "cch/yabr3/api/v1/details/";
+	public static final String CCH_COURSE_DETAILS_PATH = "cch/yabr3/courses";
 	public static final String CCH_TRACKER_SUBMIT_PATH = "api/v1/tracker";
 	public static final String CCH_COURSE_ACHIEVEMENT_PATH = "cmd=2&username=";
 	public static final String CCH_REFERENCE_DOWNLOAD_PATH = "references/";
@@ -129,6 +134,9 @@ public class MobileLearning extends Application {
 	
 	// for tracking if notifier is already running
 	public StayingWellNotifyTask omStayingWellNotifyTask = null;
+	
+	public TargetSettingNotifyTask omTargetSettingNotifyTask = null;
+	public SurveyNotifyTask omSurveyNotifyTask = null;
 	
 	public static boolean createDirs() {
 		String cardstatus = Environment.getExternalStorageState();

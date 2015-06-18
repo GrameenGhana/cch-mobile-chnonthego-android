@@ -80,7 +80,7 @@ public class EventUpdateActivity extends BaseActivity {
 	    	listView.setAdapter(adapter);
 	    }else{
 	    	Intent intent=new Intent(Intent.ACTION_MAIN);
-			intent.setClass(EventUpdateActivity.this,MainScreenActivity.class);
+			intent.setClass(EventUpdateActivity.this,EventPlannerOptionsActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			finish();
