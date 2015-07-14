@@ -1,21 +1,18 @@
 package org.digitalcampus.oppia.activity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
-import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.model.User;
 import org.digitalcampus.oppia.service.TrackerService;
 import org.grameenfoundation.adapters.EventsDetailPagerAdapter;
-import org.grameenfoundation.adapters.MainScreenBaseAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.cch.activity.AchievementCenterActivity;
-import org.grameenfoundation.cch.activity.AchievementSummaryActivity;
 import org.grameenfoundation.cch.activity.EventPlannerOptionsActivity;
-import org.grameenfoundation.cch.activity.EventUpdateActivity;
 import org.grameenfoundation.cch.activity.LearningCenterMenuActivity;
 import org.grameenfoundation.cch.activity.StayingWellActivity;
 import org.grameenfoundation.cch.activity.UpdateTargetActivity;
@@ -28,22 +25,15 @@ import org.grameenfoundation.cch.model.RoutineActivity;
 import org.grameenfoundation.cch.model.RoutineActivityDetails;
 import org.grameenfoundation.cch.model.Survey;
 import org.grameenfoundation.cch.popupquestions.RunForm;
-import org.grameenfoundation.cch.popupquestions.XmlGui;
-import org.grameenfoundation.cch.tasks.CourseDetailsTask;
-import org.grameenfoundation.cch.tasks.SurveyNotifyTask;
-import org.grameenfoundation.cch.tasks.UserDetailsProcessTask;
 import org.grameenfoundation.cch.utils.CCHTimeUtil;
-import org.grameenfoundation.cch.utils.MaterialSpinner;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
+import org.joda.time.Days;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -56,7 +46,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.CalendarContract.Events;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -73,23 +62,16 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.ArrayAdapter;
+import android.widget.RadioButton;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainScreenActivity extends FragmentActivity implements OnSharedPreferenceChangeListener {
 
-	private ListView main_menu_listview;
 	private static Context mContext;
 	private static TextView status;
 	public static final String TAG = MainScreenActivity.class.getSimpleName();
@@ -110,22 +92,12 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 	private CCHTimeUtil timeUtils;
 	private DateTime today;
 	private String name;
-	private RadioGroup reminder;
-	private DateTime newReminderDate;
-	private DateTime nextReminderDate;
-	private DateTime reminderDate;
 	private ArrayList<Survey> surveyData;
-	private LocalDate date;
-	private LocalDate date2;
+	private RadioGroup reminder;
+	private RadioButton weekRadioButton;
+	private RadioButton dayRadioButton;
 	public static Dialog dialog ;
 	
-	// MODULE IDs
-	/*	private static final String EVENT_PLANNER_ID      = "Event Planner";
-		private static final String STAYING_WELL_ID       = "Staying Well";
-		private static final String POINT_OF_CARE_ID      = "Point of Care";
-		private static final String LEARNING_CENTER_ID    = "Learning Center";
-		private static final String ACHIEVEMENT_CENTER_ID = "Achievement Center";
-    */
 
 	/** Called when the activity is first created. */
 	@Override
@@ -153,52 +125,38 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 			dbh.updateOtherDetailDefault();
 			dbh.alterUserTable(); 
 			dbh.alterCourseTableGroup();
+			dbh.alterUserTableDistrict();
 			prefs = PreferenceManager.getDefaultSharedPreferences(this);
 			name=prefs.getString("first_name", "name");
-			 	//SurveyNotifyTask omSurveyNotifyTask = new SurveyNotifyTask(this);
-			 	//omSurveyNotifyTask.execute();
 		 }catch(Exception e){
 			 e.printStackTrace();
 		 }
-		 if(isOnline()){
-				try{
-					UserDetailsProcessTask usd = new UserDetailsProcessTask(this);
-					usd.execute(new String[] { getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.CCH_USER_DETAILS_PATH+name});
-				}catch(Exception e){
-					e.printStackTrace();
-				}
-			}
-		 if(isOnline()){
-				try{
-					//
-			if(dbh.getCourseGroups()>=0){
-						CourseDetailsTask courseDetails = new CourseDetailsTask(this);
-						courseDetails.execute(new String[] { getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.CCH_COURSE_DETAILS_PATH});
-					}
-				}catch(Exception e){
-					e.printStackTrace();
-				}
-			}
+		 
 		try{
-			date=new LocalDate();
-			date2=new LocalDate();
+			  Time now=new Time();
+		       now.setToNow();
 			DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy HH:mm");
-			DateTimeFormatter formatter2 = DateTimeFormat.forPattern("dd-MM-yyyy");
+			DateTimeFormatter formatter2 = DateTimeFormat.forPattern("dd-MM-yyyy");	
+			DateTime surveyEndDate;
 				ArrayList<User> user_role = dbh.getUserFirstName(name);
-				//ArrayList<Survey> surveys = dbh.getSurveys();
-				surveyData = dbh.getSurveyDetails(date2.toString("dd-MM-yyyy"));
-				reminderDate=formatter.parseDateTime(surveyData.get(0).getSurveyReminderDate());
-				if(!surveyData.get(0).getSurveyNextReminderDate().equals("")){
-					nextReminderDate=formatter.parseDateTime(surveyData.get(0).getSurveyNextReminderDate());
-				}
-				System.out.println("Reminder date: "+reminderDate.toString("dd-MM-yyyy HH:mm"));
-				System.out.println("Today's date: "+date2.toString("dd-MM-yyyy"));
-				newReminderDate=new DateTime();
-			if(user_role.get(0).getUserrole().equals("chn")||user_role.get(0).getUserrole().equals("Supervisor")){
-				if(surveyData.get(0).getSurveyNextReminderDate().equals("")){
-					if(reminderDate.toString("dd-MM-yyyy HH:mm").contains(date2.toString("dd-MM-yyyy"))&&surveyData.get(0).getSurveyStatus().equals("")){
-						System.out.println("Reminder date: "+reminderDate.toString("dd-MM-yyyy HH:mm"));
-						System.out.println("Today's date: "+date2.toString("dd-MM-yyyy"));
+				surveyData = dbh.getSurveys();
+				List<String> userDistricts = Arrays.asList(getResources().getStringArray(R.array.Districts));
+			if((user_role.get(0).getUserrole().equals("chn")
+					||user_role.get(0).getUserrole().equals("Sub-District Supervisor")
+					||user_role.get(0).getUserrole().equalsIgnoreCase("District Supervisor"))
+					&&userDistricts.contains(user_role.get(0).getUserDistrict())){
+				System.out.println("Reminder "+String.valueOf(surveyData.get(0).getSurveyReminderDate()));
+				System.out.println("Next Reminder "+String.valueOf(surveyData.get(0).getSurveyNextReminderDate()));
+				System.out.println("Reminder Frequecny "+String.valueOf(surveyData.get(0).getSurveyReminderFrequency()));
+				System.out.println("Status"+String.valueOf(surveyData.get(0).getSurveyStatus()));
+				System.out.println("Status"+String.valueOf(surveyData.get(0).getSurveyDateTaken()));
+				if(today.getMillis()>=Long.valueOf(surveyData.get(0).getSurveyReminderDate())
+						&&today.getMillis()<=Long.valueOf(surveyData.get(0).getSurveyNextReminderDate())
+						&&surveyData.get(0).getSurveyStatus().equals("")
+						&&surveyData.get(0).getSurveyReminderFrequency().equals("")){
+					surveyEndDate=new DateTime(Long.valueOf(surveyData.get(0).getSurveyNextReminderDate()));
+					System.out.println("Today "+String.valueOf(today.getMillis()));
+					System.out.println("Reminder "+String.valueOf(surveyData.get(0).getSurveyReminderDate()));
 						dialog = new Dialog(MainScreenActivity.this);
 						dialog.setContentView(R.layout.survey_popup_dialog);
 						dialog.setTitle("Satisfaction Survey");
@@ -207,16 +165,28 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 						Button close=(Button) dialog.findViewById(R.id.button_cancel);
 						TextView instruction=(TextView) dialog.findViewById(R.id.textView_instruct);
 						String first="<font color='#53AB20'>Click next to take the </font>";
-						String second="<font color='#520000'>Satisfaction Survey. </font>";
-						String third="<font color='#53AB20'> If you would like to do this another time, select one of the reminders below and click close. "
-									+ "If you would like to access the survey before the reminder selected, go to the menu on this page to access the survey. </font>";
-						instruction.setText(Html.fromHtml(first+second+third));
+						String second="<font color='#520000'>Satisfaction Survey.</font>";
+						String third="<font color='#520000'>Reminder below and click close. </font>";
+						String fourth="<font color='#53AB20'> If you would like to do this another time, chose a  </font>";
+						String fifth= "<font color='#53AB20'> If you would like to access the survey at anytime, go to the </font>";
+						String sixth="<font color='#520000'>menu </font>";
+						String seventh="<font color='#53AB20'>  on this page to access the survey. This survey ends on: </font>";
+						String eight="<font color='#520000'>31st July 2015 </font>";
+						instruction.setText(Html.fromHtml(first+second+fourth+third+fifth+sixth+seventh+eight));
 						final TextView remindMe=(TextView) dialog.findViewById(R.id.textView2);
 								reminder=(RadioGroup) dialog.findViewById(R.id.radioGroup_reminder);
+								weekRadioButton=(RadioButton) dialog.findViewById(R.id.radio3);
+								dayRadioButton=(RadioButton) dialog.findViewById(R.id.radio2);
+								if(Days.daysBetween(today.toLocalDate(), surveyEndDate.toLocalDate()).getDays()<7){
+									weekRadioButton.setVisibility(View.GONE);
+								}else if(Days.daysBetween(today.toLocalDate(), surveyEndDate.toLocalDate()).getDays()<=1){
+									dayRadioButton.setVisibility(View.GONE);
+								}
 						close.setOnClickListener(new OnClickListener(){
 
 							@Override
 							public void onClick(View v) {
+								
 								if(reminder.getCheckedRadioButtonId()==-1){
 									remindMe.setFocusable(true);
 									remindMe.setFocusableInTouchMode(true);
@@ -224,22 +194,25 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 								remindMe.setError("Please select a reminder");
 								}else{
 									if(reminder.getCheckedRadioButtonId()==R.id.radio0){
-										newReminderDate=reminderDate.plusHours(1);
-										dbh.updateSurveyReminder(surveyData.get(0).getSurveyReminderDate(), newReminderDate.toString("dd-MM-yyyy HH:mm"),Integer.valueOf(surveyData.get(0).getSurveyId()));
+										System.out.println(String.valueOf(System.currentTimeMillis()+60000));
+										dbh.updateSurveyReminder("1 hour",String.valueOf(System.currentTimeMillis()+60000),Integer.valueOf(surveyData.get(0).getSurveyId()));
 										dialog.dismiss();
 										Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
 									}else if(reminder.getCheckedRadioButtonId()==R.id.radio1){
-										newReminderDate=reminderDate.plusHours(6);
-										dbh.updateSurveyReminder(surveyData.get(0).getSurveyReminderDate(), newReminderDate.toString("dd-MM-yyyy HH:mm"),Integer.valueOf(surveyData.get(0).getSurveyId()));
+										dbh.updateSurveyReminder("6 hours",String.valueOf(System.currentTimeMillis()+21600000),Integer.valueOf(surveyData.get(0).getSurveyId()));
 										dialog.dismiss();
 										Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
 									}else if(reminder.getCheckedRadioButtonId()==R.id.radio2){
-										newReminderDate=reminderDate.plusDays(1);
-										dbh.updateSurveyReminder(surveyData.get(0).getSurveyReminderDate(), newReminderDate.toString("dd-MM-yyyy HH:mm"),Integer.valueOf(surveyData.get(0).getSurveyId()));
+										dbh.updateSurveyReminder("1 day",String.valueOf(System.currentTimeMillis()+AlarmManager.INTERVAL_DAY),Integer.valueOf(surveyData.get(0).getSurveyId()));
+										dialog.dismiss();
+										Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
+									}else if(reminder.getCheckedRadioButtonId()==R.id.radio3){
+										dbh.updateSurveyReminder("1 week",String.valueOf(System.currentTimeMillis()+604800000),Integer.valueOf(surveyData.get(0).getSurveyId()));
 										dialog.dismiss();
 										Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
 									}
 								}
+								
 							}
 							
 						});
@@ -248,7 +221,6 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 							public void onClick(View v) {
 								try{
 									Intent intent=new Intent(MainScreenActivity.this, RunForm.class);
-									intent.putExtra("date",date2.toString("dd-MM-yyyy"));
 									startActivity(intent);
 									dialog.dismiss();
 								}catch(Exception e){
@@ -259,9 +231,11 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 							
 						});
 						dialog.show();
-					}
-					}else {
-						if(date.toString("dd-MM-yyyy HH:mm").equals(surveyData.get(0).getSurveyNextReminderDate())&&surveyData.get(0).getSurveyStatus().equals("")){
+					}else if(today.getMillis()>=Long.valueOf(surveyData.get(1).getSurveyReminderDate())
+							&&today.getMillis()<=Long.valueOf(surveyData.get(1).getSurveyNextReminderDate())
+							&&surveyData.get(1).getSurveyStatus().equals("")
+							&&surveyData.get(1).getSurveyReminderFrequency().equals("")){
+							surveyEndDate=new DateTime(Long.valueOf(surveyData.get(1).getSurveyNextReminderDate()));
 							dialog = new Dialog(MainScreenActivity.this);
 							dialog.setContentView(R.layout.survey_popup_dialog);
 							dialog.setTitle("Satisfaction Survey");
@@ -271,11 +245,22 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 							TextView instruction=(TextView) dialog.findViewById(R.id.textView_instruct);
 							String first="<font color='#53AB20'>Click next to take the </font>";
 							String second="<font color='#520000'>Satisfaction Survey.</font>";
-							String third="<font color='#53AB20'> If you would like to do this another time, select one of the reminders below and click close. "
-										+ "If you would like to access the survey before the reminder selected, go to the menu on this page to access the survey. </font>";
-							instruction.setText(Html.fromHtml(first+second+third));
+							String third="<font color='#520000'>Reminder below and click close. </font>";
+							String fourth="<font color='#53AB20'> If you would like to do this another time, chose a  </font>";
+							String fifth= "<font color='#53AB20'> If you would like to access the survey at anytime, go to the </font>";
+							String sixth="<font color='#520000'>menu </font>";
+							String seventh="<font color='#53AB20'>  on this page to access the survey. This survey ends on: </font>";
+							String eight="<font color='#520000'>30th November 2015 </font>";
+							instruction.setText(Html.fromHtml(first+second+fourth+third+fifth+sixth+seventh+eight));
 							final TextView remindMe=(TextView) dialog.findViewById(R.id.textView2);
-									reminder=(RadioGroup) dialog.findViewById(R.id.radioGroup_reminder);
+								reminder=(RadioGroup) dialog.findViewById(R.id.radioGroup_reminder);
+								weekRadioButton=(RadioButton) dialog.findViewById(R.id.radio3);
+								dayRadioButton=(RadioButton) dialog.findViewById(R.id.radio2);
+								if(Days.daysBetween(today.toLocalDate(), surveyEndDate.toLocalDate()).getDays()<7){
+									weekRadioButton.setVisibility(View.GONE);
+								}else if(Days.daysBetween(today.toLocalDate(), surveyEndDate.toLocalDate()).getDays()<=1){
+									dayRadioButton.setVisibility(View.GONE);
+								}
 							close.setOnClickListener(new OnClickListener(){
 
 								@Override
@@ -287,18 +272,19 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 									remindMe.setError("Please select a reminder");
 									}else{
 										if(reminder.getCheckedRadioButtonId()==R.id.radio0){
-											newReminderDate=reminderDate.plusHours(1);
-											dbh.updateSurveyReminder(surveyData.get(0).getSurveyReminderDate(), newReminderDate.toString("dd-MM-yyyy HH:mm"),Integer.valueOf(surveyData.get(0).getSurveyId()));
+											dbh.updateSurveyReminder("1 hour",String.valueOf(System.currentTimeMillis()+60000),Integer.valueOf(surveyData.get(1).getSurveyId()));
 											dialog.dismiss();
 											Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
 										}else if(reminder.getCheckedRadioButtonId()==R.id.radio1){
-											newReminderDate=reminderDate.plusHours(6);
-											dbh.updateSurveyReminder(surveyData.get(0).getSurveyReminderDate(), newReminderDate.toString("dd-MM-yyyy HH:mm"),Integer.valueOf(surveyData.get(0).getSurveyId()));
+											dbh.updateSurveyReminder("6 hours", String.valueOf(System.currentTimeMillis()+21600000),Integer.valueOf(surveyData.get(1).getSurveyId()));
 											dialog.dismiss();
 											Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
 										}else if(reminder.getCheckedRadioButtonId()==R.id.radio2){
-											newReminderDate=reminderDate.plusDays(1);
-											dbh.updateSurveyReminder(surveyData.get(0).getSurveyReminderDate(), newReminderDate.toString("dd-MM-yyyy HH:mm"),Integer.valueOf(surveyData.get(0).getSurveyId()));
+											dbh.updateSurveyReminder("1 day",String.valueOf(System.currentTimeMillis()+AlarmManager.INTERVAL_DAY),Integer.valueOf(surveyData.get(1).getSurveyId()));
+											dialog.dismiss();
+											Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
+										}else if(reminder.getCheckedRadioButtonId()==R.id.radio3){
+											dbh.updateSurveyReminder("1 week",String.valueOf(System.currentTimeMillis()+604800000),Integer.valueOf(surveyData.get(1).getSurveyId()));
 											dialog.dismiss();
 											Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
 										}
@@ -313,7 +299,6 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 								public void onClick(View v) {
 									try{
 										Intent intent=new Intent(MainScreenActivity.this, RunForm.class);
-										intent.putExtra("date",date2.toString("dd-MM-yyyy"));
 										startActivity(intent);
 										dialog.dismiss();
 									}catch(Exception e){
@@ -324,25 +309,93 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 								
 							});
 							dialog.show();
+						}else if(today.getMillis()>=Long.valueOf(surveyData.get(2).getSurveyReminderDate())
+								&&today.getMillis()<=Long.valueOf(surveyData.get(2).getSurveyNextReminderDate())
+								&&surveyData.get(2).getSurveyStatus().equals("")
+								&&surveyData.get(2).getSurveyReminderFrequency().equals("")){
+								surveyEndDate=new DateTime(Long.valueOf(surveyData.get(2).getSurveyNextReminderDate()));
+								dialog = new Dialog(MainScreenActivity.this);
+								dialog.setContentView(R.layout.survey_popup_dialog);
+								dialog.setTitle("Satisfaction Survey");
+								dialog.setCancelable(false);
+								Button next=(Button) dialog.findViewById(R.id.button_next);
+								Button close=(Button) dialog.findViewById(R.id.button_cancel);
+								TextView instruction=(TextView) dialog.findViewById(R.id.textView_instruct);
+								String first="<font color='#53AB20'>Click next to take the </font>";
+								String second="<font color='#520000'>Satisfaction Survey.</font>";
+								String third="<font color='#520000'>Reminder below and click close. </font>";
+								String fourth="<font color='#53AB20'> If you would like to do this another time, chose a  </font>";
+								String fifth= "<font color='#53AB20'> If you would like to access the survey at anytime, go to the </font>";
+								String sixth="<font color='#520000'>menu</font>";
+								String seventh="<font color='#53AB20'> on this page to access the survey. This survey ends on: </font>";
+								String eight="<font color='#520000'>31st March 2016 </font>";
+								instruction.setText(Html.fromHtml(first+second+fourth+third+fifth+sixth+seventh+eight));
+								final TextView remindMe=(TextView) dialog.findViewById(R.id.textView2);
+									reminder=(RadioGroup) dialog.findViewById(R.id.radioGroup_reminder);
+									weekRadioButton=(RadioButton) dialog.findViewById(R.id.radio3);
+									dayRadioButton=(RadioButton) dialog.findViewById(R.id.radio2);
+									if(Days.daysBetween(today.toLocalDate(), surveyEndDate.toLocalDate()).getDays()<7){
+										weekRadioButton.setVisibility(View.GONE);
+									}else if(Days.daysBetween(today.toLocalDate(), surveyEndDate.toLocalDate()).getDays()<=1){
+										dayRadioButton.setVisibility(View.GONE);
+									}
+								close.setOnClickListener(new OnClickListener(){
+
+									@Override
+									public void onClick(View v) {
+										if(reminder.getCheckedRadioButtonId()==-1){
+											remindMe.setFocusable(true);
+											remindMe.setFocusableInTouchMode(true);
+										remindMe.requestFocus();
+										remindMe.setError("Please select a reminder");
+										}else{
+											if(reminder.getCheckedRadioButtonId()==R.id.radio0){
+												dbh.updateSurveyReminder("1 hour",String.valueOf(System.currentTimeMillis()+60000),Integer.valueOf(surveyData.get(2).getSurveyId()));
+												dialog.dismiss();
+												Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
+											}else if(reminder.getCheckedRadioButtonId()==R.id.radio1){
+												dbh.updateSurveyReminder("6 hours",String.valueOf(System.currentTimeMillis()+21600000),Integer.valueOf(surveyData.get(2).getSurveyId()));
+												dialog.dismiss();
+												Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
+											}else if(reminder.getCheckedRadioButtonId()==R.id.radio2){
+												dbh.updateSurveyReminder("1 day",String.valueOf(System.currentTimeMillis()+AlarmManager.INTERVAL_DAY),Integer.valueOf(surveyData.get(2).getSurveyId()));
+												dialog.dismiss();
+												Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
+											}else if(reminder.getCheckedRadioButtonId()==R.id.radio3){
+												dbh.updateSurveyReminder("1 week",String.valueOf(System.currentTimeMillis()+604800000),Integer.valueOf(surveyData.get(2).getSurveyId()));
+												dialog.dismiss();
+												Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
+											}
+										}
+										
+										
+									}
+									
+								});
+								next.setOnClickListener(new OnClickListener(){
+									@Override
+									public void onClick(View v) {
+										try{
+											Intent intent=new Intent(MainScreenActivity.this, RunForm.class);
+											startActivity(intent);
+											dialog.dismiss();
+										}catch(Exception e){
+											e.printStackTrace();
+										}
+										
+									}
+									
+								});
+								dialog.show();
+							
 						}
-					}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		
 		
-		if(isOnline()){
-			try{
-				//
-		if(dbh.getCourseGroups()>=0){
-					CourseDetailsTask courseDetails = new CourseDetailsTask(this);
-					courseDetails.execute(new String[] { getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.CCH_COURSE_DETAILS_PATH});
-				}
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-		}
+	
 		prefs.registerOnSharedPreferenceChangeListener(this);
 		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
 		
@@ -721,55 +774,39 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 				ArrayList<Survey> surveys=new ArrayList<Survey>();
 				surveys=dbh.getSurveys();
 				System.out.println("Today "+today.getMillis());
-				System.out.println("Reminder Date "+reminderDate.getMillis());
-				System.out.println("Next Reminder Date "+surveyData.get(0).getSurveyStatus());
-				DateTime surveyFirstReminderDate=formatter.parseDateTime(surveys.get(0).getSurveyReminderDate());
-				DateTime surveySecondReminderDate=formatter.parseDateTime(surveys.get(1).getSurveyReminderDate());
-				System.out.println("Next Reminder Date "+surveySecondReminderDate.getMillis());
-				DateTime surveyFirstNextReminderDate = null;
-				DateTime surveySecondNextReminderDate=null;
-				//for(int i=0;i<surveys.size();i++){
-					//DateTime surveyReminderDate=formatter.parseDateTime(surveys.get(0).getSurveyReminderDate());
-				if(!surveys.get(0).getSurveyNextReminderDate().equals("")){
-					surveyFirstNextReminderDate=formatter.parseDateTime(surveys.get(0).getSurveyNextReminderDate());
-				}
-				if(!surveys.get(1).getSurveyNextReminderDate().equals("")){
-					surveySecondNextReminderDate = formatter.parseDateTime(surveys.get(1).getSurveyNextReminderDate());
-				}
-				if(today.getMillis()>=surveyFirstReminderDate.getMillis()&&today.getMillis()<=surveyFirstNextReminderDate.getMillis()&&surveys.get(0).getSurveyStatus().equals("")){
-					Intent intent = new Intent(this, RunForm.class);
-					intent.putExtra("date", surveyFirstReminderDate.toString("dd-MM-yyyy"));
-					this.startActivity(intent);
-				}else if(today.getMillis()>=surveyFirstReminderDate.getMillis()&&today.getMillis()<=surveySecondReminderDate.getMillis()&&surveys.get(0).getSurveyStatus().equals("")){
-					Intent intent = new Intent(this, RunForm.class);
-					intent.putExtra("date", surveyFirstReminderDate.toString("dd-MM-yyyy"));
-					this.startActivity(intent);
-				}else if(today.getMillis()>=surveySecondReminderDate.getMillis()&&surveys.get(1).getSurveyStatus().equals("")){
-					Intent intent = new Intent(this, RunForm.class);
-					intent.putExtra("date", surveySecondReminderDate.toString("dd-MM-yyyy"));
-					this.startActivity(intent);
-				}else if(surveys.get(0).getSurveyNextReminderDate().equals("")&&today.getMillis()>=surveyFirstReminderDate.getMillis()&&surveys.get(0).getSurveyStatus().equals("")){
-					Intent intent = new Intent(this, RunForm.class);
-					intent.putExtra("date", surveyFirstReminderDate.toString("dd-MM-yyyy"));
-					this.startActivity(intent);
-				}else if(surveys.get(1).getSurveyNextReminderDate().equals("")&&today.getMillis()>=surveySecondReminderDate.getMillis()&&surveys.get(0).getSurveyStatus().equals("")){
-					Intent intent = new Intent(this, RunForm.class);
-					intent.putExtra("date", surveySecondReminderDate.toString("dd-MM-yyyy"));
-					this.startActivity(intent);
-				}else if(today.getMillis()>=surveySecondReminderDate.getMillis()&&today.getMillis()<=surveySecondReminderDate.getMillis()&&surveys.get(0).getSurveyStatus().equals("")){
-						Intent intent = new Intent(this, RunForm.class);
-						intent.putExtra("date", surveySecondReminderDate.toString("dd-MM-yyyy"));
-						this.startActivity(intent);
-				}else{
-					Crouton.makeText(this, "This survey does not exist at this time", Style.ALERT).show();
-				}
-				//}
+				ArrayList<User> user_role = dbh.getUserFirstName(name);
+				surveyData = dbh.getSurveys();
+				List<String> userDistricts = Arrays.asList(getResources().getStringArray(R.array.Districts));
+				if((user_role.get(0).getUserrole().equals("chn")
+						||user_role.get(0).getUserrole().equals("Sub-District Supervisor")
+						||user_role.get(0).getUserrole().equalsIgnoreCase("District Supervisor"))
+						&&userDistricts.contains(user_role.get(0).getUserDistrict())){
+					if(today.getMillis()>=Long.valueOf(surveys.get(0).getSurveyReminderDate())
+							&&today.getMillis()<=Long.valueOf(surveys.get(0).getSurveyNextReminderDate())
+							&&surveys.get(0).getSurveyStatus().equals("")){
+							Intent intent = new Intent(this, RunForm.class);
+							this.startActivity(intent);
+					}else if(today.getMillis()>=Long.valueOf(surveys.get(1).getSurveyReminderDate())
+							&&today.getMillis()<=Long.valueOf(surveys.get(1).getSurveyNextReminderDate())
+							&&surveys.get(1).getSurveyStatus().equals("")){
+							Intent intent = new Intent(this, RunForm.class);
+							this.startActivity(intent);
+					}else if(today.getMillis()>=Long.valueOf(surveys.get(2).getSurveyReminderDate())
+							&&today.getMillis()<=Long.valueOf(surveys.get(2).getSurveyNextReminderDate())
+							&&surveys.get(2).getSurveyStatus().equals("")){
+							Intent intent = new Intent(this, RunForm.class);
+							this.startActivity(intent);
+					}else{
+							Crouton.makeText(this, "This survey does not exist at this time", Style.ALERT).show();
+					}
+					}
 				}catch(Exception e){
 					e.printStackTrace();
 					Crouton.makeText(this, "This survey does not exist at this time", Style.ALERT).show();
 				}
 				return true;
 			}
+			
 			return true;
 		}
 

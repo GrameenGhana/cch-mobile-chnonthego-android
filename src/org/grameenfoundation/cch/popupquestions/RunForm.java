@@ -48,6 +48,7 @@ import org.digitalcampus.oppia.model.User;
 import org.grameenfoundation.cch.activity.ReferencesDownloadActivity;
 import org.grameenfoundation.cch.model.Survey;
 import org.grameenfoundation.poc.BaseActivity;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
@@ -75,6 +76,7 @@ public class RunForm extends BaseActivity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try{
         String formNumber = "";
         db=new DbHelper(this);
         user_role=new ArrayList<User>();
@@ -91,25 +93,12 @@ public class RunForm extends BaseActivity {
 		if(user_role.get(0).getUserrole().equals("chn")){
 			
 			formNumber = "1";
-		}else if(user_role.get(0).getUserrole().equals("Supervisor")){
+		}else if(user_role.get(0).getUserrole().equals("Sub-District Supervisor")
+				||user_role.get(0).getUserrole().equalsIgnoreCase("District Supervisor")){
 			formNumber = "2";
 		}
-			/*
-		}
-        Intent startingIntent = getIntent();
-        if(startingIntent == null) {
-        	Log.e(tag,"No Intent?  We're not supposed to be here...");
-        	finish();
-        	return;
-        }*/
-    	//formNumber = startingIntent.getStringExtra("formNumber");
     	Log.i(tag,"Running Form [" + formNumber + "]");
-    	/*
-    	if (GetFormData(formNumber)) {
-    		DisplayForm();
-    	}*/
-    	try{
-    		
+    	
     			new GetData().execute(String.valueOf(formNumber));
     	}catch(Exception e){
     		e.printStackTrace();
@@ -147,9 +136,8 @@ public class RunForm extends BaseActivity {
 	        ll.setPadding(20, 20, 20, 20);
 	        ll.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
 	        ll.setDividerDrawable(this.getResources().getDrawable(R.drawable.divider));
-	        // walk thru our form elements and dynamically create them, leveraging our mini library of tools.
+	        // walk through our form elements and dynamically create them, leveraging our mini library of tools.
 	        int i;
-	     //  System.out.println(theForm.fields.toString());
 	        for (i=0;i<theForm.fields.size();i++) {
 	        	if (theForm.fields.elementAt(i).getType().equals("text")) {
 	        		theForm.fields.elementAt(i).obj = new XmlGuiTextView(this,(theForm.fields.elementAt(i).isRequired() ? "": "") + theForm.fields.elementAt(i).getLabel(),"");
@@ -405,7 +393,12 @@ public class RunForm extends BaseActivity {
         }
 
         public void run() {
-
+        	 DateTime today=new DateTime();
+             ArrayList<User> u=new ArrayList<User>();
+             ArrayList<Survey> survey=new ArrayList<Survey>();
+             ArrayList<Survey> surveys=new ArrayList<Survey>();
+             surveys=db.getSurveys();
+             u=db.getUserFirstName(name);
             try { 
             	msg = new Message();
                 msg.what = 0;
@@ -414,25 +407,36 @@ public class RunForm extends BaseActivity {
                 JSONObject json =new JSONObject();
                 for (int i=0;i<theForm.fields.size();i++) {
     	        	if (theForm.fields.elementAt(i).getType().equals("choice")) {
-    	        		json.put( theForm.fields.elementAt(i).getName(),  theForm.fields.elementAt(i).getResults());
+    	        			json.put( theForm.fields.elementAt(i).getName(),  theForm.fields.elementAt(i).getResults());
     	        	}
     	        }
                System.out.println(json.toString());
-               ArrayList<User> u=new ArrayList<User>();
-               ArrayList<Survey> survey=new ArrayList<Survey>();
-               
-               u=db.getUserFirstName(name);
-               if(dateExtra!=""){
-            	   survey=db.getSurveyDetails(dateExtra);
-            	   id= db.editSurvey(u.get(0).getUsername(), u.get(0).getUserrole(), json.toString(), db.getDate(),"done",Long.parseLong(survey.get(0).getSurveyId()));
-            	   end_time=System.currentTimeMillis();
-            	   db.insertCCHLog("Survey", json.toString(), startTime.toString(), end_time.toString());
-               }else{
-            	   survey=db.getSurveyDetails(date.toString("dd-MM-yyyy"));
-                   id= db.editSurvey(u.get(0).getUsername(), u.get(0).getUserrole(), json.toString(), db.getDate(),"done",Long.parseLong(survey.get(0).getSurveyId()));
-                   end_time=System.currentTimeMillis();
-                   db.insertCCHLog("Survey", json.toString(), startTime.toString(), end_time.toString());
-               }
+              
+              
+            	   if(today.getMillis()>=Long.valueOf(surveys.get(0).getSurveyReminderDate())
+            			   &&today.getMillis()<=Long.valueOf(surveys.get(0).getSurveyNextReminderDate())
+            			   &&surveys.get(0).getSurveyStatus().equals("")){
+            		   json.put("survey_type", "survey"+surveys.get(0).getSurveyId());
+            		   id= db.editSurvey(u.get(0).getUsername(), u.get(0).getUserrole(), json.toString(), db.getDate(),"done",Long.valueOf(surveys.get(0).getSurveyId()));
+                       end_time=System.currentTimeMillis();
+                       db.insertCCHLog("Survey", json.toString(), startTime.toString(), end_time.toString());
+            	   }else if(today.getMillis()>=Long.valueOf(surveys.get(1).getSurveyReminderDate())
+            			   &&today.getMillis()<=Long.valueOf(surveys.get(1).getSurveyNextReminderDate())
+            			   &&surveys.get(1).getSurveyStatus().equals("")){
+            		   json.put("survey_type", "survey"+surveys.get(1).getSurveyId());
+            		   id= db.editSurvey(u.get(0).getUsername(), u.get(0).getUserrole(), json.toString(), db.getDate(),"done",Long.valueOf(surveys.get(1).getSurveyId()));
+                       end_time=System.currentTimeMillis();
+                       db.insertCCHLog("Survey", json.toString(), startTime.toString(), end_time.toString());
+            	   }else if(today.getMillis()>=Long.valueOf(surveys.get(2).getSurveyReminderDate())
+            			   &&today.getMillis()<=Long.valueOf(surveys.get(2).getSurveyNextReminderDate())
+            			   &&surveys.get(2).getSurveyStatus().equals("")){
+            		   json.put("survey_type", "survey"+surveys.get(2).getSurveyId());
+            		   id= db.editSurvey(u.get(0).getUsername(), u.get(0).getUserrole(), json.toString(), db.getDate(),"done",Long.valueOf(surveys.get(2).getSurveyId()));
+                       end_time=System.currentTimeMillis();
+                       db.insertCCHLog("Survey", json.toString(), startTime.toString(), end_time.toString());
+            	   }
+                   
+             // }
                 msg = new Message();
                 msg.what = 0;
                 msg.obj = ("Data Sent");
@@ -464,20 +468,5 @@ public class RunForm extends BaseActivity {
         }
 
 	}
-	public boolean isOnline() {
-		 boolean haveConnectedWifi = false;
-		    boolean haveConnectedMobile = false;
 
-		    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		    NetworkInfo[] netInfo = cm.getAllNetworkInfo();
-		    for (NetworkInfo ni : netInfo) {
-		        if (ni.getTypeName().equalsIgnoreCase("WIFI"))
-		            if (ni.isConnected())
-		                haveConnectedWifi = true;
-		        if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
-		            if (ni.isConnected())
-		                haveConnectedMobile = true;
-		    }
-		    return haveConnectedWifi || haveConnectedMobile;
-	}
 } 

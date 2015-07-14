@@ -106,6 +106,8 @@ public class EventsViewActivity extends  BaseActivity {
 			intent.putExtra("event_description", selected_items[1]);
 			intent.putExtra("event_location", selected_items[2]);
 			intent.putExtra("event_id", selected_items[3]);
+			intent.putExtra("event_startdate", selected_items[4]);
+			intent.putExtra("event_enddate", selected_items[5]);
 			intent.putExtra("mode", "edit_mode");
 			startActivity(intent);
 			finish();

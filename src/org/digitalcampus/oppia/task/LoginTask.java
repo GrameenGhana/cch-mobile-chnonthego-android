@@ -172,6 +172,8 @@ public class LoginTask extends AsyncTask<Payload, Object, Payload> {
                mStateListener.submitComplete(response);
                if(dbh.isOnline()){
        			try{
+       				dbh.alterUserTable();
+       				dbh.alterUserTableDistrict();
        				name=prefs.getString("first_name", "name");
        				UserDetailsProcessTask usd = new UserDetailsProcessTask(ctx);
        				usd.execute(new String[] { ctx.getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.CCH_USER_DETAILS_PATH+name});

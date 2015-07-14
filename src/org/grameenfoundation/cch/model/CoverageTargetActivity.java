@@ -1,12 +1,9 @@
 package org.grameenfoundation.cch.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
-import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.adapters.EventTargetAdapter;
 import org.grameenfoundation.cch.activity.CoverageTargetsDetailActivity;
 import org.grameenfoundation.cch.activity.UpdateTargetActivity;
@@ -23,8 +20,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ExpandableListView.OnChildClickListener;
 
@@ -45,16 +40,11 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 	private ExpandableListView listView_coverage;
 	private EventTargetAdapter coverage_adapter;
 	private String[] selected_items;
-	private RadioGroup category_options;
-	private String[] items3;
 	int selected_position;
 	protected RadioButton category_people;
 	private long selected_id;
 	private Button button_show;
 	private ArrayList<EventTargets> eventId;
-	private long coverageId;
-	private long otherId;
-	private long learningId;
 	private long todayCoverageId;
 	private long thisWeekCoverageId;
 	private long thisMonthCoverageId;
@@ -62,10 +52,8 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 	private long thisQuarterCoverageId;
 	private long thisYearCoverageId;
 	static String due_date ;
-	private static TextView dueDateValue;
 	static String start_date ;
 	static long due_date_to_compare;
-	private static TextView startDateValue;
 	
 	 public CoverageTargetActivity(){
 
@@ -113,7 +101,6 @@ public class CoverageTargetActivity extends Fragment implements OnChildClickList
 		String due_date=selected_items[3];
 		String start_date=selected_items[5];
 		String status=selected_items[6];
-		String achieved=selected_items[4];
 		String last_updated=selected_items[8];
 		String coverage_category=selected_items[12];
 		long old_id=Long.parseLong(selected_items[11]);

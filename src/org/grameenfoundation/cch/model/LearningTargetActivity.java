@@ -7,8 +7,6 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.adapters.EventTargetAdapter;
-import org.grameenfoundation.adapters.LearningBaseAdapter;
-import org.grameenfoundation.adapters.LearningTargetAdapter;
 import org.grameenfoundation.cch.activity.LearningTargetsDetailActivity;
 import org.grameenfoundation.cch.activity.UpdateTargetActivity;
 

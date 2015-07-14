@@ -1,7 +1,11 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.poc.CalculatorsMenuActivity.CalculatorsSectionsListAdapter;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,6 +24,10 @@ public class ReferencesMenuActivity extends BaseActivity {
 
 	Context mContext;
 	private ListView listView_calculators;
+	private DbHelper dbh;
+	private Long start_time;
+	private JSONObject json;
+	private Long end_time;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -27,8 +35,21 @@ public class ReferencesMenuActivity extends BaseActivity {
 	    setContentView(R.layout.activity_postnatal_care_sections);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC References");
+	    dbh=new DbHelper(mContext);
+	    start_time=System.currentTimeMillis();
+	    json=new JSONObject();
+	    try {
+			json.put("page", "ANC References");
+			json.put("section", MobileLearning.CCH_REFERENCES);
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	    listView_calculators=(ListView) findViewById(R.id.listView_postnatalCareSections);
-	    String[] items={"Tetanus Toxoid Immunisation","Baby Immunisation Schedule","Malaria Prophylaxis with SP for Pregnant Women","Treatment for Uncomplicated Malaria in Pregnant Women"};
+	    String[] items={"Tetanus Toxoid Immunisation","Malaria Prophylaxis with SP for Pregnant Women","Treatment for Uncomplicated Malaria in Pregnant Women"};
 	    CalculatorsSectionsListAdapter adapter=new CalculatorsSectionsListAdapter(mContext,items);
 	    listView_calculators.setAdapter(adapter);
 	    listView_calculators.setOnItemClickListener(new OnItemClickListener(){
@@ -46,16 +67,11 @@ public class ReferencesMenuActivity extends BaseActivity {
 					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
 				case 1:
-					intent=new Intent(mContext,ImmunisationScheduleActivity.class);
-					startActivity(intent);
-					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
-					break;
-				case 2:
 					intent=new Intent(mContext,MalariaWithSPForPregnantWomenActivity.class);
 					startActivity(intent);
 					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;
-				case 3:
+				case 2:
 					intent=new Intent(mContext,TreatingUncomplicatedMalariaANCActivity.class);
 					startActivity(intent);
 					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
@@ -101,5 +117,10 @@ public class ReferencesMenuActivity extends BaseActivity {
 		}
 		
 	}
-
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+		dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
+		finish();
+	}
 }

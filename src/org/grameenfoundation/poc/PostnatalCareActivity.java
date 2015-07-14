@@ -2,6 +2,8 @@ package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -43,7 +45,8 @@ public class PostnatalCareActivity extends BaseActivity implements AnimationList
 	private Animation slide_down;
 	private DbHelper dbh;
 	private Long start_time;
-	private Long end_time; 
+	private Long end_time;
+	private JSONObject json; 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -52,6 +55,17 @@ public class PostnatalCareActivity extends BaseActivity implements AnimationList
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("Postnatal Care");
 	    dbh=new DbHelper(mContext);
+	    json=new JSONObject();
+	    try {
+			json.put("page", "Postnatal Care");
+			json.put("section", "");
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	    start_time=System.currentTimeMillis();
 	    imageButton_baby=(ImageButton) findViewById(R.id.imageButton_newBorn);
 	    imageButton_mother=(ImageButton) findViewById(R.id.imageButton_mother);
@@ -192,7 +206,7 @@ public class PostnatalCareActivity extends BaseActivity implements AnimationList
 	public void onBackPressed()
 	{
 	    end_time=System.currentTimeMillis();
-		//dbh.insertCCHLog("Point of Care", "Postnatal Care", start_time.toString(), end_time.toString());
+		dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}
 }

@@ -77,6 +77,7 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 	    getActionBar().setTitle("Learning Center");
+	    getActionBar().setSubtitle("Download Modules");
 	    dbh=new DbHelper(TagSelectActivity.this);
 	    start_time=System.currentTimeMillis();
 	   

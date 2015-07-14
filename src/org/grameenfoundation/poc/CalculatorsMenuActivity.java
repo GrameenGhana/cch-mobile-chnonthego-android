@@ -1,7 +1,10 @@
 package org.grameenfoundation.poc;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.poc.PostnatalCareSectionActivity.PostnatalSectionsListAdapter;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,13 +23,30 @@ public class CalculatorsMenuActivity extends BaseActivity {
 
 //	Context mContext;
 	private ListView listView_calculators;
+	private JSONObject json;
+	private DbHelper dbh;
+	private Long end_time;
+	private Long start_time;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_postnatal_care_sections);
 	    mContext=CalculatorsMenuActivity.this;
+	    dbh=new DbHelper(mContext);
 	    getActionBar().setTitle("Point of Care");
 	    getActionBar().setSubtitle("ANC Calculators");
+	    start_time=System.currentTimeMillis();
+	    json=new JSONObject();
+	    try {
+			json.put("page", "ANC Calculators");
+			json.put("section", "");
+			json.put("ver", dbh.getVersionNumber(mContext));
+			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("device", dbh.getDeviceName());
+			json.put("imei", dbh.getDeviceImei(mContext));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	    listView_calculators=(ListView) findViewById(R.id.listView_postnatalCareSections);
 	    String[] items={"Trimester & Due Date Calculator","Dosage Calculator"};
 	    CalculatorsSectionsListAdapter adapter=new CalculatorsSectionsListAdapter(mContext,items);
@@ -88,5 +108,12 @@ public class CalculatorsMenuActivity extends BaseActivity {
 			    return convertView;
 		}
 		
+	}
+	public void onBackPressed()
+	{
+	    end_time=System.currentTimeMillis();
+		//dbh.insertCCHLog("Point of Care", "Antenatal Care", start_time.toString(), end_time.toString());
+	    dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
+		finish();
 	}
 }

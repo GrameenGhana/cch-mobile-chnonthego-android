@@ -60,6 +60,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -135,7 +136,14 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 	private void displayCourses() {
 
 		DbHelper db = new DbHelper(this);
-		courses = db.getCoursesWithGroups(courseGroup);
+		try{
+			courses = db.getCoursesWithGroups(courseGroup);
+		
+		
+		}catch(Exception e){
+			e.printStackTrace();
+			courses = db.getCoursesWithNoGroups();
+		}
 		db.close();
 		
 		if(MobileLearning.createDirs()){
@@ -218,11 +226,12 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 	
 	private void scanMedia() {
 		long now = System.currentTimeMillis()/1000;
+		/*
 		if (prefs.getLong(getString(R.string.prefs_last_media_scan), 0)+3600 > now) {
 			LinearLayout ll = (LinearLayout) this.findViewById(R.id.home_messages);
 			ll.setVisibility(View.GONE);
 			return;
-		}
+		}*/
 		ScanMediaTask task = new ScanMediaTask();
 		Payload p = new Payload(this.courses);
 		task.setScanMediaListener(this);
@@ -421,12 +430,12 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 		Editor e = prefs.edit();
 		LinearLayout ll = (LinearLayout) this.findViewById(R.id.home_messages);
 		TextView tv = (TextView) this.findViewById(R.id.home_message);
-		Button btn = (Button) this.findViewById(R.id.message_action_button);
+		ImageButton btn = (ImageButton) this.findViewById(R.id.message_action_button);
 		
 		if (response.getResponseData().size() > 0) {
 			ll.setVisibility(View.VISIBLE);
 			tv.setText(this.getString(R.string.info_scan_media_missing));
-			btn.setText(this.getString(R.string.scan_media_download_button));
+			//btn.setText(this.getString(R.string.scan_media_download_button));
 			btn.setTag(response.getResponseData());
 			btn.setOnClickListener(new OnClickListener() {
 
@@ -446,7 +455,7 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 		} else {
 			ll.setVisibility(View.GONE);
 			tv.setText("");
-			btn.setText("");
+			//btn.setText("");
 			btn.setOnClickListener(null);
 			btn.setTag(null);
 			long now = System.currentTimeMillis()/1000;

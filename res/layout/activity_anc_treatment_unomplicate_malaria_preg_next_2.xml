@@ -73,14 +73,23 @@
                 android:text="@string/str_treatment_fever_paracetamol"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scroll left or right to see image"
+            android:textColor="@color/TextColorWine" />
+ <HorizontalScrollView
+        android:layout_width="fill_parent"
+         android:layout_height="fill_parent">
 
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.12"
+            android:layout_height="110dp"
             android:src="@drawable/uncomplicated_malaria5" />
 
+</HorizontalScrollView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

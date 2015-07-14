@@ -5,17 +5,9 @@ import java.util.Locale;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
-import org.digitalcampus.oppia.exception.InvalidXMLException;
 import org.digitalcampus.oppia.model.Course;
-import org.digitalcampus.oppia.model.CourseChild;
-import org.digitalcampus.oppia.model.Lang;
 import org.digitalcampus.oppia.model.Scores;
-import org.grameenfoundation.adapters.CoursesAchievementAdapter;
-import org.grameenfoundation.adapters.TargetsAchievementAdapter;
-import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.cch.model.CourseAchievments;
-import org.grameenfoundation.cch.model.EventTargets;
-import org.grameenfoundation.cch.utils.TextProgressBar;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,24 +19,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class CourseDetailActivity extends Activity {
 
-	private ListView listView;
 	private ListView expandableListview;
 	private Context mContext;
 	private DbHelper db;
@@ -52,7 +39,6 @@ public class CourseDetailActivity extends Activity {
 	private TextView textView_label;
 	private ListAdapter adapter;
 	private ArrayList<Course> courses;
-	private ArrayList<Scores> course_scores;
 	private SharedPreferences prefs;
 	private LinearLayout linearLayout;
 	private int month;
@@ -82,10 +68,8 @@ public class CourseDetailActivity extends Activity {
 	    textView_number=(TextView) findViewById(R.id.textView_number);
 	    courses = db.getCoursesForAchievements(month+1,year);
 	    textView_number.setText(" ("+courses.size()+")");
-	    ArrayList<CourseAchievments> results = new ArrayList<CourseAchievments>();
 	    linearLayout=(LinearLayout) findViewById(R.id.Linearlayout_progress);
 	    linearLayout.setVisibility(View.GONE);
-	  //  results=db.getAllQuizResults();
 	   
 	    adapter=new ListAdapter(mContext,courses);
 	    expandableListview.setAdapter(adapter);
@@ -102,17 +86,12 @@ public class CourseDetailActivity extends Activity {
 			intent.putExtra("course_name", course_name);
 			 course_achievements = db.getQuizResultsForAchievements((int)id);
 			 if(course_achievements!=null){
-			// if(course_achievements.size()>0){
 			startActivity(intent);
 			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			 }else{
 				 Crouton.makeText(CourseDetailActivity.this, "You have no details for "+course_name+"!",
 					 Style.INFO).show();
 			 }
-			// }else if(course_achievements.size()==0){
-			//	 Crouton.makeText(CourseDetailActivity.this, "You have no details for "+course_name+"!",
-				//		 Style.INFO).show();
-			 //}
 			}
 	    	
 	    });

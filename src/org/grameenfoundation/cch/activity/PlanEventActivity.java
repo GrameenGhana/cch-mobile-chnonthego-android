@@ -1,54 +1,38 @@
 package org.grameenfoundation.cch.activity;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
-import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.calendar.CalendarEvents;
-import org.grameenfoundation.calendar.CalendarEvents.MyEvent;
 import org.grameenfoundation.cch.model.Validation;
 import org.grameenfoundation.cch.utils.MaterialSpinner;
 import org.grameenfoundation.poc.BaseActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.Spinner;
 import android.widget.TableRow;
-import android.widget.TextView;
 
 public final class PlanEventActivity extends BaseActivity implements OnClickListener{
 
@@ -63,7 +47,6 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 	Long startTime;
 	 CalendarEvents c;
 	String rrule;
-	private DatePicker datePicker;
 	private String mode;
 	private LinearLayout linearLayout_buttonsOne;
 	private LinearLayout linearLayout_buttonsTwo;
@@ -147,6 +130,8 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 	    	final String event_desc=extras.getString("event_description");
 	    	final String event_location=extras.getString("event_location");
 	    	final String event_id=extras.getString("event_id");
+	    	final String event_startdate=extras.getString("event_startdate");
+	    	final String event_enddate=extras.getString("event_enddate");
 	    	final int availability=c.readCalendarEventForEdit(mContext, Long.parseLong(event_id));
 	    	if(availability==Events.AVAILABILITY_BUSY){
 	    		radioGroup_personal.check(R.id.radio_yes);
@@ -176,7 +161,7 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 				String edited_event_location=editText_event_location.getText().toString();
 				String edited_event_description=editText_eventDescription.getText().toString();
 				if(radioGroup_personal.getCheckedRadioButtonId()==R.id.radio_yes){
-					if(c.editEvent(Long.parseLong(event_id), edited_event_type, edited_event_location, edited_event_description,Events.AVAILABILITY_BUSY)==true){		
+					if(c.editEvent(Long.parseLong(event_id), edited_event_type, edited_event_location, edited_event_description,event_startdate,event_enddate,Events.AVAILABILITY_BUSY)==true){		
 						JSONObject json = new JSONObject();
 						try {
 							json.put("eventid", event_id);
@@ -195,16 +180,10 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 							e.printStackTrace();
 						}
 						end_time=System.currentTimeMillis();
-						//dbh.insertCCHLog("Calendar", json.toString(), String.valueOf(startTime), String.valueOf(end_time));
-						Intent intent=new Intent(mContext, EventsViewActivity.class);
-						//startActivity(intent);
-						//finish();
-						//overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
-						//Toast.makeText(mContext, "Event edited successfully!",
-				         //Toast.LENGTH_LONG).show();
+						
 					}
 					}else if(radioGroup_personal.getCheckedRadioButtonId()==R.id.radio_no){
-						if(c.editEvent(Long.parseLong(event_id), edited_event_type, edited_event_location, edited_event_description,Events.AVAILABILITY_FREE)==true){		
+						if(c.editEvent(Long.parseLong(event_id), edited_event_type, edited_event_location, edited_event_description,event_startdate,event_enddate,Events.AVAILABILITY_FREE)==true){		
 							JSONObject json = new JSONObject();
 							try {
 								json.put("eventid", event_id);
@@ -222,13 +201,7 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 								e.printStackTrace();
 							}
 							end_time=System.currentTimeMillis();
-							//dbh.insertCCHLog("Calendar", json.toString(), String.valueOf(startTime), String.valueOf(end_time));
-							Intent intent=new Intent(mContext, EventsViewActivity.class);
-							//startActivity(intent);
-							//finish();
-							//overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
-							//Toast.makeText(mContext, "Event edited successfully!",
-					         //Toast.LENGTH_LONG).show();
+							
 						}
 					}
 					}

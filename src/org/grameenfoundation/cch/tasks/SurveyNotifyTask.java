@@ -2,6 +2,9 @@ package org.grameenfoundation.cch.tasks;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
@@ -16,8 +19,10 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -39,19 +44,19 @@ public class SurveyNotifyTask extends AsyncTask<Payload, Object, Payload> {
 
 	CCHTimeUtil timeUtil;
 	ArrayList<User> user_role;
-	ArrayList<Survey> surveyDateTaken;
 
 	private SharedPreferences prefs;
 
 	private String name;
 
 	private ArrayList<Survey> surveys;
+
+	private List<String> userDistricts;
 	public SurveyNotifyTask(Context ctx) {
 		this.ctx = ctx;
 		this.dbh = new DbHelper(ctx);
 		timeUtil=new CCHTimeUtil();
 		user_role=new ArrayList<User>();
-		surveyDateTaken=new ArrayList<Survey>();
 		surveys=new ArrayList<Survey>();
 		 prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 	        name=prefs.getString("first_name", "name");
@@ -67,75 +72,69 @@ public class SurveyNotifyTask extends AsyncTask<Payload, Object, Payload> {
 		date=new LocalDate();
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
 		DateTimeFormatter formatter2 = DateTimeFormat.forPattern("dd-MM-yyyy HH:mm");
+		DateTime today=new DateTime();
 		try{
 			user_role=dbh.getUserFirstName(name);
 			surveys=dbh.getSurveys();
+			userDistricts = Arrays.asList(ctx.getResources().getStringArray(R.array.Districts));
 			if(surveys.size()<=0){
 				
 			}
-			surveyDateTaken=dbh.getSurveyDetails(date.toString("dd-MM-yyyy"));
-			LocalDate reminderDate=formatter2.parseLocalDate(surveyDateTaken.get(0).getSurveyReminderDate());
 		// only notify if at certain hours and if there are tasks to do...
-		if(user_role.get(0).getUserrole().equals("chn")||user_role.get(0).getUserrole().equals("Supervisor")){
-			if(surveyDateTaken.get(0).getSurveyNextReminderDate().equals("")){
-				if(reminderDate.toString("dd-MM-yyyy HH:mm").contains(date.toString("dd-MM-yyyy"))&&surveyDateTaken.get(0).getSurveyStatus().equals("")){
-					String contMsg = "Complete this survey!";
-					// Invoking the default notification service
-					NotificationCompat.Builder mBuilder =
-							new NotificationCompat.Builder(this.ctx)
-									.setSmallIcon(R.drawable.app_icon)
-									.setContentTitle("Survey Notification")
-									.setContentText(contMsg)
-									.setTicker(contMsg);
-									Intent resultIntent = new Intent(this.ctx, RunForm.class);
-									TaskStackBuilder stackBuilder = TaskStackBuilder.create(this.ctx);
-									stackBuilder.addParentStack(RunForm.class);
-									stackBuilder.addNextIntent(resultIntent);
-									PendingIntent resultPendingIntent =
-											stackBuilder.getPendingIntent(
-													0,
-													PendingIntent.FLAG_UPDATE_CURRENT
-													);
-									mBuilder.setContentIntent(resultPendingIntent);
-									NotificationManager mNotificationManager =
-											(NotificationManager) ctx.getSystemService(ctx.NOTIFICATION_SERVICE);
-									mBuilder.setAutoCancel(true);
-
-									mNotificationManager.notify(2, mBuilder.build());
-		 
+		if((user_role.get(0).getUserrole().equals("chn")
+				||user_role.get(0).getUserrole().equals("Sub-District Supervisor")
+				||user_role.get(0).getUserrole().equalsIgnoreCase("District Supervisor"))
+				&&userDistricts.contains(user_role.get(0).getUserDistrict())){
+			DateTime reminder;
+			DateTime now = new DateTime();
+			if(today.getMillis()>=Long.valueOf(surveys.get(0).getSurveyReminderDate())
+					&&today.getMillis()<=Long.valueOf(surveys.get(0).getSurveyNextReminderDate())
+					&&surveys.get(0).getSurveyStatus().equals("")
+					&&!surveys.get(0).getSurveyReminderFrequencyValue().equals("")){
+				reminder=new DateTime(Long.valueOf(surveys.get(0).getSurveyReminderFrequencyValue()));
+				if(now.getHourOfDay()==reminder.getHourOfDay()
+						&&now.getMinuteOfDay()==reminder.getMinuteOfDay()
+						&&now.getDayOfWeek()==reminder.getDayOfWeek()
+						&&now.getMonthOfYear()==reminder.getMonthOfYear()
+						&&now.getYear()==reminder.getYear()){
+					 Intent i = new Intent("org.grameenfoundation.cch.popupquestions.SurveyAlertActivity");
+					 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					 ctx.startActivity(i);
 				}
+					
 			
-		}else{
-			DateTime today=new DateTime();
-			today=formatter2.parseDateTime(today.toString("dd-MM-yyyy HH:mm"));
-			if(today.toString("dd-MM-yyyy HH:mm").equals(surveyDateTaken.get(0).getSurveyNextReminderDate())&&surveyDateTaken.get(0).getSurveyStatus().equals("")){
-				String contMsg = "Complete this survey!";
-				// Invoking the default notification service
-				System.out.println(" Survey Notify Today "+today.toString("dd-MM-yyyy HH:mm"));
-				System.out.println(" Survey Notify Today "+surveyDateTaken.get(0).getSurveyNextReminderDate());
-				NotificationCompat.Builder mBuilder =
-						new NotificationCompat.Builder(this.ctx)
-								.setSmallIcon(R.drawable.app_icon)
-								.setContentTitle("Survey Notification")
-								.setContentText(contMsg)
-								.setTicker(contMsg);
-								Intent resultIntent = new Intent(this.ctx, RunForm.class);
-								TaskStackBuilder stackBuilder = TaskStackBuilder.create(this.ctx);
-								stackBuilder.addParentStack(RunForm.class);
-								stackBuilder.addNextIntent(resultIntent);
-								PendingIntent resultPendingIntent =
-										stackBuilder.getPendingIntent(
-												0,
-												PendingIntent.FLAG_UPDATE_CURRENT
-												);
-								mBuilder.setContentIntent(resultPendingIntent);
-								NotificationManager mNotificationManager =
-										(NotificationManager) ctx.getSystemService(ctx.NOTIFICATION_SERVICE);
-								mBuilder.setAutoCancel(true);
-
-								mNotificationManager.notify(2, mBuilder.build());
+		}else if(today.getMillis()>=Long.valueOf(surveys.get(1).getSurveyReminderDate())
+				&&today.getMillis()<=Long.valueOf(surveys.get(1).getSurveyNextReminderDate())
+				&&surveys.get(1).getSurveyStatus().equals("")
+				&&!surveys.get(1).getSurveyReminderFrequencyValue().equals("")){
+			reminder=new DateTime(Long.valueOf(surveys.get(1).getSurveyReminderFrequencyValue()));
+			if(now.getHourOfDay()==reminder.getHourOfDay()
+					&&now.getMinuteOfDay()==reminder.getMinuteOfDay()
+					&&now.getDayOfMonth()==reminder.getDayOfMonth()
+					&&now.getMonthOfYear()==reminder.getMonthOfYear()
+					&&now.getYear()==reminder.getYear())
+				{
+			System.out.println(String.valueOf(now.getDayOfMonth())+"/"+String.valueOf(now.getMonthOfYear())+"/"+String.valueOf(now.getYear()));
+			System.out.println(String.valueOf(reminder.getDayOfMonth())+"/"+String.valueOf(reminder.getMonthOfYear())+"/"+String.valueOf(reminder.getYear()));
+			 Intent i = new Intent("org.grameenfoundation.cch.popupquestions.SurveyAlertActivity");
+			 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			 ctx.startActivity(i);
 			}
-		}
+		}else if(today.getMillis()>=Long.valueOf(surveys.get(2).getSurveyReminderDate())
+				&&today.getMillis()<=Long.valueOf(surveys.get(2).getSurveyNextReminderDate())
+				&&surveys.get(2).getSurveyStatus().equals("")
+				&&!surveys.get(2).getSurveyReminderFrequencyValue().equals("")){
+			reminder=new DateTime(Long.valueOf(surveys.get(2).getSurveyReminderFrequencyValue()));
+			if(now.getHourOfDay()==reminder.getHourOfDay()
+					&&now.getMinuteOfDay()==reminder.getMinuteOfDay()
+					&&now.getDayOfMonth()==reminder.getDayOfMonth()
+					&&now.getMonthOfYear()==reminder.getMonthOfYear()
+					&&now.getYear()==reminder.getYear()){
+				 Intent i = new Intent("org.grameenfoundation.cch.popupquestions.SurveyAlertActivity");
+				 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				 ctx.startActivity(i);
+			}
+				}
 		}
 		}catch(Exception e){
 			e.printStackTrace();

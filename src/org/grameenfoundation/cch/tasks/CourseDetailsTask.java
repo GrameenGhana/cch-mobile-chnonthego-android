@@ -16,7 +16,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
-public class CourseDetailsTask  extends AsyncTask<String, Void, String>{
+public class CourseDetailsTask  extends AsyncTask<String, String, String>{
 	private Context ctx;
 	DbHelper db;
 
@@ -25,7 +25,10 @@ public class CourseDetailsTask  extends AsyncTask<String, Void, String>{
 		this.ctx = ctx;
 	    db=new DbHelper(ctx);
 	}
-
+	protected void onPreExecute() {
+	 publishProgress("Retrieving course groups");
+	 
+ };
 	@Override
 	protected String doInBackground(String... urls) {
 		 String response = "";
@@ -64,6 +67,7 @@ public class CourseDetailsTask  extends AsyncTask<String, Void, String>{
 				 courseTitle=jsonArray.getJSONObject(i).getString("shortname"); 
 				 courseGroup=jsonArray.getJSONObject(i).getString("name"); 
 				 db.updateCourseGroup(courseTitle, courseGroup);
+				 publishProgress("Finished setting course groups");
 			 }
 		} catch (JSONException e) {
 			e.printStackTrace();

@@ -148,6 +148,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	private static final String CCH_USER_LASTNAME = "last_name";
 	private static final String CCH_USER_POINTS = "points";
 	private static final String CCH_USER_BADGES = "badges";
+	private static final String CCH_USER_DISTRICT = "district";
 	private static final String CCH_USER_SCORING = "scoring_enabled";
 	
 	// CCH: Staying Well table
@@ -271,6 +272,8 @@ public class DbHelper extends SQLiteOpenHelper {
 				public static final String CCH_DATE_TAKEN="date_taken";
 				public static final String CCH_REMINDER_DATE="reminder_date";
 				public static final String CCH_NEXT_REMINDER_DATE="next_reminder_date";
+				public static final String CCH_REMINDER_FREQUENCY="reminder_frequency";
+				public static final String CCH_REMINDER_FREQUENCY_VALUE="reminder_frequency_value";
 				public static final String CCH_SURVEY_STATUS="survey_status";
 		
 		
@@ -319,6 +322,8 @@ public class DbHelper extends SQLiteOpenHelper {
 				+ CCH_RESPONSES + TEXT_TYPE + COMMA_SEP
 				+ CCH_REMINDER_DATE + TEXT_TYPE + COMMA_SEP
 				+ CCH_NEXT_REMINDER_DATE + TEXT_TYPE + COMMA_SEP
+				+ CCH_REMINDER_FREQUENCY + TEXT_TYPE + COMMA_SEP
+				+ CCH_REMINDER_FREQUENCY_VALUE + TEXT_TYPE + COMMA_SEP
 				+ CCH_SURVEY_STATUS + TEXT_TYPE + COMMA_SEP
 				+ CCH_DATE_TAKEN + " text)";
 		db.execSQL(m_sql);
@@ -663,11 +668,33 @@ public class DbHelper extends SQLiteOpenHelper {
 		return true;
 		
 	}
-	public boolean updateUserRole(String user_role){
+	
+	public boolean alterUserTableDistrict(){
 		SQLiteDatabase db = this.getWritableDatabase();
 		if(doesTableExists(CCH_USER_TABLE)){
 			try{
-				String strQuery = "Update "+CCH_USER_TABLE+" set "+CCH_USER_ROLE+" ='"+user_role+"'";
+				Cursor c = db.rawQuery("PRAGMA table_info("+CCH_USER_TABLE+")",null);
+				c.moveToFirst();
+				//String staffId=c.getString(c.getColumnIndex(CCH_STAFF_ID));
+				if(c.getCount()==10){
+					String sql = "ALTER TABLE " + CCH_USER_TABLE + " ADD COLUMN " + CCH_USER_DISTRICT  + " TEXT NULL;";
+					db.execSQL(sql);
+				}
+					c.close();
+					
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return true;
+		
+	}
+	public boolean updateUserData(String user_role, String user_district){
+		SQLiteDatabase db = this.getWritableDatabase();
+		if(doesTableExists(CCH_USER_TABLE)){
+			try{
+				String strQuery = "Update "+CCH_USER_TABLE+" set "+CCH_USER_ROLE+" ='"+user_role+"'"
+								  +","+CCH_USER_DISTRICT+" ='"+user_district+"'";
 				db.execSQL(strQuery);
 				
 			}catch(Exception e){
@@ -677,6 +704,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		return true;
 		
 	}
+	
 	public boolean updateSurveyData(String legal,String profile,String response,String plan,String datetime){
 		SQLiteDatabase db = this.getWritableDatabase();
 		if(doesTableExists(CCH_SW_TABLE)){
@@ -766,13 +794,10 @@ public class DbHelper extends SQLiteOpenHelper {
 			try{
 				Cursor c = db.rawQuery("PRAGMA table_info("+COURSE_TABLE+")",null);
 				c.moveToFirst();
-				if(c.getCount()<=9){
-					System.out.println("Course Columns up to date!");
-			
-				}else{
+				if(c.getCount()==8){
 					String sql = "ALTER TABLE " + COURSE_TABLE + " ADD COLUMN " + COURSE_C_DATE  + " TEXT NULL;";
 					db.execSQL(sql);
-				}
+			}
 				c.close();
 				
 			}catch(Exception e){
@@ -788,7 +813,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			try{
 				Cursor c = db.rawQuery("PRAGMA table_info("+COURSE_TABLE+")",null);
 				c.moveToFirst();
-				if(c.getCount()<=10){
+				if(c.getCount()==9){
 					String sql = "ALTER TABLE " + COURSE_TABLE + " ADD COLUMN " + COURSE_C_GROUP  + " TEXT NULL;";
 					db.execSQL(sql);
 				}else{
@@ -896,7 +921,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		
 		return newRowId;
 	}
-	public long insertSurvey(String user_id,String user_role, String responses,String reminder_date,String next_reminder_date,String survey_status, String date_taken){
+	public long insertSurvey(String user_id,String user_role, String responses,String reminder_date,String next_reminder_date,String reminderFrequency,String reminderFrequencyValue,String survey_status, String date_taken){
 		SQLiteDatabase db = this.getWritableDatabase();
 		createSurveyTable(db);
 		ContentValues values = new ContentValues();
@@ -905,6 +930,8 @@ public class DbHelper extends SQLiteOpenHelper {
 		values.put(CCH_RESPONSES,responses);
 		values.put(CCH_REMINDER_DATE,reminder_date);
 		values.put(CCH_NEXT_REMINDER_DATE,next_reminder_date);
+		values.put(CCH_REMINDER_FREQUENCY,reminderFrequency);
+		values.put(CCH_REMINDER_FREQUENCY_VALUE,reminderFrequencyValue);
 		values.put(CCH_SURVEY_STATUS,survey_status);
 		values.put(CCH_DATE_TAKEN,date_taken);
 		
@@ -1085,6 +1112,33 @@ public class DbHelper extends SQLiteOpenHelper {
 		String s = COURSE_C_GROUP + "=?";
 		String[] args = new String[] { courseGroup };
 		Cursor c = db.query(COURSE_TABLE, null, s, args, null, null, order);
+		c.moveToFirst();
+		while (c.isAfterLast() == false) {
+			course = new Course();
+			course.setModId(c.getInt(c.getColumnIndex(COURSE_C_ID)));
+			course.setLocation(c.getString(c.getColumnIndex(COURSE_C_LOCATION)));
+			course.setProgress(this.getCourseProgress(course.getModId()));
+			course.setVersionId(c.getDouble(c.getColumnIndex(COURSE_C_VERSIONID)));
+			course.setTitlesFromJSONString(c.getString(c.getColumnIndex(COURSE_C_TITLE)));
+			course.setImageFile(c.getString(c.getColumnIndex(COURSE_C_IMAGE)));
+			course.setLangsFromJSONString(c.getString(c.getColumnIndex(COURSE_C_LANGS)));
+			course.setShortname(c.getString(c.getColumnIndex(COURSE_C_SHORTNAME)));
+			courses.add(course);
+			c.moveToNext();
+		}
+		c.close();
+		
+		return courses;
+	}
+	public ArrayList<Course> getCoursesWithNoGroups() {
+		SQLiteDatabase db = this.getReadableDatabase();
+		Course course = new Course();
+		ArrayList<Course> courses = new ArrayList<Course>();
+		String sql = "select * from module where course_group is null";
+		String order = COURSE_C_TITLE + " ASC";
+		String s = COURSE_C_GROUP + "=?";
+		String[] args = new String[] { "is null" };
+		Cursor c = db.rawQuery(sql,null);
 		c.moveToFirst();
 		while (c.isAfterLast() == false) {
 			course = new Course();
@@ -2228,7 +2282,6 @@ String due_date=c.getString(c.getColumnIndex(COURSE_C_DATE));
 		this.insertCCHLog("Staying Well", d.toString(), endtime.toString(), endtime.toString());
 		
 	}
-
 	
 	
 	
@@ -2722,17 +2775,47 @@ public long findItemCount(String table, String searchedBy,
 	return 1;
 	
 }
-	public long updateSurveyReminder(String reminderDate, String nextReminderDate,int id){
+	public long updateSurveyReminder(String reminderFrequency,String frequencyValue,int id){
 		SQLiteDatabase db = this.getWritableDatabase(); 
 		if(doesTableExists(SURVEY_TABLE)){
         String updateQuery = "Update "+SURVEY_TABLE+" set "+
-        					CCH_NEXT_REMINDER_DATE+" = '"+ nextReminderDate +"'"+
+        					CCH_REMINDER_FREQUENCY+" = '"+ reminderFrequency +"'"+
+        					","+CCH_REMINDER_FREQUENCY_VALUE+" = '"+ frequencyValue +"'"+
         					" where "+BaseColumns._ID+" = "+id;
+        System.out.println(updateQuery);
         db.execSQL(updateQuery);
 		}
 	return 1;
 	
+}	
+	public long updateSurveyReminderValue(String reminderFrequencyValue,int id){
+	SQLiteDatabase db = this.getWritableDatabase(); 
+	if(doesTableExists(SURVEY_TABLE)){
+    String updateQuery = "Update "+SURVEY_TABLE+" set "+
+    					CCH_REMINDER_FREQUENCY_VALUE+" = '"+ reminderFrequencyValue +"'"+
+    					" where "+BaseColumns._ID+" = "+id;
+    System.out.println(updateQuery);
+    db.execSQL(updateQuery);
+	}
+return 1;
+
 }
+	public long updateSurveyData(String responses,String user_id,String user_role,String survey_status,String date_taken,int id){
+		SQLiteDatabase db = this.getWritableDatabase(); 
+		if(doesTableExists(SURVEY_TABLE)){
+	    String updateQuery = "Update "+SURVEY_TABLE+" set "+
+	    					CCH_RESPONSES+" = '"+ responses +"'"+
+	    					","+CCH_SURVEY_USER_ID+" = '"+ user_id +"'"+
+	    					","+CCH_USER_ROLE+" = '"+ user_role +"'"+
+	    					","+CCH_SURVEY_STATUS+" = '"+ survey_status +"'"+
+	    					","+CCH_DATE_TAKEN+" = '"+ date_taken +"'"+
+	    					" where "+BaseColumns._ID+" = "+id;
+	    System.out.println(updateQuery);
+	    db.execSQL(updateQuery);
+		}
+	return 1;
+
+	}
 	public long updateCourseGroup(String courseShortname, String courseGroup){
 		SQLiteDatabase db = this.getWritableDatabase(); 
 		if(doesTableExists(COURSE_TABLE)){
@@ -3793,6 +3876,7 @@ public long findItemCount(String table, String searchedBy,
 			u.setFirstname(c.getString(c.getColumnIndex(CCH_USER_FIRSTNAME)));
 			u.setUsername(c.getString(c.getColumnIndex(CCH_STAFF_ID)));
 			u.setUserrole(c.getString(c.getColumnIndex(CCH_USER_ROLE)));
+			u.setUserDistrict(c.getString(c.getColumnIndex(CCH_USER_DISTRICT)));
 			list.add(u);
 			c.moveToNext();		
 			}catch(Exception e){
@@ -3837,13 +3921,40 @@ public long findItemCount(String table, String searchedBy,
 		}
 		return list;
 	}
+	public ArrayList<Survey> getSurvey(){
+		SQLiteDatabase db = this.getReadableDatabase();
+		ArrayList<Survey> list=new ArrayList<Survey>();
+		if(doesTableExists(SURVEY_TABLE)){
+		 String strQuery="select survey_status from "+SURVEY_TABLE;
+	            
+		Cursor c=db.rawQuery(strQuery, null);
+		c.moveToFirst();
+		while (c.isAfterLast()==false){
+			try{
+				Survey u=new Survey();
+				u.setSurveyStatus(c.getString(c.getColumnIndex(CCH_SURVEY_STATUS)));
+				list.add(u);
+				//System.out.println(list.get(0).getSurveyReminderDate());
+				c.moveToNext();		
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		c.close();
+		
+		}else{
+			createSurveyTable(db);
+		}
+		return list;
+	}
+	
 	public int getCourseGroups(){
 		SQLiteDatabase db = this.getReadableDatabase();
 		ArrayList<Course> list=new ArrayList<Course>();
 		int total=0;
 		if(doesTableExists(COURSE_TABLE)){
 		 String strQuery="select * from "+COURSE_TABLE
-				 			+" where "+ COURSE_C_GROUP+" IS NULL";
+				 			+" where "+ COURSE_C_GROUP+" = "+ "''";
 				 			
 		Cursor c=db.rawQuery(strQuery, null);
 		c.moveToFirst();
@@ -3880,6 +3991,8 @@ public long findItemCount(String table, String searchedBy,
 				u.setSurveyId(c.getString(c.getColumnIndex(BaseColumns._ID)));
 				u.setSurveyReminderDate(c.getString(c.getColumnIndex(CCH_REMINDER_DATE)));
 				u.setSurveyNextReminderDate(c.getString(c.getColumnIndex(CCH_NEXT_REMINDER_DATE)));
+				u.setSurveyReminderFrequency(c.getString(c.getColumnIndex(CCH_REMINDER_FREQUENCY)));
+				u.setSurveyReminderFrequencyValue(c.getString(c.getColumnIndex(CCH_REMINDER_FREQUENCY_VALUE)));
 				list.add(u);
 				c.moveToNext();		
 			}catch(Exception e){

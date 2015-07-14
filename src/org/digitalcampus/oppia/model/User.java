@@ -31,6 +31,7 @@ public class User {
 	private int badges = 0;
 	private boolean passwordRight = true;
 	private String userrole;
+	private String district;
 	
 	public String getUsername() {
 		return username;
@@ -44,6 +45,13 @@ public class User {
 	}
 	public void setUserrole(String userrole) {
 		this.userrole = userrole;
+	}
+	
+	public String getUserDistrict() {
+		return district;
+	}
+	public void setUserDistrict(String district) {
+		this.district = district;
 	}
 	public String getEmail() {
 		return email;

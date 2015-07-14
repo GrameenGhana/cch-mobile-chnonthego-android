@@ -88,7 +88,7 @@ public class CalendarEvents {
 		
 	
     }
-	public boolean editEvent(long event_id,String evt, String location, String desc,int availability)
+	public boolean editEvent(long event_id,String evt, String location, String desc,String startdate,String enddate,int availability)
     {	
 		ContentResolver cr = mContext.getContentResolver();
 		ContentValues values = new ContentValues();
@@ -97,6 +97,8 @@ public class CalendarEvents {
 		values.put(Events.TITLE,evt); 
 		values.put(Events.DESCRIPTION,desc); 
 		values.put(Events.EVENT_LOCATION,location); 
+		values.put(Events.DTSTART,startdate); 
+		values.put(Events.DTEND,enddate);
 		values.put(Events.AVAILABILITY,availability); 
 		updateUri = ContentUris.withAppendedId(Events.CONTENT_URI, event_id);
 		int rows =  mContext.getContentResolver().update(updateUri, values, null, null);
@@ -108,6 +110,8 @@ public class CalendarEvents {
 			   .putExtra(Events.TITLE, evt)
 			   .putExtra(Events.DESCRIPTION, desc)
 			   .putExtra(Events.EVENT_LOCATION, location)
+			   .putExtra(Events.DTSTART, startdate)
+			   .putExtra(Events.DTEND, enddate)
 			   .putExtra(Events.AVAILABILITY, availability);
 			
 			mContext.startActivity(intent);
@@ -235,7 +239,8 @@ public class CalendarEvents {
 		        		   calendarEvents.setEventLocation(ev.location);
 		        		   calendarEvents.setEventTime(ev.getDate(dformat));
 		        		   calendarEvents.setEventId(String.valueOf(ev.eventId));
-		        		  
+		        		   calendarEvents.setEventStartDate(String.valueOf(ev.startDate));
+		        		   calendarEvents.setEventEndDate(String.valueOf(ev.endDate));
 		        		   evNum++;
 		        		   list.add(calendarEvents);
 		        	   }
@@ -264,7 +269,8 @@ public class CalendarEvents {
 		        		   calendarEvents.setEventLocation(ev.location);
 		        		   calendarEvents.setEventTime(ev.getDate(dformat));
 		        		   calendarEvents.setEventId(String.valueOf(ev.eventId));
-		        		  
+		        		   calendarEvents.setEventStartDate(String.valueOf(ev.startDate));
+		        		   calendarEvents.setEventEndDate(String.valueOf(ev.endDate));
 		        		   evNum++;
 		        		   list.add(calendarEvents);
 		        	   }
@@ -292,7 +298,8 @@ public class CalendarEvents {
 		        		   calendarEvents.setEventLocation(ev.location);
 		        		   calendarEvents.setEventTime(ev.getDate(dformat));
 		        		   calendarEvents.setEventId(String.valueOf(ev.eventId));
-		        		  
+		        		   calendarEvents.setEventStartDate(String.valueOf(ev.startDate));
+		        		   calendarEvents.setEventEndDate(String.valueOf(ev.endDate));
 		        		   evNum++;
 		        		   list.add(calendarEvents);
 		        	   }
@@ -320,7 +327,8 @@ public class CalendarEvents {
 		        		   calendarEvents.setEventLocation(ev.location);
 		        		   calendarEvents.setEventTime(ev.getDate(dformat));
 		        		   calendarEvents.setEventId(String.valueOf(ev.eventId));
-		        		  
+		        		   calendarEvents.setEventStartDate(String.valueOf(ev.startDate));
+		        		   calendarEvents.setEventEndDate(String.valueOf(ev.endDate));
 		        		   evNum++;
 		        		   list.add(calendarEvents);
 		        	   }

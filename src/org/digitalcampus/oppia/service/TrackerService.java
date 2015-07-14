@@ -87,7 +87,6 @@ public class TrackerService extends Service implements APIRequestListener {
 			prefs = PreferenceManager.getDefaultSharedPreferences(this);
 			long lastRun = prefs.getLong("lastCourseUpdateCheck", 0);
 			long now = System.currentTimeMillis()/1000;
-			System.out.println("Now: "+String.valueOf(now));
 			/* CCH: Check to see if the CCH log needs any updating */
 			
 			//if((lastRun + (3600*12)) < now) {
@@ -174,7 +173,6 @@ public class TrackerService extends Service implements APIRequestListener {
 		
 		boolean updateAvailable = false;
 		try {
-			Log.d(TAG,response.getResultResponse());
 			JSONObject json = new JSONObject(response.getResultResponse());
 			for (int i = 0; i < (json.getJSONArray("courses").length()); i++) {
 				JSONObject json_obj = (JSONObject) json.getJSONArray("courses").get(i);

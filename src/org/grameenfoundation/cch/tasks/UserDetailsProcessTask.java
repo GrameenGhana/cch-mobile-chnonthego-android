@@ -17,7 +17,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 
-public class UserDetailsProcessTask  extends AsyncTask<String, Void, String>{
+public class UserDetailsProcessTask  extends AsyncTask<String, String, String>{
 	private Context ctx;
 	private SharedPreferences prefs;
 	private String name;
@@ -30,7 +30,10 @@ public class UserDetailsProcessTask  extends AsyncTask<String, Void, String>{
 	    name=prefs.getString("first_name", "name");
 	    db=new DbHelper(ctx);
 	}
-
+	protected void onPreExecute() {
+		 publishProgress("Retrieving user data.....");
+		 
+	 };
 	@Override
 	protected String doInBackground(String... urls) {
 		 String response = "";
@@ -62,32 +65,33 @@ public class UserDetailsProcessTask  extends AsyncTask<String, Void, String>{
 		 JSONObject planData = null;
 		 JSONObject profileData = null;
 		 JSONArray jsonArray;
-		 String user_role;	
+		 JSONArray surveyResponses;
+		 String user_role = null;	
+		 String district;
 		 String plan = "";
+		 JSONObject responses;
+		 int id = 0;
+		 String data = null;
 		 long largest = 0;
 		 System.out.println(result);
 		 try {
 			 json=new JSONObject(result);
 			 if(json.getString("ischn").equals("1")||json.getString("role").contains("Nurse")){
 				 user_role="chn";
-				 db.updateUserRole(user_role);
-			 }else if(json.getString("ischn").equals("0")&&json.getString("role").contains("Supervisor")){
-				 user_role="Supervisor";
-				 db.updateUserRole(user_role);
+				 district=json.getString("district");
+				 db.updateUserData(user_role,district);
+			 }else if(json.getString("role").equalsIgnoreCase("District Supervisor")||json.getString("role").equalsIgnoreCase("Sub-District Supervisor")){
+				 user_role=json.getString("role");
+				 district=json.getString("district");
+				 db.updateUserData(user_role,district);
 			 }
 			 jsonArray=new JSONArray(json.getString("survey_data"));
-			//json2=new JSONObject(jsonArray.getJSONObject(0).getString("data"));
-			//json3=new JSONObject(jsonArray.getJSONObject(1).getString("data"));
-			 //System.out.println(jsonArray.getJSONObject(0).getString("start_time"));	
-			 //db.updateSurveyData("Agreed", json2.getString("profile"), json2.getString("responses"), json3.getString("plan"),jsonArray.getJSONObject(0).getString("start_time"));
+			 surveyResponses=new JSONArray(json.getString("survey_popup"));
 			 for(int i=0;i<jsonArray.length();i++){
 				 if(!jsonArray.getJSONObject(i).getString("data").contains("responses")){
 					 planData=new JSONObject(jsonArray.getJSONObject(i).getString("data"));
-					 //plan=planData.getString("plan");
-					// System.out.println(planData);
 					if(!planData.has("values")){
 						System.out.println(planData);
-						//JSONObject planData2=new JSONObject(planData.getString("values"));
 						plan=planData.getString("plan");
 					 }else{
 						 plan=planData.getString("plan"); 
@@ -103,11 +107,42 @@ public class UserDetailsProcessTask  extends AsyncTask<String, Void, String>{
 					 profileData=new JSONObject(jsonArray.getJSONObject(i).getString("data"));
 				 }
 			 }
+			 
+			 for(int k=0;k<surveyResponses.length();k++){
+				 responses=new JSONObject(surveyResponses.getJSONObject(k).getString("data"));
+				if(surveyResponses.length()==1&&!responses.toString().contains("survey_type")){
+					 id=1;
+					 data=surveyResponses.getJSONObject(0).getString("data").toString();
+				 }else if(surveyResponses.length()==2 && !responses.toString().contains("survey_type")){
+					 id=2;
+					 data=surveyResponses.getJSONObject(1).getString("data").toString();
+				 }else if(surveyResponses.length()==3 && !responses.toString().contains("survey_type")){
+					 id=3;
+					 data=surveyResponses.getJSONObject(2).getString("data").toString();
+				 }else if(responses.getString("survey_type").contains("survey1")){
+					id=1; 
+					 data=surveyResponses.getJSONObject(k).getString("data").toString();
+				 }else if(responses.getString("survey_type").contains("survey2")){
+					id=2; 
+					data=surveyResponses.getJSONObject(k).getString("data").toString();
+				}else if(responses.getString("survey_type").contains("survey3")){
+					id=3; 
+					data=surveyResponses.getJSONObject(k).getString("data");
+				}
+				 db.updateSurveyData(data, name, user_role, "done", db.getDate(), id);
+			 }
 			
 			 db.updateSurveyData("Agreed", profileData.getString("profile"), profileData.getString("responses"), plan,String.valueOf(largest));
-		} catch (Exception e) {
+		
+			 publishProgress("Finished setting user data");
+		} catch (NullPointerException e) {
+			db.updateSurveyData("", "", "", "","");
 			e.printStackTrace();
-		}
+		}catch (JSONException e) {
+			e.printStackTrace();
+		}catch (Exception e) {
+				e.printStackTrace();
+			}
 		 
      }
 	 

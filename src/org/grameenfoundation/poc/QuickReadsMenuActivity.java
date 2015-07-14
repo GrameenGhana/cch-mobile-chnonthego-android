@@ -40,7 +40,7 @@ public class QuickReadsMenuActivity extends BaseActivity {
 	    start_time=System.currentTimeMillis();
 	    json=new JSONObject();
 	    try {
-			json.put("page", "PNC Quick References");
+			json.put("page", "PNC References");
 			json.put("section", MobileLearning.CCH_REFERENCES);
 			json.put("ver", dbh.getVersionNumber(mContext));
 			json.put("battery", dbh.getBatteryStatus(mContext));
@@ -52,7 +52,8 @@ public class QuickReadsMenuActivity extends BaseActivity {
 	    listView_postnatalSections=(ListView) findViewById(R.id.listView_postnatalCareSections);
 	    String[] items={"Treatment of some dehydration with ORS",
 	    		"  Treatment of uncomplicated malaria in adolescent & adults",
-	    		" Treatment of bloody diarrhea with intramuscular benzylpenicillin & gentamicin"};
+	    		" Treatment of bloody diarrhea with intramuscular benzylpenicillin & gentamicin",
+	    		"Baby Immunisation Schedule"};
 	    PostnatalSectionsListAdapter adapter=new PostnatalSectionsListAdapter(mContext,items);
 	    listView_postnatalSections.setAdapter(adapter);
 	    listView_postnatalSections.setOnItemClickListener(new OnItemClickListener(){
@@ -75,6 +76,11 @@ public class QuickReadsMenuActivity extends BaseActivity {
 				case 2:
 					intent=new Intent(mContext,KeepingBabyWarmAndMalariaActivity.class);
 					intent.putExtra("value", "bloody_diarrhoea");
+					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+					break;
+				case 3:
+					intent=new Intent(mContext,ImmunisationScheduleActivity.class);
 					startActivity(intent);
 					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;

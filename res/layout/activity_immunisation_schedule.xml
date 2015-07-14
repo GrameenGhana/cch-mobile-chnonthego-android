@@ -29,6 +29,14 @@
             android:layout_width="116dp"
             android:layout_height="118dp"
             android:src="@drawable/immunisation" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scroll left or right to see image"
+            android:textColor="@color/TextColorWine" />
+
  <HorizontalScrollView
         android:layout_width="fill_parent"
          android:layout_height="fill_parent">
@@ -38,13 +46,6 @@
             android:layout_height="wrap_content"
             android:src="@drawable/immunisation_schedule" />
 </HorizontalScrollView>
-
- <TextView
-     android:id="@+id/textView2"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:text="Scroll left or right to see image"
-     android:textColor="@color/TextColorWine" />
 
     </LinearLayout>
 

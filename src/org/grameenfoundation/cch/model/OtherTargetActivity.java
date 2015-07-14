@@ -1,14 +1,10 @@
 package org.grameenfoundation.cch.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
-import org.grameenfoundation.adapters.EventBaseAdapter;
 import org.grameenfoundation.adapters.EventTargetAdapter;
-import org.grameenfoundation.adapters.LearningTargetAdapter;
 import org.grameenfoundation.cch.activity.OtherTargetsDetailActivity;
 import org.grameenfoundation.cch.activity.UpdateTargetActivity;
 
@@ -23,7 +19,6 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ExpandableListView.OnChildClickListener;
 
@@ -41,15 +36,11 @@ public class OtherTargetActivity extends Fragment implements OnChildClickListene
 	 public static final String ARG_SECTION_NUMBER = "section_number";       
 	View rootView;
 	private ExpandableListView listView_other;
-	private TextView textStatus;
 	private EventTargetAdapter other_adapter;
 	int selected_position;
 	private long selected_id;
 	private Button button_show;
 	private ArrayList<EventTargets> eventId;
-	private long coverageId;
-	private long otherId;
-	private long learningId;
 	private long todayOtherId;
 	private long thisWeekOtherId;
 	private long thisMonthOtherId;
@@ -57,10 +48,8 @@ public class OtherTargetActivity extends Fragment implements OnChildClickListene
 	private long thisQuarterOtherId;
 	private long thisYearOtherId;
 	static String due_date ;
-	private static TextView dueDateValue;
 	
 	static String start_date ;
-	private static TextView startDateValue;
 	static long due_date_to_compare;
 	 public OtherTargetActivity(){
 
@@ -106,7 +95,6 @@ public class OtherTargetActivity extends Fragment implements OnChildClickListene
 		String due_date=selected_items[3];
 		String status=selected_items[6];
 		String startDate=selected_items[5];
-		String achieved=selected_items[4];
 		String last_updated=selected_items[8];
 		String detail=selected_items[12];//personal or not
 		long old_id=Long.parseLong(selected_items[11]);

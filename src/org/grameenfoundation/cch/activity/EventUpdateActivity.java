@@ -50,7 +50,7 @@ public class EventUpdateActivity extends BaseActivity {
 	String[] selected_items;
 	private DbHelper db;
 	private Long start_time;
-	private static final String EVENT_PLANNER_ID = "Event Planner";
+	private static final String CALENDAR = "Calendar";
 	private LinearLayout linearLayout_justification;
 	private MaterialSpinner justification;
 	private TableRow other_option;
@@ -195,7 +195,7 @@ public class EventUpdateActivity extends BaseActivity {
 									e.printStackTrace();
 								}
 								 end_time=System.currentTimeMillis();
-								 db.insertCCHLog(EVENT_PLANNER_ID, json.toString(), String.valueOf(start_time), String.valueOf(end_time));
+								 db.insertCCHLog(CALENDAR, json.toString(), String.valueOf(start_time), String.valueOf(end_time));
 								 dialog.dismiss();
 								 	Intent intent=new Intent(Intent.ACTION_MAIN);
 									intent.setClass(EventUpdateActivity.this,EventUpdateActivity.class);
@@ -224,7 +224,7 @@ public class EventUpdateActivity extends BaseActivity {
 									e.printStackTrace();
 								}
 								 end_time=System.currentTimeMillis();
-								 db.insertCCHLog(EVENT_PLANNER_ID, json.toString(), String.valueOf(start_time), String.valueOf(end_time));
+								 db.insertCCHLog(CALENDAR, json.toString(), String.valueOf(start_time), String.valueOf(end_time));
 								 dialog.dismiss();
 								 Intent intent=new Intent(Intent.ACTION_MAIN);
 									intent.setClass(EventUpdateActivity.this,EventUpdateActivity.class);

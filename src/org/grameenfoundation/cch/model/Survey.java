@@ -7,7 +7,8 @@ public class Survey {
 	private String surveyId;
 	private String surveyReminderDate;
 	private String surveyNextReminderDate;
-	
+	private String surveyReminderFrequency;
+	private String surveyReminderFrequencyValue;
 	public Survey()
 	{
 		
@@ -49,4 +50,17 @@ public class Survey {
 		this.surveyNextReminderDate = surveyNextReminderDate;
 	}
 	
+	public String getSurveyReminderFrequency() {
+		return surveyReminderFrequency;
+	}
+	public void setSurveyReminderFrequency(String surveyReminderFrequency) {
+		this.surveyReminderFrequency = surveyReminderFrequency;
+	}
+	
+	public String getSurveyReminderFrequencyValue() {
+		return surveyReminderFrequencyValue;
+	}
+	public void setSurveyReminderFrequencyValue(String surveyReminderFrequencyValue) {
+		this.surveyReminderFrequencyValue = surveyReminderFrequencyValue;
+	}
 }

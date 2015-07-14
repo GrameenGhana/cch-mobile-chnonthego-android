@@ -160,17 +160,23 @@ import android.widget.TextView;
 			item=new String[]{todayEvents.get(childPosition).getEventType(),
 						todayEvents.get(childPosition).getEventDescription(),
 						todayEvents.get(childPosition).getEventLocation(),
-						todayEvents.get(childPosition).getEventId()};
+						todayEvents.get(childPosition).getEventId(),
+						todayEvents.get(childPosition).getEventStartDate(),
+						todayEvents.get(childPosition).getEventEndDate()};
 			}else if (groupPosition==1){
 				item=new String[]{tomorowsEvents.get(childPosition).getEventType(),
 						tomorowsEvents.get(childPosition).getEventDescription(),
 						tomorowsEvents.get(childPosition).getEventLocation(),
-						tomorowsEvents.get(childPosition).getEventId()};
+						tomorowsEvents.get(childPosition).getEventId(),
+						tomorowsEvents.get(childPosition).getEventStartDate(),
+						tomorowsEvents.get(childPosition).getEventEndDate()};
 			}else if(groupPosition==2){
 				item=new String[]{futureEvents.get(childPosition).getEventType(),
 						futureEvents.get(childPosition).getEventDescription(),
 						futureEvents.get(childPosition).getEventLocation(),
-						futureEvents.get(childPosition).getEventId()};
+						futureEvents.get(childPosition).getEventId(),
+						futureEvents.get(childPosition).getEventStartDate(),
+						futureEvents.get(childPosition).getEventEndDate()};
 			}
 		return item;
 			

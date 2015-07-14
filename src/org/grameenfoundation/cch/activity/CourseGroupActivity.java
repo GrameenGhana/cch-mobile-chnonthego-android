@@ -23,6 +23,8 @@ import org.digitalcampus.oppia.utils.UIUtils;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -99,6 +101,7 @@ public class CourseGroupActivity extends AppActivity {
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				try{
 				Course m = (Course) view.getTag();
 				Intent i = new Intent(CourseGroupActivity.this, OppiaMobileActivity.class);
 				Bundle tb = new Bundle();
@@ -107,6 +110,10 @@ public class CourseGroupActivity extends AppActivity {
 				i.putExtra("courseGroup", coursesGroups.get(position).getCourseGroup());
 				startActivity(i);
 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+				}catch(Exception e){
+					e.printStackTrace();
+					Crouton.makeText(CourseGroupActivity.this, "There is no group for this course!Please reload the application", Style.ALERT).show();
+				}
 			}
 		});
 	    }else{

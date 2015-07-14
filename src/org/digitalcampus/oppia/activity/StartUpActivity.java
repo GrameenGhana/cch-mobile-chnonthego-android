@@ -36,6 +36,8 @@ import org.digitalcampus.oppia.task.UpgradeManagerTask;
 import org.grameenfoundation.cch.activity.HomeActivity;
 import org.grameenfoundation.cch.tasks.CourseDetailsTask;
 import org.grameenfoundation.cch.tasks.UserDetailsProcessTask;
+import org.grameenfoundation.schedulers.EventUpdateService;
+import org.grameenfoundation.schedulers.UserDetailsUpdateService;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -90,6 +92,8 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
  	   text_three=(TextView) findViewById(R.id.textView_n);
  	   text_four=(TextView) findViewById(R.id.textView_text);
  		dbh.alterCourseTableGroup();
+ 		dbh.alterUserTable();
+ 		dbh.alterUserTableDistrict();
  	  drop_one=AnimationUtils.loadAnimation(getApplicationContext(),
               R.anim.drop_one);
 	   drop_one.setAnimationListener(this);
@@ -127,13 +131,22 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
  		UpgradeManagerTask umt = new UpgradeManagerTask(this);
 		umt.setUpgradeListener(this);
 		ArrayList<Object> data = new ArrayList<Object>();
+		//ArrayList<User> userData = new ArrayList<User>();
+		//userData=dbh.getUserFirstName(name);
  		Payload p = new Payload(data);
 		umt.execute(p);
-		
+		try{
+			Intent service2 = new Intent(this, EventUpdateService.class);
+			this.startService(service2);
+			Intent service = new Intent(this, UserDetailsUpdateService.class);
+			this.startService(service);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		 if(isOnline()){
 				try{
 					//
-			if(dbh.getCourseGroups()>=0){
+			if(dbh.getCourseGroups()>0){
 						CourseDetailsTask courseDetails = new CourseDetailsTask(this);
 						courseDetails.execute(new String[] { getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.CCH_COURSE_DETAILS_PATH});
 					}

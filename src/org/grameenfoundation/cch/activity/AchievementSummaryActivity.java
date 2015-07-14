@@ -87,10 +87,6 @@ public class AchievementSummaryActivity extends BaseActivity {
 	private TableRow tableRow_courses;
 	private int month;
 	private int year;
-	private Course course;
-	private CourseXMLReader mxr;
-	private AlertDialog aDialog;
-	private Activity baselineActivity;
 	 ArrayList<Scores> course_scores;
 	private int courseUncompletedText;
 	private int courseCompleted;
@@ -224,15 +220,7 @@ public class AchievementSummaryActivity extends BaseActivity {
 	}
 	
 	private String calculateTargetsTodo(){
-		/*
-		Double future =(double)100-Integer.valueOf(calculateTargetsCompleted());
-		String percentage;
-		if(future>0){
-		percentage=String.format("%.0f", future);
-		}else {
-			percentage= "0";
-		}
-		*/
+		
 		futureEventTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_NEW, MobileLearning.CCH_TARGET_TYPE_EVENT,month+1, year);
 		futureCoverageTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_COVERAGE, month+1, year);
 	    futureLearningTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_LEARNING, month+1, year);
