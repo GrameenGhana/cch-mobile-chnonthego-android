@@ -84,12 +84,12 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 	}
 	 public void populateImages(){
 		 if(tags.size()==2){
-			 imageIds=new int[]{R.drawable.ic_family_planning,R.drawable.ic_mnch};
+			 imageIds=new int[]{R.drawable.ic_family_down,R.drawable.ic_mnch_down};
 		 }else {
 		 imageIds=new int[tags.size()];  
 		 
 		 for(int i=0;i<tags.size();i++){
-			 imageIds[i]=R.drawable.ic_family_planning;
+			 imageIds[i]=R.drawable.ic_family_down;
 		 }
 		 }
 	   }

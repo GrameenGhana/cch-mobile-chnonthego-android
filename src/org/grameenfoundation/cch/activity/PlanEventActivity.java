@@ -31,6 +31,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.TableRow;
 
@@ -59,6 +60,7 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 	private JSONObject data;
 	private TableRow other_option;
 	private EditText editText_otherOption;
+	private TextView textView_status;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -74,6 +76,8 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
           mode= extras.getString("mode");
         }
         other_option=(TableRow) findViewById(R.id.other_option);
+        textView_status=(TextView) findViewById(R.id.textView_status);
+        textView_status.setText("Add an Event");
         editText_otherOption=(EditText) findViewById(R.id.editText_otherOption);
 		other_option.setVisibility(View.GONE);
 		String[] items_names=new String[]{};
@@ -120,7 +124,7 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 	    linearLayout_buttonsTwo=(LinearLayout) findViewById(R.id.linearLayout_buttonsTwo);
 	    
 	    if(!mode.isEmpty()&&mode.equalsIgnoreCase("edit_mode")){
-	    	
+	    	 textView_status.setText("Edit an Event");
 	    	linearLayout_buttonsOne.setVisibility(View.GONE);
 	    	linearLayout_buttonsTwo.setVisibility(View.VISIBLE);
 	    	
@@ -131,6 +135,7 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 	    	final String event_location=extras.getString("event_location");
 	    	final String event_id=extras.getString("event_id");
 	    	final String event_startdate=extras.getString("event_startdate");
+	    	System.out.println(event_startdate);
 	    	final String event_enddate=extras.getString("event_enddate");
 	    	final int availability=c.readCalendarEventForEdit(mContext, Long.parseLong(event_id));
 	    	if(availability==Events.AVAILABILITY_BUSY){

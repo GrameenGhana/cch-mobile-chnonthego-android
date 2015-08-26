@@ -125,6 +125,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 				button_show.setVisibility(View.GONE);
 				ArrayAdapter<String> adapter=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 				target_name.setAdapter(adapter);
+				target_name.setSelection(getIndex(target_name,learning_target_name));
 				target_detail=(MaterialSpinner) dialog.findViewById(R.id.spinner_learningCourse);
 				String[] items2={"Family Planning 101",
 						"Family Planning Counselling",
@@ -133,6 +134,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 						"Postpartum Family Planning"};
 				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items2);
 				target_detail.setAdapter(adapter2);
+				target_detail.setSelection(getIndex(target_detail,learning_target_category));
 				String[] items3=new String[]{"Rationale for voluntary family planning",
 				"Family Planning method considerations",
 				"Short-acting contraceptive methods",
@@ -140,6 +142,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 				"Special needs"};
 		ArrayAdapter<String> adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items3);
 		target_category.setAdapter(adapter3);
+		target_category.setSelection(getIndex(target_category,learning_target_category));
 				target_name.setOnItemSelectedListener(new OnItemSelectedListener(){
 					
 					@Override
@@ -153,6 +156,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 											"Postpartum Family Planning"};
 							ArrayAdapter<String> adapter2=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items2);
 							target_detail.setAdapter(adapter2);
+							target_detail.setSelection(getIndex(target_detail,learning_target_detail));
 							String[] items=new String[]{"Rationale for voluntary family planning",
 									"Family Planning method considerations",
 									"Short-acting contraceptive methods",
@@ -160,6 +164,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 									"Special needs"};
 							ArrayAdapter<String> adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 							target_category.setAdapter(adapter3);
+							target_category.setSelection(getIndex(target_category,learning_target_category));
 						}else if(target_name.getSelectedItem().toString().equalsIgnoreCase("Maternal and Child Health")){
 							String[] items2_1={"Essential Newborn care","Antenatal Care",
 												"Diarrhoea Disease","Emergency obstetrics",
@@ -168,6 +173,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 												"Preventing Postpartum Hemorrhage"};
 							ArrayAdapter<String> adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items2_1);
 							target_detail.setAdapter(adapter3);
+							target_detail.setSelection(getIndex(target_detail,learning_target_detail));
 							String[] items=new String[]{"Newborn mortality",
 									"Care during labor and birth",
 									"Newborn care following birth",
@@ -176,6 +182,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 									"Household to hospital continuum"};
 							ArrayAdapter<String> adapter4=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 							target_category.setAdapter(adapter4);
+							target_category.setSelection(getIndex(target_category,learning_target_category));
 						}
 					}
 
@@ -187,7 +194,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 				final String[] items_period=getResources().getStringArray(R.array.ReminderFrequency);
 				ArrayAdapter<String> adapter_period=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items_period);
 				spinner_period.setAdapter(adapter_period);
-				
+				spinner_period.setSelection(getIndex(spinner_period,period));
 				target_detail.setOnItemSelectedListener(new OnItemSelectedListener(){
 					
 					@Override
@@ -203,11 +210,13 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 									"Special needs"};
 							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 							target_category.setAdapter(adapter3);
+							target_category.setSelection(getIndex(target_category,learning_target_category));
 						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Family Planning Counselling")){
 							items=new String[]{"Family planning counselling",
 							"Family planning counselling skills"};
 							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 							target_category.setAdapter(adapter3);
+							target_category.setSelection(getIndex(target_category,learning_target_category));
 						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Family Planning for people living with HIV")){
 							items= new String[]{"Family Planning/Reproductive Health",
 									"Family planning for people living with HIV",
@@ -216,6 +225,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 									"Family Planning in PMTCT Services"};
 							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 							target_category.setAdapter(adapter3);
+							target_category.setSelection(getIndex(target_category,learning_target_category));
 						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Hormonal Contraceptives")){
 							items=new String[]{"Hormonal Contraceptives",
 									"Oral contraceptives",
@@ -225,6 +235,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 									"Benefits and risks of hormonal contraceptives"};
 							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 							target_category.setAdapter(adapter3);
+							target_category.setSelection(getIndex(target_category,learning_target_category));
 						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Postpartum Family Planning")){
 							items=new String[]{"Rationale for postpartum family planning",
 									"Contraceptive method considerations",
@@ -232,6 +243,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 									"Service delivery:Integration and linkage"};
 							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 							target_category.setAdapter(adapter3);
+							target_category.setSelection(getIndex(target_category,learning_target_category));
 						}
 						else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Essential Newborn care")){
 							items=new String[]{"Newborn mortality",
@@ -242,6 +254,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 									"Household to hospital continuum"};
 							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 							target_category.setAdapter(adapter3);
+							target_category.setSelection(getIndex(target_category,learning_target_category));
 						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Antenatal Care")){
 							items=new String[]{"Significance of Antenatal Care",
 									"Goal and Principles of Antenatal Care",
@@ -253,6 +266,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 									"Program Considerations"};
 							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 							target_category.setAdapter(adapter3);
+							target_category.setSelection(getIndex(target_category,learning_target_category));
 						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Diarrhoea Disease")){
 							items=new String[]{"Etiology and Epidemiology",
 									"Clinical Assessment and Classification",
@@ -260,12 +274,14 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 									"Prevention"};
 							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 							target_category.setAdapter(adapter3);
+							target_category.setSelection(getIndex(target_category,learning_target_category));
 						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Emergency obstetrics")){
 							items=new String[]{"Background and Definitions",
 									"Basic and Comprehensive EmONC",
 									"Implementation of EmONC Services"};
 							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 							target_category.setAdapter(adapter3);
+							target_category.setSelection(getIndex(target_category,learning_target_category));
 						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Malaria in Pregnancy")){
 							items=new String[]{"Why Is Malaria in Pregnancy (MIP) Important?",
 									"MIP: Strategic Framework, Main Interventions",
@@ -274,6 +290,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 									"Case Study: Frequent Problems/Practical Solutions"};
 							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 							target_category.setAdapter(adapter3);
+							target_category.setSelection(getIndex(target_category,learning_target_category));
 						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Postpartum Care")){
 							items=new String[]{"Postpartum Care: Overview",
 									"Field Realities",
@@ -282,6 +299,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 									"Case Study: Frequent Problems/Practical Solutions"};
 							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 							target_category.setAdapter(adapter3);
+							target_category.setSelection(getIndex(target_category,learning_target_category));
 						}else if(target_detail.getSelectedItem().toString().equalsIgnoreCase("Preventing Postpartum Hemorrhage")){
 							items=new String[]{"Postpartum Hemorrhage and Maternal Mortality",
 									"Causes of Postpartum Hemorrhage",
@@ -289,6 +307,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 									"Prevention of Postpartum Hemorrhage Two: AMTSL"};	
 							adapter3=new ArrayAdapter<String>(LearningTargetsDetailActivity.this, android.R.layout.simple_list_item_1, items);
 							target_category.setAdapter(adapter3);
+							target_category.setSelection(getIndex(target_category,learning_target_category));
 						}
 						
 					}
@@ -508,6 +527,7 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 				intent3.putExtra("learning_section", learning_target_detail);
 				intent3.putExtra("type", "learning");
 				intent3.putExtra("due_date", due_date_extra);
+				intent3.putExtra("period", period);
 				intent3.putExtra("start_date", start_date_extra);
 				intent3.putExtra("last_updated", last_updated);
 	        	startActivity(intent3);
@@ -682,6 +702,18 @@ public class LearningTargetsDetailActivity extends FragmentActivity {
 	        
 	    }
 	}
+	 private int getIndex(MaterialSpinner spinner, String myString)
+	 {
+		 int index = 0;
+
+	  for (int i=0;i<spinner.getCount();i++){
+		  	if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+		  			index = i;
+		  			break;
+		  }
+	  }
+	  return index;
+	 } 
 	 
 	 private boolean checkValidation() {
 	        boolean ret = true;

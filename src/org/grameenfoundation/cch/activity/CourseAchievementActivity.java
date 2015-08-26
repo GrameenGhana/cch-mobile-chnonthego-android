@@ -50,11 +50,14 @@ public class CourseAchievementActivity extends Activity {
 	private Long start_time;
 	private Long end_time;
 	private JSONObject data;
+	private int month;
+	private int year;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_course_achievements);
+	    try{
 	    Listview = (ListView) findViewById(R.id.listView1);
 	    mContext=CourseAchievementActivity.this;
 	    db=new DbHelper(CourseAchievementActivity.this);
@@ -63,17 +66,21 @@ public class CourseAchievementActivity extends Activity {
         if (extras != null) {
           modid= extras.getLong("modid");
           course_name=extras.getString("course_name");
+          month= extras.getInt("month");
+          year=extras.getInt("year");
         }
         progress=(TextProgressBar) findViewById(R.id.progressBar1);
         progress.setProgress((int)db.getCourseProgress((int)modid));
-	    courses = db.getQuizResultsForAchievements((int)modid);
+	    courses = db.getQuizzesForAchievements(course_name,month+1,year);
 	    getActionBar().setTitle("Achievement Center");
 	    getActionBar().setSubtitle("Achievement Details");
 	    textView_label=(TextView) findViewById(R.id.textView_label);
 	    textView_label.setText(course_name);
 	    adapter=new CourseAchievementsAdapter(mContext,courses);
 	    Listview.setAdapter(adapter);
-	    
+	    }catch(Exception e){
+	    	e.printStackTrace();
+	    }
 	}
 	public void onBackPressed()
 	{

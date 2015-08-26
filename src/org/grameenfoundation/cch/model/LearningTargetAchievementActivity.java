@@ -26,7 +26,7 @@ public class LearningTargetAchievementActivity extends Activity{
 	private CalendarEvents c;
 	 private ArrayList<EventTargets> completedLearningTargets;
 	 private ArrayList<EventTargets> unCompletedLearningTargets;
-	private NumericalTargetAchievementsAdapter adapter;
+	private LearningTargetAchievementsAdapter adapter;
 	private DbHelper db;
 	private TextView textView_label;
 	private TextView textView_number;
@@ -74,7 +74,7 @@ public class LearningTargetAchievementActivity extends Activity{
 	    @Override
 	    protected void onPostExecute(Object result) {
 	    	System.out.println(month);
-	        	 adapter=new NumericalTargetAchievementsAdapter(mContext,groupItems,completedLearningTargets ,
+	        	 adapter=new LearningTargetAchievementsAdapter(mContext,groupItems,completedLearningTargets ,
 	 	    			unCompletedLearningTargets,
 						expandableListview);
 		    expandableListview.setAdapter(adapter);

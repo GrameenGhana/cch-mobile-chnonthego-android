@@ -156,7 +156,9 @@
             android:textColor="@color/TextColorWine" />
  <HorizontalScrollView
         android:layout_width="fill_parent"
-         android:layout_height="fill_parent">        <ImageView
+         android:layout_height="fill_parent"
+          android:fadeScrollbars="false"
+         >        <ImageView
             android:id="@+id/imageView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -73,7 +73,6 @@ public class UserDetailsProcessTask  extends AsyncTask<String, String, String>{
 		 int id = 0;
 		 String data = null;
 		 long largest = 0;
-		 System.out.println(result);
 		 try {
 			 json=new JSONObject(result);
 			 if(json.getString("ischn").equals("1")||json.getString("role").contains("Nurse")){
@@ -91,7 +90,6 @@ public class UserDetailsProcessTask  extends AsyncTask<String, String, String>{
 				 if(!jsonArray.getJSONObject(i).getString("data").contains("responses")){
 					 planData=new JSONObject(jsonArray.getJSONObject(i).getString("data"));
 					if(!planData.has("values")){
-						System.out.println(planData);
 						plan=planData.getString("plan");
 					 }else{
 						 plan=planData.getString("plan"); 

@@ -62,7 +62,7 @@ public class RoutinesDetailPagerAdapter extends ArrayAdapter<RoutineActivity> {
 			holder = new ViewHolder();
 			holder.uuid = (CheckBox) convertView.findViewById(R.id.uuid);
 			holder.uuid.setFocusable(false);
-			holder.uuid.setFocusableInTouchMode(true);
+			//holder.uuid.setFocusableInTouchMode(true);
 			holder.action = (TextView) convertView.findViewById(R.id.action);
 			convertView.setTag(holder);
 		      

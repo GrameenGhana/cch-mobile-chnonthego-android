@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="If baby misses a feed you should express some milk to breast soft"
+            android:text="If baby misses a feed you should express some milk to make breast soft"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <org.grameenfoundation.cch.utils.TextViewBullets

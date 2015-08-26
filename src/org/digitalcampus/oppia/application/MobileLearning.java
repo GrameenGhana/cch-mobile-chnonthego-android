@@ -88,6 +88,7 @@ public class MobileLearning extends Application {
 	public static final String SERVER_COURSES_NAME = "courses";
 	public static final String CCH_QUOTES_SUBMIT_PATH = "api/v1/quotes";
 	public static final String CCH_USER_DETAILS_PATH = "cch/yabr3/api/v1/details/";
+	public static final String CCH_USER_ACHIEVEMENTS_PATH = "cch/yabr3/api/v1/achievements/";
 	public static final String CCH_COURSE_DETAILS_PATH = "cch/yabr3/courses";
 	public static final String CCH_TRACKER_SUBMIT_PATH = "api/v1/tracker";
 	public static final String CCH_COURSE_ACHIEVEMENT_PATH = "cmd=2&username=";

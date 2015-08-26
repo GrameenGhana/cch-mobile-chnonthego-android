@@ -105,7 +105,7 @@ public class CourseListAdapter extends ArrayAdapter<Course> {
     		 System.out.println("File does not exists!");
     	}
     	moduleRow.addView(txt1);
-    	moduleRow.addView(txt2);
+    	//moduleRow.addView(txt2);
 		// set image
     	/*
 		if(c.getImageFile() != null){

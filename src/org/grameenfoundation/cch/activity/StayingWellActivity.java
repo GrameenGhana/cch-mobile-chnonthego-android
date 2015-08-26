@@ -198,12 +198,20 @@ public class StayingWellActivity extends AppActivity implements OnSharedPreferen
 			
 			finish();
 			
-		} else if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
+		} else if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()&&getIntent().getStringExtra("location").isEmpty()) {
 	        myWebView.goBack();
     
-	    } else if((keyCode == KeyEvent.KEYCODE_BACK) && !myWebView.canGoBack()) {
+	    } else if((keyCode == KeyEvent.KEYCODE_BACK) && !myWebView.canGoBack()&&getIntent().getStringExtra("location")
+	    .isEmpty()) {
 	    	myWebView.clearHistory();
 	    	myWebView.loadUrl(HOME_URL);	        
+	    
+	    }  else if((keyCode == KeyEvent.KEYCODE_BACK) && !myWebView.canGoBack() && !(getIntent().getStringExtra("location")).isEmpty()) {
+	    	System.out.println("I am here go back");
+	    	finish();
+	    	Intent intent = new Intent(getApplicationContext(), MainScreenActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 	    } 
 		
 	    return true; 

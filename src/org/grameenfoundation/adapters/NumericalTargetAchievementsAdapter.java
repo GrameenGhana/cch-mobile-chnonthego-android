@@ -71,7 +71,7 @@ public class NumericalTargetAchievementsAdapter extends BaseExpandableListAdapte
 	   TextView text6=(TextView) convertView.findViewById(R.id.textView_achieved);
 	   TextView text7=(TextView) convertView.findViewById(R.id.textView_lastUpdated);
 	   TextView text8=(TextView) convertView.findViewById(R.id.textView_percentageAchieved);
-	   text.setText(completedTargets.get(childPosition).getEventTargetName());
+	   text.setText(completedTargets.get(childPosition).getEventTargetType());
 	   text2.setText(completedTargets.get(childPosition).getEventTargetNumber());
 	   if(completedTargets.get(childPosition).getEventTargetStatus().equalsIgnoreCase("updated")){
 		   text3.setTextColor(Color.GREEN);
@@ -98,7 +98,7 @@ public class NumericalTargetAchievementsAdapter extends BaseExpandableListAdapte
 		   TextView text6=(TextView) convertView.findViewById(R.id.textView_achieved);
 		   TextView text7=(TextView) convertView.findViewById(R.id.textView_lastUpdated);
 		   TextView text8=(TextView) convertView.findViewById(R.id.textView_percentageAchieved);
-	   text.setText(unCompletedTargets.get(childPosition).getEventTargetName());
+	   text.setText(unCompletedTargets.get(childPosition).getEventTargetType());
 	   text2.setText(unCompletedTargets.get(childPosition).getEventTargetNumber());
 		   if(unCompletedTargets.get(childPosition).getEventTargetStatus().equalsIgnoreCase("updated")){
 			   text3.setTextColor(Color.GREEN);

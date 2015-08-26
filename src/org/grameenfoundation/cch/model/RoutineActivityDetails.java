@@ -67,6 +67,7 @@ public class RoutineActivityDetails extends Fragment {
 				title.setText("  This " + dbh.getTime()+ "'s activities.");
 		    	RoutinesDetailPagerAdapter adapter = new RoutinesDetailPagerAdapter(getActivity(), R.layout.routines_detail_listview_single, todos);
 		    	adapter.notifyDataSetChanged();
+		    	listView_details.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		    	listView_details.setAdapter(adapter);	
 		    	listView_details.setClickable(true);
 		    	listView_details.setOnItemClickListener(new OnItemClickListener() {
@@ -82,6 +83,7 @@ public class RoutineActivityDetails extends Fragment {
 							String url = "file:///android_asset/www/cch/modules/stayingwell/templates/"+m.group(1);
 							Intent intent = new Intent(mContext, StayingWellActivity.class);								
 							intent.putExtra("LOAD_URL", url);
+							intent.putExtra("location", "home");
 							startActivity(intent);
 						} 
 		    		  }

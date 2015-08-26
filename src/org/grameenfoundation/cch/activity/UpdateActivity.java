@@ -180,8 +180,9 @@ public class UpdateActivity extends BaseActivity {
 			String next="<font color='#520000'>"+topic+"</font>";
 			String next_two="<font color='#53AB20'> under the course: </font>";
 			String next_three="<font color='#520000'>"+course+"</font>";
+			String next_four="<font color='#53AB20'>"+reminderValue(period)+" </font>";
 			//message.setText("Were you able to complete the course "+course+" under the topic: "+topic);
-			message.setText(Html.fromHtml(first+next+next_two+next_three));
+			message.setText(Html.fromHtml(first+next+next_two+next_three+next_four));
 			linearLayout_justification.setVisibility(View.GONE);
 			linearLayout_achievedNumber.setVisibility(View.GONE);
 			linearLayout_question2.setVisibility(View.GONE);
@@ -206,7 +207,8 @@ public class UpdateActivity extends BaseActivity {
 			message.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
 			String first="<font color='#53AB20'>Were you able to complete the following target:  </font>";
 			String next="<font color='#520000'>"+name+"</font>";
-			message.setText(Html.fromHtml(first+next));
+			String next_two="<font color='#53AB20'>"+reminderValue(period)+" </font>";
+			message.setText(Html.fromHtml(first+next+next_two));
 			//message.setText(name);
 			linearLayout_justification.setVisibility(View.GONE);
 			linearLayout_achievedNumber.setVisibility(View.GONE);
@@ -231,7 +233,8 @@ public class UpdateActivity extends BaseActivity {
 			message.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
 			String first="<font color='#53AB20'>Were you able to complete the following target:  </font>";
 			String next="<font color='#520000'>"+name+"</font>";
-			message.setText(Html.fromHtml(first+next));
+			String next_two="<font color='#53AB20'>"+reminderValue(period)+" </font>";
+			message.setText(Html.fromHtml(first+next+next_two));
 			//message.setText(name);
 			String one="<font color='#53AB20'>So far you have completed </font>";
 			String two="<font color='#520000'>"+number_achieved_from_previous+" </font>";
@@ -513,4 +516,32 @@ public class UpdateActivity extends BaseActivity {
         return dateFormat.format(date);
 }
 	
+	public String reminderValue(String reminder){
+		String value="";
+		try{
+		switch(reminder){
+		case "Daily":
+			value=" today?";
+			break;
+		case "Weekly":
+			value=" this week?";
+			break;
+		case "Monthly":
+			value=" this month?";
+			break;
+		case "Quarterly":
+			value=" this quarter?";
+			break;
+		case "Mid-year":
+			value=" this half of the year?";
+			break;
+		case "Annually":
+			value=" this year?";
+			break;
+		}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return value;
+	}
 }

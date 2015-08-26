@@ -1,5 +1,6 @@
 package org.grameenfoundation.cch.activity;
 
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.Callable;
@@ -26,6 +27,7 @@ import org.grameenfoundation.cch.model.LearningTargets;
 import org.grameenfoundation.cch.model.MyCalendarEvents;
 import org.grameenfoundation.cch.model.TargetsForAchievements;
 import org.grameenfoundation.poc.BaseActivity;
+import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -97,6 +99,8 @@ public class AchievementSummaryActivity extends BaseActivity {
 	private int numberTodo;
 	private int eventsNumberCompleted;
 	private JSONObject data;
+	private TextView textView_timePeriod;
+	private DateTime  today;
 	public static final String TAG = AchievementSummaryActivity.class.getSimpleName();
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -110,8 +114,8 @@ public class AchievementSummaryActivity extends BaseActivity {
         textView_eventPercentage=(TextView) findViewById(R.id.textView_eventPercentage);
         textView_targetsPercentage=(TextView) findViewById(R.id.textView_targetPercentage);
         textView_coursesPercentage=(TextView) findViewById(R.id.textView_coursePercentage);
-	  
-	    
+	    textView_timePeriod=(TextView) findViewById(R.id.textView_timePeriod);
+	   today=new DateTime();
 	    tableRow_events=(TableRow) findViewById(R.id.tableRow_events);
 	    tableRow_targets=(TableRow) findViewById(R.id.tableRow_targets);
 	    tableRow_courses=(TableRow) findViewById(R.id.tableRow_courses);
@@ -209,6 +213,7 @@ public class AchievementSummaryActivity extends BaseActivity {
 	    totalOtherTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_OTHER,month+1, year);
 		numberCompleted=completedEventTargets+completedCoverageTargets+completedLearningTargets+completedOtherTargets;
 		int totalNumber=totalEventTargets+totalCoverageTargets+totalLearningTargets+totalOtherTargets;
+		System.out.println("Total Targets:"+String.valueOf(totalNumber));
 		String percentage;
 		if(totalNumber>0){
 		Double  percentage_completed=((double)numberCompleted/totalNumber) *100;
@@ -288,9 +293,14 @@ public class AchievementSummaryActivity extends BaseActivity {
 	    	        }else {
 	    	        	courseUncompletedText=0;
 	    	        }
-	    	        textView_coursesPercentage.setText(String.valueOf(courseCompleted)+"%   /   "+String.valueOf(courseUncompletedText)+"%" );
+	    	        System.out.println("This year is: "+String.valueOf(today.getYear()));
+	    	        if(year<=today.getYear()){
+	    	        	textView_coursesPercentage.setText(String.valueOf(courseCompleted)+"%   /   "+String.valueOf(courseUncompletedText)+"%" );
+	    	        }else {
+	    	        	textView_coursesPercentage.setText("0"+"%   /   "+"0"+"%" );
+	    	        }
 	    	        linearLayout_graph.addView(chart);
-	    		    
+	    	        textView_timePeriod.setText(getMonth(month)+" "+String.valueOf(year));
 	    	        
 	    		    chart.setDrawYValues(true);
 
@@ -324,29 +334,40 @@ public class AchievementSummaryActivity extends BaseActivity {
 	    	        ArrayList<BarEntry> valsComp2 = new ArrayList<BarEntry>();
 	    	        ArrayList<BarEntry> valsComp3 = new ArrayList<BarEntry>();
 	    	        if(calculateEventsCompleted()!=null){
-	    	        BarEntry c1e1 = new BarEntry(Integer.valueOf(calculateEventsCompleted()), 0); 
-	    	        valsComp1.add(c1e1);
+	    	        	BarEntry c1e1 = new BarEntry(Integer.valueOf(calculateEventsCompleted()), 0); 
+	    	        	valsComp1.add(c1e1);
 	    	        }
 	    	        if(calculateTargetsCompleted()!=null){
-	    	        BarEntry c1e2 = new BarEntry(Integer.valueOf(calculateTargetsCompleted()), 1); 
-	    	        valsComp1.add(c1e2);
+	    	        	BarEntry c1e2 = new BarEntry(Integer.valueOf(calculateTargetsCompleted()), 1); 
+	    	        	valsComp1.add(c1e2);
 	    	        }
 	    	        if(db.getCourseProgressCompleted(month+1,year)!=null){
-	    	        BarEntry c1e3 = new BarEntry(Integer.valueOf(db.getCourseProgressCompleted(month+1,year)), 2); 
-	    	        valsComp1.add(c1e3);
+	    	        	if(year<=today.getYear()){
+	    	        		BarEntry c1e3 = new BarEntry(Integer.valueOf(db.getCourseProgressCompleted(month+1,year)), 2); 
+	    	        		valsComp1.add(c1e3);
+	    	        	}else{
+	    	        		BarEntry c1e3 = new BarEntry(0, 2); 
+	    	        		valsComp1.add(c1e3);
+	    	        	}
 	    	        }
 	    	        
 	    	        if(calculateEventsTodo()!=null){
-	    	        BarEntry c2e1 = new BarEntry(Integer.valueOf(calculateEventsTodo()), 0); // 0 == quarter 1
-	    	        valsComp2.add(c2e1);
+	    	        	BarEntry c2e1 = new BarEntry(Integer.valueOf(calculateEventsTodo()), 0); // 0 == quarter 1
+	    	        	valsComp2.add(c2e1);
 	    	        }
 	    	        if(calculateTargetsTodo()!=null){
-	    	        BarEntry c2e2 = new BarEntry(Integer.valueOf(calculateTargetsTodo()), 1); // 1 == quarter 2 ...
-	    	        valsComp2.add(c2e2);
+	    	        		BarEntry c2e2 = new BarEntry(Integer.valueOf(calculateTargetsTodo()), 1); // 1 == quarter 2 ...
+	    	        		valsComp2.add(c2e2);
 	    	        }
+	    	        
 	    	        if(db.getCourseProgressCompleted(month+1,year)!=null){
-	    	        BarEntry c2e3 = new BarEntry(courseUncompletedText, 2); // 1 == quarter 2 ...
-	    	        valsComp2.add(c2e3);
+	    	        	if(year<=today.getYear()){
+	    	        		BarEntry c2e3 = new BarEntry(courseUncompletedText, 2); // 1 == quarter 2 ...
+	    	        		valsComp2.add(c2e3);
+	    	        	}else {
+	    	        		BarEntry c2e3 = new BarEntry(0, 2); // 1 == quarter 2 ...
+	    	        		valsComp2.add(c2e3);
+	    	        	}
 	    	        }
 	    	        
 	    	        int[] done_colors={getResources().getColor(R.color.Red)};
@@ -368,6 +389,11 @@ public class AchievementSummaryActivity extends BaseActivity {
 	    	        chart.setData(data);
 	    	        chart.invalidate();
 	    }
+	}
+	
+	public String getMonth(int month){
+		return new DateFormatSymbols().getMonths()[month];
+		
 	}
 	public void onBackPressed()
 	{

@@ -69,6 +69,7 @@ public class ReferencesDownloadActivity extends BaseActivity{
 	/** Called when the activity is first created. */
 	private ListAdapter myAdapter;
 	private ArrayList<String> fileSizeList;
+	private TextView textview_instruct;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -78,6 +79,8 @@ public class ReferencesDownloadActivity extends BaseActivity{
 	    referenceList=(ListView) findViewById(R.id.tag_list);
 	    dbh=new DbHelper(ReferencesDownloadActivity.this);
 	    start_time=System.currentTimeMillis();
+	    textview_instruct=(TextView) findViewById(R.id.textView_instruct);
+	    textview_instruct.setText("Select download button to download References");
 		prefs = PreferenceManager.getDefaultSharedPreferences(ReferencesDownloadActivity.this);
 	    myDirectory  = new File(Environment.getExternalStorageDirectory(), "references");
 	    if(!myDirectory.exists()){

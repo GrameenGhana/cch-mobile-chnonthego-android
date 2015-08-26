@@ -231,7 +231,7 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 							
 						});
 						dialog.show();
-					}else if(today.getMillis()>=Long.valueOf(surveyData.get(1).getSurveyReminderDate())
+					}/*else if(today.getMillis()>=Long.valueOf(surveyData.get(1).getSurveyReminderDate())
 							&&today.getMillis()<=Long.valueOf(surveyData.get(1).getSurveyNextReminderDate())
 							&&surveyData.get(1).getSurveyStatus().equals("")
 							&&surveyData.get(1).getSurveyReminderFrequency().equals("")){
@@ -289,8 +289,6 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 											Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
 										}
 									}
-									
-									
 								}
 								
 							});
@@ -304,12 +302,10 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 									}catch(Exception e){
 										e.printStackTrace();
 									}
-									
 								}
-								
 							});
 							dialog.show();
-						}else if(today.getMillis()>=Long.valueOf(surveyData.get(2).getSurveyReminderDate())
+						}*/else if(today.getMillis()>=Long.valueOf(surveyData.get(2).getSurveyReminderDate())
 								&&today.getMillis()<=Long.valueOf(surveyData.get(2).getSurveyNextReminderDate())
 								&&surveyData.get(2).getSurveyStatus().equals("")
 								&&surveyData.get(2).getSurveyReminderFrequency().equals("")){
@@ -340,7 +336,6 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 										dayRadioButton.setVisibility(View.GONE);
 									}
 								close.setOnClickListener(new OnClickListener(){
-
 									@Override
 									public void onClick(View v) {
 										if(reminder.getCheckedRadioButtonId()==-1){
@@ -367,10 +362,7 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 												Crouton.makeText(MainScreenActivity.this, "Thank you!", Style.CONFIRM).show();
 											}
 										}
-										
-										
 									}
-									
 								});
 								next.setOnClickListener(new OnClickListener(){
 									@Override
@@ -382,9 +374,7 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 										}catch(Exception e){
 											e.printStackTrace();
 										}
-										
 									}
-									
 								});
 								dialog.show();
 							
@@ -569,13 +559,16 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 			    c= new CalendarEvents(mContext);
 			    
 			    EventTypeToday=c.getTodaysEvents(false);
-			    
+			    try{
 		    if(firstName.size()>0 &&firstName!=null){
 			    	user_first_name=firstName.get(0).getFirstname();
 			    }else if(firstName.size()==0&&firstName!=null){
 			    	user_first_name.equals(" ");
-			    }
 			    
+			    }
+		    }catch(Exception e){
+		    e.printStackTrace();	
+		    }
 		    	status.setText("Good "+dbh.getTime()+", "+user_first_name+"!");
 		 if(EventTypeToday.size()==0 &&EventTypeToday!=null){
 				 event_number.setText("0"); 
@@ -612,33 +605,7 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 						}
 						
 					});
-				/*
-				 eventId=dbh.getAllEventTargetsForUpdate("Daily");
-				 coverageId=dbh.getAllCoverageTargetsForUpdate("Daily");
-				 otherId=dbh.getAllOtherTargetsForUpdate("Daily");
-				 learningId=dbh.getAllLearningTargetsForUpdate("Daily");
-				 int number=(int)eventId.size();
-				 int number2=(int)coverageId.size();
-				 int number3=(int)otherId.size();
-				 int number4=(int)learningId.size();
-				 final int counter;
-				
-				counter=number+number2+number3+number4;
-				textView_eventTargetsNumber.setText(String.valueOf(counter));
-				textView_clickHere.setOnClickListener(new OnClickListener(){
-
-					@Override
-					public void onClick(View v) {
-						if(counter>0){
-						Intent intent= new Intent(getActivity(), UpdateTargetActivity.class);
-						startActivity(intent);
-						}else if(counter==0){
-							 Toast.makeText(getActivity(), "You have no targets to update!",
-							         Toast.LENGTH_SHORT).show();
-						}
-					}
-					
-				});*/
+			
 				textView_eventsClickHere = (TextView) rootView.findViewById(R.id.textView_eventsClickHere);
 			    textView_eventsClickHere.setOnClickListener(new OnClickListener(){
 			    	@Override
@@ -658,7 +625,6 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 					numactivities=0;
 				}
 			    textView_routinesNumber = (TextView) rootView.findViewById(R.id.textView_routinesNumber);
-			   // numactivities=todos.size();
 				textView_routinesNumber.setText(String.valueOf(numactivities));
 			    tv8 = (TextView) rootView.findViewById(R.id.textView8);
 			    tv8.setText(" activity(ies) this "+dbh.getTime()+".");
@@ -786,12 +752,12 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 							&&surveys.get(0).getSurveyStatus().equals("")){
 							Intent intent = new Intent(this, RunForm.class);
 							this.startActivity(intent);
-					}else if(today.getMillis()>=Long.valueOf(surveys.get(1).getSurveyReminderDate())
+					}/*else if(today.getMillis()>=Long.valueOf(surveys.get(1).getSurveyReminderDate())
 							&&today.getMillis()<=Long.valueOf(surveys.get(1).getSurveyNextReminderDate())
 							&&surveys.get(1).getSurveyStatus().equals("")){
 							Intent intent = new Intent(this, RunForm.class);
 							this.startActivity(intent);
-					}else if(today.getMillis()>=Long.valueOf(surveys.get(2).getSurveyReminderDate())
+					}*/else if(today.getMillis()>=Long.valueOf(surveys.get(2).getSurveyReminderDate())
 							&&today.getMillis()<=Long.valueOf(surveys.get(2).getSurveyNextReminderDate())
 							&&surveys.get(2).getSurveyStatus().equals("")){
 							Intent intent = new Intent(this, RunForm.class);

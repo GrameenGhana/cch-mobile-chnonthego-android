@@ -420,14 +420,14 @@ public class RunForm extends BaseActivity {
             		   id= db.editSurvey(u.get(0).getUsername(), u.get(0).getUserrole(), json.toString(), db.getDate(),"done",Long.valueOf(surveys.get(0).getSurveyId()));
                        end_time=System.currentTimeMillis();
                        db.insertCCHLog("Survey", json.toString(), startTime.toString(), end_time.toString());
-            	   }else if(today.getMillis()>=Long.valueOf(surveys.get(1).getSurveyReminderDate())
+            	   }/*else if(today.getMillis()>=Long.valueOf(surveys.get(1).getSurveyReminderDate())
             			   &&today.getMillis()<=Long.valueOf(surveys.get(1).getSurveyNextReminderDate())
             			   &&surveys.get(1).getSurveyStatus().equals("")){
             		   json.put("survey_type", "survey"+surveys.get(1).getSurveyId());
             		   id= db.editSurvey(u.get(0).getUsername(), u.get(0).getUserrole(), json.toString(), db.getDate(),"done",Long.valueOf(surveys.get(1).getSurveyId()));
                        end_time=System.currentTimeMillis();
                        db.insertCCHLog("Survey", json.toString(), startTime.toString(), end_time.toString());
-            	   }else if(today.getMillis()>=Long.valueOf(surveys.get(2).getSurveyReminderDate())
+            	   }*/else if(today.getMillis()>=Long.valueOf(surveys.get(2).getSurveyReminderDate())
             			   &&today.getMillis()<=Long.valueOf(surveys.get(2).getSurveyNextReminderDate())
             			   &&surveys.get(2).getSurveyStatus().equals("")){
             		   json.put("survey_type", "survey"+surveys.get(2).getSurveyId());

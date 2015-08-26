@@ -7,6 +7,7 @@ import org.grameenfoundation.cch.model.CourseAchievments;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +66,9 @@ public class CourseAchievementsAdapter extends BaseAdapter{
 				   dateTaken.setText(course_achievements.get(position).getDateTaken());
 			   }
 			   else{
-				   topic.setText(course_achievements.get(position).getCourseSection()); 
+				   topic.setText(course_achievements.get(position).getCourseSection().
+						   			replaceAll("u00a0", "").replaceAll("\\\\", "").replaceAll("\\n", ""));
+				  // topic.setText(Html.fromHtml(course_achievements.get(position).getCourseSection()));
 				   testType.setText(course_achievements.get(position).getType());
 				   score.setText(course_achievements.get(position).getScore());
 				   percentage.setText(course_achievements.get(position).getPercentage()+"%");

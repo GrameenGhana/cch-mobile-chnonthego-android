@@ -162,7 +162,7 @@ public class TakeActionManagingDangerSignsMotherPNCActivity extends BaseActivity
         	 TextView text=(TextView) findViewById(R.id.textView_takeActionCategory);
         	 text.setText("Persistent vomiting");
         	 ImageView image=(ImageView) findViewById(R.id.imageView1);
-        	image.setImageResource(R.drawable.persistent_vomiting);
+        	image.setImageResource(R.drawable.excessive_vomiting);
          }else if(take_action_category.equalsIgnoreCase("persistent_vomiting")){
         	 setContentView(R.layout.activity_mng_danger_sign_gen_takeaction);
         	 getActionBar().setSubtitle("PNC Mother Diagnostic: Managing Danger Signs > Persistent vomiting");

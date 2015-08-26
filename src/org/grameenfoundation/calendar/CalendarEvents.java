@@ -97,12 +97,13 @@ public class CalendarEvents {
 		values.put(Events.TITLE,evt); 
 		values.put(Events.DESCRIPTION,desc); 
 		values.put(Events.EVENT_LOCATION,location); 
-		values.put(Events.DTSTART,startdate); 
-		values.put(Events.DTEND,enddate);
+		values.put(Events.DTSTART,Long.parseLong(startdate)); 
+		values.put(Events.DTEND,Long.parseLong(enddate));
 		values.put(Events.AVAILABILITY,availability); 
 		updateUri = ContentUris.withAppendedId(Events.CONTENT_URI, event_id);
 		int rows =  mContext.getContentResolver().update(updateUri, values, null, null);
 		Log.i("Calendar edit", "Rows updated: " + rows);  
+		System.out.println(startdate);
 		if(rows==1){
 			Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, event_id);
 			Intent intent = new Intent(Intent.ACTION_EDIT)
@@ -110,8 +111,8 @@ public class CalendarEvents {
 			   .putExtra(Events.TITLE, evt)
 			   .putExtra(Events.DESCRIPTION, desc)
 			   .putExtra(Events.EVENT_LOCATION, location)
-			   .putExtra(Events.DTSTART, startdate)
-			   .putExtra(Events.DTEND, enddate)
+			   .putExtra("beginTime", Long.parseLong(startdate))
+			   .putExtra("endTime",Long.parseLong(enddate))
 			   .putExtra(Events.AVAILABILITY, availability);
 			
 			mContext.startActivity(intent);
@@ -410,8 +411,7 @@ public class CalendarEvents {
                  CNames[i] = cursor.getString(1);
 
          	    long start = Long.parseLong(cursor.getString(3));
-         	    long end = c.getTimeInMillis();
-                 
+         	    long end = start+60*60*1000;
          	    try {
          		   end = Long.parseLong(cursor.getString(4));
          	    } catch(NumberFormatException e) {}
@@ -576,8 +576,9 @@ public ArrayList<MyCalendarEvents> readFutureCalendarEvents(Context context, int
 
 		String selection = "(( " + CalendarContract.Events.DTSTART + " >= " + first_day_of_month.getTimeInMillis() + 
 							" ) AND ( " + CalendarContract.Events.DTSTART + " <= " + last_day_of_month.getTimeInMillis() +
-							" ) AND ( "+ CalendarContract.Events.STATUS+" = "+Events.STATUS_CANCELED+
+							//" ) AND ( "+ CalendarContract.Events.STATUS+" = "+Events.STATUS_CANCELED+
 							" ) AND ( "+ CalendarContract.Events.STATUS+" != "+Events.STATUS_CONFIRMED+
+						//	" ) AND ( "+ CalendarContract.Events.STATUS+" = "+Events.STATUS_TENTATIVE+
 							" ) AND ( "+Events.DELETED+" !=1 "+" ))";
 
 		Cursor cursor = context.getContentResolver().query( CalendarContract.Events.CONTENT_URI, projection, selection, null, null );

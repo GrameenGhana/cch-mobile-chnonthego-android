@@ -59,14 +59,15 @@
                     android:layout_height="15dp"
                     android:layout_marginLeft="20dp"
                     android:src="@drawable/ic_bullet" />
+
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                     android:paddingBottom="5dp"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="0dp"
-                    android:text="Do you have andy pains? Do you have any concerns?"
+                    android:text="Do you have any pains? Do you have any concerns?"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
             </LinearLayout>

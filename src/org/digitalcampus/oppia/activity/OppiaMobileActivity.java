@@ -89,7 +89,7 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 		getActionBar().setDisplayShowHomeEnabled(true);
 	    getActionBar().setTitle("Learning Center");
 	    getActionBar().setSubtitle("Learning Modules");
-	    download=(Button) this.findViewById(R.id.button_download);
+	    //download=(Button) this.findViewById(R.id.button_download);
 		// set preferred lang to the default lang
 		if (prefs.getString(getString(R.string.prefs_language), "").equals("")) {
 			Editor editor = prefs.edit();
@@ -104,7 +104,7 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 	        } else {
 	        	courseGroup="Family planning";
 	        }
-		
+		/*
 			download.setOnClickListener(new OnClickListener(){
 
 				@Override
@@ -113,7 +113,7 @@ public class OppiaMobileActivity extends AppActivity implements OnSharedPreferen
 					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				}
 				
-			});
+			});*/
 	}
 
 	@Override

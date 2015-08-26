@@ -93,7 +93,7 @@ public class TakeActionAskHerActivity extends BaseActivity {
          		}
               	  textView_takeAction=(TextView) findViewById(R.id.textView_takeActionCategory);
               	  imageView=(ImageView) findViewById(R.id.imageView1);
-              	  textView_takeAction.setText(take_action_category);
+              	  textView_takeAction.setText("Severe Abdominal Pain");
               	  imageView.setImageResource(R.drawable.severe_abdominal);
               	  
     	    }else if(take_action_category.equals("Epigastric Pain")){

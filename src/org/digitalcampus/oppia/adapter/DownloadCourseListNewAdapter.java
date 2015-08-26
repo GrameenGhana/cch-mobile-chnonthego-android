@@ -149,7 +149,7 @@ public class DownloadCourseListNewAdapter extends ArrayAdapter<Course> implement
 		    		 System.out.println("File does not exists!");
 		    	}
 		    	moduleRow.addView(txt1);
-		    	moduleRow.addView(txt2);
+		    	//moduleRow.addView(txt2);
 		    	
 	    	}
 	    } else {

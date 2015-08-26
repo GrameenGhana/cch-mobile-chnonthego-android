@@ -103,7 +103,7 @@ public class SurveyNotifyTask extends AsyncTask<Payload, Object, Payload> {
 				}
 					
 			
-		}else if(today.getMillis()>=Long.valueOf(surveys.get(1).getSurveyReminderDate())
+		}/*else if(today.getMillis()>=Long.valueOf(surveys.get(1).getSurveyReminderDate())
 				&&today.getMillis()<=Long.valueOf(surveys.get(1).getSurveyNextReminderDate())
 				&&surveys.get(1).getSurveyStatus().equals("")
 				&&!surveys.get(1).getSurveyReminderFrequencyValue().equals("")){
@@ -120,7 +120,7 @@ public class SurveyNotifyTask extends AsyncTask<Payload, Object, Payload> {
 			 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			 ctx.startActivity(i);
 			}
-		}else if(today.getMillis()>=Long.valueOf(surveys.get(2).getSurveyReminderDate())
+		}*/else if(today.getMillis()>=Long.valueOf(surveys.get(2).getSurveyReminderDate())
 				&&today.getMillis()<=Long.valueOf(surveys.get(2).getSurveyNextReminderDate())
 				&&surveys.get(2).getSurveyStatus().equals("")
 				&&!surveys.get(2).getSurveyReminderFrequencyValue().equals("")){

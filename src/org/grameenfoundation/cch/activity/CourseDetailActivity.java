@@ -84,7 +84,9 @@ public class CourseDetailActivity extends Activity {
 			String course_name=adapter.getItem(position);
 			intent.putExtra("modid", id);
 			intent.putExtra("course_name", course_name);
-			 course_achievements = db.getQuizResultsForAchievements((int)id);
+			intent.putExtra("month", month);
+			intent.putExtra("year", year);
+			 course_achievements = db.getQuizzesForAchievements(course_name,month+1,year);
 			 if(course_achievements!=null){
 			startActivity(intent);
 			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);

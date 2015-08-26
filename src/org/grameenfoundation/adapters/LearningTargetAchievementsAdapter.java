@@ -24,26 +24,26 @@ import android.widget.TextView;
 
 		
 		 public String[] groupItem;
-		 public ArrayList<LearningTargets> CompletedTargets;
-		 public ArrayList<LearningTargets> UnCompletedTargets;
+		 public ArrayList<EventTargets> CompletedTargets;
+		 public ArrayList<EventTargets> UnCompletedTargets;
 		 public ExpandableListView eventsList;
 		 public LayoutInflater minflater;
 		 private int count;
 		 public int lastExpandedGroupPosition;    
 		 private Context mContext;
 		private DbHelper dbh;
-		private ArrayList<LearningTargets> completedTargets;
-		private ArrayList<LearningTargets> unCompletedTargets;
+		private ArrayList<EventTargets> completedTargets;
+		private ArrayList<EventTargets> unCompletedTargets;
 		EventTargets calendarEvents=new EventTargets();
 
 		 public LearningTargetAchievementsAdapter(Context mContext,String[] grList,
-				 					ArrayList<LearningTargets> CompletedTargets,
-				 					ArrayList<LearningTargets> UnCompletedTargets,
+				 					ArrayList<EventTargets> CompletedTargets,
+				 					ArrayList<EventTargets> UnCompletedTargets,
 				 					ExpandableListView eventsList) {
 			 dbh = new DbHelper(mContext);
 			 
-			 completedTargets = new ArrayList<LearningTargets>();
-			 unCompletedTargets = new ArrayList<LearningTargets>();
+			 completedTargets = new ArrayList<EventTargets>();
+			 unCompletedTargets = new ArrayList<EventTargets>();
 			 
 			 completedTargets.addAll(CompletedTargets);
 			 unCompletedTargets.addAll(UnCompletedTargets);
@@ -65,55 +65,55 @@ import android.widget.TextView;
 		 public View getChildView(int groupPosition, final int childPosition,
 		   boolean isLastChild, View convertView, ViewGroup parent) {
 		   if(convertView==null){
-			   convertView=minflater.inflate(R.layout.achievements_target_listview_single,null);
+			   convertView=minflater.inflate(R.layout.achievements_learning_target_single,null);
 		   }
 		   if(groupPosition==0){
 			  
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_eventCategory);
-		   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventNumber);
+		  // TextView text2=(TextView) convertView.findViewById(R.id.textView_eventNumber);
 		   TextView text3=(TextView) convertView.findViewById(R.id.textView_eventPeriod);
 		   TextView text4=(TextView) convertView.findViewById(R.id.textView_dueDate);
 		   TextView text5=(TextView) convertView.findViewById(R.id.textView_startDate);
-		   TextView text6=(TextView) convertView.findViewById(R.id.textView_achieved);
+		   //TextView text6=(TextView) convertView.findViewById(R.id.textView_achieved);
 		   TextView text7=(TextView) convertView.findViewById(R.id.textView_lastUpdated);
-		   TextView text8=(TextView) convertView.findViewById(R.id.textView_percentageAchieved);
-		   text.setText(completedTargets.get(childPosition).getLearningTargetName());
-		   text2.setText(" ");
-		   if(completedTargets.get(childPosition).getLearningTargetStatus().equalsIgnoreCase("updated")){
+		   //TextView text8=(TextView) convertView.findViewById(R.id.textView_percentageAchieved);
+		   text.setText(completedTargets.get(childPosition).getEventTargetType());
+		   //text2.setText(" ");
+		   if(completedTargets.get(childPosition).getEventTargetStatus().equalsIgnoreCase("updated")){
 			   text3.setTextColor(Color.GREEN);
 			   text3.setText("Completed");
 		   }else{
 			   text3.setTextColor(Color.RED);
 			   text3.setText("In progress"); 
 		   }
-		   text4.setText(completedTargets.get(childPosition).getLearningTargetEndDate());
-		   text5.setText(completedTargets.get(childPosition).getLearningTargetStartDate());
-		   text7.setText(completedTargets.get(childPosition).getLearningTargetLastUpdated());
-		   text6.setText(" ");
-		  text8.setText(" ");
+		   text4.setText(completedTargets.get(childPosition).getEventTargetEndDate());
+		   text5.setText(completedTargets.get(childPosition).getEventTargetStartDate());
+		   text7.setText(completedTargets.get(childPosition).getEventTargetLastUpdated());
+		  // text6.setText(" ");
+		  //text8.setText(" ");
 		   }else if(groupPosition==1){
 			   TextView text=(TextView) convertView.findViewById(R.id.textView_eventCategory);
-			   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventNumber);
+			   //TextView text2=(TextView) convertView.findViewById(R.id.textView_eventNumber);
 			   TextView text3=(TextView) convertView.findViewById(R.id.textView_eventPeriod);
 			   TextView text4=(TextView) convertView.findViewById(R.id.textView_dueDate);
 			   TextView text5=(TextView) convertView.findViewById(R.id.textView_startDate);
-			   TextView text6=(TextView) convertView.findViewById(R.id.textView_achieved);
+			   //TextView text6=(TextView) convertView.findViewById(R.id.textView_achieved);
 			   TextView text7=(TextView) convertView.findViewById(R.id.textView_lastUpdated);
-			   TextView text8=(TextView) convertView.findViewById(R.id.textView_percentageAchieved);
-			   text.setText(unCompletedTargets.get(childPosition).getLearningTargetName());
-			   text2.setText(" ");
-			   if(unCompletedTargets.get(childPosition).getLearningTargetStatus().equalsIgnoreCase("updated")){
+			   //TextView text8=(TextView) convertView.findViewById(R.id.textView_percentageAchieved);
+			   text.setText(unCompletedTargets.get(childPosition).getEventTargetType());
+			   //text2.setText(" ");
+			   if(unCompletedTargets.get(childPosition).getEventTargetStatus().equalsIgnoreCase("updated")){
 				   text3.setTextColor(Color.GREEN);
 				   text3.setText("Completed");
 			   }else{
 				   text3.setTextColor(Color.RED);
 				   text3.setText("In progress"); 
 			   }
-			   text4.setText(unCompletedTargets.get(childPosition).getLearningTargetEndDate());
-			   text5.setText(unCompletedTargets.get(childPosition).getLearningTargetStartDate());
-			   text7.setText(unCompletedTargets.get(childPosition).getLearningTargetLastUpdated());
-			   text6.setText(" ");
-			  text8.setText(" ");
+			   text4.setText(unCompletedTargets.get(childPosition).getEventTargetEndDate());
+			   text5.setText(unCompletedTargets.get(childPosition).getEventTargetStartDate());
+			   text7.setText(unCompletedTargets.get(childPosition).getEventTargetLastUpdated());
+			   //text6.setText(" ");
+			   //text8.setText(" ");
 			   
 		   }
 		  return convertView;

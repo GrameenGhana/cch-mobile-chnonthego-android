@@ -54,7 +54,7 @@ public class CourseGroupActivity extends AppActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_main);
+	    setContentView(R.layout.activity_course_group);
 		getActionBar().setDisplayShowHomeEnabled(true);
 	    getActionBar().setTitle("Learning Center");
 	    getActionBar().setSubtitle("Learning Modules");

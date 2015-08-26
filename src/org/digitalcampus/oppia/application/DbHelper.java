@@ -42,6 +42,7 @@ import org.grameenfoundation.cch.model.Survey;
 import org.grameenfoundation.cch.model.TargetsForAchievements;
 import org.grameenfoundation.cch.utils.CCHTimeUtil;
 import org.joda.time.DateTime;
+import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -276,6 +277,21 @@ public class DbHelper extends SQLiteOpenHelper {
 				public static final String CCH_REMINDER_FREQUENCY_VALUE="reminder_frequency_value";
 				public static final String CCH_SURVEY_STATUS="survey_status";
 		
+				//CCH Target Achievements Table
+				public static final String TARGET_ACHIEVEMENTS_TABLE="target_achievements";
+				public static final String CCH_TARGET_ID="target_id";
+				
+				//CCH Course Achievements Table
+				public static final String COURSE_ACHIEVEMENTS_TABLE="course_achievements";
+				public static final String CCH_COURSE="course";
+				public static final String CCH_COURSE_RECORD_ID="record_id";
+				public static final String CCH_COURSE_SECTION="section";
+				public static final String CCH_COURSE_SCORE="score";
+				public static final String CCH_COURSE_MAX_SCORE="max_score";
+				public static final String CCH_COURSE_QUIZ_TYPE="quiz_type";
+				public static final String CCH_COURSE_QUIZ_TITLE="quiz_title";
+				public static final String CCH_COURSE_PERCENTAGE_COMPLETED="percompleted";
+				public static final String CCH_COURSE_DATE_TAKEN="date_taken";
 		
 		//CCH 
 	public static final String COL_LAST_UPDATED="last_updated";
@@ -301,7 +317,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		/* CCH additions */
 		createCCHTrackerTable(db);
 		createStayingWellTable(db);
-	//	runSWReset(db);
+		//runSWReset(db);
 		
 		/*CHN Target tracking changes*/
 		//createEventsSetTable(db);
@@ -327,8 +343,6 @@ public class DbHelper extends SQLiteOpenHelper {
 				+ CCH_SURVEY_STATUS + TEXT_TYPE + COMMA_SEP
 				+ CCH_DATE_TAKEN + " text)";
 		db.execSQL(m_sql);
-		
-		
 	}
 	
 	public void createTargetsTable(SQLiteDatabase db){
@@ -447,6 +461,39 @@ public class DbHelper extends SQLiteOpenHelper {
 			db.execSQL(JUSTIFICATION_CREATE_TABLE);
 	}
 	
+	public void createTargetAchievementsTable(SQLiteDatabase db){
+		
+		final String TARGET_ACHIEVEMENT_CREATE_TABLE =
+			    "CREATE TABLE IF NOT EXISTS " + TARGET_ACHIEVEMENTS_TABLE + " (" +
+			    		BaseColumns._ID + " INTEGER PRIMARY KEY," +
+			    		CCH_TARGET_ID + TEXT_TYPE + COMMA_SEP +
+			    		CCH_TARGET_TYPE + TEXT_TYPE + COMMA_SEP +
+			    		CCH_TARGET_CATEGORY + TEXT_TYPE + COMMA_SEP+
+			    		CCH_TARGET_NO + TEXT_TYPE + COMMA_SEP+
+			    		CCH_TARGET_NO_ACHIEVED + TEXT_TYPE + COMMA_SEP+
+			    		CCH_STATUS + TEXT_TYPE + COMMA_SEP+
+			    		CCH_LAST_UPDATED + TEXT_TYPE + COMMA_SEP+
+			    		CCH_START_DATE + TEXT_TYPE + COMMA_SEP+
+			    		CCH_DUE_DATE + TEXT_TYPE +			    		
+			    " )";
+		db.execSQL(TARGET_ACHIEVEMENT_CREATE_TABLE);
+}
+public void createCourseAchievementsTable(SQLiteDatabase db){
+		
+		final String COURSE_ACHIEVEMENT_CREATE_TABLE =
+			    "CREATE TABLE IF NOT EXISTS " + COURSE_ACHIEVEMENTS_TABLE + " (" +
+			    		BaseColumns._ID + " INTEGER PRIMARY KEY," +
+			    		CCH_COURSE+ TEXT_TYPE + COMMA_SEP +
+			    		CCH_COURSE_RECORD_ID+ TEXT_TYPE + COMMA_SEP +
+			    		CCH_COURSE_SECTION + TEXT_TYPE + COMMA_SEP +
+			    		CCH_COURSE_SCORE + TEXT_TYPE + COMMA_SEP+
+			    		CCH_COURSE_MAX_SCORE + TEXT_TYPE + COMMA_SEP+
+			    		CCH_COURSE_QUIZ_TYPE + TEXT_TYPE + COMMA_SEP+
+			    		CCH_COURSE_QUIZ_TITLE + TEXT_TYPE + COMMA_SEP+
+			    		CCH_COURSE_DATE_TAKEN + TEXT_TYPE+	    		
+			    " )";
+		db.execSQL(COURSE_ACHIEVEMENT_CREATE_TABLE);
+}
 	
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
@@ -980,6 +1027,56 @@ public class DbHelper extends SQLiteOpenHelper {
 		
 		return newRowId;
 	}
+	
+	public long insertTargetAchievement(String target_id,String target_type,String target_category,String target_number,
+										String target_achieved,String target_status,String last_updated,String target_start_date,String target_due_date){
+		SQLiteDatabase db = this.getWritableDatabase();
+		createTargetAchievementsTable(db);
+		ContentValues values = new ContentValues();
+		values.put(CCH_TARGET_ID,target_id);
+		values.put(CCH_TARGET_TYPE,target_type);
+		values.put(CCH_TARGET_CATEGORY,target_category);
+		values.put(CCH_TARGET_NO,target_number);
+		values.put(CCH_TARGET_NO_ACHIEVED,target_achieved);
+		values.put(CCH_STATUS,target_status);
+		values.put(CCH_LAST_UPDATED,last_updated);
+		values.put(CCH_START_DATE,target_start_date);
+		values.put(CCH_DUE_DATE,target_due_date);
+		
+		long newRowId;
+		newRowId = db.update(TARGET_ACHIEVEMENTS_TABLE, values, CCH_TARGET_ID + "=" + target_id +" and "+CCH_TARGET_TYPE+"='"+target_type+"'", null);
+		 if(newRowId==0){
+			 newRowId = db.insert(TARGET_ACHIEVEMENTS_TABLE, null, values);
+		 }
+			//	TARGET_ACHIEVEMENTS_TABLE, null, values);
+		
+		return newRowId;
+	}
+	
+	public long insertCourseAchievement(String course,String record_id,String section,String score,String max_score,
+										String quiz_type,String quiz_title,String date_taken){
+			SQLiteDatabase db = this.getWritableDatabase();
+			createCourseAchievementsTable(db);
+			ContentValues values = new ContentValues();
+			values.put(CCH_COURSE,course);
+			values.put(CCH_COURSE_RECORD_ID,record_id);
+			values.put(CCH_COURSE_SECTION,section);
+			values.put(CCH_COURSE_SCORE,score);
+			values.put(CCH_COURSE_MAX_SCORE,max_score);
+			values.put(CCH_COURSE_QUIZ_TITLE, quiz_title);
+			values.put(CCH_COURSE_QUIZ_TYPE, quiz_type);
+			values.put(CCH_COURSE_DATE_TAKEN,date_taken);
+
+		long newRowId;
+		newRowId = db.update(
+				COURSE_ACHIEVEMENTS_TABLE,values,  CCH_COURSE_RECORD_ID + "=" + record_id , null);
+		if(newRowId==0){
+		newRowId = db.insert(
+				COURSE_ACHIEVEMENTS_TABLE, null, values);
+		}
+
+		return newRowId;
+	}
 	public long refreshCourse(Course course){
 		SQLiteDatabase db = this.getWritableDatabase();
 		long modId = this.getCourseID(course.getShortname());
@@ -1224,7 +1321,7 @@ String due_date=c.getString(c.getColumnIndex(COURSE_C_DATE));
 				due_date_year=2015;
 			}
 			}
-			if(month==due_date_month&&year==due_date_year){
+			//if(month==due_date_month&&year==due_date_year){
 			course.setModId(c.getInt(c.getColumnIndex(COURSE_C_ID)));
 			course.setLocation(c.getString(c.getColumnIndex(COURSE_C_LOCATION)));
 			course.setProgress(this.getCourseProgress(course.getModId()));
@@ -1234,7 +1331,7 @@ String due_date=c.getString(c.getColumnIndex(COURSE_C_DATE));
 			course.setLangsFromJSONString(c.getString(c.getColumnIndex(COURSE_C_LANGS)));
 			course.setShortname(c.getString(c.getColumnIndex(COURSE_C_SHORTNAME)));
 			courses.add(course);
-			}
+		//	}
 			c.moveToNext();
 		}
 		c.close();
@@ -1414,9 +1511,9 @@ String due_date=c.getString(c.getColumnIndex(COURSE_C_DATE));
 			}
 			}
 		while (c.isAfterLast() == false) {
-			if(c.getString(c.getColumnIndex("d")) != null&&month==due_date_month&&year==due_date_year){
+			if(c.getString(c.getColumnIndex("d"))!=null){
 				noComplete++;
-			}
+		}
 			c.moveToNext();
 		}
 		if(noActs==0){
@@ -3010,10 +3107,13 @@ return 1;
 		long starDateAsTimestamp = 0;
 		long dueDateAsTimestamp = 0;
 		long selecteddate = 0;
-		if(doesTableExists(TARGET_TABLE)){
-		String strQuery="select * from "+TARGET_TABLE
-						+" where "+CCH_TARGET_TYPE
-						+" = '"+target_type+"'";
+		DateTime stdate = null;
+		DateTime dddate = null;
+		DateTime sddate;
+		if(doesTableExists(TARGET_ACHIEVEMENTS_TABLE)){
+		String strQuery="select * from "+TARGET_ACHIEVEMENTS_TABLE
+						+" where "+CCH_TARGET_CATEGORY
+						+" like '%"+target_type+"%'";
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
 			
@@ -3023,23 +3123,31 @@ return 1;
 				String due_date=c.getString(c.getColumnIndex(CCH_DUE_DATE));
 				String start_date=c.getString(c.getColumnIndex(CCH_START_DATE));
 				try {
+					if(!start_date.equals("")&&!due_date.equals("")){
+						DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
+						 stdate = formatter.parseDateTime(start_date);
+						 dddate = formatter.parseDateTime(due_date);
+						// sddate = formatter.parseDateTime("01"+"-0"+String.valueOf(month)+"-"+String.valueOf(year));
+						}
 					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_START_DATE)));
 					date2 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
 					date3= new SimpleDateFormat("dd-MM-yyyy").parse("01"+"-0"+String.valueOf(month)+"-"+String.valueOf(year));
 					starDateAsTimestamp = date1.getTime();
 					dueDateAsTimestamp = date2.getTime();
 					selecteddate = date3.getTime();
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-				if(starDateAsTimestamp>=selecteddate|| dueDateAsTimestamp>=selecteddate){
+				
+				//if(starDateAsTimestamp>=selecteddate||dueDateAsTimestamp>=selecteddate){
+				if((stdate.getMonthOfYear()<= month&&stdate.getYear()==year)&&(dddate.getMonthOfYear()>=month&&dddate.getYear()==year)){
 					try{
-					event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+					event_targets.setEventTargetType(c.getString(c.getColumnIndex(CCH_TARGET_TYPE)));
 					list.add(event_targets);
 					total_targets=list.size();
 					}catch(Exception e){
 						e.printStackTrace();
 					}
+				}
+				} catch (ParseException e) {
+					e.printStackTrace();
 				}
 				   c.moveToNext();		  				
 			}
@@ -3048,6 +3156,58 @@ return 1;
 		}
 			return total_targets;	
 	}
+	
+	public ArrayList<CourseAchievments> getQuizzesForAchievements(String course_name,int month,int year)
+	{	SQLiteDatabase db = this.getReadableDatabase();
+		ArrayList<CourseAchievments> list=new ArrayList<CourseAchievments>();	
+		if(doesTableExists(COURSE_ACHIEVEMENTS_TABLE)){
+		String strQuery="select * from "+COURSE_ACHIEVEMENTS_TABLE
+							+" where "+CCH_COURSE
+							+" like '%"+course_name+"%'";
+						;
+						System.out.println(strQuery);
+			Cursor c = db.rawQuery(strQuery, null);
+			c.moveToFirst();
+			
+			
+			while (c.isAfterLast()==false) {
+				CourseAchievments courses = new CourseAchievments();
+				try{
+				String date_taken=c.getString(c.getColumnIndex(CCH_DATE_TAKEN));
+				DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+				DateTime dt = formatter.parseDateTime(date_taken);
+				String[] due_date_split=date_taken.split("-");
+				if(due_date_split.length>2){
+						int date_month=Integer.parseInt(due_date_split[1]);
+						int date_year=Integer.parseInt(due_date_split[0]);
+						
+					if(month==dt.getMonthOfYear()&&year==dt.getYear()){	
+						courses.setCourseName(c.getString(c.getColumnIndex(CCH_COURSE)));
+						courses.setCourseSection(c.getString(c.getColumnIndex(CCH_COURSE_SECTION)));
+						courses.setCourseTitle(c.getString(c.getColumnIndex(CCH_COURSE_QUIZ_TITLE)));
+						courses.setScore(c.getString(c.getColumnIndex(CCH_COURSE_SCORE)));
+						courses.setType(c.getString(c.getColumnIndex(CCH_COURSE_QUIZ_TYPE)));
+						courses.setMaxScore(c.getString(c.getColumnIndex(CCH_COURSE_MAX_SCORE)));
+						courses.setDateTaken(c.getString(c.getColumnIndex(CCH_COURSE_DATE_TAKEN)));
+						String score=c.getString(c.getColumnIndex(CCH_COURSE_SCORE));
+						String max_score=c.getString(c.getColumnIndex(CCH_COURSE_MAX_SCORE));
+						courses.setScore(c.getString(c.getColumnIndex(CCH_COURSE_SCORE))+ "/" + c.getString(c.getColumnIndex(CCH_COURSE_MAX_SCORE)));
+						Double percentage=((double)Double.parseDouble(score)/(double)Double.parseDouble(max_score))*100;
+						String percentage_value=String.format("%.0f", percentage);
+						courses.setPercentage(percentage_value);
+						list.add(courses);
+					
+					}
+					 c.moveToNext();		 
+			}
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+			c.close();
+		}
+			return list;	
+	}
 	public int getTargetsBasedOnStatus(String status,String target_type,int month,int year)
 	{	SQLiteDatabase db = this.getReadableDatabase();
 	ArrayList<EventTargets> list=new ArrayList<EventTargets>();	
@@ -3055,15 +3215,18 @@ return 1;
 	Date date1 = null;
 	Date date2 = null;
 	Date date3= null;
+	DateTime stdate = null;
+	DateTime dddate = null;
+	DateTime sddate;
 	long starDateAsTimestamp = 0;
 	long dueDateAsTimestamp = 0;
 	long selecteddate = 0;
-	if(doesTableExists(TARGET_TABLE)){
-	String strQuery="select * from "+TARGET_TABLE
+	if(doesTableExists(TARGET_ACHIEVEMENTS_TABLE)){
+	String strQuery="select * from "+TARGET_ACHIEVEMENTS_TABLE
 					+" where "+CCH_STATUS
 					+ " = '"+status+"'"
-					+" and "+CCH_TARGET_TYPE
-					+" = '"+target_type+"'";
+					+" and "+CCH_TARGET_CATEGORY
+					+" like '%"+target_type+"%'";
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();	
 			while (c.isAfterLast()==false) {
@@ -3071,24 +3234,33 @@ return 1;
 			String due_date=c.getString(c.getColumnIndex(CCH_DUE_DATE));
 			String start_date=c.getString(c.getColumnIndex(CCH_START_DATE));
 			try {
+				if(!start_date.equals("")&&!due_date.equals("")){
+				DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
+				 stdate = formatter.parseDateTime(start_date);
+				 dddate = formatter.parseDateTime(due_date);
+				 //sddate = formatter.parseDateTime("01"+"-0"+String.valueOf(month)+"-"+String.valueOf(year));
+				}
 				date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_START_DATE)));
 				date2 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
 				date3= new SimpleDateFormat("dd-MM-yyyy").parse("01"+"-0"+String.valueOf(month)+"-"+String.valueOf(year));
 				starDateAsTimestamp = date1.getTime();
 				dueDateAsTimestamp = date2.getTime();
 				selecteddate = date3.getTime();
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			if(starDateAsTimestamp>=selecteddate|| dueDateAsTimestamp>=selecteddate){
+		//System.out.println(String.valueOf(stdate.getYear())+" "+String.valueOf(stdate.getMonthOfYear())+" "+String.valueOf(month));
+			//if(starDateAsTimestamp>=selecteddate||dueDateAsTimestamp>=selecteddate){
+			//if((date1.getMonth()>= month&&date1	.getYear()==year)&&(date2.getMonth()<=month&&date2.getYear()==year)){
+				if((stdate.getMonthOfYear()<= month&&stdate.getYear()==year)&&(dddate.getMonthOfYear()>=month&&dddate.getYear()==year)){
 					try{
-					event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+					event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_TYPE)));
 					list.add(event_targets);
 					total_targets=list.size();
 					}catch(Exception e){
 						e.printStackTrace();
 					}
 				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 				   c.moveToNext();		  				
 			}
 			c.close();
@@ -3105,17 +3277,18 @@ return 1;
 		Date date1 = null;
 		Date date2 = null;
 		Date date3= null;
+		DateTime stdate = null;
+		DateTime dddate = null;
+		DateTime sddate;
 		long starDateAsTimestamp = 0;
 		long dueDateAsTimestamp = 0;
 		long selecteddate = 0;
-		String currDate = null;
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-		if(doesTableExists(TARGET_TABLE)){
-		String strQuery="select * from "+TARGET_TABLE
+		if(doesTableExists(TARGET_ACHIEVEMENTS_TABLE)){
+		String strQuery="select * from "+TARGET_ACHIEVEMENTS_TABLE
 						+" where "+CCH_STATUS
 						+ " = '"+status+"'"
-						+ " and "+CCH_TARGET_TYPE
-						+" = '"+target_type+"'";	
+						+ " and "+CCH_TARGET_CATEGORY
+						+" like '%"+target_type+"%'";	
 		System.out.println(strQuery);
 			Cursor c = db.rawQuery(strQuery, null);
 			c.moveToFirst();
@@ -3125,33 +3298,35 @@ return 1;
 				String due_date=c.getString(c.getColumnIndex(CCH_DUE_DATE));
 				String start_date=c.getString(c.getColumnIndex(CCH_START_DATE));
 				try {
+					if(!start_date.equals("")&&!due_date.equals("")){
+						DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
+						 stdate = formatter.parseDateTime(start_date);
+						 dddate = formatter.parseDateTime(due_date);
+						 //sddate = formatter.parseDateTime("01"+"-0"+String.valueOf(month)+"-"+String.valueOf(year));
+						}
 					date1 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_START_DATE)));
 					date2 = new SimpleDateFormat("dd-MM-yyyy").parse(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
 					date3= new SimpleDateFormat("dd-MM-yyyy").parse("01"+"-0"+String.valueOf(month)+"-"+String.valueOf(year));
 					starDateAsTimestamp = date1.getTime();
 					dueDateAsTimestamp = date2.getTime();
 					selecteddate = date3.getTime();
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-				currDate=sdf.format(date3);
-				if(starDateAsTimestamp>=selecteddate|| dueDateAsTimestamp>=selecteddate){
-				//if((date1.after(date3) && (date2.before(date3))) || (currDate.equals(sdf.format(date1)) ||currDate.equals(sdf.format(date2)))){
-					event_targets.setEventTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+				
+				//if(starDateAsTimestamp>=selecteddate||dueDateAsTimestamp>=selecteddate){
+				if((stdate.getMonthOfYear()<= month&&stdate.getYear()==year)&&(dddate.getMonthOfYear()>=month&&dddate.getYear()==year)){
 					event_targets.setEventTargetNumber(c.getString(c.getColumnIndex(CCH_TARGET_NO)));
 					event_targets.setEventTargetNumberAchieved(c.getString(c.getColumnIndex(CCH_TARGET_NO_ACHIEVED)));
 					event_targets.setEventTargetStartDate(c.getString(c.getColumnIndex(CCH_START_DATE)));
 					event_targets.setEventTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-					event_targets.setEventTargetOldId(c.getString(c.getColumnIndex(CCH_OLD_ID)));
 					event_targets.setEventTargetEndDate(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
 					event_targets.setEventTargetLastUpdated(c.getString(c.getColumnIndex(CCH_LAST_UPDATED)));
-					event_targets.setEventTargetPeriod(c.getString(c.getColumnIndex(CCH_REMINDER)));
 					event_targets.setEventTargetStatus(c.getString(c.getColumnIndex(CCH_STATUS)));
-					event_targets.setEventTargetDetail(c.getString(c.getColumnIndex(CCH_TARGET_DETAIL)));
 					event_targets.setEventTargetType(c.getString(c.getColumnIndex(CCH_TARGET_TYPE)));
 					event_targets.setEventTargetCategory(c.getString(c.getColumnIndex(CCH_TARGET_CATEGORY)));
 				
 				   list.add(event_targets);
+				}
+				} catch (ParseException e) {
+					e.printStackTrace();
 				}
 				   c.moveToNext();		  				
 			}

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
     android:orientation="vertical"
     android:showDividers="middle" >
 
@@ -14,17 +15,29 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/Brown" />
 
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Spinner
+            android:id="@+id/spinner_months"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/spinner_years"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </TableRow>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingBottom="40dp" >
-
-        <Spinner
-            android:id="@+id/spinner_categories"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/button_view"
@@ -35,24 +48,27 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:text="Overall Achievements"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/TextColorWine"
-        android:visibility="gone" />
-
-    <ListView
-        android:id="@+id/listView1"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/BackgroundGrey"
-        android:dividerHeight="5dp"
-        android:visibility="gone" >
+        android:layout_height="match_parent"
+        android:gravity="bottom|center"
+        android:orientation="vertical" >
 
-    </ListView>
+        <TextView
+            android:id="@+id/textView_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/button_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_action_refresh"
+            android:text="Refresh"
+            android:textColor="@color/Brown"
+            android:textColorHint="@color/Brown" />
+
+    </LinearLayout>
 
 </LinearLayout>
