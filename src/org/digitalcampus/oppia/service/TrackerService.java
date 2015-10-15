@@ -26,6 +26,7 @@ import org.digitalcampus.oppia.task.APIRequestTask;
 import org.digitalcampus.oppia.task.Payload;
 import org.digitalcampus.oppia.task.SubmitQuizTask;
 import org.digitalcampus.oppia.task.SubmitTrackerMultipleTask;
+import org.grameenfoundation.cch.tasks.FacilityTargetsTask;
 import org.grameenfoundation.cch.tasks.StayingWellNotifyTask;
 import org.grameenfoundation.cch.tasks.SurveyNotifyTask;
 import org.grameenfoundation.cch.tasks.TargetSettingNotifyTask;
@@ -59,11 +60,15 @@ public class TrackerService extends Service implements APIRequestListener {
 
 	private final IBinder mBinder = new MyBinder();
 	private SharedPreferences prefs;
+
+	private String name;
 	
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		BugSenseHandler.initAndStartSession(this,MobileLearning.BUGSENSE_API_KEY);
+		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		 name=prefs.getString("first_name", "name");
 	}
 
 	@Override
@@ -75,7 +80,15 @@ public class TrackerService extends Service implements APIRequestListener {
 		if (b != null) {
 			backgroundData = b.getBoolean("backgroundData");
 		}
-
+		if(isOnline()){
+			MobileLearning app = (MobileLearning) this.getApplication();
+			if (app.omFacilityTargetsDownloadTask == null) {
+				app.omFacilityTargetsDownloadTask = new FacilityTargetsTask(this);
+				prefs = PreferenceManager.getDefaultSharedPreferences(this);
+				 name=prefs.getString("first_name", "name");
+				app.omFacilityTargetsDownloadTask.execute( getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.FACILITY_TARGETS_PATH+name);
+			}
+		}
 		if (isOnline() && backgroundData) {
 			DbHelper db = new DbHelper(this);
 			Payload p = null;
@@ -108,6 +121,8 @@ public class TrackerService extends Service implements APIRequestListener {
 				editor.putLong("lastCourseUpdateCheck", now);
 				editor.commit();
 				}
+				
+				
 						
 			}
 			
@@ -121,12 +136,11 @@ public class TrackerService extends Service implements APIRequestListener {
 							app.omTargetSettingNotifyTask = new TargetSettingNotifyTask(this);
 							app.omTargetSettingNotifyTask.execute();
 						}
-						
+					
 						if (app.omSurveyNotifyTask == null) {
 							app.omSurveyNotifyTask = new SurveyNotifyTask(this);
 							app.omSurveyNotifyTask.execute();
 						}
-			
 			// send activity trackers
 			if(app.omSubmitTrackerMultipleTask == null){
 				app.omSubmitTrackerMultipleTask = new SubmitTrackerMultipleTask(this);

@@ -11,6 +11,8 @@ import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.cch.model.CoverageTargetAchievementActivity;
 import org.grameenfoundation.cch.model.EventTargetAchievementActivity;
 import org.grameenfoundation.cch.model.EventTargets;
+import org.grameenfoundation.cch.model.FacilityTargets;
+import org.grameenfoundation.cch.model.FacilityTargetsAchievementActivity;
 import org.grameenfoundation.cch.model.LearningTargetAchievementActivity;
 import org.grameenfoundation.cch.model.LearningTargets;
 import org.grameenfoundation.cch.model.MyCalendarEvents;
@@ -52,6 +54,9 @@ public class TargetAchievementDetailActivity extends BaseActivity {
 	private Long start_time;
 	private Long end_time;
 	private JSONObject data;
+	private String month_text;
+	private ArrayList<FacilityTargets> completedCoverageTargets;
+	private ArrayList<FacilityTargets> unCompletedCoverageTargets;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -63,22 +68,28 @@ public class TargetAchievementDetailActivity extends BaseActivity {
 	            if (extras != null) {
 	              month= extras.getInt("month");
 	              year=extras.getInt("year");
+	              month_text=extras.getString("month_text");
 	            }
 	    mContext=TargetAchievementDetailActivity.this;
 	    c= new CalendarEvents(mContext);
 	    db=new DbHelper(TargetAchievementDetailActivity.this);
 	    start_time=System.currentTimeMillis();
-	    String[] groupItems={"Events","Coverage","Learning","Other"};
+	   
 	    getActionBar().setTitle("Achievement Center");
 	    getActionBar().setSubtitle("Achievement Details");
 	    textView_label=(TextView) findViewById(R.id.textView_label);
 	    textView_label.setText("Targets");
 	    textView_number=(TextView) findViewById(R.id.textView_number);
-	    eventTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_EVENT,month+1,year);
-	    coverageTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_COVERAGE,month+1,year);
+	   // eventTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_EVENT,month+1,year);
+	    //coverageTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_COVERAGE,month+1,year);
 	    learningTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_LEARNING,month+1, year);
 	    otherTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_OTHER,month+1, year);
-	    textView_number.setText(" ("+String.valueOf(eventTargets+coverageTargets+learningTargets+otherTargets)+" this month)");
+	    completedCoverageTargets=db.getListOfFacilityTargetsForAchievements(MobileLearning.CCH_TARGET_STATUS_UPDATED,month_text, year);
+        unCompletedCoverageTargets=db.getListOfFacilityTargetsForAchievements(MobileLearning.CCH_TARGET_STATUS_NEW,month_text, year);
+	    textView_number.setText(" ("+String.valueOf(learningTargets+otherTargets+completedCoverageTargets.size()+unCompletedCoverageTargets.size())+" this month)");
+	    String[] groupItems={"Learning ("+String.valueOf(learningTargets)+")",
+	    					"Other ("+String.valueOf(otherTargets)+")"
+	    					,"Facility Targets ("+String.valueOf(completedCoverageTargets.size()+unCompletedCoverageTargets.size())+")"};
 	    adapter=new ListAdapter(mContext,groupItems);
 	    expandableListview.setAdapter(adapter);
 	    expandableListview.setOnItemClickListener(new OnItemClickListener(){
@@ -89,34 +100,41 @@ public class TargetAchievementDetailActivity extends BaseActivity {
 				Intent intent;
 				switch(position){
 				case 0:
-					intent=new Intent(mContext,EventTargetAchievementActivity.class);
-					intent.putExtra("month", month);
-					intent.putExtra("year", year);
-					intent.putExtra("number", eventTargets);
-					startActivity(intent);
-					break;
-				case 1:
-					intent=new Intent(mContext,CoverageTargetAchievementActivity.class);
-					intent.putExtra("month", month);
-					intent.putExtra("year", year);
-					intent.putExtra("number", coverageTargets);
-					startActivity(intent);
-					break;
-				case 2:
 					intent=new Intent(mContext,LearningTargetAchievementActivity.class);
 					intent.putExtra("month", month);
 					intent.putExtra("year", year);
 					intent.putExtra("number", learningTargets);
 					startActivity(intent);
+					/*
+					intent=new Intent(mContext,EventTargetAchievementActivity.class);
+					intent.putExtra("month", month);
+					intent.putExtra("year", year);
+					intent.putExtra("number", eventTargets);
+					startActivity(intent);*/
 					break;
-					
-				case 3:
+				case 1:
 					intent=new Intent(mContext,OtherTargetAchievementActivity.class);
 					intent.putExtra("month", month);
 					intent.putExtra("year", year);
 					intent.putExtra("number", otherTargets);
 					startActivity(intent);
+					/*
+					intent=new Intent(mContext,CoverageTargetAchievementActivity.class);
+					intent.putExtra("month", month);
+					intent.putExtra("year", year);
+					intent.putExtra("number", coverageTargets);
+					startActivity(intent);*/
 					break;
+				case 2:
+					intent=new Intent(mContext,FacilityTargetsAchievementActivity.class);
+					intent.putExtra("month", month);
+					intent.putExtra("month_text", month_text);
+					intent.putExtra("year", year);
+					//intent.putExtra("number", otherTargets);
+					startActivity(intent);
+					break;
+					
+			
 				}
 			}
 	    	

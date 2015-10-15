@@ -77,4 +77,10 @@
 
 
     </declare-styleable>
+     <declare-styleable name="MultiSelectSpinner">
+        <!-- Default Spinner style. -->
+        <attr name="spinnerStyle" format="reference" />
+        <!-- Default dropdown Spinner style. -->
+        <attr name="dropDownSpinnerStyle" format="reference" />
+    </declare-styleable>
 </resources>

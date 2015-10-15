@@ -56,11 +56,12 @@
                 android:id="@+id/editText_username"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_set_button"
                 android:ems="10"
                 android:hint="@string/username"
                 android:inputType="textPersonName"
                 android:minHeight="38dp"
+                android:textColor="@color/White"
+                android:textColorHint="@color/White"
                 android:textStyle="italic" />
 
         </LinearLayout>
@@ -75,10 +76,11 @@
                 android:id="@+id/editText_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_set_button"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:minHeight="38dp"
+                android:textColor="@color/White"
+                android:textColorHint="@color/White"
                 android:textStyle="italic" >
 
                 <requestFocus />
@@ -103,9 +105,11 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:text="@string/login"
+                android:textColor="@color/TextColorWine"
                 android:textStyle="bold"
                 android:typeface="serif"
                 android:width="250dp" />
+
         </LinearLayout>
 
         <LinearLayout

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
+import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.model.User;
 import org.digitalcampus.oppia.service.TrackerService;
 import org.grameenfoundation.adapters.EventsDetailPagerAdapter;
@@ -25,6 +26,7 @@ import org.grameenfoundation.cch.model.RoutineActivity;
 import org.grameenfoundation.cch.model.RoutineActivityDetails;
 import org.grameenfoundation.cch.model.Survey;
 import org.grameenfoundation.cch.popupquestions.RunForm;
+import org.grameenfoundation.cch.tasks.FacilityTargetsTask;
 import org.grameenfoundation.cch.utils.CCHTimeUtil;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -730,6 +732,10 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 				tb.putBoolean("backgroundData", true);
 				service.putExtras(tb);
 				this.startService(service);
+				if(isOnline()){
+					FacilityTargetsTask targets=new FacilityTargetsTask(this);
+					targets.execute(getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.FACILITY_TARGETS_PATH+name);
+				}
 				return true;
 			}else if (itemId == R.id.menu_survey) {
 				try{

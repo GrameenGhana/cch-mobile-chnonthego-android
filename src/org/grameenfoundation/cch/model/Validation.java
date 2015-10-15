@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.grameenfoundation.cch.utils.MaterialSpinner;
+import org.grameenfoundation.cch.utils.MultiSelectSpinner;
 
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -41,7 +42,19 @@ public class Validation {
 	 
 	        return true;
 	    }	
+	 public static boolean hasMultiSelection(MultiSelectSpinner spinner) {
+		 
+	        String text = spinner.getSelectedItem().toString();
+	        spinner.setError(null);;
 	 
+	        // length 0 means there is no text
+	        if (text.equalsIgnoreCase("Select group members")) {
+	            spinner.setError(REQUIRED_MSG);
+	            return false;
+	        }
+	 
+	        return true;
+	    }	
 	 public static boolean hasTextTextView(TextView textView) {
 		 
 	        String text = textView.getText().toString().trim();
@@ -59,39 +72,63 @@ public class Validation {
 	 
 	 public static boolean isDateAfter(String startDate,String endDate,TextView text)
 	    {
+		 	Date start_date = null;
+		 	Date end_date = null;
+		 	long starDateAsTimestamp = 0;
+		 	long endDateTimestamp = 0;
+		try {
+				if(startDate==null){
+					System.out.println("Enter a valid date!");
+				}else{
+					start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+					starDateAsTimestamp = start_date.getTime();
+				}
+				if(endDate==null){
+					System.out.println("Enter a valid date!");
+				}else{
+					end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+					endDateTimestamp = end_date.getTime();
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		 	long getRidOfTime = 1000 * 60 * 60 * 24;
+		 	long startDateAsTimestampWithoutTime = starDateAsTimestamp / getRidOfTime;
+		 	long endDateTimestampWithoutTime = endDateTimestamp / getRidOfTime;
+		 	if(startDate!=null&&endDate!=null&&startDateAsTimestampWithoutTime > endDateTimestampWithoutTime){
+		 		text.requestFocus();
+		 		text.setError("Start date cannot be after due date");
+		 		return true; 
+		 	} else {
+		 		return false;
+		 	}
+	    	}
+	 
+	 public static boolean isDateAfter(String startDate,String endDate)
+	    {
 		 Date start_date = null;
 		 Date end_date = null;
 		long starDateAsTimestamp = 0;
 		long endDateTimestamp = 0;
 		try {
-			if(startDate==null){
-			System.out.println("Enter a valid date!");
-			}else{
-			start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
-			 starDateAsTimestamp = start_date.getTime();
+				start_date = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+				starDateAsTimestamp = start_date.getTime();
+				end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+				endDateTimestamp = end_date.getTime();
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
-			if(endDate==null){
-				System.out.println("Enter a valid date!");
-			}else{
-			end_date = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
-			endDateTimestamp = end_date.getTime();
-			}
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
-		
 		 long getRidOfTime = 1000 * 60 * 60 * 24;
 		 long startDateAsTimestampWithoutTime = starDateAsTimestamp / getRidOfTime;
 		 long endDateTimestampWithoutTime = endDateTimestamp / getRidOfTime;
-		 if(startDate!=null&&endDate!=null&&startDateAsTimestampWithoutTime > endDateTimestampWithoutTime){
-			  text.requestFocus();
-			  text.setError("Start date cannot be after due date");
-		    return true; 
+
+		 if (startDateAsTimestampWithoutTime > endDateTimestampWithoutTime) {
+		    return true;
 		 } else {
 		    return false;
- }
+		 }
 	    }
+	 
 	    
 	 
 }

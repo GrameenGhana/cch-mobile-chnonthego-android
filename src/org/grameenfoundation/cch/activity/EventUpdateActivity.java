@@ -19,6 +19,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.CalendarContract.Events;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +42,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class EventUpdateActivity extends BaseActivity {
+public class EventUpdateActivity extends Fragment{
 
 	private ListView listView;
 	private CalendarEvents c;
@@ -56,15 +58,17 @@ public class EventUpdateActivity extends BaseActivity {
 	private TableRow other_option;
 	private EditText editText_otherOption;
 	private String justification_text;
+	private View rootView;
 	/** Called when the activity is first created. */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_event_update);
-	    getActionBar().setTitle("Planner");
-		getActionBar().setSubtitle("Update Events");
-	    mContext=EventUpdateActivity.this;
-	    listView=(ListView) findViewById(R.id.listView1);
+	    rootView=inflater.inflate(R.layout.activity_event_update,null,false);
+	   // setContentView(R.layout.activity_event_update);
+	    getActivity().getActionBar().setTitle("Planner");
+	    getActivity().getActionBar().setSubtitle("Update Events");
+	    mContext=getActivity().getApplicationContext();
+	    listView=(ListView) rootView.findViewById(R.id.listView1);
 	    db=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
 	    c= new CalendarEvents(mContext);
@@ -80,21 +84,19 @@ public class EventUpdateActivity extends BaseActivity {
 	    	listView.setAdapter(adapter);
 	    }else{
 	    	Intent intent=new Intent(Intent.ACTION_MAIN);
-			intent.setClass(EventUpdateActivity.this,EventPlannerOptionsActivity.class);
+			intent.setClass(getActivity(),EventPlannerOptionsActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-			finish();
+			getActivity().finish();
 			startActivity(intent);
 	    }
 	    listView.setOnItemClickListener(new OnItemClickListener(){
-
-		
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				
-				final Dialog dialog = new Dialog(EventUpdateActivity.this);
+				final Dialog dialog = new Dialog(getActivity());
 				
 				dialog.setContentView(R.layout.event_update_dialog);
 				dialog.setTitle("Update event");
@@ -103,7 +105,7 @@ public class EventUpdateActivity extends BaseActivity {
 				editText_otherOption=(EditText) dialog.findViewById(R.id.editText_otherOption);
 				other_option.setVisibility(View.GONE);
 				String[] items=getResources().getStringArray(R.array.Justification);
-				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(EventUpdateActivity.this, android.R.layout.simple_list_item_1, items);
+				ArrayAdapter<String> adapter2=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
 				justification.setAdapter(adapter2);
 				justification.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -175,7 +177,7 @@ public class EventUpdateActivity extends BaseActivity {
 					public void onClick(View v) {
 						try{
 							if(!checkValidation()){
-								Toast.makeText(getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();	
+								Toast.makeText(getActivity(), "Provide data for required fields!", Toast.LENGTH_LONG).show();	
 							}else{
 							if(answer.getCheckedRadioButtonId()==R.id.radio_yes){
 								c.updateEvent(Long.valueOf(selected_items[3]), Events.STATUS_CONFIRMED);//event was completed
@@ -186,10 +188,10 @@ public class EventUpdateActivity extends BaseActivity {
 									 json.put("location", selected_items[2]);
 									 json.put("description", selected_items[1]);
 									 json.put("justification", "Event completed"); 
-									 json.put("ver", db.getVersionNumber(getApplicationContext()));
-									 json.put("battery", db.getBatteryStatus(getApplicationContext()));
+									 json.put("ver", db.getVersionNumber(getActivity()));
+									 json.put("battery", db.getBatteryStatus(getActivity()));
 								    	json.put("device", db.getDeviceName());
-								    	json.put("imei", db.getDeviceImei(getApplicationContext()));
+								    	json.put("imei", db.getDeviceImei(getActivity()));
 									 
 								} catch (JSONException e) {
 									e.printStackTrace();
@@ -197,14 +199,23 @@ public class EventUpdateActivity extends BaseActivity {
 								 end_time=System.currentTimeMillis();
 								 db.insertCCHLog(CALENDAR, json.toString(), String.valueOf(start_time), String.valueOf(end_time));
 								 dialog.dismiss();
+									getActivity().runOnUiThread(new Runnable() {
+							            @Override
+							            public void run() {
+							            	TodayCalendarEvents=c.readEventsToUpdate(mContext, true);
+							            	adapter.notifyDataSetChanged();
+							            	listView.setAdapter(adapter);	
+							            }
+							        });
+									/*
 								 	Intent intent=new Intent(Intent.ACTION_MAIN);
-									intent.setClass(EventUpdateActivity.this,EventUpdateActivity.class);
+									intent.setClass(getActivity(),EventUpdateActivity.class);
 									intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 									intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-									finish();
+									getActivity().finish();
 									startActivity(intent);
-							    
-								 Toast.makeText(getApplicationContext(), "Event updated!",
+							    */
+								 Toast.makeText(getActivity(), "Event updated!",
 								         Toast.LENGTH_SHORT).show();
 							}else if(answer.getCheckedRadioButtonId()==R.id.radio_no){
 								c.updateEvent(Long.valueOf(selected_items[3]), Events.STATUS_CANCELED);//event was not completed
@@ -215,10 +226,10 @@ public class EventUpdateActivity extends BaseActivity {
 									 json.put("location", selected_items[2]);
 									 json.put("description", selected_items[1]);
 									 json.put("justification", justification_text); 
-									 json.put("ver", db.getVersionNumber(getApplicationContext()));
-									 json.put("battery", db.getBatteryStatus(getApplicationContext()));
+									 json.put("ver", db.getVersionNumber(getActivity()));
+									 json.put("battery", db.getBatteryStatus(getActivity()));
 								    	json.put("device", db.getDeviceName());
-								    	json.put("imei", db.getDeviceImei(getApplicationContext()));
+								    	json.put("imei", db.getDeviceImei(getActivity()));
 									 
 								} catch (JSONException e) {
 									e.printStackTrace();
@@ -226,13 +237,22 @@ public class EventUpdateActivity extends BaseActivity {
 								 end_time=System.currentTimeMillis();
 								 db.insertCCHLog(CALENDAR, json.toString(), String.valueOf(start_time), String.valueOf(end_time));
 								 dialog.dismiss();
+								  	getActivity().runOnUiThread(new Runnable() {
+							            @Override
+							            public void run() {
+							            	TodayCalendarEvents=c.readEventsToUpdate(mContext, true);
+							            	adapter.notifyDataSetChanged();
+							            	listView.setAdapter(adapter);	
+							            }
+							        });
+								 /*
 								 Intent intent=new Intent(Intent.ACTION_MAIN);
-									intent.setClass(EventUpdateActivity.this,EventUpdateActivity.class);
+									intent.setClass(getActivity(),EventUpdateActivity.class);
 									intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 									intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-									finish();
-									startActivity(intent);
-								 Toast.makeText(getApplicationContext(), "Event updated!",
+									getActivity().finish();
+									startActivity(intent);*/
+								 Toast.makeText(getActivity(), "Event updated!",
 								         Toast.LENGTH_SHORT).show();
 							}
 							}
@@ -246,6 +266,7 @@ public class EventUpdateActivity extends BaseActivity {
 				dialog.show();
 	}
 	    });
+	    return rootView;
 	}
 	
 	private boolean checkValidation() {

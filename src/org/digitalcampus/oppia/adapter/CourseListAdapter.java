@@ -35,20 +35,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class CourseListAdapter extends ArrayAdapter<Course> {
+public class CourseListAdapter<mOriginalValues> extends ArrayAdapter<Course> {
 
 	public static final String TAG = CourseListAdapter.class.getSimpleName();
 
 	private final Context ctx;
-	private final ArrayList<Course> courseList;
+	private ArrayList<Course> courseList;
 	private final ArrayList<String> sortedList;
 	private SharedPreferences prefs;
+
+	protected ArrayList<Course> mOriginalValues;
 	
 	public CourseListAdapter(Activity context, ArrayList<Course> courseList,ArrayList<String> sortedList) {
 		super(context, R.layout.course_list_row, courseList);
@@ -115,5 +118,61 @@ public class CourseListAdapter extends ArrayAdapter<Course> {
 		}*/
 	    return rowView;
 	}
+
+	
+	 @Override
+	    public Filter getFilter() {
+	        Filter filter = new Filter() {
+	            @Override
+	            protected void publishResults(CharSequence constraint, FilterResults results) {
+	            	courseList = (ArrayList<Course>) results.values; // has the filtered values
+	                notifyDataSetChanged();  // notifies the data with new filtered values
+	            }
+	           @Override
+	            protected FilterResults performFiltering(CharSequence constraint) {
+	               FilterResults results = new FilterResults();        // Holds the results of a filtering operation in values
+	               ArrayList<Course> FilteredArrList = new ArrayList<Course>();
+
+	               if (mOriginalValues == null) {
+	                   mOriginalValues = new ArrayList<Course>(courseList); // saves the original data in mOriginalValues
+	               }
+
+	               /********
+	                *
+	                *  If constraint(CharSequence that is received) is null returns the mOriginalValues(Original) values
+	                *  else does the Filtering and returns FilteredArrList(Filtered)
+	                *
+	                ********/
+	               if (constraint == null || constraint.length() == 0) {
+
+	                   // set the Original result to return
+	                   results.count = mOriginalValues.size();
+	                   results.values = mOriginalValues;
+	               } else {
+	                   constraint = constraint.toString().toLowerCase();
+	                   for (int i = 0; i < mOriginalValues.size(); i++) {
+	                       String data = mOriginalValues.get(i).getTitle(prefs.getString(ctx.getString(R.string.prefs_language), Locale.getDefault().getLanguage()));
+	                       if (data.toLowerCase().startsWith(constraint.toString())||data.toLowerCase().contains(constraint.toString())) {
+	                           FilteredArrList.add(new Course(mOriginalValues.get(i).getDownloadUrl(),
+	                                                         mOriginalValues.get(i).getLocation(),
+	                                                         mOriginalValues.get(i).getProgress(),
+	                                                         mOriginalValues.get(i).getModId(),
+	                                                         mOriginalValues.get(i).getMedia(),
+	                                                         mOriginalValues.get(i).getShortname()
+	                                                        ));
+	                       }
+	                   }
+	                   // set the Filtered result to return
+	                   results.count = FilteredArrList.size();
+	                   results.values = FilteredArrList;
+	               }
+	               return results;
+	           }
+
+
+	        };
+	        return filter;
+	            }
+
 
 }

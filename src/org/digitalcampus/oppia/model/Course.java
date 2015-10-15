@@ -60,7 +60,9 @@ public class Course implements Serializable{
 	public Course() {
 
 	}	
-	
+	public Course(String downloadUrl, String location,float progress,int modId,ArrayList<Media> media, String shortName) {
+
+	}
 	public boolean validate() throws CourseNotFoundException{
 		File courseXML = new File(this.getCourseXMLLocation());
 		if(!courseXML.exists()){

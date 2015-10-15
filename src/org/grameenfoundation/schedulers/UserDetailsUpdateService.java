@@ -1,7 +1,9 @@
 package org.grameenfoundation.schedulers;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
+import org.grameenfoundation.cch.tasks.FacilityTargetsTask;
 import org.grameenfoundation.cch.tasks.UserDetailsProcessTask;
 
 import android.app.Service;
@@ -18,6 +20,7 @@ public class UserDetailsUpdateService extends Service {
 	private Context mContext;
 	private SharedPreferences prefs;
 	private String name;
+	private DbHelper dbh;
 	public UserDetailsUpdateService(){
 		
 	}
@@ -33,6 +36,7 @@ public class UserDetailsUpdateService extends Service {
 				 name=prefs.getString("first_name", "name");
 					UserDetailsProcessTask usd = new UserDetailsProcessTask(this);
 					usd.execute(new String[] { getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.CCH_USER_DETAILS_PATH+name});
+					
 			}catch(Exception e){
 				e.printStackTrace();
 			}

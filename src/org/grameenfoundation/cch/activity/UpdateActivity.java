@@ -1,8 +1,12 @@
 package org.grameenfoundation.cch.activity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.digitalcampus.mobile.learningGF.R;
@@ -10,6 +14,8 @@ import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.cch.model.Validation;
 import org.grameenfoundation.cch.utils.MaterialSpinner;
+import org.grameenfoundation.cch.utils.MultiSelectSpinner;
+import org.grameenfoundation.cch.utils.MultiSelectSpinner.MultiSpinnerListener;
 import org.grameenfoundation.poc.BaseActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +29,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.format.Time;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -81,6 +88,9 @@ public class UpdateActivity extends BaseActivity {
 	private long old_id;
 	private TableRow other_option;
 	private EditText editText_otherOption;
+	private RadioGroup radioGroup_group;
+	private MultiSelectSpinner group_spinner;
+	private ArrayList<String> groupmembernames;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -88,6 +98,7 @@ public class UpdateActivity extends BaseActivity {
 	    super.onCreate(savedInstanceState);
 		setContentView(R.layout.update_dialog);
 		mContext=UpdateActivity.this;
+		db=new DbHelper(mContext);
 		getActionBar().setTitle("Planner");
 		getActionBar().setSubtitle("Update Targets");
 		dialogButton = (Button) findViewById(R.id.button_update);
@@ -104,6 +115,38 @@ public class UpdateActivity extends BaseActivity {
 		other_option.setVisibility(View.GONE);
 		 question=(RadioGroup) findViewById(R.id.radioGroup_learning);
 		 question2=(RadioGroup) findViewById(R.id.radioGroup_justify);
+		 radioGroup_group=(RadioGroup) findViewById(R.id.radioGroup_groups);
+		 groupmembernames=new ArrayList<String>();
+		 groupmembernames=db.getAllGroupMembers();
+		 Collections.sort(groupmembernames,String.CASE_INSENSITIVE_ORDER);
+		 group_spinner = (MultiSelectSpinner) findViewById(R.id.spinner1);
+	        //group_spinner.setAdapter(adapter, false, onSelectedListener);
+	        group_spinner.setItems(groupmembernames, "Select group members", -1, new MultiSpinnerListener() {
+				
+				@Override
+				public void onItemsSelected(boolean[] selected) {
+					
+					// your operation with code...
+					for(int i=0; i<selected.length; i++) {
+						if(selected[i]) {
+							Log.i("TAG", i + " : "+ groupmembernames.get(i));
+						}
+					}
+				}
+			});
+	        
+	        radioGroup_group.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+				
+				@Override
+				public void onCheckedChanged(RadioGroup group, int checkedId) {
+					if(checkedId==R.id.radio_yesGroup){
+						group_spinner.setVisibility(View.VISIBLE);
+					}else{
+						group_spinner.setVisibility(View.GONE);
+					}
+					
+				}
+			});
 		 question2.check(R.id.radio_no2);
 		start_time=System.currentTimeMillis();
 		String[] items=getResources().getStringArray(R.array.Justification);
@@ -111,7 +154,6 @@ public class UpdateActivity extends BaseActivity {
 		justification.setAdapter(adapter2);
 		linearLayout_justification.setVisibility(View.GONE);
 		question2.setOnCheckedChangeListener(new OnCheckedChangeListener(){
-
 
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -151,7 +193,7 @@ public class UpdateActivity extends BaseActivity {
 		 start_date=(TextView) findViewById(R.id.textView_startDate);
 		 due_date=(TextView) findViewById(R.id.textView_dueDate);
 		 status=(TextView) findViewById(R.id.textView_status);
-		 db=new DbHelper(mContext);
+		 
 		 Bundle extras = getIntent().getExtras(); 
 	     if (extras != null) {
 	    	 try{
@@ -273,14 +315,7 @@ public class UpdateActivity extends BaseActivity {
 						    		int event_new_number_achieved=Integer.valueOf(event_number_achieved_text);
 						        	int event_number_achieved_for_entry=event_new_number_achieved+Integer.valueOf(number_achieved_from_previous);
 						        	int event_number_remaining_for_entry=Integer.valueOf(number)-event_number_achieved_for_entry;
-						    		
-						        	/*
-						        	if(event_number_achieved_for_entry>Integer.valueOf(number)){
-						        		achievedNumber.requestFocus();
-						        		achievedNumber.setError("Your total number achieved cannot be greater than your actual target!");
-						        	}else{
-						        	*/
-						        	if(db.insertJustification("event", name, justification_text, event_comment_text,number,String.valueOf(event_number_achieved_text),String.valueOf(event_number_remaining_for_entry),id, "new_record") !=0){
+						        	if(db.insertJustification("event", name, justification_text, event_comment_text,number,String.valueOf(event_number_achieved_text),String.valueOf(event_number_remaining_for_entry),id, MobileLearning.CCH_TARGET_STATUS_NEW) !=0){
 						    	JSONObject json = new JSONObject();
 								 try {
 									 if(old_id!=0){
@@ -297,9 +332,9 @@ public class UpdateActivity extends BaseActivity {
 									 json.put("last_updated", getDateTime());
 									 json.put("justification", justification_text); 
 									 json.put("ver", db.getVersionNumber(getApplicationContext()));
-										json.put("battery", db.getBatteryStatus(getApplicationContext()));
-								    	json.put("device", db.getDeviceName());
-								    	json.put("imei", db.getDeviceImei(getApplicationContext()));
+									 json.put("battery", db.getBatteryStatus(getApplicationContext()));
+								     json.put("device", db.getDeviceName());
+								     json.put("imei", db.getDeviceImei(getApplicationContext()));
 									 
 								} catch (JSONException e) {
 									e.printStackTrace();
@@ -310,7 +345,6 @@ public class UpdateActivity extends BaseActivity {
 							        int month=c.get(Calendar.MONTH)+1;
 							        int day=c.get(Calendar.DAY_OF_WEEK);
 							        int year=c.get(Calendar.YEAR);
-							        String today=day+"-"+month+"-"+year;
 								 if(event_number_achieved_for_entry==Integer.valueOf(number)){
 									 db.updateTarget(event_update_status,event_number_achieved_for_entry,event_number_remaining_for_entry, id);
 									 System.out.println("Updating event target with: "+event_update_status);
@@ -338,13 +372,7 @@ public class UpdateActivity extends BaseActivity {
 						    		int coverage_new_number_achieved=Integer.valueOf(coverage_number_achieved_text);
 						        	int coverage_number_achieved_for_entry=coverage_new_number_achieved+Integer.valueOf(number_achieved_from_previous);
 						        	int coverage_number_remaining_for_entry=Integer.valueOf(number)-coverage_number_achieved_for_entry;
-						    		
-						        	/*
-						        	if(coverage_number_achieved_for_entry>Integer.valueOf(number)){
-						        		achievedNumber.requestFocus();
-						        		achievedNumber.setError("Your total number achieved cannot be greater than your actual target!");
-						        	}else{*/
-						        	if(db.insertJustification("event", name, justification_text, coverage_comment_text,number,String.valueOf(coverage_number_achieved_for_entry),String.valueOf(coverage_number_remaining_for_entry),id, "new_record") !=0){
+						        	if(db.insertJustification("event", name, justification_text, coverage_comment_text,number,String.valueOf(coverage_number_achieved_for_entry),String.valueOf(coverage_number_remaining_for_entry),id,  MobileLearning.CCH_TARGET_STATUS_NEW) !=0){
 						    		JSONObject json = new JSONObject();
 									 try {
 										 if(old_id!=0){
@@ -405,7 +433,7 @@ public class UpdateActivity extends BaseActivity {
 						        		achievedNumber.requestFocus();
 						        		achievedNumber.setError("Your total number achieved cannot be greater than your actual target!");
 						        	}else{*/
-						        	if(db.insertJustification("event", name, justification_text, other_comment_text,number,String.valueOf(other_number_achieved_for_entry),String.valueOf(other_number_remaining_for_entry),id, "new_record") !=0){
+						        	if(db.insertJustification("event", name, justification_text, other_comment_text,number,String.valueOf(other_number_achieved_for_entry),String.valueOf(other_number_remaining_for_entry),id,  MobileLearning.CCH_TARGET_STATUS_NEW) !=0){
 						    		JSONObject json = new JSONObject();
 									 try {
 										 if(old_id!=0){

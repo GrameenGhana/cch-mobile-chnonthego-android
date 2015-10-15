@@ -1,15 +1,17 @@
 package org.grameenfoundation.cch.activity;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.service.TrackerService;
+import org.grameenfoundation.calendar.CalendarEvents;
 import org.grameenfoundation.cch.model.CoverageTargetActivity;
-import org.grameenfoundation.cch.model.EventTargetActivity;
 import org.grameenfoundation.cch.model.LearningTargetActivity;
+import org.grameenfoundation.cch.model.MyCalendarEvents;
 import org.grameenfoundation.cch.model.OtherTargetActivity;
 import org.grameenfoundation.cch.model.RoutineActivity;
 import org.grameenfoundation.cch.model.RoutineActivityDetails;
@@ -23,6 +25,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -54,12 +57,6 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
     ViewPager mViewPager;
 	private SharedPreferences prefs;
 	private DbHelper db;
-	private long todayEventId;
-	private long thisMonthEventId;
-	private long thisWeekEventId;
-	private long midYearEventId;
-	private long thisQuarterEventId;
-	private long thisYearEventId;
 	private long todayCoverageId;
 	private long thisWeekCoverageId;
 	private long thisMonthCoverageId;
@@ -73,7 +70,6 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 	private long thisQuarterLearningId;
 	private long thisYearLearningId;
 	private long todayOtherId;
-	private long thisWeekOtherName;
 	private long thisWeekOtherId;
 	private long thisMonthOtherId;
 	private long midYearOtherId;
@@ -103,7 +99,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
         mViewPager = (ViewPager) findViewById(R.id.pager);
         
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setOffscreenPageLimit(5);
+        mViewPager.setOffscreenPageLimit(4);
         mViewPager
         .setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
                 @Override
@@ -111,6 +107,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
                         actionBar.setSelectedNavigationItem(position);
                 }
         });
+       
         for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
                 actionBar.addTab(actionBar.newTab()
                                 .setText(mSectionsPagerAdapter.getPageTitle(i))
@@ -137,7 +134,10 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 }
 	 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-         public SectionsPagerAdapter(FragmentManager fm) {
+         private ArrayList<MyCalendarEvents> events;
+		private CalendarEvents c;
+		private ArrayList<RoutineActivity> todos;
+		public SectionsPagerAdapter(FragmentManager fm) {
                  super(fm);
          }
 
@@ -145,130 +145,114 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
          public Fragment getItem(int position) {
                  Fragment fragment = null;
                  if(position==0 ){
-                        fragment= new EventTargetActivity();
+                        fragment= new EventUpdateActivity();
                  }else if(position==1){
-                	 fragment= new CoverageTargetActivity();
-                 }else if(position==2){
                 	 fragment= new LearningTargetActivity();
+                	// fragment= new CoverageTargetActivity();
+                 }else if(position==2){
+                	 fragment= new RoutineActivityDetails(mViewPager);         
                  }else if(position==3){
-                	 fragment= new RoutineActivityDetails(mViewPager);           
-                 }else if(position==4){
-                	 fragment= new OtherTargetActivity();
+                	 fragment= new OtherTargetActivity();     
                  }
                  return fragment;
          }
 
          @Override
          public int getCount() {
-                 return 5;
+                 return 4;
          }
 
          @Override
          public CharSequence getPageTitle(int position) {
                  Locale l = Locale.getDefault();
-                 
-                 db=new DbHelper(NewEventPlannerActivity.this);
-                 
-     		    todayEventId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_EVENT);
-     		    thisMonthEventId=db.getCount("Monthly",MobileLearning.CCH_TARGET_TYPE_EVENT);
-     		    thisWeekEventId=db.getCount("Weekly",MobileLearning.CCH_TARGET_TYPE_EVENT);
-     		    midYearEventId=db.getCount("Mid-year",MobileLearning.CCH_TARGET_TYPE_EVENT);
-     		    thisQuarterEventId=db.getCount("Quarterly",MobileLearning.CCH_TARGET_TYPE_EVENT);
-     		    thisYearEventId=db.getCount("Annually",MobileLearning.CCH_TARGET_TYPE_EVENT);
-     		     int event_number1=(int)todayEventId;
-     			 int event_number2=(int)thisMonthEventId;
-     			 int event_number3=(int)thisWeekEventId;
-     			 int event_number4=(int)midYearEventId;
-     			 int event_number5=(int)thisQuarterEventId;
-     			 int event_number6=(int)thisYearEventId;
-     	
-     			counter=event_number1+event_number2+event_number3+event_number4+event_number5+event_number6;
-     			
-     			todayCoverageId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
-     			thisWeekCoverageId=db.getCount("Weekly",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
-     			thisMonthCoverageId=db.getCount("Monthly",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
-     			midYearCoverageId=db.getCount("Mid-year",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
-     			thisQuarterCoverageId=db.getCount("Quarterly",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
-     			thisYearCoverageId=db.getCount("Annually",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
-     			
-     			     int coverage_number1=(int)todayCoverageId;
-     				 int coverage_number2=(int)thisWeekCoverageId;
-     				 int coverage_number3=(int)thisMonthCoverageId;
-     				 int coverage_number4=(int)midYearCoverageId;
-     				 int coverage_number5=(int)thisQuarterCoverageId;
-     				 int coverage_number6=(int)thisYearCoverageId;
-     				
-     				counter2=coverage_number1+coverage_number2+coverage_number3+coverage_number4+coverage_number5+coverage_number6;
-     			
-     			todayLearningId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_LEARNING);
-     			thisWeekLearningId=db.getCount("Weekly",MobileLearning.CCH_TARGET_TYPE_LEARNING);
-     			thisMonthLearningId=db.getCount("Monthly",MobileLearning.CCH_TARGET_TYPE_LEARNING);
-     			midYearLearningId=db.getCount("Mid-year",MobileLearning.CCH_TARGET_TYPE_LEARNING);
-     			thisQuarterLearningId=db.getCount("Quarterly",MobileLearning.CCH_TARGET_TYPE_LEARNING);
-     			thisYearLearningId=db.getCount("Annually",MobileLearning.CCH_TARGET_TYPE_LEARNING);
-     			
-     			 int learning_number1=(int)todayLearningId;
-     			 int learning_number2=(int)thisWeekLearningId;
-     			 int learning_number3=(int)thisMonthLearningId;
-     			 int learning_number4=(int)midYearLearningId;
-     			 int learning_number5=(int)thisQuarterLearningId;
-     			 int learning_number6=(int)thisYearLearningId;
-     			counter3=learning_number1+
-     					learning_number2+
-     					learning_number3+
-     					learning_number4+
-     					learning_number5+
-     					learning_number6;
-     			 todayOtherId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_OTHER);
-     			 thisWeekOtherId=db.getCount("Weekly",MobileLearning.CCH_TARGET_TYPE_OTHER);
-     			 thisMonthOtherId=db.getCount("Monthly",MobileLearning.CCH_TARGET_TYPE_OTHER);
-     			 midYearOtherId=db.getCount("Mid-year",MobileLearning.CCH_TARGET_TYPE_OTHER);
-     			 thisQuarterOtherId=db.getCount("Quarterly",MobileLearning.CCH_TARGET_TYPE_OTHER);
-     			 thisYearOtherId=db.getCount("Annually",MobileLearning.CCH_TARGET_TYPE_OTHER);
-     			 
-     			 int other_number1=(int)todayOtherId;
-     			 int other_number2=(int)thisWeekOtherId;
-     			 int other_number3=(int)thisMonthOtherId;
-     			 int other_number4=(int)midYearOtherId;
-     			 int other_number5=(int)thisQuarterOtherId;
-     			 int other_number6=(int)thisYearOtherId;
-     		
-     			counter4=other_number1+
-     					other_number2+
-     					other_number3+
-     					other_number4+
-     					other_number5+
-     					other_number6;
-     			
-     			
-     			 /* Get StayingWell todos */
-     			ArrayList<RoutineActivity> todos = dbh.getSWRoutineActivities();
-     			if(todos!=null){
-     				counter5=todos.size();
-     			}else{
-     				counter5=0;
-     			}
-     			
+             	events=new ArrayList<MyCalendarEvents>();
+                c= new CalendarEvents(mContext);
+            	events=c.readEventsToUpdate(mContext, true);
+                db=new DbHelper(NewEventPlannerActivity.this);
+    		/*
+    		todayCoverageId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+    		thisWeekCoverageId=db.getCount("Weekly",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+    		thisMonthCoverageId=db.getCount("Monthly",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+    		midYearCoverageId=db.getCount("Mid-year",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+    		thisQuarterCoverageId=db.getCount("Quarterly",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+    		thisYearCoverageId=db.getCount("Annually",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
+    		*/
+    		    
+    		todayLearningId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_LEARNING);
+    		thisWeekLearningId=db.getCount("Weekly",MobileLearning.CCH_TARGET_TYPE_LEARNING);
+    		thisMonthLearningId=db.getCount("Monthly",MobileLearning.CCH_TARGET_TYPE_LEARNING);
+    		midYearLearningId=db.getCount("Mid-year",MobileLearning.CCH_TARGET_TYPE_LEARNING);
+    		thisQuarterLearningId=db.getCount("Quarterly",MobileLearning.CCH_TARGET_TYPE_LEARNING);
+    		thisYearLearningId=db.getCount("Annually",MobileLearning.CCH_TARGET_TYPE_LEARNING);
+    		
+    		
+    		 todayOtherId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_OTHER);
+    		 thisWeekOtherId=db.getCount("Weekly",MobileLearning.CCH_TARGET_TYPE_OTHER);
+    		 thisMonthOtherId=db.getCount("Monthly",MobileLearning.CCH_TARGET_TYPE_OTHER);
+    		 midYearOtherId=db.getCount("Mid-year",MobileLearning.CCH_TARGET_TYPE_OTHER);
+    		 thisQuarterOtherId=db.getCount("Quarterly",MobileLearning.CCH_TARGET_TYPE_OTHER);
+    		 thisYearOtherId=db.getCount("Annually",MobileLearning.CCH_TARGET_TYPE_OTHER);
+    		 
+    		
+    		
+    		 /* Get StayingWell todos */
+    		todos = db.getSWRoutineActivities();
+	    	counter=events.size();
+	    	/*
+	    	 int coverage_number1=(int)todayCoverageId;
+			 int coverage_number2=(int)thisWeekCoverageId;
+			 int coverage_number3=(int)thisMonthCoverageId;
+			 int coverage_number4=(int)midYearCoverageId;
+			 int coverage_number5=(int)thisQuarterCoverageId;
+			 int coverage_number6=(int)thisYearCoverageId;
+			
+			counter2=coverage_number1+coverage_number2+coverage_number3+coverage_number4+coverage_number5+coverage_number6;
+		*/
+	    	 int other_number1=(int)todayOtherId;
+			 int other_number2=(int)thisWeekOtherId;
+			 int other_number3=(int)thisMonthOtherId;
+			 int other_number4=(int)midYearOtherId;
+			 int other_number5=(int)thisQuarterOtherId;
+			 int other_number6=(int)thisYearOtherId;
+		
+			counter4=other_number1+
+					other_number2+
+					other_number3+
+					other_number4+
+					other_number5+
+					other_number6;
+			 int learning_number1=(int)todayLearningId;
+			 int learning_number2=(int)thisWeekLearningId;
+			 int learning_number3=(int)thisMonthLearningId;
+			 int learning_number4=(int)midYearLearningId;
+			 int learning_number5=(int)thisQuarterLearningId;
+			 int learning_number6=(int)thisYearLearningId;
+			counter3=learning_number1+
+					learning_number2+
+					learning_number3+
+					learning_number4+
+					learning_number5+
+					learning_number6;
+			if(todos!=null){
+				counter5=todos.size();
+			}else{
+				counter5=0;
+			}
                  switch (position) {
                          case 0:
                                  return "EVENTS"+" ("+String.valueOf(counter)+")";
                          case 1:
-                                 return "COVERAGE"+" ("+String.valueOf(counter2)+")";
+                        	 return "LEARNING"+" ("+String.valueOf(counter3)+")";
                          case 2: 
-                    	 		return "LEARNING"+" ("+String.valueOf(counter3)+")";
+                        	 return "ROUTINES (" +  String.valueOf(counter5) + ")";
                          case 3: 
-                        	 	return "ROUTINES (" +  String.valueOf(counter5) + ")";
-                         case 4:
                         		return "OTHER"+" ("+String.valueOf(counter4)+")";
+                       
                  }
                  return null;
          }
  }
 
-	
-	 
-	
-	
 	 
 	 
 	 @Override

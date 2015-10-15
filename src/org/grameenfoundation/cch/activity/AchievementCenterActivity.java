@@ -35,6 +35,7 @@ public class AchievementCenterActivity extends BaseActivity {
 	private Spinner spinner_categories;
 	private Button button_view;
 	int month;
+	String month_text;
 	int year;
 	private SharedPreferences prefs;
 	private ListView listView;
@@ -78,39 +79,50 @@ public class AchievementCenterActivity extends BaseActivity {
 					int position, long id) {
 				if(spinner_categories.getSelectedItem().toString().equalsIgnoreCase("January")){
 					month=0;
+					month_text="January";
 					//year=Integer.parseInt(spinner_years.getSelectedItem().toString());	
 				}else if(spinner_categories.getSelectedItem().toString().equalsIgnoreCase("February")){
 					month=1	;
+					month_text="February";
 					//year=Integer.parseInt(spinner_years.getSelectedItem().toString());	
 				}else if(spinner_categories.getSelectedItem().toString().equalsIgnoreCase("March")){
 					month=2	;
+					month_text="March";
 					//year=Integer.parseInt(spinner_years.getSelectedItem().toString());	
 				}else if(spinner_categories.getSelectedItem().toString().equalsIgnoreCase("April")){
 					month=3	;
+					month_text="April";
 					//year=Integer.parseInt(spinner_years.getSelectedItem().toString());	
 				}else if(spinner_categories.getSelectedItem().toString().equalsIgnoreCase("May")){
 					month=4	;
+					month_text="May";
 					//year=Integer.parseInt(spinner_years.getSelectedItem().toString());	
 				}else if(spinner_categories.getSelectedItem().toString().equalsIgnoreCase("June")){
 					month=5	;
+					month_text="June";
 					//year=Integer.parseInt(spinner_years.getSelectedItem().toString());	
 				}else if(spinner_categories.getSelectedItem().toString().equalsIgnoreCase("July")){
 					month=6;
+					month_text="June";
 					//year=Integer.parseInt(spinner_years.getSelectedItem().toString());	
 				}else if(spinner_categories.getSelectedItem().toString().equalsIgnoreCase("August")){
 					month=7;
 					//year=Integer.parseInt(spinner_years.getSelectedItem().toString());	
 				}else if(spinner_categories.getSelectedItem().toString().equalsIgnoreCase("September")){
 					month=8;
+					month_text="September";
 					//year=Integer.parseInt(spinner_years.getSelectedItem().toString());	
 				}else if(spinner_categories.getSelectedItem().toString().equalsIgnoreCase("October")){
 					month=9;
+					month_text="October";
 					//year=Integer.parseInt(spinner_years.getSelectedItem().toString());	
 				}else if(spinner_categories.getSelectedItem().toString().equalsIgnoreCase("November")){
 					month=10;
+					month_text="November";
 					//year=Integer.parseInt(spinner_years.getSelectedItem().toString());	
 				}else if(spinner_categories.getSelectedItem().toString().equalsIgnoreCase("December")){
 					month=11;
+					month_text="December";
 					//year=Integer.parseInt(spinner_years.getSelectedItem().toString());	
 				}
 
@@ -146,6 +158,7 @@ public class AchievementCenterActivity extends BaseActivity {
 				Intent intent=new Intent(AchievementCenterActivity.this,AchievementSummaryActivity.class);
 				System.out.println(String.valueOf(month)+" "+String.valueOf(year));
 				intent.putExtra("month", month);
+				intent.putExtra("month_text", month_text);
 				intent.putExtra("year", year);
 				startActivity(intent);
 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);

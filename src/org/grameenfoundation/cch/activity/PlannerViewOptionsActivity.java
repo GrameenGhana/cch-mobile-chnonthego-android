@@ -3,6 +3,7 @@ package org.grameenfoundation.cch.activity;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.grameenfoundation.adapters.PlannerBaseAdapter;
+import org.grameenfoundation.cch.model.AgeGroupsFacilityTargetsActivity;
 import org.grameenfoundation.poc.BaseActivity;
 
 import android.app.Activity;
@@ -25,8 +26,8 @@ public class PlannerViewOptionsActivity extends BaseActivity implements OnItemCl
 	    getActionBar().setSubtitle("View events/targets");
 	    listView_monthOption=(ListView) findViewById(R.id.listView_targetMonthOptions);
 	    listView_monthOption.setOnItemClickListener(this);
-	    String[] items={"View events","View targets"};
-		   int[] images={R.drawable.ic_calendar_new,R.drawable.ic_target_new};
+	    String[] items={"View events","View individual targets","View facility targets"};
+		   int[] images={R.drawable.ic_calendar_new,R.drawable.ic_target_new,R.drawable.ic_target_new};
 		   PlannerBaseAdapter adapter=new PlannerBaseAdapter(PlannerViewOptionsActivity.this,items,images);
 		   
 		    listView_monthOption.setAdapter(adapter);
@@ -46,6 +47,11 @@ public class PlannerViewOptionsActivity extends BaseActivity implements OnItemCl
         	break;
         case 1:
         	intent=new Intent(PlannerViewOptionsActivity.this,NewEventPlannerActivity.class);
+        	startActivity(intent);
+        	overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+        	break;
+        case 2:
+        	intent=new Intent(PlannerViewOptionsActivity.this,FacilityTargetOptionsActivity.class);
         	startActivity(intent);
         	overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
         	break;

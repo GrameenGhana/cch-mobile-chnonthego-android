@@ -88,7 +88,7 @@ public class EventsViewActivity extends  BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent=new Intent(EventsViewActivity.this,EventUpdateActivity.class);
+				Intent intent=new Intent(EventsViewActivity.this,NewEventPlannerActivity.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 				

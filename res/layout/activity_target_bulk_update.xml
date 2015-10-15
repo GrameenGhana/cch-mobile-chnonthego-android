@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select targets to update"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+      <LinearLayout
+          android:id="@+id/parent_view"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:padding="10dp" 
+           android:background="@drawable/custom_border2">
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Is there a justification?"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup_justification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView3"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radio_yes2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/apptheme_btn_radio_holo_light"
+              
+                android:text="Yes" />
+
+            <RadioButton
+                android:id="@+id/radio_no2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/apptheme_btn_radio_holo_light"
+                  android:checked="true"
+                android:text="No" />
+        </RadioGroup>
+
+        <org.grameenfoundation.cch.utils.MaterialSpinner
+            android:id="@+id/spinner_justification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/radioGroup_justification"
+            android:visibility="gone"
+            app:ms_baseColor="@color/spinner_base_color"
+            app:ms_hint="Select"
+            app:ms_multiline="false" />
+
+    </LinearLayout>
+<LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selected particpants: "
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/Brown"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/radioGroup_groups"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <RadioButton
+                android:id="@+id/radio_yesGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:button="@drawable/apptheme_btn_radio_holo_light" 
+                android:text="Yes" />
+
+            <RadioButton
+                android:id="@+id/radio_noGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:button="@drawable/apptheme_btn_radio_holo_light"
+                 android:checked="true"
+                android:text="No" />
+        </RadioGroup>
+
+         <Button
+             android:id="@+id/button_select"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:text="Select participants"
+             android:visibility="visible" />
+
+                </LinearLayout>
+                <TableRow
+    android:id="@+id/other_option"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="29dp"
+                        android:text="If other specify:"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/Brown"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/editText_otherOption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="10" >
+
+                    </EditText>
+
+                </TableRow>
+<LinearLayout
+                android:id="@+id/LinearLayout_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Comment (Optional):"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <EditText
+                    android:id="@+id/editText_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/apptheme_edit_text_holo_light"
+                    android:ems="10"
+                    android:inputType="textMultiLine" >
+                </EditText>
+            </LinearLayout>
+    <Button
+        android:id="@+id/button_submit"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update" />
+
+</LinearLayout>
+</ScrollView>

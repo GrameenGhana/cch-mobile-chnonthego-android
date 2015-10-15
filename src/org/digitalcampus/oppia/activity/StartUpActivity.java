@@ -35,6 +35,7 @@ import org.digitalcampus.oppia.task.PostInstallTask;
 import org.digitalcampus.oppia.task.UpgradeManagerTask;
 import org.grameenfoundation.cch.activity.HomeActivity;
 import org.grameenfoundation.cch.tasks.CourseDetailsTask;
+import org.grameenfoundation.cch.tasks.FacilityTargetsTask;
 import org.grameenfoundation.cch.tasks.UserDetailsProcessTask;
 import org.grameenfoundation.schedulers.EventUpdateService;
 import org.grameenfoundation.schedulers.UserDetailsUpdateService;
@@ -153,6 +154,15 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
 				}catch(Exception e){
 					e.printStackTrace();
 				}
+			}
+		 
+		 	dbh.alterUserFaciityTable();
+			dbh.alterFacilityTargetDetailTable();
+			dbh.alterFacilityTargetGroupTable();
+			dbh.alterFacilityTargetOverall();
+			if(isOnline()){
+				FacilityTargetsTask task = new FacilityTargetsTask(this);
+				//task.execute("http://188.226.189.149/cch/yabr3/getTargets?nurse_id=10832");
 			}
 	}
 	

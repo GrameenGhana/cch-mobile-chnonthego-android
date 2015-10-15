@@ -18,6 +18,7 @@
 package org.digitalcampus.oppia.service;
 
 import org.digitalcampus.mobile.learningGF.R;
+import org.grameenfoundation.cch.tasks.FacilityTargetsTask;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

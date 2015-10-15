@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.digitalcampus.mobile.learningGF"
-    android:versionCode="128"
-    android:versionName="3.0.43.1" 
+    android:versionCode="129"
+    android:versionName="3.0.44" 
     android:screenOrientation="portrait">
 
     <uses-sdk
@@ -395,6 +395,20 @@
             </intent-filter>    
             </activity>
             <service android:name="org.grameenfoundation.schedulers.UserDetailsUpdateService"></service>
+            <activity android:name="org.grameenfoundation.cch.activity.ReminderActivity"></activity>
+            <activity android:name="org.grameenfoundation.cch.activity.UpdateFacilityTargetsActivity"></activity>
+            <activity android:name="org.grameenfoundation.cch.model.AgeGroupsFacilityTargetsActivity"></activity>
+            <activity android:name="org.grameenfoundation.cch.model.FacilityTargetsAchievementActivity"></activity>
+            <activity android:name="org.grameenfoundation.cch.activity.FacilityTargetBulkUpdateActivity"></activity>
+            <activity android:name="org.grameenfoundation.cch.activity.FacilityTargetsActivity"></activity>
+            <activity android:name="org.grameenfoundation.cch.activity.FacilityTargetOptionsActivity"></activity>
+              <activity android:name="org.grameenfoundation.cch.model.FamilyPlanningFacilityTargetActivity"></activity>
+            <activity android:name="org.grameenfoundation.cch.activity.OtherFacilityTargetActivity"></activity>
+            <activity android:name="org.grameenfoundation.cch.activity.AntigensFacilityTargetActivity"></activity>
+            <activity android:name="org.grameenfoundation.cch.activity.NewFacilityTargetsActivity"></activity>
+            <activity android:name="org.grameenfoundation.cch.model.SchoolHealthFacilityTargetActivity"></activity>
+            <activity android:name="org.grameenfoundation.cch.activity.GroupParticipantsSelectActivity"></activity>
+            <activity android:name="org.grameenfoundation.cch.activity.MaternalHealthFacilityTargetsActivity"></activity>
     </application>
 
 </manifest>

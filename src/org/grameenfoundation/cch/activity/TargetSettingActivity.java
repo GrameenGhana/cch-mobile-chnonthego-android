@@ -14,6 +14,7 @@ import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.service.TrackerService;
 import org.grameenfoundation.cch.caldroid.CaldroidFragment;
 import org.grameenfoundation.cch.caldroid.CaldroidListener;
+import org.grameenfoundation.cch.model.CoverageTargetSettingActivity;
 import org.grameenfoundation.cch.model.EventTargets;
 import org.grameenfoundation.cch.model.Validation;
 import org.grameenfoundation.cch.utils.MaterialSpinner;
@@ -104,7 +105,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
         mViewPager = (ViewPager) findViewById(R.id.pager);
         
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setOffscreenPageLimit(4);
+        mViewPager.setOffscreenPageLimit(2);
         mViewPager
         .setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
                 @Override
@@ -139,20 +140,19 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
          public Fragment getItem(int position) {
                  Fragment fragment = null;
                  if(position==0 ){
-                        fragment= new EventsActivity();
-                 }else if(position==1){
-                	 fragment= new CoverageActivity();
-                 }else if(position==2){
+                      //  fragment= new EventsActivity();
+                	 //fragment= new CoverageTargetSettingActivity();
                 	 fragment= new LearningActivity();
-                 }else if(position==3){
+                 }else if(position==1){
                 	 fragment= new OtherActivity();
+                               	 
                  }
                  return fragment;
          }
 
          @Override
          public int getCount() {
-                 return 4;
+                 return 2;
          }
 
          @Override
@@ -160,13 +160,11 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
                  Locale l = Locale.getDefault();
                  switch (position) {
                          case 0:
-                                 return "EVENTS";
+                                // return "EVENTS";
+                        	  return "LEARNING";
                          case 1:
-                                 return "COVERAGE";
-                         case 2: 
-                    	 		return "LEARNING";
-                         case 3:
-                        		return "OTHER";
+                                 return "OTHER";
+                         
                  
                  }
                  return null;
@@ -454,6 +452,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 			    }
 			
 	 }
+
 	 public static class CoverageActivity extends Fragment{
 			private Context mContext;															
 			private DbHelper db;
@@ -530,7 +529,7 @@ public class TargetSettingActivity extends SherlockFragmentActivity implements A
 						    	startDateValue.setError(null);
 						    	start_date=formatter.format(date);
 						    	Date today=new Date();
-					        	if(isDateAfter(formatter.format(today),formatter.format(date))==true){
+					        	if(Validation.isDateAfter(formatter.format(today),formatter.format(date))==true){
 					        		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 					        				getActivity());
 										alertDialogBuilder.setTitle("Date Confirmation");
