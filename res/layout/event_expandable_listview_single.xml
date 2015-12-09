@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:padding="10dp" >
+        android:padding="10dp"
+        android:weightSum="3" >
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -30,13 +31,6 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/TextColorGreen" />
-
-            <TextView
-                android:id="@+id/textView_eventDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="italic" />
 
         </LinearLayout>
 

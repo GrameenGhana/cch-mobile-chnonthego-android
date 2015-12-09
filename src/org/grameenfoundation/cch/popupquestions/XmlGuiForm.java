@@ -15,6 +15,10 @@ public class XmlGuiForm {
 	private String formName;
 	private String submitTo;
 	public Vector<XmlGuiFormField> fields;
+	private String formType;
+	private String color_code;
+	private String formTitle;
+	private String formSubTitle;
 	
 	
 	public XmlGuiForm()
@@ -32,7 +36,28 @@ public class XmlGuiForm {
 	public void setFormNumber(String formNumber) {
 		this.formNumber = formNumber;
 	}
+	public String getFormType() {
+		return formType;
+	}
 
+	public void setFormType(String formType) {
+		this.formType = formType;
+	}
+	public String getFormTitle() {
+		return formTitle;
+	}
+
+	public void setFormTitle(String formTitle) {
+		this.formTitle = formTitle;
+	}
+	
+	public String getFormSubTitle() {
+		return formSubTitle;
+	}
+
+	public void setFormSubTitle(String formSubTitle) {
+		this.formSubTitle = formSubTitle;
+	}
 
 	public String getFormName() {
 		return formName;
@@ -40,7 +65,12 @@ public class XmlGuiForm {
 	public void setFormName(String formName) {
 		this.formName = formName;
 	}
-	
+	public String getFormColor() {
+		return color_code;
+	}
+	public void setFormColor(String color_code) {
+		this.color_code = color_code;
+	}
 	public String getSubmitTo() {
 		return submitTo;
 	}

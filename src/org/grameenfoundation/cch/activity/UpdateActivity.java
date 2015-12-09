@@ -116,9 +116,10 @@ public class UpdateActivity extends BaseActivity {
 		 question=(RadioGroup) findViewById(R.id.radioGroup_learning);
 		 question2=(RadioGroup) findViewById(R.id.radioGroup_justify);
 		 radioGroup_group=(RadioGroup) findViewById(R.id.radioGroup_groups);
-		 groupmembernames=new ArrayList<String>();
-		 groupmembernames=db.getAllGroupMembers();
-		 Collections.sort(groupmembernames,String.CASE_INSENSITIVE_ORDER);
+		// groupmembernames=new ArrayList<String>();
+		 //groupmembernames=db.getAllGroupMembers();
+		// Collections.sort(groupmembernames,String.CASE_INSENSITIVE_ORDER);
+		 /*
 		 group_spinner = (MultiSelectSpinner) findViewById(R.id.spinner1);
 	        //group_spinner.setAdapter(adapter, false, onSelectedListener);
 	        group_spinner.setItems(groupmembernames, "Select group members", -1, new MultiSpinnerListener() {
@@ -146,7 +147,7 @@ public class UpdateActivity extends BaseActivity {
 					}
 					
 				}
-			});
+			});*/
 		 question2.check(R.id.radio_no2);
 		start_time=System.currentTimeMillis();
 		String[] items=getResources().getStringArray(R.array.Justification);

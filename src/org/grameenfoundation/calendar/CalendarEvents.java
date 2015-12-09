@@ -13,6 +13,7 @@ import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.cch.activity.PlanEventActivity;
 import org.grameenfoundation.cch.model.MyCalendarEvents;
+import org.joda.time.DateTime;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -43,6 +44,7 @@ public class CalendarEvents {
     private int thismonthEventsDone = 0;
     private String previousLocations = "";
 	private SharedPreferences prefs;
+	private String category;
     private static DbHelper dbh;
     
 	public CalendarEvents(Context c){
@@ -114,7 +116,12 @@ public class CalendarEvents {
 			   .putExtra("beginTime", Long.parseLong(startdate))
 			   .putExtra("endTime",Long.parseLong(enddate))
 			   .putExtra(Events.AVAILABILITY, availability);
-			
+			if(availability==Events.AVAILABILITY_BUSY){
+				category="personal";
+			}else if(availability==Events.AVAILABILITY_FREE){
+				category="not_personal";
+			}
+			dbh.editCalendarEvent(event_id, evt, desc, category, location, "", "", "", startdate, enddate);
 			mContext.startActivity(intent);
 			return true;
 		}else {
@@ -148,6 +155,7 @@ public class CalendarEvents {
 		int rows = cr.delete(deleteUri, null, null);
 		Log.i("Calendar delete", "Rows deleted: " + rows);  
 		if(rows==1){
+			dbh.deleteCalendarEvent(event_id);
 			return true;
 			}else {
 				return false;
@@ -175,24 +183,71 @@ public class CalendarEvents {
     	
     	public boolean isTomorrow()
     	{
-    			long milliSeconds = this.startDate;
+    			/*long milliSeconds = this.startDate;
     	    	Calendar c = Calendar.getInstance();
     	    	c.add(Calendar.DATE, 1);
     	    	String tomorrow = new SimpleDateFormat("MM/dd/yyyy").format(new Date(c.getTimeInMillis()));
     	        return (DateFormat.format("MM/dd/yyyy", new Date(milliSeconds))
-    	       				.toString().equals(tomorrow)) ? true : false;
+    	       				.toString().equals(tomorrow)) ? true : false;*/
+    		long milliSeconds = this.startDate;
+			DateTime previous = new DateTime(milliSeconds);
+			DateTime now = new DateTime();
+			if(now.plusDays(1)==previous){
+				return true;
+			}else {
+				return false;
+			}
     	}
-    	    
-    	public boolean isFuture()
+    	public boolean isYesterday()
     	{
     			long milliSeconds = this.startDate;
+    			DateTime previous = new DateTime(milliSeconds);
+    			DateTime now = new DateTime();
+    			if(now.minusDays(1)==previous){
+    				return true;
+    			}else {
+    				return false;
+    			}
+    	}
+    	public boolean isFuture()
+    	{
+    			/*long milliSeconds = this.startDate;
     	    	Calendar c = Calendar.getInstance();
     	    	
     	    	c.add(Calendar.DATE, 2);
-    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;
+    	        return (milliSeconds >= c.getTimeInMillis()) ? true : false;*/
+    		long milliSeconds = this.startDate;
+			DateTime previous = new DateTime(milliSeconds);
+			DateTime now = new DateTime();
+			if(now.plusDays(2).getMillis()>=previous.getMillis()){
+				return true;
+			}else {
+				return false;
+			}
     	}
-    	
-    	public boolean isThisMonth() { return isThisMonth(false); }
+    	public boolean isPastThisMonth() {
+    		long milliSeconds = this.startDate;
+			DateTime previous = new DateTime(milliSeconds);
+			DateTime now = new DateTime();
+			if((now.minusDays(2).getMillis()>=previous.getMillis())&&(previous.getMonthOfYear()==now.getMonthOfYear())){
+				return true;
+			}else {
+				return false;
+			}
+    		}
+    	public boolean isPastLastMonth() {
+    		long milliSeconds = this.startDate;
+			DateTime previous = new DateTime(milliSeconds);
+			DateTime lastmonth = new DateTime().minusMonths(1);
+			if(previous.getMonthOfYear()==lastmonth.getMonthOfYear()){
+				return true;
+			}else {
+				return false;
+			}
+    		}
+    	public boolean isThisMonth() {
+    		return isThisMonth(false); 
+    		}
     	public boolean isThisMonth(boolean completed)
     	{	
     		boolean resp = false;
@@ -250,8 +305,90 @@ public class CalendarEvents {
 		       
 		       return list;
 		   	}
-	       
-	       
+	       public ArrayList<MyCalendarEvents> getYesterdaysEvents(Boolean showDay) {
+				ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
+		       int evNum = 0;
+   	       String dformat ="MMM-dd hh:mm a";
+   	       SimpleDateFormat formatter = new SimpleDateFormat(dformat);
+   	       Calendar calendar = Calendar.getInstance();
+   	       long milliSeconds = 0;
+   	       calendar.setTimeInMillis(milliSeconds);
+   	    	String d =formatter.format(calendar.getTime());
+		    	   for(MyEvent ev: calEvents){
+		    		   MyCalendarEvents calendarEvents=new MyCalendarEvents();
+		        	   if (ev.isYesterday())
+		        	   {
+		        		   calendarEvents.setEventType(ev.eventType);
+		        		   calendarEvents.setEventDescription(ev.description);
+		        		   calendarEvents.setEventLocation(ev.location);
+		        		   calendarEvents.setEventTime(ev.getDate(dformat));
+		        		   calendarEvents.setEventId(String.valueOf(ev.eventId));
+		        		   calendarEvents.setEventStartDate(String.valueOf(ev.startDate));
+		        		   calendarEvents.setEventEndDate(String.valueOf(ev.endDate));
+		        		   evNum++;
+		        		   list.add(calendarEvents);
+		        	   }
+		        	   
+		    	   }
+		       
+		       return list;
+		   	}
+	       public ArrayList<MyCalendarEvents> getPastLastMonthEvents(Boolean showDay) {
+				ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
+		       int evNum = 0;
+  	       String dformat ="MMM-dd hh:mm a";
+  	       SimpleDateFormat formatter = new SimpleDateFormat(dformat);
+  	       Calendar calendar = Calendar.getInstance();
+  	       long milliSeconds = 0;
+  	       calendar.setTimeInMillis(milliSeconds);
+  	    	String d =formatter.format(calendar.getTime());
+		    	   for(MyEvent ev: calEvents){
+		    		   MyCalendarEvents calendarEvents=new MyCalendarEvents();
+		        	   if (ev.isPastLastMonth())
+		        	   {
+		        		   calendarEvents.setEventType(ev.eventType);
+		        		   calendarEvents.setEventDescription(ev.description);
+		        		   calendarEvents.setEventLocation(ev.location);
+		        		   calendarEvents.setEventTime(ev.getDate(dformat));
+		        		   calendarEvents.setEventId(String.valueOf(ev.eventId));
+		        		   calendarEvents.setEventStartDate(String.valueOf(ev.startDate));
+		        		   calendarEvents.setEventEndDate(String.valueOf(ev.endDate));
+		        		   evNum++;
+		        		   list.add(calendarEvents);
+		        	   }
+		        	   
+		    	   }
+		       
+		       return list;
+		   	}
+	       public ArrayList<MyCalendarEvents> getPastThisMonthEvents(Boolean showDay) {
+	  				ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
+	  		       int evNum = 0;
+	    	       String dformat ="MMM-dd hh:mm a";
+	    	       SimpleDateFormat formatter = new SimpleDateFormat(dformat);
+	    	       Calendar calendar = Calendar.getInstance();
+	    	       long milliSeconds = 0;
+	    	       calendar.setTimeInMillis(milliSeconds);
+	    	    	String d =formatter.format(calendar.getTime());
+	  		    	   for(MyEvent ev: calEvents){
+	  		    		   MyCalendarEvents calendarEvents=new MyCalendarEvents();
+	  		        	   if (ev.isPastThisMonth())
+	  		        	   {
+	  		        		   calendarEvents.setEventType(ev.eventType);
+	  		        		   calendarEvents.setEventDescription(ev.description);
+	  		        		   calendarEvents.setEventLocation(ev.location);
+	  		        		   calendarEvents.setEventTime(ev.getDate(dformat));
+	  		        		   calendarEvents.setEventId(String.valueOf(ev.eventId));
+	  		        		   calendarEvents.setEventStartDate(String.valueOf(ev.startDate));
+	  		        		   calendarEvents.setEventEndDate(String.valueOf(ev.endDate));
+	  		        		   evNum++;
+	  		        		   list.add(calendarEvents);
+	  		        	   }
+	  		        	   
+	  		    	   }
+	  		       
+	  		       return list;
+	  		   	}
 	       public ArrayList<MyCalendarEvents> getEventsToUpdate(Boolean showDay) {
 				ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
 		       int evNum = 0;
@@ -497,9 +634,72 @@ public ArrayList<MyCalendarEvents> readPastCalendarEvents(Context context, int m
             cursor.close();
         	return list;    
      }
-	
-    	
     }
+public ArrayList<MyCalendarEvents> readAllCalendarEvents(Context context){
+	{
+		ArrayList<MyCalendarEvents> list =new ArrayList<MyCalendarEvents>(); 
+		 long today_date = new Date().getTime();
+	       
+		 String[] projection = new String[] { CalendarContract.Events.CALENDAR_ID, //0
+				 							  CalendarContract.Events.TITLE,       //1
+				 							  CalendarContract.Events.DESCRIPTION, //2
+				 							  CalendarContract.Events.DTSTART,     //3
+				 							  CalendarContract.Events.DTEND,       //4
+				 							  CalendarContract.Events.ALL_DAY,     //5
+				 							  CalendarContract.Events.EVENT_LOCATION,//6
+				 							  CalendarContract.Events.STATUS, //7 completed or not
+				 							  CalendarContract.Events.AVAILABILITY, //8 personal or not
+				 							  CalendarContract.Events.DELETED, //9
+				 							  CalendarContract.Events._ID,//10
+				 							 };//7
+		 String[] projection2 = new String[] { CalendarContract.Reminders.MINUTES, //0
+				 };//7
+		String selection = "(( " + Events.DELETED+" !=1 "+" ))";
+
+		Cursor cursor = context.getContentResolver().query(Uri.parse("content://com.android.calendar/events"), projection, selection, null, null );
+		
+		 cursor.moveToFirst();
+		 
+		     while ( cursor.isAfterLast()==false){
+		    	 Long startDate=Long.valueOf(cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DTSTART)));
+		    	 long start = Long.parseLong(cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DTSTART)));
+			  	    long end = start+60*60*1000;
+			  	    try {
+			  		   end = Long.parseLong(cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DTEND)));
+			  	    } catch(NumberFormatException e) {}
+		    	 MyCalendarEvents calendarEvents=new MyCalendarEvents();
+		    	 calendarEvents.setEventStartDate(String.valueOf(start));
+		    	 calendarEvents.setEventId(cursor.getString(cursor.getColumnIndex(CalendarContract.Events._ID)));
+		    	 calendarEvents.setEventEndDate(String.valueOf(end));
+		    	 calendarEvents.setEventDescription(cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DESCRIPTION)));
+		    	 calendarEvents.setEventLocation(cursor.getString(cursor.getColumnIndex( CalendarContract.Events.EVENT_LOCATION)));
+		    	 calendarEvents.setEventType(cursor.getString(cursor.getColumnIndex( CalendarContract.Events.TITLE)));
+		    	 if(Integer.valueOf(cursor.getString(cursor.getColumnIndex( CalendarContract.Events.AVAILABILITY)))==CalendarContract.Events.AVAILABILITY_BUSY){
+		    		 calendarEvents.setEventCategory("personal");
+		    	 }else if(Integer.valueOf(cursor.getString(cursor.getColumnIndex( CalendarContract.Events.AVAILABILITY)))==CalendarContract.Events.AVAILABILITY_FREE){
+		    		 calendarEvents.setEventCategory("not_personal");
+		    	 }
+	    	 if(cursor.getString(cursor.getColumnIndex( CalendarContract.Events.STATUS))!=null){
+		    		 if(Integer.valueOf(cursor.getString(cursor.getColumnIndex( CalendarContract.Events.STATUS)))==CalendarContract.Events.STATUS_CANCELED){
+		    			 calendarEvents.setEventStatus("incomplete");
+		    		 }else if(Integer.valueOf(cursor.getString(cursor.getColumnIndex( CalendarContract.Events.STATUS)))==CalendarContract.Events.STATUS_CONFIRMED){
+		    		 calendarEvents.setEventStatus("complete");
+		    		 }
+		    	 }else{
+		    		 calendarEvents.setEventStatus("");
+		    	 }
+		    	 calendarEvents.setEventDeleted(cursor.getString(cursor.getColumnIndex(Events.DELETED)));
+		    	 calendarEvents.setEventNumberCompleted(String.valueOf(cursor.getCount()));
+		    	 list.add(calendarEvents);
+		    	 cursor.moveToNext();		
+		    }
+		     
+        cursor.close();
+    	return list;    
+ }
+
+	
+}
 
 //Count total number of events for a particular month
 public ArrayList<MyCalendarEvents> readCalendarEventsTotal(Context context, int month,int year){

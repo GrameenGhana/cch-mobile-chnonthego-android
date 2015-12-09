@@ -72,7 +72,7 @@ public class AchievementsTask  extends AsyncTask<String, String, String>{
                  while ((s = buffer.readLine()) != null) {
                      response += s;
                      dialog.setProgress(response.length());
-                  //   System.out.println(String.valueOf(response.length()));
+                 
                  } 
              } catch (Exception e) {
             	 dialog.setMessage("Oops! Something went wrong, Check your internet connection and try again");
@@ -87,12 +87,14 @@ public class AchievementsTask  extends AsyncTask<String, String, String>{
 		 JSONObject json;
 		 JSONArray jsonArrayTargets;
 		 JSONArray jsonArrayCourses;
+		 JSONArray jsonArrayNewCourses;
 		 String target_status = null;
 		 System.out.println(result);
 		 try {
 			 json=new JSONObject(result);
 			 jsonArrayTargets=new JSONArray(json.getString("targets"));
 			 jsonArrayCourses=new JSONArray(json.getString("courses"));
+			 jsonArrayNewCourses=new JSONArray(json.getString("new_courses"));
 			 
 			 for (int i=0;i<jsonArrayTargets.length();i++){
 				 String target_id=jsonArrayTargets.getJSONObject(i).getString("target_id");
@@ -131,6 +133,22 @@ public class AchievementsTask  extends AsyncTask<String, String, String>{
 				 String date_taken=jsonArrayCourses.getJSONObject(i).getString("datetime");
 				 db.insertCourseAchievement(course, record_id, section_value, score, max_score,
 						 							quiz_type, quiz_title, date_taken);
+			 }
+			 for(int i=0;i<jsonArrayNewCourses.length();i++){
+				 String record_id=jsonArrayNewCourses.getJSONObject(i).getString("id");
+				 String title=jsonArrayNewCourses.getJSONObject(i).getString("title");
+				 String course=jsonArrayNewCourses.getJSONObject(i).getString("course");
+				 String percentcomplete=jsonArrayNewCourses.getJSONObject(i).getString("percentcomplete");
+				 String attempts=jsonArrayNewCourses.getJSONObject(i).getString("attempts");
+				 String score=jsonArrayNewCourses.getJSONObject(i).getString("score");
+				 String date_taken=jsonArrayNewCourses.getJSONObject(i).getString("last_accessed");
+				 String status="";
+				 if(!score.equals("Not taken")&&Integer.valueOf(score)>=85&&Integer.valueOf(percentcomplete)>=85){
+					 status="ksa_eligble";
+				 }else {
+					 status="in_progress";
+				 }
+				 db.insertCourseForAchievements(course, record_id, title, score, attempts, percentcomplete,status, date_taken);
 			 }
 	 dialog.setMessage("Data successfully retrieved!");
 	 //dialog.dismiss();

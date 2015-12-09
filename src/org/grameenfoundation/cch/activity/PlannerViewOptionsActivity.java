@@ -11,12 +11,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 public class PlannerViewOptionsActivity extends BaseActivity implements OnItemClickListener{
 
 	private ListView listView_monthOption;
+	private Button sync;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,9 @@ public class PlannerViewOptionsActivity extends BaseActivity implements OnItemCl
 	    getActionBar().setSubtitle("View events/targets");
 	    listView_monthOption=(ListView) findViewById(R.id.listView_targetMonthOptions);
 	    listView_monthOption.setOnItemClickListener(this);
-	    String[] items={"View events","View individual targets","View facility targets"};
+	    sync=(Button) findViewById(R.id.button_sync);
+	    sync.setVisibility(View.GONE);
+	    String[] items={"View/Update events","View individual targets","View facility performance"};
 		   int[] images={R.drawable.ic_calendar_new,R.drawable.ic_target_new,R.drawable.ic_target_new};
 		   PlannerBaseAdapter adapter=new PlannerBaseAdapter(PlannerViewOptionsActivity.this,items,images);
 		   

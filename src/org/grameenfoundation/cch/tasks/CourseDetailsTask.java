@@ -60,7 +60,7 @@ public class CourseDetailsTask  extends AsyncTask<String, String, String>{
 		 JSONArray jsonArray;
 		 String courseGroup;	
 		 String courseTitle;	
-		// System.out.println(result);
+		System.out.println(result);
 		 try {
 			 jsonArray=new JSONArray(result);
 			 for (int i=0;i<jsonArray.length();i++){

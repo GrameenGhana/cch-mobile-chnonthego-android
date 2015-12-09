@@ -16,6 +16,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -49,8 +50,6 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 	 CalendarEvents c;
 	String rrule;
 	private String mode;
-	private LinearLayout linearLayout_buttonsOne;
-	private LinearLayout linearLayout_buttonsTwo;
 	private Button button_edit;
 	private Button button_delete;
 	private ArrayAdapter<String> adapter;
@@ -61,6 +60,10 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 	private TableRow other_option;
 	private EditText editText_otherOption;
 	private TextView textView_status;
+	private int event_category;
+	private String eventName;
+	private String eventLocation;
+	private String eventDescription;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -105,8 +108,6 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 			}
 			 
 		 });
-		
-		 
 	    editText_eventDescription=(EditText) findViewById(R.id.editText_eventPlanDescription);
 	    radioGroup_personal=(RadioGroup) findViewById(R.id.radioGroup_personal);
 	    radioGroup_personal.check(R.id.radio_no);
@@ -120,147 +121,8 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 	    button_addEvent.setOnClickListener(this);
 	    button_viewCalendar=(Button) findViewById(R.id.button_eventViewCalendar);
 	    button_viewCalendar.setOnClickListener(this);
-	    linearLayout_buttonsOne=(LinearLayout) findViewById(R.id.linearLayout_buttonsOne);
-	    linearLayout_buttonsTwo=(LinearLayout) findViewById(R.id.linearLayout_buttonsTwo);
 	    
-	    if(!mode.isEmpty()&&mode.equalsIgnoreCase("edit_mode")){
-	    	 textView_status.setText("Edit an Event");
-	    	linearLayout_buttonsOne.setVisibility(View.GONE);
-	    	linearLayout_buttonsTwo.setVisibility(View.VISIBLE);
-	    	
-	    	button_edit=(Button) findViewById(R.id.button_edit);
-	    	button_delete=(Button) findViewById(R.id.button_delete);
-	    	final String event_type=extras.getString("event_type");
-	    	final String event_desc=extras.getString("event_description");
-	    	final String event_location=extras.getString("event_location");
-	    	final String event_id=extras.getString("event_id");
-	    	final String event_startdate=extras.getString("event_startdate");
-	    	System.out.println(event_startdate);
-	    	final String event_enddate=extras.getString("event_enddate");
-	    	final int availability=c.readCalendarEventForEdit(mContext, Long.parseLong(event_id));
-	    	if(availability==Events.AVAILABILITY_BUSY){
-	    		radioGroup_personal.check(R.id.radio_yes);
-	    	}else if(availability==Events.AVAILABILITY_FREE){
-	    		radioGroup_personal.check(R.id.radio_no);	
-	    	}
-	    	if(Arrays.asList(items_names).contains(event_type)){
-		    	spinner_eventName.setSelection(getIndex(spinner_eventName, event_type));
-	    	}else{
-	    		spinner_eventName.setSelection(getIndex(spinner_eventName, event_type));
-		    	other_option.setVisibility(View.VISIBLE);
-		    	editText_otherOption.setText(event_type);
-	    	}
-	    	spinner_eventName.setSelection(getIndex(spinner_eventName, event_type));
-	    	editText_event_location.setText(event_location);
-	    	editText_eventDescription.setText(event_desc);
-	    	button_edit.setOnClickListener(new OnClickListener(){
-
-				@Override
-				public void onClick(View v) {
-					String edited_event_type;
-					if(spinner_eventName.getSelectedItem().toString().equalsIgnoreCase("Other")){
-						edited_event_type=editText_otherOption.getText().toString();
-					}else{
-						edited_event_type=spinner_eventName.getSelectedItem().toString();
-					}
-				String edited_event_location=editText_event_location.getText().toString();
-				String edited_event_description=editText_eventDescription.getText().toString();
-				if(radioGroup_personal.getCheckedRadioButtonId()==R.id.radio_yes){
-					if(c.editEvent(Long.parseLong(event_id), edited_event_type, edited_event_location, edited_event_description,event_startdate,event_enddate,Events.AVAILABILITY_BUSY)==true){		
-						JSONObject json = new JSONObject();
-						try {
-							json.put("eventid", event_id);
-							json.put("eventtype", edited_event_type);
-							json.put("location", edited_event_location);
-							json.put("description", edited_event_description);
-							json.put("category", "personal");
-							json.put("changed", 1);
-							json.put("deleted", 0);
-							json.put("ver", dbh.getVersionNumber(mContext));
-							json.put("battery", dbh.getBatteryStatus(mContext));
-					    	json.put("device", dbh.getDeviceName());
-					    	json.put("imei", dbh.getDeviceImei(mContext));
-					 
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-						end_time=System.currentTimeMillis();
-						
-					}
-					}else if(radioGroup_personal.getCheckedRadioButtonId()==R.id.radio_no){
-						if(c.editEvent(Long.parseLong(event_id), edited_event_type, edited_event_location, edited_event_description,event_startdate,event_enddate,Events.AVAILABILITY_FREE)==true){		
-							JSONObject json = new JSONObject();
-							try {
-								json.put("eventid", event_id);
-								json.put("eventtype", edited_event_type);
-								json.put("location", edited_event_location);
-								json.put("description", edited_event_description);
-								json.put("category", "not_personal");
-								json.put("changed", 1);
-								json.put("deleted", 0);
-								json.put("ver", dbh.getVersionNumber(mContext));
-								json.put("battery", dbh.getBatteryStatus(mContext));
-						    	json.put("device", dbh.getDeviceName());
-						    	json.put("imei", dbh.getDeviceImei(mContext));
-							} catch (JSONException e) {
-								e.printStackTrace();
-							}
-							end_time=System.currentTimeMillis();
-							
-						}
-					}
-					}
-	    	});
-	    	button_delete.setOnClickListener(new OnClickListener(){
-
-				@Override
-				public void onClick(View v) {
-					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-							mContext);
-						alertDialogBuilder.setTitle("Delete Confirmation");
-						alertDialogBuilder
-							.setMessage("You are about to delete this event. Proceed?")
-							.setCancelable(false)
-							.setIcon(R.drawable.ic_error)
-							.setPositiveButton("No",new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,int id) {
-									dialog.cancel();
-								}
-							  })
-							.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,int id) {
-									if(c.deleteEvent(Long.parseLong(event_id))==true){
-										JSONObject json = new JSONObject();
-										 try {
-											json.put("eventid", event_id);
-											 json.put("eventtype", event_type);
-											 json.put("location", event_location);
-											 json.put("description", event_desc);
-											 json.put("changed", 0);
-											 json.put("deleted", 1);
-											 json.put("ver", dbh.getVersionNumber(mContext));
-												json.put("battery", dbh.getBatteryStatus(mContext));
-										    	json.put("device", dbh.getDeviceName());
-										    	json.put("imei", dbh.getDeviceImei(mContext));
-										} catch (JSONException e) {
-											e.printStackTrace();
-										}
-										 end_time=System.currentTimeMillis();
-										// dbh.insertCCHLog("Calendar", json.toString(), String.valueOf(startTime), String.valueOf(end_time));
-										 Intent intent=new Intent(mContext, EventsViewActivity.class);
-										 startActivity(intent);
-										 finish();
-										 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
-										 Toast.makeText(mContext, "Event deleted successfully!",
-										         Toast.LENGTH_LONG).show();
-										}
-				}
-	    	});
-						AlertDialog alertDialog = alertDialogBuilder.create();
-						alertDialog.show();
-			}	
-        });
-	    	}
+	  
 	    }
 	@Override
 	public void onClick(View v) {
@@ -270,15 +132,15 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 			if(!checkValidation()){
 				Toast.makeText(getApplicationContext(), "Provide data for required fields!", Toast.LENGTH_LONG).show();
 			}else{
-			int event_category = 0;
-			String eventName;
+			 event_category = 0;
+			 eventName="";
 			if(spinner_eventName.getSelectedItem().toString().equalsIgnoreCase("Other")){
 				eventName=editText_otherOption.getText().toString();
 			}else{
-			eventName=spinner_eventName.getSelectedItem().toString();
+				eventName=spinner_eventName.getSelectedItem().toString();
 			}
-			String eventLocation=editText_event_location.getText().toString();
-			String eventDescription=editText_eventDescription.getText().toString();
+			 eventLocation=editText_event_location.getText().toString();
+			 eventDescription=editText_eventDescription.getText().toString();
 			Calendar cal = Calendar.getInstance();
 			//This is used to indicate if an event is personal or not
 			   if(radioGroup_personal.getCheckedRadioButtonId()==R.id.radio_yes){
@@ -296,6 +158,8 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 			        .putExtra(Events.AVAILABILITY, event_category)
 			 		.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY , false);
 			
+			 end_time = System.currentTimeMillis();
+			
 			startActivityForResult(intent, 1);
 		}
 		}
@@ -310,6 +174,38 @@ public final class PlanEventActivity extends BaseActivity implements OnClickList
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    if (requestCode == 1) {
+	    	 try{
+				 Cursor cursor =mContext.getContentResolver().query(
+			                        Uri.parse("content://com.android.calendar/events"),
+			                        new String[] {"MAX(_id) as max_id"}, null, null, null);
+			        cursor.moveToFirst();
+			        long max_val = cursor.getLong(cursor.getColumnIndex("max_id"));     
+			        JSONObject json = new JSONObject();
+					 try {
+						 json.put("eventid", max_val);
+						 json.put("eventtype", eventName);
+						 json.put("location", eventLocation);
+						 if(event_category==Events.AVAILABILITY_BUSY){
+							 json.put("category","personal");
+						 }else if(event_category==Events.AVAILABILITY_FREE){
+							 json.put("category","not_personal");
+						 }
+						 json.put("description", eventDescription);
+						 json.put("status", "");
+						 json.put("justification", ""); 
+						 json.put("comments",""); 
+						 json.put("ver", dbh.getVersionNumber(PlanEventActivity.this));
+						 json.put("battery", dbh.getBatteryStatus(PlanEventActivity.this));
+					    json.put("device", dbh.getDeviceName());
+					    json.put("imei", dbh.getDeviceImei(PlanEventActivity.this));
+						 
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				 dbh.insertCCHLog("Calendar", json.toString(), String.valueOf(startTime), String.valueOf(end_time));
+				 }catch(Exception e){
+					 e.printStackTrace();
+				 }
 	    	Intent intent=new Intent(Intent.ACTION_MAIN);
 	    	intent.setClass(PlanEventActivity.this, EventPlannerOptionsActivity.class);
 	    	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

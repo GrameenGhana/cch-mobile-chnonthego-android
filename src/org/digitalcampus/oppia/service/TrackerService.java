@@ -17,15 +17,20 @@ S * This file is part of OppiaMobile - http://oppia-mobile.org/
 
 package org.digitalcampus.oppia.service;
 
+import java.net.URLEncoder;
+import java.util.ArrayList;
+
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.activity.DownloadActivity;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.listener.APIRequestListener;
+import org.digitalcampus.oppia.model.User;
 import org.digitalcampus.oppia.task.APIRequestTask;
 import org.digitalcampus.oppia.task.Payload;
 import org.digitalcampus.oppia.task.SubmitQuizTask;
 import org.digitalcampus.oppia.task.SubmitTrackerMultipleTask;
+import org.grameenfoundation.cch.tasks.FacilityTargetsSyncTask;
 import org.grameenfoundation.cch.tasks.FacilityTargetsTask;
 import org.grameenfoundation.cch.tasks.StayingWellNotifyTask;
 import org.grameenfoundation.cch.tasks.SurveyNotifyTask;
@@ -62,6 +67,12 @@ public class TrackerService extends Service implements APIRequestListener {
 	private SharedPreferences prefs;
 
 	private String name;
+
+	private ArrayList<User> userdetails;
+
+	private DbHelper db;
+
+	private String zonename;
 	
 	@Override
 	public void onCreate() {
@@ -69,10 +80,19 @@ public class TrackerService extends Service implements APIRequestListener {
 		BugSenseHandler.initAndStartSession(this,MobileLearning.BUGSENSE_API_KEY);
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		 name=prefs.getString("first_name", "name");
+		 db=new DbHelper(this);
+		 try{
+		 userdetails=new ArrayList<User>();
+	     userdetails=db.getUserFirstName(name);
+		 zonename=userdetails.get(0).getUserZone();
+		 }catch(Exception e){
+			 e.printStackTrace();
+		 }
 	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		try{
 		Log.v(TAG, "Starting Tracker Service");
 		
 		boolean backgroundData = true;
@@ -80,15 +100,8 @@ public class TrackerService extends Service implements APIRequestListener {
 		if (b != null) {
 			backgroundData = b.getBoolean("backgroundData");
 		}
-		if(isOnline()){
-			MobileLearning app = (MobileLearning) this.getApplication();
-			if (app.omFacilityTargetsDownloadTask == null) {
-				app.omFacilityTargetsDownloadTask = new FacilityTargetsTask(this);
-				prefs = PreferenceManager.getDefaultSharedPreferences(this);
-				 name=prefs.getString("first_name", "name");
-				app.omFacilityTargetsDownloadTask.execute( getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.FACILITY_TARGETS_PATH+name);
-			}
-		}
+		
+		
 		if (isOnline() && backgroundData) {
 			DbHelper db = new DbHelper(this);
 			Payload p = null;
@@ -99,7 +112,7 @@ public class TrackerService extends Service implements APIRequestListener {
 			// should only do this once a day or so....
 			prefs = PreferenceManager.getDefaultSharedPreferences(this);
 			long lastRun = prefs.getLong("lastCourseUpdateCheck", 0);
-			long now = System.currentTimeMillis()/1000;
+			long now = System.currentTimeMillis();
 			/* CCH: Check to see if the CCH log needs any updating */
 			
 			//if((lastRun + (3600*12)) < now) {
@@ -109,8 +122,6 @@ public class TrackerService extends Service implements APIRequestListener {
 					Payload mqp = db.getCCHUnsentLog();
 					app.omUpdateCCHLogTask = new UpdateCCHLogTask(this);
 					app.omUpdateCCHLogTask.execute(mqp);
-					
-				
 				Log.v(TAG, "Syncing background data");
 				APIRequestTask task = new APIRequestTask(this);
 				p = new Payload(MobileLearning.SERVER_COURSES_PATH);
@@ -121,11 +132,26 @@ public class TrackerService extends Service implements APIRequestListener {
 				editor.putLong("lastCourseUpdateCheck", now);
 				editor.commit();
 				}
-				
-				
-						
 			}
-			
+				if(isOnline()){
+					if (app.omFacilityTargetSyncTask == null) {
+						app.omFacilityTargetSyncTask = new FacilityTargetsSyncTask(this);
+							
+						//app.omFacilityTargetSyncTask.execute(getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.FACILITY_TARGETS_SYNC_PATH+URLEncoder.encode(zonename));
+					}
+				}
+				if(isOnline()){
+					if (app.omFacilityTargetsDownloadTask == null) {
+						app.omFacilityTargetsDownloadTask = new FacilityTargetsTask(this);
+						prefs = PreferenceManager.getDefaultSharedPreferences(this);
+						 name=prefs.getString("first_name", "name");
+						app.omFacilityTargetsDownloadTask.execute( getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.FACILITY_TARGETS_PATH+name);
+					}
+				}
+			if(app.omSubmitTrackerMultipleTask == null){
+				app.omSubmitTrackerMultipleTask = new SubmitTrackerMultipleTask(this);
+				app.omSubmitTrackerMultipleTask.execute();
+			}
 			// notify user on routines
 			if (app.omStayingWellNotifyTask == null) {
 				app.omStayingWellNotifyTask = new StayingWellNotifyTask(this);
@@ -136,16 +162,13 @@ public class TrackerService extends Service implements APIRequestListener {
 							app.omTargetSettingNotifyTask = new TargetSettingNotifyTask(this);
 							app.omTargetSettingNotifyTask.execute();
 						}
-					
+					/*
 						if (app.omSurveyNotifyTask == null) {
 							app.omSurveyNotifyTask = new SurveyNotifyTask(this);
 							app.omSurveyNotifyTask.execute();
-						}
+						}*/
 			// send activity trackers
-			if(app.omSubmitTrackerMultipleTask == null){
-				app.omSubmitTrackerMultipleTask = new SubmitTrackerMultipleTask(this);
-				app.omSubmitTrackerMultipleTask.execute();
-			}
+			
 			
 			// send quiz results
 			if(app.omSubmitQuizTask == null){
@@ -157,7 +180,11 @@ public class TrackerService extends Service implements APIRequestListener {
 			db.close();
 
 		}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return Service.START_NOT_STICKY;
+
 	}
 
 	@Override
@@ -230,4 +257,5 @@ public class TrackerService extends Service implements APIRequestListener {
 			notificationManager.notify(mId, mBuilder.getNotification());		
 		}
 	}
+	
 }

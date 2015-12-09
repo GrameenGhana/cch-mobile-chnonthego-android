@@ -1,7 +1,6 @@
 package org.grameenfoundation.cch.activity;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import org.digitalcampus.mobile.learningGF.R;
@@ -9,8 +8,6 @@ import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.service.TrackerService;
 import org.grameenfoundation.calendar.CalendarEvents;
-import org.grameenfoundation.cch.model.CoverageTargetActivity;
-import org.grameenfoundation.cch.model.LearningTargetActivity;
 import org.grameenfoundation.cch.model.MyCalendarEvents;
 import org.grameenfoundation.cch.model.OtherTargetActivity;
 import org.grameenfoundation.cch.model.RoutineActivity;
@@ -25,7 +22,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -57,18 +53,6 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
     ViewPager mViewPager;
 	private SharedPreferences prefs;
 	private DbHelper db;
-	private long todayCoverageId;
-	private long thisWeekCoverageId;
-	private long thisMonthCoverageId;
-	private long midYearCoverageId;
-	private long thisQuarterCoverageId;
-	private long thisYearCoverageId;
-	private long todayLearningId;
-	private long thisWeekLearningId;
-	private long thisMonthLearningId;
-	private long midYearLearningId;
-	private long thisQuarterLearningId;
-	private long thisYearLearningId;
 	private long todayOtherId;
 	private long thisWeekOtherId;
 	private long thisMonthOtherId;
@@ -99,7 +83,7 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
         mViewPager = (ViewPager) findViewById(R.id.pager);
         
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setOffscreenPageLimit(4);
+        mViewPager.setOffscreenPageLimit(2);
         mViewPager
         .setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
                 @Override
@@ -107,7 +91,6 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
                         actionBar.setSelectedNavigationItem(position);
                 }
         });
-       
         for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
                 actionBar.addTab(actionBar.newTab()
                                 .setText(mSectionsPagerAdapter.getPageTitle(i))
@@ -145,21 +128,17 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
          public Fragment getItem(int position) {
                  Fragment fragment = null;
                  if(position==0 ){
-                        fragment= new EventUpdateActivity();
+                       // fragment= new EventUpdateActivity();
+                	 fragment= new OtherTargetActivity();  
                  }else if(position==1){
-                	 fragment= new LearningTargetActivity();
-                	// fragment= new CoverageTargetActivity();
-                 }else if(position==2){
-                	 fragment= new RoutineActivityDetails(mViewPager);         
-                 }else if(position==3){
-                	 fragment= new OtherTargetActivity();     
+                	 fragment= new RoutineActivityDetails(mViewPager);   
                  }
                  return fragment;
          }
 
          @Override
          public int getCount() {
-                 return 4;
+                 return 2;
          }
 
          @Override
@@ -167,24 +146,9 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
                  Locale l = Locale.getDefault();
              	events=new ArrayList<MyCalendarEvents>();
                 c= new CalendarEvents(mContext);
-            	events=c.readEventsToUpdate(mContext, true);
+            	//events=c.readEventsToUpdate(mContext, true);
                 db=new DbHelper(NewEventPlannerActivity.this);
-    		/*
-    		todayCoverageId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
-    		thisWeekCoverageId=db.getCount("Weekly",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
-    		thisMonthCoverageId=db.getCount("Monthly",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
-    		midYearCoverageId=db.getCount("Mid-year",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
-    		thisQuarterCoverageId=db.getCount("Quarterly",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
-    		thisYearCoverageId=db.getCount("Annually",MobileLearning.CCH_TARGET_TYPE_COVERAGE);
-    		*/
     		    
-    		todayLearningId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_LEARNING);
-    		thisWeekLearningId=db.getCount("Weekly",MobileLearning.CCH_TARGET_TYPE_LEARNING);
-    		thisMonthLearningId=db.getCount("Monthly",MobileLearning.CCH_TARGET_TYPE_LEARNING);
-    		midYearLearningId=db.getCount("Mid-year",MobileLearning.CCH_TARGET_TYPE_LEARNING);
-    		thisQuarterLearningId=db.getCount("Quarterly",MobileLearning.CCH_TARGET_TYPE_LEARNING);
-    		thisYearLearningId=db.getCount("Annually",MobileLearning.CCH_TARGET_TYPE_LEARNING);
-    		
     		
     		 todayOtherId=db.getCount("Daily",MobileLearning.CCH_TARGET_TYPE_OTHER);
     		 thisWeekOtherId=db.getCount("Weekly",MobileLearning.CCH_TARGET_TYPE_OTHER);
@@ -192,22 +156,10 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
     		 midYearOtherId=db.getCount("Mid-year",MobileLearning.CCH_TARGET_TYPE_OTHER);
     		 thisQuarterOtherId=db.getCount("Quarterly",MobileLearning.CCH_TARGET_TYPE_OTHER);
     		 thisYearOtherId=db.getCount("Annually",MobileLearning.CCH_TARGET_TYPE_OTHER);
-    		 
-    		
     		
     		 /* Get StayingWell todos */
     		todos = db.getSWRoutineActivities();
-	    	counter=events.size();
-	    	/*
-	    	 int coverage_number1=(int)todayCoverageId;
-			 int coverage_number2=(int)thisWeekCoverageId;
-			 int coverage_number3=(int)thisMonthCoverageId;
-			 int coverage_number4=(int)midYearCoverageId;
-			 int coverage_number5=(int)thisQuarterCoverageId;
-			 int coverage_number6=(int)thisYearCoverageId;
-			
-			counter2=coverage_number1+coverage_number2+coverage_number3+coverage_number4+coverage_number5+coverage_number6;
-		*/
+	    	//counter=events.size();
 	    	 int other_number1=(int)todayOtherId;
 			 int other_number2=(int)thisWeekOtherId;
 			 int other_number3=(int)thisMonthOtherId;
@@ -221,18 +173,6 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 					other_number4+
 					other_number5+
 					other_number6;
-			 int learning_number1=(int)todayLearningId;
-			 int learning_number2=(int)thisWeekLearningId;
-			 int learning_number3=(int)thisMonthLearningId;
-			 int learning_number4=(int)midYearLearningId;
-			 int learning_number5=(int)thisQuarterLearningId;
-			 int learning_number6=(int)thisYearLearningId;
-			counter3=learning_number1+
-					learning_number2+
-					learning_number3+
-					learning_number4+
-					learning_number5+
-					learning_number6;
 			if(todos!=null){
 				counter5=todos.size();
 			}else{
@@ -240,13 +180,11 @@ public class NewEventPlannerActivity extends SherlockFragmentActivity implements
 			}
                  switch (position) {
                          case 0:
-                                 return "EVENTS"+" ("+String.valueOf(counter)+")";
+                                 //return "EVENTS"+" ("+String.valueOf(counter)+")";
+                                 return "OTHER"+" ("+String.valueOf(counter4)+")";
                          case 1:
-                        	 return "LEARNING"+" ("+String.valueOf(counter3)+")";
-                         case 2: 
                         	 return "ROUTINES (" +  String.valueOf(counter5) + ")";
-                         case 3: 
-                        		return "OTHER"+" ("+String.valueOf(counter4)+")";
+                        		
                        
                  }
                  return null;

@@ -22,6 +22,7 @@ import java.io.File;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.task.SubmitQuizTask;
 import org.digitalcampus.oppia.task.SubmitTrackerMultipleTask;
+import org.grameenfoundation.cch.tasks.FacilityTargetsSyncTask;
 import org.grameenfoundation.cch.tasks.FacilityTargetsTask;
 import org.grameenfoundation.cch.tasks.StayingWellNotifyTask;
 import org.grameenfoundation.cch.tasks.SurveyNotifyTask;
@@ -65,11 +66,16 @@ public class MobileLearning extends Application {
 	// local storage vars
 	public static final String OPPIAMOBILE_ROOT = Environment
 			.getExternalStorageDirectory() + "/digitalcampus/";
+	public static final String POC_ROOT = Environment
+			.getExternalStorageDirectory() + "/poc/";
 	public static final String REFERENCES_ROOT = Environment
 			.getExternalStorageDirectory() + "/references/";
 	public static final String COURSES_PATH = OPPIAMOBILE_ROOT + "modules/";
 	public static final String MEDIA_PATH = OPPIAMOBILE_ROOT + "media/";
 	public static final String DOWNLOAD_PATH = OPPIAMOBILE_ROOT + "download/";
+	public static final String POC_DOWNLOAD_PATH = POC_ROOT + "download/";
+	public static final String POC_SERVER_DOWNLOAD_PATH = "http://188.166.30.140/poccms/";
+	public static final String POC_SERVER_CONTENT_DOWNLOAD_PATH = "http://188.166.30.140/uploads/";
 	public static final String COURSE_XML = "module.xml";
 	public static final String COURSE_SCHEDULE_XML = "schedule.xml";
 	public static final String COURSE_TRACKER_XML = "tracker.xml";
@@ -90,6 +96,8 @@ public class MobileLearning extends Application {
 	public static final String CCH_QUOTES_SUBMIT_PATH = "api/v1/quotes";
 	public static final String CCH_USER_DETAILS_PATH = "cch/yabr3/api/v1/details/";
 	public static final String FACILITY_TARGETS_PATH = "cch/yabr3/getTargets?nurse_id=";
+	public static final String FACILITY_TARGETS_SYNC_PATH = "cch/yabr3/getFacilityTargets?zone=";
+	public static final String CCH_GROUPS_PATH = "cch/yabr3/getNurses?nurse_id=";
 	public static final String CCH_USER_ACHIEVEMENTS_PATH = "cch/yabr3/api/v1/achievements/";
 	public static final String CCH_COURSE_DETAILS_PATH = "cch/yabr3/courses";
 	public static final String CCH_TRACKER_SUBMIT_PATH = "api/v1/tracker";
@@ -128,6 +136,7 @@ public class MobileLearning extends Application {
 	
 	// for tracking if SubmitTrackerMultipleTask is already running
 	public SubmitTrackerMultipleTask omSubmitTrackerMultipleTask = null;
+	public FacilityTargetsSyncTask omFacilityTargetSyncTask = null;
 	
 	// for tracking if SubmitQuizTask is already running
 	public SubmitQuizTask omSubmitQuizTask = null;

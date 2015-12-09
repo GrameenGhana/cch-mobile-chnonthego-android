@@ -32,6 +32,10 @@ public class User {
 	private boolean passwordRight = true;
 	private String userrole;
 	private String district;
+	private String subdistrict;
+	private String facility;
+	private String zone;
+	private String staffid;
 	
 	public String getUsername() {
 		return username;
@@ -53,11 +57,38 @@ public class User {
 	public void setUserDistrict(String district) {
 		this.district = district;
 	}
+	
+	public String getUserSubsistrict() {
+		return subdistrict;
+	}
+	public void setUserSubsistrict(String subdistrict) {
+		this.subdistrict = subdistrict;
+	}
+	
+	public String getUserFacility() {
+		return facility;
+	}
+	public void setUserFacility(String facility) {
+		this.facility = facility;
+	}
+	
+	public String getUserZone() {
+		return zone;
+	}
+	public void setUserZone(String zone) {
+		this.zone = zone;
+	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getStaffId() {
+		return staffid;
+	}
+	public void setStaffId(String staffid) {
+		this.staffid = staffid;
 	}
 	public String getPassword() {
 		return password;

@@ -57,6 +57,7 @@ public class GroupParticipantsAdapter extends BaseAdapter {
 		}
 		uuid = (CheckBox) list.findViewById(R.id.uuid);
 		uuid.setFocusable(false);
+		uuid.setChecked(false);
 		//holder.uuid.setFocusableInTouchMode(true);
 		target_type = (TextView) list.findViewById(R.id.action);
 		target_type.setText(Groups.get(position));

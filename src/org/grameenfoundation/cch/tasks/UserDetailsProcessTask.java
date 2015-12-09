@@ -66,12 +66,8 @@ public class UserDetailsProcessTask  extends AsyncTask<String, String, String>{
 		 JSONObject planData = null;
 		 JSONObject profileData = null;
 		 JSONArray jsonArray;
-		 JSONArray jsonGroups;
 		 JSONArray surveyResponses;
 		 String user_role = null;	
-		 String district;
-		 String facility;
-		 String group;
 		 String plan = "";
 		 JSONObject responses;
 		 int id = 0;
@@ -79,23 +75,7 @@ public class UserDetailsProcessTask  extends AsyncTask<String, String, String>{
 		 long largest = 0;
 		 try {
 			 json=new JSONObject(result);
-			 if(json.getString("ischn").equals("1")||json.getString("role").contains("Nurse")){
-				 user_role="chn";
-				 district=json.getString("district");
-				 jsonGroups=new JSONArray(json.getString("groups"));
-				 facility=json.getString("primary_facility");
-				 for (int j=0;j<jsonGroups.length();j++){
-					db.insertUserGroupMembers(jsonGroups.getJSONObject(j).getString("username"),
-												jsonGroups.getJSONObject(j).getString("first_name"), 
-												jsonGroups.getJSONObject(j).getString("last_name"));
-				 }
-				 db.updateUserData(user_role,district,facility);
-			 }else if(json.getString("role").equalsIgnoreCase("District Supervisor")||json.getString("role").equalsIgnoreCase("Sub-District Supervisor")){
-				 user_role=json.getString("role");
-				 district=json.getString("district");
-				 facility=json.getString("primary_facility");
-				 db.updateUserData(user_role,district,facility);
-			 }
+			 
 			 jsonArray=new JSONArray(json.getString("survey_data"));
 			 surveyResponses=new JSONArray(json.getString("survey_popup"));
 			 for(int i=0;i<jsonArray.length();i++){
@@ -144,6 +124,7 @@ public class UserDetailsProcessTask  extends AsyncTask<String, String, String>{
 			
 			 db.updateSurveyData("Agreed", profileData.getString("profile"), profileData.getString("responses"), plan,String.valueOf(largest));
 		
+			
 			 publishProgress("Finished setting user data");
 		} catch (NullPointerException e) {
 			db.updateSurveyData("", "", "", "","");

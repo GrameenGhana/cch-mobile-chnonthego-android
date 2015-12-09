@@ -126,13 +126,13 @@ public class OtherFacilityTargetActivity extends Activity {
 					String[] selected_items=adapter.getItem(position);
 					Intent intent=new Intent (context,UpdateFacilityTargetsActivity.class);
 					intent.putExtra("id", id);
-					intent.putExtra("category", "Home Visit");
+					intent.putExtra("category", "Antigens");
+					intent.putExtra("target_id", selected_items[12]);
 					if(selected_items[13].equals("")){
 						intent.putExtra("target_type", selected_items[1]);
 					}else{
-						intent.putExtra("target_type", selected_items[13]);
+						intent.putExtra("target_type", selected_items[13]);//if target type is generic, use target detail
 					}
-					intent.putExtra("target_id", selected_items[12]);
 					intent.putExtra("target_number", selected_items[2]);
 					intent.putExtra("target_achieved",selected_items[3]);
 					intent.putExtra("target_remaining", selected_items[4]);
@@ -142,8 +142,11 @@ public class OtherFacilityTargetActivity extends Activity {
 					intent.putExtra("status", selected_items[8]);
 					intent.putExtra("last_updated", selected_items[9]);
 					intent.putExtra("group", selected_items[10]);
+					intent.putExtra("target_group", selected_items[15]);//target_name ie Child Health etc
 					intent.putExtra("month", selected_items[11]);
-					startActivity(intent);
+					intent.putExtra("target_detail", selected_items[13]);//actual target detail
+					intent.putExtra("target_overall", selected_items[14]);
+					//startActivity(intent);
 				}
 			});
 	 }

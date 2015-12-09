@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import org.digitalcampus.mobile.learningGF.R;
-import org.digitalcampus.oppia.model.Course;
+import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.cch.model.FacilityTargets;
 
 import android.content.Context;
@@ -34,10 +34,12 @@ public class FacilityTargetAdapter extends BaseAdapter implements Filterable{
 	private TextView target_overall;
 	private double overall_percentage;
 	private String overall_percentage_achieved;
+	DbHelper db;
 	
 	public FacilityTargetAdapter(Context c, ArrayList<FacilityTargets> FacilityTargets) {
 		 context = c;
 		 facilityTargets = new ArrayList<FacilityTargets>();
+		 db=new DbHelper(c);
 		 facilityTargets.addAll(FacilityTargets);
 	 }
 	@Override
@@ -62,7 +64,9 @@ public class FacilityTargetAdapter extends BaseAdapter implements Filterable{
 				facilityTargets.get(position).getTargetGroupMembers(),//10
 				facilityTargets.get(position).getTargetMonth(),//11
 				facilityTargets.get(position).getTargetOldId(),//12
-				facilityTargets.get(position).getTargetDetail()};//13
+				facilityTargets.get(position).getTargetDetail(),//13
+				facilityTargets.get(position).getTargetOverall(),//14
+				facilityTargets.get(position).getTargetGroup()};//15
 		return items;
 	}
 
@@ -79,13 +83,11 @@ public class FacilityTargetAdapter extends BaseAdapter implements Filterable{
 	        		        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			  list = new View(context);
 			  list = inflater.inflate(R.layout.facility_target_listview_single, null);
-			 
-			
 		}  else {
 			 list = (View) convertView;  
 		}
 		 int number_achieved_today=Integer.valueOf(facilityTargets.get(position).getTargetNumberAchieved());
-		    percentage= ((double)number_achieved_today/Integer.valueOf(facilityTargets.get(position).getTargetNumber()))*100;	
+		    percentage= ((double)number_achieved_today/Integer.parseInt(facilityTargets.get(position).getTargetNumber()))*100;	
 		    percentage_achieved=String.format("%.0f", percentage);
 		    overall_percentage= ((double)number_achieved_today/Integer.valueOf(facilityTargets.get(position).getTargetOverall()))*100;	
 		   overall_percentage_achieved=String.format("%.0f", overall_percentage);
@@ -96,8 +98,10 @@ public class FacilityTargetAdapter extends BaseAdapter implements Filterable{
 		 textView_lastUpdated = (TextView) list.findViewById(R.id.textView_lastUpdated);  
 		 textView_startDate = (TextView) list.findViewById(R.id.textView_startDate);
 		 textView_dueDate = (TextView) list.findViewById(R.id.textView_dueDate);
+		 System.out.println(facilityTargets.get(position).getTargetId()+facilityTargets.get(position).getTargetType());
 		 if(facilityTargets.get(position).getTargetDetail().equals("")){
 			 target_type.setText(facilityTargets.get(position).getTargetType());
+			 
 		 }else if(facilityTargets.get(position).getTargetType().equals("50yrs-60yrs")){
 			 target_type.setText(facilityTargets.get(position).getTargetCategory());
 		 }else{
@@ -108,7 +112,8 @@ public class FacilityTargetAdapter extends BaseAdapter implements Filterable{
 		 String second="<font color='#520000'><strong>"+"Last Updated: "+"</strong></font>";
 		 String third="<font color='#520000'><strong>"+"Month's Target progress: "+"</strong></font>";
 		 target_overall.setText(Html.fromHtml(first+facilityTargets.get(position).getTargetOverall()+" ("+overall_percentage_achieved+"%)"));
-		 textView_achieved.setText(Html.fromHtml(third+facilityTargets.get(position).getTargetNumberAchieved()+"/"+facilityTargets.get(position).getTargetNumber()+" ("+percentage_achieved+"%)"));
+		 
+		 textView_achieved.setText(Html.fromHtml(third+facilityTargets.get(position).getTargetNumberAchieved()+"/"+String.valueOf(facilityTargets.get(position).getTargetNumber())+" ("+percentage_achieved+"%)"));
 		 textView_lastUpdated.setText(Html.fromHtml(second+facilityTargets.get(position).getTargetLastUpdated()));
 		 textView_startDate.setText("Start: "+facilityTargets.get(position).getTargetStartDate());
 		 textView_dueDate.setText("Due: "+facilityTargets.get(position).getTargetEndDate());
@@ -141,7 +146,6 @@ public class FacilityTargetAdapter extends BaseAdapter implements Filterable{
 	                *  else does the Filtering and returns FilteredArrList(Filtered)
 	                *
 	                ********/
-	
 	               if (constraint == null || constraint.length() == 0) {
 
 	                   // set the Original result to return
@@ -178,13 +182,9 @@ public class FacilityTargetAdapter extends BaseAdapter implements Filterable{
 	               }
 	               return results;
 	           }
-
-
 	        };
 	        return filter;
 	            }
-	
-	
 	 public void updateAdapter(ArrayList<FacilityTargets> facilityList) {
 	        this.facilityTargets= facilityList;
 

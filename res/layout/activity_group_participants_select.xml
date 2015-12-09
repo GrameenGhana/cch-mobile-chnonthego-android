@@ -1,41 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="10dp"
+    android:weightSum="5" >
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select participants in the list below"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall" 
+        android:layout_weight="0.1"/>
 
     <CheckBox
         android:id="@+id/checkBox_self"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CheckBox" />
-
+        android:text="CheckBox" 
+         android:layout_weight="0.1"/>
+<ScrollView 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+     android:layout_weight="4.7" 
+    >
     <LinearLayout
+        android:id="@+id/parent_view"
         android:layout_width="match_parent"
-        android:layout_height="348dp"
-        android:orientation="vertical" >
-
-        <ListView
-            android:id="@+id/listView_groups"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </ListView>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
 
     </LinearLayout>
-
+</ScrollView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+         android:layout_weight="0.1" >
 
         <Button
             android:id="@+id/button_select"

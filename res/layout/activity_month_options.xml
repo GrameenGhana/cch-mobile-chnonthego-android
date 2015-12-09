@@ -3,11 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/White"
+    android:gravity="center"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="402dp"
         android:background="@color/White"
         android:orientation="vertical"
         android:padding="20dp" >
@@ -21,5 +22,13 @@
             android:dividerHeight="5dp" >
         </ListView>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button_sync"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Sync Target Update"
+        android:visibility="gone" />
 
 </LinearLayout>

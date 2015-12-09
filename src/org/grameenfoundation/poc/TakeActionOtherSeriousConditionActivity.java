@@ -26,21 +26,23 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
 	    super.onCreate(savedInstanceState);
 	    Bundle extras = getIntent().getExtras(); 
 	    getActionBar().setTitle("Point of Care");
-	   
+	    dbh=new DbHelper(TakeActionOtherSeriousConditionActivity.this);
+	    start_time=System.currentTimeMillis();
         if (extras != null) {
           take_action_category= extras.getString("category");
         }
         if(take_action_category.equals("bleeding")){
 	    setContentView(R.layout.activity_bleeding_umbilical_cord);
 	    getActionBar().setSubtitle("PNC Diagnostic: Other Serious Conditions > Bleeding Umbilical Cord");
+	   
 	    json=new JSONObject();
 	    try {
 			json.put("page", "PNC Diagnostic: Other Serious Conditions > Bleeding Umbilical Cord");
 			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
-			json.put("ver", dbh.getVersionNumber(mContext));
-			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("ver", dbh.getVersionNumber(TakeActionOtherSeriousConditionActivity.this));
+			json.put("battery", dbh.getBatteryStatus(TakeActionOtherSeriousConditionActivity.this));
 			json.put("device", dbh.getDeviceName());
-			json.put("imei", dbh.getDeviceImei(mContext));
+			json.put("imei", dbh.getDeviceImei(TakeActionOtherSeriousConditionActivity.this));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -63,10 +65,10 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
 	    try {
 			json.put("page", "PNC Diagnostic: Other Serious Conditions > Soft Swelling");
 			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
-			json.put("ver", dbh.getVersionNumber(mContext));
-			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("ver", dbh.getVersionNumber(TakeActionOtherSeriousConditionActivity.this));
+			json.put("battery", dbh.getBatteryStatus(TakeActionOtherSeriousConditionActivity.this));
 			json.put("device", dbh.getDeviceName());
-			json.put("imei", dbh.getDeviceImei(mContext));
+			json.put("imei", dbh.getDeviceImei(TakeActionOtherSeriousConditionActivity.this));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -89,10 +91,10 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
 	    try {
 			json.put("page", "PNC Diagnostic: Other Serious Conditions > Open Tissue");
 			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
-			json.put("ver", dbh.getVersionNumber(mContext));
-			json.put("battery", dbh.getBatteryStatus(mContext));
+			json.put("ver", dbh.getVersionNumber(TakeActionOtherSeriousConditionActivity.this));
+			json.put("battery", dbh.getBatteryStatus(TakeActionOtherSeriousConditionActivity.this));
 			json.put("device", dbh.getDeviceName());
-			json.put("imei", dbh.getDeviceImei(mContext));
+			json.put("imei", dbh.getDeviceImei(TakeActionOtherSeriousConditionActivity.this));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -115,10 +117,10 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
     	    try {
     			json.put("page", "PNC Diagnostic: Other Serious Conditions > No Urine");
     			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
-    			json.put("ver", dbh.getVersionNumber(mContext));
-    			json.put("battery", dbh.getBatteryStatus(mContext));
+    			json.put("ver", dbh.getVersionNumber(TakeActionOtherSeriousConditionActivity.this));
+    			json.put("battery", dbh.getBatteryStatus(TakeActionOtherSeriousConditionActivity.this));
     			json.put("device", dbh.getDeviceName());
-    			json.put("imei", dbh.getDeviceImei(mContext));
+    			json.put("imei", dbh.getDeviceImei(TakeActionOtherSeriousConditionActivity.this));
     		} catch (JSONException e) {
     			e.printStackTrace();
     		}
@@ -143,10 +145,10 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
     	    try {
     			json.put("page", "PNC Diagnostic: Other Serious Conditions > Vomiting");
     			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
-    			json.put("ver", dbh.getVersionNumber(mContext));
-    			json.put("battery", dbh.getBatteryStatus(mContext));
+    			json.put("ver", dbh.getVersionNumber(TakeActionOtherSeriousConditionActivity.this));
+    			json.put("battery", dbh.getBatteryStatus(TakeActionOtherSeriousConditionActivity.this));
     			json.put("device", dbh.getDeviceName());
-    			json.put("imei", dbh.getDeviceImei(mContext));
+    			json.put("imei", dbh.getDeviceImei(TakeActionOtherSeriousConditionActivity.this));
     		} catch (JSONException e) {
     			e.printStackTrace();
     		}
@@ -171,10 +173,10 @@ public class TakeActionOtherSeriousConditionActivity extends BaseActivity {
     	    try {
     			json.put("page", "PNC Diagnostic: Other Serious Conditions > Blood in Stool");
     			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
-    			json.put("ver", dbh.getVersionNumber(mContext));
-    			json.put("battery", dbh.getBatteryStatus(mContext));
+    			json.put("ver", dbh.getVersionNumber(TakeActionOtherSeriousConditionActivity.this));
+    			json.put("battery", dbh.getBatteryStatus(TakeActionOtherSeriousConditionActivity.this));
     			json.put("device", dbh.getDeviceName());
-    			json.put("imei", dbh.getDeviceImei(mContext));
+    			json.put("imei", dbh.getDeviceImei(TakeActionOtherSeriousConditionActivity.this));
     		} catch (JSONException e) {
     			e.printStackTrace();
     		}

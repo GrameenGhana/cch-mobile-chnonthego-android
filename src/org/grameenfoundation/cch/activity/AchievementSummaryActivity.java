@@ -2,57 +2,32 @@ package org.grameenfoundation.cch.activity;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.concurrent.Callable;
 
 import org.digitalcampus.mobile.learningGF.R;
-import org.digitalcampus.oppia.activity.CourseActivity;
-import org.digitalcampus.oppia.activity.CourseIndexActivity;
-import org.digitalcampus.oppia.activity.DownloadActivity;
-import org.digitalcampus.oppia.activity.TagSelectActivity;
-import org.digitalcampus.oppia.adapter.SectionListAdapter;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
-import org.digitalcampus.oppia.exception.InvalidXMLException;
-import org.digitalcampus.oppia.model.Activity;
-import org.digitalcampus.oppia.model.Course;
-import org.digitalcampus.oppia.model.Lang;
 import org.digitalcampus.oppia.model.Scores;
-import org.digitalcampus.oppia.model.Section;
-import org.digitalcampus.oppia.utils.CourseXMLReader;
-import org.digitalcampus.oppia.utils.UIUtils;
 import org.grameenfoundation.calendar.CalendarEvents;
-import org.grameenfoundation.cch.model.EventTargets;
 import org.grameenfoundation.cch.model.FacilityTargets;
-import org.grameenfoundation.cch.model.LearningTargets;
 import org.grameenfoundation.cch.model.MyCalendarEvents;
-import org.grameenfoundation.cch.model.TargetsForAchievements;
 import org.grameenfoundation.poc.BaseActivity;
 import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.utils.Legend;
-import com.github.mikephil.charting.utils.Legend.LegendPosition;
 import com.github.mikephil.charting.utils.XLabels;
 import com.github.mikephil.charting.utils.XLabels.XLabelPosition;
 import com.github.mikephil.charting.utils.YLabels;
 import com.github.mikephil.charting.utils.YLabels.YLabelPosition;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
@@ -79,9 +54,6 @@ public class AchievementSummaryActivity extends BaseActivity {
 	private TextView textView_eventPercentage;
 	private TextView textView_targetsPercentage;
 	private TextView textView_coursesPercentage;
-	private int totalEventTargets;
-	private int totalCoverageTargets;
-	private int totalLearningTargets;
 	private int totalOtherTargets;
 	private LinearLayout linearLayout_graph;
 	private BarChart chart;
@@ -208,20 +180,14 @@ public class AchievementSummaryActivity extends BaseActivity {
 	}
 	
 	private String calculateTargetsCompleted(){
-		//completedEventTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_UPDATED,MobileLearning.CCH_TARGET_TYPE_EVENT, month+1, year);
-		//completedCoverageTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_UPDATED,MobileLearning.CCH_TARGET_TYPE_COVERAGE, month+1, year);
-		completedLearningTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_UPDATED,MobileLearning.CCH_TARGET_TYPE_LEARNING,  month+1, year);
 		completedOtherTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_UPDATED, MobileLearning.CCH_TARGET_TYPE_OTHER,month+1, year);
 		completedFacilityTargets=db.getListOfFacilityTargetsForAchievements(MobileLearning.CCH_TARGET_STATUS_UPDATED,month_text, year);
 		unCompletedFacilityTargets=db.getListOfFacilityTargetsForAchievements(MobileLearning.CCH_TARGET_STATUS_NEW,month_text, year);
-	    //totalEventTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_EVENT,month+1, year);
-	   // totalCoverageTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_COVERAGE,month+1, year);
-	    totalLearningTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_LEARNING,month+1, year);
 	    totalOtherTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_OTHER,month+1, year);
 	    totalFacilityTargets=completedFacilityTargets.size()+unCompletedFacilityTargets.size();
 	    
 		numberCompleted=completedLearningTargets+completedOtherTargets+completedFacilityTargets.size();
-		int totalNumber=totalLearningTargets+totalOtherTargets+totalFacilityTargets;
+		int totalNumber=totalOtherTargets+totalFacilityTargets;
 		System.out.println("Total Targets:"+String.valueOf(totalNumber));
 		String percentage;
 		if(totalNumber>0){
@@ -235,22 +201,16 @@ public class AchievementSummaryActivity extends BaseActivity {
 	
 	private String calculateTargetsTodo(){
 		
-		//futureEventTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_NEW, MobileLearning.CCH_TARGET_TYPE_EVENT,month+1, year);
-		//futureCoverageTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_COVERAGE, month+1, year);
-	    futureLearningTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_LEARNING, month+1, year);
 	    futureOtherTargets=db.getTargetsBasedOnStatus(MobileLearning.CCH_TARGET_STATUS_NEW,MobileLearning.CCH_TARGET_TYPE_OTHER, month+1, year);
 	    completedFacilityTargets=db.getListOfFacilityTargetsForAchievements(MobileLearning.CCH_TARGET_STATUS_UPDATED,month_text, year);
 	    unCompletedFacilityTargets=db.getListOfFacilityTargetsForAchievements(MobileLearning.CCH_TARGET_STATUS_NEW,month_text, year);
 	    
-	    //totalEventTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_EVENT, month+1, year);
-	    //totalCoverageTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_COVERAGE,month+1, year);
-	    totalLearningTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_LEARNING,month+1, year);
 	    totalOtherTargets=db.getTargetsForAchievements(MobileLearning.CCH_TARGET_TYPE_OTHER,month+1, year);
 	    totalFacilityTargets=completedFacilityTargets.size()+unCompletedFacilityTargets.size();
 	    
 		numberCompleted=completedLearningTargets+completedOtherTargets+completedFacilityTargets.size();
 		numberFuture=futureLearningTargets+futureOtherTargets+unCompletedFacilityTargets.size();
-		int totalNumber=totalLearningTargets+totalOtherTargets+totalFacilityTargets;
+		int totalNumber=totalOtherTargets+totalFacilityTargets;
 		String percentage;
 		
 		if(totalNumber>0){

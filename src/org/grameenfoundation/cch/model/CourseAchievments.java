@@ -11,12 +11,28 @@ public class CourseAchievments {
 	private String resultsJSON;
 	private String courseTitle;
 	private String dateTaken;
+	private String course_attempts;
+	private String ksa_status;
+	private String id;
+	private String recordid;
 	
 	public CourseAchievments()
 	{
 		
 	}
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getRecordId() {
+		return recordid;
+	}
+	public void setRecordId(String recordid) {
+		this.recordid = recordid;
+	}
 	public String getCourseName() {
 		return courseName;
 	}
@@ -68,5 +84,20 @@ public class CourseAchievments {
 	public void setDateTaken(String dateTaken) {
 		this.dateTaken = dateTaken;
 	}
+	
+	public String getCourseAttempts() {
+		return course_attempts;
+	}
+	public void setCourseAttempts(String course_attempts) {
+		this.course_attempts = course_attempts;
+	}
+	
+	public String getCourseKSAStatus() {
+		return ksa_status;
+	}
+	public void setCourseKSAStatus(String ksa_status) {
+		this.ksa_status = ksa_status;
+	}
+
 
 }

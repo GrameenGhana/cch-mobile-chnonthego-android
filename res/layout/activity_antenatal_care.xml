@@ -3,11 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/White"
+    android:gravity="center"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="390dp"
         android:background="@color/White"
         android:orientation="vertical"
         android:padding="10dp" >
@@ -24,5 +25,12 @@
         </ListView>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button_load"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Load POC content"
+        android:visibility="gone" />
 
 </LinearLayout>

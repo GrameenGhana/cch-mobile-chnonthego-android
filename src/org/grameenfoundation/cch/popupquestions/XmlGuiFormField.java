@@ -20,6 +20,9 @@ public class XmlGuiFormField {
 	boolean required;
 	String options;
 	Object obj;			// holds the ui implementation , i.e. the EditText for example
+	private String link;
+	private String group;
+	private String color_code;
 	
 	
 	// getters & setters
@@ -34,6 +37,26 @@ public class XmlGuiFormField {
 	}
 	public void setLabel(String label) {
 		this.label = label;
+	}
+	
+	public String getLink() {
+		return link;
+	}
+	public void setLink(String link) {
+		this.link = link;
+	}
+	
+	public String getGroup() {
+		return group;
+	}
+	public void setGroup(String group) {
+		this.group = group;
+	}
+	public String getColorCode() {
+		return color_code;
+	}
+	public void setColorCode(String color_code) {
+		this.color_code = color_code;
 	}
 	public String getType() {
 		return type;
@@ -60,6 +83,8 @@ public class XmlGuiFormField {
 		sb.append("Field Name: " + this.name + "\n");
 		sb.append("Field Label: " + this.label + "\n");
 		sb.append("Field Type: " + this.type + "\n");
+		sb.append("Field Link: " + this.link + "\n");
+		sb.append("Field Group: " + this.group + "\n");
 		sb.append("Required? : " + this.required + "\n");
 		sb.append("Options : " + this.options + "\n");
 		sb.append("Value : " + (String) this.getData() + "\n");

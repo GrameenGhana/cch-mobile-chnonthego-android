@@ -94,7 +94,7 @@ public class CalendarChangeReceiver extends BroadcastReceiver {
 			 
 			 Log.v(TAG,"Saving: "+json.toString());
 			 
-			 dbh.insertCCHLog(module, json.toString(), start, end);	
+			 //dbh.insertCCHLog(module, json.toString(), start, end);	
              cursor.moveToNext();
         }  	
         

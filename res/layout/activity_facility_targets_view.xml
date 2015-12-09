@@ -13,13 +13,14 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="Set reminders"
-        android:textColor="@color/TextColorWine" />
+        android:textColor="@color/TextColorWine"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentBottom="false"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/checkBox_daily"
         android:orientation="vertical" >
@@ -38,7 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/button_reminders"
-        android:text="Daily" />
+        android:text="Daily"
+        android:visibility="gone" />
 
     <CheckBox
         android:id="@+id/checkBox_weekly"
@@ -46,7 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/button_reminders"
         android:layout_centerHorizontal="true"
-        android:text="Weekly" />
+        android:text="Weekly"
+        android:visibility="gone" />
 
     <CheckBox
         android:id="@+id/checkBox_monthly"
@@ -55,7 +58,8 @@
         android:layout_alignBaseline="@+id/checkBox_weekly"
         android:layout_alignBottom="@+id/checkBox_weekly"
         android:layout_alignParentRight="true"
-        android:text="Monthly" />
+        android:text="Monthly"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/button_update"
@@ -65,6 +69,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:text="Update Targets"
-        android:textColor="@color/TextColorWine" />
+        android:textColor="@color/TextColorWine"
+        android:visibility="gone" />
 
 </RelativeLayout>

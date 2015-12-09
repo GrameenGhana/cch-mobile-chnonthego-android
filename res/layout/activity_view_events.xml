@@ -48,14 +48,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <ExpandableListView
-            android:id="@+id/expandableListView_calendarEvents"
+        <ListView
+            android:id="@+id/calendarEvents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/ButtonBackgroundGrey"
             android:divider="@color/White"
-            android:dividerHeight="10dp" >
-        </ExpandableListView>
+            android:dividerHeight="2dp" >
+        </ListView>
 
     </LinearLayout>
 

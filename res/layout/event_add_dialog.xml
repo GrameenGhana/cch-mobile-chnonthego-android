@@ -47,7 +47,7 @@
                     android:id="@+id/textView1"
                     android:layout_width="112dp"
                     android:layout_height="wrap_content"
-                    android:text="Category Name: "
+                    android:text="Target Name: "
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/Brown"
                     android:textStyle="bold" />

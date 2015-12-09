@@ -23,7 +23,7 @@ public class NewFacilityTargetsActivity extends Activity {
 	    getActionBar().setTitle("Planner");
 	    getActionBar().setSubtitle("Child Health Facility Targets");
 	    tabHost = (TabHost) findViewById(R.id.tabhost);
-	    LocalActivityManager mLocalActivityManager = new LocalActivityManager(NewFacilityTargetsActivity.this,false);
+	    LocalActivityManager mLocalActivityManager = new LocalActivityManager(NewFacilityTargetsActivity.this,true);
 		 mLocalActivityManager.dispatchCreate(savedInstanceState); // state will be bundle your activity state which you get in onCreate
 		 tabHost.setup(mLocalActivityManager);
 		 FragmentTabHost.TabSpec spec = tabHost.newTabSpec("tag");

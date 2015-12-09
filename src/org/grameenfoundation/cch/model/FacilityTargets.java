@@ -108,7 +108,7 @@ public class FacilityTargets {
 	public String getTargetNumberRemaining() {
 		return targetNumberRemaining;
 	}
-	public void setEventTargetNumberRemaining(String targetNumberRemaining) {
+	public void setTargetNumberRemaining(String targetNumberRemaining) {
 		this.targetNumberRemaining = targetNumberRemaining;
 	}
 	

@@ -1,23 +1,9 @@
 package org.grameenfoundation.cch.activity;
 
-import java.util.ArrayList;
-import java.util.Locale;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
-import org.digitalcampus.oppia.application.MobileLearning;
 import org.digitalcampus.oppia.service.TrackerService;
-import org.grameenfoundation.calendar.CalendarEvents;
-import org.grameenfoundation.cch.model.AgeGroupsFacilityTargetsActivity;
-import org.grameenfoundation.cch.model.CoverageTargetActivity;
-import org.grameenfoundation.cch.model.EventTargetActivity;
-import org.grameenfoundation.cch.model.FamilyPlanningFacilityTargetActivity;
-import org.grameenfoundation.cch.model.LearningTargetActivity;
-import org.grameenfoundation.cch.model.MyCalendarEvents;
-import org.grameenfoundation.cch.model.OtherTargetActivity;
-import org.grameenfoundation.cch.model.RoutineActivity;
-import org.grameenfoundation.cch.model.RoutineActivityDetails;
-import org.grameenfoundation.cch.model.SchoolHealthFacilityTargetActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 

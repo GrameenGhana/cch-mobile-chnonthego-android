@@ -52,7 +52,9 @@ public class AntigensFacilityTargetActivity extends Activity {
 	    dailyFilter=(CheckBox) findViewById(R.id.checkBox_daily);
 	    weeklyFilter=(CheckBox) findViewById(R.id.checkBox_weekly);
 	    monthly=(CheckBox) findViewById(R.id.checkBox_monthly);
+	   
 	    facilityTargets=db.getTargetsForMonthViewAgeGroups(currentDate.toString("MMMM"),type);
+	    
 	    adapter=new FacilityTargetAdapter(AntigensFacilityTargetActivity.this,facilityTargets);
 	    listView.setAdapter(adapter);
 	    
@@ -129,7 +131,7 @@ public class AntigensFacilityTargetActivity extends Activity {
 				if(selected_items[13].equals("")){
 					intent.putExtra("target_type", selected_items[1]);
 				}else{
-					intent.putExtra("target_type", selected_items[13]);
+					intent.putExtra("target_type", selected_items[13]);//if target type is generic, use target detail
 				}
 				intent.putExtra("target_number", selected_items[2]);
 				intent.putExtra("target_achieved",selected_items[3]);
@@ -140,8 +142,11 @@ public class AntigensFacilityTargetActivity extends Activity {
 				intent.putExtra("status", selected_items[8]);
 				intent.putExtra("last_updated", selected_items[9]);
 				intent.putExtra("group", selected_items[10]);
+				intent.putExtra("target_group", selected_items[15]);//target_name ie Child Health etc
 				intent.putExtra("month", selected_items[11]);
-				startActivity(intent);
+				intent.putExtra("target_detail", selected_items[13]);//actual target detail
+				intent.putExtra("target_overall", selected_items[14]);
+				//startActivity(intent);
 			}
 		});
 	}

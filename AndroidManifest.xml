@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.digitalcampus.mobile.learningGF"
-    android:versionCode="129"
-    android:versionName="3.0.44" 
+    android:versionCode="132"
+    android:versionName="3.0.45.1" 
     android:screenOrientation="portrait">
 
     <uses-sdk
@@ -409,6 +409,17 @@
             <activity android:name="org.grameenfoundation.cch.model.SchoolHealthFacilityTargetActivity"></activity>
             <activity android:name="org.grameenfoundation.cch.activity.GroupParticipantsSelectActivity"></activity>
             <activity android:name="org.grameenfoundation.cch.activity.MaternalHealthFacilityTargetsActivity"></activity>
+            <activity android:name="org.grameenfoundation.cch.activity.ViewEventDetailsActivity"></activity>
+            <activity android:name="org.grameenfoundation.cch.activity.UpdateEventActivity"></activity>
+            <activity android:name="org.grameenfoundation.cch.activity.EventsListViewActivity"></activity>
+            <activity android:name="org.grameenfoundation.cch.activity.UpdateEventsActivity"></activity>
+            <activity android:name="org.grameenfoundation.poc.ChildWelfareActivity"></activity>
+            <activity android:name="org.grameenfoundation.poc.ChildAgeCalculatorActivity"></activity>
+            <activity android:name="org.grameenfoundation.poc.ChildWelfareCalculatorsMenuActivity"></activity>
+            <activity android:name="org.grameenfoundation.poc.FamilyPlanningCalculatorActivity"></activity>
+            <activity android:name="org.grameenfoundation.cch.popupquestions.POCDynamicActivity"></activity>
+            <activity android:name="org.grameenfoundation.poc.CWCDiagnosticToolActivity"></activity>
+            <activity android:name="org.grameenfoundation.poc.CWCCounsellingActivity"></activity>
     </application>
 
 </manifest>

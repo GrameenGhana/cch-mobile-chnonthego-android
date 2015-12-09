@@ -7,6 +7,7 @@ import java.util.List;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
+import org.digitalcampus.oppia.model.User;
 import org.digitalcampus.oppia.utils.UIUtils;
 import org.grameenfoundation.adapters.FacilityTargetBulkUpdateAdapter;
 import org.grameenfoundation.cch.model.FacilityTargets;
@@ -23,7 +24,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.util.Log;
 import android.view.TextureView;
@@ -69,6 +72,7 @@ public class FacilityTargetBulkUpdateActivity extends Activity implements androi
 	private String percentage_achieved;
 	private RadioGroup radioGroup_group;
 	private ArrayList<String> groupmembernames;
+	private ArrayList<User> userdetails;
 	private TableRow other_option;
 	private EditText editText_otherOption;
 	private LinearLayout linearLayout_comment;
@@ -78,6 +82,11 @@ public class FacilityTargetBulkUpdateActivity extends Activity implements androi
 	private long end_time;
 	private Button button_select;
 	private TextView groups;
+	private SharedPreferences prefs;
+	private String staff_id;
+	private JSONObject facilityname;
+	private EditText comments;
+	private String group_ids;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -87,13 +96,22 @@ public class FacilityTargetBulkUpdateActivity extends Activity implements androi
 		start_time=System.currentTimeMillis();
 	    db=new DbHelper(FacilityTargetBulkUpdateActivity.this);
 	    groups=(TextView) findViewById(R.id.textView_group);
+	    prefs = PreferenceManager.getDefaultSharedPreferences(FacilityTargetBulkUpdateActivity.this);
+	    staff_id=prefs.getString("first_name", "name");
+	    try{
+	    	userdetails=new ArrayList<User>();
+	    	userdetails=db.getUserFirstName(staff_id);
+	    	facilityname=new JSONObject(userdetails.get(0).getUserFacility());
+	    }catch(Exception e){
+	    	e.printStackTrace();
+	    }
 	    justification=(MaterialSpinner) findViewById(R.id.spinner_justification);
-	    //targets_listview=(ListView) findViewById(R.id.listView_targets);
 	    button_update=(Button) findViewById(R.id.button_submit);
 	    radioGroup_justification=(RadioGroup) findViewById(R.id.radioGroup_justification);
 	    String[] items=getResources().getStringArray(R.array.Justification);
 	    other_option=(TableRow) findViewById(R.id.other_option);
 		linearLayout_comment=(LinearLayout) findViewById(R.id.LinearLayout_comment);
+		comments=(EditText) findViewById(R.id.editText_comment);
 		editText_otherOption=(EditText) findViewById(R.id.editText_otherOption);
 		other_option.setVisibility(View.GONE);
 		ArrayAdapter<String> adapter2=new ArrayAdapter<String>(FacilityTargetBulkUpdateActivity.this, android.R.layout.simple_list_item_1, items);
@@ -113,40 +131,6 @@ public class FacilityTargetBulkUpdateActivity extends Activity implements androi
 				
 			}
 		});
-		// radioGroup_group=(RadioGroup) findViewById(R.id.radioGroup_groups);
-		 //groupmembernames=new ArrayList<String>();
-		// groupmembernames=db.getAllGroupMembers();
-		// Collections.sort(groupmembernames,String.CASE_INSENSITIVE_ORDER);
-		// group_spinner = (MultiSelectSpinner) findViewById(R.id.spinner1);
-	    //    //group_spinner.setAdapter(adapter, false, onSelectedListener);
-		/*
-	        group_spinner.setItems(groupmembernames, "Select group members", -1, new MultiSpinnerListener() {
-				
-				@Override
-				public void onItemsSelected(boolean[] selected) {
-					
-					// your operation with code...
-					for(int i=0; i<selected.length; i++) {
-						if(selected[i]) {
-							Log.i("TAG", i + " : "+ groupmembernames.get(i));
-						}
-					}
-				}
-			});
-	        radioGroup_group.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-				
-				@Override
-				public void onCheckedChanged(RadioGroup group, int checkedId) {
-					if(checkedId==R.id.radio_yesGroup){
-						group_spinner.setVisibility(View.VISIBLE);
-					}else{
-						group_spinner.setVisibility(View.GONE);
-					}
-					
-				}
-			});*/
-	    //adapter=new FacilityTargetBulkUpdateAdapter(FacilityTargetBulkUpdateActivity.this,facilityTargets);
-	    //targets_listview.setAdapter(adapter);
 	    	radioGroup_justification.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
 			@Override
@@ -197,33 +181,56 @@ public class FacilityTargetBulkUpdateActivity extends Activity implements androi
 								}
 							  })
 							.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+
 								public void onClick(DialogInterface dialog,int id_negative) {
 					for (int i=0;i<parentView.getChildCount();i++){
 						if(allCb.get(i).isChecked()){
+							 end_time=System.currentTimeMillis();
 							int event_new_number_achieved=Integer.valueOf(allEds.get(i).getText().toString());
 				        	int event_number_achieved_for_entry=event_new_number_achieved+Integer.valueOf(facilityTargets.get(i).getTargetNumberAchieved());
 				        	int event_number_remaining_for_entry=Integer.valueOf(facilityTargets.get(i).getTargetNumber())-event_number_achieved_for_entry;
-							if(event_number_achieved_for_entry==Integer.valueOf(facilityTargets.get(i).getTargetNumber())){
-								db.editFacilityTargetUpdate(groups.getText().toString(), String.valueOf(event_number_achieved_for_entry), 
+								db.editFacilityTargetUpdate(groups.getText().toString(), 
+										String.valueOf(event_number_achieved_for_entry), 
 									String.valueOf(event_number_remaining_for_entry), 
 									MobileLearning.CCH_TARGET_STATUS_UPDATED, db.getDateTime(), 
 									Long.parseLong(facilityTargets.get(i).getTargetId()));
 								 try {
+									db.insertFacilityTargetUpdate(Integer.parseInt(facilityTargets.get(i).getTargetId()), 
+												facilityTargets.get(i).getTargetType(),
+												category, facilityTargets.get(i).getTargetDetail(),
+												facilityTargets.get(i).getTargetGroup(),
+												facilityTargets.get(i).getTargetOverall(),
+												facilityTargets.get(i).getTargetNumber(),
+												allEds.get(i).getText().toString(), 
+												String.valueOf(event_number_remaining_for_entry),
+												returnUpdateStatus(event_number_achieved_for_entry,
+												Integer.valueOf(facilityTargets.get(i).getTargetNumber())),
+												String.valueOf(end_time), 
+												groups.getText().toString(),
+												returnMonth(facilityTargets.get(i).getTargetMonth()),
+												comments.getText().toString(), 
+												justification_text,
+												facilityname.getString("name").toString(),
+												userdetails.get(0).getUserZone());
 									 json.put("target_id", facilityTargets.get(i).getTargetId());
-									 if(facilityTargets.get(i).getTargetDetail().equals("")){
+									 //if(facilityTargets.get(i).getTargetDetail().equals("")){
 										 json.put("target_type", facilityTargets.get(i).getTargetType());
-									 }else{
-										 json.put("target_type", facilityTargets.get(i).getTargetDetail());
-									 }
-									 json.put("category", category);
+									// }else{
+										// json.put("target_type", facilityTargets.get(i).getTargetDetail());
+									 //}
+									 json.put("target_category", facilityTargets.get(i).getTargetCategory());
 									 json.put("target_number", facilityTargets.get(i).getTargetNumber());
-									 json.put("start_date", facilityTargets.get(i).getTargetStartDate());
-									 json.put("due_date", facilityTargets.get(i).getTargetEndDate());
-									 json.put("achieved_number", event_number_achieved_for_entry);
-									 json.put("last_updated", db.getDateTime());
+									 json.put("target_month", returnMonth(facilityTargets.get(i).getTargetMonth()));
+									 json.put("target_group", facilityTargets.get(i).getTargetGroup());
+									 json.put("target_detail", facilityTargets.get(i).getTargetDetail());
+									 json.put("achieved_number", allEds.get(i).getText().toString());
+									 json.put("last_updated",String.valueOf(end_time));
+									 json.put("facility",facilityname.getString("name").toString());
+									 json.put("zone",userdetails.get(0).getUserZone());
 									 json.put("justification", justification_text); 
+									 json.put("comments", comments.getText().toString()); 
 									 if(!groups.getText().toString().equals("No participants selected")){
-										 json.put("group_members", groups.getText().toString());
+											 json.put("group_members",group_ids);
 									 }else{
 										 json.put("group_members", "no group");
 									 }
@@ -232,80 +239,10 @@ public class FacilityTargetBulkUpdateActivity extends Activity implements androi
 								     json.put("device", db.getDeviceName());
 								     json.put("imei", db.getDeviceImei(getApplicationContext()));
 									 
-								} catch (JSONException e) {
+								} catch (Exception e) {
 									e.printStackTrace();
 								}
-								 end_time=System.currentTimeMillis();
 								 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
-							}else if(event_number_achieved_for_entry<Integer.valueOf(facilityTargets.get(i).getTargetNumber())){
-								db.editFacilityTargetUpdate(groups.getText().toString(), String.valueOf(event_number_achieved_for_entry), 
-										String.valueOf(event_number_remaining_for_entry), 
-										MobileLearning.CCH_TARGET_STATUS_NEW, db.getDateTime(), 
-										Long.parseLong(facilityTargets.get(i).getTargetId()));
-								 try {
-									 json.put("target_id", facilityTargets.get(i).getTargetId());
-									 if(facilityTargets.get(i).getTargetDetail().equals("")){
-										 json.put("target_type", facilityTargets.get(i).getTargetType());
-									 }else{
-										 json.put("target_type", facilityTargets.get(i).getTargetDetail());
-									 }
-									 json.put("category", category);
-									 json.put("target_number", facilityTargets.get(i).getTargetNumber());
-									 json.put("start_date", facilityTargets.get(i).getTargetStartDate());
-									 json.put("due_date", facilityTargets.get(i).getTargetEndDate());
-									 json.put("achieved_number", event_number_achieved_for_entry);
-									 json.put("last_updated", db.getDateTime());
-									 json.put("justification", justification_text); 
-									 if(!groups.getText().toString().equals("No participants selected")){
-										 json.put("group_members", groups.getText().toString());
-									 }else{
-										 json.put("group_members", "no group");
-									 }
-									 json.put("ver", db.getVersionNumber(getApplicationContext()));
-									 json.put("battery", db.getBatteryStatus(getApplicationContext()));
-								     json.put("device", db.getDeviceName());
-								     json.put("imei", db.getDeviceImei(getApplicationContext()));
-									 
-								} catch (JSONException e) {
-									e.printStackTrace();
-								}
-								 end_time=System.currentTimeMillis();
-								 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
-							}else if(event_number_achieved_for_entry>Integer.valueOf(facilityTargets.get(i).getTargetNumber())){
-								db.editFacilityTargetUpdate(groups.getText().toString(), String.valueOf(event_number_achieved_for_entry), 
-										String.valueOf(event_number_remaining_for_entry), 
-										MobileLearning.CCH_TARGET_STATUS_UPDATED, db.getDateTime(), 
-										Long.parseLong(facilityTargets.get(i).getTargetId()));
-								 try {
-									 json.put("target_id", facilityTargets.get(i).getTargetId());
-									 if(facilityTargets.get(i).getTargetDetail().equals("")){
-										 json.put("target_type", facilityTargets.get(i).getTargetType());
-									 }else{
-										 json.put("target_type", facilityTargets.get(i).getTargetDetail());
-									 }
-									 json.put("category", category);
-									 json.put("target_number", facilityTargets.get(i).getTargetNumber());
-									 json.put("start_date", facilityTargets.get(i).getTargetStartDate());
-									 json.put("due_date", facilityTargets.get(i).getTargetEndDate());
-									 json.put("achieved_number", event_number_achieved_for_entry);
-									 json.put("last_updated", db.getDateTime());
-									 json.put("justification", justification_text); 
-									 if(!groups.getText().toString().equals("No participants selected")){
-										 json.put("group_members", groups.getText().toString());
-									 }else{
-										 json.put("group_members", "no group");
-									 }
-									 json.put("ver", db.getVersionNumber(getApplicationContext()));
-									 json.put("battery", db.getBatteryStatus(getApplicationContext()));
-								     json.put("device", db.getDeviceName());
-								     json.put("imei", db.getDeviceImei(getApplicationContext()));
-									 
-								} catch (JSONException e) {
-									e.printStackTrace();
-								}
-								 end_time=System.currentTimeMillis();
-								 db.insertCCHLog("Target Setting", json.toString(), String.valueOf(start_time), String.valueOf(end_time));
-							}
 						}
 						
 					}
@@ -343,7 +280,7 @@ public class FacilityTargetBulkUpdateActivity extends Activity implements androi
 			 percentage= ((double)number_achieved_today/Integer.valueOf(facilityTargets.get(i).getTargetNumber()))*100;	
 			 percentage_achieved=String.format("%.0f", percentage);
 			childViewOne=new LinearLayout(FacilityTargetBulkUpdateActivity.this);
-			childViewOne.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		    childViewOne.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 			childViewOne.setOrientation(LinearLayout.HORIZONTAL);
 			
 			childViewTwo=new LinearLayout(FacilityTargetBulkUpdateActivity.this);
@@ -386,6 +323,7 @@ public class FacilityTargetBulkUpdateActivity extends Activity implements androi
 	        if(resultCode == Activity.RESULT_OK){
 	            String result=data.getStringExtra("groups");
 	            groups.setText(result);
+	            group_ids=data.getStringExtra("group_ids");
 	        }
 	        if (resultCode == Activity.RESULT_CANCELED) {
 	          groups.setText("No participants selected");
@@ -414,4 +352,60 @@ public class FacilityTargetBulkUpdateActivity extends Activity implements androi
 		
 	}
 	
+	public String returnMonth(String month){
+		String monthInt = null;
+		switch (month) {
+		case "January":
+			monthInt="1";
+			break;
+		case "February":
+			monthInt="2";
+			break;
+		case "March":
+			monthInt="3";
+			break;
+		case "April":
+			monthInt="4";
+			break;
+		case "May":
+			monthInt="5";
+			break;
+		case "June":
+			monthInt="6";
+			break;
+		case "July":
+			monthInt="7";
+			break;
+		case "August":
+			monthInt="8";
+			break;
+		case "September":
+			monthInt="9";
+			break;
+		case "October":
+			monthInt="10";
+			break;
+		case "November":
+			monthInt="11";
+			break;
+		case "December":
+			monthInt="12";
+			break;
+		default:
+			break;
+		}
+		return monthInt;
+	}
+	public String returnUpdateStatus(int achieved_number,int target_number){
+		String status = null;
+		if(achieved_number==target_number){
+			status=MobileLearning.CCH_TARGET_STATUS_UPDATED;
+		}else if(achieved_number>target_number){
+			status=MobileLearning.CCH_TARGET_STATUS_UPDATED;
+		}else if(achieved_number<target_number){
+			status=MobileLearning.CCH_TARGET_STATUS_NEW;
+		}
+		
+		return status;
+	}
 }

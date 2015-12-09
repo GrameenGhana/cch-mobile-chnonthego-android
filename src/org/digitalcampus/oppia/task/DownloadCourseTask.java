@@ -33,21 +33,12 @@ import org.digitalcampus.oppia.listener.InstallCourseListener;
 import org.digitalcampus.oppia.model.Course;
 import org.digitalcampus.oppia.model.DownloadProgress;
 import org.digitalcampus.oppia.utils.HTTPConnectionUtils;
-import org.grameenfoundation.cch.activity.EventTargetsDetailActivity;
-import org.grameenfoundation.cch.activity.NewEventPlannerActivity;
 import org.grameenfoundation.cch.tasks.CourseDetailsTask;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.bugsense.trace.BugSenseHandler;
 

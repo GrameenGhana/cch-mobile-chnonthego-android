@@ -1,5 +1,7 @@
 package org.grameenfoundation.poc;
 
+import java.io.ObjectOutputStream.PutField;
+
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
@@ -65,6 +67,7 @@ public class QuickReadsMenuActivity extends BaseActivity {
 				switch(position){
 				case 0:
 					intent=new Intent(mContext,TreatingDiarrhoeaActivity.class);
+					intent.putExtra("value", "pnc");
 					startActivity(intent);
 					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 					break;

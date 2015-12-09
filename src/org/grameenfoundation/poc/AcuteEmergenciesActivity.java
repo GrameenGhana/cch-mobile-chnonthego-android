@@ -3,6 +3,7 @@ package org.grameenfoundation.poc;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
+import org.grameenfoundation.cch.popupquestions.POCDynamicActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -71,7 +72,7 @@ public class AcuteEmergenciesActivity extends BaseActivity implements OnClickLis
 		switch(position){
 		case 0:
 		extra_info="Difficulty breathing";
-		intent=new Intent(mContext, TakeActionActivity.class);
+		intent=new Intent(mContext, POCDynamicActivity.class);
 		intent.putExtra("take_action", extra_info);
 		intent.putExtra("start_time", System.currentTimeMillis());
 		startActivity(intent);

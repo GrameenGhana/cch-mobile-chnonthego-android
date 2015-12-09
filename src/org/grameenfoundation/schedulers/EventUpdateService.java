@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.grameenfoundation.calendar.CalendarEvents;
-import org.grameenfoundation.cch.activity.EventUpdateActivity;
 import org.grameenfoundation.cch.activity.NewEventPlannerActivity;
+import org.grameenfoundation.cch.activity.UpdateEventActivity;
 import org.grameenfoundation.cch.model.MyCalendarEvents;
 
 import android.app.NotificationManager;
@@ -52,7 +52,7 @@ public class EventUpdateService extends Service {
 		        .setContentText("You have "+String.valueOf(TodayCalendarEvents.size())+" event(s) to update.");
 		Intent resultIntent = new Intent(this, NewEventPlannerActivity.class);
 		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-		stackBuilder.addParentStack(EventUpdateActivity.class);
+		stackBuilder.addParentStack(UpdateEventActivity.class);
 		stackBuilder.addNextIntent(resultIntent);
 		PendingIntent resultPendingIntent =
 		        stackBuilder.getPendingIntent(

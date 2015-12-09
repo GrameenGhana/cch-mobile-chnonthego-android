@@ -55,7 +55,7 @@ public class AgeGroupsFacilityTargetsActivity extends Activity {
 		 //rootView=inflater.inflate(R.layout.activity_facility_age_groups,container,false);
 		setContentView(R.layout.activity_facility_age_groups);
 		 tabHost = (TabHost) findViewById(R.id.tabhost);
-		 LocalActivityManager mLocalActivityManager = new LocalActivityManager(AgeGroupsFacilityTargetsActivity.this,false);
+		 LocalActivityManager mLocalActivityManager = new LocalActivityManager(AgeGroupsFacilityTargetsActivity.this,true);
 		 mLocalActivityManager.dispatchCreate(savedInstanceState); // state will be bundle your activity state which you get in onCreate
 		 tabHost.setup(mLocalActivityManager);
 		 FragmentTabHost.TabSpec spec = tabHost.newTabSpec("tag");
@@ -69,11 +69,11 @@ public class AgeGroupsFacilityTargetsActivity extends Activity {
 	                return (new AnalogClock(getActivity()));
 	            }
 	        });*/
-	       spec.setContent(new Intent(AgeGroupsFacilityTargetsActivity.this,AntigensFacilityTargetActivity.class).putExtra("type", "0-11 months"));
+		 /* spec.setContent(new Intent(AgeGroupsFacilityTargetsActivity.this,AntigensFacilityTargetActivity.class).putExtra("type", "0-11 months"));
 	            
 	        tabHost.addTab(spec);
 	        spec = tabHost.newTabSpec("tag1");
-	        spec.setIndicator("6-11	months");/*
+	        spec.setIndicator("6-11	months");
 	        spec.setContent(new TabHost.TabContentFactory() {
 
 	            @Override
@@ -82,11 +82,11 @@ public class AgeGroupsFacilityTargetsActivity extends Activity {
 	                return (new AnalogClock(getActivity()));
 	            }
 	        });*/
-	       spec.setContent(new Intent(AgeGroupsFacilityTargetsActivity.this,AntigensFacilityTargetActivity.class).putExtra("type", "6-11 months"));
+		 /*spec.setContent(new Intent(AgeGroupsFacilityTargetsActivity.this,AntigensFacilityTargetActivity.class).putExtra("type", "6-11 months"));
 	        tabHost.addTab(spec);
 	        spec = tabHost.newTabSpec("tag2");
 	        spec.setIndicator("0-23 months");
-	        /*
+	       
 	        spec.setContent(new TabHost.TabContentFactory() {
 
 	            @Override

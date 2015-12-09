@@ -1,36 +1,16 @@
 package org.grameenfoundation.adapters;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
-
-
-
-
-
-
-
-
-
-
-
-
-
 import org.digitalcampus.mobile.learningGF.R;
-import org.digitalcampus.mobile.learningGF.R.color;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.cch.model.EventTargets;
-import org.grameenfoundation.cch.model.LearningTargets;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class UpdateTargetsAdapter extends BaseExpandableListAdapter{
@@ -45,8 +25,6 @@ public class UpdateTargetsAdapter extends BaseExpandableListAdapter{
 	 public LayoutInflater minflater;
 	 ExpandableListView event_list;
 	private int lastExpandedGroupPosition;
-	 
-	 
 	 public UpdateTargetsAdapter(Context c,ArrayList<EventTargets> dailyTargets ,
 										ArrayList<EventTargets> weeklyTargets,
 										ArrayList<EventTargets> monthlyTargets,

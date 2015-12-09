@@ -95,6 +95,8 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
  		dbh.alterCourseTableGroup();
  		dbh.alterUserTable();
  		dbh.alterUserTableDistrict();
+		dbh.alterUserTableForSubdistrict();
+		dbh.alterUserTableForZone();
  	  drop_one=AnimationUtils.loadAnimation(getApplicationContext(),
               R.anim.drop_one);
 	   drop_one.setAnimationListener(this);
@@ -139,15 +141,14 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
 		try{
 			Intent service2 = new Intent(this, EventUpdateService.class);
 			this.startService(service2);
-			Intent service = new Intent(this, UserDetailsUpdateService.class);
-			this.startService(service);
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		 if(isOnline()){
 				try{
 					//
-			if(dbh.getCourseGroups()>0){
+			if(dbh.getCourseGroups()>=0){
 						CourseDetailsTask courseDetails = new CourseDetailsTask(this);
 						courseDetails.execute(new String[] { getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.CCH_COURSE_DETAILS_PATH});
 					}
@@ -160,10 +161,9 @@ public class StartUpActivity extends Activity implements UpgradeListener, PostIn
 			dbh.alterFacilityTargetDetailTable();
 			dbh.alterFacilityTargetGroupTable();
 			dbh.alterFacilityTargetOverall();
-			if(isOnline()){
-				FacilityTargetsTask task = new FacilityTargetsTask(this);
-				//task.execute("http://188.226.189.149/cch/yabr3/getTargets?nurse_id=10832");
-			}
+			dbh.alterUserTableDistrict();
+			dbh.alterUserTableForSubdistrict();
+			dbh.alterUserTableForZone();
 	}
 	
 	

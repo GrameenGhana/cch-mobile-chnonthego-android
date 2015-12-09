@@ -21,7 +21,7 @@ public class MaternalHealthFacilityTargetsActivity extends Activity {
 		getActionBar().setTitle("Planner");
 	 	getActionBar().setSubtitle("Maternal Health Facility Targets");
 		 tabHost = (TabHost) findViewById(R.id.tabhost);
-		 LocalActivityManager mLocalActivityManager = new LocalActivityManager(MaternalHealthFacilityTargetsActivity.this,false);
+		 LocalActivityManager mLocalActivityManager = new LocalActivityManager(MaternalHealthFacilityTargetsActivity.this,true);
 		 mLocalActivityManager.dispatchCreate(savedInstanceState); // state will be bundle your activity state which you get in onCreate
 		 tabHost.setup(mLocalActivityManager);
 		 FragmentTabHost.TabSpec spec = tabHost.newTabSpec("tag");

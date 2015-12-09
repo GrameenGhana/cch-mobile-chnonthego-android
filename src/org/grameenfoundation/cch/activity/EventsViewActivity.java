@@ -24,33 +24,38 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class EventsViewActivity extends  BaseActivity {
 	public String[] groupItem;
 	
-	 
+	 public ArrayList<MyCalendarEvents> PastThisMonthCalendarEvents;
+	 public ArrayList<MyCalendarEvents> AllEvents;
+	 public ArrayList<MyCalendarEvents> AllCalendarEvents;
+	 public ArrayList<MyCalendarEvents> PastLastMonthCalendarEvents;
+	 public ArrayList<MyCalendarEvents> YesterdayCalendarEvents;
 	 public ArrayList<MyCalendarEvents> TodayCalendarEvents;
 	 public ArrayList<MyCalendarEvents> TomorrowCalendarEvents;
 	 public ArrayList<MyCalendarEvents> FutureCalendarEvents;
 	 CalendarEvents c;
 	 private DbHelper dbh;
 	 private static final String EVENT_PLANNER_ID = "Event Planner";
-	private ExpandableListView expandableList_events;
+	private ListView expandableList_events;
 	private Context mContext;
 	private Button button_viewCalendar;
-	
 	private CalendarEventsViewAdapter adapter;
-
-
 	private JSONObject data;
-
-
 	private Button button_update;
+
+	private String status;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -59,18 +64,132 @@ public class EventsViewActivity extends  BaseActivity {
 	    mContext=EventsViewActivity.this;
 	    c= new CalendarEvents(mContext);
 	    dbh = new DbHelper(mContext);
-	    String[] groupItems={"Today","Tomorrow","Future"};
+	    PastLastMonthCalendarEvents=dbh.getPastLastMonthEvents();
+		PastThisMonthCalendarEvents=dbh.getPastThisMonthEvents();
+		YesterdayCalendarEvents=dbh.getYesterdaysEvents();
+		TodayCalendarEvents=dbh.getTodaysEvents();
+    	TomorrowCalendarEvents=dbh.getTomorrowEvents();
+    	FutureCalendarEvents=dbh.getFutureEvents();
+	    String[] groupItems={"Last month ("+PastLastMonthCalendarEvents.size()+")",
+	    					 "Past this month ("+PastThisMonthCalendarEvents.size()+")",
+	    					 "Yesterday ("+YesterdayCalendarEvents.size()+")",
+	    					 "Today ("+ TodayCalendarEvents.size()+")",
+	    					 "Tomorrow ("+TomorrowCalendarEvents.size()+")",
+	    					 "Future ("+FutureCalendarEvents.size()+")"};
 	    getActionBar().setTitle("Planner");
 	    getActionBar().setSubtitle("Planned Events");
-		//new addition
-		TodayCalendarEvents=c.getTodaysEvents(false);
-		TomorrowCalendarEvents=c.getTomorrowsEvents(false);
-		FutureCalendarEvents=c.getFutureEvents(false);
-		
-	    expandableList_events=(ExpandableListView) findViewById(R.id.expandableListView_calendarEvents);
-	    adapter=new CalendarEventsViewAdapter(mContext,groupItems,TodayCalendarEvents,TomorrowCalendarEvents,FutureCalendarEvents,expandableList_events);
+	    expandableList_events=(ListView) findViewById(R.id.calendarEvents);
+	    ArrayAdapter<String> adapter=new ArrayAdapter<String>(mContext,  android.R.layout.simple_list_item_1,groupItems);
 	    expandableList_events.setAdapter(adapter);
-	   
+		//new addition
+	    try{
+	    	AllEvents=dbh.getCalendarEvents();
+	    	AllCalendarEvents=c.readAllCalendarEvents(mContext);
+	    	if(AllEvents.size()<AllCalendarEvents.size()){
+	    		for(int i=0;i<AllCalendarEvents.size();i++){
+	    			if(AllCalendarEvents.get(i).getEventStatus()==null){
+	    				status="";
+	    			}else{
+	    				status=AllCalendarEvents.get(i).getEventStatus();
+	    			}
+	    			dbh.insertCalendarEvent(Long.parseLong(AllCalendarEvents.get(i).getEventId()), 
+	    								AllCalendarEvents.get(i).getEventType(), 
+	    								"", 
+	    								AllCalendarEvents.get(i).getEventDescription(),
+	    								AllCalendarEvents.get(i).getEventCategory(), 
+	    								AllCalendarEvents.get(i).getEventLocation(), 
+	    								"", 
+	    								"", 
+	    								"", 
+	    								AllCalendarEvents.get(i).getEventStartDate(), 
+	    								AllCalendarEvents.get(i).getEventEndDate(), 
+	    								status, 
+	    								"", 
+	    								AllCalendarEvents.get(i).getEventDeleted());
+	    		}/*
+	    		PastLastMonthCalendarEvents=dbh.getPastLastMonthEvents();
+	    		PastThisMonthCalendarEvents=dbh.getPastThisMonthEvents();
+	    		YesterdayCalendarEvents=dbh.getYesterdaysEvents();
+	    		TodayCalendarEvents=dbh.getTodaysEvents();
+		    	TomorrowCalendarEvents=dbh.getTomorrowEvents();
+		    	FutureCalendarEvents=dbh.getFutureEvents();
+		    	
+		    	//adapter=new CalendarEventsViewAdapter(mContext,groupItems,PastLastMonthCalendarEvents,
+		    		//							   PastThisMonthCalendarEvents,YesterdayCalendarEvents,TodayCalendarEvents,TomorrowCalendarEvents,FutureCalendarEvents,expandableList_events);
+		    	//expandableList_events.setAdapter(adapter);
+	    	/*}else{
+	    		PastLastMonthCalendarEvents=dbh.getPastLastMonthEvents();
+	    		PastThisMonthCalendarEvents=dbh.getPastThisMonthEvents();
+	    		YesterdayCalendarEvents=dbh.getYesterdaysEvents();
+	    		TodayCalendarEvents=dbh.getTodaysEvents();
+		    	TomorrowCalendarEvents=dbh.getTomorrowEvents();
+		    	FutureCalendarEvents=dbh.getFutureEvents();
+	    	
+	    	adapter=new CalendarEventsViewAdapter(mContext,groupItems,PastLastMonthCalendarEvents,
+	    									   PastThisMonthCalendarEvents,YesterdayCalendarEvents,TodayCalendarEvents,TomorrowCalendarEvents,FutureCalendarEvents,expandableList_events);
+	    	expandableList_events.setAdapter(adapter);*/
+	    		 PastLastMonthCalendarEvents=dbh.getPastLastMonthEvents();
+	    			PastThisMonthCalendarEvents=dbh.getPastThisMonthEvents();
+	    			YesterdayCalendarEvents=dbh.getYesterdaysEvents();
+	    			TodayCalendarEvents=dbh.getTodaysEvents();
+	    	    	TomorrowCalendarEvents=dbh.getTomorrowEvents();
+	    	    	FutureCalendarEvents=dbh.getFutureEvents();
+	    		    String[] groups={"Past last month ("+PastLastMonthCalendarEvents.size()+")",
+	    		    					 "Past this month ("+PastThisMonthCalendarEvents.size()+")",
+	    		    					 "Yesterday ("+YesterdayCalendarEvents.size()+")",
+	    		    					 "Today ("+ TodayCalendarEvents.size()+")",
+	    		    					 "Tomorrow ("+TomorrowCalendarEvents.size()+")",
+	    		    					 "Future ("+FutureCalendarEvents.size()+")"};
+	    		    ArrayAdapter<String> adapter2=new ArrayAdapter<String>(mContext,  android.R.layout.simple_list_item_1,groups);
+	    		    expandableList_events.setAdapter(adapter2);
+	    	}
+	    	expandableList_events.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					Intent intent;
+					switch(position){
+					case 0:
+						intent=new Intent(mContext,EventsListViewActivity.class);
+						intent.putExtra("event_category", "past_last_month");
+						System.out.println("Clicked");
+						startActivity(intent);
+						break;
+					case 1:
+						intent=new Intent(mContext,EventsListViewActivity.class);
+						intent.putExtra("event_category", "past_this_month");
+						System.out.println("Clicked");
+						startActivity(intent);
+						break;
+					case 2:
+						intent=new Intent(mContext,EventsListViewActivity.class);
+						intent.putExtra("event_category", "yesterday");
+						System.out.println("Clicked");
+						startActivity(intent);
+						break;
+					case 3:
+						intent=new Intent(mContext,EventsListViewActivity.class);
+						intent.putExtra("event_category", "today");
+						System.out.println("Clicked");
+						startActivity(intent);
+						break;
+					case 4:
+						intent=new Intent(mContext,EventsListViewActivity.class);
+						intent.putExtra("event_category", "tomorrow");
+						startActivity(intent);
+						break;
+					case 5:
+						intent=new Intent(mContext,EventsListViewActivity.class);
+						intent.putExtra("event_category", "future");
+						startActivity(intent);
+						break;
+					}
+				}
+			});
+	    }catch(Exception e){
+	    	e.printStackTrace();
+	    }
 	    button_viewCalendar=(Button) findViewById(R.id.button_viewCalendar);
 	    button_viewCalendar.setOnClickListener(new OnClickListener(){
 
@@ -88,26 +207,28 @@ public class EventsViewActivity extends  BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent=new Intent(EventsViewActivity.this,NewEventPlannerActivity.class);
+				Intent intent=new Intent(EventsViewActivity.this,UpdateEventsActivity.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
-				
 			}
-	    	
 	    });
+	    /*
 	expandableList_events.setOnChildClickListener(new OnChildClickListener(){
-
 		@Override
 		public boolean onChildClick(ExpandableListView parent, View v,
 				int groupPosition, int childPosition, long id) {
 			String[] selected_items=adapter.getChild(groupPosition, childPosition);
-			Intent intent=new Intent(EventsViewActivity.this,PlanEventActivity.class);
+			Intent intent=new Intent(EventsViewActivity.this,ViewEventDetailsActivity.class);
 			intent.putExtra("event_type", selected_items[0]);
 			intent.putExtra("event_description", selected_items[1]);
 			intent.putExtra("event_location", selected_items[2]);
 			intent.putExtra("event_id", selected_items[3]);
 			intent.putExtra("event_startdate", selected_items[4]);
 			intent.putExtra("event_enddate", selected_items[5]);
+			intent.putExtra("event_status", selected_items[6]);
+			intent.putExtra("event_category", selected_items[7]);
+			intent.putExtra("event_comment", selected_items[8]);
+			intent.putExtra("event_justification", selected_items[9]);
 			intent.putExtra("mode", "edit_mode");
 			startActivity(intent);
 			finish();
@@ -115,7 +236,7 @@ public class EventsViewActivity extends  BaseActivity {
 			return true;
 		}
 		
-	});
+	});*/
 	}
 	
 	

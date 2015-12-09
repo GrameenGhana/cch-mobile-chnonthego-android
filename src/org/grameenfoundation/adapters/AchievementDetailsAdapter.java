@@ -60,21 +60,21 @@ import android.widget.TextView;
 	   }
 	   if(groupPosition==0){
 	   TextView text=(TextView) convertView.findViewById(R.id.textView_eventType);
-	   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventDescription);
+	  // TextView text2=(TextView) convertView.findViewById(R.id.textView_eventDescription);
 	   TextView text3=(TextView) convertView.findViewById(R.id.textView_eventDetails);
 	   TextView text4=(TextView) convertView.findViewById(R.id.textView_eventTime);
 	 
 	   text.setText(CompletedEvents.get(childPosition).getEventType());
-	   text2.setText(CompletedEvents.get(childPosition).getEventDescription());
+	  // text2.setText(CompletedEvents.get(childPosition).getEventDescription());
 	   text3.setText(CompletedEvents.get(childPosition).getEventLocation());
 	   text4.setText(CompletedEvents.get(childPosition).getEventTime());
 	   }else if(groupPosition==1){
 		   TextView text=(TextView) convertView.findViewById(R.id.textView_eventType);
-		   TextView text2=(TextView) convertView.findViewById(R.id.textView_eventDescription);
+		   //TextView text2=(TextView) convertView.findViewById(R.id.textView_eventDescription);
 		   TextView text3=(TextView) convertView.findViewById(R.id.textView_eventDetails);
 		   TextView text4=(TextView) convertView.findViewById(R.id.textView_eventTime);
 		   text.setText(UncompletedEvents.get(childPosition).getEventType());
-		   text2.setText(UncompletedEvents.get(childPosition).getEventDescription());
+		  // text2.setText(UncompletedEvents.get(childPosition).getEventDescription());
 		   text3.setText(UncompletedEvents.get(childPosition).getEventLocation());
 		   text4.setText(UncompletedEvents.get(childPosition).getEventTime());
 	   }

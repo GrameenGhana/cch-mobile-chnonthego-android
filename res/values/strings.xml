@@ -439,6 +439,12 @@
 	         <item>South Tongu</item>
 	         <item>South Dayi</item>
 	</string-array>
+	
+	<string-array name="Intervals">
+	    	 <item>One month interval</item>
+	         <item>Three month interval</item>
+	</string-array>
+	
 	<string name="daily">Daily</string>
 	<string name="weekly">Weekly</string>
 	<string name="monthly">Monthly</string>

@@ -29,18 +29,36 @@ public class TreatingDiarrhoeaActivity extends BaseActivity {
 	private Button button_calculate;
 	private ImageView image;
 	private JSONObject json;
+	private String category;
+	private TextView textView1;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_treating_diarrhoea);
-	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("PNC Counselling: Treating Diarrhoea with some dehydration > ORS Calculator");
+	    textView1=(TextView) findViewById(R.id.textView1);
+	    Bundle extras = getIntent().getExtras(); 
+        if (extras != null) {
+         category= extras.getString("value");
+        }
+        if(category.equals("cwc")){
+        	textView1.setVisibility(View.GONE);
+        	getActionBar().setTitle("Point of Care");
+     	    getActionBar().setSubtitle("CWC Calculators: ORS Calculator");
+        }else{
+        	textView1.setVisibility(View.VISIBLE);
+        	getActionBar().setTitle("Point of Care");
+        	getActionBar().setSubtitle("PNC Counselling: Treating Diarrhoea with some dehydration > ORS Calculator");
+        }
 	    mContext=TreatingDiarrhoeaActivity.this;
 	    dbh=new DbHelper(TreatingDiarrhoeaActivity.this);
 	    start_time=System.currentTimeMillis();
 	    json=new JSONObject();
 	    try {
-			json.put("page", "PNC Counselling:  Treating Diarrhoea with some dehydration > ORS Calculator");
+	    	if(category.equals("cwc")){
+	    		json.put("page", "CWC Calculators: ORS Calculator");
+	    	}else{
+	    		json.put("page", "PNC Counselling:  Treating Diarrhoea with some dehydration > ORS Calculator");
+	    	}
 			json.put("section", MobileLearning.CCH_COUNSELLING);
 			json.put("ver", dbh.getVersionNumber(mContext));
 			json.put("battery", dbh.getBatteryStatus(mContext));
