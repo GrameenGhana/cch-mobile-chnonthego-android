@@ -28,11 +28,11 @@ public class XmlGuiTextViewChoice extends LinearLayout {
           ll.setOrientation(LinearLayout.VERTICAL);
           LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
         		     LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-          
+          ll.setLayoutParams(layoutParams);
           layoutParams.setMargins(40, 0, 0, 0);
 		
 			 label = new TextView(context);
-			 label.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+			 label.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT,1f));
 			 
 		     if(!link.equals("")){
 		    	 Drawable img = getContext().getResources().getDrawable( R.drawable.ic_click );

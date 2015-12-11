@@ -6,6 +6,8 @@
  */
 package org.grameenfoundation.cch.popupquestions;
 
+import org.digitalcampus.mobile.learningGF.R;
+
 import android.content.Context;
 import android.text.SpannableString;
 import android.text.style.BulletSpan;
@@ -16,16 +18,23 @@ import android.widget.TextView;
 
 public class XmlGuiDefinition extends LinearLayout {
 	TextView label;
+	private TextView defintionlabel;
 	
-	public XmlGuiDefinition(Context context,String labelText,String options) {
+	public XmlGuiDefinition(Context context,String options) {
 		super(context);
+		defintionlabel = new TextView(context);
 		String []opts = options.split("\\|");
 		  LinearLayout ll = new LinearLayout(context);
           ll.setOrientation(LinearLayout.VERTICAL);
           LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
         		     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
           
-          layoutParams.setMargins(40, 0, 0, 0);
+          layoutParams.setMargins(70, 0, 0, 0);
+          if(!options.equals("")){
+         	defintionlabel.setText("Defintion");
+         	defintionlabel.setTextColor(getResources().getColor(R.color.TextColorWine));
+          }
+          ll.addView(defintionlabel);
 		 for (int i=0;i<opts.length;i++){
 			 label = new TextView(context);
 			 label.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));

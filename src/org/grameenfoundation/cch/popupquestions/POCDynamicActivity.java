@@ -84,7 +84,7 @@ public class POCDynamicActivity extends Activity {
 			        		theForm.fields.elementAt(i).obj = new XmlGuiListView(this,values,"",theForm.fields.elementAt(i).getLink());
 			        		ll.addView((View) theForm.fields.elementAt(i).obj);
 			        	}
-			        	if (theForm.fields.elementAt(i).getType().equals("button")) {
+			        	if (theForm.fields.elementAt(i).getType().equals("button")&&!theForm.fields.elementAt(i).getName().equals("")) {
 			        		theForm.fields.elementAt(i).obj = new XmlGuiButton(this,theForm.fields.elementAt(i).getName(),theForm.fields.elementAt(i).getColorCode(),theForm.fields.elementAt(i).getLink());
 			        		//((XmlGuiEditBox)theForm.fields.elementAt(i).obj).makeNumeric();
 			        		ll.addView((View) theForm.fields.elementAt(i).obj);
@@ -102,6 +102,11 @@ public class POCDynamicActivity extends Activity {
 			        for (i=0;i<theForm.fields.size();i++) {
 			        	if (theForm.fields.elementAt(i).getType().equals("first_section_head")) {
 			        		theForm.fields.elementAt(i).obj = new XmlGuiTakeFirstActionHeader(this,theForm.fields.elementAt(i).getName(),theForm.getFormColor());
+			        	
+			        		ll.addView((View) theForm.fields.elementAt(i).obj);
+			        	}
+			        	if (theForm.fields.elementAt(i).getType().equals("definition")) {
+			        		theForm.fields.elementAt(i).obj = new XmlGuiDefinition(this,theForm.fields.elementAt(i).getName());
 			        		ll.addView((View) theForm.fields.elementAt(i).obj);
 			        	}
 			        	if (theForm.fields.elementAt(i).getType().equals("first_actions")&&!theForm.fields.elementAt(i).getName().equals("")) {
@@ -153,7 +158,36 @@ public class POCDynamicActivity extends Activity {
 			        		 ll4.addView((View) theForm.fields.elementAt(i).obj);
 			        		 ll.addView(ll4);
 			        	}
-			        	
+			        	if (theForm.fields.elementAt(i).getType().equals("second_actions_sub")&&!theForm.fields.elementAt(i).getName().equals("")) {
+			        		theForm.fields.elementAt(i).obj = new XmlGuiSubSection(this,theForm.fields.elementAt(i).getName(),theForm.fields.elementAt(i).getLink());
+			        		 LinearLayout ll2 = new LinearLayout(this);
+			        		 ll2.setBackground(getResources().getDrawable(R.drawable.custom_border2));
+			        		 ll2.setOrientation(android.widget.LinearLayout.VERTICAL);
+			        		 ll2.setDividerDrawable(this.getResources().getDrawable(R.drawable.divider));
+			        		 ll2.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+			        		 ll2.addView((View) theForm.fields.elementAt(i).obj);
+			        		 ll.addView(ll2);
+			        	}
+			        	if (theForm.fields.elementAt(i).getType().equals("transport_actions_sub")&&!theForm.fields.elementAt(i).getName().equals("")) {
+			        		theForm.fields.elementAt(i).obj = new XmlGuiSubSection(this,theForm.fields.elementAt(i).getName(),theForm.fields.elementAt(i).getLink());
+			        		 LinearLayout ll2 = new LinearLayout(this);
+			        		 ll2.setBackground(getResources().getDrawable(R.drawable.custom_border2));
+			        		 ll2.setOrientation(android.widget.LinearLayout.VERTICAL);
+			        		 ll2.setDividerDrawable(this.getResources().getDrawable(R.drawable.divider));
+			        		 ll2.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+			        		 ll2.addView((View) theForm.fields.elementAt(i).obj);
+			        		 ll.addView(ll2);
+			        	}
+			        	if (theForm.fields.elementAt(i).getType().equals("first_actions_sub")&&!theForm.fields.elementAt(i).getName().equals("")) {
+			        		theForm.fields.elementAt(i).obj = new XmlGuiSubSection(this,theForm.fields.elementAt(i).getName(),theForm.fields.elementAt(i).getLink());
+			        		 LinearLayout ll2 = new LinearLayout(this);
+			        		 ll2.setBackground(getResources().getDrawable(R.drawable.custom_border2));
+			        		 ll2.setOrientation(android.widget.LinearLayout.VERTICAL);
+			        		 ll2.setDividerDrawable(this.getResources().getDrawable(R.drawable.divider));
+			        		 ll2.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+			        		 ll2.addView((View) theForm.fields.elementAt(i).obj);
+			        		 ll.addView(ll2);
+			        	}
 			        	if (theForm.fields.elementAt(i).getType().equals("image")&&!theForm.fields.elementAt(i).getName().equals("")) {
 			        		theForm.fields.elementAt(i).obj = new XmlGuiImage(this,theForm.fields.elementAt(i).getName(),"");
 			        		 LinearLayout ll5 = new LinearLayout(this);
@@ -186,19 +220,32 @@ public class POCDynamicActivity extends Activity {
 			        		 ll2.addView((View) theForm.fields.elementAt(i).obj);
 			        		 ll.addView(ll2);
 			        	}
+			        	if (theForm.fields.elementAt(i).getType().equals("section_items_sub")&&!theForm.fields.elementAt(i).getName().equals("")) {
+			        		theForm.fields.elementAt(i).obj = new XmlGuiSubSection(this,theForm.fields.elementAt(i).getName(),theForm.fields.elementAt(i).getLink());
+			        		 LinearLayout ll2 = new LinearLayout(this);
+			        		 ll2.setBackground(getResources().getDrawable(R.drawable.custom_border2));
+			        		 ll2.setOrientation(android.widget.LinearLayout.VERTICAL);
+			        		 ll2.setDividerDrawable(this.getResources().getDrawable(R.drawable.divider));
+			        		 ll2.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+			        		 ll2.addView((View) theForm.fields.elementAt(i).obj);
+			        		 ll.addView(ll2);
+			        	}
 			        	if (theForm.fields.elementAt(i).getType().equals("button")&&!theForm.fields.elementAt(i).getName().equals("")) {
 			        		theForm.fields.elementAt(i).obj = new XmlGuiButton(this,theForm.fields.elementAt(i).getName(),theForm.fields.elementAt(i).getColorCode(),theForm.fields.elementAt(i).getLink());
 			        		ll.addView((View) theForm.fields.elementAt(i).obj);
 			        	}
+			        	if (theForm.fields.elementAt(i).getType().equals("image")&&!theForm.fields.elementAt(i).getName().equals("")) {
+			        		theForm.fields.elementAt(i).obj = new XmlGuiImage(this,theForm.fields.elementAt(i).getName(),"");
+			        		 LinearLayout ll5 = new LinearLayout(this);
+			        		 ll5.setPadding(0, 20, 0, 0);
+			        		 ll5.setOrientation(android.widget.LinearLayout.VERTICAL);
+			        		 ll5.addView((View) theForm.fields.elementAt(i).obj);
+			        		 ll.addView(ll5);
+			        	}
 			        	
 			        }
 			}
-	       
-	       
 	        // walk through our form elements and dynamically create them, leveraging our mini library of tools.
-	
-	
-	        
 	        setContentView(sv);
 	        setTitle(theForm.getFormTitle());
 	        getActionBar().setSubtitle(theForm.getFormSubTitle());
@@ -249,12 +296,7 @@ public class POCDynamicActivity extends Activity {
 				
 				// process form level
 				NamedNodeMap map = form.getAttributes();
-				if(map.getNamedItem("page_type").getNodeValue()==null){
 					theForm.setFormType(map.getNamedItem("type_of_page").getNodeValue());
-				}else{
-					theForm.setFormType(map.getNamedItem("page_type").getNodeValue());
-				}
-				
 				theForm.setFormName(map.getNamedItem("name").getNodeValue());
 				theForm.setFormColor(map.getNamedItem("color_code").getNodeValue());
 				theForm.setFormTitle(map.getNamedItem("page_title").getNodeValue());

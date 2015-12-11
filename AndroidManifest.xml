@@ -420,6 +420,7 @@
             <activity android:name="org.grameenfoundation.cch.popupquestions.POCDynamicActivity"></activity>
             <activity android:name="org.grameenfoundation.poc.CWCDiagnosticToolActivity"></activity>
             <activity android:name="org.grameenfoundation.poc.CWCCounsellingActivity"></activity>
+            <activity android:name="org.grameenfoundation.poc.CWCReferencesActivity"></activity>
     </application>
 
 </manifest>

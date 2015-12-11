@@ -35,19 +35,7 @@ public class POCContentLoaderTask extends AsyncTask<String, String, String> {
 	 private ProgressDialog mProgressDialog;
 	private JSONArray contentArray;
 	 
-	 protected Dialog onCreateDialog(int id) {
-	        switch (id) {
-			case DIALOG_DOWNLOAD_PROGRESS:
-				mProgressDialog = new ProgressDialog(ctx);
-				mProgressDialog.setMessage("Downloading file..");
-				mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-				mProgressDialog.setCancelable(false);
-				mProgressDialog.show();
-				return mProgressDialog;
-			default:
-				return null;
-	        }
-	    }
+	
 	public POCContentLoaderTask(Context ctx) {
 		this.ctx = ctx;
 		this.dbh = new DbHelper(ctx);
@@ -56,10 +44,10 @@ public class POCContentLoaderTask extends AsyncTask<String, String, String> {
 	protected void onPreExecute() {
 		super.onPreExecute();
 		mProgressDialog = new ProgressDialog(ctx);
-		mProgressDialog.setMessage("Downloading file..");
+		mProgressDialog.setMessage("Downloading content..");
 		mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 		mProgressDialog.setCancelable(false);
-		//mProgressDialog.show();
+		mProgressDialog.show();
 	}
 	 protected String doInBackground(String ... urls) {
          String response = "";
@@ -104,6 +92,8 @@ public class POCContentLoaderTask extends AsyncTask<String, String, String> {
 			dbh.insertPocSection("Assesment of the Child: Main Symptoms: Fever", "child_assessment_diarrhoea_fever", MobileLearning.POC_ROOT+"child_assessment_diarrhoea_fever", "CWC Diagnostic","");
 			dbh.insertPocSection("Assesment of the Child: Main Symptoms: Ear Problem", "ear_problem", MobileLearning.POC_ROOT+"ear_problem", "CWC Diagnostic","");*/
 			System.out.println(unused);
+			mProgressDialog.setMessage("Content successfully downloaded!");
+			dbh.deletePOC();
 			JSONObject jObj;
 			try {
 				jObj = new JSONObject();

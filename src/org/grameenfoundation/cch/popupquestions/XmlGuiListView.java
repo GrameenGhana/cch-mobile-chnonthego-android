@@ -26,11 +26,12 @@ public class XmlGuiListView extends LinearLayout {
 		label = new ListView(context);
 		//label.setTextColor(getResources().getColor(R.color.White));
 		label.setBackgroundColor(getResources().getColor(R.color.BackgroundGrey));
-		label.setDividerHeight(10);
-		label.setDivider(new ColorDrawable(getResources().getColor(R.color.White)));
+		label.setEnabled(true);;
+		label.setDividerHeight(1);
+	    label.setDivider(getResources().getDrawable(R.color.White));
 		 ListAdapter adapter=new ListAdapter(context, labelText);
 		 label.setAdapter(adapter);
-		label.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+		label.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
 		label.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -47,7 +48,6 @@ public class XmlGuiListView extends LinearLayout {
 
 	public XmlGuiListView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		// TODO Auto-generated constructor stub
 	}
 	
 
@@ -71,7 +71,6 @@ class ListAdapter extends BaseAdapter{
 	public Object getItem(int position) {
 		return null;
 	}
-
 	@Override
 	public long getItemId(int position) {
 		return 0;

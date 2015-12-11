@@ -23,7 +23,7 @@ public class XmlGuiSectionHeader extends LinearLayout {
 		label = new TextView(context);
 		label.setText(labelText);
 		//label.setTextColor(getResources().getColor(R.color.Brown));
-		label.setTextSize(20);
+		label.setTextSize(17);
 		label.setTextAlignment(TEXT_ALIGNMENT_CENTER);
 		label.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
 		this.addView(label);

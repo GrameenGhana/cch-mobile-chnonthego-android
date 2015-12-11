@@ -3601,6 +3601,15 @@ return 1;
 		return true;
 		
 	}
+	public boolean deletePOC(){
+		SQLiteDatabase db = this.getWritableDatabase(); 
+		if(doesTableExists(POC_SECTIONS_TABLE)){
+		 String deleteQuery="Delete from "+POC_SECTIONS_TABLE;
+	      db.execSQL(deleteQuery);
+		}
+		return true;
+		
+	}
 	public boolean deleteCalendarEvent(long id){
 		SQLiteDatabase db = this.getWritableDatabase(); 
 		if(doesTableExists(CALENDAR_EVENTS_TABLE)){

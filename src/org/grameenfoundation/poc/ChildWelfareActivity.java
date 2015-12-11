@@ -55,7 +55,7 @@ public class ChildWelfareActivity extends BaseActivity implements OnItemClickLis
 	    listView_ancMenu=(ListView) findViewById(R.id.listView_antenatalCare);
 	    listView_ancMenu.setOnItemClickListener(this);
 	    int[] images={R.drawable.ic_diagnostic,R.drawable.ic_counselling,R.drawable.ic_calculator,R.drawable.ic_references};
-	    String[] category={"Diagnostic Tool","Counselling","Calculators"};
+	    String[] category={"Diagnostic Tool","Counselling","Calculators","References"};
 	   
 	    AntenatalCareBaseAdapter adapter=new AntenatalCareBaseAdapter(mContext,images,category);
 	    listView_ancMenu.setAdapter(adapter);
@@ -88,6 +88,11 @@ public class ChildWelfareActivity extends BaseActivity implements OnItemClickLis
 			break;
 		case 2:
 			intent=new Intent(mContext, ChildWelfareCalculatorsMenuActivity.class);
+			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+			break;
+		case 3:
+			intent=new Intent(mContext, CWCReferencesActivity.class);
 			startActivity(intent);
 			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 			break;

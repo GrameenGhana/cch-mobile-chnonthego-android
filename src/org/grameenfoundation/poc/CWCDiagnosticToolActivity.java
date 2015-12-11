@@ -7,14 +7,19 @@ import java.util.ArrayList;
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
+import org.grameenfoundation.cch.activity.UpdateActivity;
 import org.grameenfoundation.cch.model.POCSections;
 import org.grameenfoundation.cch.popupquestions.POCDynamicActivity;
 import org.grameenfoundation.cch.tasks.DownloadPOCContentTask;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,6 +29,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -68,7 +74,7 @@ public class CWCDiagnosticToolActivity extends BaseActivity implements OnItemCli
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
+	public void onItemClick(AdapterView<?> parent, View view, final int position,
 			long id) {
 		File folder=new File(list.get(position).getSectionUrl());
 		if(folder.exists()){
@@ -90,8 +96,30 @@ public class CWCDiagnosticToolActivity extends BaseActivity implements OnItemCli
 				startActivity(intent);
 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
 		}else{
-			DownloadPOCContentTask task=new DownloadPOCContentTask(mContext);
-			task.execute(list.get(position).getSectionShortname());
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					mContext);
+				alertDialogBuilder.setTitle("Download Verification");
+				alertDialogBuilder
+					.setMessage("Content has not been downloaded for this section. \n Would you like to download this content?")
+					.setCancelable(false)
+					.setIcon(R.drawable.ic_error)
+					.setPositiveButton("No",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							dialog.cancel();
+						}
+					  })
+					.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id_negative) {
+							if(dbh.isOnline()){
+								DownloadPOCContentTask task=new DownloadPOCContentTask(mContext);
+								task.execute(list.get(position).getSectionShortname());
+							}else{
+								Crouton.makeText(CWCDiagnosticToolActivity.this, "Check your internet connection", Style.ALERT).show();
+							}
+						}
+					});
+				AlertDialog alertDialog = alertDialogBuilder.create();
+				alertDialog.show();
 		}
 		
 		/*
@@ -145,9 +173,15 @@ public class CWCDiagnosticToolActivity extends BaseActivity implements OnItemCli
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if( convertView == null ){
-			      
 				  convertView = minflater.inflate(R.layout.other_listview_single,parent, false);
 			    }
+			 ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
+				File file=new File(items.get(position).getSectionUrl());
+				 if(file.exists()){
+					 image.setImageDrawable(getResources().getDrawable(R.drawable.ic_special_bullet));
+				 }else{
+					 image.setImageDrawable(getResources().getDrawable(R.drawable.ic_special_bullet_downloaded));
+				 }
 			 TextView text=(TextView) convertView.findViewById(R.id.textView_otherCategory);
 			 text.setText(items.get(position).getSectionName());
 			 
@@ -158,7 +192,6 @@ public class CWCDiagnosticToolActivity extends BaseActivity implements OnItemCli
 	public void onBackPressed()
 	{
 		end_time=System.currentTimeMillis();
-		//dbh.insertCCHLog("Point of Care", "ANC Diagnostic Tool", start_time.toString(), end_time.toString());
 		dbh.insertCCHLog("Point of Care", json.toString(), start_time.toString(), end_time.toString());
 		finish();
 	}

@@ -1,38 +1,36 @@
 package org.grameenfoundation.poc;
 
 import java.io.File;
-import java.io.ObjectOutputStream.PutField;
 import java.util.ArrayList;
 
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
 import org.grameenfoundation.cch.model.POCSections;
-import org.grameenfoundation.cch.popupquestions.POCDynamicActivity;
-import org.grameenfoundation.cch.tasks.DownloadPOCContentTask;
+import org.grameenfoundation.cch.tasks.DownloadCWCReferenceTask;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
-import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class CWCCounsellingActivity extends BaseActivity implements OnItemClickListener{
+public class CWCReferencesActivity extends BaseActivity implements OnItemClickListener{
 
 //	private Context mContext;
 	private ListView listView_encounter;
@@ -42,19 +40,21 @@ public class CWCCounsellingActivity extends BaseActivity implements OnItemClickL
 	private JSONObject json;
 	private ArrayList<POCSections> list;
 	private String first_file;
+	private String[] items;
+	private ListAdapter adapter;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_encounter);
-	    mContext=CWCCounsellingActivity.this;
+	    mContext=CWCReferencesActivity.this;
 	    dbh=new DbHelper(mContext);
 	    start_time=System.currentTimeMillis();
 	    getActionBar().setTitle("Point of Care");
-	    getActionBar().setSubtitle("ANC Diagnostic");
+	    getActionBar().setSubtitle("CWC References");
 	    json=new JSONObject();
 	    try {
-			json.put("page", "ANC Diagnostic");
+			json.put("page", "CWC References");
 			json.put("section", MobileLearning.CCH_DIAGNOSTIC);
 			json.put("ver", dbh.getVersionNumber(mContext));
 			json.put("battery", dbh.getBatteryStatus(mContext));
@@ -65,35 +65,31 @@ public class CWCCounsellingActivity extends BaseActivity implements OnItemClickL
 		}
 	    listView_encounter=(ListView) findViewById(R.id.listView_encounter);
 	    listView_encounter.setOnItemClickListener(this);
-	    //String[] conditions={"Emergencies","Records and History","Management of Danger Signs","Malaria","Anaemia"};
-	    list=new ArrayList<POCSections>();
-	    list=dbh.getPocSections("CWC Counselling");
-	    ListAdapter adapter=new ListAdapter(mContext, list);
+	  items=new String[]{"Pre-Referral Treatment","Treatment of the Sick Child"};
+	    adapter=new ListAdapter(mContext, items);
 	    listView_encounter.setAdapter(adapter);
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, final int position,
 			long id) {
-		File folder=new File(list.get(position).getSectionUrl());
+		final String[] selected_items=adapter.getItem(position);
+		File folder=new File(MobileLearning.POC_ROOT+File.separator+"references"+File.separator+selected_items[position]+".pdf");
 		if(folder.exists()){
-			File[] listOfFiles = folder.listFiles();
-			for(int i=0;i<listOfFiles.length;i++){
-				String filename=listOfFiles[i].getName();
-				int pos=filename.lastIndexOf(".");
-				if(pos>0){
-					filename=filename.substring(0,pos);
-				}
-				if(filename.endsWith("1")){
-					first_file=filename;
-				}
-			}
-			Intent intent;
-				intent=new Intent(mContext, POCDynamicActivity.class);
-				intent.putExtra("shortname", list.get(position).getSectionShortname());
-				intent.putExtra("link", list.get(position).getSectionShortname()+File.separator+first_file);
-				startActivity(intent);
-				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+			Uri uri  = Uri.fromFile(folder);
+	    	 Intent intentUrl = new Intent(Intent.ACTION_VIEW);
+	    	 intentUrl.setDataAndType(uri, "application/pdf");
+	    	 intentUrl.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+	 	    try {
+	 	    		startActivity(intentUrl);
+	 	    	}
+	 	    catch (ActivityNotFoundException e) 
+	 	    {
+	 	    	e.printStackTrace();
+	 	    	Crouton.makeText(CWCReferencesActivity.this, "No application available to view PDF", Style.ALERT).show();
+	 	    }
+			
 		}else{
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 					mContext);
@@ -110,10 +106,10 @@ public class CWCCounsellingActivity extends BaseActivity implements OnItemClickL
 					.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog,int id_negative) {
 							if(dbh.isOnline()){
-								DownloadPOCContentTask task=new DownloadPOCContentTask(mContext);
-								task.execute(list.get(position).getSectionShortname());
+								DownloadCWCReferenceTask task=new DownloadCWCReferenceTask(mContext);
+								task.execute(selected_items[position]);
 							}else{
-								Crouton.makeText(CWCCounsellingActivity.this, "Check your internet connection", Style.ALERT).show();
+								Crouton.makeText(CWCReferencesActivity.this, "Check your internet connection", Style.ALERT).show();
 							}
 						}
 					});
@@ -125,21 +121,24 @@ public class CWCCounsellingActivity extends BaseActivity implements OnItemClickL
 	
 	class ListAdapter extends BaseAdapter{
 		Context mContext;
-		ArrayList<POCSections> items;
+		String[] items;
 		 public LayoutInflater minflater;
-		public ListAdapter(Context mContext,ArrayList<POCSections>items){
+		public ListAdapter(Context mContext,String[] items){
 			this.mContext=mContext;
 			this.items=items;
 			 minflater = LayoutInflater.from(mContext);
 		}
 		@Override
 		public int getCount() {
-			return items.size();
+			return items.length;
 		}
 
 		@Override
-		public Object getItem(int position) {
-			return null;
+		public String[] getItem(int position) {
+			String[] item={"pre_referral_treatments","treatment_of_the_sick_child"};
+			
+			
+			return item;
 		}
 
 		@Override
@@ -153,15 +152,16 @@ public class CWCCounsellingActivity extends BaseActivity implements OnItemClickL
 			      
 				  convertView = minflater.inflate(R.layout.other_listview_single,parent, false);
 			    }
+			 TextView text=(TextView) convertView.findViewById(R.id.textView_otherCategory);
 			 ImageView image=(ImageView) convertView.findViewById(R.id.imageView1);
-			File file=new File(items.get(position).getSectionUrl());
+			 String[] item={"pre_referral_treatments","treatment_of_the_sick_child"};
+			 File file=new File(MobileLearning.POC_ROOT+File.separator+"references"+File.separator+item[position]+".pdf");
 			 if(file.exists()){
 				 image.setImageDrawable(getResources().getDrawable(R.drawable.ic_special_bullet));
 			 }else{
 				 image.setImageDrawable(getResources().getDrawable(R.drawable.ic_special_bullet_downloaded));
 			 }
-			 TextView text=(TextView) convertView.findViewById(R.id.textView_otherCategory);
-			 text.setText(items.get(position).getSectionName());
+			 text.setText(items[position]);
 			 
 			    return convertView;
 		}
