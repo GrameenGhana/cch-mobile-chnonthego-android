@@ -3,15 +3,20 @@ package org.grameenfoundation.cch.popupquestions;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.MobileLearning;
+import org.digitalcampus.oppia.utils.UIUtils;
+import org.grameenfoundation.poc.BaseActivity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -28,7 +33,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.LinearLayout.LayoutParams;
 
-public class POCDynamicActivity extends Activity {
+public class POCDynamicActivity extends BaseActivity {
 
 	public String tag;
 	public XmlGuiForm theForm;
@@ -117,9 +122,18 @@ public class POCDynamicActivity extends Activity {
 			        		 }else if(theForm.getFormColor().equals("Amber")){
 			        			 ll2.setBackgroundColor(getResources().getColor(R.color.TakeActionCurry));
 			        		 }else if(theForm.getFormColor().equals("Green")){
-			        			 ll2.setBackgroundColor(getResources().getColor(R.color.TakeActionGreen));
+			        			// ll2.setBackgroundColor(getResources().getColor(R.color.TakeActionGreen));
 			        		 }
-			        		 
+			        		 if (theForm.fields.elementAt(i).getType().equals("first_actions_sub")&&!theForm.fields.elementAt(i).getName().equals("")) {
+					        		theForm.fields.elementAt(i).obj = new XmlGuiSubSection(this,theForm.fields.elementAt(i).getName(),theForm.fields.elementAt(i).getLink());
+					        		 LinearLayout ll4 = new LinearLayout(this);
+					        		 ll4.setBackground(getResources().getDrawable(R.drawable.custom_border2));
+					        		 ll4.setOrientation(android.widget.LinearLayout.VERTICAL);
+					        		 ll4.setDividerDrawable(this.getResources().getDrawable(R.drawable.divider));
+					        		 ll4.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+					        		 ll4.addView((View) theForm.fields.elementAt(i).obj);
+					        		 ll.addView(ll4);
+					        	}
 			        		 ll2.setOrientation(android.widget.LinearLayout.VERTICAL);
 			        		 ll2.setDividerDrawable(this.getResources().getDrawable(R.drawable.divider));
 			        		 ll2.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
@@ -149,7 +163,7 @@ public class POCDynamicActivity extends Activity {
 			        		 }else if(theForm.getFormColor().equals("Amber")){
 			        			 ll4.setBackgroundColor(getResources().getColor(R.color.TakeActionCurry));
 			        		 }else if(theForm.getFormColor().equals("Green")){
-			        			 ll4.setBackgroundColor(getResources().getColor(R.color.TakeActionGreen));
+			        			// ll4.setBackgroundColor(getResources().getColor(R.color.TakeActionGreen));
 			        		 }
 			        		 
 			        		 ll4.setOrientation(android.widget.LinearLayout.VERTICAL);
@@ -181,7 +195,6 @@ public class POCDynamicActivity extends Activity {
 			        	if (theForm.fields.elementAt(i).getType().equals("first_actions_sub")&&!theForm.fields.elementAt(i).getName().equals("")) {
 			        		theForm.fields.elementAt(i).obj = new XmlGuiSubSection(this,theForm.fields.elementAt(i).getName(),theForm.fields.elementAt(i).getLink());
 			        		 LinearLayout ll2 = new LinearLayout(this);
-			        		 ll2.setBackground(getResources().getDrawable(R.drawable.custom_border2));
 			        		 ll2.setOrientation(android.widget.LinearLayout.VERTICAL);
 			        		 ll2.setDividerDrawable(this.getResources().getDrawable(R.drawable.divider));
 			        		 ll2.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
@@ -196,7 +209,10 @@ public class POCDynamicActivity extends Activity {
 			        		 ll5.addView((View) theForm.fields.elementAt(i).obj);
 			        		 ll.addView(ll5);
 			        	}
-			        	
+			        	if (theForm.fields.elementAt(i).getType().equals("button")&&!theForm.fields.elementAt(i).getName().equals("")) {
+			        		theForm.fields.elementAt(i).obj = new XmlGuiButton(this,theForm.fields.elementAt(i).getName(),theForm.fields.elementAt(i).getColorCode(),theForm.fields.elementAt(i).getLink());
+			        		ll.addView((View) theForm.fields.elementAt(i).obj);
+			        	}
 			        	
 			        }
 			}else if(theForm.getFormType().equals("Info Page")){
@@ -326,6 +342,7 @@ public class POCDynamicActivity extends Activity {
 				//return true;
 			} catch (Exception e) {
 				Log.e(tag,"Error occurred in ProcessForm:" + e.getMessage());
+				//UIUtils.showAlert(POCDynamicActivity.this, "Alert!", "Content for this page has not been downloaded.\n Ensure content is downloaded and proceed");
 				e.printStackTrace();
 			//	return false;
 			}

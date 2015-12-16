@@ -48,7 +48,7 @@ public class MaternalHealthFacilityTargetsActivity extends Activity {
 	                return (new AnalogClock(getActivity()));
 	            }
 	        });*/
-	        spec.setContent(new Intent(MaternalHealthFacilityTargetsActivity.this,AntigensFacilityTargetActivity.class).putExtra("type", "WIFA (15-49 yrs)"));
+	        spec.setContent(new Intent(MaternalHealthFacilityTargetsActivity.this,AntigensFacilityTargetActivity.class).putExtra("type", "Family Planning"));
 	        tabHost.addTab(spec);
 	}
 	@Override

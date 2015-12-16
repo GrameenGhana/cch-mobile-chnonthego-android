@@ -268,6 +268,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		public static final String CCH_OLD_ID="old_id";
 		public static final String CCH_TARGET_NAME="target_name";
 		public static final String CCH_TARGET_DETAIL="target_detail";
+		public static final String CCH_TARGET_GROUP="target_group";
 		public static final String CCH_TARGET_CATEGORY="target_category";
 		public static final String CCH_TARGET_NO="target_number";
 		public static final String CCH_TARGET_NO_ACHIEVED="target_no_achieved";
@@ -428,17 +429,11 @@ public class DbHelper extends SQLiteOpenHelper {
 				+ BaseColumns._ID + " integer primary key autoincrement, "
 				+ CCH_TARGET_ID + INT_TYPE + COMMA_SEP 
 				+ CCH_TARGET_TYPE + TEXT_TYPE + COMMA_SEP 
-				+ CCH_TARGET_CATEGORY + TEXT_TYPE + COMMA_SEP 
+				+ CCH_TARGET_NAME + TEXT_TYPE + COMMA_SEP 
 				+ CCH_TARGET_NO + TEXT_TYPE + COMMA_SEP
-				+ CCH_TARGET_NO_ACHIEVED+ TEXT_TYPE + COMMA_SEP
-				+ CCH_TARGET_NO_REMAINING+ TEXT_TYPE + COMMA_SEP
-				+ CCH_START_DATE+ TEXT_TYPE + COMMA_SEP
-				+ CCH_DUE_DATE+ TEXT_TYPE + COMMA_SEP
-				+ CCH_REMINDER+ TEXT_TYPE + COMMA_SEP
-				+ CCH_STATUS+ TEXT_TYPE + COMMA_SEP
-				+ CCH_TARGET_GROUP_MEMBERS+ TEXT_TYPE + COMMA_SEP
-				+ CCH_TARGET_MONTH+ TEXT_TYPE + COMMA_SEP
-				+ CCH_LAST_UPDATED + " text)";
+				+ CCH_TARGET_NO_ACHIEVED+ TEXT_TYPE + COMMA_SEP //target actual
+				+ CCH_TARGET_GROUP+ TEXT_TYPE + COMMA_SEP
+				+ CCH_TARGET_MONTH + " text)";
 		db.execSQL(m_sql);
 	}
 	public void createFacilityTargetsUpdateTable(SQLiteDatabase db){
@@ -1122,7 +1117,7 @@ public void createCourses(SQLiteDatabase db){
 			try{
 				Cursor c = db.rawQuery("PRAGMA table_info("+POC_SECTIONS_TABLE+")",null);
 				c.moveToFirst();
-				if(c.getCount()==4){
+				if(c.getCount()==5){
 					String sql = "ALTER TABLE " + POC_SECTIONS_TABLE + " ADD COLUMN " + CCH_DOWNLOAD_URL  + " TEXT NULL;";
 					db.execSQL(sql);
 			}
@@ -1165,6 +1160,19 @@ public void createCourses(SQLiteDatabase db){
 		}
 		c.close();
 			
+		return true;
+		
+	}
+	public boolean deleteFacilityTargetsTable(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor c = db.rawQuery("PRAGMA table_info("+FACILITY_TARGET_TABLE+")",null);
+		c.moveToFirst();
+		if(c.getCount()>10){
+			String strQuery = "Drop table if exists "+FACILITY_TARGET_TABLE;
+			db.execSQL(strQuery);	
+		}else{
+		}
+		c.close();
 		return true;
 		
 	}
@@ -1287,10 +1295,8 @@ public void createCourses(SQLiteDatabase db){
 		 }
 		return newRowId;
 	}
-	public long insertFacilityTarget(int target_id,String target_type,String target_category,String target_details,
-									String target_group,int target_overall,int target_no, int target_no_achieved, 
-									int target_remaining,String start_date,String due_date,String reminder,
-										String status,String last_updated,String group_members,String target_month){
+	public long insertFacilityTarget(String target_id,String target_type,String target_name,String target_month,
+									String target_group,String target,String target_actual){
 		long newRowId = 0;
 		try{
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -1298,39 +1304,27 @@ public void createCourses(SQLiteDatabase db){
 		ContentValues values = new ContentValues();
 		values.put(CCH_TARGET_ID,target_id);
 		values.put(CCH_TARGET_TYPE,target_type);
-		values.put(CCH_TARGET_CATEGORY,target_category);
-		values.put(CCH_TARGET_DETAIL,target_details);
-		values.put(CCH_TARGET_NAME,target_group);
-		values.put(CCH_TARGET_NO,target_no);
-		values.put(CCH_TARGET_OVERALL,target_overall);
-		values.put(CCH_TARGET_NO_ACHIEVED,target_no_achieved);
-		values.put(CCH_TARGET_NO_REMAINING,target_remaining);
-		values.put(CCH_START_DATE,start_date);
-		values.put(CCH_DUE_DATE,due_date);
-		values.put(CCH_REMINDER,reminder);
-		values.put(CCH_STATUS,status);
-		values.put(CCH_LAST_UPDATED,last_updated);
-		values.put(CCH_TARGET_GROUP_MEMBERS, group_members);
+		values.put(CCH_TARGET_GROUP,target_group);
+		values.put(CCH_TARGET_NAME,target_name);
+		values.put(CCH_TARGET_NO,target);
+		values.put(CCH_TARGET_NO_ACHIEVED,target_actual);
 		values.put(CCH_TARGET_MONTH, target_month);
 		
 		ContentValues update_values = new ContentValues();
 		update_values.put(CCH_TARGET_ID,target_id);
 		update_values.put(CCH_TARGET_TYPE,target_type);
-		update_values.put(CCH_TARGET_CATEGORY,target_category);
-		update_values.put(CCH_TARGET_DETAIL,target_details);
-		update_values.put(CCH_TARGET_NAME,target_group);
-		update_values.put(CCH_TARGET_NO,target_no);
-		update_values.put(CCH_TARGET_OVERALL,target_overall);
-		update_values.put(CCH_START_DATE,start_date);
-		update_values.put(CCH_DUE_DATE,due_date);
+		update_values.put(CCH_TARGET_GROUP,target_group);
+		update_values.put(CCH_TARGET_NAME,target_name);
+		update_values.put(CCH_TARGET_NO,target);
+		update_values.put(CCH_TARGET_NO_ACHIEVED,target_actual);
 		update_values.put(CCH_TARGET_MONTH, target_month);
 		
 		
 		
-		newRowId = db.update(FACILITY_TARGET_TABLE, update_values, CCH_TARGET_ID + "=" +
-													target_id +" and "+
-													CCH_TARGET_DETAIL+"='"+target_details+"'"+" and "+
-													CCH_TARGET_TYPE+"='"+target_type+"'"
+		newRowId = db.update(FACILITY_TARGET_TABLE, update_values, CCH_TARGET_NAME + "='" +
+															target_name +"' and "+
+															CCH_TARGET_TYPE+"='"+target_type+"' and "+
+															CCH_TARGET_MONTH+"='"+target_month+"'"
 													, null);
 		 if(newRowId==0){
 			 newRowId = db.insert(FACILITY_TARGET_TABLE, null, values);
@@ -3601,6 +3595,7 @@ return 1;
 		return true;
 		
 	}
+	
 	public boolean deletePOC(){
 		SQLiteDatabase db = this.getWritableDatabase(); 
 		if(doesTableExists(POC_SECTIONS_TABLE)){
@@ -4552,26 +4547,16 @@ return true;
 				FacilityTargets facility_targets = new FacilityTargets();
 					
 					try{
-						if(c.getString(c.getColumnIndex(CCH_REMINDER)).equals("Not set")){
 						facility_targets.setTargetType(c.getString(c.getColumnIndex(CCH_TARGET_TYPE)));
 						facility_targets.setTargetNumber(c.getString(c.getColumnIndex(CCH_TARGET_NO)));
 						facility_targets.setTargetNumberAchieved(c.getString(c.getColumnIndex(CCH_TARGET_NO_ACHIEVED)));
-						facility_targets.setTargetNumberRemaining(c.getString(c.getColumnIndex(CCH_TARGET_NO_REMAINING)));
-						facility_targets.setTargetStartDate(c.getString(c.getColumnIndex(CCH_START_DATE)));
 						facility_targets.setTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
 						facility_targets.setTargetOldId(c.getString(c.getColumnIndex(CCH_TARGET_ID)));
-						facility_targets.setTargetEndDate(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
-						facility_targets.setTargetLastUpdated(c.getString(c.getColumnIndex(CCH_LAST_UPDATED)));
-						facility_targets.setTargetReminder(c.getString(c.getColumnIndex(CCH_REMINDER)));
-						facility_targets.setTargetDetail(c.getString(c.getColumnIndex(CCH_TARGET_DETAIL)));
-						facility_targets.setTargetGroup(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
-						facility_targets.setTargetOverall(c.getString(c.getColumnIndex(CCH_TARGET_OVERALL)));
-						facility_targets.setTargetStatus(c.getString(c.getColumnIndex(CCH_STATUS)));
-						facility_targets.setTargetGroupMembers(c.getString(c.getColumnIndex(CCH_TARGET_GROUP_MEMBERS)));
+						facility_targets.setTargetGroup(c.getString(c.getColumnIndex(CCH_TARGET_GROUP)));
+						facility_targets.setTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
 						facility_targets.setTargetMonth(c.getString(c.getColumnIndex(CCH_TARGET_MONTH)));
 						   list.add(facility_targets);
 					
-					}
 				   c.moveToNext();
 					}catch(Exception e){
 						e.printStackTrace();
@@ -4616,48 +4601,6 @@ return true;
 						   list.add(facility_targets);
 					
 					}
-				   c.moveToNext();
-					}catch(Exception e){
-						e.printStackTrace();
-					}
-			}
-			c.close();
-			
-		}
-			return list;	
-	}
-	public ArrayList<FacilityTargets> getTargetsForCarryForward(String month)
-	{	SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<FacilityTargets> list=new ArrayList<FacilityTargets>();	
-		if(doesTableExists(FACILITY_TARGET_TABLE)){
-		String strQuery="select * from "+FACILITY_TARGET_TABLE
-						+" where "+CCH_TARGET_MONTH
-						+" = '"+month+"'"						
-						;
-			Cursor c = db.rawQuery(strQuery, null);
-			c.moveToFirst();
-			while (c.isAfterLast()==false) {
-				FacilityTargets facility_targets = new FacilityTargets();
-					
-					try{
-						facility_targets.setTargetType(c.getString(c.getColumnIndex(CCH_TARGET_TYPE)));
-						facility_targets.setTargetNumber(c.getString(c.getColumnIndex(CCH_TARGET_NO)));
-						facility_targets.setTargetNumberAchieved(c.getString(c.getColumnIndex(CCH_TARGET_NO_ACHIEVED)));
-						facility_targets.setTargetNumberRemaining(c.getString(c.getColumnIndex(CCH_TARGET_NO_REMAINING)));
-						facility_targets.setTargetStartDate(c.getString(c.getColumnIndex(CCH_START_DATE)));
-						facility_targets.setTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
-						facility_targets.setTargetOldId(c.getString(c.getColumnIndex(CCH_TARGET_ID)));
-						facility_targets.setTargetEndDate(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
-						facility_targets.setTargetLastUpdated(c.getString(c.getColumnIndex(CCH_LAST_UPDATED)));
-						facility_targets.setTargetReminder(c.getString(c.getColumnIndex(CCH_REMINDER)));
-						facility_targets.setTargetDetail(c.getString(c.getColumnIndex(CCH_TARGET_DETAIL)));
-						facility_targets.setTargetGroup(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
-						facility_targets.setTargetOverall(c.getString(c.getColumnIndex(CCH_TARGET_OVERALL)));
-						facility_targets.setTargetStatus(c.getString(c.getColumnIndex(CCH_STATUS)));
-						facility_targets.setTargetGroupMembers(c.getString(c.getColumnIndex(CCH_TARGET_GROUP_MEMBERS)));
-						facility_targets.setTargetMonth(c.getString(c.getColumnIndex(CCH_TARGET_MONTH)));
-						   list.add(facility_targets);
-					
 				   c.moveToNext();
 					}catch(Exception e){
 						e.printStackTrace();
@@ -4893,16 +4836,10 @@ return true;
 		ArrayList<FacilityTargets> list=new ArrayList<FacilityTargets>();	
 		if(doesTableExists(FACILITY_TARGET_TABLE)){
 		String strQuery="select * from "+FACILITY_TARGET_TABLE
-						+" where "+CCH_TARGET_MONTH
+						+" where "+CCH_TARGET_MONTH	
 						+" = '"+month+"'"
 						+" and "+CCH_TARGET_TYPE
-						+" = '"+targey_type+"'"
-						+" order by case "+CCH_REMINDER
-						+" when 'Not set' then 0"
-						+ " when 'Daily' then 1"
-						+ " when 'Weekly' then 2"
-						+ " when 'Monthly' then 3"
-						+ " end"						
+						+" = '"+targey_type+"'"				
 						;
 		System.out.println(strQuery);
 			Cursor c = db.rawQuery(strQuery, null);
@@ -4913,26 +4850,16 @@ return true;
 				FacilityTargets facility_targets = new FacilityTargets();
 					
 					try{
-					//if(!c.getString(c.getColumnIndex(CCH_REMINDER)).equals("Not set")){
 							facility_targets.setTargetType(c.getString(c.getColumnIndex(CCH_TARGET_TYPE)));
 							facility_targets.setTargetNumber(c.getString(c.getColumnIndex(CCH_TARGET_NO)));
 							facility_targets.setTargetNumberAchieved(c.getString(c.getColumnIndex(CCH_TARGET_NO_ACHIEVED)));
-							facility_targets.setTargetStartDate(c.getString(c.getColumnIndex(CCH_START_DATE)));
 							facility_targets.setTargetId(c.getString(c.getColumnIndex(BaseColumns._ID)));
 							facility_targets.setTargetOldId(c.getString(c.getColumnIndex(CCH_TARGET_ID)));
-							facility_targets.setTargetEndDate(c.getString(c.getColumnIndex(CCH_DUE_DATE)));
-							facility_targets.setTargetLastUpdated(c.getString(c.getColumnIndex(CCH_LAST_UPDATED)));
-							facility_targets.setTargetNumberRemaining(c.getString(c.getColumnIndex(CCH_TARGET_NO_REMAINING)));
-							facility_targets.setTargetReminder(c.getString(c.getColumnIndex(CCH_REMINDER)));
-							facility_targets.setTargetDetail(c.getString(c.getColumnIndex(CCH_TARGET_DETAIL)));
-							facility_targets.setTargetGroup(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
-							facility_targets.setTargetOverall(c.getString(c.getColumnIndex(CCH_TARGET_OVERALL)));
-							facility_targets.setTargetStatus(c.getString(c.getColumnIndex(CCH_STATUS)));
-							facility_targets.setTargetGroupMembers(c.getString(c.getColumnIndex(CCH_TARGET_GROUP_MEMBERS)));
+							facility_targets.setTargetName(c.getString(c.getColumnIndex(CCH_TARGET_NAME)));
+							facility_targets.setTargetGroup(c.getString(c.getColumnIndex(CCH_TARGET_GROUP)));
 							facility_targets.setTargetMonth(c.getString(c.getColumnIndex(CCH_TARGET_MONTH)));
 						   list.add(facility_targets);
 					
-					//}
 				   c.moveToNext();
 					}catch(Exception e){
 						e.printStackTrace();

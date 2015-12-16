@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.LinearLayout.LayoutParams;
 
 public class XmlGuiTextViewChoice extends LinearLayout {
 	TextView label;
@@ -32,8 +33,7 @@ public class XmlGuiTextViewChoice extends LinearLayout {
           layoutParams.setMargins(40, 0, 0, 0);
 		
 			 label = new TextView(context);
-			 label.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT,1f));
-			 
+			 label.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
 		     if(!link.equals("")){
 		    	 Drawable img = getContext().getResources().getDrawable( R.drawable.ic_click );
 					img.setBounds( 0, 0, 40, 40 );

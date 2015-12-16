@@ -35,47 +35,5 @@
         android:layout_below="@+id/textView_achieved"
         android:text="Small Text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-    <TextView
-        android:id="@+id/textView_startDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView_lastUpdated"
-        android:layout_below="@+id/textView_lastUpdated"
-        
-        android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/textView_reminder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textView_targetName"
-        android:layout_marginRight="43dp"
-        android:drawableLeft="@drawable/ic_reminder"
-        android:gravity="center_vertical"
-        android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/textView_lastUpdated"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_below="@+id/textView_overall"
-        android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/textView_dueDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView_startDate"
-        android:layout_alignBottom="@+id/textView_startDate"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="58dp"
-        android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

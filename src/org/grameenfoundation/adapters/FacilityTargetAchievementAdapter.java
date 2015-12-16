@@ -84,11 +84,7 @@ public class FacilityTargetAchievementAdapter extends BaseExpandableListAdapter 
 		    percentage= ((double)number_achieved_today/Integer.valueOf(completedTargets.get(childPosition).getTargetNumber()))*100;	
 		    percentage_achieved=String.format("%.0f", percentage);
 		 target_type = (TextView) list.findViewById(R.id.textView_targetName);
-		 reminder = (TextView) list.findViewById(R.id.textView_reminder);  
 		 textView_achieved = (TextView) list.findViewById(R.id.textView_achieved);  
-		 textView_lastUpdated = (TextView) list.findViewById(R.id.textView_lastUpdated);  
-		 textView_startDate = (TextView) list.findViewById(R.id.textView_startDate);
-		 textView_dueDate = (TextView) list.findViewById(R.id.textView_dueDate);
 		 target_type.setText(completedTargets.get(childPosition).getTargetType());
 		 textView_achieved.setText(completedTargets.get(childPosition).getTargetNumberAchieved()+"/"+completedTargets.get(childPosition).getTargetNumber()+" ("+percentage_achieved+") %");
 		 textView_lastUpdated.setText("Last Updated: "+completedTargets.get(childPosition).getTargetLastUpdated());
@@ -99,7 +95,6 @@ public class FacilityTargetAchievementAdapter extends BaseExpandableListAdapter 
 		    percentage= ((double)number_achieved_today/Integer.valueOf(unCompletedTargets.get(childPosition).getTargetNumber()))*100;	
 		    percentage_achieved=String.format("%.0f", percentage);
 		 target_type = (TextView) list.findViewById(R.id.textView_targetName);
-		 reminder = (TextView) list.findViewById(R.id.textView_reminder);  
 		 textView_achieved = (TextView) list.findViewById(R.id.textView_achieved);  
 		 textView_lastUpdated = (TextView) list.findViewById(R.id.textView_lastUpdated);  
 		 textView_startDate = (TextView) list.findViewById(R.id.textView_startDate);

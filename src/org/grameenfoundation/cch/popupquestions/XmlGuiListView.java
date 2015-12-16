@@ -26,9 +26,9 @@ public class XmlGuiListView extends LinearLayout {
 		label = new ListView(context);
 		//label.setTextColor(getResources().getColor(R.color.White));
 		label.setBackgroundColor(getResources().getColor(R.color.BackgroundGrey));
-		label.setEnabled(true);;
+		label.setEnabled(true);
 		label.setDividerHeight(1);
-	    label.setDivider(getResources().getDrawable(R.color.White));
+	    label.setDivider(new ColorDrawable(0xff00ff00));
 		 ListAdapter adapter=new ListAdapter(context, labelText);
 		 label.setAdapter(adapter);
 		label.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));

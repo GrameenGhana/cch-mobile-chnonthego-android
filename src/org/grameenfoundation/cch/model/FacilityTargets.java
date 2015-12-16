@@ -20,6 +20,7 @@ public class FacilityTargets {
 	private String targetOverall;
 	private String targetGroupMembers;
 	private String targetMonth;
+	private String targetName;
 	public FacilityTargets()
 	{
 		
@@ -156,5 +157,12 @@ public class FacilityTargets {
 	}
 	public void setTargetMonth(String targetMonth) {
 		this.targetMonth= targetMonth;
+	}
+	public String getTargetName() {
+		return targetName;
+	}
+	public void setTargetName(String targetName) {
+		// TODO Auto-generated method stub
+		this.targetName= targetName;
 	}
 }

@@ -1,13 +1,19 @@
 package org.grameenfoundation.poc;
 
+import java.util.ArrayList;
+
 import org.digitalcampus.mobile.learningGF.R;
 import org.digitalcampus.oppia.application.DbHelper;
 import org.digitalcampus.oppia.application.MobileLearning;
+import org.digitalcampus.oppia.utils.UIUtils;
 import org.grameenfoundation.adapters.AntenatalCareBaseAdapter;
+import org.grameenfoundation.cch.model.POCSections;
 import org.grameenfoundation.cch.tasks.POCContentLoaderTask;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +34,7 @@ public class ChildWelfareActivity extends BaseActivity implements OnItemClickLis
 	private Long end_time;
 	private JSONObject json;
 	private Button button_load;
+	private ArrayList<POCSections> list;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -63,8 +70,12 @@ public class ChildWelfareActivity extends BaseActivity implements OnItemClickLis
 			
 			@Override
 			public void onClick(View v) {
-				POCContentLoaderTask task=new POCContentLoaderTask(mContext);
-				task.execute(MobileLearning.POC_SERVER_DOWNLOAD_PATH+"allUploads/");
+				if(dbh.isOnline()){
+					POCContentLoaderTask task=new POCContentLoaderTask(mContext);
+					task.execute(MobileLearning.POC_SERVER_DOWNLOAD_PATH+"allUploads/");
+				}else{
+					UIUtils.showAlert(mContext, "Alert", "Check your internet connection and try again");
+				}
 				
 			}
 		});
@@ -77,14 +88,26 @@ public class ChildWelfareActivity extends BaseActivity implements OnItemClickLis
 		switch(position){
 		
 		case 0:
-				intent=new Intent(mContext, CWCDiagnosticToolActivity.class);
-				startActivity(intent);
-				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+			 list=new ArrayList<POCSections>();
+			    list=dbh.getPocSections("CWC Diagnostic");
+			    if(list.size()<=0){
+			    	UIUtils.showAlert(mContext, "Alert", "Click on load content to proceed");
+			    }else{
+			    	intent=new Intent(mContext, CWCDiagnosticToolActivity.class);
+			    	startActivity(intent);
+			    	overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+			    }
 			break;
 		case 1:
-			intent=new Intent(mContext, CWCCounsellingActivity.class);
-			startActivity(intent);
-			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+				list=new ArrayList<POCSections>();
+			    list=dbh.getPocSections("CWC Counselling");
+			    if(list.size()<=0){
+			    	UIUtils.showAlert(mContext, "Alert", "Click on load content button to proceed");
+			    }else{
+			    	intent=new Intent(mContext, CWCCounsellingActivity.class);
+			    	startActivity(intent);
+			    	overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+			    }
 			break;
 		case 2:
 			intent=new Intent(mContext, ChildWelfareCalculatorsMenuActivity.class);

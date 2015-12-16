@@ -95,7 +95,7 @@ public class AgeGroupsFacilityTargetsActivity extends Activity {
 	                return (new AnalogClock(getActivity()));
 	            }
 	        });*/
-	        spec.setContent(new Intent(AgeGroupsFacilityTargetsActivity.this,AntigensFacilityTargetActivity.class).putExtra("type", "0-23 months"));
+	        spec.setContent(new Intent(AgeGroupsFacilityTargetsActivity.this,AntigensFacilityTargetActivity.class).putExtra("type", "0-11 months"));
 	        tabHost.addTab(spec);
 	        spec = tabHost.newTabSpec("tag3");
 	        spec.setIndicator("12-23 months");/*

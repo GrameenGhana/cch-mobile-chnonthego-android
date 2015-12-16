@@ -121,6 +121,13 @@ public class MainScreenActivity extends FragmentActivity implements OnSharedPref
 			dbh.alterCourseTable();
 			dbh.updateDateDefault();
 			dbh.alterEventTable();
+			dbh.alterUserFaciityTable();
+			//dbh.alterFacilityTargetDetailTable();
+			//dbh.alterFacilityTargetGroupTable();
+			//dbh.alterFacilityTargetOverall();
+			dbh.alterUserTableDistrict();
+			dbh.alterUserTableForSubdistrict();
+			dbh.alterUserTableForZone();
 			dbh.updateEventDetailDefault();
 			dbh.alterOtherTable();
 			dbh.updateOtherDetailDefault();

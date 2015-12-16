@@ -1,4 +1,4 @@
-package org.grameenfoundation.cch.activity;
+	package org.grameenfoundation.cch.activity;
 
 import java.util.ArrayList;
 
@@ -54,7 +54,7 @@ public class OtherFacilityTargetActivity extends Activity {
 		    dailyFilter=(CheckBox) findViewById(R.id.checkBox_daily);
 		    weeklyFilter=(CheckBox) findViewById(R.id.checkBox_weekly);
 		    monthly=(CheckBox) findViewById(R.id.checkBox_monthly);
-		    facilityTargets=db.getTargetsForMonthView(currentDate.toString("MMMM"),"Home Visit");
+		    facilityTargets=db.getTargetsForMonthViewAgeGroups(currentDate.toString("MMMM"),"50-60");
 		    adapter=new FacilityTargetAdapter(context,facilityTargets);
 		    listView.setAdapter(adapter);
 		    
@@ -65,7 +65,7 @@ public class OtherFacilityTargetActivity extends Activity {
 					  if(dailyFilter.isChecked()){
 						  adapter.getFilter().filter(dailyFilter.getText().toString());
 					  }else {
-						  	facilityTargets=db.getTargetsForMonthView(currentDate.toString("MMMM"),"Home Visit");
+						  	facilityTargets=db.getTargetsForMonthViewAgeGroups(currentDate.toString("MMMM"),"50-60");
 							adapter.updateAdapter(facilityTargets);
 							listView.setAdapter(adapter);
 					  }
@@ -78,7 +78,7 @@ public class OtherFacilityTargetActivity extends Activity {
 					 if(weeklyFilter.isChecked()){
 						  adapter.getFilter().filter(weeklyFilter.getText().toString());
 					  }else {
-						  	facilityTargets=db.getTargetsForMonthView(currentDate.toString("MMMM"),"Home Visit");
+						  	facilityTargets=db.getTargetsForMonthViewAgeGroups(currentDate.toString("MMMM"),"50-60");
 							adapter.updateAdapter(facilityTargets);
 							listView.setAdapter(adapter);
 					  }
@@ -92,7 +92,7 @@ public class OtherFacilityTargetActivity extends Activity {
 					 if(monthly.isChecked()){
 						  adapter.getFilter().filter(monthly.getText().toString());
 					  }else {
-						  	facilityTargets=db.getTargetsForMonthView(currentDate.toString("MMMM"),"Home Visit");
+						  	facilityTargets=db.getTargetsForMonthViewAgeGroups(currentDate.toString("MMMM"),"50-60");
 							adapter.updateAdapter(facilityTargets);
 							listView.setAdapter(adapter);
 					  }
@@ -104,7 +104,7 @@ public class OtherFacilityTargetActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					Intent intent=new Intent(context,ReminderActivity.class);
-					intent.putExtra("type", "50yrs-60yrs");
+					intent.putExtra("type", "50-60");
 					startActivity(intent);
 				}
 			});
@@ -116,37 +116,6 @@ public class OtherFacilityTargetActivity extends Activity {
 					Intent intent=new Intent(context,FacilityTargetBulkUpdateActivity.class);
 					intent.putExtra("category", "Other");
 					startActivity(intent);
-				}
-			});
-		    listView.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
-					String[] selected_items=adapter.getItem(position);
-					Intent intent=new Intent (context,UpdateFacilityTargetsActivity.class);
-					intent.putExtra("id", id);
-					intent.putExtra("category", "Antigens");
-					intent.putExtra("target_id", selected_items[12]);
-					if(selected_items[13].equals("")){
-						intent.putExtra("target_type", selected_items[1]);
-					}else{
-						intent.putExtra("target_type", selected_items[13]);//if target type is generic, use target detail
-					}
-					intent.putExtra("target_number", selected_items[2]);
-					intent.putExtra("target_achieved",selected_items[3]);
-					intent.putExtra("target_remaining", selected_items[4]);
-					intent.putExtra("start", selected_items[5]);
-					intent.putExtra("due", selected_items[6]);
-					intent.putExtra("reminder", selected_items[7]);
-					intent.putExtra("status", selected_items[8]);
-					intent.putExtra("last_updated", selected_items[9]);
-					intent.putExtra("group", selected_items[10]);
-					intent.putExtra("target_group", selected_items[15]);//target_name ie Child Health etc
-					intent.putExtra("month", selected_items[11]);
-					intent.putExtra("target_detail", selected_items[13]);//actual target detail
-					intent.putExtra("target_overall", selected_items[14]);
-					//startActivity(intent);
 				}
 			});
 	 }
@@ -253,7 +222,7 @@ public class OtherFacilityTargetActivity extends Activity {
 	@Override
 	public void onResume(){
 		super.onResume();
-		facilityTargets=db.getTargetsForMonthView(currentDate.toString("MMMM"),"Home Visit");
+		facilityTargets=db.getTargetsForMonthViewAgeGroups(currentDate.toString("MMMM"),"50-60");
 		adapter.updateAdapter(facilityTargets);
 		listView.setAdapter(adapter);
 	}

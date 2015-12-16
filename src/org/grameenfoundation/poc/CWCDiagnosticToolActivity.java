@@ -113,6 +113,10 @@ public class CWCDiagnosticToolActivity extends BaseActivity implements OnItemCli
 							if(dbh.isOnline()){
 								DownloadPOCContentTask task=new DownloadPOCContentTask(mContext);
 								task.execute(list.get(position).getSectionShortname());
+							    list=new ArrayList<POCSections>();
+							    list=dbh.getPocSections("CWC Diagnostic");
+							    ListAdapter adapter=new ListAdapter(mContext, list);
+							    listView_encounter.setAdapter(adapter);
 							}else{
 								Crouton.makeText(CWCDiagnosticToolActivity.this, "Check your internet connection", Style.ALERT).show();
 							}

@@ -95,7 +95,7 @@ public class MobileLearning extends Application {
 	public static final String SERVER_COURSES_NAME = "courses";
 	public static final String CCH_QUOTES_SUBMIT_PATH = "api/v1/quotes";
 	public static final String CCH_USER_DETAILS_PATH = "cch/yabr3/api/v1/details/";
-	public static final String FACILITY_TARGETS_PATH = "cch/yabr3/getTargets?nurse_id=";
+	public static final String FACILITY_TARGETS_PATH = "cch/yabr3/indicatorsdatabynurse/";
 	public static final String FACILITY_TARGETS_SYNC_PATH = "cch/yabr3/getFacilityTargets?zone=";
 	public static final String CCH_GROUPS_PATH = "cch/yabr3/getNurses?nurse_id=";
 	public static final String CCH_USER_ACHIEVEMENTS_PATH = "cch/yabr3/api/v1/achievements/";

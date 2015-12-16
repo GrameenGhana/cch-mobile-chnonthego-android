@@ -89,34 +89,20 @@ public class FacilityTargetAdapter extends BaseAdapter implements Filterable{
 		 int number_achieved_today=Integer.valueOf(facilityTargets.get(position).getTargetNumberAchieved());
 		    percentage= ((double)number_achieved_today/Integer.parseInt(facilityTargets.get(position).getTargetNumber()))*100;	
 		    percentage_achieved=String.format("%.0f", percentage);
-		    overall_percentage= ((double)number_achieved_today/Integer.valueOf(facilityTargets.get(position).getTargetOverall()))*100;	
-		   overall_percentage_achieved=String.format("%.0f", overall_percentage);
+		  //  overall_percentage= ((double)number_achieved_today/Integer.valueOf(facilityTargets.get(position).getTargetOverall()))*100;	
+		  // overall_percentage_achieved=String.format("%.0f", overall_percentage);
 		 target_type = (TextView) list.findViewById(R.id.textView_targetName);
 		 target_overall=(TextView) list.findViewById(R.id.textView_overall);
-		 reminder = (TextView) list.findViewById(R.id.textView_reminder);  
 		 textView_achieved = (TextView) list.findViewById(R.id.textView_achieved);  
-		 textView_lastUpdated = (TextView) list.findViewById(R.id.textView_lastUpdated);  
-		 textView_startDate = (TextView) list.findViewById(R.id.textView_startDate);
-		 textView_dueDate = (TextView) list.findViewById(R.id.textView_dueDate);
-		 System.out.println(facilityTargets.get(position).getTargetId()+facilityTargets.get(position).getTargetType());
-		 if(facilityTargets.get(position).getTargetDetail().equals("")){
-			 target_type.setText(facilityTargets.get(position).getTargetType());
-			 
-		 }else if(facilityTargets.get(position).getTargetType().equals("50yrs-60yrs")){
-			 target_type.setText(facilityTargets.get(position).getTargetCategory());
-		 }else{
-			 target_type.setText(facilityTargets.get(position).getTargetDetail());
-		 }
-		 reminder.setText(facilityTargets.get(position).getTargetReminder());
 		 String first="<font color='#520000'><strong>"+"Annual Target: "+"</strong></font>";
 		 String second="<font color='#520000'><strong>"+"Last Updated: "+"</strong></font>";
 		 String third="<font color='#520000'><strong>"+"Month's Target progress: "+"</strong></font>";
-		 target_overall.setText(Html.fromHtml(first+facilityTargets.get(position).getTargetOverall()+" ("+overall_percentage_achieved+"%)"));
-		 
+		// target_overall.setText(Html.fromHtml(first+facilityTargets.get(position).getTargetOverall()+" ("+overall_percentage_achieved+"%)"));
+		 target_type.setText(facilityTargets.get(position).getTargetName());
 		 textView_achieved.setText(Html.fromHtml(third+facilityTargets.get(position).getTargetNumberAchieved()+"/"+String.valueOf(facilityTargets.get(position).getTargetNumber())+" ("+percentage_achieved+"%)"));
-		 textView_lastUpdated.setText(Html.fromHtml(second+facilityTargets.get(position).getTargetLastUpdated()));
-		 textView_startDate.setText("Start: "+facilityTargets.get(position).getTargetStartDate());
-		 textView_dueDate.setText("Due: "+facilityTargets.get(position).getTargetEndDate());
+		// textView_lastUpdated.setText(Html.fromHtml(second+facilityTargets.get(position).getTargetLastUpdated()));
+		// textView_startDate.setText("Start: "+facilityTargets.get(position).getTargetStartDate());
+		// textView_dueDate.setText("Due: "+facilityTargets.get(position).getTargetEndDate());
 		return list;
 	}
 

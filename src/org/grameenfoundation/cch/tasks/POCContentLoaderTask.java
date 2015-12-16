@@ -94,6 +94,7 @@ public class POCContentLoaderTask extends AsyncTask<String, String, String> {
 			System.out.println(unused);
 			mProgressDialog.setMessage("Content successfully downloaded!");
 			dbh.deletePOC();
+			dbh.alterPOCSection();
 			JSONObject jObj;
 			try {
 				jObj = new JSONObject();

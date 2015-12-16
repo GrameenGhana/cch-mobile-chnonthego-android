@@ -145,7 +145,7 @@ public class TrackerService extends Service implements APIRequestListener {
 						app.omFacilityTargetsDownloadTask = new FacilityTargetsTask(this);
 						prefs = PreferenceManager.getDefaultSharedPreferences(this);
 						 name=prefs.getString("first_name", "name");
-						app.omFacilityTargetsDownloadTask.execute( getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.FACILITY_TARGETS_PATH+name);
+						app.omFacilityTargetsDownloadTask.execute( getResources().getString(R.string.serverDefaultAddress)+"/"+MobileLearning.FACILITY_TARGETS_PATH+"1");
 					}
 				}
 			if(app.omSubmitTrackerMultipleTask == null){
